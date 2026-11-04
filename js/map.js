@@ -877,6 +877,12 @@
 
     _down(e) {
       if (e.button !== undefined && e.button !== 0) return;
+      // Only the map surfaces start a pan. Overlays inside #map-stage
+      // (side panel, reopen tab, zoom controls, hint, theatre card) must
+      // keep their native pointer events; otherwise setPointerCapture
+      // retargets mouseup/click to the stage and their buttons never fire.
+      const stage = this.canvas.parentElement;
+      if (e.target !== this.canvas && e.target !== this.fxCanvas && e.target !== stage) return;
       this.pointers.set(e.pointerId, this._local(e));
       try {
         if (this.canvas.parentElement.setPointerCapture) this.canvas.parentElement.setPointerCapture(e.pointerId);
