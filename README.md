@@ -22,7 +22,7 @@ python3 -m http.server 8000
 
 无需构建即可运行；提交数据或修改翻译后，见下方「构建与验证」。
 
-**分享给家人**：Mac 双击 `start.command`，Windows 双击 `start.bat`；或把文件夹拖到 [Netlify Drop](https://app.netlify.com/drop) 获得公开网址。详细步骤（局域网、GitHub Pages、手机、常见问题）见 [分享与部署.md](分享与部署.md)。分享包可在仓库的 **Releases** 中下载，或使用本地生成的 `世界时序地图-分享包.zip` 发送。
+**分享给家人**：Mac 双击 `start.command`，Windows 双击 `start.bat`；或把文件夹拖到 [Netlify Drop](https://app.netlify.com/drop) 获得公开网址。详细步骤（局域网、GitHub Pages、手机、常见问题）见 [分享与部署.md](分享与部署.md)。分享包见仓库 **Releases → v2.0.0**（附件 `世界时序地图-分享包.zip`）；也可以直接发送本地生成的同名 ZIP。
 
 ---
 
