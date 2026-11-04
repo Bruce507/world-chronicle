@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>寰宇时序 · 全球文明地图 | Chronicles of the World</title>
+<meta name="description" content="从史前狩猎到人工智能：一张可拖动的全球文明时间地图。470 余个世界历史节点、九大时代、18 个时代疆域快照、地图内动态剧场与全球联动，支持五种界面语言。" />
+<meta name="theme-color" content="#f2ece0" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23b0432c'/%3E%3Ctext x='32' y='46' font-size='42' text-anchor='middle' fill='%23f6efe2' font-family='serif'%3E寰%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/style.css?v=20261105s" />
+</head>
+<body>
+<div id="app">
+
+  <!-- ══ 顶栏 ══ -->
+  <header id="topbar">
+    <a class="brand" href="./" aria-label="寰宇时序">
+      <span class="seal">寰</span>
+      <span class="brand-text">
+        <b data-i18n="brand">寰宇时序</b>
+        <small>CHRONICLES OF THE WORLD</small>
+      </span>
+    </a>
+
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+      <input id="search" type="search" autocomplete="off" spellcheck="false" data-i18n-ph="search" placeholder="搜索国家 / 文明 / 事件…" aria-label="搜索" />
+      <div id="search-results" hidden></div>
+    </div>
+
+    <nav id="controls" aria-label="工具">
+      <button id="sound-btn" class="ctl" title="雅乐 / Ambient sound">雅乐</button>
+      <select id="lang-select" class="ctl lang-select" aria-label="Language">
+        <option value="zh">中</option>
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="fr">FR</option>
+        <option value="ar">AR</option>
+      </select>
+      <button id="layers-btn" class="ctl" data-i18n="layers">图层</button>
+      <button id="about-btn" class="ctl" data-i18n="about">凡例</button>
+      <button id="reset-btn" class="ctl icon-ctl" title="复位视图" aria-label="复位视图">
+        <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg>
+      </button>
+    </nav>
+
+    <div id="layers-pop" hidden>
+      <div class="lp-title" data-i18n="layersTitle">图层 Layers</div>
+      <label class="lp-row"><input type="checkbox" data-toggle="historical" checked /><span data-i18n="tgHistorical">历史疆域</span></label>
+      <label class="lp-row"><input type="checkbox" data-toggle="events" checked /><span data-i18n="tgEvents">事件节点</span></label>
+      <label class="lp-row"><input type="checkbox" data-toggle="polities" /><span data-i18n="tgPolities">文明光晕</span></label>
+      <label class="lp-row"><input type="checkbox" data-toggle="links" checked /><span data-i18n="tgLinks">全球联动</span></label>
+      <label class="lp-row"><input type="checkbox" data-toggle="labels" checked /><span data-i18n="tgLabels">现代国名</span></label>
+      <label class="lp-row"><input type="checkbox" data-toggle="stateChanges" checked /><span data-i18n="tgStates">国家兴亡</span></label>
+      <label class="lp-row"><input type="checkbox" data-toggle="allEvents" /><span data-i18n="tgAll">显示全部历史</span></label>
+      <div class="lp-note" data-i18n="layersNote">势力范围为示意性近似，非精确国界。</div>
+    </div>
+  </header>
+
+  <!-- ══ 地图 ══ -->
+  <main id="map-stage">
+    <canvas id="map-canvas"></canvas>
+    <canvas id="fx-canvas"></canvas>
+    <div id="grain" aria-hidden="true"></div>
+
+    <div id="year-hud">
+      <div id="hud-year"><span class="num">3000</span><span class="unit">BCE</span></div>
+      <div id="hud-era">青铜与早期文明</div>
+      <div id="hud-sub">城邦 · 文字 · 神王与战车</div>
+    </div>
+
+    <div id="map-note" data-i18n="mapNote">示意图 · 现代国界仅作地理参照</div>
+
+    <div id="map-zoom">
+      <button id="zoom-in" aria-label="放大">+</button>
+      <button id="zoom-out" aria-label="缩小">−</button>
+      <button id="zoom-fit" aria-label="全图">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+      </button>
+    </div>
+
+    <button id="panel-reopen" aria-label="展开面板" hidden>
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      <span data-i18n="panelOpen">卷</span>
+    </button>
+    <aside id="side-panel" aria-live="polite">
+      <button id="panel-toggle" aria-label="收起面板">
+        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+      <div class="panel-inner">
+        <button id="panel-close" class="panel-close" aria-label="关闭面板 / Close panel">×</button>
+        <div class="panel-head">
+          <div class="kicker" id="panel-kicker">此刻世界</div>
+          <h2 id="panel-title">青铜与早期文明</h2>
+          <p id="panel-sub">城邦 · 文字 · 神王与战车</p>
+        </div>
+        <div class="panel-body" id="panel-body"></div>
+      </div>
+    </aside>
+
+    <div id="tooltip" hidden></div>
+
+    <article id="theatre-card" hidden>
+      <button id="tc-close" class="tc-close" aria-label="关闭">×</button>
+      <div class="tc-kicker" id="tc-kicker"></div>
+      <h3 id="tc-title"></h3>
+      <div class="tc-sub" id="tc-sub"></div>
+      <p class="tc-desc" id="tc-desc"></p>
+      <div class="tc-tags" id="tc-tags"></div>
+      <div class="tc-actions">
+        <button id="tc-expand">展开史志</button>
+        <button id="tc-voice">朗读</button>
+        <button id="tc-pause">暂停</button>
+      </div>
+    </article>
+
+    <div id="hint">
+      <span data-i18n="hint">拖动底部时间轴 · 点击地图节点观看动态场景</span>
+      <button id="hint-close" aria-label="关闭">×</button>
+    </div>
+  </main>
+
+  <!-- ══ 时间轴 ══ -->
+  <footer id="timeline">
+    <div class="tl-head">
+      <button id="play-btn" aria-label="播放">
+        <svg class="play-ico" viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg>
+        <svg class="pause-ico" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+      </button>
+      <div class="tl-readout">
+        <b id="tl-year">公元前 3000 年</b>
+        <span id="tl-era">青铜与早期文明</span>
+      </div>
+      <div class="tl-spacer"></div>
+      <button id="speed-btn" class="tl-small" title="播放速度">1×</button>
+      <button id="now-btn" class="tl-small" data-i18n="today">今天</button>
+      <div class="tl-tip" data-i18n="tlTip">← → 逐年 · ⇧ 十倍 · 空格播放</div>
+    </div>
+    <div id="track">
+      <div id="era-bands"></div>
+      <canvas id="tick-canvas"></canvas>
+      <div id="playhead"><i></i><span id="playhead-label"></span></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══ 事件剧场 ══ -->
+<div id="event-modal" class="modal" hidden>
+  <div class="modal-scrim" data-close="event"></div>
+  <article class="event-card" role="dialog" aria-modal="true" aria-labelledby="ev-title">
+    <div class="event-stage">
+      <canvas id="scene-canvas"></canvas>
+      <div class="stage-frame"></div>
+      <div class="stage-top">
+        <span id="scene-label">THE HUNT</span>
+        <span id="scene-era">史前文明</span>
+      </div>
+      <div class="stage-bottom" id="scene-caption"></div>
+      <button id="scene-toggle" class="stage-toggle" title="暂停/播放">❚❚</button>
+    </div>
+    <div class="event-info">
+      <button class="ev-close" data-close="event" aria-label="关闭">×</button>
+      <div class="ev-kicker"><span id="ev-year"></span><span class="dot">·</span><span id="ev-cat"></span></div>
+      <h2 id="ev-title"></h2>
+      <h3 id="ev-title-en"></h3>
+      <div class="ev-rule"></div>
+      <p id="ev-desc" class="ev-desc"></p>
+      <p id="ev-desc-en" class="ev-desc en"></p>
+      <div id="ev-meta" class="ev-meta"></div>
+      <div id="ev-links" class="ev-links"></div>
+      <div class="ev-contemp">
+        <div class="ev-contemp-title" data-i18n="sameTime">同一时刻的世界</div>
+        <div id="ev-contemp-list"></div>
+      </div>
+      <div class="ev-nav">
+        <button id="ev-voice">朗读</button>
+        <button id="ev-prev">‹ <span data-i18n="prev">上一节点</span></button>
+        <button id="ev-next"><span data-i18n="next">下一节点</span> ›</button>
+      </div>
+    </div>
+  </article>
+</div>
+
+<!-- ══ 凡例 ══ -->
+<div id="about-modal" class="modal" hidden>
+  <div class="modal-scrim" data-close="about"></div>
+  <article class="about-card" role="dialog" aria-modal="true" aria-labelledby="about-title">
+    <button class="ev-close" data-close="about" aria-label="关闭">×</button>
+    <div class="about-head">
+      <span class="seal small">寰</span>
+      <div>
+        <h2 id="about-title" data-i18n="aboutTitle">一部可以走进去的世界史</h2>
+        <p class="about-lead" data-i18n="aboutLead">一万四千年，九大时代，四百余个节点。拖动时间，世界随之明灭；点击一地，看见那个时刻正在发生什么。</p>
+      </div>
+    </div>
+    <div class="about-grid">
+      <section>
+        <h4 data-i18n="aboutEras">时代</h4>
+        <ol id="about-eras" class="era-list"></ol>
+      </section>
+      <section>
+        <h4 data-i18n="aboutHow">如何阅读</h4>
+        <ul class="how-list">
+          <li data-i18n="how1">拖动或点击底部时间轴，改变年份；按空格播放整部历史。</li>
+          <li data-i18n="how2">点击地图上的节点，展开该时刻的动态场景与双语史志。</li>
+          <li data-i18n="how3">点击任意国家，查看现代国界内的全部历史节点与当时的主导文明。</li>
+          <li data-i18n="how4">搜索国家、文明或事件；← → 逐年，Shift 加速十倍。</li>
+        </ul>
+        <h4 style="margin-top:18px" data-i18n="aboutScenes">场景</h4>
+        <p class="about-small" id="about-scenes"></p>
+      </section>
+      <section class="about-wide">
+        <h4 data-i18n="aboutNote">关于边界与史观</h4>
+        <p class="about-small" data-i18n="aboutNoteText">现代国界来自 Natural Earth，仅作为地理参照，不代表任何领土主张。历史势力范围以柔和光晕示意，是“影响圈”而非精确边疆；同一地区在不同时代可能属于不同政权。事件年代取通行学界纪年，公元前后以 BCE / CE 标注。本图意在呈现全球文明的并置与联动，而非单一叙事。</p>
+        <p class="about-small" data-i18n="aboutCredit">设计取意于「江山时序」中国历史地图（DeanChensj），并扩展为全球尺度。地图数据 © Natural Earth；历史节点为策展性汇编。</p>
+        <div class="about-keys">
+          <span><kbd>←</kbd><kbd>→</kbd> 年份</span>
+          <span><kbd>⇧</kbd> 十倍</span>
+          <span><kbd>Space</kbd> 播放</span>
+          <span><kbd>Esc</kbd> 关闭</span>
+          <span><kbd>/</kbd> 搜索</span>
+        </div>
+      </section>
+    </div>
+  </article>
+</div>
+
+<script src="js/data_bundle.js?v=20261105s"></script>
+<script src="js/scenes.js?v=20261105s"></script>
+<script src="js/historical.js?v=20261105s"></script>
+<script src="js/theatre.js?v=20261105s"></script>
+<script src="js/audio.js?v=20261105s"></script>
+<script src="js/statechanges.js?v=20261105s"></script>
+<script src="js/map.js?v=20261105s"></script>
+<script src="js/i18n_extra.js?v=20261105s"></script>
+<script src="js/app.js?v=20261105s"></script>
+</body>
+</html>

@@ -1,0 +1,1752 @@
+[
+  {
+    "id": "fertile",
+    "n": {
+      "zh": "新月沃地",
+      "en": "Fertile Crescent"
+    },
+    "y1": -9500,
+    "y2": -5000,
+    "lat": 35,
+    "lon": 40,
+    "r": 9,
+    "sx": 1.15,
+    "rg": "me"
+  },
+  {
+    "id": "nile-neo",
+    "n": {
+      "zh": "尼罗河谷",
+      "en": "Nile Valley"
+    },
+    "y1": -6000,
+    "y2": -3100,
+    "lat": 26,
+    "lon": 31,
+    "r": 5,
+    "sx": 0.7,
+    "rg": "af"
+  },
+  {
+    "id": "yellow-neo",
+    "n": {
+      "zh": "黄河流域",
+      "en": "Yellow River"
+    },
+    "y1": -7000,
+    "y2": -2000,
+    "lat": 34.5,
+    "lon": 111,
+    "r": 7,
+    "sx": 1.2,
+    "rg": "ea"
+  },
+  {
+    "id": "indus-neo",
+    "n": {
+      "zh": "印度河聚落",
+      "en": "Indus Settlements"
+    },
+    "y1": -7000,
+    "y2": -2600,
+    "lat": 29,
+    "lon": 69,
+    "r": 5,
+    "sx": 0.75,
+    "rg": "sa"
+  },
+  {
+    "id": "danube",
+    "n": {
+      "zh": "多瑙河农耕区",
+      "en": "Danube Farmers"
+    },
+    "y1": -5500,
+    "y2": -4000,
+    "lat": 44,
+    "lon": 22,
+    "r": 4.5,
+    "sx": 1.2,
+    "rg": "eu"
+  },
+  {
+    "id": "sahara-green",
+    "n": {
+      "zh": "绿色撒哈拉",
+      "en": "Green Sahara"
+    },
+    "y1": -10000,
+    "y2": -5000,
+    "lat": 23,
+    "lon": 10,
+    "r": 10,
+    "sx": 1.5,
+    "rg": "af"
+  },
+  {
+    "id": "andes-neo",
+    "n": {
+      "zh": "安第斯海岸",
+      "en": "Andean Coast"
+    },
+    "y1": -3500,
+    "y2": -900,
+    "lat": -10,
+    "lon": -77,
+    "r": 5,
+    "sx": 0.55,
+    "rg": "la"
+  },
+  {
+    "id": "australia",
+    "n": {
+      "zh": "澳洲原住民家园",
+      "en": "Aboriginal Australia"
+    },
+    "y1": -12000,
+    "y2": 2026,
+    "lat": -25,
+    "lon": 134,
+    "r": 12,
+    "sx": 1.15,
+    "rg": "oc"
+  },
+  {
+    "id": "beringia",
+    "n": {
+      "zh": "白令陆桥",
+      "en": "Beringia"
+    },
+    "y1": -12000,
+    "y2": -8000,
+    "lat": 64,
+    "lon": -168,
+    "r": 7,
+    "sx": 1.4,
+    "rg": "na"
+  },
+  {
+    "id": "egypt-old",
+    "n": {
+      "zh": "古埃及",
+      "en": "Ancient Egypt"
+    },
+    "y1": -3100,
+    "y2": -1070,
+    "lat": 26.5,
+    "lon": 31.5,
+    "r": 6,
+    "sx": 0.55,
+    "rg": "af"
+  },
+  {
+    "id": "sumer",
+    "n": {
+      "zh": "苏美尔·阿卡德",
+      "en": "Sumer & Akkad"
+    },
+    "y1": -3500,
+    "y2": -1900,
+    "lat": 32.5,
+    "lon": 45.5,
+    "r": 5.5,
+    "sx": 0.9,
+    "rg": "me"
+  },
+  {
+    "id": "babylon",
+    "n": {
+      "zh": "巴比伦",
+      "en": "Babylonia"
+    },
+    "y1": -1900,
+    "y2": -539,
+    "lat": 32.5,
+    "lon": 44.5,
+    "r": 5,
+    "sx": 0.9,
+    "rg": "me"
+  },
+  {
+    "id": "assyria",
+    "n": {
+      "zh": "亚述",
+      "en": "Assyria"
+    },
+    "y1": -1365,
+    "y2": -609,
+    "lat": 36,
+    "lon": 43,
+    "r": 5.5,
+    "sx": 1,
+    "rg": "me"
+  },
+  {
+    "id": "hittite",
+    "n": {
+      "zh": "赫梯",
+      "en": "Hittites"
+    },
+    "y1": -1650,
+    "y2": -1180,
+    "lat": 39.5,
+    "lon": 34.5,
+    "r": 5,
+    "sx": 1,
+    "rg": "me"
+  },
+  {
+    "id": "aegean",
+    "n": {
+      "zh": "米诺斯·迈锡尼",
+      "en": "Minoans & Mycenaeans"
+    },
+    "y1": -2700,
+    "y2": -1100,
+    "lat": 37.5,
+    "lon": 25,
+    "r": 4,
+    "sx": 0.85,
+    "rg": "eu"
+  },
+  {
+    "id": "indus",
+    "n": {
+      "zh": "印度河流域文明",
+      "en": "Indus Valley"
+    },
+    "y1": -3300,
+    "y2": -1300,
+    "lat": 27,
+    "lon": 70,
+    "r": 6,
+    "sx": 0.8,
+    "rg": "sa"
+  },
+  {
+    "id": "shang",
+    "n": {
+      "zh": "商",
+      "en": "Shang"
+    },
+    "y1": -1600,
+    "y2": -1046,
+    "lat": 35,
+    "lon": 113.5,
+    "r": 6,
+    "sx": 1,
+    "rg": "ea"
+  },
+  {
+    "id": "erlitou",
+    "n": {
+      "zh": "二里头文化",
+      "en": "Erlitou Culture"
+    },
+    "y1": -1900,
+    "y2": -1600,
+    "lat": 34.7,
+    "lon": 112.5,
+    "r": 3.2,
+    "sx": 1,
+    "rg": "ea"
+  },
+  {
+    "id": "olmec",
+    "n": {
+      "zh": "奥尔梅克",
+      "en": "Olmec"
+    },
+    "y1": -1500,
+    "y2": -400,
+    "lat": 18,
+    "lon": -94,
+    "r": 4,
+    "sx": 0.7,
+    "rg": "la"
+  },
+  {
+    "id": "kush-old",
+    "n": {
+      "zh": "库什",
+      "en": "Kush"
+    },
+    "y1": -2500,
+    "y2": -1500,
+    "lat": 18,
+    "lon": 32,
+    "r": 4,
+    "sx": 0.5,
+    "rg": "af"
+  },
+  {
+    "id": "andronovo",
+    "n": {
+      "zh": "安德罗诺沃草原",
+      "en": "Andronovo Steppe"
+    },
+    "y1": -2000,
+    "y2": -900,
+    "lat": 50,
+    "lon": 62,
+    "r": 9,
+    "sx": 1.6,
+    "rg": "ca"
+  },
+  {
+    "id": "maya-pre",
+    "n": {
+      "zh": "玛雅前古典",
+      "en": "Preclassic Maya"
+    },
+    "y1": -1000,
+    "y2": 250,
+    "lat": 17,
+    "lon": -90,
+    "r": 4,
+    "sx": 0.9,
+    "rg": "la"
+  },
+  {
+    "id": "persia",
+    "n": {
+      "zh": "阿契美尼德波斯",
+      "en": "Achaemenid Persia"
+    },
+    "y1": -550,
+    "y2": -330,
+    "lat": 33,
+    "lon": 52,
+    "r": 9,
+    "sx": 1.2,
+    "rg": "me"
+  },
+  {
+    "id": "greece",
+    "n": {
+      "zh": "希腊城邦",
+      "en": "Greek Poleis"
+    },
+    "y1": -800,
+    "y2": -338,
+    "lat": 38,
+    "lon": 22,
+    "r": 4,
+    "sx": 0.9,
+    "rg": "eu"
+  },
+  {
+    "id": "rome",
+    "n": {
+      "zh": "罗马",
+      "en": "Rome"
+    },
+    "y1": -509,
+    "y2": 476,
+    "lat": 41,
+    "lon": 12,
+    "r": 8.5,
+    "sx": 1.15,
+    "rg": "eu"
+  },
+  {
+    "id": "carthage",
+    "n": {
+      "zh": "迦太基",
+      "en": "Carthage"
+    },
+    "y1": -814,
+    "y2": -146,
+    "lat": 36,
+    "lon": 10,
+    "r": 4,
+    "sx": 0.8,
+    "rg": "af"
+  },
+  {
+    "id": "maurya",
+    "n": {
+      "zh": "孔雀王朝",
+      "en": "Maurya"
+    },
+    "y1": -322,
+    "y2": -185,
+    "lat": 25,
+    "lon": 80,
+    "r": 7.5,
+    "sx": 1,
+    "rg": "sa"
+  },
+  {
+    "id": "qinhan",
+    "n": {
+      "zh": "秦·汉",
+      "en": "Qin & Han"
+    },
+    "y1": -221,
+    "y2": 220,
+    "lat": 34,
+    "lon": 108,
+    "r": 9,
+    "sx": 1.25,
+    "rg": "ea"
+  },
+  {
+    "id": "parthia",
+    "n": {
+      "zh": "帕提亚",
+      "en": "Parthia"
+    },
+    "y1": -247,
+    "y2": 224,
+    "lat": 35,
+    "lon": 50,
+    "r": 7,
+    "sx": 1.2,
+    "rg": "me"
+  },
+  {
+    "id": "kushan",
+    "n": {
+      "zh": "贵霜",
+      "en": "Kushan"
+    },
+    "y1": 30,
+    "y2": 375,
+    "lat": 34,
+    "lon": 69,
+    "r": 6,
+    "sx": 1.1,
+    "rg": "ca"
+  },
+  {
+    "id": "sasanian",
+    "n": {
+      "zh": "萨珊波斯",
+      "en": "Sasanian Persia"
+    },
+    "y1": 224,
+    "y2": 651,
+    "lat": 32,
+    "lon": 52,
+    "r": 7,
+    "sx": 1.15,
+    "rg": "me"
+  },
+  {
+    "id": "aksum",
+    "n": {
+      "zh": "阿克苏姆",
+      "en": "Aksum"
+    },
+    "y1": 100,
+    "y2": 940,
+    "lat": 13,
+    "lon": 38,
+    "r": 5,
+    "sx": 0.7,
+    "rg": "af"
+  },
+  {
+    "id": "kush",
+    "n": {
+      "zh": "库什王国",
+      "en": "Kingdom of Kush"
+    },
+    "y1": -1000,
+    "y2": 350,
+    "lat": 18,
+    "lon": 32,
+    "r": 4,
+    "sx": 0.55,
+    "rg": "af"
+  },
+  {
+    "id": "maya-classic",
+    "n": {
+      "zh": "玛雅古典期",
+      "en": "Classic Maya"
+    },
+    "y1": 250,
+    "y2": 900,
+    "lat": 17,
+    "lon": -90,
+    "r": 5,
+    "sx": 0.95,
+    "rg": "la"
+  },
+  {
+    "id": "teotihuacan",
+    "n": {
+      "zh": "特奥蒂瓦坎",
+      "en": "Teotihuacan"
+    },
+    "y1": 100,
+    "y2": 550,
+    "lat": 19.7,
+    "lon": -98.8,
+    "r": 4,
+    "sx": 0.8,
+    "rg": "la"
+  },
+  {
+    "id": "moche",
+    "n": {
+      "zh": "莫切",
+      "en": "Moche"
+    },
+    "y1": 100,
+    "y2": 700,
+    "lat": -8,
+    "lon": -79,
+    "r": 3,
+    "sx": 0.5,
+    "rg": "la"
+  },
+  {
+    "id": "xiongnu",
+    "n": {
+      "zh": "匈奴",
+      "en": "Xiongnu"
+    },
+    "y1": -209,
+    "y2": 155,
+    "lat": 47,
+    "lon": 100,
+    "r": 8,
+    "sx": 1.6,
+    "rg": "ca"
+  },
+  {
+    "id": "scythia",
+    "n": {
+      "zh": "斯基泰",
+      "en": "Scythians"
+    },
+    "y1": -700,
+    "y2": -200,
+    "lat": 47,
+    "lon": 38,
+    "r": 7,
+    "sx": 1.5,
+    "rg": "ca"
+  },
+  {
+    "id": "celts",
+    "n": {
+      "zh": "凯尔特",
+      "en": "Celts"
+    },
+    "y1": -500,
+    "y2": -50,
+    "lat": 47,
+    "lon": 5,
+    "r": 6,
+    "sx": 1.1,
+    "rg": "eu"
+  },
+  {
+    "id": "byzantium",
+    "n": {
+      "zh": "拜占庭",
+      "en": "Byzantium"
+    },
+    "y1": 395,
+    "y2": 1453,
+    "lat": 40,
+    "lon": 29,
+    "r": 6,
+    "sx": 0.9,
+    "rg": "eu"
+  },
+  {
+    "id": "caliphate",
+    "n": {
+      "zh": "伊斯兰哈里发",
+      "en": "Islamic Caliphates"
+    },
+    "y1": 632,
+    "y2": 1258,
+    "lat": 33,
+    "lon": 44,
+    "r": 11,
+    "sx": 1.35,
+    "rg": "me"
+  },
+  {
+    "id": "tang",
+    "n": {
+      "zh": "唐",
+      "en": "Tang"
+    },
+    "y1": 618,
+    "y2": 907,
+    "lat": 34,
+    "lon": 108,
+    "r": 9,
+    "sx": 1.3,
+    "rg": "ea"
+  },
+  {
+    "id": "song",
+    "n": {
+      "zh": "宋",
+      "en": "Song"
+    },
+    "y1": 960,
+    "y2": 1279,
+    "lat": 32,
+    "lon": 112,
+    "r": 7,
+    "sx": 1.1,
+    "rg": "ea"
+  },
+  {
+    "id": "hre",
+    "n": {
+      "zh": "查理曼与神圣罗马",
+      "en": "Charlemagne & HRE"
+    },
+    "y1": 800,
+    "y2": 1806,
+    "lat": 49,
+    "lon": 10,
+    "r": 7,
+    "sx": 1,
+    "rg": "eu"
+  },
+  {
+    "id": "vikings",
+    "n": {
+      "zh": "维京",
+      "en": "Vikings"
+    },
+    "y1": 793,
+    "y2": 1066,
+    "lat": 60,
+    "lon": 10,
+    "r": 5,
+    "sx": 1.2,
+    "rg": "eu"
+  },
+  {
+    "id": "kyivrus",
+    "n": {
+      "zh": "基辅罗斯",
+      "en": "Kyivan Rus"
+    },
+    "y1": 882,
+    "y2": 1240,
+    "lat": 52,
+    "lon": 35,
+    "r": 7,
+    "sx": 1.3,
+    "rg": "eu"
+  },
+  {
+    "id": "delhi",
+    "n": {
+      "zh": "德里苏丹国",
+      "en": "Delhi Sultanate"
+    },
+    "y1": 1206,
+    "y2": 1526,
+    "lat": 27,
+    "lon": 78,
+    "r": 6,
+    "sx": 1,
+    "rg": "sa"
+  },
+  {
+    "id": "khmer",
+    "n": {
+      "zh": "高棉帝国",
+      "en": "Khmer Empire"
+    },
+    "y1": 802,
+    "y2": 1431,
+    "lat": 13,
+    "lon": 104,
+    "r": 4,
+    "sx": 0.8,
+    "rg": "sea"
+  },
+  {
+    "id": "srivijaya",
+    "n": {
+      "zh": "室利佛逝",
+      "en": "Srivijaya"
+    },
+    "y1": 650,
+    "y2": 1377,
+    "lat": -3,
+    "lon": 104,
+    "r": 4,
+    "sx": 1.3,
+    "rg": "sea"
+  },
+  {
+    "id": "majapahit",
+    "n": {
+      "zh": "满者伯夷",
+      "en": "Majapahit"
+    },
+    "y1": 1293,
+    "y2": 1527,
+    "lat": -7.5,
+    "lon": 112,
+    "r": 4,
+    "sx": 1.4,
+    "rg": "sea"
+  },
+  {
+    "id": "pagan",
+    "n": {
+      "zh": "蒲甘",
+      "en": "Pagan"
+    },
+    "y1": 849,
+    "y2": 1297,
+    "lat": 20,
+    "lon": 95,
+    "r": 3,
+    "sx": 0.7,
+    "rg": "sea"
+  },
+  {
+    "id": "mali",
+    "n": {
+      "zh": "马里帝国",
+      "en": "Mali Empire"
+    },
+    "y1": 1235,
+    "y2": 1600,
+    "lat": 14,
+    "lon": -4,
+    "r": 6,
+    "sx": 1.5,
+    "rg": "af"
+  },
+  {
+    "id": "zimbabwe",
+    "n": {
+      "zh": "大津巴布韦",
+      "en": "Great Zimbabwe"
+    },
+    "y1": 1100,
+    "y2": 1450,
+    "lat": -20,
+    "lon": 31,
+    "r": 3,
+    "sx": 0.8,
+    "rg": "af"
+  },
+  {
+    "id": "mongol",
+    "n": {
+      "zh": "蒙古帝国",
+      "en": "Mongol Empire"
+    },
+    "y1": 1206,
+    "y2": 1368,
+    "lat": 45,
+    "lon": 100,
+    "r": 12,
+    "sx": 1.7,
+    "rg": "ca"
+  },
+  {
+    "id": "ottoman",
+    "n": {
+      "zh": "奥斯曼帝国",
+      "en": "Ottoman Empire"
+    },
+    "y1": 1299,
+    "y2": 1922,
+    "lat": 39,
+    "lon": 32,
+    "r": 7,
+    "sx": 1.1,
+    "rg": "me"
+  },
+  {
+    "id": "japan-med",
+    "n": {
+      "zh": "日本",
+      "en": "Japan"
+    },
+    "y1": 710,
+    "y2": 1868,
+    "lat": 36,
+    "lon": 138,
+    "r": 3,
+    "sx": 0.6,
+    "rg": "ea"
+  },
+  {
+    "id": "korea",
+    "n": {
+      "zh": "朝鲜",
+      "en": "Korea"
+    },
+    "y1": 918,
+    "y2": 1897,
+    "lat": 37.5,
+    "lon": 127,
+    "r": 3,
+    "sx": 0.55,
+    "rg": "ea"
+  },
+  {
+    "id": "vietnam",
+    "n": {
+      "zh": "越南",
+      "en": "Vietnam"
+    },
+    "y1": 939,
+    "y2": 1802,
+    "lat": 20,
+    "lon": 105,
+    "r": 3,
+    "sx": 0.5,
+    "rg": "sea"
+  },
+  {
+    "id": "timurid",
+    "n": {
+      "zh": "帖木儿帝国",
+      "en": "Timurid Empire"
+    },
+    "y1": 1370,
+    "y2": 1507,
+    "lat": 39,
+    "lon": 66,
+    "r": 6,
+    "sx": 1.2,
+    "rg": "ca"
+  },
+  {
+    "id": "toulouse",
+    "n": {
+      "zh": "法兰西王国",
+      "en": "Kingdom of France"
+    },
+    "y1": 987,
+    "y2": 1792,
+    "lat": 47,
+    "lon": 2,
+    "r": 4.5,
+    "sx": 1,
+    "rg": "eu"
+  },
+  {
+    "id": "england",
+    "n": {
+      "zh": "英格兰",
+      "en": "England"
+    },
+    "y1": 927,
+    "y2": 1707,
+    "lat": 52,
+    "lon": -1,
+    "r": 3,
+    "sx": 0.8,
+    "rg": "eu"
+  },
+  {
+    "id": "poland",
+    "n": {
+      "zh": "波兰立陶宛",
+      "en": "Poland-Lithuania"
+    },
+    "y1": 1385,
+    "y2": 1795,
+    "lat": 52,
+    "lon": 20,
+    "r": 6,
+    "sx": 1.3,
+    "rg": "eu"
+  },
+  {
+    "id": "cahokia",
+    "n": {
+      "zh": "卡霍基亚",
+      "en": "Cahokia"
+    },
+    "y1": 1050,
+    "y2": 1350,
+    "lat": 38.7,
+    "lon": -90,
+    "r": 3,
+    "sx": 0.6,
+    "rg": "na"
+  },
+  {
+    "id": "polynesia",
+    "n": {
+      "zh": "波利尼西亚航海圈",
+      "en": "Polynesian Voyaging"
+    },
+    "y1": 1000,
+    "y2": 1500,
+    "lat": -20,
+    "lon": -150,
+    "r": 10,
+    "sx": 1.8,
+    "rg": "oc"
+  },
+  {
+    "id": "ethiopia",
+    "n": {
+      "zh": "埃塞俄比亚",
+      "en": "Ethiopia"
+    },
+    "y1": 1270,
+    "y2": 1974,
+    "lat": 9,
+    "lon": 39,
+    "r": 5,
+    "sx": 0.8,
+    "rg": "af"
+  },
+  {
+    "id": "kongo",
+    "n": {
+      "zh": "刚果王国",
+      "en": "Kingdom of Kongo"
+    },
+    "y1": 1390,
+    "y2": 1885,
+    "lat": -6,
+    "lon": 13,
+    "r": 4,
+    "sx": 0.8,
+    "rg": "af"
+  },
+  {
+    "id": "benin",
+    "n": {
+      "zh": "贝宁王国",
+      "en": "Kingdom of Benin"
+    },
+    "y1": 1180,
+    "y2": 1897,
+    "lat": 6.3,
+    "lon": 5.6,
+    "r": 2.2,
+    "sx": 0.6,
+    "rg": "af"
+  },
+  {
+    "id": "ayutthaya",
+    "n": {
+      "zh": "阿瑜陀耶",
+      "en": "Ayutthaya"
+    },
+    "y1": 1351,
+    "y2": 1767,
+    "lat": 15,
+    "lon": 100,
+    "r": 3,
+    "sx": 0.7,
+    "rg": "sea"
+  },
+  {
+    "id": "postclassic-maya",
+    "n": {
+      "zh": "后古典玛雅",
+      "en": "Postclassic Maya"
+    },
+    "y1": 900,
+    "y2": 1500,
+    "lat": 20,
+    "lon": -89,
+    "r": 4,
+    "sx": 0.9,
+    "rg": "la"
+  },
+  {
+    "id": "toltec",
+    "n": {
+      "zh": "托尔特克",
+      "en": "Toltec"
+    },
+    "y1": 900,
+    "y2": 1150,
+    "lat": 20,
+    "lon": -99,
+    "r": 3,
+    "sx": 0.6,
+    "rg": "la"
+  },
+  {
+    "id": "inca",
+    "n": {
+      "zh": "印加帝国",
+      "en": "Inca Empire"
+    },
+    "y1": 1438,
+    "y2": 1533,
+    "lat": -14,
+    "lon": -72,
+    "r": 6,
+    "sx": 0.6,
+    "rg": "la"
+  },
+  {
+    "id": "aztec",
+    "n": {
+      "zh": "阿兹特克",
+      "en": "Aztec Empire"
+    },
+    "y1": 1325,
+    "y2": 1521,
+    "lat": 19.4,
+    "lon": -99.1,
+    "r": 4,
+    "sx": 0.7,
+    "rg": "la"
+  },
+  {
+    "id": "ming",
+    "n": {
+      "zh": "明",
+      "en": "Ming"
+    },
+    "y1": 1368,
+    "y2": 1644,
+    "lat": 33,
+    "lon": 110,
+    "r": 8,
+    "sx": 1.15,
+    "rg": "ea"
+  },
+  {
+    "id": "qing",
+    "n": {
+      "zh": "清",
+      "en": "Qing"
+    },
+    "y1": 1644,
+    "y2": 1912,
+    "lat": 34,
+    "lon": 105,
+    "r": 9,
+    "sx": 1.25,
+    "rg": "ea"
+  },
+  {
+    "id": "safavid",
+    "n": {
+      "zh": "萨法维波斯",
+      "en": "Safavid Persia"
+    },
+    "y1": 1501,
+    "y2": 1736,
+    "lat": 33,
+    "lon": 52,
+    "r": 7,
+    "sx": 1.15,
+    "rg": "me"
+  },
+  {
+    "id": "mughal",
+    "n": {
+      "zh": "莫卧儿",
+      "en": "Mughal Empire"
+    },
+    "y1": 1526,
+    "y2": 1857,
+    "lat": 26,
+    "lon": 79,
+    "r": 8,
+    "sx": 1.1,
+    "rg": "sa"
+  },
+  {
+    "id": "spain",
+    "n": {
+      "zh": "西班牙帝国",
+      "en": "Spanish Empire"
+    },
+    "y1": 1492,
+    "y2": 1898,
+    "lat": 40,
+    "lon": -3,
+    "r": 9,
+    "sx": 1.2,
+    "rg": "eu"
+  },
+  {
+    "id": "newspain",
+    "n": {
+      "zh": "新西班牙",
+      "en": "New Spain"
+    },
+    "y1": 1535,
+    "y2": 1821,
+    "lat": 22,
+    "lon": -100,
+    "r": 7,
+    "sx": 1,
+    "rg": "la"
+  },
+  {
+    "id": "peru-viceroy",
+    "n": {
+      "zh": "秘鲁总督区",
+      "en": "Viceroyalty of Peru"
+    },
+    "y1": 1542,
+    "y2": 1824,
+    "lat": -10,
+    "lon": -75,
+    "r": 6,
+    "sx": 0.7,
+    "rg": "la"
+  },
+  {
+    "id": "portugal",
+    "n": {
+      "zh": "葡萄牙帝国",
+      "en": "Portuguese Empire"
+    },
+    "y1": 1415,
+    "y2": 1999,
+    "lat": 39,
+    "lon": -8,
+    "r": 5,
+    "sx": 1.2,
+    "rg": "eu"
+  },
+  {
+    "id": "brazil-col",
+    "n": {
+      "zh": "葡属巴西",
+      "en": "Colonial Brazil"
+    },
+    "y1": 1500,
+    "y2": 1822,
+    "lat": -10,
+    "lon": -50,
+    "r": 7,
+    "sx": 1,
+    "rg": "la"
+  },
+  {
+    "id": "russia-emp",
+    "n": {
+      "zh": "俄罗斯",
+      "en": "Russia"
+    },
+    "y1": 1547,
+    "y2": 1917,
+    "lat": 55,
+    "lon": 45,
+    "r": 11,
+    "sx": 1.6,
+    "rg": "eu"
+  },
+  {
+    "id": "dutch",
+    "n": {
+      "zh": "荷兰",
+      "en": "Dutch Republic"
+    },
+    "y1": 1581,
+    "y2": 1795,
+    "lat": 52,
+    "lon": 5,
+    "r": 3,
+    "sx": 0.8,
+    "rg": "eu"
+  },
+  {
+    "id": "bourbon",
+    "n": {
+      "zh": "波旁法国",
+      "en": "Bourbon France"
+    },
+    "y1": 1589,
+    "y2": 1792,
+    "lat": 47,
+    "lon": 2,
+    "r": 4,
+    "sx": 0.9,
+    "rg": "eu"
+  },
+  {
+    "id": "songhai",
+    "n": {
+      "zh": "桑海帝国",
+      "en": "Songhai Empire"
+    },
+    "y1": 1464,
+    "y2": 1591,
+    "lat": 16,
+    "lon": -1,
+    "r": 6,
+    "sx": 1.4,
+    "rg": "af"
+  },
+  {
+    "id": "edo",
+    "n": {
+      "zh": "江户日本",
+      "en": "Tokugawa Japan"
+    },
+    "y1": 1603,
+    "y2": 1868,
+    "lat": 36,
+    "lon": 138,
+    "r": 3,
+    "sx": 0.6,
+    "rg": "ea"
+  },
+  {
+    "id": "iroquois",
+    "n": {
+      "zh": "易洛魁联盟",
+      "en": "Iroquois Confederacy"
+    },
+    "y1": 1450,
+    "y2": 1777,
+    "lat": 43,
+    "lon": -76,
+    "r": 3,
+    "sx": 0.8,
+    "rg": "na"
+  },
+  {
+    "id": "aceh",
+    "n": {
+      "zh": "亚齐苏丹国",
+      "en": "Aceh Sultanate"
+    },
+    "y1": 1496,
+    "y2": 1903,
+    "lat": 4,
+    "lon": 97,
+    "r": 2.2,
+    "sx": 0.6,
+    "rg": "sea"
+  },
+  {
+    "id": "malacca",
+    "n": {
+      "zh": "马六甲苏丹国",
+      "en": "Malacca Sultanate"
+    },
+    "y1": 1400,
+    "y2": 1511,
+    "lat": 2.2,
+    "lon": 102.2,
+    "r": 2,
+    "sx": 0.6,
+    "rg": "sea"
+  },
+  {
+    "id": "persia-qajar",
+    "n": {
+      "zh": "恺加波斯",
+      "en": "Qajar Persia"
+    },
+    "y1": 1789,
+    "y2": 1925,
+    "lat": 33,
+    "lon": 53,
+    "r": 6,
+    "sx": 1.1,
+    "rg": "me"
+  },
+  {
+    "id": "britain",
+    "n": {
+      "zh": "大英帝国",
+      "en": "British Empire"
+    },
+    "y1": 1815,
+    "y2": 1997,
+    "lat": 52,
+    "lon": -5,
+    "r": 10,
+    "sx": 1.3,
+    "rg": "eu"
+  },
+  {
+    "id": "british-india",
+    "n": {
+      "zh": "英属印度",
+      "en": "British India"
+    },
+    "y1": 1858,
+    "y2": 1947,
+    "lat": 22,
+    "lon": 79,
+    "r": 7,
+    "sx": 1.1,
+    "rg": "sa"
+  },
+  {
+    "id": "france-col",
+    "n": {
+      "zh": "法兰西殖民帝国",
+      "en": "French Empire"
+    },
+    "y1": 1830,
+    "y2": 1960,
+    "lat": 46,
+    "lon": 2,
+    "r": 7,
+    "sx": 1.2,
+    "rg": "eu"
+  },
+  {
+    "id": "french-west-africa",
+    "n": {
+      "zh": "法属西非",
+      "en": "French West Africa"
+    },
+    "y1": 1895,
+    "y2": 1960,
+    "lat": 14,
+    "lon": -5,
+    "r": 8,
+    "sx": 1.5,
+    "rg": "af"
+  },
+  {
+    "id": "austria-hungary",
+    "n": {
+      "zh": "奥匈帝国",
+      "en": "Austria-Hungary"
+    },
+    "y1": 1867,
+    "y2": 1918,
+    "lat": 47,
+    "lon": 16,
+    "r": 5,
+    "sx": 1.2,
+    "rg": "eu"
+  },
+  {
+    "id": "germany-emp",
+    "n": {
+      "zh": "德意志帝国",
+      "en": "German Empire"
+    },
+    "y1": 1871,
+    "y2": 1918,
+    "lat": 51,
+    "lon": 10,
+    "r": 4,
+    "sx": 0.9,
+    "rg": "eu"
+  },
+  {
+    "id": "usa",
+    "n": {
+      "zh": "美国",
+      "en": "United States"
+    },
+    "y1": 1776,
+    "y2": 2026,
+    "lat": 39,
+    "lon": -98,
+    "r": 9,
+    "sx": 1.3,
+    "rg": "na"
+  },
+  {
+    "id": "meiji",
+    "n": {
+      "zh": "明治日本",
+      "en": "Meiji Japan"
+    },
+    "y1": 1868,
+    "y2": 1945,
+    "lat": 36,
+    "lon": 138,
+    "r": 4,
+    "sx": 0.7,
+    "rg": "ea"
+  },
+  {
+    "id": "latin-republics",
+    "n": {
+      "zh": "拉美共和国",
+      "en": "Latin American Republics"
+    },
+    "y1": 1820,
+    "y2": 2026,
+    "lat": -10,
+    "lon": -60,
+    "r": 8,
+    "sx": 1.2,
+    "rg": "la"
+  },
+  {
+    "id": "colonized-africa",
+    "n": {
+      "zh": "瓜分非洲",
+      "en": "Scramble for Africa"
+    },
+    "y1": 1884,
+    "y2": 1960,
+    "lat": 4,
+    "lon": 20,
+    "r": 12,
+    "sx": 1.5,
+    "rg": "af"
+  },
+  {
+    "id": "siam",
+    "n": {
+      "zh": "暹罗",
+      "en": "Siam"
+    },
+    "y1": 1855,
+    "y2": 2026,
+    "lat": 15,
+    "lon": 101,
+    "r": 3,
+    "sx": 0.7,
+    "rg": "sea"
+  },
+  {
+    "id": "central-powers",
+    "n": {
+      "zh": "同盟国（一战）",
+      "en": "Central Powers"
+    },
+    "y1": 1914,
+    "y2": 1918,
+    "lat": 48,
+    "lon": 15,
+    "r": 8,
+    "sx": 1.2,
+    "rg": "eu"
+  },
+  {
+    "id": "allies-ww1",
+    "n": {
+      "zh": "协约国（一战）",
+      "en": "Allied Powers (WWI)"
+    },
+    "y1": 1914,
+    "y2": 1918,
+    "lat": 50,
+    "lon": -6,
+    "r": 9,
+    "sx": 1.4,
+    "rg": "eu"
+  },
+  {
+    "id": "axis",
+    "n": {
+      "zh": "轴心国",
+      "en": "Axis Powers"
+    },
+    "y1": 1939,
+    "y2": 1945,
+    "lat": 45,
+    "lon": 15,
+    "r": 9,
+    "sx": 1.3,
+    "rg": "eu"
+  },
+  {
+    "id": "allies-ww2",
+    "n": {
+      "zh": "同盟国（二战）",
+      "en": "Allied Powers (WWII)"
+    },
+    "y1": 1939,
+    "y2": 1945,
+    "lat": 50,
+    "lon": -8,
+    "r": 12,
+    "sx": 1.6,
+    "rg": "eu"
+  },
+  {
+    "id": "japan-emp",
+    "n": {
+      "zh": "大日本帝国",
+      "en": "Empire of Japan"
+    },
+    "y1": 1937,
+    "y2": 1945,
+    "lat": 36,
+    "lon": 138,
+    "r": 5,
+    "sx": 0.8,
+    "rg": "ea"
+  },
+  {
+    "id": "soviet",
+    "n": {
+      "zh": "苏联",
+      "en": "Soviet Union"
+    },
+    "y1": 1922,
+    "y2": 1991,
+    "lat": 57,
+    "lon": 50,
+    "r": 12,
+    "sx": 1.8,
+    "rg": "eu"
+  },
+  {
+    "id": "nazi",
+    "n": {
+      "zh": "纳粹德国",
+      "en": "Nazi Germany"
+    },
+    "y1": 1933,
+    "y2": 1945,
+    "lat": 51,
+    "lon": 10,
+    "r": 4,
+    "sx": 0.9,
+    "rg": "eu"
+  },
+  {
+    "id": "usa-cw",
+    "n": {
+      "zh": "美国",
+      "en": "United States"
+    },
+    "y1": 1945,
+    "y2": 1991,
+    "lat": 39,
+    "lon": -98,
+    "r": 9,
+    "sx": 1.3,
+    "rg": "na"
+  },
+  {
+    "id": "soviet-cw",
+    "n": {
+      "zh": "苏联",
+      "en": "Soviet Union"
+    },
+    "y1": 1945,
+    "y2": 1991,
+    "lat": 57,
+    "lon": 50,
+    "r": 12,
+    "sx": 1.8,
+    "rg": "eu"
+  },
+  {
+    "id": "prc",
+    "n": {
+      "zh": "中华人民共和国",
+      "en": "People's Republic of China"
+    },
+    "y1": 1949,
+    "y2": 2026,
+    "lat": 35,
+    "lon": 105,
+    "r": 9,
+    "sx": 1.2,
+    "rg": "ea"
+  },
+  {
+    "id": "eec",
+    "n": {
+      "zh": "欧洲共同体",
+      "en": "European Community"
+    },
+    "y1": 1957,
+    "y2": 1993,
+    "lat": 50,
+    "lon": 5,
+    "r": 4,
+    "sx": 1.1,
+    "rg": "eu"
+  },
+  {
+    "id": "india",
+    "n": {
+      "zh": "印度",
+      "en": "India"
+    },
+    "y1": 1947,
+    "y2": 2026,
+    "lat": 22,
+    "lon": 79,
+    "r": 7,
+    "sx": 1.1,
+    "rg": "sa"
+  },
+  {
+    "id": "brazil",
+    "n": {
+      "zh": "巴西",
+      "en": "Brazil"
+    },
+    "y1": 1945,
+    "y2": 2026,
+    "lat": -10,
+    "lon": -52,
+    "r": 7,
+    "sx": 1,
+    "rg": "la"
+  },
+  {
+    "id": "africa-independent",
+    "n": {
+      "zh": "非洲独立国家",
+      "en": "Independent Africa"
+    },
+    "y1": 1960,
+    "y2": 2002,
+    "lat": 5,
+    "lon": 20,
+    "r": 12,
+    "sx": 1.5,
+    "rg": "af"
+  },
+  {
+    "id": "japan-post",
+    "n": {
+      "zh": "日本",
+      "en": "Japan"
+    },
+    "y1": 1945,
+    "y2": 2026,
+    "lat": 36,
+    "lon": 138,
+    "r": 3,
+    "sx": 0.6,
+    "rg": "ea"
+  },
+  {
+    "id": "korea-south",
+    "n": {
+      "zh": "韩国",
+      "en": "South Korea"
+    },
+    "y1": 1948,
+    "y2": 2026,
+    "lat": 36.5,
+    "lon": 127.8,
+    "r": 2,
+    "sx": 0.55,
+    "rg": "ea"
+  },
+  {
+    "id": "israel",
+    "n": {
+      "zh": "以色列",
+      "en": "Israel"
+    },
+    "y1": 1948,
+    "y2": 2026,
+    "lat": 31.5,
+    "lon": 35,
+    "r": 2,
+    "sx": 0.5,
+    "rg": "me"
+  },
+  {
+    "id": "arab-world",
+    "n": {
+      "zh": "阿拉伯世界",
+      "en": "Arab World"
+    },
+    "y1": 1945,
+    "y2": 2026,
+    "lat": 24,
+    "lon": 45,
+    "r": 8,
+    "sx": 1.4,
+    "rg": "me"
+  },
+  {
+    "id": "usa-now",
+    "n": {
+      "zh": "美国",
+      "en": "United States"
+    },
+    "y1": 1991,
+    "y2": 2026,
+    "lat": 39,
+    "lon": -98,
+    "r": 9,
+    "sx": 1.3,
+    "rg": "na"
+  },
+  {
+    "id": "eu",
+    "n": {
+      "zh": "欧洲联盟",
+      "en": "European Union"
+    },
+    "y1": 1993,
+    "y2": 2026,
+    "lat": 50,
+    "lon": 5,
+    "r": 5,
+    "sx": 1.2,
+    "rg": "eu"
+  },
+  {
+    "id": "russia-now",
+    "n": {
+      "zh": "俄罗斯",
+      "en": "Russia"
+    },
+    "y1": 1991,
+    "y2": 2026,
+    "lat": 57,
+    "lon": 50,
+    "r": 10,
+    "sx": 1.7,
+    "rg": "eu"
+  },
+  {
+    "id": "asean",
+    "n": {
+      "zh": "东盟",
+      "en": "ASEAN"
+    },
+    "y1": 1967,
+    "y2": 2026,
+    "lat": 5,
+    "lon": 105,
+    "r": 6,
+    "sx": 1.3,
+    "rg": "sea"
+  },
+  {
+    "id": "gulf",
+    "n": {
+      "zh": "海湾国家",
+      "en": "Gulf States"
+    },
+    "y1": 1981,
+    "y2": 2026,
+    "lat": 24,
+    "lon": 47,
+    "r": 4,
+    "sx": 1.1,
+    "rg": "me"
+  },
+  {
+    "id": "african-union",
+    "n": {
+      "zh": "非洲联盟",
+      "en": "African Union"
+    },
+    "y1": 2002,
+    "y2": 2026,
+    "lat": 3,
+    "lon": 20,
+    "r": 12,
+    "sx": 1.5,
+    "rg": "af"
+  }
+]

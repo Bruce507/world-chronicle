@@ -1,0 +1,3675 @@
+{
+ "births": [
+  {
+   "key": "SMR",
+   "iso2": "SM",
+   "iso3": "SMR",
+   "name": {
+    "zh": "圣马力诺",
+    "en": "San Marino"
+   },
+   "year": 301,
+   "kind": "state",
+   "note": {
+    "zh": "圣马力诺传统建国",
+    "en": "Traditional founding of San Marino"
+   },
+   "lat": 43.94,
+   "lon": 12.46
+  },
+  {
+   "key": "PRT",
+   "iso2": "PT",
+   "iso3": "PRT",
+   "name": {
+    "zh": "葡萄牙",
+    "en": "Portugal"
+   },
+   "year": 1143,
+   "kind": "state",
+   "note": {
+    "zh": "葡萄牙王国",
+    "en": "The Kingdom of Portugal"
+   },
+   "lat": 39.61,
+   "lon": -8.27
+  },
+  {
+   "key": "AND",
+   "iso2": "AD",
+   "iso3": "AND",
+   "name": {
+    "zh": "安道尔",
+    "en": "Andorra"
+   },
+   "year": 1278,
+   "kind": "state",
+   "note": {
+    "zh": "安道尔双公国体制",
+    "en": "The co-principality of Andorra"
+   },
+   "lat": 42.54,
+   "lon": 1.58
+  },
+  {
+   "key": "CHE",
+   "iso2": "CH",
+   "iso3": "CHE",
+   "name": {
+    "zh": "瑞士",
+    "en": "Switzerland"
+   },
+   "year": 1291,
+   "kind": "state",
+   "note": {
+    "zh": "旧瑞士联邦",
+    "en": "The Old Swiss Confederacy"
+   },
+   "lat": 46.72,
+   "lon": 7.46
+  },
+  {
+   "key": "MCO",
+   "iso2": "MC",
+   "iso3": "MCO",
+   "name": {
+    "zh": "摩纳哥",
+    "en": "Monaco"
+   },
+   "year": 1297,
+   "kind": "state",
+   "note": {
+    "zh": "格里马尔迪家族主权",
+    "en": "The Grimaldi sovereignty"
+   },
+   "lat": 43.75,
+   "lon": 7.41
+  },
+  {
+   "key": "ESP",
+   "iso2": "ES",
+   "iso3": "ESP",
+   "name": {
+    "zh": "西班牙",
+    "en": "Spain"
+   },
+   "year": 1492,
+   "kind": "unification",
+   "note": {
+    "zh": "卡斯蒂利亚与阿拉贡联合及收复失地完成",
+    "en": "Union of Castile and Aragon and the end of al-Andalus"
+   },
+   "lat": 40.09,
+   "lon": -3.46
+  },
+  {
+   "key": "SWE",
+   "iso2": "SE",
+   "iso3": "SWE",
+   "name": {
+    "zh": "瑞典",
+    "en": "Sweden"
+   },
+   "year": 1523,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离卡尔马联盟独立",
+    "en": "Independence from the Kalmar Union"
+   },
+   "lat": 65.86,
+   "lon": 19.02
+  },
+  {
+   "key": "NLD",
+   "iso2": "NL",
+   "iso3": "NLD",
+   "name": {
+    "zh": "荷兰",
+    "en": "Netherlands"
+   },
+   "year": 1648,
+   "kind": "state",
+   "note": {
+    "zh": "《威斯特伐利亚和约》与荷兰共和国",
+    "en": "Peace of Westphalia and the Dutch Republic"
+   },
+   "lat": 52.42,
+   "lon": 5.61
+  },
+  {
+   "key": "OMN",
+   "iso2": "OM",
+   "iso3": "OMN",
+   "name": {
+    "zh": "阿曼",
+    "en": "Oman"
+   },
+   "year": 1650,
+   "kind": "state",
+   "note": {
+    "zh": "驱逐葡萄牙人后的阿曼国家",
+    "en": "Expulsion of the Portuguese and the Omani state"
+   },
+   "lat": 22.12,
+   "lon": 57.34
+  },
+  {
+   "key": "GBR",
+   "iso2": "GB",
+   "iso3": "GBR",
+   "name": {
+    "zh": "英国",
+    "en": "United Kingdom"
+   },
+   "year": 1707,
+   "kind": "union",
+   "note": {
+    "zh": "英格兰与苏格兰联合",
+    "en": "Union of England and Scotland"
+   },
+   "lat": 54.4,
+   "lon": -2.12
+  },
+  {
+   "key": "AFG",
+   "iso2": "AF",
+   "iso3": "AFG",
+   "name": {
+    "zh": "阿富汗",
+    "en": "Afghanistan"
+   },
+   "year": 1747,
+   "kind": "state",
+   "note": {
+    "zh": "杜兰尼王朝与现代阿富汗国家",
+    "en": "Durrani Empire and the modern Afghan state"
+   },
+   "lat": 34.16,
+   "lon": 66.5
+  },
+  {
+   "key": "NPL",
+   "iso2": "NP",
+   "iso3": "NPL",
+   "name": {
+    "zh": "尼泊尔",
+    "en": "Nepal"
+   },
+   "year": 1768,
+   "kind": "state",
+   "note": {
+    "zh": "尼泊尔统一",
+    "en": "Unification of Nepal"
+   },
+   "lat": 28.3,
+   "lon": 83.64
+  },
+  {
+   "key": "USA",
+   "iso2": "US",
+   "iso3": "USA",
+   "name": {
+    "zh": "美国",
+    "en": "United States of America"
+   },
+   "year": 1776,
+   "kind": "independence",
+   "note": {
+    "zh": "独立宣言",
+    "en": "Declaration of Independence"
+   },
+   "lat": 39.54,
+   "lon": -97.48
+  },
+  {
+   "key": "HTI",
+   "iso2": "HT",
+   "iso3": "HTI",
+   "name": {
+    "zh": "海地",
+    "en": "Haiti"
+   },
+   "year": 1804,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 19.26,
+   "lon": -72.22
+  },
+  {
+   "key": "LIE",
+   "iso2": "LI",
+   "iso3": "LIE",
+   "name": {
+    "zh": "列支敦士登",
+    "en": "Liechtenstein"
+   },
+   "year": 1806,
+   "kind": "state",
+   "note": {
+    "zh": "列支敦士登主权确立",
+    "en": "Sovereignty of Liechtenstein"
+   },
+   "lat": 47.17,
+   "lon": 9.54
+  },
+  {
+   "key": "COL",
+   "iso2": "CO",
+   "iso3": "COL",
+   "name": {
+    "zh": "哥伦比亚",
+    "en": "Colombia"
+   },
+   "year": 1810,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": 3.37,
+   "lon": -73.17
+  },
+  {
+   "key": "PRY",
+   "iso2": "PY",
+   "iso3": "PRY",
+   "name": {
+    "zh": "巴拉圭",
+    "en": "Paraguay"
+   },
+   "year": 1811,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": -21.67,
+   "lon": -60.15
+  },
+  {
+   "key": "VEN",
+   "iso2": "VE",
+   "iso3": "VEN",
+   "name": {
+    "zh": "委内瑞拉",
+    "en": "Venezuela"
+   },
+   "year": 1811,
+   "kind": "independence",
+   "note": {
+    "zh": "宣布独立",
+    "en": "Declaration of independence"
+   },
+   "lat": 7.18,
+   "lon": -64.6
+  },
+  {
+   "key": "ARG",
+   "iso2": "AR",
+   "iso3": "ARG",
+   "name": {
+    "zh": "阿根廷",
+    "en": "Argentina"
+   },
+   "year": 1816,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": -33.5,
+   "lon": -64.17
+  },
+  {
+   "key": "CHL",
+   "iso2": "CL",
+   "iso3": "CHL",
+   "name": {
+    "zh": "智利",
+    "en": "Chile"
+   },
+   "year": 1818,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": -38.15,
+   "lon": -72.32
+  },
+  {
+   "key": "CRI",
+   "iso2": "CR",
+   "iso3": "CRI",
+   "name": {
+    "zh": "哥斯达黎加",
+    "en": "Costa Rica"
+   },
+   "year": 1821,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": 10.07,
+   "lon": -84.08
+  },
+  {
+   "key": "SLV",
+   "iso2": "SV",
+   "iso3": "SLV",
+   "name": {
+    "zh": "萨尔瓦多",
+    "en": "El Salvador"
+   },
+   "year": 1821,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": 13.69,
+   "lon": -88.89
+  },
+  {
+   "key": "GTM",
+   "iso2": "GT",
+   "iso3": "GTM",
+   "name": {
+    "zh": "危地马拉",
+    "en": "Guatemala"
+   },
+   "year": 1821,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": 14.98,
+   "lon": -90.5
+  },
+  {
+   "key": "HND",
+   "iso2": "HN",
+   "iso3": "HND",
+   "name": {
+    "zh": "洪都拉斯",
+    "en": "Honduras"
+   },
+   "year": 1821,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": 14.79,
+   "lon": -86.89
+  },
+  {
+   "key": "MEX",
+   "iso2": "MX",
+   "iso3": "MEX",
+   "name": {
+    "zh": "墨西哥",
+    "en": "Mexico"
+   },
+   "year": 1821,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": 23.92,
+   "lon": -102.29
+  },
+  {
+   "key": "NIC",
+   "iso2": "NI",
+   "iso3": "NIC",
+   "name": {
+    "zh": "尼加拉瓜",
+    "en": "Nicaragua"
+   },
+   "year": 1821,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": 12.67,
+   "lon": -85.07
+  },
+  {
+   "key": "PER",
+   "iso2": "PE",
+   "iso3": "PER",
+   "name": {
+    "zh": "秘鲁",
+    "en": "Peru"
+   },
+   "year": 1821,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": -12.98,
+   "lon": -72.9
+  },
+  {
+   "key": "BRA",
+   "iso2": "BR",
+   "iso3": "BRA",
+   "name": {
+    "zh": "巴西",
+    "en": "Brazil"
+   },
+   "year": 1822,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离葡萄牙独立",
+    "en": "Independence from Portugal"
+   },
+   "lat": -12.1,
+   "lon": -49.56
+  },
+  {
+   "key": "ECU",
+   "iso2": "EC",
+   "iso3": "ECU",
+   "name": {
+    "zh": "厄瓜多尔",
+    "en": "Ecuador"
+   },
+   "year": 1822,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": -1.26,
+   "lon": -78.19
+  },
+  {
+   "key": "BOL",
+   "iso2": "BO",
+   "iso3": "BOL",
+   "name": {
+    "zh": "玻利维亚",
+    "en": "Bolivia"
+   },
+   "year": 1825,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": -16.67,
+   "lon": -64.59
+  },
+  {
+   "key": "URY",
+   "iso2": "UY",
+   "iso3": "URY",
+   "name": {
+    "zh": "乌拉圭",
+    "en": "Uruguay"
+   },
+   "year": 1828,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离巴西与阿根廷独立",
+    "en": "Independence from Brazil and Argentina"
+   },
+   "lat": -32.96,
+   "lon": -55.97
+  },
+  {
+   "key": "BEL",
+   "iso2": "BE",
+   "iso3": "BEL",
+   "name": {
+    "zh": "比利时",
+    "en": "Belgium"
+   },
+   "year": 1830,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离荷兰独立",
+    "en": "Independence from the Netherlands"
+   },
+   "lat": 50.79,
+   "lon": 4.8
+  },
+  {
+   "key": "GRC",
+   "iso2": "GR",
+   "iso3": "GRC",
+   "name": {
+    "zh": "希腊",
+    "en": "Greece"
+   },
+   "year": 1830,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离奥斯曼帝国独立",
+    "en": "Independence from the Ottoman Empire"
+   },
+   "lat": 39.49,
+   "lon": 21.73
+  },
+  {
+   "key": "DOM",
+   "iso2": "DO",
+   "iso3": "DOM",
+   "name": {
+    "zh": "多米尼加",
+    "en": "Dominican Republic"
+   },
+   "year": 1844,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离海地独立",
+    "en": "Independence from Haiti"
+   },
+   "lat": 19.1,
+   "lon": -70.65
+  },
+  {
+   "key": "LBR",
+   "iso2": "LR",
+   "iso3": "LBR",
+   "name": {
+    "zh": "利比里亚",
+    "en": "Liberia"
+   },
+   "year": 1847,
+   "kind": "independence",
+   "note": {
+    "zh": "利比里亚独立",
+    "en": "Independence of Liberia"
+   },
+   "lat": 6.45,
+   "lon": -9.46
+  },
+  {
+   "key": "DNK",
+   "iso2": "DK",
+   "iso3": "DNK",
+   "name": {
+    "zh": "丹麦",
+    "en": "Denmark"
+   },
+   "year": 1849,
+   "kind": "state",
+   "note": {
+    "zh": "君主立宪制确立",
+    "en": "The constitutional monarchy"
+   },
+   "lat": 55.97,
+   "lon": 9.02
+  },
+  {
+   "key": "NCL",
+   "iso2": "NC",
+   "iso3": "NCL",
+   "name": {
+    "zh": "新喀里多尼亚",
+    "en": "New Caledonia"
+   },
+   "year": 1853,
+   "kind": "territory",
+   "note": {
+    "zh": "法国吞并",
+    "en": "French annexation"
+   },
+   "lat": -21.06,
+   "lon": 165.08
+  },
+  {
+   "key": "ITA",
+   "iso2": "IT",
+   "iso3": "ITA",
+   "name": {
+    "zh": "意大利",
+    "en": "Italy"
+   },
+   "year": 1861,
+   "kind": "unification",
+   "note": {
+    "zh": "意大利统一",
+    "en": "Unification of Italy"
+   },
+   "lat": 44.73,
+   "lon": 11.08
+  },
+  {
+   "key": "CAN",
+   "iso2": "CA",
+   "iso3": "CAN",
+   "name": {
+    "zh": "加拿大",
+    "en": "Canada"
+   },
+   "year": 1867,
+   "kind": "federation",
+   "note": {
+    "zh": "加拿大联邦成立",
+    "en": "Canadian Confederation"
+   },
+   "lat": 60.32,
+   "lon": -101.91
+  },
+  {
+   "key": "LUX",
+   "iso2": "LU",
+   "iso3": "LUX",
+   "name": {
+    "zh": "卢森堡",
+    "en": "Luxembourg"
+   },
+   "year": 1867,
+   "kind": "state",
+   "note": {
+    "zh": "中立与主权确立",
+    "en": "Neutrality and sovereignty"
+   },
+   "lat": 49.73,
+   "lon": 6.08
+  },
+  {
+   "key": "ROU",
+   "iso2": "RO",
+   "iso3": "ROU",
+   "name": {
+    "zh": "罗马尼亚",
+    "en": "Romania"
+   },
+   "year": 1877,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离奥斯曼帝国独立",
+    "en": "Independence from the Ottoman Empire"
+   },
+   "lat": 45.73,
+   "lon": 24.97
+  },
+  {
+   "key": "BGR",
+   "iso2": "BG",
+   "iso3": "BGR",
+   "name": {
+    "zh": "保加利亚",
+    "en": "Bulgaria"
+   },
+   "year": 1878,
+   "kind": "state",
+   "note": {
+    "zh": "脱离奥斯曼帝国并获得独立",
+    "en": "Autonomy and independence from the Ottoman Empire"
+   },
+   "lat": 42.51,
+   "lon": 25.16
+  },
+  {
+   "key": "PRI",
+   "iso2": "PR",
+   "iso3": "PRI",
+   "name": {
+    "zh": "波多黎各",
+    "en": "Puerto Rico"
+   },
+   "year": 1898,
+   "kind": "territory",
+   "note": {
+    "zh": "割让给美国",
+    "en": "Cession to the United States"
+   },
+   "lat": 18.23,
+   "lon": -66.48
+  },
+  {
+   "key": "AUS",
+   "iso2": "AU",
+   "iso3": "AUS",
+   "name": {
+    "zh": "澳大利亚",
+    "en": "Australia"
+   },
+   "year": 1901,
+   "kind": "federation",
+   "note": {
+    "zh": "澳大利亚各殖民地联邦",
+    "en": "Federation of the Australian colonies"
+   },
+   "lat": -24.13,
+   "lon": 134.05
+  },
+  {
+   "key": "CUB",
+   "iso2": "CU",
+   "iso3": "CUB",
+   "name": {
+    "zh": "古巴",
+    "en": "Cuba"
+   },
+   "year": 1902,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离美国独立",
+    "en": "Independence from the United States"
+   },
+   "lat": 21.33,
+   "lon": -77.98
+  },
+  {
+   "key": "PAN",
+   "iso2": "PA",
+   "iso3": "PAN",
+   "name": {
+    "zh": "巴拿马",
+    "en": "Panama"
+   },
+   "year": 1903,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离哥伦比亚独立",
+    "en": "Independence from Colombia"
+   },
+   "lat": 8.72,
+   "lon": -80.35
+  },
+  {
+   "key": "NOR",
+   "iso2": "NO",
+   "iso3": "NOR",
+   "name": {
+    "zh": "挪威",
+    "en": "Norway"
+   },
+   "year": 1905,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离瑞典独立",
+    "en": "Independence from Sweden"
+   },
+   "lat": 61.36,
+   "lon": 9.68
+  },
+  {
+   "key": "BTN",
+   "iso2": "BT",
+   "iso3": "BTN",
+   "name": {
+    "zh": "不丹",
+    "en": "Bhutan"
+   },
+   "year": 1907,
+   "kind": "state",
+   "note": {
+    "zh": "旺楚克王朝建立",
+    "en": "The Wangchuck monarchy"
+   },
+   "lat": 27.54,
+   "lon": 90.04
+  },
+  {
+   "key": "NZL",
+   "iso2": "NZ",
+   "iso3": "NZL",
+   "name": {
+    "zh": "新西兰",
+    "en": "New Zealand"
+   },
+   "year": 1907,
+   "kind": "dominion",
+   "note": {
+    "zh": "新西兰自治领",
+    "en": "Dominion of New Zealand"
+   },
+   "lat": -39.76,
+   "lon": 172.79
+  },
+  {
+   "key": "ZAF",
+   "iso2": "ZA",
+   "iso3": "ZAF",
+   "name": {
+    "zh": "南非",
+    "en": "South Africa"
+   },
+   "year": 1910,
+   "kind": "union",
+   "note": {
+    "zh": "南非联邦",
+    "en": "The Union of South Africa"
+   },
+   "lat": -29.71,
+   "lon": 23.67
+  },
+  {
+   "key": "ALB",
+   "iso2": "AL",
+   "iso3": "ALB",
+   "name": {
+    "zh": "阿尔巴尼亚",
+    "en": "Albania"
+   },
+   "year": 1912,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离奥斯曼帝国独立",
+    "en": "Independence from the Ottoman Empire"
+   },
+   "lat": 40.65,
+   "lon": 20.11
+  },
+  {
+   "key": "FIN",
+   "iso2": "FI",
+   "iso3": "FIN",
+   "name": {
+    "zh": "芬兰",
+    "en": "Finland"
+   },
+   "year": 1917,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离俄国独立",
+    "en": "Independence from Russia"
+   },
+   "lat": 63.25,
+   "lon": 27.28
+  },
+  {
+   "key": "POL",
+   "iso2": "PL",
+   "iso3": "POL",
+   "name": {
+    "zh": "波兰",
+    "en": "Poland"
+   },
+   "year": 1918,
+   "kind": "independence",
+   "note": {
+    "zh": "恢复独立",
+    "en": "Restoration of independence"
+   },
+   "lat": 51.99,
+   "lon": 19.49
+  },
+  {
+   "key": "EGY",
+   "iso2": "EG",
+   "iso3": "EGY",
+   "name": {
+    "zh": "埃及",
+    "en": "Egypt"
+   },
+   "year": 1922,
+   "kind": "independence",
+   "note": {
+    "zh": "名义上脱离英国独立",
+    "en": "Nominal independence from Britain"
+   },
+   "lat": 26.19,
+   "lon": 29.45
+  },
+  {
+   "key": "IRL",
+   "iso2": "IE",
+   "iso3": "IRL",
+   "name": {
+    "zh": "爱尔兰",
+    "en": "Ireland"
+   },
+   "year": 1922,
+   "kind": "state",
+   "note": {
+    "zh": "爱尔兰自由邦",
+    "en": "The Irish Free State"
+   },
+   "lat": 53.08,
+   "lon": -7.8
+  },
+  {
+   "key": "TUR",
+   "iso2": "TR",
+   "iso3": "TUR",
+   "name": {
+    "zh": "土耳其",
+    "en": "Turkey"
+   },
+   "year": 1923,
+   "kind": "state",
+   "note": {
+    "zh": "土耳其共和国",
+    "en": "The Republic of Turkey"
+   },
+   "lat": 39.35,
+   "lon": 34.51
+  },
+  {
+   "key": "VAT",
+   "iso2": "VA",
+   "iso3": "VAT",
+   "name": {
+    "zh": "梵蒂冈",
+    "en": "Vatican City"
+   },
+   "year": 1929,
+   "kind": "state",
+   "note": {
+    "zh": "《拉特兰条约》",
+    "en": "The Lateran Treaty"
+   },
+   "lat": 41.91,
+   "lon": 12.43
+  },
+  {
+   "key": "IRQ",
+   "iso2": "IQ",
+   "iso3": "IRQ",
+   "name": {
+    "zh": "伊拉克",
+    "en": "Iraq"
+   },
+   "year": 1932,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 33.09,
+   "lon": 43.26
+  },
+  {
+   "key": "SAU",
+   "iso2": "SA",
+   "iso3": "SAU",
+   "name": {
+    "zh": "沙特阿拉伯",
+    "en": "Saudi Arabia"
+   },
+   "year": 1932,
+   "kind": "unification",
+   "note": {
+    "zh": "沙特阿拉伯统一",
+    "en": "Unification of Saudi Arabia"
+   },
+   "lat": 23.81,
+   "lon": 44.7
+  },
+  {
+   "key": "THA",
+   "iso2": "TH",
+   "iso3": "THA",
+   "name": {
+    "zh": "泰国",
+    "en": "Thailand"
+   },
+   "year": 1932,
+   "kind": "state",
+   "note": {
+    "zh": "君主立宪制确立",
+    "en": "The constitutional monarchy"
+   },
+   "lat": 15.46,
+   "lon": 101.07
+  },
+  {
+   "key": "ETH",
+   "iso2": "ET",
+   "iso3": "ETH",
+   "name": {
+    "zh": "埃塞俄比亚",
+    "en": "Ethiopia"
+   },
+   "year": 1941,
+   "kind": "state",
+   "note": {
+    "zh": "意大利占领结束后复国",
+    "en": "Restoration after Italian occupation"
+   },
+   "lat": 8.03,
+   "lon": 39.09
+  },
+  {
+   "key": "LBN",
+   "iso2": "LB",
+   "iso3": "LBN",
+   "name": {
+    "zh": "黎巴嫩",
+    "en": "Lebanon"
+   },
+   "year": 1943,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 34.13,
+   "lon": 35.99
+  },
+  {
+   "key": "ISL",
+   "iso2": "IS",
+   "iso3": "ISL",
+   "name": {
+    "zh": "冰岛",
+    "en": "Iceland"
+   },
+   "year": 1944,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离丹麦独立",
+    "en": "Independence from Denmark"
+   },
+   "lat": 64.78,
+   "lon": -18.67
+  },
+  {
+   "key": "IDN",
+   "iso2": "ID",
+   "iso3": "IDN",
+   "name": {
+    "zh": "印度尼西亚",
+    "en": "Indonesia"
+   },
+   "year": 1945,
+   "kind": "independence",
+   "note": {
+    "zh": "宣布独立",
+    "en": "Proclamation of independence"
+   },
+   "lat": -0.95,
+   "lon": 101.89
+  },
+  {
+   "key": "JOR",
+   "iso2": "JO",
+   "iso3": "JOR",
+   "name": {
+    "zh": "约旦",
+    "en": "Jordan"
+   },
+   "year": 1946,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 30.81,
+   "lon": 36.38
+  },
+  {
+   "key": "PHL",
+   "iso2": "PH",
+   "iso3": "PHL",
+   "name": {
+    "zh": "菲律宾",
+    "en": "Philippines"
+   },
+   "year": 1946,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离美国独立",
+    "en": "Independence from the United States"
+   },
+   "lat": 11.2,
+   "lon": 122.47
+  },
+  {
+   "key": "SYR",
+   "iso2": "SY",
+   "iso3": "SYR",
+   "name": {
+    "zh": "叙利亚",
+    "en": "Syria"
+   },
+   "year": 1946,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 35.01,
+   "lon": 38.28
+  },
+  {
+   "key": "IND",
+   "iso2": "IN",
+   "iso3": "IND",
+   "name": {
+    "zh": "印度",
+    "en": "India"
+   },
+   "year": 1947,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 22.69,
+   "lon": 79.36
+  },
+  {
+   "key": "JPN",
+   "iso2": "JP",
+   "iso3": "JPN",
+   "name": {
+    "zh": "日本",
+    "en": "Japan"
+   },
+   "year": 1947,
+   "kind": "state",
+   "note": {
+    "zh": "战后宪法生效",
+    "en": "The postwar constitution"
+   },
+   "lat": 36.14,
+   "lon": 138.44
+  },
+  {
+   "key": "PAK",
+   "iso2": "PK",
+   "iso3": "PAK",
+   "name": {
+    "zh": "巴基斯坦",
+    "en": "Pakistan"
+   },
+   "year": 1947,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 29.33,
+   "lon": 68.55
+  },
+  {
+   "key": "ISR",
+   "iso2": "IL",
+   "iso3": "ISR",
+   "name": {
+    "zh": "以色列",
+    "en": "Israel"
+   },
+   "year": 1948,
+   "kind": "independence",
+   "note": {
+    "zh": "以色列国建立",
+    "en": "Establishment of the State of Israel"
+   },
+   "lat": 30.91,
+   "lon": 34.85
+  },
+  {
+   "key": "MMR",
+   "iso2": "MM",
+   "iso3": "MMR",
+   "name": {
+    "zh": "缅甸",
+    "en": "Myanmar"
+   },
+   "year": 1948,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 21.57,
+   "lon": 95.8
+  },
+  {
+   "key": "PRK",
+   "iso2": "KP",
+   "iso3": "PRK",
+   "name": {
+    "zh": "朝鲜民主主义人民共和国",
+    "en": "North Korea"
+   },
+   "year": 1948,
+   "kind": "state",
+   "note": {
+    "zh": "朝鲜民主主义人民共和国成立",
+    "en": "Founding of the DPRK"
+   },
+   "lat": 39.89,
+   "lon": 126.44
+  },
+  {
+   "key": "KOR",
+   "iso2": "KR",
+   "iso3": "KOR",
+   "name": {
+    "zh": "大韩民国",
+    "en": "South Korea"
+   },
+   "year": 1948,
+   "kind": "state",
+   "note": {
+    "zh": "大韩民国成立",
+    "en": "Founding of the Republic of Korea"
+   },
+   "lat": 36.38,
+   "lon": 128.13
+  },
+  {
+   "key": "LKA",
+   "iso2": "LK",
+   "iso3": "LKA",
+   "name": {
+    "zh": "斯里兰卡",
+    "en": "Sri Lanka"
+   },
+   "year": 1948,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 7.58,
+   "lon": 80.7
+  },
+  {
+   "key": "CHN",
+   "iso2": "CN",
+   "iso3": "CHN",
+   "name": {
+    "zh": "中华人民共和国",
+    "en": "People's Republic of China"
+   },
+   "year": 1949,
+   "kind": "state",
+   "note": {
+    "zh": "中华人民共和国成立",
+    "en": "Founding of the People's Republic of China"
+   },
+   "lat": 32.5,
+   "lon": 106.34
+  },
+  {
+   "key": "TWN",
+   "iso2": "CN-TW",
+   "iso3": "TWN",
+   "name": {
+    "zh": "中华民国",
+    "en": "Taiwan"
+   },
+   "year": 1949,
+   "kind": "special",
+   "note": {
+    "zh": "中华民国政府迁往台湾",
+    "en": "The ROC government relocates to Taiwan"
+   },
+   "lat": 23.65,
+   "lon": 120.87
+  },
+  {
+   "key": "LBY",
+   "iso2": "LY",
+   "iso3": "LBY",
+   "name": {
+    "zh": "利比亚",
+    "en": "Libya"
+   },
+   "year": 1951,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离意英法统治独立",
+    "en": "Independence from Italy/Britain/France"
+   },
+   "lat": 26.64,
+   "lon": 18.01
+  },
+  {
+   "key": "KHM",
+   "iso2": "KH",
+   "iso3": "KHM",
+   "name": {
+    "zh": "柬埔寨",
+    "en": "Cambodia"
+   },
+   "year": 1953,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 12.65,
+   "lon": 104.5
+  },
+  {
+   "key": "LAO",
+   "iso2": "LA",
+   "iso3": "LAO",
+   "name": {
+    "zh": "老挝",
+    "en": "Laos"
+   },
+   "year": 1953,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 19.43,
+   "lon": 102.53
+  },
+  {
+   "key": "AUT",
+   "iso2": "AT",
+   "iso3": "AUT",
+   "name": {
+    "zh": "奥地利",
+    "en": "Austria"
+   },
+   "year": 1955,
+   "kind": "state",
+   "note": {
+    "zh": "第二共和国与国家条约",
+    "en": "The Second Republic and the State Treaty"
+   },
+   "lat": 47.52,
+   "lon": 14.13
+  },
+  {
+   "key": "MAR",
+   "iso2": "MA",
+   "iso3": "MAR",
+   "name": {
+    "zh": "摩洛哥",
+    "en": "Morocco"
+   },
+   "year": 1956,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 31.65,
+   "lon": -7.19
+  },
+  {
+   "key": "SDN",
+   "iso2": "SD",
+   "iso3": "SDN",
+   "name": {
+    "zh": "苏丹",
+    "en": "Sudan"
+   },
+   "year": 1956,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国与埃及独立",
+    "en": "Independence from Britain and Egypt"
+   },
+   "lat": 16.33,
+   "lon": 29.26
+  },
+  {
+   "key": "TUN",
+   "iso2": "TN",
+   "iso3": "TUN",
+   "name": {
+    "zh": "突尼斯",
+    "en": "Tunisia"
+   },
+   "year": 1956,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 33.69,
+   "lon": 9.01
+  },
+  {
+   "key": "GHA",
+   "iso2": "GH",
+   "iso3": "GHA",
+   "name": {
+    "zh": "加纳",
+    "en": "Ghana"
+   },
+   "year": 1957,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 7.72,
+   "lon": -1.04
+  },
+  {
+   "key": "FRA",
+   "iso2": "FR",
+   "iso3": "FRA",
+   "name": {
+    "zh": "法国",
+    "en": "France"
+   },
+   "year": 1958,
+   "kind": "state",
+   "note": {
+    "zh": "法兰西第五共和国",
+    "en": "The Fifth Republic"
+   },
+   "lat": 46.7,
+   "lon": 2.55
+  },
+  {
+   "key": "GIN",
+   "iso2": "GN",
+   "iso3": "GIN",
+   "name": {
+    "zh": "几内亚",
+    "en": "Guinea"
+   },
+   "year": 1958,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 10.62,
+   "lon": -10.02
+  },
+  {
+   "key": "BEN",
+   "iso2": "BJ",
+   "iso3": "BEN",
+   "name": {
+    "zh": "贝宁",
+    "en": "Benin"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 10.32,
+   "lon": 2.35
+  },
+  {
+   "key": "BFA",
+   "iso2": "BF",
+   "iso3": "BFA",
+   "name": {
+    "zh": "布基纳法索",
+    "en": "Burkina Faso"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 12.67,
+   "lon": -1.36
+  },
+  {
+   "key": "CMR",
+   "iso2": "CM",
+   "iso3": "CMR",
+   "name": {
+    "zh": "喀麦隆",
+    "en": "Cameroon"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 4.59,
+   "lon": 12.47
+  },
+  {
+   "key": "CAF",
+   "iso2": "CF",
+   "iso3": "CAF",
+   "name": {
+    "zh": "中非共和国",
+    "en": "Central African Republic"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 6.99,
+   "lon": 20.91
+  },
+  {
+   "key": "TCD",
+   "iso2": "TD",
+   "iso3": "TCD",
+   "name": {
+    "zh": "乍得",
+    "en": "Chad"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 15.14,
+   "lon": 18.65
+  },
+  {
+   "key": "COG",
+   "iso2": "CG",
+   "iso3": "COG",
+   "name": {
+    "zh": "刚果共和国",
+    "en": "Republic of the Congo"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 0.14,
+   "lon": 15.9
+  },
+  {
+   "key": "CIV",
+   "iso2": "CI",
+   "iso3": "CIV",
+   "name": {
+    "zh": "科特迪瓦",
+    "en": "Côte d'Ivoire"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 7.54,
+   "lon": -5.55
+  },
+  {
+   "key": "CYP",
+   "iso2": "CY",
+   "iso3": "CYP",
+   "name": {
+    "zh": "塞浦路斯",
+    "en": "Cyprus"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 34.91,
+   "lon": 33.08
+  },
+  {
+   "key": "GAB",
+   "iso2": "GA",
+   "iso3": "GAB",
+   "name": {
+    "zh": "加蓬",
+    "en": "Gabon"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": -0.44,
+   "lon": 11.84
+  },
+  {
+   "key": "MDG",
+   "iso2": "MG",
+   "iso3": "MDG",
+   "name": {
+    "zh": "马达加斯加",
+    "en": "Madagascar"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": -18.63,
+   "lon": 46.7
+  },
+  {
+   "key": "MLI",
+   "iso2": "ML",
+   "iso3": "MLI",
+   "name": {
+    "zh": "马里",
+    "en": "Mali"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 18.69,
+   "lon": -2.04
+  },
+  {
+   "key": "MRT",
+   "iso2": "MR",
+   "iso3": "MRT",
+   "name": {
+    "zh": "毛里塔尼亚",
+    "en": "Mauritania"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 19.59,
+   "lon": -9.74
+  },
+  {
+   "key": "NER",
+   "iso2": "NE",
+   "iso3": "NER",
+   "name": {
+    "zh": "尼日尔",
+    "en": "Niger"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 17.45,
+   "lon": 9.5
+  },
+  {
+   "key": "NGA",
+   "iso2": "NG",
+   "iso3": "NGA",
+   "name": {
+    "zh": "尼日利亚",
+    "en": "Nigeria"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 9.44,
+   "lon": 7.5
+  },
+  {
+   "key": "SEN",
+   "iso2": "SN",
+   "iso3": "SEN",
+   "name": {
+    "zh": "塞内加尔",
+    "en": "Senegal"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 15.14,
+   "lon": -14.78
+  },
+  {
+   "key": "SOM",
+   "iso2": "SO",
+   "iso3": "SOM",
+   "name": {
+    "zh": "索马里",
+    "en": "Somalia"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "意属与英属索马里合并",
+    "en": "Union of Italian and British Somalilands"
+   },
+   "lat": 3.57,
+   "lon": 45.19
+  },
+  {
+   "key": "TGO",
+   "iso2": "TG",
+   "iso3": "TGO",
+   "name": {
+    "zh": "多哥",
+    "en": "Togo"
+   },
+   "year": 1960,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 8.81,
+   "lon": 1.06
+  },
+  {
+   "key": "KWT",
+   "iso2": "KW",
+   "iso3": "KWT",
+   "name": {
+    "zh": "科威特",
+    "en": "Kuwait"
+   },
+   "year": 1961,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 29.41,
+   "lon": 47.31
+  },
+  {
+   "key": "SLE",
+   "iso2": "SL",
+   "iso3": "SLE",
+   "name": {
+    "zh": "塞拉利昂",
+    "en": "Sierra Leone"
+   },
+   "year": 1961,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 8.62,
+   "lon": -11.76
+  },
+  {
+   "key": "DZA",
+   "iso2": "DZ",
+   "iso3": "DZA",
+   "name": {
+    "zh": "阿尔及利亚",
+    "en": "Algeria"
+   },
+   "year": 1962,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 27.4,
+   "lon": 2.81
+  },
+  {
+   "key": "BDI",
+   "iso2": "BI",
+   "iso3": "BDI",
+   "name": {
+    "zh": "布隆迪",
+    "en": "Burundi"
+   },
+   "year": 1962,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离比利时独立",
+    "en": "Independence from Belgium"
+   },
+   "lat": -3.33,
+   "lon": 29.92
+  },
+  {
+   "key": "JAM",
+   "iso2": "JM",
+   "iso3": "JAM",
+   "name": {
+    "zh": "牙买加",
+    "en": "Jamaica"
+   },
+   "year": 1962,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 18.14,
+   "lon": -77.32
+  },
+  {
+   "key": "RWA",
+   "iso2": "RW",
+   "iso3": "RWA",
+   "name": {
+    "zh": "卢旺达",
+    "en": "Rwanda"
+   },
+   "year": 1962,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离比利时独立",
+    "en": "Independence from Belgium"
+   },
+   "lat": -1.9,
+   "lon": 30.1
+  },
+  {
+   "key": "WSM",
+   "iso2": "WS",
+   "iso3": "WSM",
+   "name": {
+    "zh": "萨摩亚",
+    "en": "Samoa"
+   },
+   "year": 1962,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离新西兰独立",
+    "en": "Independence from New Zealand"
+   },
+   "lat": -13.64,
+   "lon": -172.48
+  },
+  {
+   "key": "TTO",
+   "iso2": "TT",
+   "iso3": "TTO",
+   "name": {
+    "zh": "特立尼达和多巴哥",
+    "en": "Trinidad and Tobago"
+   },
+   "year": 1962,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 11.0,
+   "lon": -60.92
+  },
+  {
+   "key": "UGA",
+   "iso2": "UG",
+   "iso3": "UGA",
+   "name": {
+    "zh": "乌干达",
+    "en": "Uganda"
+   },
+   "year": 1962,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 1.97,
+   "lon": 32.95
+  },
+  {
+   "key": "KEN",
+   "iso2": "KE",
+   "iso3": "KEN",
+   "name": {
+    "zh": "肯尼亚",
+    "en": "Kenya"
+   },
+   "year": 1963,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 0.55,
+   "lon": 37.91
+  },
+  {
+   "key": "MYS",
+   "iso2": "MY",
+   "iso3": "MYS",
+   "name": {
+    "zh": "马来西亚",
+    "en": "Malaysia"
+   },
+   "year": 1963,
+   "kind": "federation",
+   "note": {
+    "zh": "马来西亚成立",
+    "en": "Formation of Malaysia"
+   },
+   "lat": 2.53,
+   "lon": 113.84
+  },
+  {
+   "key": "MWI",
+   "iso2": "MW",
+   "iso3": "MWI",
+   "name": {
+    "zh": "马拉维",
+    "en": "Malawi"
+   },
+   "year": 1964,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -13.39,
+   "lon": 33.61
+  },
+  {
+   "key": "MLT",
+   "iso2": "MT",
+   "iso3": "MLT",
+   "name": {
+    "zh": "马耳他",
+    "en": "Malta"
+   },
+   "year": 1964,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 35.9,
+   "lon": 14.46
+  },
+  {
+   "key": "TZA",
+   "iso2": "TZ",
+   "iso3": "TZA",
+   "name": {
+    "zh": "坦桑尼亚",
+    "en": "Tanzania"
+   },
+   "year": 1964,
+   "kind": "union",
+   "note": {
+    "zh": "坦噶尼喀与桑给巴尔联合",
+    "en": "Union of Tanganyika and Zanzibar"
+   },
+   "lat": -6.05,
+   "lon": 34.96
+  },
+  {
+   "key": "ZMB",
+   "iso2": "ZM",
+   "iso3": "ZMB",
+   "name": {
+    "zh": "赞比亚",
+    "en": "Zambia"
+   },
+   "year": 1964,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -14.66,
+   "lon": 26.4
+  },
+  {
+   "key": "GMB",
+   "iso2": "GM",
+   "iso3": "GMB",
+   "name": {
+    "zh": "冈比亚",
+    "en": "The Gambia"
+   },
+   "year": 1965,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 13.64,
+   "lon": -15.0
+  },
+  {
+   "key": "MDV",
+   "iso2": "MV",
+   "iso3": "MDV",
+   "name": {
+    "zh": "马尔代夫",
+    "en": "Maldives"
+   },
+   "year": 1965,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 3.26,
+   "lon": 73.41
+  },
+  {
+   "key": "SGP",
+   "iso2": "SG",
+   "iso3": "SGP",
+   "name": {
+    "zh": "新加坡",
+    "en": "Singapore"
+   },
+   "year": 1965,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离马来西亚独立",
+    "en": "Independence from Malaysia"
+   },
+   "lat": 1.36,
+   "lon": 103.83
+  },
+  {
+   "key": "BRB",
+   "iso2": "BB",
+   "iso3": "BRB",
+   "name": {
+    "zh": "巴巴多斯",
+    "en": "Barbados"
+   },
+   "year": 1966,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 13.19,
+   "lon": -59.54
+  },
+  {
+   "key": "BWA",
+   "iso2": "BW",
+   "iso3": "BWA",
+   "name": {
+    "zh": "博茨瓦纳",
+    "en": "Botswana"
+   },
+   "year": 1966,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -22.1,
+   "lon": 24.18
+  },
+  {
+   "key": "GUY",
+   "iso2": "GY",
+   "iso3": "GUY",
+   "name": {
+    "zh": "圭亚那",
+    "en": "Guyana"
+   },
+   "year": 1966,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 5.12,
+   "lon": -58.94
+  },
+  {
+   "key": "LSO",
+   "iso2": "LS",
+   "iso3": "LSO",
+   "name": {
+    "zh": "莱索托",
+    "en": "Lesotho"
+   },
+   "year": 1966,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -29.48,
+   "lon": 28.25
+  },
+  {
+   "key": "GNQ",
+   "iso2": "GQ",
+   "iso3": "GNQ",
+   "name": {
+    "zh": "赤道几内亚",
+    "en": "Equatorial Guinea"
+   },
+   "year": 1968,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离西班牙独立",
+    "en": "Independence from Spain"
+   },
+   "lat": 2.33,
+   "lon": 8.99
+  },
+  {
+   "key": "SWZ",
+   "iso2": "SZ",
+   "iso3": "SWZ",
+   "name": {
+    "zh": "斯威士兰",
+    "en": "Eswatini"
+   },
+   "year": 1968,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -26.53,
+   "lon": 31.47
+  },
+  {
+   "key": "MUS",
+   "iso2": "MU",
+   "iso3": "MUS",
+   "name": {
+    "zh": "毛里求斯",
+    "en": "Mauritius"
+   },
+   "year": 1968,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -20.25,
+   "lon": 57.55
+  },
+  {
+   "key": "NRU",
+   "iso2": "NR",
+   "iso3": "NRU",
+   "name": {
+    "zh": "瑙鲁",
+    "en": "Nauru"
+   },
+   "year": 1968,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离澳大利亚独立",
+    "en": "Independence from Australia"
+   },
+   "lat": -0.53,
+   "lon": 166.94
+  },
+  {
+   "key": "FJI",
+   "iso2": "FJ",
+   "iso3": "FJI",
+   "name": {
+    "zh": "斐济",
+    "en": "Fiji"
+   },
+   "year": 1970,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -17.83,
+   "lon": 177.98
+  },
+  {
+   "key": "TON",
+   "iso2": "TO",
+   "iso3": "TON",
+   "name": {
+    "zh": "汤加",
+    "en": "Tonga"
+   },
+   "year": 1970,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -21.16,
+   "lon": -175.22
+  },
+  {
+   "key": "BHR",
+   "iso2": "BH",
+   "iso3": "BHR",
+   "name": {
+    "zh": "巴林",
+    "en": "Bahrain"
+   },
+   "year": 1971,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 26.02,
+   "lon": 50.53
+  },
+  {
+   "key": "BGD",
+   "iso2": "BD",
+   "iso3": "BGD",
+   "name": {
+    "zh": "孟加拉国",
+    "en": "Bangladesh"
+   },
+   "year": 1971,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离巴基斯坦独立",
+    "en": "Independence from Pakistan"
+   },
+   "lat": 24.21,
+   "lon": 89.68
+  },
+  {
+   "key": "QAT",
+   "iso2": "QA",
+   "iso3": "QAT",
+   "name": {
+    "zh": "卡塔尔",
+    "en": "Qatar"
+   },
+   "year": 1971,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 25.24,
+   "lon": 51.14
+  },
+  {
+   "key": "ARE",
+   "iso2": "AE",
+   "iso3": "ARE",
+   "name": {
+    "zh": "阿拉伯联合酋长国",
+    "en": "United Arab Emirates"
+   },
+   "year": 1971,
+   "kind": "federation",
+   "note": {
+    "zh": "阿拉伯联合酋长国成立",
+    "en": "Federation of the Emirates"
+   },
+   "lat": 23.47,
+   "lon": 54.55
+  },
+  {
+   "key": "BHS",
+   "iso2": "BS",
+   "iso3": "BHS",
+   "name": {
+    "zh": "巴哈马",
+    "en": "The Bahamas"
+   },
+   "year": 1973,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 26.4,
+   "lon": -77.15
+  },
+  {
+   "key": "GRD",
+   "iso2": "GD",
+   "iso3": "GRD",
+   "name": {
+    "zh": "格林纳达",
+    "en": "Grenada"
+   },
+   "year": 1974,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 12.12,
+   "lon": -61.7
+  },
+  {
+   "key": "GNB",
+   "iso2": "GW",
+   "iso3": "GNB",
+   "name": {
+    "zh": "几内亚比绍",
+    "en": "Guinea-Bissau"
+   },
+   "year": 1974,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离葡萄牙独立",
+    "en": "Independence from Portugal"
+   },
+   "lat": 12.16,
+   "lon": -14.52
+  },
+  {
+   "key": "AGO",
+   "iso2": "AO",
+   "iso3": "AGO",
+   "name": {
+    "zh": "安哥拉",
+    "en": "Angola"
+   },
+   "year": 1975,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离葡萄牙独立",
+    "en": "Independence from Portugal"
+   },
+   "lat": -12.18,
+   "lon": 17.98
+  },
+  {
+   "key": "CPV",
+   "iso2": "CV",
+   "iso3": "CPV",
+   "name": {
+    "zh": "佛得角",
+    "en": "Cabo Verde"
+   },
+   "year": 1975,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离葡萄牙独立",
+    "en": "Independence from Portugal"
+   },
+   "lat": 15.12,
+   "lon": -23.62
+  },
+  {
+   "key": "COM",
+   "iso2": "KM",
+   "iso3": "COM",
+   "name": {
+    "zh": "科摩罗",
+    "en": "Comoros"
+   },
+   "year": 1975,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": -11.64,
+   "lon": 43.36
+  },
+  {
+   "key": "MOZ",
+   "iso2": "MZ",
+   "iso3": "MOZ",
+   "name": {
+    "zh": "莫桑比克",
+    "en": "Mozambique"
+   },
+   "year": 1975,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离葡萄牙独立",
+    "en": "Independence from Portugal"
+   },
+   "lat": -13.94,
+   "lon": 37.84
+  },
+  {
+   "key": "PNG",
+   "iso2": "PG",
+   "iso3": "PNG",
+   "name": {
+    "zh": "巴布亚新几内亚",
+    "en": "Papua New Guinea"
+   },
+   "year": 1975,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离澳大利亚独立",
+    "en": "Independence from Australia"
+   },
+   "lat": -5.7,
+   "lon": 143.91
+  },
+  {
+   "key": "STP",
+   "iso2": "ST",
+   "iso3": "STP",
+   "name": {
+    "zh": "圣多美和普林西比",
+    "en": "Sao Tome and Principe"
+   },
+   "year": 1975,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离葡萄牙独立",
+    "en": "Independence from Portugal"
+   },
+   "lat": 0.23,
+   "lon": 6.62
+  },
+  {
+   "key": "SUR",
+   "iso2": "SR",
+   "iso3": "SUR",
+   "name": {
+    "zh": "苏里南",
+    "en": "Suriname"
+   },
+   "year": 1975,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离荷兰独立",
+    "en": "Independence from the Netherlands"
+   },
+   "lat": 4.14,
+   "lon": -55.91
+  },
+  {
+   "key": "SYC",
+   "iso2": "SC",
+   "iso3": "SYC",
+   "name": {
+    "zh": "塞舌尔",
+    "en": "Seychelles"
+   },
+   "year": 1976,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -4.67,
+   "lon": 55.46
+  },
+  {
+   "key": "VNM",
+   "iso2": "VN",
+   "iso3": "VNM",
+   "name": {
+    "zh": "越南",
+    "en": "Vietnam"
+   },
+   "year": 1976,
+   "kind": "unification",
+   "note": {
+    "zh": "越南统一",
+    "en": "Reunification of Vietnam"
+   },
+   "lat": 21.72,
+   "lon": 105.39
+  },
+  {
+   "key": "ESH",
+   "iso2": "EH",
+   "iso3": "ESH",
+   "name": {
+    "zh": "西撒哈拉",
+    "en": "Western Sahara"
+   },
+   "year": 1976,
+   "kind": "special",
+   "note": {
+    "zh": "撒哈拉阿拉伯民主共和国宣布成立",
+    "en": "Sahrawi Arab Democratic Republic declared"
+   },
+   "lat": 23.97,
+   "lon": -12.63
+  },
+  {
+   "key": "DJI",
+   "iso2": "DJ",
+   "iso3": "DJI",
+   "name": {
+    "zh": "吉布提",
+    "en": "Djibouti"
+   },
+   "year": 1977,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离法国独立",
+    "en": "Independence from France"
+   },
+   "lat": 11.98,
+   "lon": 42.5
+  },
+  {
+   "key": "DMA",
+   "iso2": "DM",
+   "iso3": "DMA",
+   "name": {
+    "zh": "多米尼克",
+    "en": "Dominica"
+   },
+   "year": 1978,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 15.43,
+   "lon": -61.36
+  },
+  {
+   "key": "SLB",
+   "iso2": "SB",
+   "iso3": "SLB",
+   "name": {
+    "zh": "所罗门群岛",
+    "en": "Solomon Islands"
+   },
+   "year": 1978,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -8.03,
+   "lon": 159.17
+  },
+  {
+   "key": "TUV",
+   "iso2": "TV",
+   "iso3": "TUV",
+   "name": {
+    "zh": "图瓦卢",
+    "en": "Tuvalu"
+   },
+   "year": 1978,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -8.52,
+   "lon": 179.2
+  },
+  {
+   "key": "IRN",
+   "iso2": "IR",
+   "iso3": "IRN",
+   "name": {
+    "zh": "伊朗",
+    "en": "Iran"
+   },
+   "year": 1979,
+   "kind": "state",
+   "note": {
+    "zh": "伊朗伊斯兰共和国",
+    "en": "The Islamic Republic"
+   },
+   "lat": 32.17,
+   "lon": 54.93
+  },
+  {
+   "key": "KIR",
+   "iso2": "KI",
+   "iso3": "KIR",
+   "name": {
+    "zh": "基里巴斯",
+    "en": "Kiribati"
+   },
+   "year": 1979,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 1.88,
+   "lon": -157.38
+  },
+  {
+   "key": "LCA",
+   "iso2": "LC",
+   "iso3": "LCA",
+   "name": {
+    "zh": "圣卢西亚",
+    "en": "Saint Lucia"
+   },
+   "year": 1979,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 13.91,
+   "lon": -60.98
+  },
+  {
+   "key": "VCT",
+   "iso2": "VC",
+   "iso3": "VCT",
+   "name": {
+    "zh": "圣文森特和格林纳丁斯",
+    "en": "Saint Vincent and the Grenadines"
+   },
+   "year": 1979,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 13.25,
+   "lon": -61.2
+  },
+  {
+   "key": "GRL",
+   "iso2": "GL",
+   "iso3": "GRL",
+   "name": {
+    "zh": "格陵兰",
+    "en": "Greenland"
+   },
+   "year": 1979,
+   "kind": "territory",
+   "note": {
+    "zh": "丹麦格陵兰自治",
+    "en": "Home rule within Denmark"
+   },
+   "lat": 74.32,
+   "lon": -39.34
+  },
+  {
+   "key": "VUT",
+   "iso2": "VU",
+   "iso3": "VUT",
+   "name": {
+    "zh": "瓦努阿图",
+    "en": "Vanuatu"
+   },
+   "year": 1980,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英法共管独立",
+    "en": "Independence from Britain and France"
+   },
+   "lat": -15.37,
+   "lon": 166.91
+  },
+  {
+   "key": "ZWE",
+   "iso2": "ZW",
+   "iso3": "ZWE",
+   "name": {
+    "zh": "津巴布韦",
+    "en": "Zimbabwe"
+   },
+   "year": 1980,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": -18.91,
+   "lon": 29.93
+  },
+  {
+   "key": "ATG",
+   "iso2": "AG",
+   "iso3": "ATG",
+   "name": {
+    "zh": "安提瓜和巴布达",
+    "en": "Antigua and Barbuda"
+   },
+   "year": 1981,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 17.09,
+   "lon": -61.78
+  },
+  {
+   "key": "BLZ",
+   "iso2": "BZ",
+   "iso3": "BLZ",
+   "name": {
+    "zh": "伯利兹",
+    "en": "Belize"
+   },
+   "year": 1981,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 17.2,
+   "lon": -88.71
+  },
+  {
+   "key": "KNA",
+   "iso2": "KN",
+   "iso3": "KNA",
+   "name": {
+    "zh": "圣基茨和尼维斯",
+    "en": "Saint Kitts and Nevis"
+   },
+   "year": 1983,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 17.31,
+   "lon": -62.73
+  },
+  {
+   "key": "BRN",
+   "iso2": "BN",
+   "iso3": "BRN",
+   "name": {
+    "zh": "文莱",
+    "en": "Brunei"
+   },
+   "year": 1984,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离英国独立",
+    "en": "Independence from Britain"
+   },
+   "lat": 4.45,
+   "lon": 114.55
+  },
+  {
+   "key": "MHL",
+   "iso2": "MH",
+   "iso3": "MHL",
+   "name": {
+    "zh": "马绍尔群岛",
+    "en": "Marshall Islands"
+   },
+   "year": 1986,
+   "kind": "independence",
+   "note": {
+    "zh": "与美国自由联合",
+    "en": "Compact of Free Association with the US"
+   },
+   "lat": 7.12,
+   "lon": 171.22
+  },
+  {
+   "key": "FSM",
+   "iso2": "FM",
+   "iso3": "FSM",
+   "name": {
+    "zh": "密克罗尼西亚",
+    "en": "Micronesia"
+   },
+   "year": 1986,
+   "kind": "independence",
+   "note": {
+    "zh": "与美国自由联合",
+    "en": "Compact of Free Association with the US"
+   },
+   "lat": 6.89,
+   "lon": 158.23
+  },
+  {
+   "key": "PSE",
+   "iso2": "PS",
+   "iso3": "PSE",
+   "name": {
+    "zh": "巴勒斯坦",
+    "en": "Palestine"
+   },
+   "year": 1988,
+   "kind": "special",
+   "note": {
+    "zh": "巴勒斯坦国宣言",
+    "en": "Declaration of the State of Palestine"
+   },
+   "lat": 32.05,
+   "lon": 35.29
+  },
+  {
+   "key": "HUN",
+   "iso2": "HU",
+   "iso3": "HUN",
+   "name": {
+    "zh": "匈牙利",
+    "en": "Hungary"
+   },
+   "year": 1989,
+   "kind": "state",
+   "note": {
+    "zh": "匈牙利第三共和国",
+    "en": "The Third Republic"
+   },
+   "lat": 47.09,
+   "lon": 19.45
+  },
+  {
+   "key": "DEU",
+   "iso2": "DE",
+   "iso3": "DEU",
+   "name": {
+    "zh": "德国",
+    "en": "Germany"
+   },
+   "year": 1990,
+   "kind": "unification",
+   "note": {
+    "zh": "两德统一",
+    "en": "Reunification of Germany"
+   },
+   "lat": 50.96,
+   "lon": 9.68
+  },
+  {
+   "key": "LTU",
+   "iso2": "LT",
+   "iso3": "LTU",
+   "name": {
+    "zh": "立陶宛",
+    "en": "Lithuania"
+   },
+   "year": 1990,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联恢复独立",
+    "en": "Restoration of independence from the USSR"
+   },
+   "lat": 55.1,
+   "lon": 24.09
+  },
+  {
+   "key": "NAM",
+   "iso2": "NA",
+   "iso3": "NAM",
+   "name": {
+    "zh": "纳米比亚",
+    "en": "Namibia"
+   },
+   "year": 1990,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离南非独立",
+    "en": "Independence from South Africa"
+   },
+   "lat": -20.58,
+   "lon": 17.11
+  },
+  {
+   "key": "YEM",
+   "iso2": "YE",
+   "iso3": "YEM",
+   "name": {
+    "zh": "也门",
+    "en": "Yemen"
+   },
+   "year": 1990,
+   "kind": "unification",
+   "note": {
+    "zh": "南北也门统一",
+    "en": "Unification of North and South Yemen"
+   },
+   "lat": 15.33,
+   "lon": 45.87
+  },
+  {
+   "key": "ARM",
+   "iso2": "AM",
+   "iso3": "ARM",
+   "name": {
+    "zh": "亚美尼亚",
+    "en": "Armenia"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 40.46,
+   "lon": 44.8
+  },
+  {
+   "key": "AZE",
+   "iso2": "AZ",
+   "iso3": "AZE",
+   "name": {
+    "zh": "阿塞拜疆",
+    "en": "Azerbaijan"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 40.4,
+   "lon": 47.21
+  },
+  {
+   "key": "BLR",
+   "iso2": "BY",
+   "iso3": "BLR",
+   "name": {
+    "zh": "白俄罗斯",
+    "en": "Belarus"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 53.82,
+   "lon": 28.42
+  },
+  {
+   "key": "HRV",
+   "iso2": "HR",
+   "iso3": "HRV",
+   "name": {
+    "zh": "克罗地亚",
+    "en": "Croatia"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离南斯拉夫独立",
+    "en": "Independence from Yugoslavia"
+   },
+   "lat": 45.81,
+   "lon": 16.37
+  },
+  {
+   "key": "EST",
+   "iso2": "EE",
+   "iso3": "EST",
+   "name": {
+    "zh": "爱沙尼亚",
+    "en": "Estonia"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联恢复独立",
+    "en": "Restoration of independence from the USSR"
+   },
+   "lat": 58.72,
+   "lon": 25.87
+  },
+  {
+   "key": "GEO",
+   "iso2": "GE",
+   "iso3": "GEO",
+   "name": {
+    "zh": "格鲁吉亚",
+    "en": "Georgia"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 41.87,
+   "lon": 43.74
+  },
+  {
+   "key": "KAZ",
+   "iso2": "KZ",
+   "iso3": "KAZ",
+   "name": {
+    "zh": "哈萨克斯坦",
+    "en": "Kazakhstan"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 49.05,
+   "lon": 68.69
+  },
+  {
+   "key": "KGZ",
+   "iso2": "KG",
+   "iso3": "KGZ",
+   "name": {
+    "zh": "吉尔吉斯斯坦",
+    "en": "Kyrgyzstan"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 41.67,
+   "lon": 74.53
+  },
+  {
+   "key": "LVA",
+   "iso2": "LV",
+   "iso3": "LVA",
+   "name": {
+    "zh": "拉脱维亚",
+    "en": "Latvia"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联恢复独立",
+    "en": "Restoration of independence from the USSR"
+   },
+   "lat": 57.07,
+   "lon": 25.46
+  },
+  {
+   "key": "MDA",
+   "iso2": "MD",
+   "iso3": "MDA",
+   "name": {
+    "zh": "摩尔多瓦",
+    "en": "Moldova"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 47.43,
+   "lon": 28.49
+  },
+  {
+   "key": "MKD",
+   "iso2": "MK",
+   "iso3": "MKD",
+   "name": {
+    "zh": "北马其顿",
+    "en": "North Macedonia"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离南斯拉夫独立",
+    "en": "Independence from Yugoslavia"
+   },
+   "lat": 41.56,
+   "lon": 21.56
+  },
+  {
+   "key": "RUS",
+   "iso2": "RU",
+   "iso3": "RUS",
+   "name": {
+    "zh": "俄罗斯",
+    "en": "Russia"
+   },
+   "year": 1991,
+   "kind": "state",
+   "note": {
+    "zh": "俄罗斯联邦",
+    "en": "The Russian Federation"
+   },
+   "lat": 58.25,
+   "lon": 44.69
+  },
+  {
+   "key": "SVN",
+   "iso2": "SI",
+   "iso3": "SVN",
+   "name": {
+    "zh": "斯洛文尼亚",
+    "en": "Slovenia"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离南斯拉夫独立",
+    "en": "Independence from Yugoslavia"
+   },
+   "lat": 46.06,
+   "lon": 14.92
+  },
+  {
+   "key": "TJK",
+   "iso2": "TJ",
+   "iso3": "TJK",
+   "name": {
+    "zh": "塔吉克斯坦",
+    "en": "Tajikistan"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 38.2,
+   "lon": 72.59
+  },
+  {
+   "key": "TKM",
+   "iso2": "TM",
+   "iso3": "TKM",
+   "name": {
+    "zh": "土库曼斯坦",
+    "en": "Turkmenistan"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 39.86,
+   "lon": 58.68
+  },
+  {
+   "key": "UKR",
+   "iso2": "UA",
+   "iso3": "UKR",
+   "name": {
+    "zh": "乌克兰",
+    "en": "Ukraine"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 49.72,
+   "lon": 32.14
+  },
+  {
+   "key": "UZB",
+   "iso2": "UZ",
+   "iso3": "UZB",
+   "name": {
+    "zh": "乌兹别克斯坦",
+    "en": "Uzbekistan"
+   },
+   "year": 1991,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏联独立",
+    "en": "Independence from the USSR"
+   },
+   "lat": 41.69,
+   "lon": 64.01
+  },
+  {
+   "key": "BIH",
+   "iso2": "BA",
+   "iso3": "BIH",
+   "name": {
+    "zh": "波斯尼亚和黑塞哥维那",
+    "en": "Bosnia and Herzegovina"
+   },
+   "year": 1992,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离南斯拉夫独立",
+    "en": "Independence from Yugoslavia"
+   },
+   "lat": 44.09,
+   "lon": 18.07
+  },
+  {
+   "key": "MNG",
+   "iso2": "MN",
+   "iso3": "MNG",
+   "name": {
+    "zh": "蒙古国",
+    "en": "Mongolia"
+   },
+   "year": 1992,
+   "kind": "state",
+   "note": {
+    "zh": "民主宪法",
+    "en": "The democratic constitution"
+   },
+   "lat": 46.0,
+   "lon": 104.15
+  },
+  {
+   "key": "CZE",
+   "iso2": "CZ",
+   "iso3": "CZE",
+   "name": {
+    "zh": "捷克",
+    "en": "Czechia"
+   },
+   "year": 1993,
+   "kind": "state",
+   "note": {
+    "zh": "捷克斯洛伐克解体",
+    "en": "Dissolution of Czechoslovakia"
+   },
+   "lat": 49.8,
+   "lon": 15.46
+  },
+  {
+   "key": "ERI",
+   "iso2": "ER",
+   "iso3": "ERI",
+   "name": {
+    "zh": "厄立特里亚",
+    "en": "Eritrea"
+   },
+   "year": 1993,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离埃塞俄比亚独立",
+    "en": "Independence from Ethiopia"
+   },
+   "lat": 15.79,
+   "lon": 38.29
+  },
+  {
+   "key": "SVK",
+   "iso2": "SK",
+   "iso3": "SVK",
+   "name": {
+    "zh": "斯洛伐克",
+    "en": "Slovakia"
+   },
+   "year": 1993,
+   "kind": "state",
+   "note": {
+    "zh": "捷克斯洛伐克解体",
+    "en": "Dissolution of Czechoslovakia"
+   },
+   "lat": 48.73,
+   "lon": 19.05
+  },
+  {
+   "key": "PLW",
+   "iso2": "PW",
+   "iso3": "PLW",
+   "name": {
+    "zh": "帕劳",
+    "en": "Palau"
+   },
+   "year": 1994,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离美国托管独立",
+    "en": "Independence from the US trust territory"
+   },
+   "lat": 7.54,
+   "lon": 134.58
+  },
+  {
+   "key": "HKG",
+   "iso2": "HK",
+   "iso3": "HKG",
+   "name": {
+    "zh": "香港",
+    "en": "Hong Kong"
+   },
+   "year": 1997,
+   "kind": "special",
+   "note": {
+    "zh": "回归中国成为特别行政区",
+    "en": "Handover to China as a SAR"
+   },
+   "lat": 22.44,
+   "lon": 114.12
+  },
+  {
+   "key": "MAC",
+   "iso2": "MO",
+   "iso3": "MAC",
+   "name": {
+    "zh": "澳门",
+    "en": "Macao"
+   },
+   "year": 1999,
+   "kind": "special",
+   "note": {
+    "zh": "回归中国成为特别行政区",
+    "en": "Handover to China as a SAR"
+   },
+   "lat": 22.23,
+   "lon": 113.52
+  },
+  {
+   "key": "TLS",
+   "iso2": "TL",
+   "iso3": "TLS",
+   "name": {
+    "zh": "东帝汶",
+    "en": "Timor-Leste"
+   },
+   "year": 2002,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离印度尼西亚独立",
+    "en": "Independence from Indonesia"
+   },
+   "lat": -8.91,
+   "lon": 126.11
+  },
+  {
+   "key": "MNE",
+   "iso2": "ME",
+   "iso3": "MNE",
+   "name": {
+    "zh": "黑山",
+    "en": "Montenegro"
+   },
+   "year": 2006,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离塞尔维亚和黑山独立",
+    "en": "Independence from Serbia and Montenegro"
+   },
+   "lat": 42.8,
+   "lon": 19.14
+  },
+  {
+   "key": "SRB",
+   "iso2": "RS",
+   "iso3": "SRB",
+   "name": {
+    "zh": "塞尔维亚",
+    "en": "Serbia"
+   },
+   "year": 2006,
+   "kind": "state",
+   "note": {
+    "zh": "塞尔维亚成为主权国家",
+    "en": "Serbia as a sovereign state"
+   },
+   "lat": 44.19,
+   "lon": 20.79
+  },
+  {
+   "key": "UNK",
+   "iso2": "XK",
+   "iso3": "UNK",
+   "name": {
+    "zh": "科索沃",
+    "en": "Kosovo"
+   },
+   "year": 2008,
+   "kind": "special",
+   "note": {
+    "zh": "宣布独立",
+    "en": "Declaration of independence"
+   },
+   "lat": 42.59,
+   "lon": 20.86
+  },
+  {
+   "key": "SSD",
+   "iso2": "SS",
+   "iso3": "SSD",
+   "name": {
+    "zh": "南苏丹",
+    "en": "South Sudan"
+   },
+   "year": 2011,
+   "kind": "independence",
+   "note": {
+    "zh": "脱离苏丹独立",
+    "en": "Independence from Sudan"
+   },
+   "lat": 7.23,
+   "lon": 30.39
+  }
+ ],
+ "dissolutions": [
+  {
+   "year": 476,
+   "name": {
+    "zh": "西罗马帝国",
+    "en": "Western Roman Empire"
+   },
+   "lat": 41.9,
+   "lon": 12.5,
+   "note": {
+    "zh": "末代西罗马皇帝被废",
+    "en": "Deposition of the last western emperor"
+   }
+  },
+  {
+   "year": 1453,
+   "name": {
+    "zh": "拜占庭帝国",
+    "en": "Byzantine Empire"
+   },
+   "lat": 41.01,
+   "lon": 28.98,
+   "note": {
+    "zh": "君士坦丁堡陷落",
+    "en": "Fall of Constantinople"
+   }
+  },
+  {
+   "year": 1521,
+   "name": {
+    "zh": "阿兹特克帝国",
+    "en": "Aztec Empire"
+   },
+   "lat": 19.43,
+   "lon": -99.13,
+   "note": {
+    "zh": "特诺奇蒂特兰陷落",
+    "en": "Fall of Tenochtitlan"
+   }
+  },
+  {
+   "year": 1533,
+   "name": {
+    "zh": "印加帝国",
+    "en": "Inca Empire"
+   },
+   "lat": -13.53,
+   "lon": -71.97,
+   "note": {
+    "zh": "西班牙征服印加",
+    "en": "Spanish conquest of the Inca"
+   }
+  },
+  {
+   "year": 1857,
+   "name": {
+    "zh": "莫卧儿帝国",
+    "en": "Mughal Empire"
+   },
+   "lat": 28.61,
+   "lon": 77.21,
+   "note": {
+    "zh": "莫卧儿王朝终结",
+    "en": "End of the Mughal dynasty"
+   }
+  },
+  {
+   "year": 1917,
+   "name": {
+    "zh": "俄罗斯帝国",
+    "en": "Russian Empire"
+   },
+   "lat": 59.93,
+   "lon": 30.33,
+   "note": {
+    "zh": "革命与帝国终结",
+    "en": "Revolution and the end of the empire"
+   }
+  },
+  {
+   "year": 1918,
+   "name": {
+    "zh": "奥匈帝国",
+    "en": "Austria-Hungary"
+   },
+   "lat": 48.21,
+   "lon": 16.37,
+   "note": {
+    "zh": "一战后的解体",
+    "en": "Dissolution after the First World War"
+   }
+  },
+  {
+   "year": 1922,
+   "name": {
+    "zh": "奥斯曼帝国",
+    "en": "Ottoman Empire"
+   },
+   "lat": 41.01,
+   "lon": 28.98,
+   "note": {
+    "zh": "苏丹制废除",
+    "en": "Abolition of the sultanate"
+   }
+  },
+  {
+   "year": 1945,
+   "name": {
+    "zh": "大日本帝国",
+    "en": "Empire of Japan"
+   },
+   "lat": 35.68,
+   "lon": 139.69,
+   "note": {
+    "zh": "投降与帝国解体",
+    "en": "Surrender and dissolution of the empire"
+   }
+  },
+  {
+   "year": 1960,
+   "name": {
+    "zh": "马里联邦",
+    "en": "Mali Federation"
+   },
+   "lat": 12.65,
+   "lon": -8.0,
+   "note": {
+    "zh": "分为马里与塞内加尔",
+    "en": "Split into Mali and Senegal"
+   }
+  },
+  {
+   "year": 1961,
+   "name": {
+    "zh": "阿拉伯联合共和国",
+    "en": "United Arab Republic"
+   },
+   "lat": 30.04,
+   "lon": 31.24,
+   "note": {
+    "zh": "叙利亚退出",
+    "en": "Syria's secession"
+   }
+  },
+  {
+   "year": 1963,
+   "name": {
+    "zh": "罗得西亚与尼亚萨兰联邦",
+    "en": "Federation of Rhodesia and Nyasaland"
+   },
+   "lat": -17.8,
+   "lon": 31.0,
+   "note": {
+    "zh": "中非联邦解体",
+    "en": "Dissolution of the Central African Federation"
+   }
+  },
+  {
+   "year": 1991,
+   "name": {
+    "zh": "苏联",
+    "en": "Soviet Union"
+   },
+   "lat": 55.75,
+   "lon": 37.62,
+   "note": {
+    "zh": "苏联解体",
+    "en": "Dissolution of the USSR"
+   }
+  },
+  {
+   "year": 1991,
+   "name": {
+    "zh": "南斯拉夫",
+    "en": "Yugoslavia"
+   },
+   "lat": 44.79,
+   "lon": 20.45,
+   "note": {
+    "zh": "南斯拉夫解体",
+    "en": "Break-up of Yugoslavia"
+   }
+  },
+  {
+   "year": 1993,
+   "name": {
+    "zh": "捷克斯洛伐克",
+    "en": "Czechoslovakia"
+   },
+   "lat": 50.08,
+   "lon": 14.42,
+   "note": {
+    "zh": "天鹅绒分离",
+    "en": "Velvet Divorce"
+   }
+  },
+  {
+   "year": 2003,
+   "name": {
+    "zh": "塞尔维亚和黑山",
+    "en": "Serbia and Montenegro"
+   },
+   "lat": 44.79,
+   "lon": 20.45,
+   "note": {
+    "zh": "改组为塞尔维亚和黑山",
+    "en": "Reconstituted as Serbia and Montenegro"
+   }
+  },
+  {
+   "year": 2006,
+   "name": {
+    "zh": "塞尔维亚和黑山",
+    "en": "Serbia and Montenegro"
+   },
+   "lat": 44.79,
+   "lon": 20.45,
+   "note": {
+    "zh": "黑山独立",
+    "en": "Montenegro's independence"
+   }
+  },
+  {
+   "year": 2011,
+   "name": {
+    "zh": "苏丹（统一）",
+    "en": "Sudan (united)"
+   },
+   "lat": 15.5,
+   "lon": 30.2,
+   "note": {
+    "zh": "南苏丹独立",
+    "en": "South Sudan's independence"
+   }
+  }
+ ],
+ "note": "Modern-state years are curated approximations; many states have longer or contested histories."
+}

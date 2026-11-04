@@ -1,0 +1,115 @@
+{
+ "source": "aourednik/historical-basemaps",
+ "license": "GPL-3.0",
+ "note": "Simplified for display; boundaries are schematic and not surveyed.",
+ "snapshots": [
+  {
+   "year": -3000,
+   "file": "world_bc3000.json",
+   "features": 25,
+   "labels": 24
+  },
+  {
+   "year": -1000,
+   "file": "world_bc1000.json",
+   "features": 70,
+   "labels": 26
+  },
+  {
+   "year": -500,
+   "file": "world_bc500.json",
+   "features": 77,
+   "labels": 26
+  },
+  {
+   "year": 1,
+   "file": "world_bc1.json",
+   "features": 80,
+   "labels": 26
+  },
+  {
+   "year": 500,
+   "file": "world_500.json",
+   "features": 89,
+   "labels": 26
+  },
+  {
+   "year": 1000,
+   "file": "world_1000.json",
+   "features": 132,
+   "labels": 26
+  },
+  {
+   "year": 1300,
+   "file": "world_1300.json",
+   "features": 115,
+   "labels": 26
+  },
+  {
+   "year": 1500,
+   "file": "world_1500.json",
+   "features": 143,
+   "labels": 26
+  },
+  {
+   "year": 1600,
+   "file": "world_1600.json",
+   "features": 654,
+   "labels": 26
+  },
+  {
+   "year": 1700,
+   "file": "world_1700.json",
+   "features": 587,
+   "labels": 26
+  },
+  {
+   "year": 1815,
+   "file": "world_1815.json",
+   "features": 323,
+   "labels": 26
+  },
+  {
+   "year": 1900,
+   "file": "world_1900.json",
+   "features": 190,
+   "labels": 26
+  },
+  {
+   "year": 1914,
+   "file": "world_1914.json",
+   "features": 140,
+   "labels": 26
+  },
+  {
+   "year": 1938,
+   "file": "world_1938.json",
+   "features": 168,
+   "labels": 26
+  },
+  {
+   "year": 1945,
+   "file": "world_1945.json",
+   "features": 180,
+   "labels": 26
+  },
+  {
+   "year": 1960,
+   "file": "world_1960.json",
+   "features": 158,
+   "labels": 26
+  },
+  {
+   "year": 1994,
+   "file": "world_1994.json",
+   "features": 190,
+   "labels": 26
+  },
+  {
+   "year": 2010,
+   "file": "world_2010.json",
+   "features": 191,
+   "labels": 26
+  }
+ ]
+}

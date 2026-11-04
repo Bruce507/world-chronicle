@@ -1,0 +1,3308 @@
+{
+  "theatres": {
+    "world-war-ii-begins": {
+      "mode": "war",
+      "zoom": 1.55,
+      "center": [
+        32,
+        62
+      ],
+      "sides": [
+        {
+          "key": "axis",
+          "name": [
+            "轴心国",
+            "Axis"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "DE",
+            "IT",
+            "JP",
+            "HU",
+            "RO",
+            "BG",
+            "FI",
+            "SK",
+            "HR"
+          ]
+        },
+        {
+          "key": "allies",
+          "name": [
+            "同盟国",
+            "Allies"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "GB",
+            "FR",
+            "US",
+            "RU",
+            "CN",
+            "CA",
+            "AU",
+            "NZ",
+            "IN",
+            "BR",
+            "ZA",
+            "SU"
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "side": "axis",
+          "label": [
+            "东线",
+            "Eastern Front"
+          ],
+          "pts": [
+            [
+              55.7,
+              37.6
+            ],
+            [
+              54.5,
+              32
+            ],
+            [
+              51.8,
+              28
+            ],
+            [
+              49,
+              32
+            ],
+            [
+              47,
+              39
+            ],
+            [
+              45.5,
+              44.5
+            ]
+          ]
+        },
+        {
+          "side": "allies",
+          "label": [
+            "西线",
+            "Western Front"
+          ],
+          "pts": [
+            [
+              51.5,
+              -0.1
+            ],
+            [
+              50.6,
+              2.2
+            ],
+            [
+              49.6,
+              5.1
+            ],
+            [
+              48.6,
+              8.2
+            ],
+            [
+              47.6,
+              11.2
+            ]
+          ]
+        },
+        {
+          "side": "allies",
+          "label": [
+            "北非",
+            "North Africa"
+          ],
+          "pts": [
+            [
+              32,
+              20
+            ],
+            [
+              30,
+              25
+            ],
+            [
+              28,
+              30
+            ]
+          ]
+        },
+        {
+          "side": "allies",
+          "label": [
+            "中国战场",
+            "China Front"
+          ],
+          "pts": [
+            [
+              40.5,
+              116
+            ],
+            [
+              35,
+              112
+            ],
+            [
+              30,
+              112.5
+            ],
+            [
+              25,
+              110
+            ],
+            [
+              22.5,
+              113
+            ]
+          ]
+        },
+        {
+          "side": "allies",
+          "label": [
+            "中太平洋",
+            "Central Pacific"
+          ],
+          "pts": [
+            [
+              21.3,
+              -157.9
+            ],
+            [
+              18,
+              -155
+            ],
+            [
+              12,
+              -170
+            ]
+          ]
+        },
+        {
+          "side": "allies",
+          "label": [
+            "西太平洋",
+            "Western Pacific"
+          ],
+          "pts": [
+            [
+              14,
+              145
+            ],
+            [
+              7,
+              130
+            ],
+            [
+              -6,
+              147
+            ],
+            [
+              -9.4,
+              160
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 52.23,
+          "lon": 21.01,
+          "name": [
+            "华沙",
+            "Warsaw"
+          ],
+          "side": "axis",
+          "kind": "air"
+        },
+        {
+          "lat": 48.7,
+          "lon": 44.5,
+          "name": [
+            "斯大林格勒",
+            "Stalingrad"
+          ],
+          "side": "allies",
+          "kind": "urban"
+        },
+        {
+          "lat": 51.03,
+          "lon": 2.37,
+          "name": [
+            "敦刻尔克",
+            "Dunkirk"
+          ],
+          "side": "allies",
+          "kind": "naval"
+        },
+        {
+          "lat": 51.5,
+          "lon": -0.12,
+          "name": [
+            "伦敦",
+            "London"
+          ],
+          "side": "allies",
+          "kind": "air"
+        },
+        {
+          "lat": 21.35,
+          "lon": -157.95,
+          "name": [
+            "珍珠港",
+            "Pearl Harbor"
+          ],
+          "side": "axis",
+          "kind": "naval"
+        },
+        {
+          "lat": 35.68,
+          "lon": 139.69,
+          "name": [
+            "东京",
+            "Tokyo"
+          ],
+          "side": "axis",
+          "kind": "air"
+        },
+        {
+          "lat": 34.39,
+          "lon": 132.45,
+          "name": [
+            "广岛",
+            "Hiroshima"
+          ],
+          "side": "allies",
+          "kind": "atomic"
+        },
+        {
+          "lat": 39.9,
+          "lon": 116.4,
+          "name": [
+            "中国",
+            "China"
+          ],
+          "side": "allies",
+          "kind": "land"
+        }
+      ],
+      "end": {
+        "lat": 35.3,
+        "lon": 139.75,
+        "year": 1945,
+        "label": [
+          "日本投降",
+          "Japan surrenders"
+        ]
+      }
+    },
+    "world-war-i": {
+      "mode": "war",
+      "zoom": 1.95,
+      "center": [
+        46,
+        20
+      ],
+      "sides": [
+        {
+          "key": "central",
+          "name": [
+            "同盟国（一战）",
+            "Central Powers"
+          ],
+          "color": "#9b4a2f",
+          "members": [
+            "DE",
+            "AT",
+            "TR",
+            "BG"
+          ]
+        },
+        {
+          "key": "entente",
+          "name": [
+            "协约国",
+            "Entente"
+          ],
+          "color": "#3d5f7a",
+          "members": [
+            "FR",
+            "GB",
+            "RU",
+            "IT",
+            "US",
+            "RS",
+            "BE",
+            "JP"
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "side": "central",
+          "label": [
+            "西线",
+            "Western Front"
+          ],
+          "pts": [
+            [
+              51.1,
+              2.9
+            ],
+            [
+              50.4,
+              3.6
+            ],
+            [
+              49.8,
+              4.8
+            ],
+            [
+              49.2,
+              5.4
+            ],
+            [
+              48.6,
+              6.4
+            ]
+          ]
+        },
+        {
+          "side": "central",
+          "label": [
+            "东线",
+            "Eastern Front"
+          ],
+          "pts": [
+            [
+              55.5,
+              21
+            ],
+            [
+              53,
+              23
+            ],
+            [
+              51,
+              25
+            ],
+            [
+              49,
+              28
+            ],
+            [
+              47,
+              32
+            ]
+          ]
+        },
+        {
+          "side": "entente",
+          "label": [
+            "意大利战线",
+            "Italian Front"
+          ],
+          "pts": [
+            [
+              46.5,
+              11
+            ],
+            [
+              45.9,
+              12.5
+            ],
+            [
+              45.4,
+              13.8
+            ]
+          ]
+        },
+        {
+          "side": "entente",
+          "label": [
+            "中东",
+            "Middle East"
+          ],
+          "pts": [
+            [
+              31.5,
+              35
+            ],
+            [
+              31,
+              38
+            ],
+            [
+              30.5,
+              42
+            ],
+            [
+              30,
+              46
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 43.86,
+          "lon": 18.43,
+          "name": [
+            "萨拉热窝",
+            "Sarajevo"
+          ],
+          "side": "central",
+          "kind": "land"
+        },
+        {
+          "lat": 50.85,
+          "lon": 2.89,
+          "name": [
+            "伊普尔",
+            "Ypres"
+          ],
+          "side": "central",
+          "kind": "gas"
+        },
+        {
+          "lat": 49.21,
+          "lon": 5.38,
+          "name": [
+            "凡尔登",
+            "Verdun"
+          ],
+          "side": "central",
+          "kind": "artillery"
+        },
+        {
+          "lat": 50,
+          "lon": 2.7,
+          "name": [
+            "索姆河",
+            "Somme"
+          ],
+          "side": "entente",
+          "kind": "artillery"
+        },
+        {
+          "lat": 40.24,
+          "lon": 26.28,
+          "name": [
+            "加里波利",
+            "Gallipoli"
+          ],
+          "side": "entente",
+          "kind": "naval"
+        },
+        {
+          "lat": 49.43,
+          "lon": 2.82,
+          "name": [
+            "停战",
+            "Armistice"
+          ],
+          "side": "entente",
+          "kind": "end"
+        }
+      ],
+      "end": {
+        "lat": 49.43,
+        "lon": 2.82,
+        "year": 1918,
+        "label": [
+          "停战",
+          "Armistice"
+        ]
+      }
+    },
+    "d-day": {
+      "mode": "war",
+      "zoom": 3.7,
+      "center": [
+        49.4,
+        -0.3
+      ],
+      "sides": [
+        {
+          "key": "axis",
+          "name": [
+            "轴心国",
+            "Axis"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "DE",
+            "IT",
+            "JP",
+            "HU",
+            "RO",
+            "BG",
+            "FI",
+            "SK",
+            "HR"
+          ]
+        },
+        {
+          "key": "allies",
+          "name": [
+            "同盟国",
+            "Allies"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "GB",
+            "FR",
+            "US",
+            "RU",
+            "CN",
+            "CA",
+            "AU",
+            "NZ",
+            "IN",
+            "BR",
+            "ZA",
+            "SU"
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "side": "allies",
+          "label": [
+            "诺曼底登陆",
+            "Normandy landings"
+          ],
+          "pts": [
+            [
+              51,
+              -1.6
+            ],
+            [
+              50.5,
+              -1.2
+            ],
+            [
+              49.9,
+              -0.8
+            ],
+            [
+              49.34,
+              -0.6
+            ]
+          ]
+        },
+        {
+          "side": "axis",
+          "label": [
+            "德军防线",
+            "German line"
+          ],
+          "pts": [
+            [
+              49.5,
+              -1.5
+            ],
+            [
+              49.2,
+              -0.5
+            ],
+            [
+              48.9,
+              0.5
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 49.34,
+          "lon": -0.6,
+          "name": [
+            "奥马哈滩",
+            "Omaha Beach"
+          ],
+          "side": "allies",
+          "kind": "naval"
+        },
+        {
+          "lat": 49.2,
+          "lon": -0.4,
+          "name": [
+            "卡昂",
+            "Caen"
+          ],
+          "side": "allies",
+          "kind": "urban"
+        },
+        {
+          "lat": 49.1,
+          "lon": 0.2,
+          "name": [
+            "法莱斯",
+            "Falaise"
+          ],
+          "side": "allies",
+          "kind": "land"
+        }
+      ],
+      "routes": [
+        {
+          "mode": "ship",
+          "side": "allies",
+          "label": [
+            "英吉利海峡",
+            "English Channel"
+          ],
+          "pts": [
+            [
+              51,
+              -1.4
+            ],
+            [
+              50.4,
+              -1
+            ],
+            [
+              49.6,
+              -0.7
+            ]
+          ]
+        }
+      ],
+      "end": {
+        "lat": 52.52,
+        "lon": 13.4,
+        "year": 1945,
+        "label": [
+          "柏林",
+          "Berlin"
+        ]
+      }
+    },
+    "battle-of-stalingrad": {
+      "mode": "war",
+      "zoom": 3.6,
+      "center": [
+        48.7,
+        44.5
+      ],
+      "sides": [
+        {
+          "key": "axis",
+          "name": [
+            "轴心国",
+            "Axis"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "DE",
+            "IT",
+            "JP",
+            "HU",
+            "RO",
+            "BG",
+            "FI",
+            "SK",
+            "HR"
+          ]
+        },
+        {
+          "key": "allies",
+          "name": [
+            "同盟国",
+            "Allies"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "GB",
+            "FR",
+            "US",
+            "RU",
+            "CN",
+            "CA",
+            "AU",
+            "NZ",
+            "IN",
+            "BR",
+            "ZA",
+            "SU"
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "side": "axis",
+          "label": [
+            "包围圈",
+            "Encirclement"
+          ],
+          "pts": [
+            [
+              49.2,
+              43.4
+            ],
+            [
+              48.9,
+              44.2
+            ],
+            [
+              48.5,
+              44.9
+            ],
+            [
+              48.2,
+              44.2
+            ],
+            [
+              48.5,
+              43.4
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 48.7,
+          "lon": 44.5,
+          "name": [
+            "斯大林格勒",
+            "Stalingrad"
+          ],
+          "side": "allies",
+          "kind": "urban"
+        },
+        {
+          "lat": 48.9,
+          "lon": 44,
+          "name": [
+            "拖拉机厂",
+            "Tractor Factory"
+          ],
+          "side": "axis",
+          "kind": "urban"
+        },
+        {
+          "lat": 48.4,
+          "lon": 44.8,
+          "name": [
+            "伏尔加河",
+            "Volga"
+          ],
+          "side": "allies",
+          "kind": "naval"
+        }
+      ],
+      "end": {
+        "lat": 52.52,
+        "lon": 13.4,
+        "year": 1945,
+        "label": [
+          "柏林",
+          "Berlin"
+        ]
+      }
+    },
+    "pearl-harbor": {
+      "mode": "war",
+      "zoom": 3.3,
+      "center": [
+        23,
+        -160
+      ],
+      "sides": [
+        {
+          "key": "axis",
+          "name": [
+            "轴心国",
+            "Axis"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "DE",
+            "IT",
+            "JP",
+            "HU",
+            "RO",
+            "BG",
+            "FI",
+            "SK",
+            "HR"
+          ]
+        },
+        {
+          "key": "allies",
+          "name": [
+            "同盟国",
+            "Allies"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "GB",
+            "FR",
+            "US",
+            "RU",
+            "CN",
+            "CA",
+            "AU",
+            "NZ",
+            "IN",
+            "BR",
+            "ZA",
+            "SU"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "ship",
+          "side": "axis",
+          "label": [
+            "日本机动舰队",
+            "Japanese fleet"
+          ],
+          "pts": [
+            [
+              35.68,
+              139.69
+            ],
+            [
+              30,
+              160
+            ],
+            [
+              24,
+              178
+            ]
+          ]
+        },
+        {
+          "mode": "ship",
+          "side": "axis",
+          "label": [
+            "偷袭航线",
+            "Strike route"
+          ],
+          "pts": [
+            [
+              22,
+              -178
+            ],
+            [
+              21.5,
+              -168
+            ],
+            [
+              21.4,
+              -158.2
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 21.35,
+          "lon": -157.95,
+          "name": [
+            "珍珠港",
+            "Pearl Harbor"
+          ],
+          "side": "axis",
+          "kind": "naval"
+        },
+        {
+          "lat": 21.45,
+          "lon": -157.9,
+          "name": [
+            "战列舰 row",
+            "Battleship Row"
+          ],
+          "side": "axis",
+          "kind": "air"
+        }
+      ],
+      "end": {
+        "lat": 35.3,
+        "lon": 139.75,
+        "year": 1945,
+        "label": [
+          "日本投降",
+          "Japan surrenders"
+        ]
+      }
+    },
+    "battle-of-britain": {
+      "mode": "war",
+      "zoom": 3.1,
+      "center": [
+        51.4,
+        0.6
+      ],
+      "sides": [
+        {
+          "key": "axis",
+          "name": [
+            "轴心国",
+            "Axis"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "DE",
+            "IT",
+            "JP",
+            "HU",
+            "RO",
+            "BG",
+            "FI",
+            "SK",
+            "HR"
+          ]
+        },
+        {
+          "key": "allies",
+          "name": [
+            "同盟国",
+            "Allies"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "GB",
+            "FR",
+            "US",
+            "RU",
+            "CN",
+            "CA",
+            "AU",
+            "NZ",
+            "IN",
+            "BR",
+            "ZA",
+            "SU"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "air",
+          "side": "axis",
+          "label": [
+            "德军空袭",
+            "Luftwaffe raids"
+          ],
+          "pts": [
+            [
+              49.5,
+              4
+            ],
+            [
+              50.3,
+              2
+            ],
+            [
+              51.2,
+              1
+            ],
+            [
+              51.5,
+              0.1
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 51.5,
+          "lon": -0.12,
+          "name": [
+            "伦敦",
+            "London"
+          ],
+          "side": "allies",
+          "kind": "air"
+        },
+        {
+          "lat": 51.15,
+          "lon": 1.35,
+          "name": [
+            "多佛",
+            "Dover"
+          ],
+          "side": "allies",
+          "kind": "air"
+        },
+        {
+          "lat": 50.9,
+          "lon": 0.5,
+          "name": [
+            "海峡",
+            "Channel"
+          ],
+          "side": "allies",
+          "kind": "air"
+        }
+      ],
+      "end": {
+        "lat": 51.5,
+        "lon": -0.12,
+        "year": 1941,
+        "label": [
+          "不列颠坚持",
+          "Britain holds"
+        ]
+      }
+    },
+    "hiroshima": {
+      "mode": "atomic",
+      "zoom": 4.3,
+      "center": [
+        34.39,
+        132.45
+      ],
+      "sides": [
+        {
+          "key": "us",
+          "name": [
+            "美国",
+            "United States"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "US"
+          ]
+        },
+        {
+          "key": "jp",
+          "name": [
+            "日本",
+            "Japan"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "JP"
+          ]
+        }
+      ],
+      "atomic": {
+        "lat": 34.39,
+        "lon": 132.45,
+        "city": [
+          "广岛",
+          "Hiroshima"
+        ],
+        "date": "1945.8.6"
+      },
+      "end": {
+        "lat": 35.3,
+        "lon": 139.75,
+        "year": 1945,
+        "label": [
+          "日本投降",
+          "Japan surrenders"
+        ]
+      }
+    },
+    "battle-of-gaugamela": {
+      "mode": "war",
+      "zoom": 3.8,
+      "center": [
+        36.56,
+        43.44
+      ],
+      "sides": [
+        {
+          "key": "macedon",
+          "name": [
+            "马其顿",
+            "Macedon"
+          ],
+          "color": "#a8543a",
+          "members": []
+        },
+        {
+          "key": "persia",
+          "name": [
+            "波斯",
+            "Persia"
+          ],
+          "color": "#7a6a9a",
+          "members": [
+            "IR"
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "side": "persia",
+          "label": [
+            "波斯战线",
+            "Persian line"
+          ],
+          "pts": [
+            [
+              36.9,
+              42.8
+            ],
+            [
+              36.6,
+              43.4
+            ],
+            [
+              36.2,
+              44
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 36.56,
+          "lon": 43.44,
+          "name": [
+            "高加米拉",
+            "Gaugamela"
+          ],
+          "side": "macedon",
+          "kind": "cavalry"
+        },
+        {
+          "lat": 36.3,
+          "lon": 43.2,
+          "name": [
+            "波斯营地",
+            "Persian camp"
+          ],
+          "side": "persia",
+          "kind": "camp"
+        }
+      ],
+      "end": {
+        "lat": 32.54,
+        "lon": 44.42,
+        "year": -330,
+        "label": [
+          "巴比伦",
+          "Babylon"
+        ]
+      }
+    },
+    "the-punic-wars": {
+      "mode": "war",
+      "zoom": 2.6,
+      "center": [
+        38,
+        13
+      ],
+      "sides": [
+        {
+          "key": "rome",
+          "name": [
+            "罗马",
+            "Rome"
+          ],
+          "color": "#a8543a",
+          "members": [
+            "IT"
+          ]
+        },
+        {
+          "key": "carthage",
+          "name": [
+            "迦太基",
+            "Carthage"
+          ],
+          "color": "#7a6a9a",
+          "members": [
+            "TN"
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "side": "rome",
+          "label": [
+            "西西里",
+            "Sicily"
+          ],
+          "pts": [
+            [
+              38.2,
+              13.5
+            ],
+            [
+              37.5,
+              14.5
+            ],
+            [
+              36.8,
+              15.2
+            ]
+          ]
+        },
+        {
+          "side": "carthage",
+          "label": [
+            "北非",
+            "North Africa"
+          ],
+          "pts": [
+            [
+              37,
+              10
+            ],
+            [
+              36.5,
+              9
+            ],
+            [
+              36.1,
+              8.7
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 37.5,
+          "lon": 12.5,
+          "name": [
+            "西西里海战",
+            "Sicily"
+          ],
+          "side": "rome",
+          "kind": "naval"
+        },
+        {
+          "lat": 36.1,
+          "lon": 8.7,
+          "name": [
+            "扎马",
+            "Zama"
+          ],
+          "side": "rome",
+          "kind": "cavalry"
+        }
+      ],
+      "end": {
+        "lat": 36.85,
+        "lon": 10.32,
+        "year": -146,
+        "label": [
+          "迦太基陷落",
+          "Carthage falls"
+        ]
+      }
+    },
+    "genghis-khan": {
+      "mode": "war",
+      "zoom": 1.55,
+      "center": [
+        45,
+        80
+      ],
+      "sides": [
+        {
+          "key": "mongol",
+          "name": [
+            "蒙古",
+            "Mongols"
+          ],
+          "color": "#9a7a45",
+          "members": [
+            "MN"
+          ]
+        },
+        {
+          "key": "others",
+          "name": [
+            "诸国",
+            "Rival states"
+          ],
+          "color": "#5f7a83",
+          "members": []
+        }
+      ],
+      "fronts": [
+        {
+          "side": "mongol",
+          "label": [
+            "西征",
+            "Western campaign"
+          ],
+          "pts": [
+            [
+              47.2,
+              102.8
+            ],
+            [
+              45,
+              80
+            ],
+            [
+              42,
+              60
+            ],
+            [
+              38,
+              45
+            ],
+            [
+              33,
+              36
+            ]
+          ]
+        },
+        {
+          "side": "mongol",
+          "label": [
+            "南下",
+            "Southern campaign"
+          ],
+          "pts": [
+            [
+              47.2,
+              102.8
+            ],
+            [
+              40,
+              110
+            ],
+            [
+              35,
+              112
+            ],
+            [
+              30,
+              115
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 47.2,
+          "lon": 102.8,
+          "name": [
+            "哈拉和林",
+            "Karakorum"
+          ],
+          "side": "mongol",
+          "kind": "cavalry"
+        },
+        {
+          "lat": 33.31,
+          "lon": 44.36,
+          "name": [
+            "巴格达",
+            "Baghdad"
+          ],
+          "side": "mongol",
+          "kind": "urban"
+        },
+        {
+          "lat": 50.45,
+          "lon": 30.52,
+          "name": [
+            "基辅",
+            "Kyiv"
+          ],
+          "side": "mongol",
+          "kind": "urban"
+        }
+      ],
+      "end": {
+        "lat": 39.9,
+        "lon": 116.4,
+        "year": 1279,
+        "label": [
+          "元朝",
+          "Yuan"
+        ]
+      }
+    },
+    "first-crusade": {
+      "mode": "war",
+      "zoom": 2.8,
+      "center": [
+        37,
+        28
+      ],
+      "sides": [
+        {
+          "key": "crusade",
+          "name": [
+            "十字军",
+            "Crusaders"
+          ],
+          "color": "#a8543a",
+          "members": [
+            "FR",
+            "DE",
+            "IT",
+            "GB"
+          ]
+        },
+        {
+          "key": "seljuk",
+          "name": [
+            "塞尔柱",
+            "Seljuks"
+          ],
+          "color": "#5f7a83",
+          "members": [
+            "TR",
+            "SY"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "march",
+          "side": "crusade",
+          "label": [
+            "远征路线",
+            "Crusader route"
+          ],
+          "pts": [
+            [
+              48.86,
+              2.35
+            ],
+            [
+              45,
+              12
+            ],
+            [
+              41.01,
+              28.98
+            ],
+            [
+              37,
+              34
+            ],
+            [
+              31.78,
+              35.23
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 40.24,
+          "lon": 26.28,
+          "name": [
+            "尼西亚",
+            "Nicaea"
+          ],
+          "side": "crusade",
+          "kind": "siege"
+        },
+        {
+          "lat": 31.78,
+          "lon": 35.23,
+          "name": [
+            "耶路撒冷",
+            "Jerusalem"
+          ],
+          "side": "crusade",
+          "kind": "urban"
+        }
+      ],
+      "end": {
+        "lat": 31.78,
+        "lon": 35.23,
+        "year": 1099,
+        "label": [
+          "圣城",
+          "Holy City"
+        ]
+      }
+    },
+    "french-revolution": {
+      "mode": "civic",
+      "zoom": 4.2,
+      "center": [
+        48.86,
+        2.35
+      ],
+      "sides": [
+        {
+          "key": "people",
+          "name": [
+            "革命群众",
+            "Revolutionaries"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "FR"
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 48.86,
+          "lon": 2.35,
+          "name": [
+            "巴黎",
+            "Paris"
+          ],
+          "side": "people",
+          "kind": "crowd"
+        }
+      ]
+    },
+    "gandhis-salt-march": {
+      "mode": "march",
+      "zoom": 3.9,
+      "center": [
+        21.5,
+        73.5
+      ],
+      "sides": [
+        {
+          "key": "march",
+          "name": [
+            "非暴力不合作",
+            "Nonviolent march"
+          ],
+          "color": "#b98a34",
+          "members": [
+            "IN"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "march",
+          "side": "march",
+          "label": [
+            "食盐进军",
+            "Salt March"
+          ],
+          "pts": [
+            [
+              21.45,
+              73
+            ],
+            [
+              21.25,
+              72.9
+            ],
+            [
+              21,
+              72.8
+            ],
+            [
+              20.9,
+              72.75
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 20.9,
+          "lon": 72.75,
+          "name": [
+            "丹迪",
+            "Dandi"
+          ],
+          "side": "march",
+          "kind": "crowd"
+        }
+      ]
+    },
+    "the-long-march": {
+      "mode": "march",
+      "zoom": 2.4,
+      "center": [
+        30,
+        106
+      ],
+      "sides": [
+        {
+          "key": "red",
+          "name": [
+            "红军",
+            "Red Army"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "CN"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "march",
+          "side": "red",
+          "label": [
+            "长征路线",
+            "Long March"
+          ],
+          "pts": [
+            [
+              27.7,
+              106.9
+            ],
+            [
+              26.6,
+              106.7
+            ],
+            [
+              30.7,
+              104.1
+            ],
+            [
+              36.1,
+              103.8
+            ],
+            [
+              36.6,
+              109.5
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 36.6,
+          "lon": 109.5,
+          "name": [
+            "延安",
+            "Yan'an"
+          ],
+          "side": "red",
+          "kind": "camp"
+        }
+      ]
+    },
+    "zheng-hes-voyages": {
+      "mode": "trade",
+      "zoom": 1.6,
+      "center": [
+        8,
+        80
+      ],
+      "sides": [
+        {
+          "key": "ming",
+          "name": [
+            "明朝舰队",
+            "Ming fleet"
+          ],
+          "color": "#a8543a",
+          "members": [
+            "CN"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "ship",
+          "side": "ming",
+          "label": [
+            "宝船航线",
+            "Treasure fleet"
+          ],
+          "pts": [
+            [
+              32.06,
+              118.8
+            ],
+            [
+              22.3,
+              114.2
+            ],
+            [
+              2.2,
+              102.2
+            ],
+            [
+              6.93,
+              79.85
+            ],
+            [
+              11.25,
+              75.78
+            ],
+            [
+              -6.16,
+              39.2
+            ],
+            [
+              12.8,
+              45
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 11.25,
+          "lon": 75.78,
+          "name": [
+            "古里",
+            "Calicut"
+          ],
+          "side": "ming",
+          "kind": "port"
+        }
+      ]
+    },
+    "the-silk-road": {
+      "mode": "trade",
+      "zoom": 1.8,
+      "center": [
+        40,
+        60
+      ],
+      "sides": [
+        {
+          "key": "trade",
+          "name": [
+            "丝绸之路",
+            "Silk Road"
+          ],
+          "color": "#b98a34",
+          "members": [
+            "CN",
+            "UZ",
+            "KZ",
+            "IR",
+            "IQ",
+            "TR",
+            "IT"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "camel",
+          "label": [
+            "陆上丝路",
+            "Overland Silk Road"
+          ],
+          "pts": [
+            [
+              34.27,
+              108.95
+            ],
+            [
+              40.14,
+              94.66
+            ],
+            [
+              42,
+              80
+            ],
+            [
+              39.65,
+              66.96
+            ],
+            [
+              35,
+              51
+            ],
+            [
+              33.31,
+              44.36
+            ],
+            [
+              41.01,
+              28.98
+            ],
+            [
+              41.9,
+              12.5
+            ]
+          ]
+        },
+        {
+          "mode": "ship",
+          "label": [
+            "海上丝路",
+            "Maritime Silk Road"
+          ],
+          "pts": [
+            [
+              23.13,
+              113.26
+            ],
+            [
+              2.2,
+              102.2
+            ],
+            [
+              6.93,
+              79.85
+            ],
+            [
+              12.8,
+              45
+            ],
+            [
+              30.6,
+              32.3
+            ],
+            [
+              41.9,
+              12.5
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 40.14,
+          "lon": 94.66,
+          "name": [
+            "敦煌",
+            "Dunhuang"
+          ],
+          "side": "trade",
+          "kind": "port"
+        }
+      ]
+    },
+    "manila-galleon-trade": {
+      "mode": "trade",
+      "zoom": 1.45,
+      "center": [
+        8,
+        -165
+      ],
+      "sides": [
+        {
+          "key": "galleon",
+          "name": [
+            "马尼拉大帆船",
+            "Manila galleon"
+          ],
+          "color": "#b98a34",
+          "members": [
+            "PH",
+            "MX",
+            "CN"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "ship",
+          "label": [
+            "马尼拉—太平洋",
+            "Manila–Pacific"
+          ],
+          "pts": [
+            [
+              14.6,
+              120.98
+            ],
+            [
+              19,
+              150
+            ],
+            [
+              24,
+              178
+            ]
+          ]
+        },
+        {
+          "mode": "ship",
+          "label": [
+            "太平洋—阿卡普尔科",
+            "Pacific–Acapulco"
+          ],
+          "pts": [
+            [
+              24,
+              -178
+            ],
+            [
+              29,
+              -155
+            ],
+            [
+              23,
+              -130
+            ],
+            [
+              16.75,
+              -99.9
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 14.6,
+          "lon": 120.98,
+          "name": [
+            "马尼拉",
+            "Manila"
+          ],
+          "side": "galleon",
+          "kind": "port"
+        }
+      ]
+    },
+    "the-atlantic-slave-trade": {
+      "mode": "trade",
+      "zoom": 1.7,
+      "center": [
+        12,
+        -30
+      ],
+      "sides": [
+        {
+          "key": "trade",
+          "name": [
+            "大西洋贸易",
+            "Atlantic trade"
+          ],
+          "color": "#8a5a45",
+          "members": [
+            "GB",
+            "FR",
+            "PT",
+            "BJ",
+            "US",
+            "BR"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "ship",
+          "label": [
+            "三角贸易",
+            "Triangular trade"
+          ],
+          "pts": [
+            [
+              53.4,
+              -3
+            ],
+            [
+              38.7,
+              -9.14
+            ],
+            [
+              6.36,
+              2.09
+            ],
+            [
+              6.3,
+              -10.8
+            ],
+            [
+              13,
+              -59.5
+            ],
+            [
+              32.3,
+              -64.8
+            ],
+            [
+              38,
+              -76
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 6.36,
+          "lon": 2.09,
+          "name": [
+            "维达",
+            "Ouidah"
+          ],
+          "side": "trade",
+          "kind": "port"
+        }
+      ]
+    },
+    "the-spanish-armada": {
+      "mode": "war",
+      "zoom": 2.3,
+      "center": [
+        49,
+        -4
+      ],
+      "sides": [
+        {
+          "key": "spain",
+          "name": [
+            "西班牙",
+            "Spain"
+          ],
+          "color": "#a8543a",
+          "members": [
+            "ES"
+          ]
+        },
+        {
+          "key": "england",
+          "name": [
+            "英格兰",
+            "England"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "GB"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "ship",
+          "side": "spain",
+          "label": [
+            "无敌舰队",
+            "Armada route"
+          ],
+          "pts": [
+            [
+              43.4,
+              -8.4
+            ],
+            [
+              48.5,
+              -5.5
+            ],
+            [
+              50.2,
+              -3.5
+            ],
+            [
+              51.5,
+              -1.5
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 50.2,
+          "lon": -3.5,
+          "name": [
+            "英吉利海峡",
+            "English Channel"
+          ],
+          "side": "england",
+          "kind": "naval"
+        }
+      ],
+      "end": {
+        "lat": 53.5,
+        "lon": -8,
+        "year": 1588,
+        "label": [
+          "舰队覆灭",
+          "Armada broken"
+        ]
+      }
+    },
+    "battle-of-waterloo": {
+      "mode": "war",
+      "zoom": 4.4,
+      "center": [
+        50.68,
+        4.41
+      ],
+      "sides": [
+        {
+          "key": "france",
+          "name": [
+            "法国",
+            "France"
+          ],
+          "color": "#a8543a",
+          "members": [
+            "FR"
+          ]
+        },
+        {
+          "key": "allies",
+          "name": [
+            "反法联军",
+            "Coalition"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "GB",
+            "NL",
+            "DE"
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 50.68,
+          "lon": 4.41,
+          "name": [
+            "滑铁卢",
+            "Waterloo"
+          ],
+          "side": "allies",
+          "kind": "artillery"
+        }
+      ]
+    },
+    "september-11-attacks": {
+      "mode": "disaster",
+      "zoom": 4.2,
+      "center": [
+        40.71,
+        -74
+      ],
+      "sides": [
+        {
+          "key": "city",
+          "name": [
+            "纽约",
+            "New York"
+          ],
+          "color": "#8a3630",
+          "members": [
+            "US"
+          ]
+        }
+      ],
+      "disaster": {
+        "lat": 40.71,
+        "lon": -74,
+        "label": [
+          "纽约",
+          "New York"
+        ]
+      }
+    },
+    "covid-19-pandemic": {
+      "mode": "disaster",
+      "zoom": 1.5,
+      "center": [
+        20,
+        50
+      ],
+      "sides": [
+        {
+          "key": "world",
+          "name": [
+            "全球传播",
+            "Global spread"
+          ],
+          "color": "#8a3630",
+          "members": []
+        }
+      ],
+      "disaster": {
+        "lat": 30.59,
+        "lon": 114.3,
+        "label": [
+          "武汉",
+          "Wuhan"
+        ]
+      },
+      "battles": [
+        {
+          "lat": 30.59,
+          "lon": 114.3,
+          "name": [
+            "武汉",
+            "Wuhan"
+          ],
+          "side": "world",
+          "kind": "outbreak"
+        },
+        {
+          "lat": 45.46,
+          "lon": 9.19,
+          "name": [
+            "米兰",
+            "Milan"
+          ],
+          "side": "world",
+          "kind": "outbreak"
+        },
+        {
+          "lat": 40.71,
+          "lon": -74,
+          "name": [
+            "纽约",
+            "New York"
+          ],
+          "side": "world",
+          "kind": "outbreak"
+        },
+        {
+          "lat": -23.55,
+          "lon": -46.63,
+          "name": [
+            "圣保罗",
+            "São Paulo"
+          ],
+          "side": "world",
+          "kind": "outbreak"
+        },
+        {
+          "lat": 28.61,
+          "lon": 77.21,
+          "name": [
+            "德里",
+            "Delhi"
+          ],
+          "side": "world",
+          "kind": "outbreak"
+        },
+        {
+          "lat": -1.29,
+          "lon": 36.82,
+          "name": [
+            "内罗毕",
+            "Nairobi"
+          ],
+          "side": "world",
+          "kind": "outbreak"
+        }
+      ]
+    },
+    "russias-full-scale-invasion-of-ukraine": {
+      "mode": "war",
+      "zoom": 3.2,
+      "center": [
+        49,
+        33
+      ],
+      "sides": [
+        {
+          "key": "russia",
+          "name": [
+            "俄罗斯",
+            "Russia"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "RU"
+          ]
+        },
+        {
+          "key": "ukraine",
+          "name": [
+            "乌克兰",
+            "Ukraine"
+          ],
+          "color": "#4a6d9c",
+          "members": [
+            "UA"
+          ]
+        }
+      ],
+      "fronts": [
+        {
+          "side": "russia",
+          "label": [
+            "前线",
+            "Front line"
+          ],
+          "pts": [
+            [
+              50.5,
+              36.2
+            ],
+            [
+              49.5,
+              37
+            ],
+            [
+              48.5,
+              37.5
+            ],
+            [
+              47.5,
+              37
+            ],
+            [
+              46.5,
+              33.5
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 50.45,
+          "lon": 30.52,
+          "name": [
+            "基辅",
+            "Kyiv"
+          ],
+          "side": "ukraine",
+          "kind": "urban"
+        },
+        {
+          "lat": 49.99,
+          "lon": 36.23,
+          "name": [
+            "哈尔科夫",
+            "Kharkiv"
+          ],
+          "side": "ukraine",
+          "kind": "artillery"
+        },
+        {
+          "lat": 47.1,
+          "lon": 37.55,
+          "name": [
+            "马里乌波尔",
+            "Mariupol"
+          ],
+          "side": "russia",
+          "kind": "urban"
+        }
+      ],
+      "routes": [
+        {
+          "mode": "march",
+          "side": "ukraine",
+          "label": [
+            "难民潮",
+            "Refugee route"
+          ],
+          "pts": [
+            [
+              50.45,
+              30.52
+            ],
+            [
+              49.8,
+              24
+            ],
+            [
+              52.2,
+              21
+            ]
+          ]
+        }
+      ]
+    },
+    "belt-and-road-initiative": {
+      "mode": "trade",
+      "zoom": 1.55,
+      "center": [
+        30,
+        65
+      ],
+      "sides": [
+        {
+          "key": "bri",
+          "name": [
+            "一带一路",
+            "Belt and Road"
+          ],
+          "color": "#b98a34",
+          "members": [
+            "CN",
+            "KZ",
+            "IR",
+            "TR",
+            "KE",
+            "ID",
+            "PK"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "camel",
+          "label": [
+            "陆上通道",
+            "Land corridor"
+          ],
+          "pts": [
+            [
+              39.9,
+              116.4
+            ],
+            [
+              43.24,
+              76.9
+            ],
+            [
+              35.69,
+              51.39
+            ],
+            [
+              41.01,
+              28.98
+            ],
+            [
+              41.9,
+              12.5
+            ]
+          ]
+        },
+        {
+          "mode": "ship",
+          "label": [
+            "海上通道",
+            "Maritime corridor"
+          ],
+          "pts": [
+            [
+              22.3,
+              114.2
+            ],
+            [
+              1.35,
+              103.82
+            ],
+            [
+              6.93,
+              79.85
+            ],
+            [
+              12.8,
+              45
+            ],
+            [
+              -1.29,
+              36.82
+            ]
+          ]
+        }
+      ]
+    },
+    "indian-ocean-tsunami": {
+      "mode": "disaster",
+      "zoom": 2.1,
+      "center": [
+        5,
+        92
+      ],
+      "sides": [
+        {
+          "key": "sea",
+          "name": [
+            "印度洋海啸",
+            "Indian Ocean tsunami"
+          ],
+          "color": "#3f6278",
+          "members": []
+        }
+      ],
+      "disaster": {
+        "lat": 5.55,
+        "lon": 95.32,
+        "label": [
+          "苏门答腊",
+          "Sumatra"
+        ]
+      },
+      "battles": [
+        {
+          "lat": 5.55,
+          "lon": 95.32,
+          "name": [
+            "亚齐",
+            "Aceh"
+          ],
+          "side": "sea",
+          "kind": "wave"
+        },
+        {
+          "lat": 13.75,
+          "lon": 100.5,
+          "name": [
+            "泰国",
+            "Thailand"
+          ],
+          "side": "sea",
+          "kind": "wave"
+        },
+        {
+          "lat": 6.93,
+          "lon": 79.85,
+          "name": [
+            "斯里兰卡",
+            "Sri Lanka"
+          ],
+          "side": "sea",
+          "kind": "wave"
+        },
+        {
+          "lat": 1.35,
+          "lon": 103.82,
+          "name": [
+            "新加坡",
+            "Singapore"
+          ],
+          "side": "sea",
+          "kind": "wave"
+        }
+      ]
+    },
+    "fukushima-disaster": {
+      "mode": "disaster",
+      "zoom": 3.8,
+      "center": [
+        37.42,
+        141.03
+      ],
+      "sides": [
+        {
+          "key": "jp",
+          "name": [
+            "日本",
+            "Japan"
+          ],
+          "color": "#8a3630",
+          "members": [
+            "JP"
+          ]
+        }
+      ],
+      "disaster": {
+        "lat": 37.42,
+        "lon": 141.03,
+        "label": [
+          "福岛",
+          "Fukushima"
+        ]
+      }
+    },
+    "tonga-eruption": {
+      "mode": "disaster",
+      "zoom": 3.3,
+      "center": [
+        -20.55,
+        -175.39
+      ],
+      "sides": [
+        {
+          "key": "to",
+          "name": [
+            "汤加",
+            "Tonga"
+          ],
+          "color": "#8a3630",
+          "members": [
+            "TO"
+          ]
+        }
+      ],
+      "disaster": {
+        "lat": -20.55,
+        "lon": -175.39,
+        "label": [
+          "洪阿汤加",
+          "Hunga Tonga"
+        ]
+      }
+    },
+    "xuanzangs-journey-to-the-west": {
+      "mode": "pilgrim",
+      "zoom": 1.65,
+      "center": [
+        35,
+        80
+      ],
+      "sides": [
+        {
+          "key": "pilgrim",
+          "name": [
+            "求法者",
+            "Pilgrim"
+          ],
+          "color": "#b98a34",
+          "members": [
+            "CN",
+            "IN"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "mode": "pilgrim",
+          "label": [
+            "玄奘西行",
+            "Xuanzang's route"
+          ],
+          "pts": [
+            [
+              34.27,
+              108.95
+            ],
+            [
+              40.14,
+              94.66
+            ],
+            [
+              42.95,
+              89.19
+            ],
+            [
+              39.65,
+              66.96
+            ],
+            [
+              36.75,
+              69.17
+            ],
+            [
+              34.5,
+              69.2
+            ],
+            [
+              31.6,
+              74.3
+            ],
+            [
+              28.6,
+              77.2
+            ],
+            [
+              25.14,
+              85.44
+            ],
+            [
+              27.48,
+              83.28
+            ]
+          ]
+        }
+      ],
+      "battles": [
+        {
+          "lat": 34.27,
+          "lon": 108.95,
+          "name": [
+            "长安",
+            "Chang'an"
+          ],
+          "side": "pilgrim",
+          "kind": "camp"
+        },
+        {
+          "lat": 25.14,
+          "lon": 85.44,
+          "name": [
+            "那烂陀",
+            "Nalanda"
+          ],
+          "side": "pilgrim",
+          "kind": "camp"
+        }
+      ]
+    },
+    "nagasaki": {
+      "mode": "atomic",
+      "zoom": 4.3,
+      "center": [
+        32.75,
+        129.88
+      ],
+      "sides": [
+        {
+          "key": "us",
+          "name": [
+            "美国",
+            "United States"
+          ],
+          "color": "#3f6278",
+          "members": [
+            "US"
+          ]
+        },
+        {
+          "key": "jp",
+          "name": [
+            "日本",
+            "Japan"
+          ],
+          "color": "#a83e2c",
+          "members": [
+            "JP"
+          ]
+        }
+      ],
+      "atomic": {
+        "lat": 32.75,
+        "lon": 129.88,
+        "city": [
+          "长崎",
+          "Nagasaki"
+        ],
+        "date": "1945.8.9"
+      },
+      "end": {
+        "lat": 35.3,
+        "lon": 139.75,
+        "year": 1945,
+        "label": [
+          "日本投降",
+          "Japan surrenders"
+        ]
+      }
+    }
+  },
+  "tradeRoutes": [
+    {
+      "id": "silk-road",
+      "mode": "camel",
+      "name": [
+        "丝绸之路",
+        "Silk Road"
+      ],
+      "era": [
+        -200,
+        1500
+      ],
+      "countries": [
+        "CN",
+        "UZ",
+        "KZ",
+        "KG",
+        "TJ",
+        "IR",
+        "IQ",
+        "TR",
+        "IT"
+      ],
+      "pts": [
+        [
+          34.27,
+          108.95
+        ],
+        [
+          40.14,
+          94.66
+        ],
+        [
+          42,
+          80
+        ],
+        [
+          39.65,
+          66.96
+        ],
+        [
+          35,
+          51
+        ],
+        [
+          33.31,
+          44.36
+        ],
+        [
+          41.01,
+          28.98
+        ],
+        [
+          41.9,
+          12.5
+        ]
+      ]
+    },
+    {
+      "id": "maritime-silk-road",
+      "mode": "ship",
+      "name": [
+        "海上丝绸之路",
+        "Maritime Silk Road"
+      ],
+      "era": [
+        -200,
+        1600
+      ],
+      "countries": [
+        "CN",
+        "VN",
+        "MY",
+        "ID",
+        "IN",
+        "LK",
+        "IR",
+        "EG",
+        "IT"
+      ],
+      "pts": [
+        [
+          23.13,
+          113.26
+        ],
+        [
+          16.05,
+          108.2
+        ],
+        [
+          1.35,
+          103.82
+        ],
+        [
+          2.2,
+          102.2
+        ],
+        [
+          6.93,
+          79.85
+        ],
+        [
+          11.25,
+          75.78
+        ],
+        [
+          12.8,
+          45
+        ],
+        [
+          30.6,
+          32.3
+        ],
+        [
+          41.9,
+          12.5
+        ]
+      ]
+    },
+    {
+      "id": "trans-saharan",
+      "mode": "camel",
+      "name": [
+        "跨撒哈拉商路",
+        "Trans-Saharan route"
+      ],
+      "era": [
+        700,
+        1600
+      ],
+      "countries": [
+        "ML",
+        "MR",
+        "DZ",
+        "TN",
+        "MA",
+        "NE",
+        "LY"
+      ],
+      "pts": [
+        [
+          16.77,
+          -3
+        ],
+        [
+          20.46,
+          -12.36
+        ],
+        [
+          31.63,
+          -7.99
+        ],
+        [
+          36.8,
+          10.18
+        ],
+        [
+          32.89,
+          13.19
+        ]
+      ]
+    },
+    {
+      "id": "indian-ocean",
+      "mode": "ship",
+      "name": [
+        "印度洋季风贸易",
+        "Indian Ocean monsoon trade"
+      ],
+      "era": [
+        100,
+        1800
+      ],
+      "countries": [
+        "KE",
+        "TZ",
+        "SO",
+        "YE",
+        "SA",
+        "OM",
+        "IN",
+        "LK",
+        "ID",
+        "MY"
+      ],
+      "pts": [
+        [
+          -4.05,
+          39.68
+        ],
+        [
+          -8.96,
+          39.52
+        ],
+        [
+          11.59,
+          43.15
+        ],
+        [
+          12.8,
+          45
+        ],
+        [
+          23.59,
+          58.41
+        ],
+        [
+          11.25,
+          75.78
+        ],
+        [
+          6.93,
+          79.85
+        ],
+        [
+          1.35,
+          103.82
+        ]
+      ]
+    },
+    {
+      "id": "manila-galleon-w",
+      "mode": "ship",
+      "name": [
+        "马尼拉大帆船",
+        "Manila galleon"
+      ],
+      "era": [
+        1565,
+        1815
+      ],
+      "countries": [
+        "PH",
+        "MX",
+        "CN",
+        "US"
+      ],
+      "pts": [
+        [
+          14.6,
+          120.98
+        ],
+        [
+          19,
+          150
+        ],
+        [
+          24,
+          178
+        ]
+      ]
+    },
+    {
+      "id": "manila-galleon-e",
+      "mode": "ship",
+      "name": [
+        "马尼拉大帆船",
+        "Manila galleon"
+      ],
+      "era": [
+        1565,
+        1815
+      ],
+      "countries": [
+        "PH",
+        "MX",
+        "CN",
+        "US"
+      ],
+      "pts": [
+        [
+          24,
+          -178
+        ],
+        [
+          29,
+          -155
+        ],
+        [
+          23,
+          -130
+        ],
+        [
+          16.75,
+          -99.9
+        ]
+      ]
+    },
+    {
+      "id": "atlantic-triangle",
+      "mode": "ship",
+      "name": [
+        "大西洋三角贸易",
+        "Atlantic triangular trade"
+      ],
+      "era": [
+        1500,
+        1900
+      ],
+      "countries": [
+        "GB",
+        "PT",
+        "FR",
+        "BJ",
+        "GH",
+        "US",
+        "BR",
+        "JM",
+        "CU"
+      ],
+      "pts": [
+        [
+          53.4,
+          -3
+        ],
+        [
+          38.7,
+          -9.14
+        ],
+        [
+          6.36,
+          2.09
+        ],
+        [
+          6.3,
+          -10.8
+        ],
+        [
+          13,
+          -59.5
+        ],
+        [
+          32.3,
+          -64.8
+        ],
+        [
+          38,
+          -76
+        ]
+      ]
+    },
+    {
+      "id": "hanseatic",
+      "mode": "ship",
+      "name": [
+        "汉萨同盟",
+        "Hanseatic League"
+      ],
+      "era": [
+        1200,
+        1600
+      ],
+      "countries": [
+        "DE",
+        "NL",
+        "BE",
+        "NO",
+        "SE",
+        "PL",
+        "LV",
+        "EE",
+        "GB"
+      ],
+      "pts": [
+        [
+          60.39,
+          5.32
+        ],
+        [
+          55.68,
+          12.57
+        ],
+        [
+          54.32,
+          10.14
+        ],
+        [
+          53.87,
+          10.69
+        ],
+        [
+          51.21,
+          3.22
+        ],
+        [
+          51.5,
+          -0.12
+        ]
+      ]
+    },
+    {
+      "id": "spice-route",
+      "mode": "ship",
+      "name": [
+        "香料航线",
+        "Spice route"
+      ],
+      "era": [
+        1400,
+        1800
+      ],
+      "countries": [
+        "ID",
+        "MY",
+        "IN",
+        "PT",
+        "NL",
+        "GB"
+      ],
+      "pts": [
+        [
+          -4.5,
+          129.9
+        ],
+        [
+          1.35,
+          103.82
+        ],
+        [
+          6.93,
+          79.85
+        ],
+        [
+          38.7,
+          -9.14
+        ],
+        [
+          51.9,
+          4.1
+        ]
+      ]
+    },
+    {
+      "id": "belt-road",
+      "mode": "camel",
+      "name": [
+        "一带一路",
+        "Belt and Road"
+      ],
+      "era": [
+        2013,
+        2026
+      ],
+      "countries": [
+        "CN",
+        "KZ",
+        "IR",
+        "TR",
+        "KE",
+        "PK",
+        "ID",
+        "IT"
+      ],
+      "pts": [
+        [
+          39.9,
+          116.4
+        ],
+        [
+          43.24,
+          76.9
+        ],
+        [
+          35.69,
+          51.39
+        ],
+        [
+          41.01,
+          28.98
+        ],
+        [
+          41.9,
+          12.5
+        ]
+      ]
+    },
+    {
+      "id": "pacific-trade-w",
+      "mode": "ship",
+      "name": [
+        "太平洋贸易",
+        "Pacific trade"
+      ],
+      "era": [
+        1850,
+        2026
+      ],
+      "countries": [
+        "JP",
+        "US",
+        "CN",
+        "KR",
+        "AU",
+        "CA",
+        "MX"
+      ],
+      "pts": [
+        [
+          35.68,
+          139.69
+        ],
+        [
+          40,
+          165
+        ],
+        [
+          45,
+          179
+        ]
+      ]
+    },
+    {
+      "id": "pacific-trade-e",
+      "mode": "ship",
+      "name": [
+        "太平洋贸易",
+        "Pacific trade"
+      ],
+      "era": [
+        1850,
+        2026
+      ],
+      "countries": [
+        "JP",
+        "US",
+        "CN",
+        "KR",
+        "AU",
+        "CA",
+        "MX"
+      ],
+      "pts": [
+        [
+          45,
+          -179
+        ],
+        [
+          40,
+          -150
+        ],
+        [
+          37.77,
+          -122.42
+        ],
+        [
+          21.3,
+          -157.8
+        ]
+      ]
+    }
+  ]
+}

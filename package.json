@@ -1,0 +1,20 @@
+{
+  "name": "world-chronicle",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "寰宇时序 · World Chronicle — a static, map-anchored atlas of world history.",
+  "scripts": {
+    "build": "node scripts/build-data.mjs",
+    "build:all": "npm run build:states && npm run build:coverage && npm run build:data && npm run build:chronicles",
+    "build:states": "python3 scripts/build-state-changes.py",
+    "build:coverage": "python3 scripts/build-coverage-events.py",
+    "build:chronicles": "python3 scripts/build-chronicles.py",
+    "build:historical": "python3 scripts/build-historical.py",
+    "build:world": "python3 scripts/build-world-50m.py",
+    "validate": "node scripts/validate-data.mjs",
+    "serve": "python3 -m http.server 8000",
+    "build:world-i18n": "python3 scripts/enrich-world-i18n.py",
+    "translate": "python3 scripts/translate-events.py"
+  }
+}

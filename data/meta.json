@@ -1,0 +1,361 @@
+{
+  "meta": {
+    "title": {
+      "zh": "寰宇时序",
+      "en": "Chronicles of the World"
+    },
+    "subtitle": {
+      "zh": "从猛犸猎场到人工智能 · 一万四千年的全球文明地图",
+      "en": "From mammoth hunts to artificial intelligence · 14,000 years of world history"
+    },
+    "span": {
+      "from": -12000,
+      "to": 2026
+    }
+  },
+  "regions": {
+    "af": {
+      "zh": "非洲",
+      "en": "Africa",
+      "color": "#b07a3a"
+    },
+    "me": {
+      "zh": "西亚·中东",
+      "en": "Middle East",
+      "color": "#b08a3a"
+    },
+    "eu": {
+      "zh": "欧洲",
+      "en": "Europe",
+      "color": "#5b7191"
+    },
+    "sa": {
+      "zh": "南亚",
+      "en": "South Asia",
+      "color": "#9a6a45"
+    },
+    "ea": {
+      "zh": "东亚",
+      "en": "East Asia",
+      "color": "#a8543a"
+    },
+    "sea": {
+      "zh": "东南亚",
+      "en": "Southeast Asia",
+      "color": "#4f7f74"
+    },
+    "ca": {
+      "zh": "中亚·草原",
+      "en": "Central Asia",
+      "color": "#8a7a52"
+    },
+    "na": {
+      "zh": "北美",
+      "en": "North America",
+      "color": "#5f7a5a"
+    },
+    "la": {
+      "zh": "拉丁美洲",
+      "en": "Latin America",
+      "color": "#9a5a4a"
+    },
+    "oc": {
+      "zh": "大洋洲·太平洋",
+      "en": "Oceania & Pacific",
+      "color": "#4a7a8a"
+    }
+  },
+  "categories": {
+    "hunt": {
+      "zh": "狩猎",
+      "en": "Hunt",
+      "color": "#8a6a3f"
+    },
+    "agri": {
+      "zh": "农耕",
+      "en": "Agriculture",
+      "color": "#7f7a42"
+    },
+    "city": {
+      "zh": "城市",
+      "en": "City",
+      "color": "#8a5f45"
+    },
+    "temple": {
+      "zh": "纪念",
+      "en": "Monument",
+      "color": "#8a6a5a"
+    },
+    "war": {
+      "zh": "战争",
+      "en": "War",
+      "color": "#b04a32"
+    },
+    "trade": {
+      "zh": "商贸",
+      "en": "Trade",
+      "color": "#b98a34"
+    },
+    "politics": {
+      "zh": "政制",
+      "en": "Polity",
+      "color": "#42627a"
+    },
+    "culture": {
+      "zh": "文教",
+      "en": "Culture",
+      "color": "#7c4a60"
+    },
+    "religion": {
+      "zh": "信仰",
+      "en": "Faith",
+      "color": "#3f7a70"
+    },
+    "science": {
+      "zh": "科技",
+      "en": "Science",
+      "color": "#4a6d9c"
+    },
+    "disaster": {
+      "zh": "灾变",
+      "en": "Crisis",
+      "color": "#8a3630"
+    },
+    "exploration": {
+      "zh": "远行",
+      "en": "Exploration",
+      "color": "#4f7f74"
+    },
+    "industry": {
+      "zh": "工业",
+      "en": "Industry",
+      "color": "#8a6a3f"
+    },
+    "digital": {
+      "zh": "数智",
+      "en": "Digital",
+      "color": "#6a5a9c"
+    }
+  },
+  "scenes": {
+    "hunt": {
+      "zh": "狩猎",
+      "en": "The Hunt"
+    },
+    "agri": {
+      "zh": "农耕",
+      "en": "First Harvest"
+    },
+    "march": {
+      "zh": "迁徙",
+      "en": "Migration"
+    },
+    "city": {
+      "zh": "营城",
+      "en": "City Rising"
+    },
+    "temple": {
+      "zh": "筑坛",
+      "en": "Monument"
+    },
+    "chariot": {
+      "zh": "车战",
+      "en": "Chariots"
+    },
+    "phalanx": {
+      "zh": "方阵",
+      "en": "Phalanx"
+    },
+    "siege": {
+      "zh": "攻城",
+      "en": "Siege"
+    },
+    "cavalry": {
+      "zh": "骑战",
+      "en": "Cavalry"
+    },
+    "naval": {
+      "zh": "海战",
+      "en": "Sea Battle"
+    },
+    "camel": {
+      "zh": "驼队",
+      "en": "Caravan"
+    },
+    "ship": {
+      "zh": "远航",
+      "en": "Voyage"
+    },
+    "cannon": {
+      "zh": "炮战",
+      "en": "Cannonade"
+    },
+    "musket": {
+      "zh": "火枪",
+      "en": "Musket Line"
+    },
+    "revolution": {
+      "zh": "革命",
+      "en": "Revolution"
+    },
+    "industry": {
+      "zh": "工业",
+      "en": "Industry"
+    },
+    "trench": {
+      "zh": "堑壕",
+      "en": "Trench War"
+    },
+    "air": {
+      "zh": "空袭",
+      "en": "Air Raid"
+    },
+    "atomic": {
+      "zh": "核爆",
+      "en": "Atomic"
+    },
+    "rocket": {
+      "zh": "航天",
+      "en": "Ascent"
+    },
+    "digital": {
+      "zh": "网络",
+      "en": "Network"
+    },
+    "protest": {
+      "zh": "集会",
+      "en": "Assembly"
+    },
+    "plague": {
+      "zh": "疫病",
+      "en": "Plague"
+    },
+    "disaster": {
+      "zh": "灾变",
+      "en": "Cataclysm"
+    },
+    "pilgrim": {
+      "zh": "求法",
+      "en": "Pilgrimage"
+    }
+  },
+  "eras": [
+    {
+      "id": "prehistory",
+      "zh": "史前文明",
+      "en": "Prehistory",
+      "sub": {
+        "zh": "采集 · 狩猎 · 最早的家园",
+        "en": "Foragers, hunters, first settlements"
+      },
+      "from": -12000,
+      "to": -3500,
+      "weight": 11,
+      "color": "#7d6b4f"
+    },
+    {
+      "id": "bronze",
+      "zh": "青铜与早期文明",
+      "en": "Bronze Age",
+      "sub": {
+        "zh": "城邦 · 文字 · 神王与战车",
+        "en": "City-states, writing, god-kings, chariots"
+      },
+      "from": -3500,
+      "to": -1200,
+      "weight": 12,
+      "color": "#9a6b3f"
+    },
+    {
+      "id": "classical",
+      "zh": "古典时代",
+      "en": "Classical Antiquity",
+      "sub": {
+        "zh": "帝国并立 · 轴心时代 · 奴隶制社会",
+        "en": "Empires, axial thinkers, slave societies"
+      },
+      "from": -1200,
+      "to": 500,
+      "weight": 14,
+      "color": "#a8543a"
+    },
+    {
+      "id": "medieval",
+      "zh": "封建与中世纪",
+      "en": "Feudal & Medieval",
+      "sub": {
+        "zh": "宗教世界 · 草原帝国 · 商贸网络",
+        "en": "Faiths, steppe empires, trade networks"
+      },
+      "from": 500,
+      "to": 1450,
+      "weight": 14,
+      "color": "#5d6b4a"
+    },
+    {
+      "id": "earlymodern",
+      "zh": "大航海与早期现代",
+      "en": "Discovery & Early Modern",
+      "sub": {
+        "zh": "新航路 · 火药帝国 · 全球初连",
+        "en": "New sea routes, gunpowder empires, first globalization"
+      },
+      "from": 1450,
+      "to": 1750,
+      "weight": 12,
+      "color": "#3f6278"
+    },
+    {
+      "id": "industrial",
+      "zh": "革命与工业",
+      "en": "Revolutions & Industry",
+      "sub": {
+        "zh": "蒸汽 · 民族国家 · 殖民体系",
+        "en": "Steam, nation-states, colonial order"
+      },
+      "from": 1750,
+      "to": 1913,
+      "weight": 12,
+      "color": "#7a5a3a"
+    },
+    {
+      "id": "worldwars",
+      "zh": "世界大战",
+      "en": "The World Wars",
+      "sub": {
+        "zh": "总体战 · 空中力量 · 核时代降临",
+        "en": "Total war, air power, the nuclear dawn"
+      },
+      "from": 1914,
+      "to": 1946,
+      "weight": 9,
+      "color": "#8e3b32"
+    },
+    {
+      "id": "coldwar",
+      "zh": "冷战与独立",
+      "en": "Cold War & Decolonization",
+      "sub": {
+        "zh": "两极对峙 · 帝国退场 · 万隆与不结盟",
+        "en": "Superpowers, empires recede, Bandung"
+      },
+      "from": 1946,
+      "to": 1991,
+      "weight": 11,
+      "color": "#4a5568"
+    },
+    {
+      "id": "global",
+      "zh": "全球化至今",
+      "en": "Globalization to Now",
+      "sub": {
+        "zh": "互联网 · 气候 · 多极世界",
+        "en": "Internet, climate, a multipolar world"
+      },
+      "from": 1991,
+      "to": 2026,
+      "weight": 11,
+      "color": "#3f7a72"
+    }
+  ]
+}
