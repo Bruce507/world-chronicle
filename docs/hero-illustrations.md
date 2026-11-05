@@ -1,5 +1,7 @@
 # 首批 12 个英雄插画场景 / Hero illustration batch
 
+> 发布状态：Pilot 1（v3 线质/材质精修），资源版本 `20261107j`。
+
 Generated 2026-11-06. Scope: 12 event themes (14 event ids, because the 1945 Japan slot covers Hiroshima, Nagasaki and the surrender broadcast). The 482-event / 56-family taxonomy is unchanged.
 
 ## 设计语言
