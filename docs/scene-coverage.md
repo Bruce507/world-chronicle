@@ -1,11 +1,11 @@
 # 场景分型审计 / Scene coverage audit
 
-Generated 2026-11-05. Standard A: every event has a correct visual family; the 13 hero events have bespoke scenes.
+Generated 2026-11-05. Standard A: every event has a correct visual family; the 17 hero entries have bespoke illustration scenes (first batch: 12 themes).
 
 - 事件总数：482
 - 当前分派：56 个家族
 - 需要修正：0
-- 英雄事件：13
+- 英雄条目：17
 
 ## 家族分布（目标）
 
@@ -167,7 +167,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 1
 | 570 | `birth-of-muhammad` | 穆罕默德诞生 | me | `city` | `city` |  |
 | 618 | `tang-dynasty` | 唐朝建立 | ea | `cn-founding` | `cn-founding` |  |
 | 622 | `the-hijra` | 希吉拉 | me | `camel` | `camel` |  |
-| 629 | `xuanzangs-journey-to-the-west` | 玄奘西行求法 | ca | `pilgrim` | `pilgrim` |  |
+| 629 | `xuanzangs-journey-to-the-west` | 玄奘西行求法 | ca | `pilgrim` | `pilgrim` | ★ |
 | 650 | `srivijaya` | 室利佛逝的海上帝国 | sea | `sea-founding` | `sea-founding` |  |
 | 691 | `dome-of-the-rock` | 圆顶清真寺 | me | `mosque` | `mosque` |  |
 | 711 | `islam-enters-iberia` | 穆斯林渡海入伊比利亚 | eu | `cavalry` | `cavalry` |  |
@@ -230,7 +230,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 1
 | 1450 | `gutenbergs-press` | 古腾堡活字印刷 | eu | `printing` | `printing` |  |
 | 1453 | `fall-of-constantinople` | 君士坦丁堡陷落 | eu | `siege` | `siege` |  |
 | 1464 | `songhai-empire` | 桑海帝国 | af | `african-founding` | `african-founding` |  |
-| 1492 | `columbus-reaches-the-americas` | 哥伦布抵达美洲 | la | `caravel` | `caravel` |  |
+| 1492 | `columbus-reaches-the-americas` | 哥伦布抵达美洲 | la | `caravel` | `caravel` | ★ |
 | 1492 | `fall-of-granada` | 格拉纳达陷落 | eu | `siege` | `siege` |  |
 | 1498 | `vasco-da-gama-reaches-india` | 达伽马抵达印度 | eu | `caravel` | `caravel` |  |
 | 1500 | `bruneis-golden-age` | 文莱苏丹国黄金时代 | sea | `junk` | `junk` |  |
@@ -390,7 +390,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 1
 | 1945 | `indonesia-proclaims-independence` | 印尼宣布独立 | sea | `modern-founding` | `modern-founding` |  |
 | 1945 | `auschwitz-liberated` | 奥斯维辛解放 | eu | `disaster` | `disaster` |  |
 | 1945 | `hiroshima` | 广岛原子弹 | ea | `atomic` | `atomic` | ★ |
-| 1945 | `japan-announces-surrender` | 日本宣布无条件投降 | ea | `city-modern` | `city-modern` |  |
+| 1945 | `japan-announces-surrender` | 日本宣布无条件投降 | ea | `city-modern` | `city-modern` | ★ |
 | 1945 | `japan-surrenders` | 日本投降 · 二战结束 | ea | `naval` | `naval` |  |
 | 1945 | `japan-signs-the-instrument-of-surrender` | 日本签署投降书 | ea | `treaty` | `treaty` |  |
 | 1945 | `potsdam-declaration` | 波茨坦公告 | eu | `city-modern` | `city-modern` |  |
@@ -459,7 +459,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 1
 | 1968 | `mauritius-independence` | 毛里求斯 · 独立建国 | af | `modern-founding` | `modern-founding` |  |
 | 1968 | `nauru-independence` | 瑙鲁 · 独立建国 | oc | `modern-founding` | `modern-founding` |  |
 | 1968 | `equatorial-guinea-independence` | 赤道几内亚 · 独立建国 | af | `modern-founding` | `modern-founding` |  |
-| 1969 | `apollo-11` | 阿波罗十一号登月 | na | `rocket` | `rocket` |  |
+| 1969 | `apollo-11` | 阿波罗十一号登月 | na | `rocket` | `rocket` | ★ |
 | 1970 | `fiji-independent` | 斐济独立 | oc | `modern-founding` | `modern-founding` |  |
 | 1971 | `bangladesh-independence` | 孟加拉国独立 | sa | `modern-founding` | `modern-founding` |  |
 | 1971 | `bahrain-independence` | 巴林 · 独立建国 | me | `modern-founding` | `modern-founding` |  |

@@ -2994,6 +2994,7 @@
     const ctx = canvas.getContext("2d");
     let W = 1, H = 1, dpr = 1, raf = 0, last = performance.now(), elapsed = opts.startAt || 0, paused = false;
     const P = palette(opts);
+    const heroId = opts.hero && window.HeroScenes && window.HeroScenes.has(opts.hero) ? opts.hero : null;
     const fn = SCENES[type] || SCENES.temple;
     const defaultStart = { atomic: 3.0, city: 4.0, air: 1.2, industry: 1.5, revolution: 1.5, protest: 1.5 };
     if (!opts.startAt && defaultStart[type]) elapsed = defaultStart[type];
@@ -3016,9 +3017,13 @@
       last = now;
       if (!paused) elapsed += dt;
       ctx.save();
-      fn(ctx, W, H, elapsed, P, opts);
+      if (heroId) {
+        if (!window.HeroScenes.drawStage(ctx, heroId, W, H, elapsed)) fn(ctx, W, H, elapsed, P, opts);
+      } else {
+        fn(ctx, W, H, elapsed, P, opts);
+      }
       ctx.restore();
-      finish(ctx, W, H, P);
+      if (!heroId) finish(ctx, W, H, P);
     }
     raf = requestAnimationFrame(frame);
 

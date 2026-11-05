@@ -137,7 +137,8 @@ const HERO = new Set([
   "song-dynasty", "qing-takes-beijing", "russian-revolution", "taj-mahal",
   "cai-lun-improves-papermaking", "founding-of-rome", "peloponnesian-war",
   "the-silk-road", "maritime-silk-road", "pacific-trade-w", "zheng-hes-voyages",
-  "hiroshima", "nagasaki",
+  "hiroshima", "nagasaki", "columbus-reaches-the-americas",
+  "xuanzangs-journey-to-the-west", "apollo-11", "japan-announces-surrender",
 ]);
 
 function titleOf(ev) { return ((ev.t && ev.t[0]) || "") + " " + ((ev.t && ev.t[1]) || ""); }
@@ -233,8 +234,8 @@ for (const ev of A.events) {
 rows.sort((a, b) => a.ev.y - b.ev.y || a.ev.t[0].localeCompare(b.ev.t[0]));
 
 let md = `# 场景分型审计 / Scene coverage audit\n\n`;
-md += `Generated ${new Date().toISOString().slice(0, 10)}. Standard A: every event has a correct visual family; the 13 hero events have bespoke scenes.\n\n`;
-md += `- 事件总数：${A.events.length}\n- 当前分派：${Object.keys(counts).length} 个家族\n- 需要修正：${mismatches.length}\n- 英雄事件：${HERO.size}\n\n`;
+md += `Generated ${new Date().toISOString().slice(0, 10)}. Standard A: every event has a correct visual family; the ${HERO.size} hero entries have bespoke illustration scenes (first batch: 12 themes).\n\n`;
+md += `- 事件总数：${A.events.length}\n- 当前分派：${Object.keys(counts).length} 个家族\n- 需要修正：${mismatches.length}\n- 英雄条目：${HERO.size}\n\n`;
 md += `## 家族分布（目标）\n\n| 家族 | 事件数 |\n|---|---:|\n`;
 Object.entries(counts).sort((a, b) => b[1] - a[1]).forEach(([k, v]) => { md += `| \`${k}\` | ${v} |\n`; });
 md += `\n## 需要修正的分派（${mismatches.length}）\n\n| 年份 | ID | 事件 | 当前 | 目标 |\n|---:|---|---|---|---|\n`;

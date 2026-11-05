@@ -72,6 +72,7 @@
     data: null,
     mode: null,
     style: null,
+    hero: null,
     lang: "zh",
     started: 0,
     paused: false,
@@ -103,6 +104,7 @@
       this.style = (window.Scenes && window.Scenes.styleFor) ? window.Scenes.styleFor(ev) : ev.s;
       const sm = this.style;
       this.mode = data.mode || (sm === "paper" || sm === "printing" ? "craft" : sm === "mughal-tomb" || sm === "monument" ? "monument" : sm === "revolution" ? "revolution" : this.modeFor(ev));
+      this.hero = (window.HeroScenes && window.HeroScenes.has(ev.id)) ? ev.id : null;
       this.sides = data.sides || this.defaultSides(ev);
       this.fronts = (data.fronts || []).map((f) => f.pts ? Object.assign({}, f, { pts: unwrapPts(f.pts) }) : f);
       this.battles = data.battles || [];
@@ -145,6 +147,7 @@
       this.ev = null;
       this.data = null;
       this.mode = "trade";
+      this.hero = null;
       this.sides = [];
       this.fronts = [];
       this.battles = [];
@@ -175,6 +178,7 @@
       this.monument = null;
       this.revolution = null;
       this.style = null;
+      this.hero = null;
       clearTimeout(this._stopTimer);
       if (this.map) this.map.setTheatreActive(false);
     },
@@ -389,28 +393,40 @@
       ctx.globalCompositeOperation = "source-over";
       ctx.setLineDash([]);
 
-      this.drawSideTints(ctx, map, p);
-      const specialWar = this.mode === "war" && (this.style === "greek-naval" || this.style === "cn-cavalry" || this.style === "cavalry");
-      if (!specialWar) {
-        this.drawRoutes(ctx, map, p);
-        this.drawFronts(ctx, map, p);
-        this.drawBattles(ctx, map, p);
-        if (this.mode !== "founding" && this.mode !== "craft" && this.mode !== "city" && this.mode !== "monument" && this.mode !== "revolution") this.drawUnits(ctx, map, p);
-      } else if (this.style === "greek-naval") {
-        this.drawNavalScene(ctx, map, p);
+      if (this.hero) {
+        this.drawHeroScene(ctx, map, p);
       } else {
-        this.drawCavalryScene(ctx, map, p);
+        this.drawSideTints(ctx, map, p);
+        const specialWar = this.mode === "war" && (this.style === "greek-naval" || this.style === "cn-cavalry" || this.style === "cavalry");
+        if (!specialWar) {
+          this.drawRoutes(ctx, map, p);
+          this.drawFronts(ctx, map, p);
+          this.drawBattles(ctx, map, p);
+          if (this.mode !== "founding" && this.mode !== "craft" && this.mode !== "city" && this.mode !== "monument" && this.mode !== "revolution") this.drawUnits(ctx, map, p);
+        } else if (this.style === "greek-naval") {
+          this.drawNavalScene(ctx, map, p);
+        } else {
+          this.drawCavalryScene(ctx, map, p);
+        }
+        if (this.mode === "atomic") this.drawAtomic(ctx, map, p);
+        else if (this.mode === "founding") this.drawFounding(ctx, map, p);
+        else if (this.mode === "craft") this.drawCraft(ctx, map, p);
+        else if (this.mode === "city") this.drawCity(ctx, map, p);
+        else if (this.mode === "monument") this.drawMonument(ctx, map, p);
+        else if (this.mode === "revolution") this.drawRevolution(ctx, map, p);
+        else if (this.mode === "disaster") this.drawDisaster(ctx, map, p);
+        this.drawEnd(ctx, map, p);
       }
-      if (this.mode === "atomic") this.drawAtomic(ctx, map, p);
-      else if (this.mode === "founding") this.drawFounding(ctx, map, p);
-      else if (this.mode === "craft") this.drawCraft(ctx, map, p);
-      else if (this.mode === "city") this.drawCity(ctx, map, p);
-      else if (this.mode === "monument") this.drawMonument(ctx, map, p);
-      else if (this.mode === "revolution") this.drawRevolution(ctx, map, p);
-      else if (this.mode === "disaster") this.drawDisaster(ctx, map, p);
-      this.drawEnd(ctx, map, p);
       this.drawLabels(ctx, map, p);
       ctx.restore();
+    },
+
+    drawHeroScene(ctx, map, p) {
+      if (!this.hero || !this.ev || !window.HeroScenes) return;
+      const pos = map.project(this.ev.lon, this.ev.lat);
+      if (pos.x < -140 || pos.x > map.W + 140 || pos.y < -60 || pos.y > map.H + 160) return;
+      const s = clamp(1.9 + map.view.zoom * 0.32, 2.0, 3.6);
+      window.HeroScenes.drawMap(ctx, this.hero, pos.x, pos.y + 7 * s, s, p);
     },
 
     drawSideTints(ctx, map, p) {
@@ -1398,6 +1414,12 @@
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
         ctx.fillText(text, x, (r[1] + r[3]) / 2);
       };
+      if (this.hero) {
+        const ev = this.ev;
+        const title = this.lang === "zh" ? ev.t[0] : ev.t[1];
+        chip(ev.lat, ev.lon, title, "#a83e2c", 0, 54, 10);
+        return;
+      }
       // side labels at a representative member (not for narrative modes,
       // where side and scene labels would duplicate the event name)
       if (!["founding", "craft", "city", "monument", "revolution"].includes(this.mode)) for (const side of this.sides) {
