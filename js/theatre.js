@@ -324,21 +324,22 @@
       const bases = this.sides.length ? this.sides : [{ key: "a", color: "#a83e2c" }];
       const kind = this.unitKind(ev || { s: "march" });
       // battles: two sides eddying around the point
-      (data.battles || []).slice(0, 10).forEach((b, bi) => {
-        bases.forEach((side, si) => {
-          const n = b.kind === "crowd" ? 7 : 3;
+      (data.battles || []).slice(0, 4).forEach((b) => {
+        bases.forEach((side) => {
+          const n = b.kind === "crowd" ? 2 : 2;
           for (let i = 0; i < n; i++) {
+            if (units.length >= 16) break;
             units.push({
               type: b.kind === "crowd" ? "crowd" : kind,
               side: side.key,
               color: side.color,
               lat: b.lat, lon: b.lon,
               battle: true,
-              r: 0.16 + rand() * 0.5,
-              a: rand() * TAU,
-              speed: 0.22 + rand() * 0.3,
+              r: 0.38 + (i / n) * 0.42 + rand() * 0.18,
+              a: (i / n) * TAU + rand() * 0.5,
+              speed: 0.12 + rand() * 0.12,
               phase: rand(),
-              size: 0.85 + rand() * 0.4,
+              size: 0.72 + rand() * 0.18,
             });
           }
         });
@@ -356,7 +357,7 @@
       });
       // route traffic
       (data.routes || []).forEach((r) => {
-        const n = r.mode === "march" ? 6 : 3;
+        const n = r.mode === "march" ? 3 : 1;
         for (let i = 0; i < n; i++) {
           units.push({
             type: r.mode === "camel" ? "camel" : r.mode === "ship" ? "ship" : r.mode === "air" ? "plane" : r.mode === "pilgrim" ? "monk" : "march",
@@ -522,7 +523,7 @@
 
     drawUnits(ctx, map, p) {
       const zoom = map.view.zoom;
-      const scale = clamp(0.5 + zoom * 0.34, 0.8, 2.2);
+      const scale = clamp(0.5 + zoom * 0.24, 0.8, 1.5);
       for (const u of this.units) {
         let lat, lon, ang = 0;
         if (u.path) {
@@ -539,8 +540,39 @@
         }
         const sp = map.project(lon, lat);
         if (sp.x < -30 || sp.x > map.W + 30 || sp.y < -30 || sp.y > map.H + 30) continue;
-        this.drawUnit(ctx, u.type, sp.x, sp.y, scale * (u.size || 1), p, u.color, ang, u.side);
+        if (this.mode === "trade" && (u.type === "ship" || u.type === "camel")) {
+          this.drawTradeUnit(ctx, u.type, sp.x, sp.y, scale * 1.18, p, u.color);
+        } else {
+          this.drawUnit(ctx, u.type, sp.x, sp.y, scale * (u.size || 1), p, u.color, ang, u.side);
+        }
       }
+    },
+
+    drawTradeUnit(ctx, type, x, y, s, p, color) {
+      ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+      if (type === "camel") {
+        ctx.strokeStyle = "rgba(92,66,43,0.95)"; ctx.fillStyle = "rgba(126,92,58,0.95)"; ctx.lineCap = "round";
+        ctx.lineWidth = 1.4;
+        const g = Math.sin(p * 5 + x);
+        ctx.beginPath(); ctx.moveTo(-4, -4); ctx.lineTo(-5 + g, 0); ctx.moveTo(-1, -4); ctx.lineTo(-g, 0); ctx.moveTo(3, -4); ctx.lineTo(4 - g, 0); ctx.moveTo(5, -4); ctx.lineTo(6 + g, 0); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(0, -7, 6, 3, 0, 0, TAU); ctx.fill();
+        ctx.beginPath(); ctx.arc(-2, -10, 2.2, Math.PI, TAU); ctx.fill(); ctx.beginPath(); ctx.arc(2, -10, 2, Math.PI, TAU); ctx.fill();
+        ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(5, -7); ctx.quadraticCurveTo(8, -12, 9, -14); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(10, -14, 2, 1.2, 0.3, 0, TAU); ctx.fill();
+        ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(-5, -7); ctx.lineTo(-9, -2); ctx.stroke();
+      } else {
+        // upright cartographic ship, no rotation: bow to the right, warm hull, colored sail
+        ctx.beginPath(); ctx.moveTo(-14, 0); ctx.quadraticCurveTo(-4, 5, 12, 1); ctx.lineTo(17, -3); ctx.lineTo(10, -1); ctx.quadraticCurveTo(0, 2, -11, -3); ctx.closePath();
+        ctx.fillStyle = "rgba(148,106,64,0.95)"; ctx.fill(); ctx.strokeStyle = "rgba(74,54,36,0.9)"; ctx.lineWidth = 0.9; ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, -1); ctx.lineTo(0, -18); ctx.strokeStyle = "rgba(74,54,36,0.9)"; ctx.lineWidth = 1; ctx.stroke();
+        const wave = Math.sin(p * 2 + x) * 1;
+        ctx.beginPath(); ctx.moveTo(-7, -17); ctx.quadraticCurveTo(0, -19 + wave, 7, -17); ctx.lineTo(6, -7); ctx.quadraticCurveTo(0, -5 + wave, -6, -7); ctx.closePath();
+        ctx.fillStyle = "rgba(242,230,205,0.95)"; ctx.fill(); ctx.strokeStyle = color; ctx.lineWidth = 0.8; ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, -17); ctx.lineTo(5, -15); ctx.lineTo(0, -12); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
+        ctx.strokeStyle = "rgba(230,220,200,0.55)"; ctx.lineWidth = 0.9;
+        ctx.beginPath(); ctx.moveTo(-18, 3); ctx.quadraticCurveTo(0, 7, 18, 3); ctx.stroke();
+      }
+      ctx.restore();
     },
 
     drawUnit(ctx, type, x, y, s, p, color, ang, side) {
