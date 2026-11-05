@@ -75,8 +75,7 @@
       grainCache = c;
     }
     ctx.save();
-    ctx.globalAlpha = 0.55;
-    ctx.globalCompositeOperation = "multiply";
+    ctx.globalAlpha = 0.32;
     ctx.fillStyle = ctx.createPattern(grainCache, "repeat");
     ctx.fillRect(0, 0, W, H);
     ctx.restore();
@@ -103,40 +102,32 @@
 
   /* Print grade: warm bottom weight, top light, warm vignette, engraving tooth. */
   function finishPlate(ctx, W, H) {
+    // Source-over only: large blend modes can leave stale compositor tiles
+    // on some GPU paths; alpha overlays give the same print weight safely.
     const b = ctx.createLinearGradient(0, H * 0.50, 0, H);
     b.addColorStop(0, "rgba(96,62,32,0)");
-    b.addColorStop(0.72, "rgba(96,62,32,0.10)");
-    b.addColorStop(1, "rgba(88,54,26,0.30)");
-    ctx.save();
-    ctx.globalCompositeOperation = "multiply";
+    b.addColorStop(0.72, "rgba(96,62,32,0.07)");
+    b.addColorStop(1, "rgba(88,54,26,0.22)");
     ctx.fillStyle = b;
     ctx.fillRect(0, 0, W, H);
-    ctx.restore();
 
     const t = ctx.createLinearGradient(0, 0, 0, H * 0.48);
-    t.addColorStop(0, "rgba(255,246,222,0.16)");
+    t.addColorStop(0, "rgba(255,246,222,0.10)");
     t.addColorStop(1, "rgba(255,246,222,0)");
-    ctx.save();
-    ctx.globalCompositeOperation = "screen";
     ctx.fillStyle = t;
     ctx.fillRect(0, 0, W, H * 0.48);
-    ctx.restore();
 
     const v = ctx.createRadialGradient(W * 0.5, H * 0.45, Math.min(W, H) * 0.30, W * 0.5, H * 0.5, Math.max(W, H) * 0.74);
     v.addColorStop(0, "rgba(100,66,34,0)");
-    v.addColorStop(0.72, "rgba(100,66,34,0.05)");
-    v.addColorStop(1, "rgba(84,54,26,0.30)");
-    ctx.save();
-    ctx.globalCompositeOperation = "multiply";
+    v.addColorStop(0.72, "rgba(100,66,34,0.03)");
+    v.addColorStop(1, "rgba(84,54,26,0.20)");
     ctx.fillStyle = v;
     ctx.fillRect(0, 0, W, H);
-    ctx.restore();
 
     const pat = hatchPattern(ctx);
     if (pat) {
       ctx.save();
-      ctx.globalAlpha = 0.07;
-      ctx.globalCompositeOperation = "multiply";
+      ctx.globalAlpha = 0.045;
       ctx.fillStyle = pat;
       ctx.fillRect(0, 0, W, H);
       ctx.restore();
@@ -759,33 +750,46 @@
     ctx.moveTo(-32, -14); ctx.quadraticCurveTo(-28, -17, -24, -14);
     ctx.lineTo(-18, -14); ctx.quadraticCurveTo(-14, -17, -10, -14);
     ctx.strokeStyle = INK; ctx.lineWidth = 0.28; ctx.stroke();
+    // stern windows + red trim
+    for (let i = 0; i < 3; i++) {
+      ctx.fillStyle = "rgba(228,182,106,0.75)";
+      ctx.fillRect(-28.4 + i * 3.4, -11.2, 1.6, 1.8);
+      ctx.strokeStyle = "rgba(92,44,30,0.5)"; ctx.lineWidth = 0.1;
+      ctx.strokeRect(-28.4 + i * 3.4, -11.2, 1.6, 1.8);
+    }
+    ctx.beginPath(); ctx.moveTo(-30, -9); ctx.lineTo(-19, -9);
+    ctx.strokeStyle = "rgba(168,64,44,0.75)"; ctx.lineWidth = 0.5; ctx.stroke();
     ctx.beginPath(); ctx.moveTo(-31, -3); ctx.lineTo(-33, 8); ctx.stroke();
     const masts = o.masts || [24, 10, -4, -18];
     for (let i = 0; i < masts.length; i++) {
       const mx = masts[i];
-      const mh = i === 0 ? 34 : 28;
+      const mh = i === 0 ? 32 : 27 - i * 1.2;
       ctx.strokeStyle = INK;
       ctx.lineWidth = 0.48;
       ctx.beginPath(); ctx.moveTo(mx, -6); ctx.lineTo(mx, -6 - mh); ctx.stroke();
-      const sw = 7.2 + i * 0.6;
-      const sh = mh * 0.62;
+      const sw = 6.4 - i * 0.5;
+      const sh = mh * 0.56;
+      const sy = -11 - i * 1.3;
       const wave = Math.sin(t * 1.4 + i) * 0.7;
       ctx.beginPath();
-      ctx.moveTo(mx - sw, -10);
-      ctx.quadraticCurveTo(mx - sw - 1, -10 - sh * 0.55, mx - sw + wave, -10 - sh);
-      ctx.lineTo(mx + sw * 0.72 + wave, -10 - sh);
-      ctx.quadraticCurveTo(mx + sw * 0.8, -10 - sh * 0.5, mx + sw * 0.86, -10);
+      ctx.moveTo(mx - sw, sy);
+      ctx.quadraticCurveTo(mx - sw - 1, sy - sh * 0.55, mx - sw + wave, sy - sh);
+      ctx.lineTo(mx + sw * 0.72 + wave, sy - sh);
+      ctx.quadraticCurveTo(mx + sw * 0.8, sy - sh * 0.5, mx + sw * 0.86, sy);
       ctx.closePath();
-      ctx.fillStyle = o.sail || "rgba(176,64,44,0.9)";
+      ctx.fillStyle = i === 2 ? "rgba(196,150,78,0.9)" : (o.sail || "rgba(176,64,44,0.9)");
       ctx.fill();
       ctx.strokeStyle = "rgba(92,44,30,0.9)";
       ctx.lineWidth = 0.28;
       ctx.stroke();
       for (let b = 1; b < 5; b++) {
-        const by = -10 - sh * (b / 5);
+        const by = sy - sh * (b / 5);
         ctx.beginPath(); ctx.moveTo(mx - sw + 0.6, by); ctx.lineTo(mx + sw * 0.8, by);
         ctx.strokeStyle = "rgba(92,44,30,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
       }
+      // vertical seam
+      ctx.beginPath(); ctx.moveTo(mx + 0.2, sy - 0.5); ctx.lineTo(mx + 0.2, sy - sh + 0.6);
+      ctx.strokeStyle = "rgba(92,44,30,0.28)"; ctx.lineWidth = 0.18; ctx.stroke();
     }
     ctx.beginPath(); ctx.arc(24, -6.6, 1.1, 0, TAU);
     ctx.fillStyle = "rgba(244,233,210,0.96)"; ctx.fill();
@@ -821,6 +825,11 @@
     ctx.fillStyle = "rgba(150,102,60,0.96)";
     ctx.fillRect(-19, -11, 9, 9);
     ctx.strokeRect(-19, -11, 9, 9);
+    // stern windows
+    for (let i = 0; i < 3; i++) {
+      ctx.fillStyle = "rgba(228,182,106,0.85)";
+      ctx.fillRect(-17.6 + i * 2.6, -9.4, 1.2, 1.4);
+    }
     for (let i = 0; i < 3; i++) {
       const mx = -4 + i * 9;
       const mh = 26 + (i === 1 ? 6 : 0);
@@ -837,8 +846,19 @@
       ctx.closePath();
       ctx.fillStyle = "rgba(240,229,205,0.96)";
       ctx.fill();
-      ctx.strokeStyle = "rgba(96,70,44,0.8)"; ctx.lineWidth = 0.26; ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(mx - sw, -8 - sh * 0.55); ctx.lineTo(mx + sw, -8 - sh * 0.55);
+      ctx.strokeStyle = "rgba(96,70,44,0.95)"; ctx.lineWidth = 0.34; ctx.stroke();
+      // seams and billow
+      ctx.strokeStyle = "rgba(150,120,80,0.55)"; ctx.lineWidth = 0.16;
+      for (let k = 1; k <= 2; k++) {
+        const sx2 = mx - sw + (2 * sw * k) / 3;
+        ctx.beginPath();
+        ctx.moveTo(sx2, -8 - sh);
+        ctx.quadraticCurveTo(sx2 + (k === 1 ? 0.8 : -0.8), -8 - sh * 0.5, sx2, -8);
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.moveTo(mx - sw, -8 - sh * 0.55);
+      ctx.quadraticCurveTo(mx, -8 - sh * 0.55 + 1.0, mx + sw, -8 - sh * 0.55);
       ctx.strokeStyle = "rgba(150,120,80,0.6)"; ctx.lineWidth = 0.18; ctx.stroke();
     }
     ctx.strokeStyle = INK; ctx.lineWidth = 0.38;
@@ -858,46 +878,126 @@
     ctx.scale(s, s);
     const bob = Math.sin(t * 1.6 + (o.phase || 0)) * 0.4;
     ctx.translate(0, bob);
+    // hull
     ctx.beginPath();
-    ctx.moveTo(-24, -1);
-    ctx.quadraticCurveTo(-14, 5, 8, 5);
-    ctx.quadraticCurveTo(22, 4, 30, -3);
-    ctx.lineTo(26, -6);
-    ctx.quadraticCurveTo(2, -8, -20, -5);
+    ctx.moveTo(-31, -2);
+    ctx.quadraticCurveTo(-22, 4.4, 6, 5.2);
+    ctx.quadraticCurveTo(24, 5, 33, -1);
+    ctx.lineTo(29, -7);
+    ctx.quadraticCurveTo(0, -9.4, -26, -7);
     ctx.closePath();
-    ctx.fillStyle = o.hull || "rgba(122,86,52,0.96)";
+    ctx.fillStyle = o.hull || "rgba(120,84,50,0.98)";
     ctx.fill();
-    ctx.strokeStyle = INK; ctx.lineWidth = 0.38; ctx.stroke();
+    ctx.strokeStyle = INK;
+    ctx.lineWidth = 0.55;
+    ctx.stroke();
+    // wale stripe
     ctx.beginPath();
-    ctx.moveTo(28, -2.5); ctx.lineTo(34, 0); ctx.lineTo(28, 1.2); ctx.closePath();
-    ctx.fillStyle = GOLD; ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 0.28; ctx.stroke();
-    ctx.beginPath(); ctx.arc(20, -4.4, 1.3, 0, TAU);
-    ctx.fillStyle = "#f2e6cc"; ctx.fill();
-    ctx.beginPath(); ctx.arc(20.3, -4.4, 0.6, 0, TAU); ctx.fillStyle = RED; ctx.fill();
-    ctx.strokeStyle = "rgba(67,48,29,0.75)"; ctx.lineWidth = 0.26;
-    for (let i = 0; i < 11; i++) {
-      const ox2 = -16 + i * 2.8;
-      const stroke = Math.sin(t * 3 + i * 0.5) * 0.8;
-      ctx.beginPath(); ctx.moveTo(ox2, 2); ctx.lineTo(ox2 - 3.6, 7 + stroke); ctx.stroke();
+    ctx.moveTo(-28, -4.4);
+    ctx.quadraticCurveTo(0, -6.4, 30, -4.2);
+    ctx.strokeStyle = o.stripe || "rgba(78,106,122,0.85)";
+    ctx.lineWidth = 1.1;
+    ctx.stroke();
+    // bronze ram
+    ctx.beginPath();
+    ctx.moveTo(31, -2.6);
+    ctx.lineTo(39, 0);
+    ctx.lineTo(31, 1.8);
+    ctx.closePath();
+    ctx.fillStyle = GOLD;
+    ctx.fill();
+    ctx.strokeStyle = INK;
+    ctx.lineWidth = 0.3;
+    ctx.stroke();
+    // stern post
+    ctx.beginPath();
+    ctx.moveTo(-29, -6);
+    ctx.quadraticCurveTo(-35, -13, -30, -19);
+    ctx.strokeStyle = "rgba(74,50,30,0.95)";
+    ctx.lineWidth = 1.0;
+    ctx.stroke();
+    // oar ports + two oar banks
+    for (let i = 0; i < 12; i++) {
+      const px = -22 + i * 3.7;
+      ctx.fillStyle = "rgba(52,34,20,0.75)";
+      ctx.fillRect(px - 0.5, -5.4, 1.1, 1.1);
+      const swing = Math.sin(t * 3.4 + i * 0.5) * 0.9;
+      ctx.strokeStyle = "rgba(74,50,30,0.7)";
+      ctx.lineWidth = 0.34;
+      ctx.beginPath();
+      ctx.moveTo(px, -4.8);
+      ctx.lineTo(px - 4.2, 6.4 + swing);
+      ctx.stroke();
+      ctx.strokeStyle = "rgba(74,50,30,0.45)";
+      ctx.lineWidth = 0.26;
+      ctx.beginPath();
+      ctx.moveTo(px - 0.8, -3.6);
+      ctx.lineTo(px - 4.8, 7.2 + swing * 0.85);
+      ctx.stroke();
     }
-    ctx.strokeStyle = INK; ctx.lineWidth = 0.32;
-    ctx.beginPath(); ctx.moveTo(-18, -5); ctx.lineTo(22, -5); ctx.stroke();
+    // deck rail
+    ctx.beginPath();
+    ctx.moveTo(-27, -7.2);
+    ctx.lineTo(29, -7.2);
+    ctx.strokeStyle = INK;
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
+    // shields
     for (let i = 0; i < 5; i++) {
-      ctx.beginPath(); ctx.arc(-14 + i * 7, -6.4, 1.5, 0, TAU);
-      ctx.fillStyle = o.shield || "rgba(88,112,130,0.92)"; ctx.fill();
-      ctx.strokeStyle = INK; ctx.lineWidth = 0.2; ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(-17 + i * 7.4, -8.6, 1.7, 0, TAU);
+      ctx.fillStyle = o.shield || "rgba(88,112,130,0.95)";
+      ctx.fill();
+      ctx.strokeStyle = INK;
+      ctx.lineWidth = 0.24;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(-17 + i * 7.4, -8.6, 0.55, 0, TAU);
+      ctx.strokeStyle = "rgba(240,232,212,0.7)";
+      ctx.lineWidth = 0.18;
+      ctx.stroke();
     }
-    ctx.strokeStyle = INK; ctx.lineWidth = 0.42;
-    ctx.beginPath(); ctx.moveTo(-2, -5); ctx.lineTo(-2, -28); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(-10, -22); ctx.quadraticCurveTo(-2, -26, 6, -22); ctx.lineTo(6, -19); ctx.quadraticCurveTo(-2, -22, -10, -19); ctx.closePath();
-    ctx.fillStyle = "rgba(236,224,198,0.94)"; ctx.fill();
-    ctx.strokeStyle = "rgba(96,70,44,0.7)"; ctx.lineWidth = 0.22; ctx.stroke();
-    for (let i = 0; i < 4; i++) {
-      ctx.strokeStyle = "rgba(67,48,29,0.8)"; ctx.lineWidth = 0.22;
-      ctx.beginPath(); ctx.moveTo(-10 + i * 6, -7); ctx.lineTo(-7 + i * 6, -18); ctx.stroke();
+    // mast + furled sail
+    ctx.strokeStyle = "rgba(74,50,30,0.95)";
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(1, -7); ctx.lineTo(1, -34); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-13, -30); ctx.lineTo(15, -30); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-12, -30);
+    ctx.quadraticCurveTo(0, -26.8, 13, -30);
+    ctx.quadraticCurveTo(0, -29.2, -12, -30);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(236,224,198,0.96)";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(96,70,44,0.65)";
+    ctx.lineWidth = 0.24;
+    ctx.stroke();
+    // rigging
+    ctx.strokeStyle = "rgba(74,50,30,0.4)";
+    ctx.lineWidth = 0.16;
+    ctx.beginPath();
+    ctx.moveTo(1, -33); ctx.lineTo(29, -7);
+    ctx.moveTo(1, -33); ctx.lineTo(-26, -7);
+    ctx.stroke();
+    // hoplites on deck
+    for (let i = 0; i < 3; i++) {
+      person(ctx, -8 + i * 8, -7.4, 0.18, "rgba(52,38,24,0.96)", {
+        phase: t + i, fill: i === 1 ? "rgba(150,60,42,0.95)" : "rgba(78,98,112,0.95)", hat: "helmet", spear: true, noShadow: true,
+      });
     }
-    ctx.strokeStyle = "rgba(246,238,219,0.8)"; ctx.lineWidth = 0.32;
-    ctx.beginPath(); ctx.moveTo(28, 2); ctx.quadraticCurveTo(36, 2, 40, 4); ctx.stroke();
+    // helmsman
+    person(ctx, -23, -7.4, 0.17, "rgba(52,38,24,0.96)", { phase: t + 2, fill: "rgba(96,84,64,0.95)", noShadow: true });
+    // bow foam
+    ctx.strokeStyle = "rgba(246,238,219,0.85)";
+    ctx.lineWidth = 0.4;
+    ctx.beginPath();
+    ctx.moveTo(33, 0.4);
+    ctx.quadraticCurveTo(40, 1.2, 44, 4);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(30, 2.2);
+    ctx.quadraticCurveTo(36, 4, 38, 6.4);
+    ctx.stroke();
     ctx.restore();
   }
 
@@ -1315,6 +1415,21 @@
     ctx.beginPath(); ctx.moveTo(-16.4, -6.6); ctx.lineTo(-15.2, -6.6); ctx.lineTo(-14.6, -7.6); ctx.stroke();
     ctx.beginPath(); ctx.arc(-14.3, -7.8, 0.4, 0, TAU); ctx.fillStyle = "rgba(74,50,30,0.9)"; ctx.fill();
 
+    // tea-house lantern
+    glow(ctx, 30.4, -6.6, 2.4, "#e0a85e", 0.45);
+    ctx.beginPath(); ctx.arc(30.4, -6.6, 0.7, 0, TAU);
+    ctx.fillStyle = "rgba(240,196,110,0.95)"; ctx.fill();
+    // bridge reflection
+    for (let i = 0; i < 5; i++) {
+      const u = 0.16 + i * 0.16;
+      const q = qp(u);
+      ctx.strokeStyle = "rgba(214,190,154,0.22)";
+      ctx.lineWidth = 0.24;
+      ctx.beginPath();
+      ctx.moveTo(q[0], q[1] + 2.6);
+      ctx.lineTo(q[0] + 1.4, q[1] + 5.6 + i * 0.6);
+      ctx.stroke();
+    }
     // ── left willow framing ──
     ctx.strokeStyle = "rgba(90,76,46,0.96)";
     ctx.lineWidth = 0.85;
@@ -1781,215 +1896,187 @@
 
   /* ── 3. Founding of Rome · 台伯河畔的犁沟 ───────────────── */
   const romeStage = function (ctx, top, t) {
-    const sky = ctx.createLinearGradient(0, top, 0, -34);
+    const sky = ctx.createLinearGradient(0, top, 0, -36);
     sky.addColorStop(0, "#f7e9c6");
-    sky.addColorStop(0.55, "#f2d9a8");
-    sky.addColorStop(1, "#e7c68c");
+    sky.addColorStop(0.52, "#f2d9a8");
+    sky.addColorStop(1, "#e6c489");
     ctx.fillStyle = sky;
-    ctx.fillRect(-50, top, 100, -34 - top);
-    glow(ctx, 10, -80, 26, "#e5ae60", 0.4);
-    ctx.beginPath(); ctx.arc(10, -80, 6, 0, TAU);
+    ctx.fillRect(-50, top, 100, -36 - top);
+    glow(ctx, 10, -78, 26, "#e5ae60", 0.4);
+    ctx.beginPath(); ctx.arc(10, -78, 6, 0, TAU);
     ctx.fillStyle = "rgba(224,169,90,0.9)"; ctx.fill();
-    cloud(ctx, -26, -94, 17, "#fff8e7", 0.5);
-    cloud(ctx, 30, -88, 12, "#fff8e7", 0.45);
+    cloud(ctx, -28, -92, 17, "#fff8e7", 0.5);
+    cloud(ctx, 30, -86, 12, "#fff8e7", 0.45);
 
-    // distant hills
-    ridge(ctx, -50, 50, -38, 5, "rgba(132,124,80,0.28)", 7, 5, -20);
-    // Palatine hill
+    // far hills
+    ridge(ctx, -50, 50, -38, 4.4, "rgba(132,124,80,0.26)", 7, 5, -30);
+
+    // main hill with terraces
     ctx.beginPath();
-    ctx.moveTo(-50, -16);
-    ctx.quadraticCurveTo(-28, -32, -6, -40);
-    ctx.quadraticCurveTo(8, -46, 20, -52);
-    ctx.quadraticCurveTo(32, -56, 42, -46);
-    ctx.quadraticCurveTo(48, -40, 50, -34);
-    ctx.lineTo(50, -20); ctx.lineTo(-50, -20);
+    ctx.moveTo(-52, -18);
+    ctx.quadraticCurveTo(-30, -32, -4, -42);
+    ctx.quadraticCurveTo(16, -49, 32, -52);
+    ctx.quadraticCurveTo(44, -50, 52, -36);
+    ctx.lineTo(52, -18);
     ctx.closePath();
-    ctx.fillStyle = "rgba(152,140,88,0.82)";
+    ctx.fillStyle = "rgba(148,136,84,0.9)";
     ctx.fill();
-    ctx.strokeStyle = hexA(INK, 0.45);
-    ctx.lineWidth = 0.3;
-    ctx.stroke();
-    hatch(ctx, -20, -48, 54, 28, "rgba(67,48,29,0.14)", 1.9, -0.9);
-    hatch(ctx, -50, -26, 40, 16, "rgba(67,48,29,0.13)", 2.2, -0.75);
-    // shrubs and rocks on the slope
-    for (let i = 0; i < 9; i++) {
-      const sx = -40 + i * 9;
-      const sy = -30 + Math.sin(i * 1.3) * 4;
-      ctx.beginPath(); ctx.ellipse(sx, sy, 1.8, 1.0, 0, 0, TAU);
-      ctx.fillStyle = "rgba(86,98,56,0.55)"; ctx.fill();
-    }
-    for (const [rx, ry] of [[-22, -27], [16, -35], [34, -47]]) {
-      ctx.beginPath(); ctx.ellipse(rx, ry, 1.6, 0.8, 0, 0, TAU);
-      ctx.fillStyle = "rgba(146,128,94,0.75)"; ctx.fill();
-      ctx.strokeStyle = hexA(INK, 0.3); ctx.lineWidth = 0.16; ctx.stroke();
-    }
-    // path up the hill
-    ctx.beginPath();
-    ctx.moveTo(-6, -20);
-    ctx.quadraticCurveTo(2, -34, 14, -48);
-    ctx.strokeStyle = "rgba(206,180,132,0.65)"; ctx.lineWidth = 1.4; ctx.stroke();
-
-    // huts on the plateau
-    const huts = [[8, -52], [15, -50], [22, -53], [29, -50], [2, -49]];
-    huts.forEach(([hx, hy], i) => {
-      const hh = 4.6 + (i % 2) * 0.6;
-      ctx.fillStyle = "rgba(214,190,148,0.97)";
-      ctx.fillRect(hx - 2.2, hy - hh, 4.4, hh);
-      ctx.strokeStyle = hexA(INK, 0.55); ctx.lineWidth = 0.22;
-      ctx.strokeRect(hx - 2.2, hy - hh, 4.4, hh);
+    ctx.strokeStyle = "rgba(74,54,30,0.4)"; ctx.lineWidth = 0.28; ctx.stroke();
+    // contour terraces
+    for (let i = 0; i < 3; i++) {
       ctx.beginPath();
-      ctx.moveTo(hx - 3.8, hy - hh);
-      ctx.lineTo(hx, hy - hh - 4.4);
-      ctx.lineTo(hx + 3.8, hy - hh);
+      ctx.moveTo(-52, -24 - i * 5);
+      ctx.quadraticCurveTo(-26, -36 - i * 4, 4, -44 - i * 3);
+      ctx.quadraticCurveTo(28, -50 - i * 2, 52, -40 - i * 4);
+      ctx.strokeStyle = "rgba(92,72,44,0.18)"; ctx.lineWidth = 0.28; ctx.stroke();
+    }
+    hatch(ctx, -46, -38, 40, 20, "rgba(67,48,29,0.10)", 2.0, -0.7);
+    hatch(ctx, 10, -48, 38, 20, "rgba(67,48,29,0.12)", 2.0, -0.7);
+    // shadow side
+    ctx.beginPath();
+    ctx.moveTo(8, -20); ctx.quadraticCurveTo(30, -30, 52, -36);
+    ctx.lineTo(52, -18); ctx.closePath();
+    ctx.fillStyle = "rgba(74,54,30,0.10)"; ctx.fill();
+
+    // village on the plateau
+    const huts = [[-2, -44], [6, -45], [14, -47], [22, -49], [30, -50], [38, -48], [-10, -41]];
+    huts.forEach(([hx, hy], i) => {
+      const hh = 4.4 + (i % 3) * 0.8;
+      ctx.fillStyle = "rgba(214,190,148,0.97)";
+      ctx.fillRect(hx - 2.0, hy - hh, 4.0, hh);
+      ctx.strokeStyle = "rgba(74,54,30,0.55)"; ctx.lineWidth = 0.2;
+      ctx.strokeRect(hx - 2.0, hy - hh, 4.0, hh);
+      // thatch roof
+      ctx.beginPath();
+      ctx.moveTo(hx - 3.4, hy - hh);
+      ctx.lineTo(hx, hy - hh - 4.0);
+      ctx.lineTo(hx + 3.4, hy - hh);
       ctx.closePath();
-      ctx.fillStyle = "rgba(176,132,78,0.97)"; ctx.fill();
+      ctx.fillStyle = "rgba(172,126,74,0.97)"; ctx.fill();
       ctx.stroke();
       // thatch lines
-      ctx.strokeStyle = "rgba(92,60,34,0.35)"; ctx.lineWidth = 0.12;
-      ctx.beginPath(); ctx.moveTo(hx - 1.8, hy - hh - 1.6); ctx.lineTo(hx + 1.8, hy - hh - 1.6); ctx.stroke();
-      // door
-      ctx.fillStyle = hexA(INK, 0.4);
-      ctx.fillRect(hx - 0.7, hy - 2.4, 1.4, 2.4);
+      ctx.strokeStyle = "rgba(92,60,34,0.35)"; ctx.lineWidth = 0.1;
+      for (let k = 1; k < 3; k++) {
+        ctx.beginPath(); ctx.moveTo(hx - 2.6 + k, hy - hh - k * 0.8); ctx.lineTo(hx + 2.6 - k, hy - hh - k * 0.8); ctx.stroke();
+      }
+      // door + shadow
+      ctx.fillStyle = "rgba(74,54,30,0.45)";
+      ctx.fillRect(hx - 0.6, hy - 2.0, 1.2, 2.0);
+      ctx.fillStyle = "rgba(74,54,30,0.10)";
+      ctx.fillRect(hx + 2.0, hy - hh + 0.4, 1.2, hh - 0.4);
       // smoke
-      const q = (t * 0.22 + i * 0.2) % 1;
-      ctx.beginPath(); ctx.arc(hx, hy - hh - 4.6 - q * 7, 0.8 + q * 2.0, 0, TAU);
-      ctx.fillStyle = "rgba(160,140,110," + (0.16 * (1 - q)) + ")"; ctx.fill();
+      const q = (t * 0.22 + i * 0.18) % 1;
+      ctx.beginPath(); ctx.arc(hx, hy - hh - 4.4 - q * 7, 0.8 + q * 1.8, 0, TAU);
+      ctx.fillStyle = "rgba(160,140,110," + (0.14 * (1 - q)) + ")"; ctx.fill();
     });
-    // palisade
-    for (let x = -6; x < 38; x += 1.9) {
-      const py = -47 + Math.sin(x * 0.16) * 1.6;
-      ctx.strokeStyle = "rgba(67,48,29,0.55)"; ctx.lineWidth = 0.18;
-      ctx.beginPath(); ctx.moveTo(x, py); ctx.lineTo(x, py - 2.6); ctx.stroke();
+    // palisade + path
+    for (let x = -12; x < 40; x += 1.9) {
+      const py = -43 + Math.sin(x * 0.14) * 1.8;
+      ctx.strokeStyle = "rgba(67,48,29,0.5)"; ctx.lineWidth = 0.16;
+      ctx.beginPath(); ctx.moveTo(x, py); ctx.lineTo(x, py - 2.4); ctx.stroke();
     }
-    // wolf on the ridge
-    wolf(ctx, 38, -56, 0.5, "rgba(60,44,28,0.82)");
-
-    // Tiber
-    const riv = ctx.createLinearGradient(0, -24, 0, -10);
-    riv.addColorStop(0, "#86a29b");
-    riv.addColorStop(1, "#6b8a84");
     ctx.beginPath();
-    ctx.moveTo(-50, -24);
-    ctx.quadraticCurveTo(-20, -25, 0, -23);
-    ctx.quadraticCurveTo(26, -21, 50, -25);
-    ctx.lineTo(50, -11);
-    ctx.quadraticCurveTo(20, -15, -4, -16);
-    ctx.quadraticCurveTo(-28, -17, -50, -13);
+    ctx.moveTo(-6, -18);
+    ctx.quadraticCurveTo(0, -30, 12, -42);
+    ctx.strokeStyle = "rgba(206,180,132,0.85)"; ctx.lineWidth = 1.2; ctx.stroke();
+
+    // wolf on a rock outcrop
+    ctx.beginPath();
+    ctx.moveTo(34, -46); ctx.lineTo(37, -50.4); ctx.lineTo(42, -51); ctx.lineTo(46, -47.4); ctx.lineTo(44, -45);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(144,126,92,0.95)"; ctx.fill();
+    ctx.strokeStyle = "rgba(67,48,29,0.45)"; ctx.lineWidth = 0.2; ctx.stroke();
+    wolf(ctx, 40, -52, 0.52, "rgba(58,42,26,0.85)");
+
+    // Tiber: winding band
+    const riv = ctx.createLinearGradient(0, -20, 0, -10);
+    riv.addColorStop(0, "#86a29b");
+    riv.addColorStop(1, "#6a8983");
+    ctx.beginPath();
+    ctx.moveTo(-52, -19);
+    ctx.quadraticCurveTo(-24, -24, 2, -20);
+    ctx.quadraticCurveTo(28, -16, 52, -22);
+    ctx.lineTo(52, -12);
+    ctx.quadraticCurveTo(26, -8, 0, -12);
+    ctx.quadraticCurveTo(-26, -15, -52, -9);
     ctx.closePath();
     ctx.fillStyle = riv; ctx.fill();
-    // water lines
-    for (let i = 0; i < 4; i++) {
-      ctx.strokeStyle = "rgba(238,230,208,0.34)"; ctx.lineWidth = 0.16;
-      ctx.beginPath();
-      ctx.moveTo(-46, -21 + i * 2.2);
-      ctx.quadraticCurveTo(0, -24 + i * 2.2 + Math.sin(t + i) * 0.25, 46, -22 + i * 2.2);
-      ctx.stroke();
+    ctx.strokeStyle = "rgba(74,54,30,0.3)"; ctx.lineWidth = 0.24; ctx.stroke();
+    for (let i = 0; i < 5; i++) {
+      ctx.strokeStyle = "rgba(238,230,208,0.3)"; ctx.lineWidth = 0.16;
+      ctx.beginPath(); ctx.moveTo(-46, -17 + i * 1.8);
+      ctx.quadraticCurveTo(0, -21 + i * 1.8 + Math.sin(t + i) * 0.4, 46, -18 + i * 1.8); ctx.stroke();
     }
-    // near bank
-    ctx.fillStyle = "rgba(198,170,122,0.98)";
+    // reeds
+    for (let i = 0; i < 12; i++) {
+      const rx = -46 + i * 8;
+      const ry = -15 - Math.sin(i * 1.4) * 2;
+      ctx.strokeStyle = "rgba(108,104,60,0.7)"; ctx.lineWidth = 0.16;
+      ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(rx + Math.sin(t + i) * 0.4, ry - 3.2); ctx.stroke();
+    }
+    // small boat
     ctx.beginPath();
-    ctx.moveTo(-50, -13);
-    ctx.quadraticCurveTo(-28, -17, -4, -16);
-    ctx.quadraticCurveTo(20, -15, 50, -11);
-    ctx.lineTo(50, 0); ctx.lineTo(-50, 0);
+    ctx.moveTo(20, -16.6); ctx.lineTo(28, -17.4); ctx.lineTo(30, -16.2); ctx.lineTo(22, -15.4); ctx.closePath();
+    ctx.fillStyle = "rgba(118,84,50,0.95)"; ctx.fill();
+    ctx.strokeStyle = "rgba(74,50,30,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
+
+    // near bank / field
+    const field = ctx.createLinearGradient(0, -10, 0, 0);
+    field.addColorStop(0, "rgba(188,156,108,0.98)");
+    field.addColorStop(1, "rgba(164,130,84,0.98)");
+    ctx.fillStyle = field;
+    ctx.beginPath();
+    ctx.moveTo(-52, -9);
+    ctx.quadraticCurveTo(-26, -15, 0, -12);
+    ctx.quadraticCurveTo(26, -8, 52, -12);
+    ctx.lineTo(52, 0); ctx.lineTo(-52, 0);
     ctx.closePath();
     ctx.fill();
-    ctx.strokeStyle = hexA(INK, 0.4); ctx.lineWidth = 0.24; ctx.stroke();
-    // reeds
-    for (let i = 0; i < 13; i++) {
-      const rx = -46 + i * 7.6;
-      const ry = -16 - Math.sin(i * 1.7) * 1.6;
-      ctx.strokeStyle = "rgba(108,104,60,0.8)"; ctx.lineWidth = 0.16;
-      ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(rx + Math.sin(t + i) * 0.4, ry - 3.2); ctx.stroke();
-      ctx.beginPath(); ctx.arc(rx + Math.sin(t + i) * 0.4, ry - 3.3, 0.26, 0, TAU); ctx.fillStyle = "rgba(120,96,52,0.9)"; ctx.fill();
+    ctx.strokeStyle = "rgba(74,54,30,0.3)"; ctx.lineWidth = 0.24;
+    ctx.beginPath(); ctx.moveTo(-52, -9); ctx.quadraticCurveTo(-26, -15, 0, -12); ctx.quadraticCurveTo(26, -8, 52, -12); ctx.stroke();
+    // grass + stones
+    for (let i = 0; i < 20; i++) {
+      const gx = -48 + i * 5;
+      const gy = -4 + (i % 4) * 0.8;
+      ctx.strokeStyle = "rgba(104,96,58,0.55)"; ctx.lineWidth = 0.14;
+      ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + Math.sin(t + i) * 0.4, gy - 1.8); ctx.stroke();
     }
-    // small raft
-    ctx.beginPath();
-    ctx.moveTo(22, -20.4); ctx.lineTo(29, -21.2); ctx.lineTo(31, -20); ctx.lineTo(24, -19.2); ctx.closePath();
-    ctx.fillStyle = "rgba(120,86,50,0.95)"; ctx.fill();
-    ctx.strokeStyle = hexA(INK, 0.5); ctx.lineWidth = 0.2; ctx.stroke();
 
-    // foreground field + furrow
-    const field = ctx.createLinearGradient(0, -12, 0, 0);
-    field.addColorStop(0, "rgba(202,174,126,0.98)");
-    field.addColorStop(1, "rgba(190,158,108,0.98)");
-    ctx.fillStyle = field;
-    ctx.fillRect(-50, -4, 100, 4);
+    // furrow
     ctx.beginPath();
-    ctx.moveTo(-46, -1.4);
-    ctx.quadraticCurveTo(-18, -6.2, 8, -4.6);
-    ctx.strokeStyle = "rgba(67,48,29,0.55)";
-    ctx.lineWidth = 0.7;
-    ctx.stroke();
+    ctx.moveTo(-46, -2.2);
+    ctx.quadraticCurveTo(-18, -7.2, 8, -5.4);
+    ctx.strokeStyle = "rgba(67,48,29,0.62)"; ctx.lineWidth = 0.8; ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(-46, -1.9);
-    ctx.quadraticCurveTo(-18, -6.7, 8, -5.1);
-    ctx.strokeStyle = "rgba(232,206,158,0.9)";
-    ctx.lineWidth = 0.35;
-    ctx.stroke();
+    ctx.moveTo(-46, -2.7);
+    ctx.quadraticCurveTo(-18, -7.7, 8, -5.9);
+    ctx.strokeStyle = "rgba(232,206,158,0.9)"; ctx.lineWidth = 0.3; ctx.stroke();
 
-    // ox + plough + Romulus (foreground)
-    ox(ctx, -22, -4.6, 0.58, "rgba(96,70,44,0.9)", t);
-    // plough share
-    ctx.strokeStyle = "rgba(67,48,29,0.9)"; ctx.lineWidth = 0.32;
-    ctx.beginPath(); ctx.moveTo(-28, -2.2); ctx.lineTo(-32.4, 0.2); ctx.stroke();
-    // Romulus guiding the plough
-    person(ctx, -34, -3.2, 0.28, "rgba(58,42,26,0.98)", { phase: t, fill: "rgba(168,64,44,0.95)", hat: "cap", arm: true });
-    // augur with staff
-    person(ctx, 6, -3.6, 0.28, "rgba(58,42,26,0.98)", { phase: t + 1, fill: "rgba(196,170,120,0.95)", staff: true, hat: "straw" });
-    // second small figure at the furrow
-    person(ctx, -40, -2.4, 0.25, "rgba(58,42,26,0.95)", { phase: t + 2, fill: "rgba(110,96,72,0.95)" });
+    // ox + plough + figures
+    ox(ctx, -22, -6.2, 0.55, "rgba(96,70,44,0.9)", t);
+    ctx.strokeStyle = "rgba(67,48,29,0.9)"; ctx.lineWidth = 0.35;
+    ctx.beginPath(); ctx.moveTo(-29, -3.8); ctx.lineTo(-33.4, -1.6); ctx.stroke();
+    person(ctx, -35, -4.4, 0.3, "rgba(58,42,26,0.98)", { phase: t, fill: "rgba(168,64,44,0.95)", hat: "cap", arm: true });
+    person(ctx, 6, -4.6, 0.3, "rgba(58,42,26,0.98)", { phase: t + 1, fill: "rgba(196,170,120,0.95)", staff: true, hat: "straw" });
+    person(ctx, -42, -3.4, 0.26, "rgba(58,42,26,0.95)", { phase: t + 2, fill: "rgba(110,96,72,0.95)" });
+    // boundary stone
+    ctx.fillStyle = "rgba(156,138,106,0.95)";
+    ctx.fillRect(14, -3.8, 1.6, 3.8);
+    ctx.strokeStyle = "rgba(67,48,29,0.5)"; ctx.lineWidth = 0.18; ctx.strokeRect(14, -3.8, 1.6, 3.8);
 
-    // cypress trees; the left one is a dark foreground frame
-    for (const cx of [-47, 45]) {
-      const big = cx < 0;
-      ctx.strokeStyle = "rgba(60,44,26,0.9)"; ctx.lineWidth = big ? 0.55 : 0.32;
-      ctx.beginPath(); ctx.moveTo(cx, -2); ctx.lineTo(cx, big ? -14 : -10); ctx.stroke();
-      const n = big ? 6 : 4;
-      for (let i = 0; i < n; i++) {
-        ctx.beginPath();
-        ctx.moveTo(cx, (big ? -46 : -38) + i * 3);
-        ctx.quadraticCurveTo(cx - (big ? 3.6 : 2.4), -24 + i * 3, cx - (big ? 1.8 : 1.2), -10);
-        ctx.lineTo(cx + (big ? 1.8 : 1.2), -10);
-        ctx.quadraticCurveTo(cx + (big ? 3.6 : 2.4), -24 + i * 3, cx, (big ? -46 : -38) + i * 3);
-        ctx.closePath();
-        ctx.fillStyle = big ? "rgba(64,78,46," + (0.5 + i * 0.07) + ")" : "rgba(92,104,62," + (0.32 + i * 0.12) + ")";
-        ctx.fill();
-      }
-    }
-    // river reflections
+    // dark tree frame right
+    ctx.strokeStyle = "rgba(64,48,28,0.95)"; ctx.lineWidth = 1.1;
+    ctx.beginPath(); ctx.moveTo(46, -2); ctx.quadraticCurveTo(44, -14, 47, -26); ctx.stroke();
     for (let i = 0; i < 4; i++) {
-      ctx.strokeStyle = "rgba(226,216,190,0.16)"; ctx.lineWidth = 0.18;
-      ctx.beginPath(); ctx.moveTo(-40 + i * 6, -18 + i * 1.2); ctx.quadraticCurveTo(0, -21 + i * 1.2, 40 - i * 4, -17 + i * 1.2); ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(47 + (i % 2 ? 1.6 : -1.4), -26 - i * 2.4, 4.2 - i * 0.5, 2.0, 0, 0, TAU);
+      ctx.fillStyle = "rgba(76,90,52," + (0.6 + i * 0.08) + ")"; ctx.fill();
     }
-    // hill grass tufts
-    for (let i = 0; i < 16; i++) {
-      const gx = -34 + i * 4.6;
-      const gy = -26 + Math.sin(i * 1.2) * 6;
-      ctx.strokeStyle = "rgba(96,96,56,0.5)"; ctx.lineWidth = 0.16;
-      ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + Math.sin(t + i) * 0.5, gy - 2.2); ctx.stroke();
-    }
-    // small altar with fire near the furrow
-    ctx.fillStyle = "rgba(168,142,104,0.95)";
-    ctx.fillRect(-2.6, -3.2, 3.2, 1.8);
-    ctx.strokeStyle = hexA(INK, 0.55); ctx.lineWidth = 0.18;
-    ctx.strokeRect(-2.6, -3.2, 3.2, 1.8);
-    glow(ctx, -1, -5.4, 4.2, "#d98444", 0.4);
-    const fw = 0.7 + 0.3 * Math.sin(t * 6);
+    // left cypress
     ctx.beginPath();
-    ctx.moveTo(-2.1, -3.2); ctx.quadraticCurveTo(-1.8, -6.6, -1.0, -8.2 * fw);
-    ctx.quadraticCurveTo(-0.2, -6.6, 0.1, -3.2); ctx.closePath();
-    ctx.fillStyle = "rgba(214,132,64,0.9)"; ctx.fill();
-    // villagers on the hill path
-    person(ctx, 2, -30, 0.18, "rgba(58,42,26,0.95)", { phase: t + 3, fill: "rgba(112,88,58,0.95)" });
-    person(ctx, 8, -36, 0.18, "rgba(58,42,26,0.95)", { phase: t + 4, fill: "rgba(168,64,44,0.9)" });
-    // foreground grass
-    for (let i = 0; i < 24; i++) {
-      const gx = -48 + i * 4.1;
-      const gy = -0.4 + (i % 4) * 0.2;
-      ctx.strokeStyle = "rgba(104,96,58,0.62)"; ctx.lineWidth = 0.14;
-      ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + Math.sin(t + i) * 0.5, gy - 2.2 - (i % 3) * 0.6); ctx.stroke();
-    }
+    ctx.moveTo(-48, -2); ctx.quadraticCurveTo(-46, -20, -48, -38); ctx.quadraticCurveTo(-50, -20, -48, -2); ctx.closePath();
+    ctx.fillStyle = "rgba(70,84,50,0.9)"; ctx.fill();
+
     // birds
     bird(ctx, -30, -84, 1.2, "rgba(67,48,29,0.45)");
     bird(ctx, -24, -88, 0.9, "rgba(67,48,29,0.4)");
@@ -2876,6 +2963,20 @@
     // plinth cast shadow
     ctx.fillStyle = "rgba(116,92,60,0.08)";
     ctx.fillRect(6, -30, 34, 1.2);
+    // dome rim light
+    ctx.beginPath();
+    ctx.moveTo(-11.4, -53);
+    ctx.quadraticCurveTo(-10.6, -62.6, -2.4, -66.4);
+    ctx.strokeStyle = "rgba(255,252,240,0.8)";
+    ctx.lineWidth = 1.1;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0, -67.2, 0.8, 0, TAU);
+    ctx.fillStyle = "rgba(216,178,102,0.95)"; ctx.fill();
+    // pool glint
+    ctx.beginPath();
+    ctx.ellipse(0, -24.4, 4.6, 1.0, 0, 0, TAU);
+    ctx.fillStyle = "rgba(246,238,220,0.5)"; ctx.fill();
     // marble inlay
     ctx.strokeStyle = "rgba(176,138,62,0.45)"; ctx.lineWidth = 0.16;
     for (let i = 0; i < 3; i++) {
@@ -3278,6 +3379,26 @@
       }
       ctx.stroke();
     }
+    // sea texture: cross-hatch and crests
+    hatch(ctx, -50, -24, 100, 24, "rgba(38,58,64,0.10)", 2.4, -0.18);
+    for (let i = 0; i < 9; i++) {
+      const wx = -44 + i * 10.6;
+      const wy = -20 + (i % 3) * 3.4;
+      ctx.beginPath();
+      ctx.moveTo(wx, wy);
+      ctx.quadraticCurveTo(wx + 2.4, wy - 1.0, wx + 5.0, wy);
+      ctx.strokeStyle = "rgba(238,244,230,0.42)";
+      ctx.lineWidth = 0.3;
+      ctx.stroke();
+    }
+    // foreground wave
+    ctx.beginPath();
+    ctx.moveTo(-52, -2);
+    ctx.quadraticCurveTo(-34, -6, -14, -3);
+    ctx.quadraticCurveTo(2, -1, 10, 0);
+    ctx.strokeStyle = "rgba(238,244,230,0.28)";
+    ctx.lineWidth = 0.7;
+    ctx.stroke();
     // distant sail
     ctx.strokeStyle = "rgba(74,50,30,0.5)"; ctx.lineWidth = 0.25;
     ctx.beginPath(); ctx.moveTo(-36, -24); ctx.lineTo(-36, -30); ctx.stroke();
@@ -3285,15 +3406,15 @@
     ctx.fillStyle = "rgba(238,228,204,0.8)"; ctx.fill();
 
     // ships: Athenian (blue), Spartan (red), sinking
-    trireme(ctx, -36, -17, 0.48, t, { phase: 0, shield: "rgba(88,112,130,0.95)", hull: "rgba(128,90,54,0.97)" });
-    trireme(ctx, -12, -13, 0.58, t, { phase: 1.6, shield: "rgba(88,112,130,0.95)", hull: "rgba(120,84,50,0.98)" });
-    trireme(ctx, 13, -17, 0.52, t, { phase: 0.8, shield: "rgba(166,66,44,0.95)", hull: "rgba(112,78,48,0.97)" });
+    trireme(ctx, -40, -17, 0.42, t, { phase: 0, shield: "rgba(88,112,130,0.95)", hull: "rgba(128,90,54,0.97)" });
+    trireme(ctx, -14, -12, 0.50, t, { phase: 1.6, shield: "rgba(88,112,130,0.95)", hull: "rgba(120,84,50,0.98)" });
+    trireme(ctx, 14, -16, 0.44, t, { phase: 0.8, shield: "rgba(166,66,44,0.95)", hull: "rgba(112,78,48,0.97)" });
     // sinking ship
     ctx.save();
-    ctx.translate(38, -10);
+    ctx.translate(39, -8);
     ctx.rotate(0.20);
     ctx.globalAlpha = 0.92;
-    trireme(ctx, 0, 0, 0.62, t, { phase: 2.4, shield: "rgba(166,66,44,0.95)", hull: "rgba(96,66,42,0.97)" });
+    trireme(ctx, 0, 0, 0.55, t, { phase: 2.4, shield: "rgba(166,66,44,0.95)", hull: "rgba(96,66,42,0.97)" });
     ctx.restore();
     // waterline shadows + foam under each hull
     for (const [sx, sy, sw] of [[-36, -16.2, 13], [-12, -12.2, 16], [13, -16.2, 14], [38, -9.2, 17]]) {
@@ -3320,9 +3441,37 @@
     ctx.strokeStyle = "rgba(58,74,82,0.8)"; ctx.lineWidth = 0.4;
     ctx.beginPath(); ctx.moveTo(-42, -8); ctx.quadraticCurveTo(-38, -11, -34, -8); ctx.quadraticCurveTo(-38, -6, -42, -8); ctx.stroke();
 
-    // birds
-    bird(ctx, -30, -80, 1.3, "rgba(67,48,29,0.4)");
-    bird(ctx, -24, -84, 0.9, "rgba(67,48,29,0.35)");
+    // distant ships near the horizon
+    ctx.save();
+    ctx.globalAlpha = 0.55;
+    trireme(ctx, -32, -24, 0.16, t, { phase: 1.2, shield: "rgba(88,112,130,0.9)", hull: "rgba(90,68,46,0.9)" });
+    trireme(ctx, 6, -25, 0.13, t, { phase: 2.1, shield: "rgba(166,66,44,0.9)", hull: "rgba(90,68,46,0.9)" });
+    ctx.restore();
+    // foreground wave framing the battle
+    ctx.beginPath();
+    ctx.moveTo(-52, 0);
+    ctx.quadraticCurveTo(-30, -5.2, -4, -2.2);
+    ctx.quadraticCurveTo(20, 0, 52, -3.4);
+    ctx.lineTo(52, 0);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(64,92,102,0.9)";
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-52, -0.4);
+    ctx.quadraticCurveTo(-30, -5.6, -4, -2.6);
+    ctx.quadraticCurveTo(20, -0.4, 52, -3.8);
+    ctx.strokeStyle = "rgba(238,244,230,0.55)";
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
+    // cliff hatching under the Acropolis
+    hatch(ctx, 20, -22, 30, 12, "rgba(67,48,29,0.16)", 1.8, -0.8);
+    // cloud bank and birds
+    cloud(ctx, -12, -70, 30, "rgba(250,240,220,0.42)", 0.5);
+    cloud(ctx, 24, -80, 20, "rgba(250,240,220,0.35)", 0.45);
+    cloud(ctx, -40, -86, 14, "rgba(250,240,220,0.3)", 0.4);
+    for (let i = 0; i < 5; i++) {
+      bird(ctx, -32 + i * 7, -76 - (i % 2) * 3, 0.9 + (i % 2) * 0.2, "rgba(67,48,29,0.38)");
+    }
   };
 
   const pelopMap = function (ctx, t) {
@@ -3403,6 +3552,15 @@
     junk(ctx, 2, -18, 0.80, t, { phase: 0.2, masts: [28, 14, 0, -14, -26], sail: "rgba(174,62,42,0.92)" });
     junk(ctx, -34, -12, 0.38, t, { phase: 1.4, sail: "rgba(170,74,46,0.9)" });
     junk(ctx, 40, -8, 0.46, t, { phase: 2.2, sail: "rgba(168,84,48,0.9)" });
+    // sail seam highlights
+    for (let i = 0; i < 5; i++) {
+      ctx.strokeStyle = "rgba(246,210,160,0.28)";
+      ctx.lineWidth = 0.18;
+      ctx.beginPath();
+      ctx.moveTo(2 + i * 6, -22 - (i % 2) * 3);
+      ctx.lineTo(4 + i * 6, -38 - (i % 2) * 2);
+      ctx.stroke();
+    }
     // foreground bow wave
     for (let i = 0; i < 10; i++) {
       const q = (t * 0.9 + i * 0.1) % 1;
@@ -3476,6 +3634,8 @@
     }
 
     // caravel
+    ctx.beginPath(); ctx.ellipse(16, -12.4, 20, 2.2, 0, 0, TAU);
+    ctx.fillStyle = "rgba(64,92,94,0.28)"; ctx.fill();
     caravel(ctx, 16, -17, 0.92, t, { hull: "rgba(120,82,50,0.98)" });
     // gunports
     for (let i = 0; i < 3; i++) {
@@ -3511,6 +3671,11 @@
     ctx.quadraticCurveTo(-28, -2, -50, -5);
     ctx.closePath();
     ctx.fillStyle = "rgba(232,220,188,0.96)"; ctx.fill();
+    // undergrowth
+    for (let i = 0; i < 8; i++) {
+      ctx.beginPath(); ctx.ellipse(-46 + i * 5.2, -15.4 + (i % 2) * 0.6, 2.4, 1.2, 0, 0, TAU);
+      ctx.fillStyle = "rgba(104,116,66,0.6)"; ctx.fill();
+    }
     palm(ctx, -40, -17, 20, 3, "rgba(84,72,44,0.92)");
     palm(ctx, -30, -16, 17, -2, "rgba(84,72,44,0.92)");
     palm(ctx, -20, -15, 14, 2, "rgba(84,72,44,0.92)");
@@ -3783,6 +3948,10 @@
     ctx.fillStyle = "rgba(236,240,226,0.75)"; ctx.fill();
     ctx.beginPath(); ctx.ellipse(-24.6, -70.4, 1.4, 0.9, -0.2, 0, TAU);
     ctx.fillStyle = "rgba(236,240,226,0.65)"; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-27.2, -70.2, 0.9, 0.5, 0.5, 0, TAU);
+    ctx.fillStyle = "rgba(240,244,232,0.55)"; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-24.0, -74.2, 0.8, 0.45, -0.3, 0, TAU);
+    ctx.fillStyle = "rgba(240,244,232,0.5)"; ctx.fill();
     glow(ctx, -26, -72, 8, "#8fb8c8", 0.2);
 
     // lunar surface
@@ -3815,6 +3984,13 @@
     }
     // LM + astronaut + flag
     lunarModule(ctx, 24, -12, 1.0, t);
+    // LM rim light
+    ctx.beginPath();
+    ctx.moveTo(18.4, -20.6);
+    ctx.lineTo(18.4, -14.4);
+    ctx.strokeStyle = "rgba(255,250,232,0.5)";
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
     astronaut(ctx, -8, -6, 0.95, t, true);
     // flag
     ctx.strokeStyle = "rgba(220,212,192,0.95)"; ctx.lineWidth = 0.5;
@@ -3930,6 +4106,15 @@
     ctx.strokeStyle = "rgba(246,214,164,0.75)";
     ctx.lineWidth = 0.5;
     ctx.stroke();
+    // turbulence arcs
+    for (let i = 0; i < 4; i++) {
+      const ty = capY + (i - 1.5) * h * 0.035;
+      ctx.beginPath();
+      ctx.ellipse(x, ty, w * (0.34 - i * 0.03), h * 0.045, 0, Math.PI * 1.08, Math.PI * 1.92);
+      ctx.strokeStyle = "rgba(130,86,52,0.22)";
+      ctx.lineWidth = 0.22;
+      ctx.stroke();
+    }
     glow(ctx, x, capY, w * 0.6, "#e8b072", 0.18);
   }
 
@@ -3956,6 +4141,7 @@
       ctx.beginPath();
       ctx.moveTo(bx - 0.4, -30 - bh); ctx.lineTo(bx + 1.7, -31.4 - bh); ctx.lineTo(bx + 3.8, -30 - bh); ctx.closePath();
       ctx.fillStyle = "rgba(160,112,72,0.55)"; ctx.fill();
+      ctx.strokeStyle = "rgba(92,62,36,0.22)"; ctx.lineWidth = 0.1; ctx.stroke();
     }
     // mid city band (larger, some gaps)
     for (let i = 0; i < 15; i++) {
@@ -3972,6 +4158,13 @@
       ctx.quadraticCurveTo(bx + 2.8, -26.4 - bh, bx + 6.4, -24 - bh);
       ctx.closePath();
       ctx.fillStyle = "rgba(140,88,56,0.85)"; ctx.fill();
+      ctx.strokeStyle = "rgba(78,50,30,0.35)"; ctx.lineWidth = 0.14; ctx.stroke();
+      for (let k = 1; k < 3; k++) {
+        ctx.beginPath();
+        ctx.moveTo(bx - 0.4 + k, -24 - bh - k * 0.5);
+        ctx.quadraticCurveTo(bx + 2.8, -26.4 - bh + k * 0.3, bx + 6.0 - k, -24 - bh - k * 0.5);
+        ctx.strokeStyle = "rgba(78,50,30,0.22)"; ctx.lineWidth = 0.1; ctx.stroke();
+      }
       // window
       ctx.fillStyle = "rgba(84,56,34,0.35)";
       ctx.fillRect(bx + 2.2, -22.6 - bh, 1.2, 1.6);
@@ -4103,15 +4296,35 @@
       ctx.moveTo(-50, yy + 2.4);
       ctx.quadraticCurveTo(-10, yy - 0.6, 50, yy + 3.0);
       ctx.strokeStyle = "rgba(92,104,58,0.35)"; ctx.lineWidth = 0.5; ctx.stroke();
+      // crop rows
+      for (let k = 0; k < 12; k++) {
+        const cx = -48 + k * 8.6;
+        const cy = yy + 1.2 + Math.sin(k * 0.8) * 0.6;
+        ctx.strokeStyle = i % 2 ? "rgba(120,126,66,0.38)" : "rgba(160,140,80,0.35)";
+        ctx.lineWidth = 0.14;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + 0.6, cy + 2.4); ctx.stroke();
+      }
+      // stone wall at the terrace lip
+      ctx.strokeStyle = "rgba(92,74,48,0.28)"; ctx.lineWidth = 0.2;
+      ctx.beginPath();
+      ctx.moveTo(-50, yy + 0.2);
+      ctx.quadraticCurveTo(-10, yy - 3.0, 50, yy + 1.0); ctx.stroke();
+      for (let k = 0; k < 18; k++) {
+        const wx = -48 + k * 5.4;
+        ctx.beginPath(); ctx.moveTo(wx, yy - 1.4 + Math.sin(k) * 0.4); ctx.lineTo(wx, yy + 0.4); ctx.stroke();
+      }
     }
 
     // Urakami Cathedral
     cathedral(ctx, -10, -16, 23, 20);
-    // cathedral shadow
+    // cathedral shadow side
     ctx.save();
-    ctx.beginPath(); ctx.rect(-12, -16, 24, 2.4); ctx.clip();
-    ctx.fillStyle = "rgba(74,48,28,0.16)";
-    ctx.fillRect(-12, -16, 26, 2.4);
+    ctx.beginPath(); ctx.rect(-9, -40, 12, 24); ctx.clip();
+    const cs = ctx.createLinearGradient(-9, 0, 4, 0);
+    cs.addColorStop(0, "rgba(74,48,28,0)");
+    cs.addColorStop(1, "rgba(74,48,28,0.16)");
+    ctx.fillStyle = cs;
+    ctx.fillRect(-9, -40, 12, 24);
     ctx.restore();
 
     // near houses (larger)
@@ -4128,6 +4341,14 @@
       ctx.quadraticCurveTo(bx + 4.2, -10.6 - bh, bx + 9.4, -8 - bh);
       ctx.closePath();
       ctx.fillStyle = "rgba(124,80,52,0.9)"; ctx.fill();
+      ctx.strokeStyle = "rgba(84,54,34,0.3)"; ctx.lineWidth = 0.14; ctx.stroke();
+      // roof tile lines
+      for (let k = 1; k < 3; k++) {
+        ctx.beginPath();
+        ctx.moveTo(bx - 0.6 + k * 0.8, -8 - bh - k * 0.7);
+        ctx.quadraticCurveTo(bx + 4.2, -10.6 - bh + k * 0.4, bx + 8.8 - k * 0.8, -8 - bh - k * 0.7);
+        ctx.strokeStyle = "rgba(84,54,34,0.25)"; ctx.lineWidth = 0.12; ctx.stroke();
+      }
       // window
       ctx.fillStyle = "rgba(84,56,34,0.35)";
       ctx.fillRect(bx + 3.2, -6.6 - bh, 1.6, 2.2);
