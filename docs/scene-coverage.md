@@ -1,11 +1,11 @@
 # 场景分型审计 / Scene coverage audit
 
-Generated 2026-11-05. Standard A: every event has a correct visual family; the 22 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 themes).
+Generated 2026-11-05. Standard A: every event has a correct visual family; the 26 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 themes).
 
 - 事件总数：482
 - 当前分派：56 个家族
 - 需要修正：0
-- 英雄条目：22
+- 英雄条目：26
 
 ## 家族分布（目标）
 
@@ -166,7 +166,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 541 | `plague-of-justinian` | 查士丁尼瘟疫 | eu | `plague` | `plague` |  |
 | 570 | `birth-of-muhammad` | 穆罕默德诞生 | me | `city` | `city` |  |
 | 618 | `tang-dynasty` | 唐朝建立 | ea | `cn-founding` | `cn-founding` |  |
-| 622 | `the-hijra` | 希吉拉 | me | `camel` | `camel` |  |
+| 622 | `the-hijra` | 希吉拉 | me | `camel` | `camel` | ★ |
 | 629 | `xuanzangs-journey-to-the-west` | 玄奘西行求法 | ca | `pilgrim` | `pilgrim` | ★ |
 | 650 | `srivijaya` | 室利佛逝的海上帝国 | sea | `sea-founding` | `sea-founding` |  |
 | 691 | `dome-of-the-rock` | 圆顶清真寺 | me | `mosque` | `mosque` |  |
@@ -177,7 +177,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 793 | `viking-raid-on-lindisfarne` | 维京人袭击林迪斯法恩 | eu | `naval` | `naval` |  |
 | 800 | `charlemagne-crowned` | 查理曼加冕 | eu | `roman-founding` | `roman-founding` |  |
 | 802 | `khmer-empire` | 吴哥王朝 | sea | `stupa` | `stupa` |  |
-| 825 | `borobudur` | 婆罗浮屠 | sea | `stupa` | `stupa` |  |
+| 825 | `borobudur` | 婆罗浮屠 | sea | `stupa` | `stupa` | ★ |
 | 868 | `diamond-sutra-printed` | 《金刚经》雕版印刷 | ea | `printing` | `printing` |  |
 | 900 | `maya-collapse` | 玛雅古典期崩溃 | la | `disaster` | `disaster` |  |
 | 930 | `althing-at-thingvellir` | 冰岛阿尔庭 | eu | `city-medieval` | `city-medieval` |  |
@@ -198,9 +198,9 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 1185 | `kamakura-shogunate` | 镰仓幕府 | ea | `city-medieval` | `city-medieval` |  |
 | 1200 | `moai-of-rapa-nui` | 复活节岛石像 | oc | `megalith` | `megalith` |  |
 | 1206 | `delhi-sultanate` | 德里苏丹国 | sa | `cavalry` | `cavalry` |  |
-| 1206 | `genghis-khan` | 成吉思汗建国 | ca | `steppe-founding` | `steppe-founding` |  |
+| 1206 | `genghis-khan` | 成吉思汗建国 | ca | `steppe-founding` | `steppe-founding` | ★ |
 | 1215 | `magna-carta` | 《大宪章》 | eu | `treaty` | `treaty` |  |
-| 1235 | `mali-empire` | 马里帝国 | af | `african-founding` | `african-founding` |  |
+| 1235 | `mali-empire` | 马里帝国 | af | `african-founding` | `african-founding` | ★ |
 | 1240 | `mongols-sack-kyiv` | 蒙古攻陷基辅 | eu | `siege` | `siege` |  |
 | 1250 | `great-zimbabwe` | 大津巴布韦 | af | `city-medieval` | `city-medieval` |  |
 | 1258 | `mongols-sack-baghdad` | 蒙古攻陷巴格达 | me | `siege` | `siege` |  |
@@ -210,9 +210,9 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 1279 | `battle-of-yamen` | 崖山海战 | ea | `naval` | `naval` |  |
 | 1293 | `majapahit` | 满者伯夷 | sea | `sea-founding` | `sea-founding` |  |
 | 1297 | `monaco-modern-statehood` | 摩纳哥 · 现代国家形成 | eu | `city-medieval` | `city-medieval` |  |
-| 1300 | `maori-reach-aotearoa` | 毛利人抵达新西兰 | oc | `ship` | `ship` |  |
+| 1300 | `maori-reach-aotearoa` | 毛利人抵达新西兰 | oc | `ship` | `ship` | ★ |
 | 1324 | `mansa-musas-pilgrimage` | 曼萨·穆萨朝觐 | af | `camel` | `camel` |  |
-| 1325 | `tenochtitlan-founded` | 特诺奇蒂特兰建城 | la | `american-founding` | `american-founding` |  |
+| 1325 | `tenochtitlan-founded` | 特诺奇蒂特兰建城 | la | `american-founding` | `american-founding` | ★ |
 | 1336 | `vijayanagara` | 维查耶纳伽尔 | sa | `city` | `city` |  |
 | 1347 | `the-black-death` | 黑死病 | eu | `plague` | `plague` |  |
 | 1351 | `ayutthaya` | 阿瑜陀耶王朝 | sea | `sea-founding` | `sea-founding` |  |

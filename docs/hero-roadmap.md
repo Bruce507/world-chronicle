@@ -81,7 +81,7 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 
 ### Phase 2 · 下一批 18（3 批 × 6）
 
-> 进度：2A 6 个已完成结构复审（4.08/5，`docs/hero-2a-review.md`）；纹理强化留到 30 个 Hero 的统一 pass；2B 可开工。
+> 进度：2A 6 个、2B 6 个均已完成结构复审（各 4.08/5，见 `docs/hero-2a-review.md`、`docs/hero-2b-review.md`），当前 24 个主题 / 26 个事件条目；纹理强化留到 30 个 Hero 的统一 pass；下一步 2C。
 
 - 2A 古代轴心：吉萨、汉谟拉比、雅典民主、秦统一、孔雀王朝、丝绸之路。
 - 2B 中世纪交流：希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利抵达。

@@ -1,8 +1,8 @@
 # 英雄插画场景 / Hero illustration scenes
 
-> 发布状态：Pilot 1（v3 线质/材质精修），资源版本 `20261107j`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`。
+> 发布状态：Pilot 1（v3 线质/材质精修）+ 2A + 2B，资源版本 `20261107k`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`；2B 新增 6 个主题（希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利），见 `docs/hero-2b-review.md`。
 
-Generated 2026-11-06. Scope: 首批 12 个主题（14 个事件条目，1945 日本组含广岛、长崎、投降广播）+ 2A 6 个主题（6 个事件条目）；合计 18 个主题、20 个事件条目。 The 482-event / 56-family taxonomy is unchanged.
+Generated 2026-11-06. Scope: 首批 12 个主题（14 个事件条目，1945 日本组含广岛、长崎、投降广播）+ 2A 6 个主题 + 2B 6 个主题；合计 24 个主题、26 个事件条目。 The 482-event / 56-family taxonomy is unchanged.
 
 ## 设计语言
 
@@ -32,6 +32,12 @@ Generated 2026-11-06. Scope: 首批 12 个主题（14 个事件条目，1945 日
 | 12a | 广岛 | `hiroshima` | 太田川三角洲：爆心柱状云、圆顶残骸、桥梁、河流 | 晨空/蘑菇云 → 城市屋脊 → 河流/圆顶/桥 → 灰烬 |
 | 12b | 长崎 | `nagasaki` | 浦上谷地：红砖双塔主教座堂、梯田、河谷、远山后的云柱 | 灰金天空/云 → 远山 → 教堂/谷地 → 河流/梯田 → 灰烬 |
 | 12c | 日本宣布投降 | `japan-announces-surrender` | 玉音放送：街角收音机、围听人群、广播塔电波、松树与宫墙 | 晨空/电波 → 宫墙/松树 → 废墟街道 → 收音机/听众 → 电波/光尘 |
+| 13 | 希吉拉 | `the-hijra` | 夜行：指路星、山隘、岩洞、沙丘、驼队与向导 | 星空/指路星 → 山脉/霾 → 沙丘 → 岩洞 → 驼队/尘土 |
+| 14 | 成吉思汗建国 | `genghis-khan` | 草原营地：九斿白纛、毡帐群、马群与骑手、远山 | 晨空/太阳 → 山脊 → 草原 → 毡帐/旗帜 → 骑手/草石 |
+| 15 | 马里帝国 | `mali-empire` | 尼日尔河与泥砖清真寺：宣礼塔、托隆木、猴面包树、独木舟、集市 | 天空/太阳 → 萨赫勒丘陵 → 地面 → 清真寺/猴面包树 → 河/集市/骑手 |
+| 16 | 婆罗浮屠 | `borobudur` | 曼荼罗：六层方台、三层圆台与钟形塔、中央穹顶、火山与朝圣者 | 天空/火山 → 丛林 → 雾 → 石塔 → 朝圣者/供台 |
+| 17 | 特诺奇蒂特兰建城 | `tenochtitlan-founded` | 湖上城：双神庙金字塔、堤道、独木舟、奇南帕浮田、火山 | 天空/火山 → 湖面 → 岛台/房屋 → 金字塔 → 舟/人群 |
+| 18 | 毛利抵达奥特亚罗瓦 | `maori-reach-aotearoa` | 双体瓦卡：蟹爪帆、划手、海岸岬角、海豚与晨星 | 星空/晨光 → 海面 → 岬角/林 → 瓦卡 → 浪/海豚 |
 
 ## 场景缩略图
 
@@ -102,13 +108,28 @@ v2 的评分里“版画质感”普遍停在 3/5，v3 专攻线质、材质和�
 
 **下一轮（v4）优先级**：① 清军入关的城墙/山体材质与骑兵层次；② 哥伦布的船体/岛屿体积；③ 蔡伦与泰姬陵的大理石、木纹、纸纤维细节；④ 手机端逐帧绘制成本实测（目标：中端机 60fps，低端机 ≥30fps）；⑤ 地图徽章与完整舞台的视觉一致性抽查。
 
+## 2B 中世纪交流（2026-11-06）
+
+第二批 6 个主题，覆盖西非、大洋洲、东南亚、中美洲、中亚草原与伊斯兰世界：
+
+![2B 六个场景缩略图](hero-2b-contact.jpg)
+
+- **希吉拉**：夜行驼队；山脊在右侧落为平原，山脚用暖霾过渡；岩洞改为不规则崖体与非对称洞口。
+- **成吉思汗**：九斿白纛与毡帐营地；`ger` 重做为鼓形墙、锥形顶、帐顶圈与哈那网格；草原顶部渐隐，消除硬地平线。
+- **马里**：杰内式泥砖清真寺、托隆木、猴面包树与尼日尔河；补萨赫勒地面渐变、清真寺接触阴影与折叠靛蓝布捆。
+- **婆罗浮屠**：方台佛龛与浮雕板、三层圆台鼓身、镂空钟形塔、中央穹顶；只画前半圈钟塔并按前后排序，消除三角形阴影伪影。
+- **特诺奇蒂特兰**：双神庙金字塔、堤道、独木舟、奇南帕浮田；岛台加暗色基座、码头与房屋，市场摊位补齐。
+- **毛利抵达**：双体瓦卡与蟹爪帆重做，帆前缘贴桅、后缘内凹；划手错落；第二艘瓦卡移到近岸水面；沙滩改为沿岸浪线。
+
+评分见 `docs/hero-2b-review.md`：平均 **24.5/30（4.08/5）**，与 2A 持平；版画质感仍为 4，留待 30 个 Hero 的统一 texture pass。
+
 ## 实现
 
 - 新文件 `js/hero-scenes.js`：
-  - `SCENES[id] = { stage, map, title }`，共 14 个事件条目。
+  - `SCENES[id] = { stage, map, title }`，共 26 个事件条目（12 主题 14 条目 + 2A 6 + 2B 6）。
   - `drawStage(ctx, id, W, H, t)`：史志舞台（事件弹窗左栏），100 单位宽、地面 y=0、人物约 4 单位高的统一尺度。
   - `drawMap(ctx, id, x, y, s, t)`：地图剧场徽章；离屏画布 + 羽化椭圆遮罩，避免在底图上出现矩形卡片边。
-  - 共享版画笔刷：`person / horse / camel / ox / wolf / junk / caravel / trireme / cnGate / pagoda / minaret / domeTomb / cathedral / palaceFacade / lunarModule / astronaut / radio / paperVat / paperRack / acropolis / palm / mushroomCloud`。
+  - 共享版画笔刷：`person / horse / camel / ox / wolf / junk / caravel / trireme / cnGate / pagoda / minaret / domeTomb / cathedral / palaceFacade / lunarModule / astronaut / radio / paperVat / paperRack / acropolis / palm / banana / mushroomCloud / ger / mudMosque / baobab / bellStupa / borobudur / aztecPyramid / waka / canoe`。
 - `js/scenes.js`：`mount()` 增加 `opts.hero`；英雄场景走 `HeroScenes.drawStage`，跳过通用 `finish()`（暗角会压暗羊皮纸）；其余 482 个事件仍走原有 25 种程序化场景。
 - `js/theatre.js`：`playEvent()` 记录 `this.hero`；`draw()` 在英雄事件时只绘制英雄场景、标题标签与既有 16 秒清理逻辑，不再叠加通用路线/单位，避免重复船只与人群堆叠。
 - `js/app.js`：打开史志时传入 `hero: ev.id`；舞台左上标题使用事件英文名，元数据与年份保持原样。
@@ -120,8 +141,8 @@ v2 的评分里“版画质感”普遍停在 3/5，v3 专攻线质、材质和�
 
 | 检查 | 方法 | 结果 |
 |---|---|---|
-| 14 个事件均可打开专属插画 | `HeroScenes.list()` 与逐个 `openEvent` | 14/14 |
-| 桌面完整剧场构图可辨 | 1200×800 逐个截图（史志舞台） | 通过；14 个主题构图互不相同 |
+| 26 个事件均可打开专属插画 | `HeroScenes.list()` 与逐个 `openEvent` | 26/26 |
+| 桌面完整剧场构图可辨 | 1200×800 逐个截图（史志舞台） | 通过；26 个场景构图互不相同 |
 | 手机可运行 | 390×844 打开 `apollo-11` 史志 | 通过；舞台自适应，无横向溢出 |
 | 16 秒自动清理 | 打开 `song-dynasty`，等待 17.5 s | `MapTheatre.active=false`，`hero=null` |
 | 节点徽章尺寸 | 代码审计 `discR = 21 × clamp(0.95+zoom×0.16, 1.0, 1.48)` | 最大直径约 62 px（<64 px） |
