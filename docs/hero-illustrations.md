@@ -1,8 +1,8 @@
-# 首批 12 个英雄插画场景 / Hero illustration batch
+# 英雄插画场景 / Hero illustration scenes
 
-> 发布状态：Pilot 1（v3 线质/材质精修），资源版本 `20261107j`。
+> 发布状态：Pilot 1（v3 线质/材质精修），资源版本 `20261107j`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`。
 
-Generated 2026-11-06. Scope: 12 event themes (14 event ids, because the 1945 Japan slot covers Hiroshima, Nagasaki and the surrender broadcast). The 482-event / 56-family taxonomy is unchanged.
+Generated 2026-11-06. Scope: 首批 12 个主题（14 个事件条目，1945 日本组含广岛、长崎、投降广播）+ 2A 6 个主题（6 个事件条目）；合计 18 个主题、20 个事件条目。 The 482-event / 56-family taxonomy is unchanged.
 
 ## 设计语言
 

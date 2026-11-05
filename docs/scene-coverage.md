@@ -1,11 +1,11 @@
 # 场景分型审计 / Scene coverage audit
 
-Generated 2026-11-05. Standard A: every event has a correct visual family; the 17 hero entries have bespoke illustration scenes (first batch: 12 themes).
+Generated 2026-11-05. Standard A: every event has a correct visual family; the 22 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 themes).
 
 - 事件总数：482
 - 当前分派：56 个家族
 - 需要修正：0
-- 英雄条目：17
+- 英雄条目：22
 
 ## 家族分布（目标）
 
@@ -97,11 +97,11 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 1
 | -3100 | `unification-of-egypt` | 上下埃及统一 | af | `pyramid` | `pyramid` |  |
 | -3000 | `indus-civilization` | 印度河文明兴起 | sa | `city-classical` | `city-classical` |  |
 | -2600 | `royal-tombs-of-ur` | 乌尔王陵 | me | `ziggurat` | `ziggurat` |  |
-| -2600 | `pyramids-of-giza` | 吉萨金字塔 | af | `pyramid` | `pyramid` |  |
+| -2600 | `pyramids-of-giza` | 吉萨金字塔 | af | `pyramid` | `pyramid` | ★ |
 | -2500 | `stonehenge` | 巨石阵 | eu | `megalith` | `megalith` |  |
 | -2334 | `sargon-and-akkad` | 萨尔贡与阿卡德帝国 | me | `ziggurat` | `ziggurat` |  |
 | -1900 | `erlitou` | 二里头都邑 | ea | `city-classical` | `city-classical` |  |
-| -1754 | `code-of-hammurabi` | 《汉谟拉比法典》 | me | `script` | `script` |  |
+| -1754 | `code-of-hammurabi` | 《汉谟拉比法典》 | me | `script` | `script` | ★ |
 | -1600 | `shang-dynasty` | 商朝与青铜礼制 | ea | `cn-founding` | `cn-founding` |  |
 | -1600 | `thera-eruption` | 锡拉火山爆发 | eu | `disaster` | `disaster` |  |
 | -1550 | `hittite-chariot-empire` | 赫梯战车帝国 | me | `chariot` | `chariot` |  |
@@ -128,15 +128,15 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 1
 | -551 | `birth-of-confucius` | 孔子诞生 | ea | `temple` | `temple` |  |
 | -539 | `cyrus-takes-babylon` | 居鲁士入巴比伦 | me | `siege` | `siege` |  |
 | -518 | `persepolis` | 波斯波利斯 | me | `palace` | `palace` |  |
-| -508 | `athenian-democracy` | 雅典民主改革 | eu | `city` | `city` |  |
+| -508 | `athenian-democracy` | 雅典民主改革 | eu | `city` | `city` | ★ |
 | -480 | `thermopylae-salamis` | 温泉关与萨拉米斯 | eu | `phalanx` | `phalanx` |  |
 | -431 | `peloponnesian-war` | 伯罗奔尼撒战争 | eu | `greek-naval` | `greek-naval` | ★ |
 | -331 | `battle-of-gaugamela` | 高加米拉之战 | me | `cavalry` | `cavalry` |  |
-| -321 | `maurya-empire` | 孔雀王朝 | sa | `south-asian-founding` | `south-asian-founding` |  |
+| -321 | `maurya-empire` | 孔雀王朝 | sa | `south-asian-founding` | `south-asian-founding` | ★ |
 | -312 | `petra` | 佩特拉岩城 | me | `city` | `city` |  |
 | -264 | `the-punic-wars` | 布匿战争 | eu | `greek-naval` | `greek-naval` |  |
 | -261 | `kalinga-war` | 羯陵伽之战 | sa | `phalanx` | `phalanx` |  |
-| -221 | `qin-unifies-china` | 秦统一六国 | ea | `cn-founding` | `cn-founding` |  |
+| -221 | `qin-unifies-china` | 秦统一六国 | ea | `cn-founding` | `cn-founding` | ★ |
 | -218 | `hannibal-crosses-the-alps` | 汉尼拔翻越阿尔卑斯 | eu | `cavalry` | `cavalry` |  |
 | -202 | `battle-of-zama` | 扎马之战 | af | `cavalry` | `cavalry` |  |
 | -130 | `the-silk-road` | 丝绸之路贯通 | ca | `camel` | `camel` | ★ |
