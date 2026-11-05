@@ -12,6 +12,7 @@ const manifest = read("data/historical/manifest.json");
 const world = read("data/world.geo.json");
 const states = read("data/state_changes.json");
 const curated = read("data/entities_curated.json");
+const nameGloss = read("data/name_gloss.json");
 
 const slug = (s) => String(s).toLowerCase().normalize("NFKD")
   .replace(/[̀-ͯ]/g, "").replace(/['’]/g, "")
@@ -147,14 +148,17 @@ for (const [name, list] of occurrences) {
     const first = group[0], last = group[group.length - 1];
     const g1 = gapAround(first.year), g2 = gapAround(last.year);
     let from = Math.max(-12000, Math.round(first.year - g1.before));
-    const to = Math.min(2026, Math.round(last.year + g2.after));
-    const kind = rep.kind || kindOf(name);
+    let to = Math.min(2026, Math.round(last.year + g2.after));
+    let kind = rep.kind || kindOf(name);
     const mb = modernYearFor(name);
     if (mb != null && mb > from) from = mb;
+    // Taiwan is handled as China's province from 1949; do not keep a
+    // generated "state" label for it after that date.
+    if (String(name).toLowerCase() === "taiwan") { kind = "region"; to = Math.min(to, 1948); }
     const area = rep.area || 0;
     entities.push({
       id: "hist-" + slug(name) + "-" + from,
-      name: { zh: rep.zh || name, en: name },
+      name: { zh: rep.zh || nameGloss[name] || "", en: name },
       type: kind,
       from, to,
       lat: Math.round(rep.lat * 100) / 100,

@@ -7,7 +7,7 @@
 (function () {
   "use strict";
   const BASE = "data/historical_entities.json";
-  const V = "?v=20261106n";
+  const V = "?v=20261106w";
 
   const E = (window.HistoricalEntities = {
     ready: false,
@@ -35,7 +35,7 @@
 
     labelOf(e, lang) {
       if (!e.name) return "";
-      if (lang === "zh") return e.name.zh || e.name.en || "";
+      if (lang === "zh") return e.name.zh || "";
       return e.name.en || e.name.zh || "";
     },
 
@@ -49,7 +49,7 @@
       const active = [];
       for (const e of this.list) {
         if (year < e.from || year > e.to) continue;
-        if (modernOnly && e.type !== "modern") continue;
+        if (modernOnly && e.type !== "modern" && e.type !== "province") continue;
         const minZ = e.source === "curated" && (e.priority || 0) >= 75 ? 1 : (e.minZoom || 1);
         if (zoom + 0.001 < minZ) continue;
         active.push(e);

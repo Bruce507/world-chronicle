@@ -9,6 +9,7 @@
 | `regions.json` | Camera presets for the top region navigator |
 | `historical_entities.json` | Generated historical label layer (snapshot names + modern state births + curated entities) |
 | `entities_curated.json` | Hand-curated key entities (China dynasties, Japan, Australia, colonial Americas, etc.) |
+| `name_gloss.json` | Chinese display names for common historical polities/cultures; untranslated names are hidden in Chinese mode rather than shown in English |
 | `polities.json` | Schematic contemporaneous civilizations (halos) |
 | `theatre.json` | Map-theatre scripts: sides, fronts, battles, routes, trade networks |
 | `world.geo.json` | Modern countries and territories, simplified from Natural Earth 50m / world-atlas, with en/zh/es/fr/ar names |

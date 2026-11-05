@@ -2433,8 +2433,51 @@
         break;
       case "city":
         ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-        ctx.fillStyle = col;
-        ctx.fillRect(-8, -8, 4, 8); ctx.fillRect(-3, -13, 4, 13); ctx.fillRect(2, -10, 4, 10); ctx.fillRect(7, -6, 3, 6);
+        // ground shadow
+        ctx.beginPath(); ctx.ellipse(0, 1, 13, 2.5, 0, 0, TAU);
+        ctx.fillStyle = "rgba(120,96,64,0.18)"; ctx.fill();
+        // city wall and crenellations
+        ctx.fillStyle = "rgba(196,164,118,0.55)";
+        ctx.fillRect(-11, -7, 22, 8);
+        ctx.strokeStyle = "rgba(84,60,38,0.85)"; ctx.lineWidth = 0.9;
+        ctx.strokeRect(-11, -7, 22, 8);
+        for (let i = -11; i < 11; i += 4) {
+          ctx.fillRect(i, -9.5, 2.4, 2.5);
+          ctx.strokeRect(i, -9.5, 2.4, 2.5);
+        }
+        // gate
+        ctx.beginPath();
+        ctx.moveTo(-2.8, 1); ctx.lineTo(-2.8, -3.5);
+        ctx.quadraticCurveTo(0, -7, 2.8, -3.5); ctx.lineTo(2.8, 1);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(92,66,43,0.72)"; ctx.fill();
+        // palace roof
+        ctx.beginPath();
+        ctx.moveTo(-12, -7);
+        ctx.quadraticCurveTo(-7, -11, -4, -13);
+        ctx.quadraticCurveTo(0, -17, 4, -13);
+        ctx.quadraticCurveTo(7, -11, 12, -7);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(156,96,60,0.82)"; ctx.fill();
+        ctx.strokeStyle = "rgba(84,60,38,0.8)"; ctx.lineWidth = 0.7; ctx.stroke();
+        // banners
+        for (const bx of [-8, 8]) {
+          const wave = Math.sin(t * 2 + bx) * 0.8;
+          ctx.strokeStyle = "rgba(84,60,38,0.85)"; ctx.lineWidth = 0.7;
+          ctx.beginPath(); ctx.moveTo(bx, 1); ctx.lineTo(bx, -12); ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(bx + 0.4, -11);
+          ctx.quadraticCurveTo(bx + 4 + wave, -10.5, bx + 5.5 + wave, -8.5);
+          ctx.lineTo(bx + 0.6, -7);
+          ctx.closePath();
+          ctx.fillStyle = col; ctx.fill();
+        }
+        // tiny crowd in warm ink
+        for (let i = -2; i <= 2; i++) {
+          ctx.strokeStyle = "rgba(110,78,50,0.85)"; ctx.lineWidth = 0.8;
+          ctx.beginPath(); ctx.moveTo(i * 3, 1); ctx.lineTo(i * 3 - 0.6, 3.2); ctx.moveTo(i * 3, 1); ctx.lineTo(i * 3 + 0.6, 3.2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(i * 3, 0.2, 0.8, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+        }
         ctx.restore(); break;
       case "temple":
         ctx.save(); ctx.translate(x, y); ctx.scale(s, s);

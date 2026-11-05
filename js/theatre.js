@@ -83,6 +83,7 @@
     end: null,
     atomic: null,
     disaster: null,
+    founding: null,
     byIso: null,
     lastP: 0,
 
@@ -105,6 +106,7 @@
         this.atomic = { lat: ev.lat, lon: ev.lon, city: [ev.t[0], ev.t[1]], date: String(ev.y) };
       }
       this.disaster = data.disaster || null;
+      this.founding = data.founding || null;
       this.started = performance.now();
       this.paused = false;
       this.frozen = 0;
@@ -112,6 +114,8 @@
       this.units = this.buildUnits(ev, data);
       this.active = true;
       this.map.setTheatreActive(true);
+      clearTimeout(this._stopTimer);
+      this._stopTimer = setTimeout(() => { if (this.active) this.clear(); }, 16000);
       const c = data.center || [ev.lat, ev.lon];
       const z = data.zoom || this.defaultZoom(this.mode, ev);
       this.map.flyTo(c[0], c[1], z, 950);
@@ -154,6 +158,8 @@
       this.routes = [];
       this.battles = [];
       this.atomic = null;
+      this.founding = null;
+      clearTimeout(this._stopTimer);
       if (this.map) this.map.setTheatreActive(false);
     },
 
@@ -195,6 +201,9 @@
 
     modeFor(ev) {
       const s = ev.s;
+      const title = ((ev.t && ev.t[0]) || "") + " " + ((ev.t && ev.t[1]) || "");
+      const ending = /灭亡|崩溃|终结|陷落|战败|沦陷|fall of|collapse|end of|sack of/i.test(title);
+      if (!ending && /建立|建国|开国|成立|加冕|王朝|帝国|统一|独立|founded|founding|coronation|dynasty|empire|unification|independence|declares/i.test(title)) return "founding";
       if (s === "atomic") return "atomic";
       if (["chariot", "phalanx", "siege", "cavalry", "naval", "cannon", "musket", "trench", "air"].indexOf(s) >= 0) return "war";
       if (s === "camel" || s === "ship") return ev.k === "trade" || ev.k === "exploration" ? "trade" : "war";
@@ -207,9 +216,12 @@
 
     defaultSides(ev) {
       const mine = ev._country ? ev._country.properties.iso2 : "";
-      const mineName = ev._country ? (this.lang === "zh" ? ev._country.properties.zh : ev._country.properties.n) : (this.lang === "zh" ? "此地" : "This place");
+      const evName = ev.t ? (this.lang === "zh" ? ev.t[0] : ev.t[1]) : (this.lang === "zh" ? "此地" : "This place");
+      if (this.mode === "founding") {
+        return [{ key: "a", name: [evName, evName], color: "#a83e2c", members: mine ? [mine] : [] }];
+      }
       return [
-        { key: "a", name: [mineName, mineName], color: "#a83e2c", members: mine ? [mine] : [] },
+        { key: "a", name: [evName, evName], color: "#a83e2c", members: mine ? [mine] : [] },
         { key: "b", name: ["对手", "Rivals"], color: "#3f6278", members: [] },
       ];
     },
@@ -247,6 +259,9 @@
         data.atomic = { lat: ev.lat, lon: ev.lon, city: [ev.t[0], ev.t[1]], date: String(ev.y) };
       } else if (mode === "disaster") {
         data.disaster = { lat: ev.lat, lon: ev.lon, label: [ev.t[0], ev.t[1]] };
+      } else if (mode === "founding") {
+        data.founding = { lat: ev.lat, lon: ev.lon, label: [ev.t[0], ev.t[1]], date: String(ev.y) };
+        data.zoom = 3.35;
       } else if (mode === "civic") {
         data.battles = [{ lat: ev.lat, lon: ev.lon, name: [ev.t[0], ev.t[1]], side: "a", kind: "crowd" }];
       }
@@ -341,8 +356,9 @@
       this.drawRoutes(ctx, map, p);
       this.drawFronts(ctx, map, p);
       this.drawBattles(ctx, map, p);
-      this.drawUnits(ctx, map, p);
+      if (this.mode !== "founding") this.drawUnits(ctx, map, p);
       if (this.mode === "atomic") this.drawAtomic(ctx, map, p);
+      else if (this.mode === "founding") this.drawFounding(ctx, map, p);
       else if (this.mode === "disaster") this.drawDisaster(ctx, map, p);
       this.drawEnd(ctx, map, p);
       this.drawLabels(ctx, map, p);
@@ -485,8 +501,8 @@
       ctx.translate(x, y);
       if (type === "ship" || type === "plane") ctx.rotate(ang || 0);
       ctx.scale(s, s);
-      ctx.fillStyle = "#2b2218";
-      ctx.strokeStyle = "#2b2218";
+      ctx.fillStyle = "#4a3624";
+      ctx.strokeStyle = "#4a3624";
       ctx.lineCap = "round";
       if (type === "ship") {
         ctx.strokeStyle = color;
@@ -517,7 +533,7 @@
         ctx.beginPath(); ctx.moveTo(-6, -9); ctx.lineTo(-9, -4); ctx.stroke();
       } else if (type === "chariot") {
         this.drawHorseIcon(ctx, 7, 0, 0.7, p, color);
-        ctx.strokeStyle = "#2b2218"; ctx.lineWidth = 1.4;
+        ctx.strokeStyle = "#4a3624"; ctx.lineWidth = 1.4;
         ctx.beginPath(); ctx.arc(0, -4, 3.4, 0, TAU); ctx.stroke();
         for (let i = 0; i < 4; i++) { const a = i / 4 * TAU + p * 6; ctx.beginPath(); ctx.moveTo(0, -4); ctx.lineTo(Math.cos(a) * 3, -4 + Math.sin(a) * 3); ctx.stroke(); }
         ctx.fillStyle = color; ctx.fillRect(-4, -12, 7, 4);
@@ -536,7 +552,7 @@
         ctx.closePath(); ctx.fill();
         ctx.strokeStyle = "#e0c48a"; ctx.lineWidth = 1.2;
         ctx.beginPath(); ctx.moveTo(2, -22); ctx.lineTo(4, 1); ctx.stroke();
-        ctx.beginPath(); ctx.arc(0, -18, 2.1, 0, TAU); ctx.fillStyle = "#2b2218"; ctx.fill();
+        ctx.beginPath(); ctx.arc(0, -18, 2.1, 0, TAU); ctx.fillStyle = "#4a3624"; ctx.fill();
         ctx.beginPath(); ctx.arc(0, -19.5, 2.8, Math.PI, TAU); ctx.fillStyle = color || "#b98a34"; ctx.fill();
         ctx.fillStyle = "#7a4a2e"; ctx.fillRect(-5, -14, 2.5, 5);
       } else if (type === "march") {
@@ -544,7 +560,7 @@
         ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.moveTo(0, -7); ctx.lineTo(sw * 2.4, 0); ctx.moveTo(0, -7); ctx.lineTo(-sw * 2.4, 0); ctx.stroke();
         ctx.lineWidth = 2.6; ctx.beginPath(); ctx.moveTo(0, -13); ctx.lineTo(0, -7); ctx.stroke();
-        ctx.beginPath(); ctx.arc(0, -15, 1.8, 0, TAU); ctx.fillStyle = "#2b2218"; ctx.fill();
+        ctx.beginPath(); ctx.arc(0, -15, 1.8, 0, TAU); ctx.fillStyle = "#4a3624"; ctx.fill();
         ctx.strokeStyle = color; ctx.lineWidth = 1.6;
         ctx.beginPath(); ctx.moveTo(2, -13); ctx.lineTo(2, -21); ctx.stroke();
         ctx.fillStyle = color; ctx.fillRect(2, -21, 5, 3);
@@ -568,7 +584,7 @@
     drawHorseIcon(ctx, x, y, s, p, color) {
       ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
       const g = Math.sin(p * 7 + x);
-      ctx.fillStyle = "#2b2218"; ctx.strokeStyle = "#2b2218"; ctx.lineCap = "round";
+      ctx.fillStyle = "#4a3624"; ctx.strokeStyle = "#4a3624"; ctx.lineCap = "round";
       ctx.lineWidth = 2.2;
       ctx.beginPath(); ctx.moveTo(-6, -8); ctx.lineTo(-8 + g * 2, 0); ctx.moveTo(-2, -8); ctx.lineTo(-1 - g * 2, 0);
       ctx.moveTo(4, -8); ctx.lineTo(5 - g * 2, 0); ctx.moveTo(7, -8); ctx.lineTo(9 + g * 2, 0); ctx.stroke();
@@ -584,9 +600,9 @@
       for (let i = 0; i < 6; i++) {
         const dx = (i - 2.5) * 4 + Math.sin(p * 2 + i) * 1.2;
         const dy = (i % 2) * 2;
-        ctx.strokeStyle = "#2b2218"; ctx.lineWidth = 1.2;
+        ctx.strokeStyle = "rgba(92,66,43,0.92)"; ctx.lineWidth = 1.2;
         ctx.beginPath(); ctx.moveTo(dx, dy - 6); ctx.lineTo(dx - 1, dy); ctx.moveTo(dx, dy - 6); ctx.lineTo(dx + 1, dy); ctx.stroke();
-        ctx.beginPath(); ctx.arc(dx, dy - 8, 1.6, 0, TAU); ctx.fillStyle = "#2b2218"; ctx.fill();
+        ctx.beginPath(); ctx.arc(dx, dy - 8, 1.6, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
         if (i === 2) { ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(dx + 1, dy - 8); ctx.lineTo(dx + 1, dy - 16); ctx.stroke(); ctx.fillStyle = color; ctx.fillRect(dx + 1, dy - 16, 4, 3); }
       }
       ctx.restore();
@@ -623,6 +639,82 @@
       ctx.restore();
     },
 
+    drawFounding(ctx, map, p) {
+      const f = this.founding;
+      if (!f) return;
+      const pos = map.project(f.lon, f.lat);
+      if (pos.x < -80 || pos.x > map.W + 80 || pos.y < -80 || pos.y > map.H + 80) return;
+      const s = clamp(1.08 + map.view.zoom * 0.32, 1.25, 3.0);
+      const ink = "rgba(72,52,34,0.82)";
+      const warm = "rgba(176,67,44,0.9)";
+      const gold = "rgba(184,138,62,0.9)";
+      ctx.save();
+      ctx.translate(pos.x, pos.y);
+      ctx.scale(s, s);
+      // soft parchment halo + ground shadow
+      glow(ctx, 0, 0, 96, "#c99a55", 0.18);
+      ctx.beginPath();
+      ctx.ellipse(0, 3, 58, 12, 0, 0, TAU);
+      ctx.fillStyle = "rgba(120,96,64,0.14)";
+      ctx.fill();
+      // city wall with crenellations
+      ctx.beginPath();
+      ctx.rect(-48, -28, 96, 31);
+      ctx.fillStyle = "rgba(210,180,136,0.34)";
+      ctx.fill();
+      ctx.strokeStyle = ink; ctx.lineWidth = 1.2; ctx.stroke();
+      for (let i = -48; i <= 44; i += 12) {
+        ctx.fillStyle = "rgba(210,180,136,0.5)";
+        ctx.fillRect(i, -34, 7, 7);
+        ctx.strokeRect(i, -34, 7, 7);
+      }
+      // gate
+      ctx.beginPath();
+      ctx.moveTo(-9, 3); ctx.lineTo(-9, -13); ctx.quadraticCurveTo(0, -27, 9, -13); ctx.lineTo(9, 3); ctx.closePath();
+      ctx.fillStyle = "rgba(92,66,43,0.58)"; ctx.fill();
+      ctx.strokeStyle = ink; ctx.lineWidth = 1; ctx.stroke();
+      // palace roof behind wall
+      ctx.beginPath();
+      ctx.moveTo(-42, -28);
+      ctx.quadraticCurveTo(-28, -40, -20, -44);
+      ctx.quadraticCurveTo(-5, -55, 0, -55);
+      ctx.quadraticCurveTo(5, -55, 20, -44);
+      ctx.quadraticCurveTo(28, -40, 42, -28);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(150,92,58,0.72)"; ctx.fill();
+      ctx.strokeStyle = ink; ctx.lineWidth = 1.1; ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(-18, -43); ctx.quadraticCurveTo(0, -52, 18, -43);
+      ctx.strokeStyle = gold; ctx.lineWidth = 1.3; ctx.stroke();
+      // banner poles + waving flags
+      for (const bx of [-35, 35]) {
+        const wave = Math.sin(p * 2.2 + bx) * 2.4;
+        ctx.strokeStyle = ink; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(bx, 0); ctx.lineTo(bx, -48); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(bx + 1, -46);
+        ctx.quadraticCurveTo(bx + 12 + wave, -45, bx + 17 + wave, -40);
+        ctx.lineTo(bx + 2, -36);
+        ctx.closePath();
+        ctx.fillStyle = bx < 0 ? warm : gold; ctx.fill();
+      }
+      // crowd: warm ink figures, colored robes
+      for (let i = 0; i < 9; i++) {
+        const cx = (i - 4) * 8 + Math.sin(p * 2 + i) * 1.2;
+        const cy = 7 + (i % 2) * 3;
+        ctx.strokeStyle = i % 3 === 0 ? warm : "rgba(92,66,43,0.9)";
+        ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.moveTo(cx, cy - 5); ctx.lineTo(cx - 1, cy); ctx.moveTo(cx, cy - 5); ctx.lineTo(cx + 1, cy); ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy - 7, 1.7, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+      }
+      // imperial seal / sun disc
+      ctx.beginPath(); ctx.arc(0, -64, 14, 0, TAU);
+      ctx.fillStyle = "rgba(176,67,44,0.14)"; ctx.fill();
+      ctx.beginPath(); ctx.arc(0, -64, 9, 0, TAU);
+      ctx.strokeStyle = gold; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.restore();
+    },
+
     drawAtomic(ctx, map, p) {
       const a = this.atomic;
       if (!a) return;
@@ -635,7 +727,7 @@
         const x = lerp(start.x, target.x, t);
         const y = lerp(start.y, target.y, t) - Math.sin(t * Math.PI) * 40;
         ctx.save(); ctx.translate(x, y); ctx.rotate(-0.6);
-        ctx.fillStyle = "#2b2218";
+        ctx.fillStyle = "#4a3624";
         ctx.beginPath(); ctx.ellipse(0, 0, 12, 2.4, 0, 0, TAU); ctx.fill();
         ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-4, -8); ctx.lineTo(-1, -8); ctx.lineTo(5, 0); ctx.closePath(); ctx.fill();
         ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-4, 8); ctx.lineTo(-1, 8); ctx.lineTo(5, 0); ctx.closePath(); ctx.fill();
@@ -643,7 +735,7 @@
         if (t > 0.82) {
           const bp = (t - 0.82) / 0.18;
           const bx = lerp(x, target.x, bp), by = lerp(y, target.y, bp * bp);
-          ctx.beginPath(); ctx.ellipse(bx, by, 2, 4, 0, 0, TAU); ctx.fillStyle = "#2b2218"; ctx.fill();
+          ctx.beginPath(); ctx.ellipse(bx, by, 2, 4, 0, 0, TAU); ctx.fillStyle = "#4a3624"; ctx.fill();
         }
       }
       if (p >= flashAt) {
@@ -785,6 +877,9 @@
       }
       if (this.atomic && this.atomic.city) {
         chip(this.atomic.lat, this.atomic.lon, this.atomic.city[this.lang === "zh" ? 0 : 1] + " · " + this.atomic.date, "#a83e2c", 0, -30, 9.5);
+      }
+      if (this.founding && this.founding.label) {
+        chip(this.founding.lat, this.founding.lon, this.founding.label[this.lang === "zh" ? 0 : 1] + " · " + this.founding.date, "#a83e2c", 0, -66, 9.5);
       }
     },
   });

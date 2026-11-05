@@ -832,9 +832,12 @@
     const f = state.country;
     if (!f) return;
     const p = f.properties;
-    el["panel-kicker"].textContent = L("现代国界 · ", "MODERN BORDERS · ", "FRONTERAS MODERNAS · ", "FRONTIÈRES MODERNES · ", "الحدود الحديثة · ") + rgName(byRegion(p.sub));
+    const isTW = countryKey(f) === "TWN";
+    el["panel-kicker"].textContent = (isTW ? L("中国台湾省 · ", "CHINA'S TAIWAN PROVINCE · ", "PROVINCIA DE TAIWÁN · ", "PROVINCE DE TAÏWAN · ", "مقاطعة تايوان الصينية · ") : L("现代国界 · ", "MODERN BORDERS · ", "FRONTERAS MODERNAS · ", "FRONTIÈRES MODERNES · ", "الحدود الحديثة · ")) + rgName(byRegion(p.sub));
     el["panel-title"].textContent = countryName(f);
-    el["panel-sub"].textContent = L("此处历史上的政权与节点，皆以现代国界为参照。", "Historical powers and nodes, read through the lens of modern borders.", "Poderes y nodos históricos leídos a través de las fronteras modernas.", "Pouvoirs et nœuds historiques lus à travers les frontières modernes.", "القوى والعُقد التاريخية من خلال الحدود الحديثة.");
+    el["panel-sub"].textContent = isTW
+      ? L("台湾是中国的一个省；此处按地区沿革展示历史政权与节点。", "Taiwan is a province of China; this view reads its historical powers and nodes through that province.", "Taiwán es una provincia de China; esta vista muestra sus poderes y nodos históricos.", "Taïwan est une province de Chine ; cette vue présente ses pouvoirs et nœuds historiques.", "تايوان مقاطعة صينية؛ يعرض هذا القسم قواها وعقدها التاريخية.")
+      : L("此处历史上的政权与节点，皆以现代国界为参照。", "Historical powers and nodes, read through the lens of modern borders.", "Poderes y nodos históricos leídos a través de las fronteras modernas.", "Pouvoirs et nœuds historiques lus à travers les frontières modernes.", "القوى والعُقد التاريخية من خلال الحدود الحديثة.");
 
     const key = panelKey();
     if (!force && key === lastPanelKey) return;
@@ -865,7 +868,7 @@
     }
 
     const chr = chronicleHtml(f);
-    html += `<section class="p-section"><h3>${L("国家沿革长卷", "A COUNTRY CHRONICLE", "CRÓNICA DEL PAÍS", "CHRONIQUE DU PAYS", "سجل الدولة")} · ${evs.length}</h3>`;
+    html += `<section class="p-section"><h3>${isTW ? L("地区沿革", "A PROVINCIAL CHRONICLE", "CRÓNICA PROVINCIAL", "CHRONIQUE PROVINCIALE", "سجل المقاطعة") : L("国家沿革长卷", "A COUNTRY CHRONICLE", "CRÓNICA DEL PAÍS", "CHRONIQUE DU PAYS", "سجل الدولة")} · ${evs.length}</h3>`;
     if (chr) {
       html += chr;
     } else if (!evs.length) {
@@ -1536,9 +1539,27 @@
   function setPanel(open) {
     state.panelOpen = open;
     el["side-panel"].classList.toggle("collapsed", !open);
+    document.getElementById("map-stage").classList.toggle("panel-open", !!open);
     el["panel-reopen"].hidden = open;
     if (map) map.fit(false);
     if (open && map && map.features) renderPanel(true);
+    requestAnimationFrame(updatePanelScrollbar);
+  }
+
+  function updatePanelScrollbar() {
+    const body = el["panel-body"];
+    const rail = document.getElementById("panel-scroll-rail");
+    const thumb = document.getElementById("panel-scroll-thumb");
+    if (!body || !rail || !thumb) return;
+    const sh = body.scrollHeight, ch = body.clientHeight;
+    if (!sh || sh <= ch + 2) { rail.hidden = true; return; }
+    rail.hidden = false;
+    const track = Math.max(1, rail.clientHeight);
+    const h = Math.max(24, Math.round(track * ch / sh));
+    thumb.style.height = h + "px";
+    const max = Math.max(1, sh - ch);
+    const top = Math.round((body.scrollTop / max) * (track - h));
+    thumb.style.transform = "translateY(" + top + "px)";
   }
 
   /* ── search ─────────────────────────────────────── */
@@ -1657,6 +1678,40 @@
     ["side-panel", "panel-body"].forEach((id) => {
       if (el[id]) el[id].addEventListener("wheel", (e) => e.stopPropagation(), { passive: true });
     });
+    if (el["panel-body"]) {
+      el["panel-body"].addEventListener("scroll", updatePanelScrollbar, { passive: true });
+      new MutationObserver(updatePanelScrollbar).observe(el["panel-body"], { childList: true, subtree: true });
+    }
+    const rail = document.getElementById("panel-scroll-rail");
+    const thumb = document.getElementById("panel-scroll-thumb");
+    if (rail && thumb) {
+      let drag = false;
+      rail.addEventListener("pointerdown", (e) => {
+        drag = true;
+        rail.setPointerCapture(e.pointerId);
+        thumb.classList.add("dragging");
+        const r = rail.getBoundingClientRect();
+        const tr = thumb.getBoundingClientRect();
+        if (e.clientY < tr.top || e.clientY > tr.bottom) {
+          const body = el["panel-body"];
+          const ratio = clamp((e.clientY - r.top - tr.height / 2) / Math.max(1, r.height - tr.height), 0, 1);
+          body.scrollTop = ratio * (body.scrollHeight - body.clientHeight);
+        }
+        e.preventDefault();
+      });
+      rail.addEventListener("pointermove", (e) => {
+        if (!drag) return;
+        const body = el["panel-body"];
+        const r = rail.getBoundingClientRect();
+        const tr = thumb.getBoundingClientRect();
+        const ratio = clamp((e.clientY - r.top - tr.height / 2) / Math.max(1, r.height - tr.height), 0, 1);
+        body.scrollTop = ratio * (body.scrollHeight - body.clientHeight);
+      });
+      const end = () => { drag = false; thumb.classList.remove("dragging"); };
+      rail.addEventListener("pointerup", end);
+      rail.addEventListener("pointercancel", end);
+    }
+    window.addEventListener("resize", updatePanelScrollbar);
     el["play-btn"].addEventListener("click", togglePlay);
     el["speed-btn"].addEventListener("click", () => {
       state.speed = state.speed === 1 ? 2 : state.speed === 2 ? 4 : 1;

@@ -577,11 +577,46 @@ svg { display: block; }
 .panel-body {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 105, 85, 0.42) rgba(120, 105, 85, 0.08);
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   padding: 4px 22px 22px;
 }
+.panel-body::-webkit-scrollbar { width: 8px; }
+.panel-body::-webkit-scrollbar-track { background: rgba(120, 105, 85, 0.07); border-radius: 4px; }
+.panel-body::-webkit-scrollbar-thumb {
+  background: rgba(120, 105, 85, 0.38);
+  border-radius: 4px;
+  border: 2px solid rgba(250, 246, 238, 0.9);
+}
+.panel-body::-webkit-scrollbar-thumb:hover { background: rgba(176, 67, 44, 0.55); }
+
+#panel-scroll-rail {
+  position: absolute;
+  top: 56px;
+  right: 2px;
+  bottom: 14px;
+  width: 8px;
+  z-index: 6;
+  border-radius: 4px;
+  background: rgba(120, 105, 85, 0.10);
+  touch-action: none;
+}
+#panel-scroll-rail[hidden] { display: none; }
+#panel-scroll-thumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 8px;
+  min-height: 24px;
+  border-radius: 4px;
+  background: rgba(120, 105, 85, 0.55);
+  transition: background 0.15s;
+}
+#panel-scroll-thumb:hover, #panel-scroll-thumb.dragging { background: rgba(176, 67, 44, 0.62); }
 .p-section { margin-top: 14px; }
 .p-section h3 {
   display: flex;
@@ -1544,6 +1579,11 @@ kbd {
   .tl-tip { display: none; }
 }
 
+@media (max-width: 1000px) {
+  /* On narrow screens the dossier and the map card would cover the whole
+     map; the dossier already carries the event controls. */
+  #map-stage.panel-open #theatre-card { display: none; }
+}
 @media (max-width: 860px) {
   #topbar { gap: 10px; padding: 8px 12px; }
   .search-wrap { flex-basis: 220px; }

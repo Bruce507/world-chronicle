@@ -6,7 +6,7 @@
 (function () {
   "use strict";
   const BASE = "data/historical/";
-  const V = "?v=20261106n";
+  const V = "?v=20261106w";
   const H = (window.HistoricalBorders = {
     enabled: true,
     manifest: null,
@@ -41,13 +41,13 @@
     nearest(year) {
       if (!this.manifest || !this.manifest.length) return null;
       if (year < -3000 || year > 1995) return null;
-      // Use the latest snapshot at or before the requested year. Using the
-      // "nearest" snapshot would show future polities (e.g. the United States
-      // in 1770, five years before independence); historical labels themselves
-      // come from the entity layer, so this only selects the base polygons.
-      let best = null;
+      // Nearest snapshot for the schematic base polygons. Historical labels
+      // come from the entity layer, which suppresses future polities, so the
+      // polygon base can use the closest visual match without leaking names.
+      let best = null, bd = Infinity;
       for (const s of this.manifest) {
-        if (s.year <= year && (!best || s.year > best.year)) best = s;
+        const d = Math.abs(s.year - year);
+        if (d < bd) { bd = d; best = s; }
       }
       return best;
     },

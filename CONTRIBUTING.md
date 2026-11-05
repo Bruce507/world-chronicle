@@ -32,6 +32,7 @@ Additional data layers:
 - `data/event_groups.json` — event chains and same-place/same-year groups (e.g. `japan-1945`). Country clicks and timeline stops resolve groups through the same trigger.
 - `data/historical_entities.json` — generated historical label layer (snapshots + modern state births + curated entities). Rebuild with `node scripts/build-historical-entities.mjs`; edit `data/entities_curated.json` for China, Japan, Australia and other key regions.
 - `data/regions.json` — top region navigator cameras. `bbox` is `[west, south, east, north]`.
+- `data/name_gloss.json` — Chinese display names for historical labels; add entries here when a new snapshot polity should appear in Chinese mode.
 - `docs/major-events.md` and `docs/coverage-matrix.md` — Phase 0 inventory/coverage reports; regenerate with `node scripts/build-reports.mjs`.
 
 Run `node scripts/build-historical-entities.mjs` whenever curated entities or snapshots change, then `node scripts/build-data.mjs`.

@@ -179,7 +179,6 @@ BIRTHS = {
     "SWE": (1523, "independence", "Independence from the Kalmar Union", "脱离卡尔马联盟独立"),
     "CHE": (1291, "state", "The Old Swiss Confederacy", "旧瑞士联邦"),
     "SYR": (1946, "independence", "Independence from France", "脱离法国独立"),
-    "TWN": (1949, "special", "The ROC government relocates to Taiwan", "中华民国政府迁往台湾"),
     "TJK": (1991, "independence", "Independence from the USSR", "脱离苏联独立"),
     "TZA": (1964, "union", "Union of Tanganyika and Zanzibar", "坦噶尼喀与桑给巴尔联合"),
     "THA": (1932, "state", "The constitutional monarchy", "君主立宪制确立"),

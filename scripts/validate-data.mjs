@@ -155,7 +155,7 @@ else {
   const ents = JSON.parse(fs.readFileSync(entityFile, "utf8")).entities || [];
   if (!ents.length) warn("historical entities file is empty");
   for (const e of ents) {
-    if (!e.id || !e.name || !e.name.zh || !e.name.en) add(`historical entity ${e.id || "?"}: id and bilingual name required`);
+    if (!e.id || !e.name || !e.name.en) add(`historical entity ${e.id || "?"}: id and English name required`);
     if (typeof e.from !== "number" || typeof e.to !== "number" || e.from > e.to) add(`historical entity ${e.id}: bad date range`);
     if (!Number.isFinite(e.lat) || !Number.isFinite(e.lon)) add(`historical entity ${e.id}: bad coordinates`);
   }
