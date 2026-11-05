@@ -146,4 +146,7 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 - `9456c98`：v2 印版与构图精修。
 - `7724775`：v3 线质/材质精修。
 - `5a76e2e`：release prep，资源版本 `20261107j`。
-- **推送状态**：本机命令行无 GitHub 凭据（无 `gh`、无 SSH key、钥匙串无 HTTPS 凭据），需在 GitHub Desktop 点 Push；推送后线上才会从 v1 更新到 Pilot 1。
+- `70d3c2a`：Hero 路线图、风格指南、选片矩阵与变体引擎规格。
+- `9dc8dac`：2A 六个场景；`0fe54c2`：2A 复审精修。
+- `c3b034d`：2B 六个场景与复审，资源版本 `20261107k`；24 个主题 / 26 个事件条目。
+- **推送状态**：本机命令行无 GitHub 凭据（无 `gh`、无 SSH key、钥匙串无 HTTPS 凭据），需在 GitHub Desktop 点 Push；推送后线上才会从 v1 更新到当前版本。
