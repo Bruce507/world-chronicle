@@ -18,6 +18,7 @@ const theatre = read("data/theatre.json");
 const regions = read("data/regions.json");
 const details = read("data/event_details.json");
 const groups = read("data/event_groups.json");
+const sceneVariants = read("data/scene_variants.json");
 
 function slugify(str) {
   return String(str).toLowerCase().normalize("NFKD")
@@ -65,6 +66,7 @@ const out = {
   regionNav: regions,
   eventDetails,
   eventGroups: groups,
+  sceneVariants,
 };
 
 const header = `/* 寰宇时序 · generated data bundle — do not edit by hand.

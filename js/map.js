@@ -836,9 +836,9 @@
         }
 
         // miniature living scene, lifted on a thin staff
-        if (near && past && window.Scenes && !(this.W < 600 && this.view.zoom < 1.4)) {
-          const scale = clamp(1.15 + this.view.zoom * 0.36, 1.25, 2.5) * (this.W < 600 ? 0.72 : 1);
-          const lift = (26 + this.view.zoom * 7) * (this.W < 600 ? 0.8 : 1);
+        if (near && past && window.Scenes && !(this.theatreActive && ev === this.selected) && !(this.W < 600 && this.view.zoom < 1.4)) {
+          const scale = clamp(0.95 + this.view.zoom * 0.16, 1.0, 1.48) * (this.W < 600 ? 0.82 : 1);
+          const lift = Math.min(40, 24 + this.view.zoom * 5) * (this.W < 600 ? 0.85 : 1);
           const mx = p.x, my = p.y - lift;
           const discR = 21 * scale;
           ctx.save();
@@ -867,7 +867,7 @@
           ctx.ellipse(mx, my + 2, 11 * scale, 3.2 * scale, 0, 0, Math.PI * 2);
           ctx.fillStyle = "rgba(120,100,75," + (0.12 * alpha) + ")";
           ctx.fill();
-          window.Scenes.mini(ctx, ev.s, mx, my, scale, ts * 0.001, cat.color, ev.seed);
+          window.Scenes.mini(ctx, window.Scenes.styleFor ? window.Scenes.styleFor(ev) : ev.s, mx, my, scale, ts * 0.001, cat.color, ev.seed);
           ctx.restore();
         }
       }

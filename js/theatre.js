@@ -71,6 +71,7 @@
     ev: null,
     data: null,
     mode: null,
+    style: null,
     lang: "zh",
     started: 0,
     paused: false,
@@ -84,6 +85,9 @@
     atomic: null,
     disaster: null,
     founding: null,
+    craft: null,
+    monument: null,
+    revolution: null,
     byIso: null,
     lastP: 0,
 
@@ -95,7 +99,9 @@
       const data = (A.theatres && A.theatres[ev.id]) || this.defaultTheatre(ev);
       this.ev = ev;
       this.data = data;
-      this.mode = data.mode || this.modeFor(ev);
+      this.style = (window.Scenes && window.Scenes.styleFor) ? window.Scenes.styleFor(ev) : ev.s;
+      const sm = this.style;
+      this.mode = data.mode || (sm === "paper" || sm === "printing" ? "craft" : sm === "mughal-tomb" || sm === "monument" ? "monument" : sm === "revolution" ? "revolution" : this.modeFor(ev));
       this.sides = data.sides || this.defaultSides(ev);
       this.fronts = (data.fronts || []).map((f) => f.pts ? Object.assign({}, f, { pts: unwrapPts(f.pts) }) : f);
       this.battles = data.battles || [];
@@ -107,6 +113,9 @@
       }
       this.disaster = data.disaster || null;
       this.founding = data.founding || null;
+      this.craft = data.craft || null;
+      this.monument = data.monument || null;
+      this.revolution = data.revolution || null;
       this.started = performance.now();
       this.paused = false;
       this.frozen = 0;
@@ -159,6 +168,10 @@
       this.battles = [];
       this.atomic = null;
       this.founding = null;
+      this.craft = null;
+      this.monument = null;
+      this.revolution = null;
+      this.style = null;
       clearTimeout(this._stopTimer);
       if (this.map) this.map.setTheatreActive(false);
     },
@@ -201,6 +214,10 @@
 
     modeFor(ev) {
       const s = ev.s;
+      const st = (window.Scenes && window.Scenes.styleFor) ? window.Scenes.styleFor(ev) : s;
+      if (st === "paper" || st === "printing") return "craft";
+      if (st === "mughal-tomb" || st === "monument") return "monument";
+      if (st === "revolution") return "revolution";
       const title = ((ev.t && ev.t[0]) || "") + " " + ((ev.t && ev.t[1]) || "");
       const ending = /灭亡|崩溃|终结|陷落|战败|沦陷|fall of|collapse|end of|sack of/i.test(title);
       if (!ending && /建立|建国|开国|成立|加冕|王朝|帝国|统一|独立|founded|founding|coronation|dynasty|empire|unification|independence|declares/i.test(title)) return "founding";
@@ -262,6 +279,15 @@
       } else if (mode === "founding") {
         data.founding = { lat: ev.lat, lon: ev.lon, label: [ev.t[0], ev.t[1]], date: String(ev.y) };
         data.zoom = 3.35;
+      } else if (mode === "craft") {
+        data.craft = { lat: ev.lat, lon: ev.lon, label: [ev.t[0], ev.t[1]], date: String(ev.y) };
+        data.zoom = 3.25;
+      } else if (mode === "monument") {
+        data.monument = { lat: ev.lat, lon: ev.lon, label: [ev.t[0], ev.t[1]], date: String(ev.y) };
+        data.zoom = 3.0;
+      } else if (mode === "revolution") {
+        data.revolution = { lat: ev.lat, lon: ev.lon, label: [ev.t[0], ev.t[1]], date: String(ev.y) };
+        data.zoom = 3.2;
       } else if (mode === "civic") {
         data.battles = [{ lat: ev.lat, lon: ev.lon, name: [ev.t[0], ev.t[1]], side: "a", kind: "crowd" }];
       }
@@ -353,12 +379,22 @@
       ctx.setLineDash([]);
 
       this.drawSideTints(ctx, map, p);
-      this.drawRoutes(ctx, map, p);
-      this.drawFronts(ctx, map, p);
-      this.drawBattles(ctx, map, p);
-      if (this.mode !== "founding") this.drawUnits(ctx, map, p);
+      const specialWar = this.mode === "war" && (this.style === "greek-naval" || this.style === "cn-cavalry" || this.style === "cavalry");
+      if (!specialWar) {
+        this.drawRoutes(ctx, map, p);
+        this.drawFronts(ctx, map, p);
+        this.drawBattles(ctx, map, p);
+        if (this.mode !== "founding" && this.mode !== "craft" && this.mode !== "monument" && this.mode !== "revolution") this.drawUnits(ctx, map, p);
+      } else if (this.style === "greek-naval") {
+        this.drawNavalScene(ctx, map, p);
+      } else {
+        this.drawCavalryScene(ctx, map, p);
+      }
       if (this.mode === "atomic") this.drawAtomic(ctx, map, p);
       else if (this.mode === "founding") this.drawFounding(ctx, map, p);
+      else if (this.mode === "craft") this.drawCraft(ctx, map, p);
+      else if (this.mode === "monument") this.drawMonument(ctx, map, p);
+      else if (this.mode === "revolution") this.drawRevolution(ctx, map, p);
       else if (this.mode === "disaster") this.drawDisaster(ctx, map, p);
       this.drawEnd(ctx, map, p);
       this.drawLabels(ctx, map, p);
@@ -483,7 +519,7 @@
           const q = pointAt(u.path, t);
           lat = q[0]; lon = q[1];
           const q2 = pointAt(u.path, Math.min(1, t + 0.01));
-          ang = Math.atan2(q2[0] - q[0], q2[1] - q[1]);
+          ang = Math.atan2(-(q2[0] - q[0]), q2[1] - q[1]);
         } else {
           const a = u.a + p * u.speed * TAU;
           lat = u.lat + Math.sin(a) * u.r;
@@ -610,8 +646,11 @@
 
     drawCrossed(ctx, x, y, s, color) {
       ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-      ctx.strokeStyle = color; ctx.lineWidth = 1.6;
-      ctx.beginPath(); ctx.moveTo(-5, -5); ctx.lineTo(5, 5); ctx.moveTo(5, -5); ctx.lineTo(-5, 5); ctx.stroke();
+      // a small shield and two spears, not a black X
+      ctx.beginPath(); ctx.arc(0, 0, 5, 0, TAU); ctx.fillStyle = "rgba(232,216,186,0.85)"; ctx.fill();
+      ctx.strokeStyle = color; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.strokeStyle = "rgba(74,54,36,0.9)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(-7, -7); ctx.lineTo(7, 7); ctx.moveTo(7, -7); ctx.lineTo(-7, 7); ctx.stroke();
       ctx.restore();
     },
 
@@ -642,6 +681,11 @@
     drawFounding(ctx, map, p) {
       const f = this.founding;
       if (!f) return;
+      if (this.style === "roman-founding") return this.drawRomanFounding(ctx, map, p);
+      if (this.style === "islamic-founding") return this.drawIslamicFounding(ctx, map, p);
+      if (this.style === "modern-founding") return this.drawModernFounding(ctx, map, p);
+      if (this.style === "megalith") return this.drawMegalithFounding(ctx, map, p);
+      if (this.style === "castle-founding") return this.drawCastleFounding(ctx, map, p);
       const pos = map.project(f.lon, f.lat);
       if (pos.x < -80 || pos.x > map.W + 80 || pos.y < -80 || pos.y > map.H + 80) return;
       const s = clamp(1.08 + map.view.zoom * 0.32, 1.25, 3.0);
@@ -790,6 +834,273 @@
       // japan / us tint and labels handled by side tints/labels
     },
 
+    drawRomanFounding(ctx, map, p) {
+      const f = this.founding; if (!f) return;
+      const pos = map.project(f.lon, f.lat);
+      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const ink = "rgba(74,54,36,0.85)", stone = "rgba(232,220,198,0.92)", gold = "rgba(176,138,62,0.95)", red = "rgba(176,67,44,0.9)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 92, "#c9a45f", 0.16);
+      ctx.beginPath(); ctx.ellipse(0, 4, 58, 12, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.13)"; ctx.fill();
+      // steps
+      ctx.fillStyle = "rgba(210,192,164,0.65)"; ctx.fillRect(-48, 0, 96, 9); ctx.strokeStyle = ink; ctx.strokeRect(-48, 0, 96, 9);
+      ctx.fillStyle = "rgba(226,210,184,0.8)"; ctx.fillRect(-44, -7, 88, 7); ctx.strokeRect(-44, -7, 88, 7);
+      // columns
+      for (let i = -2; i <= 2; i++) {
+        const x = i * 15;
+        ctx.fillStyle = stone; ctx.fillRect(x - 3, -45, 6, 38); ctx.strokeStyle = ink; ctx.strokeRect(x - 3, -45, 6, 38);
+        ctx.fillStyle = "rgba(184,156,112,0.8)"; ctx.fillRect(x - 5, -47, 10, 3); ctx.fillRect(x - 5, -9, 10, 3);
+      }
+      // pediment
+      ctx.beginPath(); ctx.moveTo(-44, -47); ctx.lineTo(0, -66); ctx.lineTo(44, -47); ctx.closePath(); ctx.fillStyle = stone; ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-32, -48); ctx.lineTo(0, -60); ctx.lineTo(32, -48); ctx.strokeStyle = gold; ctx.lineWidth = 1; ctx.stroke();
+      // eagle standard
+      ctx.strokeStyle = gold; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(43, 4); ctx.lineTo(43, -55); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(43, -55); ctx.lineTo(36, -61); ctx.lineTo(43, -59); ctx.lineTo(50, -61); ctx.closePath(); ctx.fillStyle = gold; ctx.fill();
+      // laurel
+      ctx.strokeStyle = "rgba(80,110,70,0.8)"; ctx.lineWidth = 0.9; ctx.beginPath(); ctx.arc(0, -30, 54, Math.PI * 0.15, Math.PI * 0.85); ctx.stroke();
+      // standards
+      for (const bx of [-34, 34]) {
+        ctx.strokeStyle = red; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(bx, 0); ctx.lineTo(bx, -42); ctx.stroke();
+        ctx.fillStyle = red; ctx.beginPath(); ctx.moveTo(bx, -42); ctx.lineTo(bx + 11, -39); ctx.lineTo(bx, -35); ctx.closePath(); ctx.fill();
+      }
+      ctx.restore();
+    },
+
+    drawIslamicFounding(ctx, map, p) {
+      const f = this.founding; if (!f) return;
+      const pos = map.project(f.lon, f.lat);
+      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const ink = "rgba(74,54,36,0.85)", stone = "rgba(238,225,198,0.94)", gold = "rgba(176,138,62,0.95)", green = "rgba(70,100,82,0.9)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 92, "#c9a45f", 0.16);
+      ctx.beginPath(); ctx.ellipse(0, 4, 58, 12, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.13)"; ctx.fill();
+      ctx.fillStyle = "rgba(220,202,170,0.6)"; ctx.fillRect(-42, -5, 84, 12); ctx.strokeStyle = ink; ctx.strokeRect(-42, -5, 84, 12);
+      // central dome + iwan
+      ctx.beginPath(); ctx.moveTo(-26, -5); ctx.quadraticCurveTo(-26, -48, 0, -56); ctx.quadraticCurveTo(26, -48, 26, -5); ctx.closePath(); ctx.fillStyle = stone; ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 1.1; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, -56); ctx.lineTo(0, -65); ctx.strokeStyle = gold; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, -65, 3, Math.PI, TAU); ctx.strokeStyle = gold; ctx.stroke();
+      // minarets
+      for (const mx of [-40, 40]) {
+        ctx.fillStyle = stone; ctx.fillRect(mx - 3, -58, 6, 58); ctx.strokeStyle = ink; ctx.strokeRect(mx - 3, -58, 6, 58);
+        ctx.beginPath(); ctx.moveTo(mx - 5, -58); ctx.lineTo(mx, -68); ctx.lineTo(mx + 5, -58); ctx.closePath(); ctx.fillStyle = green; ctx.fill();
+      }
+      // arches + gate
+      for (let i = -1; i <= 1; i++) {
+        const x = i * 16;
+        ctx.beginPath(); ctx.moveTo(x - 5, 8); ctx.lineTo(x - 5, -11); ctx.quadraticCurveTo(x, -18, x + 5, -11); ctx.lineTo(x + 5, 8); ctx.closePath(); ctx.fillStyle = i === 0 ? "rgba(78,58,40,0.55)" : "rgba(120,92,58,0.28)"; ctx.fill();
+      }
+      ctx.restore();
+    },
+
+    drawModernFounding(ctx, map, p) {
+      const f = this.founding; if (!f) return;
+      const pos = map.project(f.lon, f.lat);
+      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const ink = "rgba(74,54,36,0.85)", stone = "rgba(236,228,212,0.95)", gold = "rgba(176,138,62,0.95)", red = "rgba(176,67,44,0.9)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 90, "#c9a45f", 0.14);
+      ctx.beginPath(); ctx.ellipse(0, 4, 58, 12, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.13)"; ctx.fill();
+      ctx.fillStyle = "rgba(214,202,182,0.65)"; ctx.fillRect(-48, 0, 96, 9); ctx.strokeStyle = ink; ctx.strokeRect(-48, 0, 96, 9);
+      ctx.fillStyle = stone; ctx.fillRect(-38, -36, 76, 38); ctx.strokeRect(-38, -36, 76, 38);
+      for (let i = -4; i <= 4; i++) { ctx.fillStyle = "rgba(180,164,140,0.55)"; ctx.fillRect(i * 8 - 2, -32, 4, 30); }
+      // dome / pediment
+      ctx.beginPath(); ctx.moveTo(-24, -36); ctx.lineTo(0, -56); ctx.lineTo(24, -36); ctx.closePath(); ctx.fillStyle = stone; ctx.fill(); ctx.stroke();
+      // flag
+      ctx.strokeStyle = gold; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(44, 4); ctx.lineTo(44, -52); ctx.stroke();
+      const wave = Math.sin(p * 2.4) * 3;
+      ctx.beginPath(); ctx.moveTo(44, -50); ctx.quadraticCurveTo(56 + wave, -49, 63 + wave, -44); ctx.lineTo(44, -40); ctx.closePath(); ctx.fillStyle = red; ctx.fill();
+      // crowd spaced, not a blob
+      for (let i = -3; i <= 3; i++) {
+        const cx = i * 9 + Math.sin(p * 2 + i) * 1;
+        ctx.strokeStyle = "rgba(102,76,52,0.85)"; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(cx, 8); ctx.lineTo(cx - 1, 13); ctx.moveTo(cx, 8); ctx.lineTo(cx + 1, 13); ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, 6.5, 1.4, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+      }
+      ctx.restore();
+    },
+
+    drawMegalithFounding(ctx, map, p) {
+      const f = this.founding; if (!f) return;
+      const pos = map.project(f.lon, f.lat);
+      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const ink = "rgba(74,54,36,0.85)", stone = "rgba(158,144,118,0.85)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 84, "#c9a45f", 0.12);
+      ctx.beginPath(); ctx.ellipse(0, 4, 52, 11, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.13)"; ctx.fill();
+      for (const bx of [-34, -12, 12, 34]) {
+        ctx.fillStyle = stone; ctx.fillRect(bx - 5, -38, 10, 42); ctx.strokeStyle = ink; ctx.strokeRect(bx - 5, -38, 10, 42);
+      }
+      ctx.fillStyle = stone; ctx.fillRect(-42, -44, 84, 9); ctx.strokeRect(-42, -44, 84, 9);
+      const fl = 0.6 + 0.4 * Math.sin(p * 4);
+      glow(ctx, 0, 0, 14 * fl, "#d0783a", 0.4);
+      ctx.beginPath(); ctx.moveTo(-3, 4); ctx.quadraticCurveTo(-1, -4, 0, -8 * fl); ctx.quadraticCurveTo(2, -4, 3, 4); ctx.closePath(); ctx.fillStyle = "rgba(214,120,58,0.8)"; ctx.fill();
+      ctx.restore();
+    },
+
+    drawCastleFounding(ctx, map, p) {
+      const f = this.founding; if (!f) return;
+      const pos = map.project(f.lon, f.lat);
+      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const ink = "rgba(74,54,36,0.85)", stone = "rgba(206,184,148,0.75)", red = "rgba(176,67,44,0.9)", gold = "rgba(176,138,62,0.95)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 86, "#c9a45f", 0.14);
+      ctx.beginPath(); ctx.ellipse(0, 4, 54, 11, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.13)"; ctx.fill();
+      ctx.fillStyle = stone; ctx.fillRect(-30, -34, 60, 38); ctx.strokeStyle = ink; ctx.strokeRect(-30, -34, 60, 38);
+      for (const tx of [-44, 30]) {
+        ctx.fillStyle = "rgba(214,194,158,0.85)"; ctx.fillRect(tx, -48, 14, 52); ctx.strokeRect(tx, -48, 14, 52);
+        ctx.beginPath(); ctx.moveTo(tx - 2, -48); ctx.lineTo(tx + 7, -60); ctx.lineTo(tx + 16, -48); ctx.closePath(); ctx.fillStyle = red; ctx.fill();
+      }
+      for (let i = -30; i < 30; i += 10) { ctx.fillStyle = "rgba(214,194,158,0.9)"; ctx.fillRect(i, -38, 5, 5); }
+      ctx.beginPath(); ctx.moveTo(-7, 4); ctx.lineTo(-7, -10); ctx.quadraticCurveTo(0, -18, 7, -10); ctx.lineTo(7, 4); ctx.closePath(); ctx.fillStyle = "rgba(80,58,40,0.62)"; ctx.fill();
+      ctx.strokeStyle = gold; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(0, -34); ctx.lineTo(0, -57); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, -57); ctx.lineTo(10, -54); ctx.lineTo(0, -50); ctx.closePath(); ctx.fillStyle = red; ctx.fill();
+      ctx.restore();
+    },
+
+    drawCraft(ctx, map, p) {
+      const c = this.craft; if (!c) return;
+      const pos = map.project(c.lon, c.lat);
+      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const ink = "rgba(74,54,36,0.85)", paper = "rgba(246,236,214,0.95)", gold = "rgba(176,138,62,0.95)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 84, "#c9a45f", 0.14);
+      ctx.beginPath(); ctx.ellipse(0, 6, 46, 10, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.12)"; ctx.fill();
+      if (this.style === "printing") {
+        ctx.strokeStyle = ink; ctx.lineWidth = 2; ctx.strokeRect(-30, -30, 60, 30);
+        ctx.beginPath(); ctx.moveTo(0, -30); ctx.lineTo(0, -54); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-14, -54); ctx.lineTo(14, -54); ctx.stroke();
+        ctx.strokeStyle = gold; ctx.lineWidth = 1.2;
+        for (let i = -5; i <= 5; i++) { ctx.beginPath(); ctx.moveTo(i * 2.5, -52); ctx.lineTo(i * 2.5, -36); ctx.stroke(); }
+        ctx.fillStyle = paper; ctx.fillRect(-24, 0, 48, 10); ctx.strokeStyle = ink; ctx.strokeRect(-24, 0, 48, 10);
+      } else {
+        // paper sheet, vat, brush
+        ctx.fillStyle = paper; ctx.strokeStyle = ink; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(-30, -32); ctx.lineTo(20, -38); ctx.lineTo(28, 8); ctx.lineTo(-22, 14); ctx.closePath(); ctx.fill(); ctx.stroke();
+        for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.moveTo(-22, -24 + i * 7); ctx.lineTo(20, -28 + i * 7); ctx.strokeStyle = "rgba(90,70,50,0.35)"; ctx.lineWidth = 0.8; ctx.stroke(); }
+        ctx.fillStyle = "rgba(126,92,56,0.65)"; ctx.fillRect(-40, 16, 26, 8); ctx.strokeRect(-40, 16, 26, 8);
+        ctx.strokeStyle = gold; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(26, -24); ctx.lineTo(44, -46); ctx.stroke();
+      }
+      ctx.restore();
+    },
+
+    drawMonument(ctx, map, p) {
+      const m = this.monument; if (!m) return;
+      const pos = map.project(m.lon, m.lat);
+      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const ink = "rgba(74,54,36,0.8)", stone = "rgba(246,236,216,0.96)", gold = "rgba(176,138,62,0.95)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 92, "#d0b070", 0.16);
+      ctx.beginPath(); ctx.ellipse(0, 8, 54, 12, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.12)"; ctx.fill();
+      // platform
+      ctx.fillStyle = "rgba(232,220,198,0.9)"; ctx.fillRect(-42, 0, 84, 12); ctx.strokeStyle = ink; ctx.strokeRect(-42, 0, 84, 12);
+      // central dome
+      ctx.beginPath(); ctx.moveTo(-24, 0); ctx.quadraticCurveTo(-24, -48, 0, -58); ctx.quadraticCurveTo(24, -48, 24, 0); ctx.closePath(); ctx.fillStyle = stone; ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, -58); ctx.lineTo(0, -68); ctx.strokeStyle = gold; ctx.lineWidth = 1.5; ctx.stroke();
+      // minarets
+      for (const mx of [-38, 38]) {
+        ctx.fillStyle = stone; ctx.fillRect(mx - 2.5, -44, 5, 46); ctx.strokeRect(mx - 2.5, -44, 5, 46);
+        ctx.beginPath(); ctx.moveTo(mx - 4, -44); ctx.lineTo(mx, -54); ctx.lineTo(mx + 4, -44); ctx.closePath(); ctx.fillStyle = gold; ctx.fill();
+      }
+      // pool
+      ctx.strokeStyle = "rgba(80,130,140,0.55)"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(-30, 18); ctx.lineTo(30, 18); ctx.stroke();
+      ctx.restore();
+    },
+
+    drawRevolution(ctx, map, p) {
+      const r = this.revolution; if (!r) return;
+      const pos = map.project(r.lon, r.lat);
+      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const ink = "rgba(74,54,36,0.85)", red = "rgba(176,67,44,0.92)", gold = "rgba(176,138,62,0.95)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 84, "#c0603a", 0.16);
+      // Winter Palace-like facade behind the barricade
+      ctx.fillStyle = "rgba(226,212,186,0.32)";
+      ctx.fillRect(-52, -32, 104, 34);
+      ctx.strokeStyle = "rgba(86,64,44,0.45)"; ctx.lineWidth = 0.8;
+      ctx.strokeRect(-52, -32, 104, 34);
+      ctx.beginPath(); ctx.moveTo(-54, -32); ctx.lineTo(0, -40); ctx.lineTo(54, -32); ctx.stroke();
+      for (let i = -4; i <= 4; i++) {
+        ctx.fillStyle = "rgba(250,242,224,0.35)";
+        ctx.fillRect(i * 10 - 1, -29, 3, 27);
+        ctx.strokeStyle = "rgba(86,64,44,0.3)"; ctx.strokeRect(i * 10 - 1, -29, 3, 27);
+      }
+      ctx.fillStyle = "rgba(86,64,44,0.25)"; ctx.fillRect(-7, -24, 14, 22);
+      // barricade
+      ctx.strokeStyle = "rgba(102,74,48,0.9)"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-42, 8); ctx.lineTo(42, -4); ctx.moveTo(-42, -4); ctx.lineTo(42, 8); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(0, 12, 44, 6, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.12)"; ctx.fill();
+      // flag
+      ctx.strokeStyle = gold; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(0, 6); ctx.lineTo(0, -48); ctx.stroke();
+      const wave = Math.sin(p * 2.6) * 4;
+      ctx.beginPath(); ctx.moveTo(0.5, -46); ctx.quadraticCurveTo(18 + wave, -44, 28 + wave, -36); ctx.lineTo(0.5, -28); ctx.closePath(); ctx.fillStyle = red; ctx.fill();
+      // spaced crowd, warm ink
+      for (let i = -4; i <= 4; i++) {
+        const cx = i * 9 + Math.sin(p * 2 + i) * 1.4;
+        ctx.strokeStyle = i % 2 ? "rgba(102,76,52,0.9)" : "rgba(74,54,36,0.9)"; ctx.lineWidth = 1.1;
+        ctx.beginPath(); ctx.moveTo(cx, 6); ctx.lineTo(cx - 1, 12); ctx.moveTo(cx, 6); ctx.lineTo(cx + 1, 12); ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, 4, 1.5, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+      }
+      ctx.restore();
+    },
+
+    drawCavalryScene(ctx, map, p) {
+      const ev = this.ev; if (!ev) return;
+      const pos = map.project(ev.lon, ev.lat);
+      const s = clamp(0.9 + map.view.zoom * 0.28, 1.1, 2.8);
+      const ink = "rgba(74,54,36,0.8)", red = "rgba(176,67,44,0.9)", gold = "rgba(176,138,62,0.95)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      glow(ctx, 0, 0, 84, "#c9a45f", 0.14);
+      ctx.beginPath(); ctx.ellipse(0, 8, 52, 11, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.13)"; ctx.fill();
+      // city gate behind
+      ctx.fillStyle = "rgba(214,190,150,0.38)"; ctx.fillRect(-38, -20, 76, 28); ctx.strokeStyle = ink; ctx.strokeRect(-38, -20, 76, 28);
+      ctx.beginPath(); ctx.moveTo(-10, 8); ctx.lineTo(-10, -10); ctx.quadraticCurveTo(0, -22, 10, -10); ctx.lineTo(10, 8); ctx.closePath(); ctx.fillStyle = "rgba(90,64,44,0.45)"; ctx.fill();
+      // three riders, warm ink
+      for (let i = 0; i < 3; i++) {
+        const hx = -24 + i * 22;
+        this.drawHorseIcon(ctx, hx, 4, 1.05, p + i * 0.5, i === 1 ? red : "rgba(96,70,46,0.95)");
+        const bob = Math.sin(p * 7 + i) * 1.2;
+        ctx.strokeStyle = i === 1 ? red : "rgba(74,54,36,0.9)"; ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(hx, -12 + bob); ctx.lineTo(hx, -20 + bob); ctx.stroke();
+        ctx.beginPath(); ctx.arc(hx, -22 + bob, 2, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+        ctx.strokeStyle = gold; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(hx + 5, -12); ctx.lineTo(hx + 5, -28); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(hx + 5, -27); ctx.lineTo(hx + 13, -25); ctx.lineTo(hx + 5, -22); ctx.closePath(); ctx.fillStyle = i === 1 ? red : gold; ctx.fill();
+      }
+      // dust
+      for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.arc(-30 + i * 16, 12 + Math.sin(p + i) * 2, 5 + i, 0, TAU); ctx.fillStyle = "rgba(180,150,110,0.07)"; ctx.fill(); }
+      ctx.restore();
+    },
+
+    drawNavalScene(ctx, map, p) {
+      const ev = this.ev; if (!ev) return;
+      const pos = map.project(ev.lon, ev.lat);
+      const s = clamp(0.9 + map.view.zoom * 0.28, 1.1, 2.8);
+      const ink = "rgba(74,54,36,0.8)", gold = "rgba(176,138,62,0.95)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      // sea wash + foam
+      ctx.beginPath(); ctx.ellipse(0, 2, 60, 24, 0, 0, TAU); ctx.fillStyle = "rgba(80,130,140,0.08)"; ctx.fill();
+      for (let i = 0; i < 3; i++) {
+        const sx = -38 + i * 30, bob = Math.sin(p * 2 + i) * 2;
+        ctx.save(); ctx.translate(sx, bob);
+        // hull
+        ctx.beginPath(); ctx.moveTo(-18, -2); ctx.quadraticCurveTo(-8, 5, 13, 1); ctx.lineTo(19, -3); ctx.lineTo(12, -1); ctx.quadraticCurveTo(0, 2, -15, -4); ctx.closePath(); ctx.fillStyle = "rgba(118,82,50,0.9)"; ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 0.8; ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(19, -3); ctx.lineTo(24, -1); ctx.lineTo(19, 0); ctx.closePath(); ctx.fillStyle = gold; ctx.fill();
+        // oars
+        ctx.strokeStyle = "rgba(74,54,36,0.7)"; ctx.lineWidth = 0.7;
+        for (let j = -12; j <= 8; j += 4) { ctx.beginPath(); ctx.moveTo(j, 2); ctx.lineTo(j - 4, 7); ctx.stroke(); }
+        // mast + sail
+        ctx.strokeStyle = ink; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, -2); ctx.lineTo(0, -22); ctx.stroke();
+        const wave = Math.sin(p * 2 + i) * 1;
+        ctx.beginPath(); ctx.moveTo(-9, -21); ctx.quadraticCurveTo(0, -24 + wave, 9, -21); ctx.lineTo(7, -9); ctx.quadraticCurveTo(0, -7 + wave, -7, -9); ctx.closePath(); ctx.fillStyle = "rgba(240,228,204,0.95)"; ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.arc(13, -2, 1.2, 0, TAU); ctx.fillStyle = ink; ctx.fill();
+        ctx.restore();
+      }
+      // foam lines
+      ctx.strokeStyle = "rgba(230,220,200,0.45)"; ctx.lineWidth = 0.8;
+      for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.moveTo(-50, 16 + i * 3); ctx.quadraticCurveTo(0, 20 + i * 3, 50, 16 + i * 3); ctx.stroke(); }
+      ctx.restore();
+    },
+
     drawDisaster(ctx, map, p) {
       const d = this.disaster;
       const epic = d ? map.project(d.lon, d.lat) : null;
@@ -834,7 +1145,11 @@
 
     drawLabels(ctx, map, p) {
       const placed = [];
+      const seenLabels = new Set();
       const chip = (lat, lon, text, color, dx, dy, size) => {
+        const key = String(text).replace(/\s+/g, " ").trim();
+        if (!key || seenLabels.has(key)) return;
+        seenLabels.add(key);
         const pos = map.project(lon, lat);
         if (pos.x < 20 || pos.x > map.W - 20 || pos.y < 20 || pos.y > map.H - 20) return;
         size = size || 9.5;
@@ -851,8 +1166,9 @@
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
         ctx.fillText(text, x, (r[1] + r[3]) / 2);
       };
-      // side labels at a representative member
-      for (const side of this.sides) {
+      // side labels at a representative member (not for narrative modes,
+      // where side and scene labels would duplicate the event name)
+      if (!["founding", "craft", "monument", "revolution"].includes(this.mode)) for (const side of this.sides) {
         if (!side.members || !side.members.length) continue;
         const f = this.byIso && this.byIso[side.members[0]];
         if (!f || f.properties.lx == null) continue;
@@ -881,6 +1197,9 @@
       if (this.founding && this.founding.label) {
         chip(this.founding.lat, this.founding.lon, this.founding.label[this.lang === "zh" ? 0 : 1] + " · " + this.founding.date, "#a83e2c", 0, -66, 9.5);
       }
+      if (this.craft && this.craft.label) chip(this.craft.lat, this.craft.lon, this.craft.label[this.lang === "zh" ? 0 : 1] + " · " + this.craft.date, "#a83e2c", 0, -48, 9.5);
+      if (this.monument && this.monument.label) chip(this.monument.lat, this.monument.lon, this.monument.label[this.lang === "zh" ? 0 : 1] + " · " + this.monument.date, "#a83e2c", 0, -56, 9.5);
+      if (this.revolution && this.revolution.label) chip(this.revolution.lat, this.revolution.lon, this.revolution.label[this.lang === "zh" ? 0 : 1] + " · " + this.revolution.date, "#a83e2c", 0, -56, 9.5);
     },
   });
 

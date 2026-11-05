@@ -33,6 +33,7 @@ Additional data layers:
 - `data/historical_entities.json` — generated historical label layer (snapshots + modern state births + curated entities). Rebuild with `node scripts/build-historical-entities.mjs`; edit `data/entities_curated.json` for China, Japan, Australia and other key regions.
 - `data/regions.json` — top region navigator cameras. `bbox` is `[west, south, east, north]`.
 - `data/name_gloss.json` — Chinese display names for historical labels; add entries here when a new snapshot polity should appear in Chinese mode.
+- `data/scene_variants.json` — explicit event-to-visual-family overrides. Families live in `js/scenes.js` and `js/theatre.js` (founding, cavalry, naval, craft, monument, revolution).
 - `docs/major-events.md` and `docs/coverage-matrix.md` — Phase 0 inventory/coverage reports; regenerate with `node scripts/build-reports.mjs`.
 
 Run `node scripts/build-historical-entities.mjs` whenever curated entities or snapshots change, then `node scripts/build-data.mjs`.

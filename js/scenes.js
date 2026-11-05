@@ -10,6 +10,33 @@
   const smooth = (t) => t * t * (3 - 2 * t);
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
+  const A = window.WORLD_ATLAS;
+
+  /* Choose a visual family from the event's culture, era and type.
+     Explicit overrides live in data/scene_variants.json. */
+  function styleFor(ev) {
+    if (!ev) return "march";
+    if (A && A.sceneVariants && A.sceneVariants[ev.id]) return A.sceneVariants[ev.id];
+    const title = ((ev.t && ev.t[0]) || "") + " " + ((ev.t && ev.t[1]) || "");
+    const founding = !/灭亡|崩溃|终结|陷落|战败|沦陷|fall of|collapse|end of|sack of/i.test(title)
+      && /建立|建国|开国|成立|加冕|王朝|帝国|统一|独立|founded|founding|coronation|dynasty|empire|unification|independence|declares/i.test(title);
+    if (founding) {
+      if (ev.c === "CN" || ev.rg === "ea") return "cn-founding";
+      if (ev.c === "IT" || ev.c === "GR" || /rome|roman|greek|byzant/i.test(title)) return "roman-founding";
+      if ((ev.rg === "me" || ev.rg === "af" || ev.rg === "sa" || ev.rg === "sea") && ev.y > 550) return "islamic-founding";
+      if (ev.y >= 1800) return "modern-founding";
+      if (ev.y <= -3000) return "megalith";
+      return "castle-founding";
+    }
+    if (ev.s === "cavalry") return ev.rg === "ea" ? "cn-cavalry" : "cavalry";
+    if (ev.s === "naval") return ev.y < -200 ? "greek-naval" : "naval";
+    if (ev.s === "temple") return (ev.v === "dome" || ev.rg === "sa" || ev.rg === "me") ? "mughal-tomb" : "temple";
+    if (ev.s === "city" && ev.k === "science") return /纸|造纸|印刷|paper|print/i.test(title) ? "paper" : "city";
+    if (ev.s === "city" && ev.k === "temple") return "monument";
+    if (ev.s === "revolution" || ev.s === "protest") return "revolution";
+    return ev.s;
+  }
+
   function rng(seed) {
     let s = (seed * 9301 + 49297) % 233280 || 12345;
     return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; };
@@ -2415,9 +2442,255 @@
     ctx.restore();
   }
 
+  /* ── medallion icons: one focal symbol, no crowd blobs ───────── */
+  const MINI_INK = "rgba(74,54,36,0.9)";
+  const MINI_WARM = "rgba(176,105,62,0.95)";
+  const MINI_GOLD = "rgba(176,138,62,0.95)";
+  const MINI_PAPER = "rgba(244,233,208,0.95)";
+
+  function miniCNFounding(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.16)"; ctx.fill();
+    ctx.fillStyle = "rgba(204,174,128,0.55)"; ctx.fillRect(-12, -6, 24, 8);
+    ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.9; ctx.strokeRect(-12, -6, 24, 8);
+    for (let i = -12; i < 12; i += 4) { ctx.fillRect(i, -8.5, 2.6, 2.6); ctx.strokeRect(i, -8.5, 2.6, 2.6); }
+    ctx.beginPath(); ctx.moveTo(-3, 2); ctx.lineTo(-3, -3); ctx.quadraticCurveTo(0, -7, 3, -3); ctx.lineTo(3, 2); ctx.closePath(); ctx.fillStyle = "rgba(92,66,43,0.7)"; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-14, -6); ctx.quadraticCurveTo(-7, -11, -4, -14); ctx.quadraticCurveTo(0, -18, 4, -14); ctx.quadraticCurveTo(7, -11, 14, -6); ctx.closePath(); ctx.fillStyle = "rgba(156,96,60,0.85)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.stroke();
+    for (const bx of [-10, 10]) {
+      const wave = Math.sin(t * 2.5 + bx) * 1.2;
+      ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.moveTo(bx, 2); ctx.lineTo(bx, -13); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(bx + 0.5, -12); ctx.quadraticCurveTo(bx + 4 + wave, -11, bx + 6 + wave, -8.5); ctx.lineTo(bx + 0.6, -7); ctx.closePath(); ctx.fillStyle = bx < 0 ? MINI_WARM : MINI_GOLD; ctx.fill();
+    }
+    ctx.beginPath(); ctx.arc(0, -18.5, 1.6, 0, TAU); ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 0.8; ctx.stroke();
+    ctx.restore();
+  }
+
+  function miniRomanFounding(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.16)"; ctx.fill();
+    // steps + columns
+    ctx.fillStyle = "rgba(222,205,176,0.85)"; ctx.fillRect(-13, -1, 26, 4);
+    ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.strokeRect(-13, -1, 26, 4);
+    for (let i = -2; i <= 2; i++) {
+      ctx.fillStyle = "rgba(238,226,202,0.9)"; ctx.fillRect(i * 4.5 - 1, -10, 2, 9);
+      ctx.strokeStyle = "rgba(100,80,56,0.7)"; ctx.strokeRect(i * 4.5 - 1, -10, 2, 9);
+      ctx.fillStyle = "rgba(120,90,60,0.25)"; ctx.fillRect(i * 4.5 - 1.5, -10.8, 3, 1.2);
+    }
+    // pediment
+    ctx.beginPath(); ctx.moveTo(-13, -10); ctx.lineTo(0, -17); ctx.lineTo(13, -10); ctx.closePath(); ctx.fillStyle = "rgba(232,220,196,0.96)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.9; ctx.stroke();
+    // eagle standard
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1.1; ctx.beginPath(); ctx.moveTo(10, 2); ctx.lineTo(10, -21); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(10, -21); ctx.lineTo(7, -24); ctx.lineTo(10, -23); ctx.lineTo(13, -24); ctx.closePath(); ctx.fillStyle = MINI_GOLD; ctx.fill();
+    // laurel
+    ctx.strokeStyle = "rgba(80,110,70,0.8)"; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.arc(0, -12, 15, Math.PI * 0.15, Math.PI * 0.85); ctx.stroke();
+    ctx.restore();
+  }
+
+  function miniIslamicFounding(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.16)"; ctx.fill();
+    ctx.fillStyle = "rgba(214,190,148,0.65)"; ctx.fillRect(-13, -4, 26, 6);
+    ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.strokeRect(-13, -4, 26, 6);
+    // dome
+    ctx.beginPath(); ctx.moveTo(-9, -4); ctx.quadraticCurveTo(-9, -17, 0, -20); ctx.quadraticCurveTo(9, -17, 9, -4); ctx.closePath(); ctx.fillStyle = "rgba(205,160,96,0.85)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -20); ctx.lineTo(0, -24); ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.stroke();
+    // minarets
+    for (const mx of [-14, 14]) {
+      ctx.fillStyle = "rgba(224,204,170,0.9)"; ctx.fillRect(mx - 1.4, -20, 2.8, 22);
+      ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.6; ctx.strokeRect(mx - 1.4, -20, 2.8, 22);
+      ctx.beginPath(); ctx.moveTo(mx - 2, -20); ctx.lineTo(mx, -24); ctx.lineTo(mx + 2, -20); ctx.closePath(); ctx.fillStyle = MINI_GOLD; ctx.fill();
+    }
+    // arch door
+    ctx.beginPath(); ctx.moveTo(-2.6, 2); ctx.lineTo(-2.6, -5); ctx.quadraticCurveTo(0, -8, 2.6, -5); ctx.lineTo(2.6, 2); ctx.closePath(); ctx.fillStyle = "rgba(86,60,40,0.55)"; ctx.fill();
+    ctx.restore();
+  }
+
+  function miniCastleFounding(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.16)"; ctx.fill();
+    ctx.fillStyle = "rgba(196,170,132,0.65)"; ctx.fillRect(-10, -8, 20, 10);
+    ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.strokeRect(-10, -8, 20, 10);
+    for (const tx of [-13, 10]) {
+      ctx.fillStyle = "rgba(210,186,148,0.8)"; ctx.fillRect(tx, -15, 7, 17); ctx.strokeRect(tx, -15, 7, 17);
+      ctx.beginPath(); ctx.moveTo(tx - 1, -15); ctx.lineTo(tx + 3.5, -20); ctx.lineTo(tx + 8, -15); ctx.closePath(); ctx.fillStyle = MINI_WARM; ctx.fill();
+    }
+    for (let i = -10; i < 10; i += 4) { ctx.fillStyle = "rgba(210,186,148,0.9)"; ctx.fillRect(i, -10, 2.4, 2.4); }
+    ctx.beginPath(); ctx.moveTo(-2.5, 2); ctx.lineTo(-2.5, -5); ctx.quadraticCurveTo(0, -8, 2.5, -5); ctx.lineTo(2.5, 2); ctx.closePath(); ctx.fillStyle = "rgba(80,58,40,0.65)"; ctx.fill();
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(12, -15); ctx.lineTo(12, -24); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(12, -24); ctx.lineTo(18, -22); ctx.lineTo(12, -19); ctx.closePath(); ctx.fillStyle = MINI_WARM; ctx.fill();
+    ctx.restore();
+  }
+
+  function miniModernFounding(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.16)"; ctx.fill();
+    ctx.fillStyle = "rgba(224,213,190,0.9)"; ctx.fillRect(-13, -2, 26, 4); ctx.strokeStyle = MINI_INK; ctx.strokeRect(-13, -2, 26, 4);
+    ctx.fillStyle = "rgba(238,229,210,0.95)"; ctx.fillRect(-10, -12, 20, 10); ctx.strokeRect(-10, -12, 20, 10);
+    for (let i = -3; i <= 3; i++) { ctx.fillStyle = "rgba(180,160,130,0.55)"; ctx.fillRect(i * 2.6, -10, 1, 8); }
+    ctx.beginPath(); ctx.moveTo(-8, -12); ctx.lineTo(0, -18); ctx.lineTo(8, -12); ctx.closePath(); ctx.fillStyle = "rgba(210,190,155,0.95)"; ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(12, 2); ctx.lineTo(12, -22); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(12, -22); ctx.lineTo(18, -20); ctx.lineTo(12, -17); ctx.closePath(); ctx.fillStyle = MINI_WARM; ctx.fill();
+    ctx.restore();
+  }
+
+  function miniMegalith(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.16)"; ctx.fill();
+    ctx.fillStyle = "rgba(160,142,116,0.8)"; ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8;
+    for (const bx of [-10, -2, 7]) {
+      ctx.fillRect(bx, -12, 4, 14); ctx.strokeRect(bx, -12, 4, 14);
+      ctx.fillRect(bx - 1, -14, 6, 3);
+    }
+    ctx.fillRect(-12, -16, 22, 3); ctx.strokeRect(-12, -16, 22, 3);
+    const f = 0.6 + 0.4 * Math.sin(t * 3);
+    ctx.beginPath(); ctx.arc(0, 1, 3 * f, 0, TAU); ctx.fillStyle = "rgba(214,120,58,0.55)"; ctx.fill();
+    ctx.restore();
+  }
+
+  function miniCNCavalry(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    miniHorse(ctx, -3, 0, 0.95, t, col);
+    // rider
+    ctx.strokeStyle = MINI_INK; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, -9); ctx.lineTo(0, -16); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, -18, 1.8, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+    // banner
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(2, -10); ctx.lineTo(2, -23); ctx.stroke();
+    const wave = Math.sin(t * 3) * 1.4;
+    ctx.beginPath(); ctx.moveTo(2.5, -22); ctx.quadraticCurveTo(8 + wave, -21, 11 + wave, -18); ctx.lineTo(2.5, -16); ctx.closePath(); ctx.fillStyle = MINI_WARM; ctx.fill();
+    ctx.restore();
+  }
+
+  function miniGreekNaval(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    // hull, facing right
+    ctx.beginPath(); ctx.moveTo(-15, -2); ctx.quadraticCurveTo(-6, 4, 10, 1); ctx.lineTo(15, -3); ctx.lineTo(10, -1); ctx.quadraticCurveTo(0, 1, -12, -4); ctx.closePath(); ctx.fillStyle = "rgba(124,86,52,0.9)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.stroke();
+    // ram
+    ctx.beginPath(); ctx.moveTo(15, -3); ctx.lineTo(20, -1); ctx.lineTo(15, 0); ctx.closePath(); ctx.fillStyle = MINI_GOLD; ctx.fill();
+    // oars
+    ctx.strokeStyle = "rgba(74,54,36,0.7)"; ctx.lineWidth = 0.6;
+    for (let i = -10; i <= 6; i += 3) { ctx.beginPath(); ctx.moveTo(i, 2); ctx.lineTo(i - 4, 6); ctx.stroke(); }
+    // mast + square sail
+    ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.9; ctx.beginPath(); ctx.moveTo(0, -2); ctx.lineTo(0, -15); ctx.stroke();
+    const wave = Math.sin(t * 2.5) * 1;
+    ctx.beginPath(); ctx.moveTo(-7, -14); ctx.quadraticCurveTo(0, -17 + wave, 7, -14); ctx.lineTo(6, -6); ctx.quadraticCurveTo(0, -4 + wave, -6, -6); ctx.closePath(); ctx.fillStyle = "rgba(236,220,190,0.9)"; ctx.fill(); ctx.stroke();
+    // eye
+    ctx.beginPath(); ctx.arc(10, -2, 1, 0, TAU); ctx.fillStyle = MINI_INK; ctx.fill();
+    ctx.restore();
+  }
+
+  function miniRevolution(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    // barricade
+    ctx.strokeStyle = "rgba(96,68,44,0.8)"; ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(-12, 1); ctx.lineTo(12, -2); ctx.moveTo(-12, -2); ctx.lineTo(12, 2); ctx.stroke();
+    // flag
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -21); ctx.stroke();
+    const wave = Math.sin(t * 3) * 2;
+    ctx.beginPath(); ctx.moveTo(0.5, -20); ctx.quadraticCurveTo(8 + wave, -19, 13 + wave, -15); ctx.lineTo(0.5, -12); ctx.closePath(); ctx.fillStyle = "rgba(176,67,44,0.92)"; ctx.fill();
+    // spaced crowd, not a blob
+    for (let i = -2; i <= 2; i++) {
+      const cx = i * 5 + Math.sin(t * 2 + i) * 0.8;
+      ctx.strokeStyle = i % 2 ? "rgba(108,78,52,0.8)" : "rgba(74,54,36,0.8)"; ctx.lineWidth = 0.7;
+      ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx - 0.5, 3); ctx.moveTo(cx, 0); ctx.lineTo(cx + 0.5, 3); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, -1.2, 0.9, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.9)"; ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function miniPaper(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    // sheet
+    ctx.fillStyle = MINI_PAPER; ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.7;
+    ctx.beginPath(); ctx.moveTo(-10, -8); ctx.lineTo(8, -10); ctx.lineTo(11, 6); ctx.lineTo(-8, 8); ctx.closePath(); ctx.fill(); ctx.stroke();
+    for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.moveTo(-6, -5 + i * 3); ctx.lineTo(6, -6 + i * 3); ctx.strokeStyle = "rgba(90,70,50,0.45)"; ctx.stroke(); }
+    // vat
+    ctx.fillStyle = "rgba(130,96,58,0.65)"; ctx.fillRect(-14, 7, 12, 4); ctx.strokeRect(-14, 7, 12, 4);
+    // brush
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(8, -8); ctx.lineTo(15, -16); ctx.stroke();
+    ctx.beginPath(); ctx.arc(15, -16, 1.2, 0, TAU); ctx.fillStyle = MINI_INK; ctx.fill();
+    ctx.restore();
+  }
+
+  function miniMughalTomb(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 3, 15, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.15)"; ctx.fill();
+    ctx.fillStyle = "rgba(236,226,206,0.95)"; ctx.fillRect(-12, -3, 24, 6); ctx.strokeStyle = MINI_INK; ctx.strokeRect(-12, -3, 24, 6);
+    // central dome
+    ctx.beginPath(); ctx.moveTo(-8, -3); ctx.quadraticCurveTo(-8, -18, 0, -22); ctx.quadraticCurveTo(8, -18, 8, -3); ctx.closePath(); ctx.fillStyle = "rgba(246,238,218,0.98)"; ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(0, -26); ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.stroke();
+    // minarets
+    for (const mx of [-15, 15]) {
+      ctx.fillStyle = "rgba(244,234,212,0.95)"; ctx.fillRect(mx - 1.3, -18, 2.6, 21); ctx.strokeRect(mx - 1.3, -18, 2.6, 21);
+      ctx.beginPath(); ctx.moveTo(mx - 2, -18); ctx.lineTo(mx, -22); ctx.lineTo(mx + 2, -18); ctx.closePath(); ctx.fillStyle = MINI_GOLD; ctx.fill();
+    }
+    // reflecting pool
+    ctx.strokeStyle = "rgba(80,130,140,0.55)"; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.moveTo(-8, 6); ctx.lineTo(8, 6); ctx.stroke();
+    ctx.restore();
+  }
+
+  function miniPrinting(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.strokeStyle = MINI_INK; ctx.lineWidth = 1.2;
+    ctx.strokeRect(-12, -10, 24, 14);
+    ctx.beginPath(); ctx.moveTo(0, -10); ctx.lineTo(0, -20); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-5, -20); ctx.lineTo(5, -20); ctx.stroke();
+    // screw
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 0.8;
+    for (let i = -3; i <= 3; i++) { ctx.beginPath(); ctx.moveTo(i * 1.4, -19); ctx.lineTo(i * 1.4, -13); ctx.stroke(); }
+    // paper
+    ctx.fillStyle = MINI_PAPER; ctx.fillRect(-9, 1, 18, 5); ctx.strokeStyle = MINI_INK; ctx.strokeRect(-9, 1, 18, 5);
+    ctx.restore();
+  }
+
+  function miniMonument(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.15)"; ctx.fill();
+    ctx.fillStyle = "rgba(230,218,196,0.95)"; ctx.fillRect(-12, -2, 24, 4); ctx.strokeStyle = MINI_INK; ctx.strokeRect(-12, -2, 24, 4);
+    for (let i = -2; i <= 2; i++) { ctx.fillStyle = "rgba(242,232,212,0.95)"; ctx.fillRect(i * 4 - 1, -11, 2, 9); ctx.strokeRect(i * 4 - 1, -11, 2, 9); }
+    ctx.beginPath(); ctx.moveTo(-12, -11); ctx.lineTo(0, -17); ctx.lineTo(12, -11); ctx.closePath(); ctx.fillStyle = "rgba(236,224,202,0.95)"; ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
+
+  function miniJunk(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.moveTo(-15, 0); ctx.quadraticCurveTo(-6, 5, 12, 1); ctx.lineTo(16, -2); ctx.lineTo(10, -1); ctx.quadraticCurveTo(0, 2, -12, -3); ctx.closePath(); ctx.fillStyle = "rgba(126,88,54,0.9)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.stroke();
+    ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.9; ctx.beginPath(); ctx.moveTo(0, -1); ctx.lineTo(0, -20); ctx.stroke();
+    // battened sail
+    const wave = Math.sin(t * 2.2) * 0.8;
+    ctx.beginPath(); ctx.moveTo(-7, -19); ctx.quadraticCurveTo(0, -21 + wave, 7, -19); ctx.lineTo(7, -6); ctx.quadraticCurveTo(0, -4 + wave, -7, -6); ctx.closePath(); ctx.fillStyle = "rgba(220,160,96,0.85)"; ctx.fill(); ctx.stroke();
+    for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.moveTo(-6, -16 + i * 2.2); ctx.lineTo(6, -16 + i * 2.2); ctx.strokeStyle = "rgba(110,70,40,0.5)"; ctx.lineWidth = 0.5; ctx.stroke(); }
+    ctx.restore();
+  }
+
+  function miniCaravel(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.moveTo(-14, 0); ctx.quadraticCurveTo(-5, 6, 12, 2); ctx.lineTo(17, -2); ctx.lineTo(9, -1); ctx.quadraticCurveTo(0, 3, -11, -3); ctx.closePath(); ctx.fillStyle = "rgba(118,82,50,0.9)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.stroke();
+    for (const mx of [-6, 2, 9]) {
+      ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.moveTo(mx, -1); ctx.lineTo(mx, -18 + Math.abs(mx) * 0.3); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(mx + 0.5, -16); ctx.quadraticCurveTo(mx + 5, -13, mx + 0.5, -7); ctx.closePath(); ctx.fillStyle = "rgba(242,232,210,0.9)"; ctx.fill(); ctx.stroke();
+    }
+    ctx.beginPath(); ctx.moveTo(17, -2); ctx.lineTo(20, -1); ctx.lineTo(17, 0); ctx.closePath(); ctx.fillStyle = MINI_GOLD; ctx.fill();
+    ctx.restore();
+  }
+
   function mini(ctx, type, x, y, s, t, color, seed) {
     const col = color || "#c0553a";
     switch (type) {
+      case "cn-founding": miniCNFounding(ctx, x, y, s, t, col); break;
+      case "roman-founding": miniRomanFounding(ctx, x, y, s, t, col); break;
+      case "islamic-founding": miniIslamicFounding(ctx, x, y, s, t, col); break;
+      case "castle-founding": miniCastleFounding(ctx, x, y, s, t, col); break;
+      case "modern-founding": miniModernFounding(ctx, x, y, s, t, col); break;
+      case "megalith": miniMegalith(ctx, x, y, s, t, col); break;
+      case "cn-cavalry": miniCNCavalry(ctx, x, y, s, t, col); break;
+      case "greek-naval": miniGreekNaval(ctx, x, y, s, t, col); break;
+      case "junk": miniJunk(ctx, x, y, s, t, col); break;
+      case "caravel":
+      case "galleon": miniCaravel(ctx, x, y, s, t, col); break;
+      case "mughal-tomb": miniMughalTomb(ctx, x, y, s, t, col); break;
+      case "paper": miniPaper(ctx, x, y, s, t, col); break;
+      case "printing": miniPrinting(ctx, x, y, s, t, col); break;
+      case "monument": miniMonument(ctx, x, y, s, t, col); break;
       case "hunt": miniMammoth(ctx, x, y, s * 1.15, t, col); break;
       case "agri":
         ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
@@ -2472,12 +2745,6 @@
           ctx.closePath();
           ctx.fillStyle = col; ctx.fill();
         }
-        // tiny crowd in warm ink
-        for (let i = -2; i <= 2; i++) {
-          ctx.strokeStyle = "rgba(110,78,50,0.85)"; ctx.lineWidth = 0.8;
-          ctx.beginPath(); ctx.moveTo(i * 3, 1); ctx.lineTo(i * 3 - 0.6, 3.2); ctx.moveTo(i * 3, 1); ctx.lineTo(i * 3 + 0.6, 3.2); ctx.stroke();
-          ctx.beginPath(); ctx.arc(i * 3, 0.2, 0.8, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
-        }
         ctx.restore(); break;
       case "temple":
         ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
@@ -2515,7 +2782,7 @@
         break;
       case "revolution":
       case "protest":
-        miniFlag(ctx, x, y, s, t, col); break;
+        miniRevolution(ctx, x, y, s, t, col); break;
       case "industry":
         miniTrain(ctx, x, y, s, t, col); break;
       case "trench":
@@ -2612,5 +2879,5 @@
     };
   }
 
-  window.Scenes = { mount, mini, SCENES };
+  window.Scenes = { mount, mini, styleFor, SCENES };
 })();
