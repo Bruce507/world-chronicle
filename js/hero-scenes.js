@@ -4611,6 +4611,47 @@
     glow(ctx, 0, -12, 20, "#e0b46e", 0.16);
   };
 
+  function seatedPerson(ctx, x, y, s, col, o) {
+    o = o || {};
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(s, s);
+    ctx.strokeStyle = col;
+    ctx.fillStyle = o.fill || col;
+    ctx.lineWidth = 1.3;
+    // bent legs
+    ctx.beginPath();
+    ctx.moveTo(-1.4, -5.6); ctx.lineTo(-4.4, -2.6); ctx.lineTo(-4.0, 0);
+    ctx.moveTo(1.4, -5.6); ctx.lineTo(3.6, -2.3); ctx.lineTo(3.2, 0);
+    ctx.stroke();
+    // robe
+    ctx.beginPath();
+    ctx.moveTo(0, -14.2);
+    ctx.quadraticCurveTo(-3.0, -11, -4.0, -4.0);
+    ctx.lineTo(4.0, -4.0);
+    ctx.quadraticCurveTo(3.0, -11, 0, -14.2);
+    ctx.closePath();
+    ctx.fillStyle = withA(o.fill || col, 0.92);
+    ctx.fill();
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 0.45;
+    ctx.stroke();
+    // folded arms
+    ctx.beginPath(); ctx.moveTo(-2.6, -10.4); ctx.lineTo(1.4, -7.8); ctx.stroke();
+    // head
+    ctx.beginPath(); ctx.arc(0, -16.0, 1.65, 0, TAU);
+    ctx.fillStyle = o.skin || "#c08e5e"; ctx.fill();
+    ctx.strokeStyle = col; ctx.lineWidth = 0.38; ctx.stroke();
+    if (o.hat === "straw") {
+      ctx.beginPath(); ctx.ellipse(0, -16.4, 3.0, 0.7, 0, 0, TAU);
+      ctx.fillStyle = "#c9a76b"; ctx.fill();
+    } else if (o.hat === "cap") {
+      ctx.beginPath(); ctx.ellipse(0, -17.4, 1.8, 0.6, 0, 0, TAU);
+      ctx.fillStyle = col; ctx.fill();
+    }
+    ctx.restore();
+  }
+
   /* ── 2A motifs: pyramids, stele, tablet, elephant, olive ── */
   function pyramid(ctx, x, baseY, w, h, col) {
     const light = col || "rgba(228,207,168,0.98)";
@@ -4835,16 +4876,27 @@
     // relief panel at top
     ctx.fillStyle = "rgba(108,92,78,0.7)";
     ctx.fillRect(x - w * 0.34, baseY - h + w * 0.55, w * 0.68, w * 0.7);
-    // king + sun disc relief
+    // king before the sun god relief
     ctx.strokeStyle = "rgba(196,176,146,0.55)";
+    ctx.fillStyle = "rgba(196,176,146,0.35)";
     ctx.lineWidth = 0.25;
     ctx.beginPath(); ctx.arc(x - w * 0.10, baseY - h + w * 0.78, w * 0.10, 0, TAU); ctx.stroke();
+    // seated sun god
     ctx.beginPath();
-    ctx.moveTo(x + w * 0.02, baseY - h + w * 1.18);
-    ctx.lineTo(x + w * 0.02, baseY - h + w * 0.82);
-    ctx.moveTo(x + w * 0.02, baseY - h + w * 0.98);
-    ctx.lineTo(x + w * 0.16, baseY - h + w * 0.92);
-    ctx.stroke();
+    ctx.moveTo(x - w * 0.16, baseY - h + w * 1.16);
+    ctx.lineTo(x - w * 0.16, baseY - h + w * 0.92);
+    ctx.lineTo(x - w * 0.02, baseY - h + w * 0.96);
+    ctx.lineTo(x - w * 0.02, baseY - h + w * 1.16);
+    ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.arc(x - w * 0.09, baseY - h + w * 0.86, w * 0.035, 0, TAU); ctx.fill();
+    // standing king
+    ctx.beginPath();
+    ctx.moveTo(x + w * 0.06, baseY - h + w * 1.16);
+    ctx.lineTo(x + w * 0.06, baseY - h + w * 0.84);
+    ctx.lineTo(x + w * 0.18, baseY - h + w * 0.84);
+    ctx.lineTo(x + w * 0.18, baseY - h + w * 1.16);
+    ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + w * 0.12, baseY - h + w * 0.78, w * 0.035, 0, TAU); ctx.fill();
     // cuneiform rows
     ctx.strokeStyle = "rgba(196,176,146,0.35)";
     ctx.lineWidth = 0.14;
@@ -5017,6 +5069,10 @@
     pyramid(ctx, -30, -28, 18, 14, "rgba(226,204,164,0.98)");
     pyramid(ctx, -4, -25, 26, 20, "rgba(230,209,170,0.99)");
     pyramid(ctx, 26, -22, 36, 28, "rgba(234,214,176,0.99)");
+    // queens' pyramids cluster
+    pyramid(ctx, -46, -25, 8, 6, "rgba(222,200,160,0.98)");
+    pyramid(ctx, -40, -24, 6, 5, "rgba(220,198,158,0.98)");
+    pyramid(ctx, -35, -23.4, 5, 4, "rgba(218,196,156,0.98)");
     // smooth casing cap on the upper third of the great pyramid
     ctx.beginPath();
     ctx.moveTo(26, -50);
@@ -5028,6 +5084,17 @@
     ctx.strokeStyle = "rgba(120,92,56,0.35)";
     ctx.lineWidth = 0.22;
     ctx.stroke();
+    // cap highlight + joints
+    ctx.beginPath(); ctx.moveTo(26, -49.6); ctx.lineTo(20.6, -41.2);
+    ctx.strokeStyle = "rgba(255,250,236,0.75)"; ctx.lineWidth = 0.8; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(26, -45.2); ctx.lineTo(20.2, -40.8);
+    ctx.strokeStyle = "rgba(120,92,56,0.22)"; ctx.lineWidth = 0.16; ctx.stroke();
+    // porters on the pyramid face
+    for (let i = 0; i < 5; i++) {
+      person(ctx, 12 + i * 2.2, -26 - i * 2.0, 0.12, "rgba(58,42,26,0.9)", {
+        phase: t + i, fill: i % 2 ? "rgba(150,112,74,0.9)" : "rgba(112,88,58,0.9)", hat: "straw", noShadow: true,
+      });
+    }
     // construction ramp
     ctx.beginPath();
     ctx.moveTo(-52, 0);
@@ -5051,10 +5118,10 @@
     }
     // large foreground block being dragged
     ctx.fillStyle = "rgba(218,194,152,0.99)";
-    ctx.fillRect(-36, -6.4, 7.2, 4.2);
+    ctx.fillRect(-36, -7.0, 8.6, 4.8);
     ctx.strokeStyle = "rgba(74,54,30,0.6)"; ctx.lineWidth = 0.24;
-    ctx.strokeRect(-36, -6.4, 7.2, 4.2);
-    ctx.beginPath(); ctx.moveTo(-36, -4.2); ctx.lineTo(-28.8, -4.2);
+    ctx.strokeRect(-36, -7.0, 8.6, 4.8);
+    ctx.beginPath(); ctx.moveTo(-36, -4.6); ctx.lineTo(-27.4, -4.6);
     ctx.strokeStyle = "rgba(74,54,30,0.25)"; ctx.lineWidth = 0.16; ctx.stroke();
     ctx.strokeStyle = "rgba(74,50,30,0.9)"; ctx.lineWidth = 0.3;
     ctx.beginPath(); ctx.moveTo(-36, -6.6); ctx.lineTo(-43, -8.4); ctx.stroke();
@@ -5067,13 +5134,13 @@
     ctx.fillRect(sledgeX - 2.4, sledgeY - 1.6, 3.6, 2.0);
     ctx.strokeStyle = "rgba(74,54,30,0.5)"; ctx.strokeRect(sledgeX - 2.4, sledgeY - 1.6, 3.6, 2.0);
     for (let i = 0; i < 4; i++) {
-      person(ctx, -33 + i * 2.6, -5.6 + i * 0.2, 0.26, "rgba(70,50,30,0.96)", {
+      person(ctx, -33 + i * 2.6, -5.6 + i * 0.2, 0.32, "rgba(70,50,30,0.96)", {
         phase: t * 1.2 + i, fill: i % 2 ? "rgba(150,112,74,0.95)" : "rgba(112,88,58,0.95)", hat: "straw",
       });
     }
     // overseer + surveyor
-    person(ctx, -38, -3.8, 0.30, "rgba(58,42,26,0.98)", { phase: t + 1, fill: "rgba(168,64,44,0.95)", hat: "cap", staff: true });
-    person(ctx, -46, -2.8, 0.28, "rgba(58,42,26,0.98)", { phase: t + 2, fill: "rgba(84,104,112,0.95)", hat: "straw" });
+    person(ctx, -38, -3.8, 0.36, "rgba(58,42,26,0.98)", { phase: t + 1, fill: "rgba(168,64,44,0.95)", hat: "cap", staff: true });
+    person(ctx, -46, -2.8, 0.33, "rgba(58,42,26,0.98)", { phase: t + 2, fill: "rgba(84,104,112,0.95)", hat: "straw" });
     // surveyor cord
     ctx.strokeStyle = "rgba(240,228,200,0.55)"; ctx.lineWidth = 0.16;
     ctx.beginPath(); ctx.moveTo(-46, -4.2); ctx.lineTo(-30, -6.2); ctx.stroke();
@@ -5098,6 +5165,14 @@
       ctx.beginPath(); ctx.ellipse(-46 + i * 7.4, -0.8 - (i % 3) * 0.5, 0.9, 0.4, 0.3, 0, TAU);
       ctx.fillStyle = "rgba(150,124,86,0.6)"; ctx.fill();
     }
+    // boat on the Nile
+    ctx.beginPath();
+    ctx.moveTo(38, -30.4); ctx.quadraticCurveTo(42, -28.8, 46, -30.2);
+    ctx.quadraticCurveTo(42, -29.4, 38, -30.4); ctx.closePath();
+    ctx.fillStyle = "rgba(118,84,50,0.95)"; ctx.fill();
+    ctx.strokeStyle = "rgba(58,40,24,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
+    ctx.strokeStyle = "rgba(58,40,24,0.7)"; ctx.lineWidth = 0.25;
+    ctx.beginPath(); ctx.moveTo(42, -30); ctx.lineTo(42, -34); ctx.stroke();
     // distant caravan on the horizon
     ctx.save(); ctx.globalAlpha = 0.55;
     for (let i = 0; i < 4; i++) {
@@ -5188,6 +5263,17 @@
     ctx.strokeStyle = "rgba(74,50,30,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
     ctx.strokeStyle = "rgba(74,50,30,0.7)"; ctx.lineWidth = 0.3;
     ctx.beginPath(); ctx.moveTo(-36, -21); ctx.lineTo(-36, -28); ctx.stroke();
+    // reeds + second boat
+    for (let i = 0; i < 8; i++) {
+      const rx = -48 + i * 3.4;
+      const ry = -20 - Math.sin(i) * 1.2;
+      ctx.strokeStyle = "rgba(108,104,60,0.7)"; ctx.lineWidth = 0.16;
+      ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(rx + Math.sin(t + i) * 0.4, ry - 3.0); ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.moveTo(-30, -19.6); ctx.quadraticCurveTo(-25, -17.8, -20, -19.2);
+    ctx.quadraticCurveTo(-25, -18.2, -30, -19.6); ctx.closePath();
+    ctx.fillStyle = "rgba(118,84,50,0.95)"; ctx.fill();
     // palms
     palm(ctx, -40, -18, 22, 3, "rgba(84,72,44,0.9)");
     palm(ctx, 38, -26, 20, -2, "rgba(84,72,44,0.9)");
@@ -5216,7 +5302,15 @@
     person(ctx, -16, -10, 0.42, "rgba(58,42,26,0.98)", { phase: t, fill: "rgba(150,60,42,0.95)", hat: "cap", arm: true, staff: true });
     // scribe with tablet
     person(ctx, 8, -10, 0.36, "rgba(58,42,26,0.98)", { phase: t + 1, fill: "rgba(112,88,58,0.96)", hat: "cap", arm: true });
-    tablet(ctx, 9.4, -10.4, 0.58);
+    tablet(ctx, 9.4, -10.4, 0.44);
+    ctx.strokeStyle = "rgba(74,50,30,0.85)"; ctx.lineWidth = 0.16;
+    ctx.beginPath(); ctx.moveTo(10.0, -9.8); ctx.lineTo(10.9, -8.4); ctx.stroke();
+    // brazier
+    glow(ctx, 16, -6.4, 5, "#e0a85e", 0.35);
+    ctx.fillStyle = "rgba(150,120,84,0.95)";
+    ctx.fillRect(14.6, -7.4, 2.8, 1.6);
+    ctx.strokeStyle = "rgba(74,54,30,0.5)"; ctx.lineWidth = 0.16;
+    ctx.strokeRect(14.6, -7.4, 2.8, 1.6);
     // guard with spear
     person(ctx, 14, -10, 0.38, "rgba(58,42,26,0.98)", { phase: t + 3, fill: "rgba(84,104,112,0.95)", hat: "helmet", spear: true });
     // second petitioner
@@ -5279,9 +5373,36 @@
 
     // Acropolis
     acropolis(ctx, 26, -22, 46, "rgba(238,228,206,0.98)");
+    // rocky outcrops on the slope
+    for (const [rx, ry, rw, rh] of [[14, -21, 9, 4], [30, -20, 12, 5], [44, -19, 8, 4]]) {
+      ctx.beginPath();
+      ctx.moveTo(rx, ry);
+      ctx.lineTo(rx + rw * 0.35, ry - rh);
+      ctx.lineTo(rx + rw * 0.72, ry - rh * 0.7);
+      ctx.lineTo(rx + rw, ry);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(144,136,102,0.85)"; ctx.fill();
+      ctx.strokeStyle = "rgba(74,54,30,0.4)"; ctx.lineWidth = 0.2; ctx.stroke();
+    }
+    hatch(ctx, 8, -22, 42, 10, "rgba(67,48,29,0.16)", 1.8, -0.65);
+    // retaining wall at the hill base
+    ctx.fillStyle = "rgba(188,170,132,0.92)";
+    ctx.fillRect(2, -17.4, 44, 2.4);
+    ctx.strokeStyle = "rgba(74,54,30,0.35)"; ctx.lineWidth = 0.2;
+    ctx.strokeRect(2, -17.4, 44, 2.4);
+    for (let x = 4; x < 46; x += 4.4) {
+      ctx.beginPath(); ctx.moveTo(x, -17.2); ctx.lineTo(x, -15.2);
+      ctx.strokeStyle = "rgba(74,54,30,0.22)"; ctx.lineWidth = 0.12; ctx.stroke();
+    }
+    // Parthenon shadow side
+    ctx.fillStyle = "rgba(74,54,30,0.10)";
+    ctx.fillRect(30, -31.6, 7, 9.6);
+    ctx.beginPath(); ctx.ellipse(26, -21.6, 12, 1.6, 0, 0, TAU);
+    ctx.fillStyle = "rgba(74,54,30,0.10)"; ctx.fill();
     // olive trees
     olive(ctx, -38, -16, 30, "rgba(88,76,50,0.9)");
-    olive(ctx, 12, -18, 20, "rgba(88,76,50,0.9)");
+    olive(ctx, 10, -18, 14, "rgba(88,76,50,0.9)");
+    olive(ctx, 40, -20, 10, "rgba(88,76,50,0.8)");
     // rocky cliff under the Acropolis
     ctx.beginPath();
     ctx.moveTo(6, -14);
@@ -5319,6 +5440,14 @@
       ctx.fillStyle = i % 2 ? "rgba(196,174,134,0.8)" : "rgba(208,186,146,0.8)";
       ctx.fill();
       ctx.strokeStyle = "rgba(92,72,46,0.28)"; ctx.lineWidth = 0.2; ctx.stroke();
+      // step shadow and stone joints
+      ctx.beginPath();
+      ctx.moveTo(-46, yy + 4.2); ctx.quadraticCurveTo(-12, yy + 1.4, 22, yy + 4.4);
+      ctx.strokeStyle = "rgba(74,54,30,0.25)"; ctx.lineWidth = 0.3; ctx.stroke();
+      for (let x = -42; x < 20; x += 5.2) {
+        ctx.beginPath(); ctx.moveTo(x, yy + 0.4); ctx.lineTo(x, yy + 3.8);
+        ctx.strokeStyle = "rgba(74,54,30,0.14)"; ctx.lineWidth = 0.1; ctx.stroke();
+      }
     }
     // speaker's beman
     ctx.fillStyle = "rgba(202,182,146,0.98)";
@@ -5347,6 +5476,14 @@
         hat: i % 3 === 0 ? "straw" : null,
       });
     });
+    // seated citizens and a second speaker
+    seatedPerson(ctx, -34, -8.2, 0.28, "rgba(58,42,26,0.98)", { fill: "rgba(112,88,58,0.95)", hat: "straw" });
+    seatedPerson(ctx, -24, -6.6, 0.28, "rgba(58,42,26,0.98)", { fill: "rgba(84,104,112,0.95)" });
+    seatedPerson(ctx, -4, -4.4, 0.30, "rgba(58,42,26,0.98)", { fill: "rgba(150,112,74,0.95)", hat: "cap" });
+    seatedPerson(ctx, 12, -3.6, 0.30, "rgba(58,42,26,0.98)", { fill: "rgba(168,64,44,0.9)" });
+    person(ctx, 6, -11.4, 0.34, "rgba(58,42,26,0.98)", { phase: t + 3, fill: "rgba(84,104,112,0.95)", hat: "straw", arm: true });
+    person(ctx, -44, -3.2, 0.40, "rgba(58,42,26,0.98)", { phase: t + 4, fill: "rgba(150,112,74,0.95)", hat: "straw" });
+    person(ctx, 26, -2.6, 0.38, "rgba(58,42,26,0.98)", { phase: t + 5, fill: "rgba(84,104,112,0.95)", hat: "cap", arm: true });
     // ostraka in the foreground
     for (let i = 0; i < 7; i++) {
       const ox = -42 + i * 11 + (i % 2) * 2;
@@ -5380,6 +5517,8 @@
     // clouds and birds
     cloud(ctx, -4, -82, 22, "#fff8e8", 0.35);
     cloud(ctx, 24, -88, 12, "#fff8e8", 0.3);
+    cloud(ctx, -34, -90, 10, "#fff8e8", 0.26);
+    cloud(ctx, 8, -74, 8, "#fff8e8", 0.22);
     bird(ctx, 10, -74, 1.2, "rgba(67,48,29,0.35)");
     bird(ctx, 18, -78, 0.9, "rgba(67,48,29,0.3)");
     // olive branch foreground
@@ -5475,6 +5614,7 @@
     ctx.beginPath(); ctx.arc(20, -68, 5.2, 0, TAU);
     ctx.fillStyle = "rgba(216,166,90,0.88)"; ctx.fill();
     cloud(ctx, -22, -84, 18, "rgba(248,240,222,0.35)", 0.4);
+    cloud(ctx, 18, -90, 12, "rgba(248,240,222,0.28)", 0.32);
     // loess plateau
     ridge(ctx, -50, 10, -40, 7, "rgba(168,142,98,0.45)", 7, 4, -30);
     ridge(ctx, 12, 50, -42, 6, "rgba(168,142,98,0.45)", 13, 4, -30);
@@ -5492,6 +5632,12 @@
       ctx.beginPath(); ctx.moveTo(-50, yy); ctx.lineTo(-12, yy);
       ctx.strokeStyle = "rgba(74,54,30,0.16)"; ctx.lineWidth = 0.12; ctx.stroke();
     }
+    // watchtower on the wall
+    ctx.fillStyle = "rgba(196,166,122,0.97)";
+    ctx.fillRect(-24, -39, 6, 9);
+    ctx.strokeStyle = "rgba(74,54,30,0.5)"; ctx.lineWidth = 0.22; ctx.strokeRect(-24, -39, 6, 9);
+    ctx.beginPath(); ctx.moveTo(-25.2, -39); ctx.lineTo(-21, -43); ctx.lineTo(-16.8, -39); ctx.closePath();
+    ctx.fillStyle = "rgba(132,78,50,0.95)"; ctx.fill();
     // gate
     qinGate(ctx, 2, -26, 20, 17);
     // road
@@ -5513,6 +5659,17 @@
         hat: i % 3 === 0 ? "helmet" : "cap", spear: i % 2 === 0,
       });
     });
+    // rear ranks
+    for (let i = 0; i < 6; i++) {
+      person(ctx, -34 + i * 6, -24.4 + (i % 2) * 0.6, 0.24, "rgba(52,38,24,0.95)", {
+        phase: t + i, fill: i % 2 ? "rgba(74,62,52,0.95)" : "rgba(96,74,54,0.95)", hat: "helmet", spear: i % 2 === 0, noShadow: true,
+      });
+    }
+    // drummer
+    person(ctx, -40, -12, 0.34, "rgba(52,38,24,0.98)", { phase: t + 2, fill: "rgba(150,60,42,0.95)", hat: "cap", arm: true });
+    ctx.beginPath(); ctx.ellipse(-36.4, -10.4, 2.2, 1.6, 0.1, 0, TAU);
+    ctx.fillStyle = "rgba(132,92,56,0.95)"; ctx.fill();
+    ctx.strokeStyle = "rgba(58,40,24,0.6)"; ctx.lineWidth = 0.2; ctx.stroke();
     // chariot with two horses
     const cx = 20, cy = -10;
     horse(ctx, cx - 4, cy - 1.2, 0.42, "rgba(92,70,46,0.97)", t + 0.4, {});
@@ -5523,9 +5680,27 @@
     ctx.fillRect(cx + 8, cy - 8, 8, 5.4);
     ctx.strokeStyle = "rgba(58,40,24,0.8)"; ctx.lineWidth = 0.3;
     ctx.strokeRect(cx + 8, cy - 8, 8, 5.4);
-    ctx.beginPath(); ctx.arc(cx + 9.4, cy - 2.4, 2.1, 0, TAU); ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx + 14.6, cy - 2.4, 2.1, 0, TAU); ctx.stroke();
+    for (const wx of [cx + 9.4, cx + 14.6]) {
+      ctx.beginPath(); ctx.arc(wx, cy - 2.4, 2.1, 0, TAU); ctx.stroke();
+      for (let k = 0; k < 6; k++) {
+        const a = k * Math.PI / 3;
+        ctx.beginPath(); ctx.moveTo(wx, cy - 2.4); ctx.lineTo(wx + Math.cos(a) * 2.0, cy - 2.4 + Math.sin(a) * 2.0); ctx.stroke();
+      }
+    }
+    // canopy
+    ctx.strokeStyle = "rgba(74,50,30,0.9)"; ctx.lineWidth = 0.28;
+    ctx.beginPath(); ctx.moveTo(cx + 16, cy - 8); ctx.lineTo(cx + 16, cy - 18); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(cx + 16, cy - 18, 5.2, 1.7, 0, 0, TAU);
+    ctx.fillStyle = "rgba(214,186,140,0.95)"; ctx.fill();
+    ctx.strokeStyle = "rgba(74,50,30,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
+    // driver + general
     person(ctx, cx + 11, cy - 8, 0.34, "rgba(52,38,24,0.98)", { phase: t + 2, fill: "rgba(150,60,42,0.95)", hat: "helmet", arm: true });
+    person(ctx, cx + 14, cy - 8.4, 0.30, "rgba(52,38,24,0.98)", { phase: t + 3, fill: "rgba(96,74,54,0.96)", hat: "helmet" });
+    // chariot banner
+    ctx.strokeStyle = "rgba(58,40,24,0.9)"; ctx.lineWidth = 0.3;
+    ctx.beginPath(); ctx.moveTo(cx + 17.4, cy - 8); ctx.lineTo(cx + 17.4, cy - 22); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + 17.6, cy - 21.4); ctx.lineTo(cx + 21.6, cy - 19.4); ctx.lineTo(cx + 17.6, cy - 17.4); ctx.closePath();
+    ctx.fillStyle = "rgba(168,64,44,0.95)"; ctx.fill();
     // bronze fittings
     ctx.fillStyle = "rgba(196,150,74,0.9)";
     ctx.fillRect(cx + 8.4, cy - 6.6, 1.2, 1.2);
@@ -5618,6 +5793,13 @@
       ctx.fillStyle = "rgba(112,78,46,0.95)"; ctx.fill();
       ctx.strokeStyle = "rgba(58,40,24,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
     }
+    // banners on the palisade
+    for (const bx of [-46, -30]) {
+      ctx.strokeStyle = "rgba(58,40,24,0.8)"; ctx.lineWidth = 0.28;
+      ctx.beginPath(); ctx.moveTo(bx, -30); ctx.lineTo(bx, -38); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(bx + 0.2, -37.4); ctx.lineTo(bx + 4.2, -35.4); ctx.lineTo(bx + 0.2, -33.4); ctx.closePath();
+      ctx.fillStyle = "rgba(168,64,44,0.92)"; ctx.fill();
+    }
     // timber palisade + palace
     ctx.fillStyle = "rgba(150,110,70,0.95)";
     ctx.fillRect(-50, -30, 36, 10);
@@ -5681,8 +5863,34 @@
       ctx.strokeStyle = "rgba(104,96,58,0.55)"; ctx.lineWidth = 0.14;
       ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + Math.sin(t + i) * 0.4, gy - 1.8); ctx.stroke();
     }
+    // riverbank steps and reeds
+    for (let i = 0; i < 3; i++) {
+      ctx.fillStyle = "rgba(196,168,124,0.9)";
+      ctx.fillRect(-2 + i * 2.0, -15.6 + i * 1.2, 12 - i * 3.2, 1.0);
+      ctx.strokeStyle = "rgba(74,54,30,0.25)"; ctx.lineWidth = 0.14;
+      ctx.strokeRect(-2 + i * 2.0, -15.6 + i * 1.2, 12 - i * 3.2, 1.0);
+    }
+    for (let i = 0; i < 9; i++) {
+      const rx = -14 + i * 3.2;
+      const ry = -14.6 - Math.sin(i) * 0.8;
+      ctx.strokeStyle = "rgba(104,104,60,0.6)"; ctx.lineWidth = 0.16;
+      ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(rx + Math.sin(t + i) * 0.4, ry - 2.8); ctx.stroke();
+    }
+    // distant elephant
+    ctx.save(); ctx.globalAlpha = 0.55;
+    elephant(ctx, -10, -13.4, 0.34, "rgba(118,110,98,0.9)", { phase: t * 0.6 });
+    ctx.restore();
     // elephant procession
     elephant(ctx, 10, -14, 0.78, "rgba(118,110,98,0.98)", { phase: t * 0.8, howdah: true });
+    // blanket stripes + mahout goad
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
+      ctx.moveTo(5.6 + i * 2.2, -16.8 + i * 0.4);
+      ctx.lineTo(6.2 + i * 2.2, -14.4 + i * 0.4);
+      ctx.strokeStyle = "rgba(196,150,78,0.55)"; ctx.lineWidth = 0.3; ctx.stroke();
+    }
+    ctx.strokeStyle = "rgba(74,50,30,0.8)"; ctx.lineWidth = 0.22;
+    ctx.beginPath(); ctx.moveTo(18.8, -17.6); ctx.lineTo(21.2, -14.4); ctx.stroke();
     person(ctx, 18.4, -16.4, 0.26, "rgba(58,42,26,0.98)", { phase: t + 1, fill: "rgba(168,64,44,0.95)", hat: "cap" });
     person(ctx, 4, -10, 0.34, "rgba(58,42,26,0.98)", { phase: t + 2, fill: "rgba(196,150,78,0.95)", hat: "straw", staff: true });
     // horses + guards
@@ -5749,16 +5957,17 @@
     ctx.beginPath(); ctx.arc(24, -70, 5.4, 0, TAU);
     ctx.fillStyle = "rgba(220,164,86,0.9)"; ctx.fill();
     cloud(ctx, -24, -84, 18, "rgba(250,244,228,0.35)", 0.4);
+    cloud(ctx, 18, -90, 12, "rgba(250,244,228,0.28)", 0.32);
     // snow mountains: two layers
     const snowRange = (baseY, minH, maxH, color, seed, snow) => {
       const rr = rng(seed);
       let x = -54;
       const pts = [];
       while (x < 54) {
-        const w = 18 + rr() * 16;
+        const w = 26 + rr() * 16;
         const h = minH + rr() * (maxH - minH);
         pts.push([x, baseY, x + w * 0.52, baseY - h, x + w, baseY]);
-        x += w * 0.82;
+        x += w * 0.76;
       }
       ctx.beginPath();
       ctx.moveTo(-54, baseY + 20);
@@ -5769,19 +5978,22 @@
       if (snow) {
         for (const p of pts) {
           if (p[3] < baseY - minH * 0.9) {
-            const half = (p[4] - p[0]) * 0.16;
+            const half = (p[4] - p[0]) * 0.18;
             ctx.beginPath();
-            ctx.moveTo(p[2] - half, p[3] + (p[5] - p[3]) * 0.28);
-            ctx.lineTo(p[2], p[3]);
-            ctx.lineTo(p[2] + half, p[3] + (p[5] - p[3]) * 0.26);
+            ctx.moveTo(p[2] - half, p[3] + (p[5] - p[3]) * 0.32);
+            ctx.lineTo(p[2] - half * 0.45, p[3] + (p[5] - p[3]) * 0.12);
+            ctx.lineTo(p[2] + half * 0.1, p[3]);
+            ctx.lineTo(p[2] + half * 0.6, p[3] + (p[5] - p[3]) * 0.18);
+            ctx.lineTo(p[2] + half, p[3] + (p[5] - p[3]) * 0.30);
             ctx.closePath();
             ctx.fillStyle = "rgba(244,238,222,0.92)"; ctx.fill();
           }
         }
       }
     };
-    snowRange(-40, 10, 20, "rgba(196,184,156,0.62)", 13, true);
-    snowRange(-33, 8, 15, "rgba(166,148,114,0.78)", 7, true);
+    snowRange(-40, 12, 22, "rgba(196,184,156,0.6)", 13, true);
+    snowRange(-33, 9, 16, "rgba(166,148,114,0.78)", 7, true);
+    hatch(ctx, -50, -33, 100, 10, "rgba(74,54,30,0.12)", 2.2, -0.6);
     // dunes
     for (let i = 0; i < 3; i++) {
       const yy = -24 + i * 6;
@@ -5792,6 +6004,21 @@
       ctx.lineTo(54, yy + 12); ctx.closePath();
       ctx.fillStyle = i === 0 ? "rgba(212,176,122,0.62)" : i === 1 ? "rgba(198,158,102,0.78)" : "rgba(184,142,88,0.9)";
       ctx.fill();
+      // shadow side + crest
+      ctx.save();
+      ctx.clip();
+      const sg = ctx.createLinearGradient(0, yy - 4, 0, yy + 12);
+      sg.addColorStop(0, "rgba(110,74,40,0)");
+      sg.addColorStop(1, "rgba(110,74,40," + (0.10 + i * 0.05) + ")");
+      ctx.fillStyle = sg;
+      ctx.fillRect(-54, yy - 6, 108, 20);
+      ctx.restore();
+      ctx.beginPath();
+      for (let x = -52; x <= 52; x += 8) {
+        const ly = yy - Math.sin(x * 0.05 + i) * 2.4;
+        if (x === -52) ctx.moveTo(x, ly); else ctx.lineTo(x, ly);
+      }
+      ctx.strokeStyle = "rgba(240,204,152,0.4)"; ctx.lineWidth = 0.3; ctx.stroke();
     }
     // Jade Gate / rammed-earth frontier gate
     ctx.fillStyle = "rgba(190,158,112,0.97)";
@@ -5815,6 +6042,27 @@
     ctx.closePath(); ctx.fillStyle = "rgba(58,40,24,0.8)"; ctx.fill();
     ctx.strokeStyle = "rgba(96,64,36,0.7)"; ctx.lineWidth = 0.2;
     for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(-7.4, -13 - i * 2.4); ctx.lineTo(-0.6, -13 - i * 2.4); ctx.stroke(); }
+    // iron studs
+    for (let i = 0; i < 4; i++) {
+      ctx.beginPath(); ctx.arc(-6.4 + i * 1.9, -15, 0.28, 0, TAU);
+      ctx.fillStyle = "rgba(58,40,24,0.8)"; ctx.fill();
+    }
+    // wall courses on the wings
+    for (let yy = -22; yy < -18; yy += 1.4) {
+      ctx.beginPath(); ctx.moveTo(-50, yy); ctx.lineTo(50, yy);
+      ctx.strokeStyle = "rgba(74,54,30,0.12)"; ctx.lineWidth = 0.1; ctx.stroke();
+    }
+    // banner on the gate
+    ctx.strokeStyle = "rgba(58,40,24,0.8)"; ctx.lineWidth = 0.3;
+    ctx.beginPath(); ctx.moveTo(6, -30); ctx.lineTo(6, -38); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(6.2, -37.4); ctx.lineTo(10.4, -35.4); ctx.lineTo(6.2, -33.4); ctx.closePath();
+    ctx.fillStyle = "rgba(168,64,44,0.95)"; ctx.fill();
+    // beacon smoke
+    for (let i = 0; i < 3; i++) {
+      const q = (t * 0.22 + i * 0.3) % 1;
+      ctx.beginPath(); ctx.arc(24.5 + q * 4, -43 - q * 10, 1.2 + q * 2.6, 0, TAU);
+      ctx.fillStyle = "rgba(150,130,100," + (0.18 * (1 - q)) + ")"; ctx.fill();
+    }
     // corner watchtower
     ctx.fillStyle = "rgba(196,162,116,0.98)";
     ctx.fillRect(-19, -38, 6, 20);
@@ -5835,12 +6083,15 @@
     ctx.fillStyle = "rgba(132,78,50,0.95)"; ctx.fill();
     // caravan
     const caravan = [
-      { x: -30, s: 0.56, load: true },
-      { x: -14, s: 0.62, load: true },
-      { x: 3, s: 0.64, load: true },
-      { x: 20, s: 0.58, load: false },
+      { x: -34, s: 0.68, load: true },
+      { x: -16, s: 0.74, load: true },
+      { x: 3, s: 0.76, load: true },
+      { x: 21, s: 0.70, load: false },
+      { x: 37, s: 0.64, load: true },
     ];
     caravan.forEach((c, i) => {
+      ctx.beginPath(); ctx.ellipse(c.x, -8 + (i % 2) * 0.8, 8 * c.s, 1.4, 0, 0, TAU);
+      ctx.fillStyle = "rgba(92,62,32,0.16)"; ctx.fill();
       camel(ctx, c.x, -8 + (i % 2) * 0.8, c.s, "rgba(118,90,56,0.96)", t + i * 0.4);
       if (c.load) {
         ctx.fillStyle = "rgba(176,64,44,0.9)";
@@ -5851,6 +6102,8 @@
         ctx.strokeRect(c.x - 1.4, -12.2, 2.8, 2.0);
       }
     });
+    // camel driver
+    person(ctx, -42, -5.6, 0.36, "rgba(58,42,26,0.98)", { phase: t + 3, fill: "rgba(150,112,74,0.95)", hat: "straw", staff: true });
     // Zhang Qian / envoy with Han banner
     person(ctx, -38, -6, 0.40, "rgba(58,42,26,0.98)", { phase: t + 1, fill: "rgba(168,64,44,0.95)", hat: "cap", staff: true });
     ctx.strokeStyle = "rgba(58,40,24,0.9)"; ctx.lineWidth = 0.35;
