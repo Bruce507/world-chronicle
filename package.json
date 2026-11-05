@@ -6,7 +6,7 @@
   "description": "寰宇时序 · World Chronicle — a static, map-anchored atlas of world history.",
   "scripts": {
     "build": "node scripts/build-data.mjs",
-    "build:all": "npm run build:states && npm run build:coverage && npm run build:entities && npm run build:data && npm run build:chronicles && npm run build:reports",
+    "build:all": "npm run build:states && npm run build:coverage && npm run build:entities && npm run build:scenes && npm run build:data && npm run build:chronicles && npm run build:reports",
     "build:states": "python3 scripts/build-state-changes.py",
     "build:coverage": "python3 scripts/build-coverage-events.py",
     "build:chronicles": "python3 scripts/build-chronicles.py",
@@ -17,6 +17,7 @@
     "build:world-i18n": "python3 scripts/enrich-world-i18n.py",
     "translate": "python3 scripts/translate-events.py",
     "build:entities": "node scripts/build-historical-entities.mjs",
-    "build:reports": "node scripts/build-reports.mjs"
+    "build:reports": "node scripts/build-reports.mjs",
+    "build:scenes": "node scripts/build-scene-taxonomy.mjs"
   }
 }

@@ -2533,6 +2533,131 @@
     ctx.restore();
   }
 
+  function miniCityEra(ctx, x, y, s, t, col, era) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    const roof = era === "modern" ? "rgba(120,130,140,0.75)" : era === "medieval" ? "rgba(156,96,60,0.85)" : "rgba(190,160,115,0.8)";
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    if (era === "modern") {
+      ctx.fillStyle = "rgba(200,205,205,0.7)";
+      for (let i = -2; i <= 2; i++) { const h = 12 + (i % 3 + 3) * 5; ctx.fillRect(i * 5 - 1.5, -h, 3, h + 2); }
+      ctx.fillStyle = "rgba(176,138,62,0.8)"; ctx.fillRect(-11, -2, 22, 3);
+    } else {
+      ctx.fillStyle = "rgba(202,176,134,0.55)"; ctx.fillRect(-12, -6, 24, 8); ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.strokeRect(-12, -6, 24, 8);
+      for (let i = -12; i < 12; i += 4) { ctx.fillRect(i, -8.5, 2.5, 2.5); }
+      ctx.beginPath(); ctx.moveTo(-13, -6); ctx.quadraticCurveTo(-6, -13, 0, -14); ctx.quadraticCurveTo(6, -13, 13, -6); ctx.closePath(); ctx.fillStyle = roof; ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-2.5, 2); ctx.lineTo(-2.5, -4); ctx.quadraticCurveTo(0, -7, 2.5, -4); ctx.lineTo(2.5, 2); ctx.closePath(); ctx.fillStyle = "rgba(86,60,40,0.6)"; ctx.fill();
+      if (era === "medieval") { ctx.fillStyle = "rgba(176,67,44,0.85)"; ctx.fillRect(9, -16, 4, 7); }
+    }
+    ctx.restore();
+  }
+  function miniPyramid(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-13, 2); ctx.lineTo(0, -17); ctx.lineTo(13, 2); ctx.closePath(); ctx.fillStyle = "rgba(214,186,132,0.85)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8; ctx.stroke();
+    for (let i = 1; i < 4; i++) { ctx.beginPath(); ctx.moveTo(-13 + i * 3, 2 - i * 4.5); ctx.lineTo(13 - i * 3, 2 - i * 4.5); ctx.strokeStyle = "rgba(120,90,55,0.4)"; ctx.lineWidth = 0.5; ctx.stroke(); }
+    ctx.restore();
+  }
+  function miniZiggurat(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 3, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    for (let i = 0; i < 3; i++) {
+      const w = 24 - i * 6, h = 5;
+      ctx.fillStyle = i % 2 ? "rgba(204,176,132,0.85)" : "rgba(218,192,148,0.9)";
+      ctx.fillRect(-w / 2, 2 - (i + 1) * h, w, h);
+      ctx.strokeStyle = "rgba(90,64,42,0.55)"; ctx.lineWidth = 0.6; ctx.strokeRect(-w / 2, 2 - (i + 1) * h, w, h);
+    }
+    ctx.fillStyle = "rgba(90,64,42,0.5)"; ctx.fillRect(-2, -13, 4, 5);
+    ctx.restore();
+  }
+  function miniStupa(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    ctx.fillStyle = "rgba(224,204,168,0.8)"; ctx.fillRect(-12, -2, 24, 5); ctx.strokeStyle = MINI_INK; ctx.strokeRect(-12, -2, 24, 5);
+    ctx.beginPath(); ctx.arc(0, -6, 9, Math.PI, TAU); ctx.lineTo(9, -2); ctx.lineTo(-9, -2); ctx.closePath(); ctx.fillStyle = "rgba(236,220,190,0.95)"; ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -15); ctx.lineTo(0, -22); ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.stroke();
+    for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(0, -10 - i * 2, 2.5 - i * 0.5, 0, TAU); ctx.strokeStyle = "rgba(176,138,62,0.7)"; ctx.lineWidth = 0.6; ctx.stroke(); }
+    ctx.restore();
+  }
+  function miniChurch(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    ctx.fillStyle = "rgba(230,218,196,0.95)"; ctx.fillRect(-9, -12, 18, 14); ctx.strokeStyle = MINI_INK; ctx.strokeRect(-9, -12, 18, 14);
+    ctx.beginPath(); ctx.moveTo(-10, -12); ctx.lineTo(0, -21); ctx.lineTo(10, -12); ctx.closePath(); ctx.fillStyle = "rgba(180,146,98,0.85)"; ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "rgba(120,82,52,0.6)"; ctx.fillRect(-2.5, -3, 5, 5);
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(0, -29); ctx.moveTo(-2, -27); ctx.lineTo(2, -27); ctx.stroke();
+    ctx.restore();
+  }
+  function miniPalace(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    ctx.fillStyle = "rgba(236,224,202,0.95)"; ctx.fillRect(-13, -8, 26, 10); ctx.strokeStyle = MINI_INK; ctx.strokeRect(-13, -8, 26, 10);
+    for (let i = -2; i <= 2; i++) { ctx.fillStyle = "rgba(244,234,214,0.95)"; ctx.fillRect(i * 4.5 - 1, -15, 2, 7); ctx.strokeRect(i * 4.5 - 1, -15, 2, 7); }
+    ctx.beginPath(); ctx.moveTo(-13, -15); ctx.lineTo(0, -21); ctx.lineTo(13, -15); ctx.closePath(); ctx.fillStyle = "rgba(226,210,182,0.95)"; ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
+  function miniTreaty(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.fillStyle = MINI_PAPER; ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8;
+    ctx.beginPath(); ctx.moveTo(-12, -8); ctx.lineTo(10, -10); ctx.lineTo(12, 7); ctx.lineTo(-10, 9); ctx.closePath(); ctx.fill(); ctx.stroke();
+    for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.moveTo(-7, -4 + i * 3); ctx.lineTo(7, -5 + i * 3); ctx.strokeStyle = "rgba(90,70,50,0.4)"; ctx.lineWidth = 0.6; ctx.stroke(); }
+    ctx.strokeStyle = MINI_WARM; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(7, 6); ctx.quadraticCurveTo(10, 9, 13, 5); ctx.stroke();
+    ctx.fillStyle = MINI_GOLD; ctx.fillRect(-13, 8, 7, 3);
+    ctx.restore();
+  }
+  function miniScript(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.fillStyle = "rgba(206,176,132,0.85)"; ctx.strokeStyle = MINI_INK; ctx.lineWidth = 0.8;
+    ctx.beginPath(); ctx.moveTo(-11, -9); ctx.lineTo(10, -11); ctx.lineTo(12, 7); ctx.lineTo(-9, 9); ctx.closePath(); ctx.fill(); ctx.stroke();
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) { ctx.fillStyle = "rgba(90,64,42,0.55)"; ctx.fillRect(-7 + c * 4, -6 + r * 4, 2, 2); }
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(8, -10); ctx.lineTo(16, -17); ctx.stroke();
+    ctx.restore();
+  }
+  function miniSteppe(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-13, 2); ctx.quadraticCurveTo(-10, -10, 0, -13); ctx.quadraticCurveTo(10, -10, 13, 2); ctx.closePath(); ctx.fillStyle = "rgba(226,204,170,0.9)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-4, 2); ctx.lineTo(-4, -5); ctx.quadraticCurveTo(0, -8, 4, -5); ctx.lineTo(4, 2); ctx.closePath(); ctx.fillStyle = "rgba(92,66,43,0.55)"; ctx.fill();
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, -13); ctx.lineTo(0, -22); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(8, -20); ctx.lineTo(0, -17); ctx.closePath(); ctx.fillStyle = MINI_WARM; ctx.fill();
+    ctx.restore();
+  }
+  function miniSouthAsian(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    ctx.fillStyle = "rgba(230,212,180,0.9)"; ctx.fillRect(-13, -4, 26, 6); ctx.strokeStyle = MINI_INK; ctx.strokeRect(-13, -4, 26, 6);
+    // central shikhara
+    ctx.beginPath(); ctx.moveTo(-7, -4); ctx.quadraticCurveTo(-6, -16, 0, -22); ctx.quadraticCurveTo(6, -16, 7, -4); ctx.closePath(); ctx.fillStyle = "rgba(212,176,120,0.92)"; ctx.fill(); ctx.stroke();
+    for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(-6 + i, -6 - i * 4); ctx.lineTo(6 - i, -6 - i * 4); ctx.strokeStyle = "rgba(120,90,55,0.35)"; ctx.lineWidth = 0.5; ctx.stroke(); }
+    // side towers
+    for (const tx of [-11, 11]) { ctx.fillStyle = "rgba(224,200,160,0.9)"; ctx.fillRect(tx - 2, -12, 4, 8); ctx.strokeRect(tx - 2, -12, 4, 8); ctx.beginPath(); ctx.arc(tx, -12, 3, Math.PI, TAU); ctx.fillStyle = "rgba(204,168,112,0.9)"; ctx.fill(); }
+    ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(0, -27); ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 0.8; ctx.stroke();
+    ctx.restore();
+  }
+  function miniSeaFounding(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-13, 2); ctx.quadraticCurveTo(-8, -8, 0, -14); ctx.quadraticCurveTo(8, -8, 13, 2); ctx.closePath(); ctx.fillStyle = "rgba(216,190,150,0.85)"; ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -14); ctx.lineTo(0, -22); ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 1; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -22); ctx.quadraticCurveTo(7, -20, 10, -16); ctx.lineTo(0, -14); ctx.closePath(); ctx.fillStyle = MINI_WARM; ctx.fill();
+    ctx.restore();
+  }
+  function miniAfrican(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    ctx.beginPath(); ctx.arc(0, -5, 10, Math.PI, TAU); ctx.lineTo(10, 2); ctx.lineTo(-10, 2); ctx.closePath(); ctx.fillStyle = "rgba(206,172,120,0.85)"; ctx.fill(); ctx.strokeStyle = MINI_INK; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-3, 2); ctx.lineTo(-3, -5); ctx.quadraticCurveTo(0, -8, 3, -5); ctx.lineTo(3, 2); ctx.closePath(); ctx.fillStyle = "rgba(92,66,43,0.55)"; ctx.fill();
+    ctx.strokeStyle = MINI_GOLD; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.moveTo(8, 2); ctx.lineTo(8, -12); ctx.stroke();
+    ctx.restore();
+  }
+  function miniAmerican(ctx, x, y, s, t, col) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    ctx.beginPath(); ctx.ellipse(0, 3, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.14)"; ctx.fill();
+    for (let i = 0; i < 3; i++) { const w = 24 - i * 6; ctx.fillStyle = i % 2 ? "rgba(198,170,128,0.9)" : "rgba(218,190,148,0.95)"; ctx.fillRect(-w / 2, 1 - (i + 1) * 5, w, 5); ctx.strokeStyle = "rgba(90,64,42,0.5)"; ctx.strokeRect(-w / 2, 1 - (i + 1) * 5, w, 5); }
+    ctx.fillStyle = "rgba(92,66,43,0.6)"; ctx.fillRect(-3, -17, 6, 6);
+    ctx.strokeStyle = MINI_WARM; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, -17); ctx.lineTo(0, -24); ctx.stroke();
+    ctx.restore();
+  }
+
   function miniMegalith(ctx, x, y, s, t, col) {
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
     ctx.beginPath(); ctx.ellipse(0, 2, 14, 3, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.16)"; ctx.fill();
@@ -2676,6 +2801,26 @@
   function mini(ctx, type, x, y, s, t, color, seed) {
     const col = color || "#c0553a";
     switch (type) {
+      case "city-ancient": miniCityEra(ctx, x, y, s, t, col, "ancient"); break;
+      case "city-classical": miniCityEra(ctx, x, y, s, t, col, "classical"); break;
+      case "city-medieval": miniCityEra(ctx, x, y, s, t, col, "medieval"); break;
+      case "city-earlymodern": miniCityEra(ctx, x, y, s, t, col, "earlymodern"); break;
+      case "city-modern": miniCityEra(ctx, x, y, s, t, col, "modern"); break;
+      case "pyramid": miniPyramid(ctx, x, y, s, t, col); break;
+      case "ziggurat": miniZiggurat(ctx, x, y, s, t, col); break;
+      case "stupa": miniStupa(ctx, x, y, s, t, col); break;
+      case "mosque": miniIslamicFounding(ctx, x, y, s, t, col); break;
+      case "church": miniChurch(ctx, x, y, s, t, col); break;
+      case "palace": miniPalace(ctx, x, y, s, t, col); break;
+      case "megalith": miniMegalith(ctx, x, y, s, t, col); break;
+      case "treaty": miniTreaty(ctx, x, y, s, t, col); break;
+      case "script": miniScript(ctx, x, y, s, t, col); break;
+      case "steppe-founding": miniSteppe(ctx, x, y, s, t, col); break;
+      case "south-asian-founding": miniSouthAsian(ctx, x, y, s, t, col); break;
+      case "sea-founding": miniSeaFounding(ctx, x, y, s, t, col); break;
+      case "african-founding": miniAfrican(ctx, x, y, s, t, col); break;
+      case "american-founding": miniAmerican(ctx, x, y, s, t, col); break;
+      case "galleon": miniCaravel(ctx, x, y, s, t, col); break;
       case "cn-founding": miniCNFounding(ctx, x, y, s, t, col); break;
       case "roman-founding": miniRomanFounding(ctx, x, y, s, t, col); break;
       case "islamic-founding": miniIslamicFounding(ctx, x, y, s, t, col); break;
@@ -2823,10 +2968,17 @@
         ctx.beginPath(); ctx.arc(0, 0, 1.4, 0, TAU); ctx.fillStyle = col; ctx.fill();
         ctx.restore(); break;
       case "disaster":
+      case "fire":
+      case "volcano":
         ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
         const p2 = (t * 0.9) % 1;
         ctx.beginPath(); ctx.moveTo(-4, 0); ctx.quadraticCurveTo(0, -9 - p2 * 4, 5, 0); ctx.lineTo(4, 2); ctx.lineTo(-4, 2); ctx.closePath();
         ctx.fillStyle = hexA(col, 0.6); ctx.fill();
+        ctx.restore(); break;
+      case "wave":
+        ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+        const wp = (t * 0.8) % 1;
+        for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(0, 0, 5 + i * 4 + wp * 6, Math.PI * 1.05, Math.PI * 1.95); ctx.strokeStyle = hexA("#3f7a83", 0.7 * (1 - wp)); ctx.lineWidth = 1.2; ctx.stroke(); }
         ctx.restore(); break;
       default:
         ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
