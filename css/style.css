@@ -76,13 +76,18 @@ svg { display: block; }
   position: relative;
   z-index: 40;
   display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100vw;
   align-items: center;
   gap: 18px;
+  row-gap: 7px;
   padding: 9px 20px;
   border-bottom: 1px solid var(--line);
   background: rgba(243, 238, 228, 0.86);
   backdrop-filter: blur(10px);
 }
+#topbar > * { min-width: 0; }
 
 .brand {
   display: flex;
@@ -193,6 +198,56 @@ svg { display: block; }
 .sr-empty { padding: 16px 10px; font-size: 12px; color: var(--muted); text-align: center; }
 
 #controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+/* Region / theme navigator: one horizontally scrollable row under the tools. */
+#region-nav {
+  flex: 1 1 100%;
+  max-width: 100%;
+  order: 6;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding: 2px 0 0;
+  margin-top: -3px;
+}
+#region-nav::-webkit-scrollbar { display: none; }
+.region-chip {
+  flex: 0 0 auto;
+  height: 25px;
+  padding: 0 10px;
+  border: 1px solid rgba(120, 105, 85, 0.22);
+  border-radius: 3px;
+  background: rgba(255, 252, 246, 0.45);
+  color: var(--ink-2);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition: all 0.16s ease;
+}
+.region-chip:hover { border-color: rgba(176, 67, 44, 0.5); color: var(--verm); background: #fffdf8; }
+.region-chip.is-active { border-color: var(--verm); color: var(--verm); background: #fffdf8; }
+.region-chip.is-theme {
+  margin-left: 4px;
+  border-color: rgba(176, 67, 44, 0.45);
+  color: var(--verm);
+  font-family: var(--serif);
+  letter-spacing: 0.1em;
+}
+.region-chip.is-theme::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: var(--verm);
+  vertical-align: 1px;
+}
+.region-sep { flex: 0 0 auto; width: 1px; height: 15px; background: var(--line-soft); margin: 0 3px; }
 .ctl {
   height: 30px;
   padding: 0 11px;
@@ -523,6 +578,8 @@ svg { display: block; }
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 4px 22px 22px;
 }
 .p-section { margin-top: 14px; }
@@ -736,6 +793,132 @@ svg { display: block; }
   color: var(--verm);
 }
 .panel-back:hover { text-decoration: underline; }
+
+/* Event dossier inside the side panel */
+.ev-detail-head { padding: 2px 0 4px; }
+.ev-detail-kicker {
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.ev-detail-title {
+  margin: 6px 0 3px;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+}
+.ev-detail-en {
+  margin: 0 0 8px;
+  font-family: var(--en-serif);
+  font-size: 10.5px;
+  font-style: italic;
+  color: var(--muted);
+}
+.ev-detail-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 10px;
+  margin: 8px 0 10px;
+  padding: 9px 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+  background: rgba(255, 252, 246, 0.45);
+}
+.ev-detail-meta div { min-width: 0; }
+.ev-detail-meta span {
+  display: block;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.ev-detail-meta b {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.ev-detail-section { margin-top: 13px; }
+.ev-detail-section h4 {
+  margin: 0 0 5px;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.ev-detail-section p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+.ev-detail-section a { color: var(--verm); text-decoration: underline; text-underline-offset: 2px; }
+.ev-detail-section a:hover { color: var(--verm-deep); }
+.ev-detail { max-height: none; }
+.ev-detail-section p + p { margin-top: 6px; }
+.ev-verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  padding: 3px 7px;
+  border: 1px solid var(--line-soft);
+  border-radius: 2px;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.ev-verify i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.ev-verify.is-verified i { background: #3f7a5a; }
+.ev-verify.is-pending i { background: #b08a3f; }
+.ev-chain { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+.ev-chain-row {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 7px;
+  align-items: baseline;
+  padding: 6px 2px;
+  border-bottom: 1px dotted var(--line-soft);
+  text-align: left;
+  font-size: 10.5px;
+  color: var(--ink-2);
+}
+.ev-chain-row:hover { color: var(--verm); }
+.ev-chain-row time { font-family: var(--en-serif); font-size: 9px; color: var(--muted); }
+.ev-chain-row em {
+  font-style: normal;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: var(--verm);
+  border: 1px solid rgba(176, 67, 44, 0.28);
+  border-radius: 2px;
+  padding: 1px 4px;
+}
+.ev-detail-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.ev-detail-actions button {
+  height: 27px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--ink-2);
+  font-size: 10px;
+}
+.ev-detail-actions button.primary { background: var(--verm); border-color: var(--verm); color: #fbf2df; }
+.ev-detail-actions button:hover { border-color: var(--verm); color: var(--verm); }
+.ev-detail-actions button.primary:hover { color: #fff8e8; }
+
 .panel-note {
   margin-top: 14px;
   padding-top: 10px;
@@ -1499,7 +1682,9 @@ kbd {
 }
 
 @media (max-width: 620px) {
-  #topbar { flex-wrap: wrap; gap: 8px; row-gap: 7px; }
+  #topbar { flex-wrap: wrap; gap: 8px; row-gap: 7px; max-width: 100vw; }
+  #region-nav { width: 100%; max-width: calc(100vw - 24px); }
+  #search-wrap { min-width: 0; }
   .brand-text small { display: none; }
   .brand-text b { font-size: 17px; }
   .seal { width: 33px; height: 33px; font-size: 22px; }

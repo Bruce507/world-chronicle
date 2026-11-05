@@ -1,0 +1,931 @@
+[
+  {
+    "id": "curated-china-xia",
+    "name": {
+      "zh": "夏",
+      "en": "Xia"
+    },
+    "type": "state",
+    "from": -2070,
+    "to": -1600,
+    "lat": 34.6,
+    "lon": 110.5,
+    "priority": 92,
+    "minZoom": 1.6,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-shang",
+    "name": {
+      "zh": "商",
+      "en": "Shang"
+    },
+    "type": "state",
+    "from": -1600,
+    "to": -1046,
+    "lat": 35.2,
+    "lon": 113.8,
+    "priority": 94,
+    "minZoom": 1.3,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-western-zhou",
+    "name": {
+      "zh": "西周",
+      "en": "Western Zhou"
+    },
+    "type": "state",
+    "from": -1046,
+    "to": -771,
+    "lat": 34.3,
+    "lon": 108.9,
+    "priority": 93,
+    "minZoom": 1.4,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-spring-autumn",
+    "name": {
+      "zh": "春秋",
+      "en": "Spring and Autumn"
+    },
+    "type": "state",
+    "from": -771,
+    "to": -476,
+    "lat": 34.8,
+    "lon": 113.6,
+    "priority": 88,
+    "minZoom": 1.5,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-warring-states",
+    "name": {
+      "zh": "战国",
+      "en": "Warring States"
+    },
+    "type": "state",
+    "from": -475,
+    "to": -221,
+    "lat": 34.8,
+    "lon": 113.6,
+    "priority": 88,
+    "minZoom": 1.5,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-qin",
+    "name": {
+      "zh": "秦",
+      "en": "Qin"
+    },
+    "type": "empire",
+    "from": -221,
+    "to": -206,
+    "lat": 34.4,
+    "lon": 108.9,
+    "priority": 96,
+    "minZoom": 1.2,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-western-han",
+    "name": {
+      "zh": "西汉",
+      "en": "Western Han"
+    },
+    "type": "empire",
+    "from": -206,
+    "to": 9,
+    "lat": 34.3,
+    "lon": 108.9,
+    "priority": 96,
+    "minZoom": 1.2,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-xin",
+    "name": {
+      "zh": "新",
+      "en": "Xin"
+    },
+    "type": "state",
+    "from": 9,
+    "to": 23,
+    "lat": 34.3,
+    "lon": 108.9,
+    "priority": 70,
+    "minZoom": 1.8,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-eastern-han",
+    "name": {
+      "zh": "东汉",
+      "en": "Eastern Han"
+    },
+    "type": "empire",
+    "from": 25,
+    "to": 220,
+    "lat": 34.3,
+    "lon": 112.5,
+    "priority": 95,
+    "minZoom": 1.2,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-three-kingdoms",
+    "name": {
+      "zh": "三国",
+      "en": "Three Kingdoms"
+    },
+    "type": "state",
+    "from": 220,
+    "to": 280,
+    "lat": 33.5,
+    "lon": 112.0,
+    "priority": 90,
+    "minZoom": 1.5,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-western-jin",
+    "name": {
+      "zh": "西晋",
+      "en": "Western Jin"
+    },
+    "type": "empire",
+    "from": 265,
+    "to": 316,
+    "lat": 34.3,
+    "lon": 112.0,
+    "priority": 88,
+    "minZoom": 1.4,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-eastern-jin",
+    "name": {
+      "zh": "东晋",
+      "en": "Eastern Jin"
+    },
+    "type": "state",
+    "from": 317,
+    "to": 420,
+    "lat": 32.0,
+    "lon": 118.8,
+    "priority": 84,
+    "minZoom": 1.5,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-northern-southern",
+    "name": {
+      "zh": "南北朝",
+      "en": "Northern and Southern Dynasties"
+    },
+    "type": "state",
+    "from": 420,
+    "to": 589,
+    "lat": 33.6,
+    "lon": 112.0,
+    "priority": 82,
+    "minZoom": 1.5,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-sui",
+    "name": {
+      "zh": "隋",
+      "en": "Sui"
+    },
+    "type": "empire",
+    "from": 581,
+    "to": 618,
+    "lat": 34.3,
+    "lon": 108.9,
+    "priority": 92,
+    "minZoom": 1.3,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-tang",
+    "name": {
+      "zh": "唐",
+      "en": "Tang"
+    },
+    "type": "empire",
+    "from": 618,
+    "to": 907,
+    "lat": 34.3,
+    "lon": 108.9,
+    "priority": 98,
+    "minZoom": 1.1,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-five-dynasties",
+    "name": {
+      "zh": "五代十国",
+      "en": "Five Dynasties and Ten Kingdoms"
+    },
+    "type": "state",
+    "from": 907,
+    "to": 979,
+    "lat": 34.0,
+    "lon": 113.0,
+    "priority": 78,
+    "minZoom": 1.6,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-song",
+    "name": {
+      "zh": "宋",
+      "en": "Song"
+    },
+    "type": "empire",
+    "from": 960,
+    "to": 1279,
+    "lat": 32.0,
+    "lon": 114.5,
+    "priority": 95,
+    "minZoom": 1.2,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-liao",
+    "name": {
+      "zh": "辽",
+      "en": "Liao"
+    },
+    "type": "empire",
+    "from": 916,
+    "to": 1125,
+    "lat": 42.5,
+    "lon": 118.0,
+    "priority": 82,
+    "minZoom": 1.5,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-western-xia",
+    "name": {
+      "zh": "西夏",
+      "en": "Western Xia"
+    },
+    "type": "state",
+    "from": 1038,
+    "to": 1227,
+    "lat": 38.5,
+    "lon": 106.2,
+    "priority": 78,
+    "minZoom": 1.7,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-jin",
+    "name": {
+      "zh": "金",
+      "en": "Jin"
+    },
+    "type": "empire",
+    "from": 1115,
+    "to": 1234,
+    "lat": 39.0,
+    "lon": 115.0,
+    "priority": 82,
+    "minZoom": 1.5,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-yuan",
+    "name": {
+      "zh": "元",
+      "en": "Yuan"
+    },
+    "type": "empire",
+    "from": 1271,
+    "to": 1368,
+    "lat": 39.9,
+    "lon": 116.4,
+    "priority": 96,
+    "minZoom": 1.1,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-ming",
+    "name": {
+      "zh": "明",
+      "en": "Ming"
+    },
+    "type": "empire",
+    "from": 1368,
+    "to": 1644,
+    "lat": 35.0,
+    "lon": 113.0,
+    "priority": 98,
+    "minZoom": 1.1,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-qing",
+    "name": {
+      "zh": "清",
+      "en": "Qing"
+    },
+    "type": "empire",
+    "from": 1644,
+    "to": 1912,
+    "lat": 39.9,
+    "lon": 116.4,
+    "priority": 98,
+    "minZoom": 1.1,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-roc",
+    "name": {
+      "zh": "中华民国",
+      "en": "Republic of China"
+    },
+    "type": "state",
+    "from": 1912,
+    "to": 1949,
+    "lat": 32.0,
+    "lon": 118.8,
+    "priority": 90,
+    "minZoom": 1.3,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-prc",
+    "name": {
+      "zh": "中华人民共和国",
+      "en": "People's Republic of China"
+    },
+    "type": "state",
+    "from": 1949,
+    "to": 2026,
+    "lat": 39.9,
+    "lon": 116.4,
+    "priority": 100,
+    "minZoom": 1.0,
+    "approx": false,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-yangshao",
+    "name": {
+      "zh": "仰韶文化",
+      "en": "Yangshao culture"
+    },
+    "type": "culture",
+    "from": -5000,
+    "to": -3000,
+    "lat": 34.7,
+    "lon": 111.2,
+    "priority": 64,
+    "minZoom": 1.9,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-longshan",
+    "name": {
+      "zh": "龙山文化",
+      "en": "Longshan culture"
+    },
+    "type": "culture",
+    "from": -3000,
+    "to": -1900,
+    "lat": 36.7,
+    "lon": 117.0,
+    "priority": 64,
+    "minZoom": 1.9,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-liangzhu",
+    "name": {
+      "zh": "良渚文化",
+      "en": "Liangzhu culture"
+    },
+    "type": "culture",
+    "from": -3300,
+    "to": -2300,
+    "lat": 30.4,
+    "lon": 120.0,
+    "priority": 64,
+    "minZoom": 1.9,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-china-erlitou",
+    "name": {
+      "zh": "二里头文化",
+      "en": "Erlitou culture"
+    },
+    "type": "culture",
+    "from": -1900,
+    "to": -1500,
+    "lat": 34.7,
+    "lon": 112.7,
+    "priority": 66,
+    "minZoom": 1.8,
+    "approx": true,
+    "parent": "china"
+  },
+  {
+    "id": "curated-japan-yamato",
+    "name": {
+      "zh": "日本",
+      "en": "Japan"
+    },
+    "type": "state",
+    "from": -300,
+    "to": 1868,
+    "lat": 35.0,
+    "lon": 135.8,
+    "priority": 88,
+    "minZoom": 1.4,
+    "approx": true
+  },
+  {
+    "id": "curated-japan-empire",
+    "name": {
+      "zh": "日本帝国",
+      "en": "Empire of Japan"
+    },
+    "type": "empire",
+    "from": 1868,
+    "to": 1947,
+    "lat": 35.7,
+    "lon": 139.7,
+    "priority": 98,
+    "minZoom": 1.1,
+    "approx": false
+  },
+  {
+    "id": "curated-japan-state",
+    "name": {
+      "zh": "日本国",
+      "en": "Japan"
+    },
+    "type": "state",
+    "from": 1947,
+    "to": 2026,
+    "lat": 35.7,
+    "lon": 139.7,
+    "priority": 96,
+    "minZoom": 1.1,
+    "approx": false
+  },
+  {
+    "id": "curated-australia-indigenous",
+    "name": {
+      "zh": "澳洲原住民",
+      "en": "Aboriginal Australia"
+    },
+    "type": "indigenous",
+    "from": -12000,
+    "to": 1788,
+    "lat": -25.0,
+    "lon": 134.0,
+    "priority": 74,
+    "minZoom": 1.3,
+    "approx": true
+  },
+  {
+    "id": "curated-australia-colony",
+    "name": {
+      "zh": "英属澳大利亚殖民地",
+      "en": "British Australian colonies"
+    },
+    "type": "colony",
+    "from": 1788,
+    "to": 1901,
+    "lat": -33.9,
+    "lon": 151.2,
+    "priority": 82,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-australia-federation",
+    "name": {
+      "zh": "澳大利亚联邦",
+      "en": "Commonwealth of Australia"
+    },
+    "type": "state",
+    "from": 1901,
+    "to": 2026,
+    "lat": -25.0,
+    "lon": 134.0,
+    "priority": 94,
+    "minZoom": 1.0,
+    "approx": false
+  },
+  {
+    "id": "curated-rome-republic",
+    "name": {
+      "zh": "罗马共和国",
+      "en": "Roman Republic"
+    },
+    "type": "state",
+    "from": -509,
+    "to": -27,
+    "lat": 41.9,
+    "lon": 12.5,
+    "priority": 92,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-rome-empire",
+    "name": {
+      "zh": "罗马帝国",
+      "en": "Roman Empire"
+    },
+    "type": "empire",
+    "from": -27,
+    "to": 395,
+    "lat": 41.9,
+    "lon": 12.5,
+    "priority": 96,
+    "minZoom": 1.0,
+    "approx": false
+  },
+  {
+    "id": "curated-byzantium",
+    "name": {
+      "zh": "拜占庭帝国",
+      "en": "Byzantine Empire"
+    },
+    "type": "empire",
+    "from": 395,
+    "to": 1453,
+    "lat": 41.0,
+    "lon": 28.9,
+    "priority": 90,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-frankish",
+    "name": {
+      "zh": "法兰克王国",
+      "en": "Frankish Kingdom"
+    },
+    "type": "state",
+    "from": 481,
+    "to": 843,
+    "lat": 49.0,
+    "lon": 2.4,
+    "priority": 88,
+    "minZoom": 1.3,
+    "approx": false
+  },
+  {
+    "id": "curated-hre",
+    "name": {
+      "zh": "神圣罗马帝国",
+      "en": "Holy Roman Empire"
+    },
+    "type": "empire",
+    "from": 962,
+    "to": 1806,
+    "lat": 50.0,
+    "lon": 10.0,
+    "priority": 86,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-olmec",
+    "name": {
+      "zh": "奥尔梅克",
+      "en": "Olmec"
+    },
+    "type": "culture",
+    "from": -1500,
+    "to": -400,
+    "lat": 18.1,
+    "lon": -94.0,
+    "priority": 78,
+    "minZoom": 1.5,
+    "approx": true
+  },
+  {
+    "id": "curated-maya",
+    "name": {
+      "zh": "玛雅",
+      "en": "Maya"
+    },
+    "type": "culture",
+    "from": -2000,
+    "to": 1500,
+    "lat": 17.2,
+    "lon": -89.5,
+    "priority": 86,
+    "minZoom": 1.3,
+    "approx": true
+  },
+  {
+    "id": "curated-aztec",
+    "name": {
+      "zh": "阿兹特克",
+      "en": "Aztec Empire"
+    },
+    "type": "empire",
+    "from": 1428,
+    "to": 1521,
+    "lat": 19.4,
+    "lon": -99.1,
+    "priority": 90,
+    "minZoom": 1.3,
+    "approx": false
+  },
+  {
+    "id": "curated-inca",
+    "name": {
+      "zh": "印加帝国",
+      "en": "Inca Empire"
+    },
+    "type": "empire",
+    "from": 1438,
+    "to": 1533,
+    "lat": -13.5,
+    "lon": -71.9,
+    "priority": 90,
+    "minZoom": 1.3,
+    "approx": false
+  },
+  {
+    "id": "curated-maurya",
+    "name": {
+      "zh": "孔雀王朝",
+      "en": "Maurya Empire"
+    },
+    "type": "empire",
+    "from": -322,
+    "to": -185,
+    "lat": 25.6,
+    "lon": 85.1,
+    "priority": 85,
+    "minZoom": 1.3,
+    "approx": false
+  },
+  {
+    "id": "curated-gupta",
+    "name": {
+      "zh": "笈多王朝",
+      "en": "Gupta Empire"
+    },
+    "type": "empire",
+    "from": 320,
+    "to": 550,
+    "lat": 25.6,
+    "lon": 85.1,
+    "priority": 82,
+    "minZoom": 1.4,
+    "approx": false
+  },
+  {
+    "id": "curated-mughal",
+    "name": {
+      "zh": "莫卧儿帝国",
+      "en": "Mughal Empire"
+    },
+    "type": "empire",
+    "from": 1526,
+    "to": 1857,
+    "lat": 27.2,
+    "lon": 78.0,
+    "priority": 88,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-british-raj",
+    "name": {
+      "zh": "英属印度",
+      "en": "British Raj"
+    },
+    "type": "colony",
+    "from": 1858,
+    "to": 1947,
+    "lat": 22.0,
+    "lon": 79.0,
+    "priority": 88,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-india",
+    "name": {
+      "zh": "印度",
+      "en": "India"
+    },
+    "type": "state",
+    "from": 1947,
+    "to": 2026,
+    "lat": 22.0,
+    "lon": 79.0,
+    "priority": 94,
+    "minZoom": 1.0,
+    "approx": false
+  },
+  {
+    "id": "curated-achaemenid",
+    "name": {
+      "zh": "阿契美尼德波斯",
+      "en": "Achaemenid Empire"
+    },
+    "type": "empire",
+    "from": -550,
+    "to": -330,
+    "lat": 32.0,
+    "lon": 53.0,
+    "priority": 86,
+    "minZoom": 1.3,
+    "approx": false
+  },
+  {
+    "id": "curated-abbasid",
+    "name": {
+      "zh": "阿拔斯哈里发",
+      "en": "Abbasid Caliphate"
+    },
+    "type": "empire",
+    "from": 750,
+    "to": 1258,
+    "lat": 33.3,
+    "lon": 44.4,
+    "priority": 86,
+    "minZoom": 1.3,
+    "approx": false
+  },
+  {
+    "id": "curated-ottoman",
+    "name": {
+      "zh": "奥斯曼帝国",
+      "en": "Ottoman Empire"
+    },
+    "type": "empire",
+    "from": 1299,
+    "to": 1922,
+    "lat": 41.0,
+    "lon": 29.0,
+    "priority": 92,
+    "minZoom": 1.1,
+    "approx": false
+  },
+  {
+    "id": "curated-new-spain",
+    "name": {
+      "zh": "新西班牙",
+      "en": "New Spain"
+    },
+    "type": "colony",
+    "from": 1521,
+    "to": 1821,
+    "lat": 19.4,
+    "lon": -99.1,
+    "priority": 82,
+    "minZoom": 1.1,
+    "approx": false
+  },
+  {
+    "id": "curated-british-america",
+    "name": {
+      "zh": "英属北美殖民地",
+      "en": "British American colonies"
+    },
+    "type": "colony",
+    "from": 1607,
+    "to": 1776,
+    "lat": 38.0,
+    "lon": -77.0,
+    "priority": 80,
+    "minZoom": 1.1,
+    "approx": true
+  },
+  {
+    "id": "curated-new-france",
+    "name": {
+      "zh": "新法兰西",
+      "en": "New France"
+    },
+    "type": "colony",
+    "from": 1534,
+    "to": 1763,
+    "lat": 46.0,
+    "lon": -71.0,
+    "priority": 76,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-colonial-brazil",
+    "name": {
+      "zh": "葡属巴西",
+      "en": "Colonial Brazil"
+    },
+    "type": "colony",
+    "from": 1500,
+    "to": 1822,
+    "lat": -10.0,
+    "lon": -50.0,
+    "priority": 78,
+    "minZoom": 1.1,
+    "approx": false
+  },
+  {
+    "id": "curated-spanish-peru",
+    "name": {
+      "zh": "西属秘鲁",
+      "en": "Spanish Peru"
+    },
+    "type": "colony",
+    "from": 1542,
+    "to": 1824,
+    "lat": -12.0,
+    "lon": -77.0,
+    "priority": 76,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-dutch-east-indies",
+    "name": {
+      "zh": "荷属东印度",
+      "en": "Dutch East Indies"
+    },
+    "type": "colony",
+    "from": 1800,
+    "to": 1949,
+    "lat": -2.0,
+    "lon": 118.0,
+    "priority": 80,
+    "minZoom": 1.1,
+    "approx": false
+  },
+  {
+    "id": "curated-french-indochina",
+    "name": {
+      "zh": "法属印度支那",
+      "en": "French Indochina"
+    },
+    "type": "colony",
+    "from": 1887,
+    "to": 1954,
+    "lat": 16.0,
+    "lon": 106.0,
+    "priority": 80,
+    "minZoom": 1.2,
+    "approx": false
+  },
+  {
+    "id": "curated-british-malaya",
+    "name": {
+      "zh": "英属马来亚",
+      "en": "British Malaya"
+    },
+    "type": "colony",
+    "from": 1826,
+    "to": 1957,
+    "lat": 4.0,
+    "lon": 102.0,
+    "priority": 76,
+    "minZoom": 1.3,
+    "approx": true
+  }
+]

@@ -14692,5 +14692,131 @@
       "fr": "Déclaration d'indépendance. L'État moderne du Kosovo prend forme.",
       "ar": "إعلان الاستقلال. دولة كوسوفو الحديثة تتشكل."
     }
+  },
+  {
+    "y": 1945,
+    "lat": 52.4,
+    "lon": 13.06,
+    "c": "DE",
+    "rg": "eu",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "波茨坦公告",
+      "Potsdam Declaration"
+    ],
+    "d": [
+      "中美英三国发表公告，要求日本无条件投降，否则将面临“迅速而彻底的毁灭”。",
+      "The United States, Britain and China demand Japan's unconditional surrender, warning of prompt and utter destruction."
+    ]
+  },
+  {
+    "y": 1945,
+    "lat": 43.12,
+    "lon": 131.89,
+    "c": "RU",
+    "rg": "ea",
+    "k": "war",
+    "s": "march",
+    "f": 1,
+    "t": [
+      "苏联对日宣战",
+      "Soviet Declaration of War on Japan"
+    ],
+    "d": [
+      "苏联在广岛核爆后对日宣战，百万红军进入中国东北与朝鲜北部。",
+      "The Soviet Union declares war on Japan and sends over a million troops into Manchuria and northern Korea."
+    ]
+  },
+  {
+    "y": 1945,
+    "lat": 35.68,
+    "lon": 139.75,
+    "c": "JP",
+    "rg": "ea",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "日本宣布无条件投降",
+      "Japan Announces Surrender"
+    ],
+    "d": [
+      "8月15日，日本天皇通过广播宣布接受《波茨坦公告》，战事即将结束。",
+      "On 15 August the Emperor broadcasts Japan's acceptance of the Potsdam Declaration, ending the fighting."
+    ]
+  },
+  {
+    "y": 1945,
+    "lat": 35.35,
+    "lon": 139.75,
+    "c": "JP",
+    "rg": "ea",
+    "k": "politics",
+    "s": "ship",
+    "f": 1,
+    "t": [
+      "日本签署投降书",
+      "Japan Signs the Instrument of Surrender"
+    ],
+    "d": [
+      "9月2日，日本代表在东京湾密苏里号战舰上签署投降书，第二次世界大战正式结束。",
+      "On 2 September Japanese representatives sign the instrument of surrender aboard USS Missouri in Tokyo Bay, formally ending World War II."
+    ]
+  },
+  {
+    "y": 1945,
+    "lat": 35.35,
+    "lon": 139.75,
+    "c": "JP",
+    "rg": "ea",
+    "k": "war",
+    "s": "ship",
+    "f": 1,
+    "t": [
+      "第二次世界大战结束",
+      "End of World War II"
+    ],
+    "d": [
+      "随着日本签署投降书，太平洋战争与第二次世界大战结束，战后国际秩序开始形成。",
+      "With Japan's signature, the Pacific War and World War II end, and the postwar international order takes shape."
+    ]
+  },
+  {
+    "y": 1945,
+    "lat": 32.06,
+    "lon": 118.8,
+    "c": "CN",
+    "rg": "ea",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "中国抗日战争胜利",
+      "China's Victory in the War of Resistance"
+    ],
+    "d": [
+      "9月3日被定为中国人民抗日战争胜利纪念日，中国全民族抗战以胜利告终。",
+      "3 September is marked as China's Victory Day in the War of Resistance, ending eight years of full-scale war."
+    ]
+  },
+  {
+    "y": 1945,
+    "lat": 32.06,
+    "lon": 118.8,
+    "c": "CN",
+    "rg": "ea",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "中国战区受降",
+      "China Theater Surrender Ceremony"
+    ],
+    "d": [
+      "9月9日，中国战区受降仪式在南京举行，侵华日军向中国投降。",
+      "On 9 September the China Theater surrender ceremony is held in Nanjing, and Japanese forces in China capitulate."
+    ]
   }
 ]

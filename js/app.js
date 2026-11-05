@@ -21,7 +21,7 @@
   A.events = A.events.slice().sort((a, b) => a.y - b.y || (a.t[0] || "").localeCompare(b.t[0] || ""));
   const usedIds = {};
   A.events.forEach((e) => {
-    const base = slugify(e.t[1]);
+    const base = e.id || slugify(e.t[1]);
     let id = base, n = 2;
     while (usedIds[id]) id = base + "-" + n++;
     usedIds[id] = 1;
@@ -75,6 +75,8 @@
     voice: { zh: "朗读", en: "Read aloud" },
     stopVoice: { zh: "停止朗读", en: "Stop" },
     tgLabels: { zh: "现代国名", en: "Modern names" },
+    tgHistLabels: { zh: "历史名称", en: "Historical names" },
+    tgAutoEvent: { zh: "自动播放重大事件", en: "Auto-play major events" },
     tgAll: { zh: "显示全部历史", en: "Show all history" },
     layersNote: { zh: "势力范围为示意性近似，非精确国界。", en: "Halos are schematic spheres of influence, not borders." },
     mapNote: { zh: "示意图 · 现代国界仅作地理参照", en: "Schematic · modern borders for reference only" },
@@ -123,7 +125,13 @@
     speed: 1,
     selected: null,
     country: null,
-    toggles: { events: true, polities: false, links: true, labels: true, allEvents: false, historical: true, stateChanges: true },
+    region: null,
+    theme: null,
+    eventView: null,
+    eventGroup: null,
+    autoEvent: true,
+    lastTrigger: 0,
+    toggles: { events: true, polities: false, links: true, labels: false, historicalLabels: true, allEvents: false, historical: true, stateChanges: true },
     panelOpen: true,
   };
 
@@ -276,7 +284,7 @@
   const el = {};
   let map, sceneCtl, scenePaused = false, lastPanelKey = "", panelTimer = 0, urlTimer = 0;
   let lastChromeYear = null, lastChromePos = "", lastBandEra = null, lastPlayTs = 0;
-  let draggingTrack = false;
+  let draggingTrack = false, eventTimer = 0, lastAutoGroup = "";
 
   /* ── boot ───────────────────────────────────────── */
   function boot() {
@@ -288,7 +296,7 @@
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
       "theatre-card", "tc-kicker", "tc-title", "tc-sub", "tc-desc", "tc-tags", "tc-expand", "tc-pause", "tc-close", "tc-voice",
       "sound-btn", "ev-voice",
-      "ev-year", "ev-cat", "ev-title", "ev-title-en", "ev-desc", "ev-desc-en", "ev-meta", "ev-links",
+      "ev-year", "ev-cat", "ev-title", "ev-title-en", "ev-desc", "ev-desc-en", "ev-meta", "ev-detail", "ev-links",
       "ev-contemp-list", "ev-prev", "ev-next", "about-modal", "about-eras", "about-scenes",
       "event-modal", "hint", "hint-close", "panel-reopen",
     ].forEach((id) => { el[id] = document.getElementById(id); });
@@ -300,9 +308,10 @@
 
     applyI18n();
     buildTimeline();
+    buildRegionNav();
 
     map = new AtlasMap($("#map-canvas"), $("#fx-canvas"), {
-      onEventClick: openEvent,
+      onEventClick: (ev) => triggerEvent(ev, "map"),
       onCountryClick: (f) => {
         if (f) { openCountry(f); return; }
         closeCountry();
@@ -319,6 +328,7 @@
       window.HistoricalBorders.setLang(state.lang);
       window.HistoricalBorders.setEnabled(state.toggles.historical);
     }
+    if (window.HistoricalEntities) window.HistoricalEntities.init(map);
     if (window.MapTheatre) {
       window.MapTheatre.init(map);
       window.MapTheatre.setLang(state.lang);
@@ -404,8 +414,12 @@
     const cid = q.get("country");
     if (cid) {
       const f = map.features.find((x) => x.properties.iso3 === cid || x.properties.iso2 === cid);
-      if (f) setTimeout(() => openCountry(f), 350);
+      if (f) { setTimeout(() => openCountry(f), 350); return; }
     }
+    const theme = q.get("theme");
+    if (theme === "china") { setTimeout(() => focusRegion("china-theme"), 350); return; }
+    const region = q.get("region");
+    if (region && (A.regionNav || []).some((r) => r.id === region)) setTimeout(() => focusRegion(region), 350);
   }
 
   /* ── language ───────────────────────────────────── */
@@ -440,6 +454,7 @@
     localStorage.setItem("world-atlas-lang", lang);
     applyI18n();
     buildTimeline();
+    buildRegionNav();
     if (map) map.setLang(lang);
     if (window.HistoricalBorders) window.HistoricalBorders.setLang(lang);
     if (window.MapTheatre) window.MapTheatre.setLang(lang);
@@ -459,6 +474,168 @@
     return "e:" + A.eraOf(state.year).id + ":" + Math.floor(state.year / 2);
   }
 
+  /* ── event registry / groups ────────────────────── */
+  function detailFor(ev) {
+    return (ev && A.eventDetails && A.eventDetails[ev.id]) || null;
+  }
+
+  function textOf(obj) {
+    if (!obj) return "";
+    if (typeof obj === "string") return obj;
+    return obj[state.lang] || obj.en || obj.zh || "";
+  }
+
+  function groupForEvent(ev) {
+    if (!ev || !A.eventGroups) return null;
+    for (const g of Object.values(A.eventGroups)) {
+      if (g.events && g.events.includes(ev.id)) return g;
+    }
+    return null;
+  }
+
+  function groupForCountryAtYear(f, year) {
+    if (!f || !A.eventGroups) return null;
+    const code = f.properties.iso3 || f.properties.iso2;
+    for (const g of Object.values(A.eventGroups)) {
+      if (g.year !== year) continue;
+      if ((g.countries || []).includes(code) || (g.countries || []).includes(f.properties.iso2)) return g;
+    }
+    return null;
+  }
+
+  function groupEvents(g) {
+    if (!g || !g.events) return [];
+    return g.events.map((id) => byId[id]).filter(Boolean);
+  }
+
+  function autoGroupForCountry(f, year) {
+    if (!f) return null;
+    const evs = A.events
+      .filter((e) => e._country === f && e.y === year && e.f)
+      .sort((a, b) => {
+        const pa = (detailFor(a) && detailFor(a).trigger && detailFor(a).trigger.priority) || 60;
+        const pb = (detailFor(b) && detailFor(b).trigger && detailFor(b).trigger.priority) || 60;
+        return pb - pa || (a.t[1] || "").localeCompare(b.t[1] || "");
+      });
+    if (!evs.length) return null;
+    const nm = countryName(f);
+    return {
+      id: "auto-" + countryKey(f) + "-" + year,
+      name: { zh: nm + " · " + fmtYear(year, "zh", true), en: nm + " · " + fmtYear(year, "en", true) },
+      year,
+      countries: [f.properties.iso3, f.properties.iso2].filter(Boolean),
+      lead: evs[0].id,
+      events: evs.map((e) => e.id),
+      auto: true,
+    };
+  }
+
+  function triggerEvent(ev, source) {
+    if (!ev) return;
+    const now = performance.now();
+    if (state.lastTrigger && state.lastTrigger.id === ev.id && now - state.lastTrigger.at < 600) return;
+    state.lastTrigger = { id: ev.id, at: now };
+    openEvent(ev);
+    if (source === "country") setPanel(true);
+  }
+
+  function triggerGroup(g) {
+    if (!g) return;
+    const ev = byId[g.lead] || groupEvents(g)[0];
+    if (!ev) return;
+    state.eventGroup = g;
+    triggerEvent(ev, "group");
+    lastPanelKey = "";
+    renderPanel(true);
+  }
+
+  function keyEventsForCountry(f) {
+    if (!f) return [];
+    return A.events
+      .filter((e) => e._country === f && (e.f || (A.eventDetails && A.eventDetails[e.id])))
+      .slice()
+      .sort((a, b) => a.y - b.y || (a.t[1] || "").localeCompare(b.t[1] || ""));
+  }
+
+  function verifyLabel(v) {
+    const map = {
+      verified: L("已核史实", "Verified", "Verificado", "Vérifié", "موثّق"),
+      partial: L("部分核实", "Partly verified", "Parcialmente verificado", "Partiellement vérifié", "موثّق جزئيًا"),
+      brief: L("简要条目", "Brief entry", "Entrada breve", "Notice brève", "مدخل موجز"),
+      pending: L("待史实确认", "Awaiting verification", "Pendiente de verificación", "En attente de vérification", "بانتظار التحقق"),
+    };
+    return map[v] || map.brief;
+  }
+
+  function renderEventPanel(force) {
+    const ev = state.eventView;
+    if (!ev) return;
+    const d = detailFor(ev) || {};
+    const key = "ev:" + ev.id + ":" + state.lang + (state.eventGroup ? ":g" : "");
+    if (!force && key === lastPanelKey) return;
+    const changed = key !== lastPanelKey;
+    lastPanelKey = key;
+    const scroll = el["panel-body"].scrollTop;
+
+    el["panel-kicker"].textContent = L("重大事件 · ", "MAJOR EVENT · ", "ACONTECIMIENTO · ", "ÉVÉNEMENT · ", "حدث كبرى · ") + fmtYear(ev.y, state.lang, true);
+    el["panel-title"].textContent = state.eventGroup ? textOf(state.eventGroup.name) : L("事件详情", "Event dossier", "Ficha del evento", "Dossier d’événement", "ملف الحدث");
+    el["panel-sub"].textContent = state.eventGroup ? (state.lang === "zh" ? state.eventGroup.name.en : state.eventGroup.name.zh) : "";
+
+    const titleEn = state.lang === "zh" ? ev.t[1] : ev.t[0];
+    const place = d.place ? (textOf(d.place) || (ev._country ? countryName(ev._country) : "")) : (ev._country ? countryName(ev._country) : "");
+    const actors = (d.actors || []).map((a) => textOf(a)).filter(Boolean);
+    const dateText = d.date ? (textOf(d.date) || fmtYear(ev.y, state.lang)) : fmtYear(ev.y, state.lang);
+    const sourceLinks = (d.sources || []).filter((s) => s.url).slice(0, 4);
+
+    let html = `<button class="panel-back" data-ev-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
+    html += `<div class="ev-detail-head"><div class="ev-detail-kicker">${catName(ev.k)} · ${rgName(ev.rg)}</div>`;
+    html += `<h2 class="ev-detail-title">${evTitle(ev)}</h2><p class="ev-detail-en">${titleEn}</p></div>`;
+    html += `<div class="ev-detail-meta">`;
+    html += `<div><span>${L("时间", "DATE", "FECHA", "DATE", "التاريخ")}</span><b>${dateText}</b></div>`;
+    html += `<div><span>${L("地点", "PLACE", "LUGAR", "LIEU", "المكان")}</span><b>${place || L("待确认", "TBD", "Por confirmar", "À confirmer", "قيد التأكيد")}</b></div>`;
+    html += `<div><span>${L("主要参与方", "ACTORS", "ACTORES", "ACTEURS", "الأطراف")}</span><b>${actors.length ? actors.join(" · ") : L("待补", "To be added", "Por añadir", "À compléter", "قيد الإضافة")}</b></div>`;
+    html += `<div><span>${L("校验", "VERIFICATION", "VERIFICACIÓN", "VÉRIFICATION", "التحقق")}</span><b>${verifyLabel(d.verification || "brief")}</b></div>`;
+    html += `</div>`;
+
+    const summary = d.summary ? textOf(d.summary) : evDesc(ev);
+    if (summary) html += `<section class="ev-detail-section"><h4>${L("摘要", "SUMMARY", "RESUMEN", "RÉSUMÉ", "الملخص")}</h4><p>${summary}</p></section>`;
+    const sections = [
+      ["background", L("背景", "BACKGROUND", "CONTEXTO", "CONTEXTE", "الخلفية")],
+      ["course", L("经过", "COURSE", "DESARROLLO", "DÉROULEMENT", "مجريات الحدث")],
+      ["outcome", L("结果与影响", "OUTCOME", "RESULTADO", "CONSÉQUENCES", "النتائج والأثر")],
+    ];
+    for (const [key, label] of sections) {
+      const val = d[key] ? textOf(d[key]) : "";
+      if (val) html += `<section class="ev-detail-section"><h4>${label}</h4><p>${val}</p></section>`;
+      else if (key === "background") html += `<section class="ev-detail-section"><h4>${label}</h4><p class="ev-missing">${L("详细背景待补；当前只保留可核实的摘要与元数据。", "Detailed background pending; only verified summary and metadata are shown for now.", "Contexto detallado pendiente; por ahora solo el resumen verificado.", "Contexte détaillé à compléter ; seuls le résumé vérifié et les métadonnées sont affichés.", "الخلفية التفصيلية قيد الإضافة؛ يُعرض الملخص الموثّق فقط.")}</p></section>`;
+    }
+
+    const chainIds = state.eventGroup ? (state.eventGroup.events || []) : ((d.chain && d.chain.length) ? d.chain : []);
+    const chain = chainIds.map((id) => byId[id]).filter((e) => e && e.id !== ev.id);
+    if (chain.length) {
+      html += `<section class="ev-detail-section"><h4>${L("同一事件链", "EVENT CHAIN", "CADENA DE EVENTOS", "CHAÎNE D’ÉVÉNEMENTS", "سلسلة الأحداث")}</h4><div class="ev-chain">`;
+      for (const e of chain) {
+        html += `<button class="ev-chain-row" data-ev="${e.id}"><time>${fmtYear(e.y, state.lang, true)}</time><span>${evTitle(e)}</span><em>${L("播放", "PLAY", "VER", "VOIR", "تشغيل")}</em></button>`;
+      }
+      html += `</div></section>`;
+    }
+
+    if (sourceLinks.length) {
+      html += `<section class="ev-detail-section"><h4>${L("来源", "SOURCES", "FUENTES", "SOURCES", "المصادر")}</h4>`;
+      sourceLinks.forEach((s) => { html += `<p><a href="${s.url}" target="_blank" rel="noopener">${s.label || s.url}</a></p>`; });
+      html += `</section>`;
+    }
+
+    html += `<div class="ev-detail-actions"><button class="primary" data-ev="${ev.id}">${L("重新播放动态", "Replay dynamic", "Repetir dinámica", "Relancer la dynamique", "إعادة الحركة")}</button>`;
+    html += `<button data-ev-modal="${ev.id}">${L("展开史志", "Open full record", "Abrir ficha", "Ouvrir la fiche", "فتح السجل")}</button>`;
+    if (ev._country) html += `<button data-country-open="${countryKey(ev._country)}">${L("国家沿革", "Country chronicle", "Crónica del país", "Chronique du pays", "سجل الدولة")}</button>`;
+    html += `</div>`;
+    html += `<div class="ev-verify${d.verification === "verified" ? " is-verified" : d.verification === "pending" ? " is-pending" : ""}"><i></i>${verifyLabel(d.verification || "brief")}${d.verification === "brief" ? " · " + L("长文待补，不编造", "long form pending, not invented", "texto largo pendiente", "texte long à compléter", "النص الطويل قيد الإضافة") : ""}</div>`;
+
+    el["panel-body"].innerHTML = html;
+    el["panel-body"].scrollTop = changed ? 0 : scroll;
+  }
+
   function renderPanel(force) {
     if (!el["panel-body"]) return;
     if (!map || !map.features) {
@@ -468,7 +645,9 @@
       el["panel-body"].innerHTML = `<div class="panel-empty">${state.lang === "zh" ? "地图数据载入后，此处会呈现此刻并立的文明与时代节点。" : "Civilizations and nodes of this moment will appear once the map has loaded."}</div>`;
       return;
     }
+    if (state.eventView) { renderEventPanel(force); return; }
     if (state.country) { renderCountryPanel(force); return; }
+    if (state.theme === "china") { renderChinaPanel(force); return; }
 
     const era = A.eraOf(state.year);
     el["panel-kicker"].textContent = (state.lang === "zh" ? "此刻世界 · " : "THE WORLD AT ") + fmtYear(state.year, state.lang, true);
@@ -529,6 +708,54 @@
     } else {
       el["panel-body"].scrollTop = scroll;
     }
+  }
+
+  function renderChinaPanel(force) {
+    const key = "china:" + state.year + ":" + state.lang;
+    if (!force && key === lastPanelKey) return;
+    const changed = key !== lastPanelKey;
+    lastPanelKey = key;
+    const scroll = el["panel-body"].scrollTop;
+    const era = A.eraOf(state.year);
+    const entities = (window.HistoricalEntities && window.HistoricalEntities.list || [])
+      .filter((e) => e.from <= state.year && e.to >= state.year)
+      .filter((e) => e.parent === "china" || String(e.id || "").startsWith("curated-china-"))
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0));
+    const uniq = [];
+    const seen = new Set();
+    for (const e of entities) {
+      const n = state.lang === "zh" ? (e.name.zh || e.name.en) : (e.name.en || e.name.zh);
+      if (!n || seen.has(n)) continue;
+      seen.add(n); uniq.push(e);
+    }
+    const chinaEvents = A.events.filter((e) => {
+      const p = e._country && e._country.properties;
+      return p && (p.iso3 === "CHN" || p.iso2 === "CN") && e.y >= era.from && (e.y < era.to || era === A.eras[A.eras.length - 1]);
+    });
+
+    el["panel-kicker"].textContent = L("中国江山时序 · ", "CHINA CHRONICLE · ", "CRÓNICA DE CHINA · ", "CHRONIQUE DE CHINE · ", "سجل الصين · ") + fmtYear(state.year, state.lang, true);
+    el["panel-title"].textContent = L("中国江山时序", "China Chronicle", "Crónica de China", "Chronique de Chine", "سجل الصين");
+    el["panel-sub"].textContent = L("从史前文明到当代，按年份显示王朝、并立政权与近现代国家。", "From prehistory to the present: dynasties, rival regimes and modern states, filtered by year.", "De la prehistoria al presente: dinastías, regímenes rivales y Estados modernos.", "De la préhistoire à aujourd’hui : dynasties, régimes rivaux et États modernes.", "من ما قبل التاريخ إلى الحاضر: السلالات والأنظمة المنافسة والدول الحديثة.");
+
+    let html = `<button class="panel-back" data-theme-close="1">‹ ${L("返回全图", "Back to the world", "Volver al mundo", "Retour au monde", "العودة إلى العالم")}</button>`;
+    html += `<section class="p-section"><h3>${L("此刻中国", "CHINA AT THIS MOMENT", "CHINA EN ESTE MOMENTO", "LA CHINE À CET INSTANT", "الصين في هذه اللحظة")} · ${uniq.length}</h3><div class="polity-list">`;
+    if (uniq.length) {
+      uniq.slice(0, 14).forEach((e) => {
+        const nm = state.lang === "zh" ? (e.name.zh || e.name.en) : (e.name.en || e.name.zh);
+        html += `<span class="polity-chip"><i style="background:${e.type === "culture" ? "#8a7a9a" : "#b0432c"}"></i>${nm}<small>${fmtRange(e.from, e.to)}</small></span>`;
+      });
+    } else {
+      html += `<span class="panel-empty">${L("此时期暂无已标注的王朝或考古文化；不强行套用后世王朝名。", "No named dynasty or archaeological culture is charted for this moment; later dynasty names are not imposed.", "No hay dinastía o cultura arqueológica cartografiada; no se imponen nombres posteriores.", "Aucune dynastie ni culture archéologique cartographiée ; les noms postérieurs ne sont pas imposés.", "لا سلالة أو ثقافة أثرية مرسومة لهذه اللحظة؛ لا تفرض أسماء لاحقة.")}</span>`;
+    }
+    html += `</div></section>`;
+
+    html += `<section class="p-section"><h3>${L("本时代中国节点", "CHINA NODES OF THIS AGE", "NODOS DE CHINA EN ESTA ERA", "NŒUDS CHINOIS DE CET ÂGE", "عُقد الصين في هذا العصر")} · ${chinaEvents.length}</h3><div class="event-list">`;
+    if (chinaEvents.length) html += eventList(chinaEvents);
+    else html += `<div class="panel-empty">${L("此时代暂无中国策展节点。", "No curated China nodes in this age.", "Sin nodos chinos en esta era.", "Aucun nœud chinois pour cet âge.", "لا عُقد صينية في هذا العصر.")}</div>`;
+    html += `</div></section>`;
+    html += `<div class="panel-note">${L("专题模式复用同一张地图、时间轴、历史实体与事件详情；边界为示意性近似。", "The theme reuses the same map, timeline, historical entities and event dossiers; boundaries are schematic.", "El modo reutiliza el mismo mapa, línea de tiempo, entidades y fichas; las fronteras son esquemáticas.", "Le mode réutilise la même carte, chronologie, entités et fiches ; les frontières sont schématiques.", "يعيد النمط استخدام الخريطة والخط الزمني والكيانات والملفات نفسها؛ الحدود تخطيطية.")}</div>`;
+    el["panel-body"].innerHTML = html;
+    el["panel-body"].scrollTop = changed ? 0 : scroll;
   }
 
   function stateChangesNear(year) {
@@ -630,6 +857,13 @@
     }
     html += `</div></section>`;
 
+    const keyEvs = keyEventsForCountry(f);
+    if (keyEvs.length) {
+      html += `<section class="p-section"><h3>${L("重大事件", "MAJOR EVENTS", "ACONTECIMIENTOS", "ÉVÉNEMENTS", "أحداث كبرى")} · ${keyEvs.length}</h3><div class="event-list">`;
+      keyEvs.slice(0, 12).forEach((e) => { html += eventRow(e); });
+      html += `</div></section>`;
+    }
+
     const chr = chronicleHtml(f);
     html += `<section class="p-section"><h3>${L("国家沿革长卷", "A COUNTRY CHRONICLE", "CRÓNICA DEL PAÍS", "CHRONIQUE DU PAYS", "سجل الدولة")} · ${evs.length}</h3>`;
     if (chr) {
@@ -694,6 +928,80 @@
     });
     lastBandEra = null;
     drawTicks();
+  }
+
+  /* ── region / theme navigator ───────────────────── */
+  function regionName(r) {
+    if (!r || !r.name) return "";
+    return r.name[state.lang] || r.name.en || r.name.zh || r.id;
+  }
+
+  function buildRegionNav() {
+    const nav = document.getElementById("region-nav");
+    if (!nav) return;
+    nav.innerHTML = "";
+    (A.regionNav || []).forEach((r) => {
+      if (r.theme) {
+        const sep = document.createElement("span");
+        sep.className = "region-sep";
+        nav.appendChild(sep);
+      }
+      const b = document.createElement("button");
+      b.className = "region-chip" + (r.theme ? " is-theme" : "");
+      b.type = "button";
+      b.dataset.region = r.id;
+      b.textContent = regionName(r);
+      b.setAttribute("aria-label", regionName(r));
+      b.addEventListener("click", () => focusRegion(r.id));
+      nav.appendChild(b);
+    });
+    updateRegionActive();
+  }
+
+  function updateRegionActive() {
+    const nav = document.getElementById("region-nav");
+    if (!nav) return;
+    nav.querySelectorAll(".region-chip").forEach((b) => {
+      b.classList.toggle("is-active", b.dataset.region === (state.theme ? "china-theme" : state.region || ""));
+    });
+  }
+
+  function focusRegion(id) {
+    const r = (A.regionNav || []).find((x) => x.id === id);
+    if (!r || !map) return;
+    const wasTheme = state.theme;
+    // Region switching is navigation: stop any transient theatre, but keep
+    // the chosen year, the panel and its scroll position.
+    if (window.MapTheatre) window.MapTheatre.clear();
+    el["theatre-card"].hidden = true;
+    document.getElementById("map-stage").classList.remove("theatre-open");
+    if (r.theme) {
+      state.selected = null;
+      state.eventView = null;
+      state.eventGroup = null;
+      if (map) map.setSelected(null);
+    }
+    state.region = id;
+    state.theme = r.theme || null;
+    if (state.theme !== "china") {
+      // keep a country lens open; region switch only moves the camera
+    }
+    if (r.bbox && r.id !== "oceania") map.fitBounds(r.bbox, 900);
+    else map.flyTo(r.center[0], r.center[1], r.zoom, 900);
+    updateRegionActive();
+    if (state.theme === "china") {
+      state.country = null;
+      state.eventView = null;
+      setPanel(true);
+      lastPanelKey = "";
+      renderPanel(true);
+      if (r.bbox) map.fitBounds(r.bbox, 700);
+    } else if (wasTheme === "china") {
+      lastPanelKey = "";
+      if (state.panelOpen) renderPanel(true);
+    }
+    if (state.panelOpen) { lastPanelKey = ""; renderPanel(true); }
+    syncURL();
   }
 
   function drawTicks() {
@@ -787,10 +1095,47 @@
     if (map) map.setYear(y);
     updateChrome();
     if (changed) {
+      lastAutoGroup = "";
       if (state.country) renderPanel(true);
+      else if (state.eventView) renderPanel(true);
       else if (!state.playing) schedulePanel();
+      if (!opts.silentEvent && !opts.noAuto) scheduleAutoEvent();
       syncURL();
     }
+  }
+
+  function scheduleAutoEvent() {
+    clearTimeout(eventTimer);
+    if (!state.autoEvent || state.playing || state.eventView || state.country) return;
+    eventTimer = setTimeout(() => {
+      if (!state.autoEvent || state.playing || state.eventView || state.country) return;
+      let groups = Object.values(A.eventGroups || {}).filter((g) => g.year === state.year);
+      if (!groups.length) {
+        const yearEvents = A.events.filter((e) => e.y === state.year && e.f).sort((a, b) => {
+          const pa = (detailFor(a) && detailFor(a).trigger && detailFor(a).trigger.priority) || 60;
+          const pb = (detailFor(b) && detailFor(b).trigger && detailFor(b).trigger.priority) || 60;
+          return pb - pa;
+        });
+        if (yearEvents.length) {
+          groups = [{
+            id: "auto-year-" + state.year,
+            name: { zh: fmtYear(state.year, "zh", true) + " 年重大事件", en: "Major events of " + fmtYear(state.year, "en", true) },
+            year: state.year, countries: [], lead: yearEvents[0].id,
+            events: yearEvents.map((e) => e.id), auto: true,
+          }];
+        }
+      }
+      if (!groups.length) return;
+      groups.sort((a, b) => {
+        const pa = (byId[a.lead] && detailFor(byId[a.lead]) && detailFor(byId[a.lead]).trigger && detailFor(byId[a.lead]).trigger.priority) || 60;
+        const pb = (byId[b.lead] && detailFor(byId[b.lead]) && detailFor(byId[b.lead]).trigger && detailFor(byId[b.lead]).trigger.priority) || 60;
+        return pb - pa;
+      });
+      const g = groups[0];
+      if (lastAutoGroup === g.id + ":" + state.year) return;
+      lastAutoGroup = g.id + ":" + state.year;
+      triggerGroup(g);
+    }, 420);
   }
 
   function updateSoundBtn() {
@@ -932,11 +1277,19 @@
     if (!ev) return;
     stopPlay();
     if (!el["event-modal"].hidden) closeEvent();
-    if (state.country) { state.country = null; map.setHighlight(null); lastPanelKey = ""; renderPanel(true); }
+    state.country = null;
+    map.setHighlight(null);
+    state.eventView = ev;
+    const foundGroup = groupForEvent(ev);
+    if (foundGroup) state.eventGroup = foundGroup;
+    else if (!state.eventGroup || !(state.eventGroup.events || []).includes(ev.id)) state.eventGroup = null;
+    lastPanelKey = "";
+    setPanel(true);
+    renderPanel(true);
     state.selected = ev;
     map.setSelected(ev);
     map.setPaused(false);
-    if (ev.y !== state.year) applyYear(ev.y, null, { force: true });
+    if (ev.y !== state.year) applyYear(ev.y, null, { force: true, silentEvent: true });
     else { state.pos = timeline.toPos(ev.y); updateChrome(); }
     if (window.MapTheatre) {
       window.MapTheatre.setLang(state.lang);
@@ -958,10 +1311,14 @@
     el["theatre-card"].hidden = true;
     document.getElementById("map-stage").classList.remove("theatre-open");
     state.selected = null;
+    state.eventView = null;
+    state.eventGroup = null;
+    lastPanelKey = "";
     if (map) {
       map.setSelected(null);
       map.setPaused(false);
     }
+    if (state.panelOpen) renderPanel(true);
     syncURL();
   }
 
@@ -1053,6 +1410,23 @@
     el["scene-era"].textContent = eraName(A.eraOf(ev.y));
     el["scene-caption"].innerHTML = "<b>" + fmtYear(ev.y, state.lang) + "</b> · " + placeOf(ev) + " · " + latlon(ev.lat, ev.lon);
 
+    if (el["ev-detail"]) {
+      const d = detailFor(ev) || {};
+      let dh = "";
+      const sum = d.summary ? textOf(d.summary) : "";
+      if (sum) dh += `<section class="ev-detail-section"><h4>${L("摘要", "SUMMARY", "RESUMEN", "RÉSUMÉ", "الملخص")}</h4><p>${sum}</p></section>`;
+      for (const [k, label] of [["background", L("背景", "BACKGROUND", "CONTEXTO", "CONTEXTE", "الخلفية")], ["course", L("经过", "COURSE", "DESARROLLO", "DÉROULEMENT", "مجريات الحدث")], ["outcome", L("结果与影响", "OUTCOME", "RESULTADO", "CONSÉQUENCES", "النتائج والأثر")]]) {
+        const val = d[k] ? textOf(d[k]) : "";
+        if (val) dh += `<section class="ev-detail-section"><h4>${label}</h4><p>${val}</p></section>`;
+      }
+      if ((d.sources || []).length) {
+        dh += `<section class="ev-detail-section"><h4>${L("来源", "SOURCES", "FUENTES", "SOURCES", "المصادر")}</h4>`;
+        d.sources.filter((x) => x.url).slice(0, 4).forEach((x) => { dh += `<p><a href="${x.url}" target="_blank" rel="noopener">${x.label || x.url}</a></p>`; });
+        dh += `</section>`;
+      }
+      el["ev-detail"].innerHTML = dh;
+    }
+
     // linked places
     let links = "";
     if (ev.link && ev.link.length) {
@@ -1115,13 +1489,17 @@
   }
 
   /* ── country lens ───────────────────────────────── */
-  function openCountry(f) {
+  function openCountry(f, opts) {
     if (!f) return;
     if (!el["event-modal"].hidden) closeEvent();
     if (window.MapTheatre) window.MapTheatre.clear();
     el["theatre-card"].hidden = true;
     document.getElementById("map-stage").classList.remove("theatre-open");
     el["panel-body"].scrollTop = 0;
+    const group = (!opts || !opts.skipGroup) ? (groupForCountryAtYear(f, state.year) || autoGroupForCountry(f, state.year)) : null;
+    if (group) { triggerGroup(group); return; }
+    state.eventView = null;
+    state.eventGroup = null;
     state.country = f;
     state.selected = null;
     map.setSelected(null);
@@ -1144,6 +1522,8 @@
   function closeCountry() {
     if (!state.country) return;
     state.country = null;
+    state.eventView = null;
+    state.eventGroup = null;
     map.setHighlight(null);
     if (window.MapTheatre) window.MapTheatre.clear();
     lastPanelKey = "";
@@ -1223,7 +1603,7 @@
   function pickSearch(target) {
     if (target.dataset.rEv) {
       const ev = byId[target.dataset.rEv];
-      if (ev) { closeSearch(); openEvent(ev); }
+      if (ev) { closeSearch(); triggerEvent(ev, "search"); }
     } else if (target.dataset.rCtry) {
       const key = target.dataset.rCtry;
       const f = (map.features || []).find((x) => x.properties.iso3 === key || x.properties.iso2 === key || x.properties.n === key);
@@ -1255,6 +1635,8 @@
       el["layers-btn"].classList.toggle("is-on", !el["layers-pop"].hidden);
     });
     el["layers-pop"].addEventListener("click", (e) => e.stopPropagation());
+    const autoEv = document.getElementById("auto-event-toggle");
+    if (autoEv) autoEv.addEventListener("change", () => { state.autoEvent = autoEv.checked; });
     document.querySelectorAll("[data-toggle]").forEach((cb) => {
       cb.addEventListener("change", () => {
         state.toggles[cb.getAttribute("data-toggle")] = cb.checked;
@@ -1272,6 +1654,9 @@
     el["panel-toggle"].addEventListener("click", () => setPanel(false));
     el["panel-close"].addEventListener("click", () => setPanel(false));
     el["panel-reopen"].addEventListener("click", () => setPanel(true));
+    ["side-panel", "panel-body"].forEach((id) => {
+      if (el[id]) el[id].addEventListener("wheel", (e) => e.stopPropagation(), { passive: true });
+    });
     el["play-btn"].addEventListener("click", togglePlay);
     el["speed-btn"].addEventListener("click", () => {
       state.speed = state.speed === 1 ? 2 : state.speed === 2 ? 4 : 1;
@@ -1279,7 +1664,7 @@
     });
     el["now-btn"].addEventListener("click", () => {
       stopPlay();
-      applyYear(2026, null, { force: true });
+      applyYear(2026, null, { force: true, noAuto: true });
       setPanel(state.panelOpen);
     });
     bindTrack();
@@ -1297,8 +1682,21 @@
     });
 
     el["panel-body"].addEventListener("click", (e) => {
+      const themeClose = e.target.closest("[data-theme-close]");
+      if (themeClose) { state.theme = null; state.region = null; lastPanelKey = ""; map.fit(true); renderPanel(true); updateRegionActive(); return; }
+      const closeEv = e.target.closest("[data-ev-close]");
+      if (closeEv) { state.eventView = null; state.eventGroup = null; lastPanelKey = ""; renderPanel(true); return; }
+      const modalBtn = e.target.closest("[data-ev-modal]");
+      if (modalBtn) { openEventModal(byId[modalBtn.getAttribute("data-ev-modal")]); return; }
+      const countryBtn = e.target.closest("[data-country-open]");
+      if (countryBtn) {
+        const key = countryBtn.getAttribute("data-country-open");
+        const f = (map.features || []).find((x) => x.properties.iso3 === key || x.properties.iso2 === key);
+        if (f) openCountry(f, { skipGroup: true });
+        return;
+      }
       const evBtn = e.target.closest("[data-ev]");
-      if (evBtn) { openEvent(byId[evBtn.getAttribute("data-ev")]); return; }
+      if (evBtn) { triggerEvent(byId[evBtn.getAttribute("data-ev")], "panel"); return; }
       const polBtn = e.target.closest("[data-polity]");
       if (polBtn) {
         const p = A.polities.find((x) => x.id === polBtn.getAttribute("data-polity"));
@@ -1333,7 +1731,7 @@
     el["ev-next"].addEventListener("click", () => stepEvent(1));
     el["ev-contemp-list"].addEventListener("click", (e) => {
       const b = e.target.closest("[data-contemp]");
-      if (b) openEvent(byId[b.getAttribute("data-contemp")]);
+      if (b) triggerEvent(byId[b.getAttribute("data-contemp")], "panel");
     });
     el["sound-btn"].addEventListener("click", () => {
       if (!window.AtlasAudio) return;
@@ -1450,6 +1848,8 @@
       p.set("year", state.year);
       if (state.selected) p.set("event", state.selected.id);
       if (state.country) p.set("country", countryKey(state.country));
+      if (state.theme) p.set("theme", state.theme);
+      else if (state.region) p.set("region", state.region);
       if (state.lang !== "zh") p.set("lang", state.lang);
       try { history.replaceState(null, "", "?" + p.toString()); } catch (err) { /* file:// */ }
     }, 420);

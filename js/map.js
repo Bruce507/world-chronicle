@@ -65,7 +65,7 @@
       this.selected = null;
       this.hovered = null;
       this.highlight = null;
-      this.toggles = { events: true, polities: true, links: true, labels: true, allEvents: false };
+      this.toggles = { events: true, polities: true, links: true, labels: false, historicalLabels: true, allEvents: false };
       this.dragging = false;
       this.moved = false;
       this.pointers = new Map();
@@ -196,6 +196,28 @@
       this.drawBase();
     }
 
+    /* Fit a [west, south, east, north] box inside the usable map area. */
+    fitBounds(bbox, dur) {
+      if (!bbox || bbox.length !== 4) return;
+      let [west, south, east, north] = bbox.map(Number);
+      if (![west, south, east, north].every(Number.isFinite)) return;
+      if (east < west) east += 360;
+      const midLat = (south + north) / 2;
+      const midLon = (west + east) / 2;
+      const x1 = robX(west, midLat), x2 = robX(east, midLat);
+      const yN = robY(north), yS = robY(south);
+      const pw = Math.max(0.2, Math.abs(x2 - x1));
+      const ph = Math.max(0.2, Math.abs(yS - yN));
+      const pad = 34;
+      const availW = Math.max(120, this.W - this.reservedRight - pad * 2);
+      const availH = Math.max(120, this.H - pad * 2);
+      const z = clamp(Math.min(availW / (pw * this.baseScale), availH / (ph * this.baseScale)), 1, 9);
+      let lon = midLon;
+      while (lon > 180) lon -= 360;
+      while (lon < -180) lon += 360;
+      this.flyTo(midLat, lon, z, dur || 900);
+    }
+
     scale() { return this.baseScale * this.view.zoom; }
     project(lon, lat) {
       const s = this.scale();
@@ -307,6 +329,7 @@
       }
 
       if (window.HistoricalBorders) window.HistoricalBorders.draw(ctx, this);
+      if (this.toggles.historicalLabels && window.HistoricalEntities) window.HistoricalEntities.draw(ctx, this);
       if (this.toggles.labels) this._drawCountryLabels(ctx);
       ctx.restore();
 
@@ -860,6 +883,9 @@
       el.addEventListener("pointercancel", (e) => this._up(e));
       el.addEventListener("pointerleave", () => { if (this.hovered) { this.hovered = null; if (this.opts.onHover) this.opts.onHover(null); } });
       el.addEventListener("wheel", (e) => {
+        // Overlays inside the stage (side panel, theatre card, zoom buttons)
+        // keep their own wheel/scroll behaviour; never zoom the map under them.
+        if (e.target.closest && e.target.closest("#side-panel, #panel-reopen, #theatre-card, #map-zoom, #hint")) return;
         e.preventDefault();
         const r = this.canvas.getBoundingClientRect();
         this.zoomAt(Math.exp(-e.deltaY * 0.0016), e.clientX - r.left, e.clientY - r.top);

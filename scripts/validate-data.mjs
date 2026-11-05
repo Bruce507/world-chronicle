@@ -127,6 +127,40 @@ for (const key of Object.keys(chronicles)) {
   }
 }
 
+const details = read("data/event_details.json");
+for (const [key, d] of Object.entries(details)) {
+  if (!ids.has(key)) add(`event detail "${key}" does not match any event slug`);
+  if (!d.title || !d.title.zh || !d.title.en) add(`event detail ${key}: bilingual title required`);
+  if (d.verification && !["verified", "partial", "brief", "pending"].includes(d.verification)) add(`event detail ${key}: bad verification`);
+  for (const c of d.chain || []) if (!ids.has(c)) warn(`event detail ${key}: chain id "${c}" not found`);
+  if (d.theatre && !keys.includes(d.theatre)) warn(`event detail ${key}: theatre "${d.theatre}" not found`);
+}
+const groups = read("data/event_groups.json");
+for (const [key, g] of Object.entries(groups)) {
+  if (!g.name || !g.name.zh || !g.name.en) add(`event group ${key}: bilingual name required`);
+  if (!Array.isArray(g.events) || !g.events.length) add(`event group ${key}: events required`);
+  for (const id of g.events || []) if (!ids.has(id)) add(`event group ${key}: unknown event "${id}"`);
+  if (g.lead && !ids.has(g.lead)) add(`event group ${key}: unknown lead "${g.lead}"`);
+}
+const regionNav = read("data/regions.json");
+for (const r of regionNav) {
+  if (!r.id || !r.name || !r.name.zh || !r.name.en) add(`region ${r.id || "?"}: bilingual name required`);
+  if (!Array.isArray(r.center) || r.center.length !== 2) add(`region ${r.id}: center required`);
+  if (!(r.zoom > 0)) add(`region ${r.id}: zoom must be > 0`);
+  if (r.bbox && (!Array.isArray(r.bbox) || r.bbox.length !== 4)) add(`region ${r.id}: bbox must be [w,s,e,n]`);
+}
+const entityFile = path.join(ROOT, "data/historical_entities.json");
+if (!fs.existsSync(entityFile)) warn("historical entities missing — historical labels fall back to snapshot labels");
+else {
+  const ents = JSON.parse(fs.readFileSync(entityFile, "utf8")).entities || [];
+  if (!ents.length) warn("historical entities file is empty");
+  for (const e of ents) {
+    if (!e.id || !e.name || !e.name.zh || !e.name.en) add(`historical entity ${e.id || "?"}: id and bilingual name required`);
+    if (typeof e.from !== "number" || typeof e.to !== "number" || e.from > e.to) add(`historical entity ${e.id}: bad date range`);
+    if (!Number.isFinite(e.lat) || !Number.isFinite(e.lon)) add(`historical entity ${e.id}: bad coordinates`);
+  }
+}
+
 const manifestPath = path.join(ROOT, "data/historical/manifest.json");
 if (!fs.existsSync(manifestPath)) warn("historical manifest missing — historical borders will be unavailable");
 else {

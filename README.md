@@ -7,6 +7,8 @@
 
 **v2 重点**：地图内动态剧场、18 个时代的历史疆域多边形、逐国「国家沿革长卷」、国家兴亡图层、五种界面语言、程序化雅乐与朗读，以及一套可协作的 JSON 数据管线。
 
+**v2.1 重点**：地图上的名称改为随年份变化的历史实体层（默认历史模式，现代国名可选）；新增顶部地区导航与中国江山时序专题；重大事件接入统一触发与事件组，1945 年点击日本可直接看到核爆动态与完整事件链；事件详情补齐背景、经过、结果、参与方与来源；右侧面板支持滚轮、触控板与滚动条；新增 Phase 0 清单与覆盖报告（`docs/`）。
+
 ---
 
 ## 快速开始
@@ -139,7 +141,12 @@ python3 -m http.server 8000
 ├── css/style.css
 ├── data/
 │   ├── meta.json                时代、地域、类别、场景
-│   ├── events.json              475 个策展节点（含覆盖补编）
+│   ├── events.json              482 个策展节点（含 1945 事件链与覆盖补编）
+│   ├── event_details.json       重点事件的结构化详情与来源
+│   ├── event_groups.json        事件链/事件组（如日本 1945）
+│   ├── regions.json             顶部地区导航的相机预设
+│   ├── historical_entities.json 历史实体标签层（生成）
+│   ├── entities_curated.json    中国/日本/澳洲等策展实体
 │   ├── polities.json            125 个并立文明光晕
 │   ├── theatre.json             地图剧场：战线、战役、商路
 │   ├── state_changes.json       国家新生与消亡
@@ -157,6 +164,7 @@ python3 -m http.server 8000
 │   ├── i18n_extra.js            ES / FR / AR 界面翻译
 │   └── app.js                   时间轴、面板、搜索、国家透镜、剧场卡、语言
 ├── scripts/                     构建、简化、校验与长卷生成
+├── docs/                        Phase 0 事件清单与覆盖矩阵
 ├── CONTRIBUTING.md
 ├── LICENSE                      GPL-3.0
 └── README.md
@@ -187,6 +195,13 @@ python3 scripts/translate-events.py
 ```
 
 ---
+
+## 文档与报告
+
+- [重大事件清单](docs/major-events.md)
+- [地区 × 时代覆盖矩阵](docs/coverage-matrix.md)
+- [测试与已知限制](docs/qa-and-limitations.md)
+- [分享与部署](分享与部署.md)
 
 ## 数据来源
 

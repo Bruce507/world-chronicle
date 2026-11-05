@@ -1,0 +1,22 @@
+{
+  "japan-1945": {
+    "id": "japan-1945",
+    "name": { "zh": "二战终结与日本战败", "en": "The End of World War II and Japan's Defeat" },
+    "year": 1945,
+    "countries": ["JP", "CN"],
+    "lead": "hiroshima",
+    "theatre": "japan-1945",
+    "events": [
+      "potsdam-declaration",
+      "hiroshima",
+      "soviet-declaration-of-war-on-japan",
+      "nagasaki",
+      "japan-announces-surrender",
+      "japan-signs-the-instrument-of-surrender",
+      "end-of-world-war-ii",
+      "japan-surrenders",
+      "chinas-victory-in-the-war-of-resistance",
+      "china-theater-surrender-ceremony"
+    ]
+  }
+}

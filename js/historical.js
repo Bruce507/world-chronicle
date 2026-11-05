@@ -6,7 +6,7 @@
 (function () {
   "use strict";
   const BASE = "data/historical/";
-  const V = "?v=20261105b";
+  const V = "?v=20261106n";
   const H = (window.HistoricalBorders = {
     enabled: true,
     manifest: null,
@@ -41,10 +41,13 @@
     nearest(year) {
       if (!this.manifest || !this.manifest.length) return null;
       if (year < -3000 || year > 1995) return null;
-      let best = null, bd = Infinity;
+      // Use the latest snapshot at or before the requested year. Using the
+      // "nearest" snapshot would show future polities (e.g. the United States
+      // in 1770, five years before independence); historical labels themselves
+      // come from the entity layer, so this only selects the base polygons.
+      let best = null;
       for (const s of this.manifest) {
-        const d = Math.abs(s.year - year);
-        if (d < bd) { bd = d; best = s; }
+        if (s.year <= year && (!best || s.year > best.year)) best = s;
       }
       return best;
     },
@@ -112,6 +115,7 @@
       }
       // Labels, decluttered, largest first. Suppressed while a map theatre plays.
       const theatre = window.MapTheatre && window.MapTheatre.active;
+      const useEntities = window.HistoricalEntities && window.HistoricalEntities.ready;
       const all = (fc.labels || []).slice().sort((a, b) => b.area - a.area);
       const states = all.filter((l) => l.kind !== "culture").slice(0, 16);
       const cultures = all.filter((l) => l.kind === "culture").slice(0, fc.year < -1000 ? 8 : 3);
@@ -119,7 +123,7 @@
       const placed = [];
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      if (!theatre) for (const lb of labels) {
+      if (!theatre && !useEntities) for (const lb of labels) {
         const pos = map.project(lb.lon, lb.lat);
         if (pos.x < 30 || pos.x > map.W - 30 || pos.y < 24 || pos.y > map.H - 24) continue;
         const name = this.lang === "zh" && lb.zh ? lb.zh : lb.name;

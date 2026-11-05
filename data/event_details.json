@@ -1,0 +1,2766 @@
+{
+  "potsdam-declaration": {
+    "title": {
+      "zh": "波茨坦公告",
+      "en": "Potsdam Declaration"
+    },
+    "date": {
+      "iso": "1945-07-26",
+      "zh": "1945年7月26日",
+      "en": "26 July 1945"
+    },
+    "place": {
+      "zh": "德国波茨坦",
+      "en": "Potsdam, Germany",
+      "lat": 52.4,
+      "lon": 13.06
+    },
+    "actors": [
+      {
+        "zh": "美国",
+        "en": "United States"
+      },
+      {
+        "zh": "英国",
+        "en": "United Kingdom"
+      },
+      {
+        "zh": "中国",
+        "en": "China"
+      },
+      {
+        "zh": "日本",
+        "en": "Japan"
+      }
+    ],
+    "background": {
+      "zh": "德国投降后，盟军首脑在波茨坦举行会议，讨论对日作战与战后安排。美国已成功试爆原子弹，但公告本身并未提及原子弹。",
+      "en": "After Germany's surrender, Allied leaders met at Potsdam to discuss the war against Japan and the postwar order. The United States had just tested an atomic bomb, but the declaration itself did not mention it."
+    },
+    "course": {
+      "zh": "7月26日，杜鲁门、丘吉尔与蒋介石名义上共同发表公告，要求日本立即无条件投降，否则将面临“迅速而彻底的毁灭”。苏联当时尚未对日宣战，未在公告上签字。",
+      "en": "On 26 July, Truman, Churchill and Chiang Kai-shek issued the declaration demanding Japan's immediate unconditional surrender or facing 'prompt and utter destruction'. The Soviet Union, not yet at war with Japan, did not sign."
+    },
+    "outcome": {
+      "zh": "日本政府最初以“默杀”回应，盟军将其理解为拒绝。公告成为日本最终接受投降条件的基础文件之一。",
+      "en": "Japan's government initially responded with 'mokusatsu', which the Allies read as rejection. The declaration became one of the basis documents for Japan's eventual surrender."
+    },
+    "chain": [
+      "hiroshima",
+      "nagasaki",
+      "japan-announces-surrender"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "JP"
+      ],
+      "year": 1945,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "U.S. National Archives — Potsdam Declaration",
+        "url": "https://www.archives.gov/education/lessons/japanese-surrender"
+      },
+      {
+        "label": "Britannica — Potsdam Declaration",
+        "url": "https://www.britannica.com/event/Potsdam-Declaration"
+      }
+    ]
+  },
+  "hiroshima": {
+    "title": {
+      "zh": "广岛原子弹爆炸",
+      "en": "Atomic Bombing of Hiroshima"
+    },
+    "date": {
+      "iso": "1945-08-06",
+      "zh": "1945年8月6日",
+      "en": "6 August 1945"
+    },
+    "place": {
+      "zh": "日本广岛",
+      "en": "Hiroshima, Japan",
+      "lat": 34.39,
+      "lon": 132.45
+    },
+    "actors": [
+      {
+        "zh": "美国",
+        "en": "United States"
+      },
+      {
+        "zh": "日本",
+        "en": "Japan"
+      }
+    ],
+    "background": {
+      "zh": "美国曼哈顿计划研制出原子弹。为迫使日本投降、避免登陆日本本土的巨大伤亡，杜鲁门政府决定使用原子弹。7月26日的《波茨坦公告》遭日本“默杀”后，作战准备继续推进。",
+      "en": "The Manhattan Project produced the atomic bomb. To force Japan's surrender and avoid the huge casualties of an invasion of the home islands, the Truman administration decided to use it. After Japan's 'mokusatsu' response to the Potsdam Declaration, preparations went ahead."
+    },
+    "course": {
+      "zh": "8月6日上午8时15分，B-29轰炸机“艾诺拉·盖伊”在广岛投下代号“小男孩”的铀弹，在离地约580米处爆炸。城市中心被毁，随后引发大火与辐射伤害。",
+      "en": "At 8:15 a.m. on 6 August, the B-29 Enola Gay dropped the uranium bomb 'Little Boy' over Hiroshima; it detonated about 580 metres above the city. The centre was destroyed, followed by fire and radiation injury."
+    },
+    "outcome": {
+      "zh": "到1945年底，死亡人数估计约7万至14万，具体数字仍有争议。日本未立即投降；三天后长崎再遭核爆，苏联也对日宣战。",
+      "en": "By the end of 1945 the death toll is estimated at roughly 70,000–140,000, with the exact figure debated. Japan did not surrender immediately; Nagasaki was bombed three days later and the Soviet Union declared war."
+    },
+    "chain": [
+      "nagasaki",
+      "japan-announces-surrender",
+      "japan-signs-the-instrument-of-surrender"
+    ],
+    "theatre": "hiroshima",
+    "trigger": {
+      "countries": [
+        "JP"
+      ],
+      "year": 1945,
+      "priority": 110
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Hiroshima Peace Memorial Museum",
+        "url": "https://hpmmuseum.jp/?lang=eng"
+      },
+      {
+        "label": "U.S. National Archives — Hiroshima and Nagasaki",
+        "url": "https://www.archives.gov/news/topics/hiroshima-nagasaki-75"
+      },
+      {
+        "label": "Britannica — Atomic bombings of Hiroshima and Nagasaki",
+        "url": "https://www.britannica.com/event/atomic-bombings-of-Hiroshima-and-Nagasaki"
+      }
+    ]
+  },
+  "nagasaki": {
+    "title": {
+      "zh": "长崎原子弹爆炸",
+      "en": "Atomic Bombing of Nagasaki"
+    },
+    "date": {
+      "iso": "1945-08-09",
+      "zh": "1945年8月9日",
+      "en": "9 August 1945"
+    },
+    "place": {
+      "zh": "日本长崎",
+      "en": "Nagasaki, Japan",
+      "lat": 32.75,
+      "lon": 129.88
+    },
+    "actors": [
+      {
+        "zh": "美国",
+        "en": "United States"
+      },
+      {
+        "zh": "日本",
+        "en": "Japan"
+      }
+    ],
+    "background": {
+      "zh": "广岛核爆后日本仍未投降。8月8日苏联对日宣战并于9日进军中国东北。美国计划第二次核打击，首要目标是小仓，长崎为备选。",
+      "en": "Japan still did not surrender after Hiroshima. On 8 August the Soviet Union declared war and invaded Manchuria on 9 August. The United States planned a second strike, with Kokura as the primary target and Nagasaki as the alternative."
+    },
+    "course": {
+      "zh": "8月9日，B-29“博克斯卡”因小仓上空云层厚重改飞长崎，投下代号“胖子”的钚弹，在城市上空爆炸。长崎地形多山，爆心位于浦上河谷。",
+      "en": "On 9 August the B-29 Bockscar diverted to Nagasaki because of clouds over Kokura and dropped the plutonium bomb 'Fat Man'. The hilly terrain confined the blast to the Urakami valley."
+    },
+    "outcome": {
+      "zh": "到1945年底，死亡人数估计约3.5万至7万。日本最高战争指导会议在核爆与苏联参战的双重压力下转向接受《波茨坦公告》。",
+      "en": "By the end of 1945 the death toll is estimated at roughly 35,000–70,000. Under the combined shock of the bombings and Soviet entry, Japan's supreme war council moved to accept the Potsdam Declaration."
+    },
+    "chain": [
+      "japan-announces-surrender",
+      "japan-signs-the-instrument-of-surrender"
+    ],
+    "theatre": "nagasaki",
+    "trigger": {
+      "countries": [
+        "JP"
+      ],
+      "year": 1945,
+      "priority": 108
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Hiroshima Peace Memorial Museum",
+        "url": "https://hpmmuseum.jp/?lang=eng"
+      },
+      {
+        "label": "U.S. National Archives — Hiroshima and Nagasaki",
+        "url": "https://www.archives.gov/news/topics/hiroshima-nagasaki-75"
+      },
+      {
+        "label": "Britannica — Atomic bombings of Hiroshima and Nagasaki",
+        "url": "https://www.britannica.com/event/atomic-bombings-of-Hiroshima-and-Nagasaki"
+      }
+    ]
+  },
+  "soviet-declaration-of-war-on-japan": {
+    "title": {
+      "zh": "苏联对日宣战",
+      "en": "Soviet Declaration of War on Japan"
+    },
+    "date": {
+      "iso": "1945-08-08",
+      "zh": "1945年8月8日",
+      "en": "8 August 1945"
+    },
+    "place": {
+      "zh": "莫斯科 / 中国东北边境",
+      "en": "Moscow / Manchurian border",
+      "lat": 43.12,
+      "lon": 131.89
+    },
+    "actors": [
+      {
+        "zh": "苏联",
+        "en": "Soviet Union"
+      },
+      {
+        "zh": "日本",
+        "en": "Japan"
+      },
+      {
+        "zh": "中国",
+        "en": "China"
+      }
+    ],
+    "background": {
+      "zh": "苏联在1945年2月雅尔塔会议上承诺在德国投降后两至三个月内对日作战。8月8日，苏联正式对日宣战。",
+      "en": "At Yalta in February 1945 the Soviet Union promised to enter the war against Japan within two to three months of Germany's surrender. On 8 August it formally declared war."
+    },
+    "course": {
+      "zh": "8月9日，苏军与外蒙军队从多个方向进入中国东北、朝鲜北部和库页岛南部，对关东军发起大规模进攻。",
+      "en": "On 9 August Soviet and Mongolian forces attacked the Kwantung Army from several directions across Manchuria, northern Korea and southern Sakhalin."
+    },
+    "outcome": {
+      "zh": "关东军迅速崩溃，苏联在战后占领中国东北部分地区并进入朝鲜北部。苏联参战是日本决定投降的关键因素之一。",
+      "en": "The Kwantung Army collapsed quickly; Soviet forces occupied parts of Manchuria and entered northern Korea. Soviet entry was one of the decisive factors in Japan's decision to surrender."
+    },
+    "chain": [
+      "nagasaki",
+      "japan-announces-surrender"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "JP",
+        "RU"
+      ],
+      "year": 1945,
+      "priority": 104
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Soviet-Japanese War",
+        "url": "https://www.britannica.com/event/Soviet-Japanese-War"
+      },
+      {
+        "label": "U.S. National Archives — Japanese surrender",
+        "url": "https://www.archives.gov/education/lessons/japanese-surrender"
+      }
+    ]
+  },
+  "japan-announces-surrender": {
+    "title": {
+      "zh": "日本宣布无条件投降",
+      "en": "Japan Announces Surrender"
+    },
+    "date": {
+      "iso": "1945-08-15",
+      "zh": "1945年8月15日",
+      "en": "15 August 1945"
+    },
+    "place": {
+      "zh": "日本东京",
+      "en": "Tokyo, Japan",
+      "lat": 35.68,
+      "lon": 139.75
+    },
+    "actors": [
+      {
+        "zh": "日本",
+        "en": "Japan"
+      },
+      {
+        "zh": "盟军",
+        "en": "Allied Powers"
+      }
+    ],
+    "background": {
+      "zh": "广岛、长崎核爆与苏联参战后，日本最高战争指导会议出现分裂。8月14日，天皇在御前会议上决定接受《波茨坦公告》。",
+      "en": "After the atomic bombings and Soviet entry, Japan's supreme war council was divided. On 14 August the Emperor decided at an imperial conference to accept the Potsdam Declaration."
+    },
+    "course": {
+      "zh": "8月15日中午，天皇通过广播发表《终战诏书》，宣布接受《波茨坦公告》。诏书未直接使用“投降”一词，但实际结束了日本的战争。",
+      "en": "At noon on 15 August the Emperor broadcast the Imperial Rescript on the Termination of the War, accepting the Potsdam Declaration. The rescript did not use the word 'surrender' directly, but ended Japan's war."
+    },
+    "outcome": {
+      "zh": "各地日军陆续停止战斗，但正式投降须待9月2日签署投降书。8月15日成为中国、朝鲜半岛和东南亚多地纪念战争结束的日子。",
+      "en": "Japanese forces began to cease fighting, though formal surrender awaited the instrument signed on 2 September. 15 August is commemorated as the end of the war in China, Korea and parts of Southeast Asia."
+    },
+    "chain": [
+      "japan-signs-the-instrument-of-surrender",
+      "end-of-world-war-ii"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "JP"
+      ],
+      "year": 1945,
+      "priority": 106
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "U.S. National Archives — Japanese surrender",
+        "url": "https://www.archives.gov/education/lessons/japanese-surrender"
+      },
+      {
+        "label": "Britannica — Japan's surrender",
+        "url": "https://www.britannica.com/event/World-War-II/Japan-s-surrender"
+      }
+    ]
+  },
+  "japan-signs-the-instrument-of-surrender": {
+    "title": {
+      "zh": "日本签署投降书",
+      "en": "Japan Signs the Instrument of Surrender"
+    },
+    "date": {
+      "iso": "1945-09-02",
+      "zh": "1945年9月2日",
+      "en": "2 September 1945"
+    },
+    "place": {
+      "zh": "东京湾 · 密苏里号战舰",
+      "en": "Tokyo Bay, USS Missouri",
+      "lat": 35.35,
+      "lon": 139.75
+    },
+    "actors": [
+      {
+        "zh": "日本",
+        "en": "Japan"
+      },
+      {
+        "zh": "美国",
+        "en": "United States"
+      },
+      {
+        "zh": "盟军",
+        "en": "Allied Powers"
+      }
+    ],
+    "background": {
+      "zh": "8月15日天皇宣布接受《波茨坦公告》后，盟军与日本就正式投降仪式进行安排。麦克阿瑟被任命为盟军最高统帅。",
+      "en": "After the Emperor's 15 August acceptance of the Potsdam Declaration, the Allies and Japan arranged the formal surrender. MacArthur was appointed Supreme Commander for the Allied Powers."
+    },
+    "course": {
+      "zh": "9月2日上午，日本外相重光葵和参谋总长梅津美治郎在东京湾密苏里号战舰上签署投降书，同盟国代表依次签字。",
+      "en": "On the morning of 2 September, Foreign Minister Shigemitsu and General Umezu signed the instrument of surrender aboard USS Missouri in Tokyo Bay, followed by Allied representatives."
+    },
+    "outcome": {
+      "zh": "投降书签署标志着第二次世界大战正式结束。日本进入盟军占领时期，直至1952年《旧金山和约》生效。",
+      "en": "The signing formally ended World War II. Japan entered Allied occupation until the San Francisco Peace Treaty took effect in 1952."
+    },
+    "chain": [
+      "end-of-world-war-ii",
+      "chinas-victory-in-the-war-of-resistance"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "JP"
+      ],
+      "year": 1945,
+      "priority": 105
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "U.S. National Archives — Japanese surrender",
+        "url": "https://www.archives.gov/education/lessons/japanese-surrender"
+      },
+      {
+        "label": "Naval History and Heritage Command — USS Missouri surrender",
+        "url": "https://www.history.navy.mil/browse-by-topic/wars-conflicts-and-operations/world-war-ii/1945/surrender.html"
+      }
+    ]
+  },
+  "end-of-world-war-ii": {
+    "title": {
+      "zh": "第二次世界大战结束",
+      "en": "End of World War II"
+    },
+    "date": {
+      "iso": "1945-09-02",
+      "zh": "1945年9月2日",
+      "en": "2 September 1945"
+    },
+    "place": {
+      "zh": "东京湾",
+      "en": "Tokyo Bay",
+      "lat": 35.35,
+      "lon": 139.75
+    },
+    "actors": [
+      {
+        "zh": "同盟国",
+        "en": "Allied Powers"
+      },
+      {
+        "zh": "轴心国",
+        "en": "Axis Powers"
+      }
+    ],
+    "background": {
+      "zh": "1939年德国入侵波兰引发欧洲战争，1941年珍珠港事件后战争扩展为全球冲突。1945年5月德国投降，日本仍在太平洋继续作战。",
+      "en": "Germany's invasion of Poland in 1939 began the European war; Pearl Harbor in 1941 widened it into a global conflict. Germany surrendered in May 1945, while Japan fought on in the Pacific."
+    },
+    "course": {
+      "zh": "1945年8月，日本在核爆、苏联参战与盟军海空封锁下决定投降。9月2日签署投降书，各战区陆续举行受降仪式。",
+      "en": "In August 1945, under atomic bombing, Soviet entry and Allied blockade, Japan decided to surrender. The instrument was signed on 2 September, followed by surrender ceremonies across the theatres."
+    },
+    "outcome": {
+      "zh": "战争造成约7000万至8500万人死亡，是历史上最惨烈的冲突。战后联合国成立，殖民体系加速瓦解，美苏两极格局形成。",
+      "en": "The war killed an estimated 70–85 million people, the deadliest conflict in history. The United Nations was founded, colonial empires accelerated their retreat, and the US-Soviet bipolar order took shape."
+    },
+    "chain": [
+      "japan-signs-the-instrument-of-surrender",
+      "united-nations-founded"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "JP"
+      ],
+      "year": 1945,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — World War II",
+        "url": "https://www.britannica.com/event/World-War-II"
+      },
+      {
+        "label": "U.S. National Archives — Japanese surrender",
+        "url": "https://www.archives.gov/education/lessons/japanese-surrender"
+      }
+    ]
+  },
+  "chinas-victory-in-the-war-of-resistance": {
+    "title": {
+      "zh": "中国抗日战争胜利",
+      "en": "China's Victory in the War of Resistance"
+    },
+    "date": {
+      "iso": "1945-09-03",
+      "zh": "1945年9月3日",
+      "en": "3 September 1945"
+    },
+    "place": {
+      "zh": "中国",
+      "en": "China",
+      "lat": 32.06,
+      "lon": 118.8
+    },
+    "actors": [
+      {
+        "zh": "中国",
+        "en": "China"
+      },
+      {
+        "zh": "日本",
+        "en": "Japan"
+      }
+    ],
+    "background": {
+      "zh": "中国抗日战争始于1931年九一八事变，1937年七七事变后进入全民族抗战。中国战场长期牵制日本陆军主力，是二战东方主战场。",
+      "en": "China's war of resistance began with the Mukden Incident in 1931 and became a full national war after the Marco Polo Bridge Incident in 1937. The China theatre tied down the bulk of the Japanese army and was the main eastern theatre of World War II."
+    },
+    "course": {
+      "zh": "1945年8月15日日本宣布投降后，中国战区受降仪式于9月9日在南京举行。9月3日被定为抗日战争胜利纪念日。",
+      "en": "After Japan's 15 August announcement, the China Theater surrender ceremony was held in Nanjing on 9 September. 3 September is marked as the anniversary of victory in the War of Resistance."
+    },
+    "outcome": {
+      "zh": "中国以巨大牺牲赢得抗战胜利，收复东北、台湾等地，成为联合国安理会常任理事国。战争也深刻改变了中国政治格局。",
+      "en": "China won at enormous cost, recovered Manchuria and Taiwan, and became a permanent member of the UN Security Council. The war also transformed China's political order."
+    },
+    "chain": [
+      "china-theater-surrender-ceremony",
+      "end-of-world-war-ii"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "CN"
+      ],
+      "year": 1945,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Second Sino-Japanese War",
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+      },
+      {
+        "label": "United Nations — China and the UN",
+        "url": "https://www.un.org/en/about-us/history-of-the-un"
+      }
+    ]
+  },
+  "china-theater-surrender-ceremony": {
+    "title": {
+      "zh": "中国战区受降",
+      "en": "China Theater Surrender Ceremony"
+    },
+    "date": {
+      "iso": "1945-09-09",
+      "zh": "1945年9月9日",
+      "en": "9 September 1945"
+    },
+    "place": {
+      "zh": "中国南京",
+      "en": "Nanjing, China",
+      "lat": 32.06,
+      "lon": 118.8
+    },
+    "actors": [
+      {
+        "zh": "中国",
+        "en": "China"
+      },
+      {
+        "zh": "日本",
+        "en": "Japan"
+      }
+    ],
+    "background": {
+      "zh": "日本宣布投降后，中国战区分区受降。南京是侵华日军中国派遣军总司令部所在地，受降仪式具有象征意义。",
+      "en": "After Japan's announcement, surrender ceremonies were held by theatre. Nanjing, headquarters of the Japanese China Expeditionary Army, was chosen for the main China Theater ceremony."
+    },
+    "course": {
+      "zh": "9月9日，中国战区最高统帅代表何应钦在南京接受日本中国派遣军总司令冈村宁次投降，日军代表在投降书上签字。",
+      "en": "On 9 September, He Yingqin, representing the Chinese supreme command, accepted the surrender of General Okamura Yasuji's China Expeditionary Army in Nanjing; Japanese representatives signed the instrument."
+    },
+    "outcome": {
+      "zh": "中国战区大规模军事行动结束，日军开始缴械遣返。受降与接收过程复杂，成为战后中国政治与军事格局的重要节点。",
+      "en": "Large-scale operations in the China Theater ended and Japanese forces began disarmament and repatriation. The surrender and takeover process became a key node in postwar Chinese politics and military affairs."
+    },
+    "chain": [
+      "chinas-victory-in-the-war-of-resistance",
+      "end-of-world-war-ii"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "CN"
+      ],
+      "year": 1945,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Second Sino-Japanese War",
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+      },
+      {
+        "label": "U.S. National Archives — Japanese surrender",
+        "url": "https://www.archives.gov/education/lessons/japanese-surrender"
+      }
+    ]
+  },
+  "japan-surrenders": {
+    "title": {
+      "zh": "日本投降 · 二战结束",
+      "en": "Japan Surrenders"
+    },
+    "date": {
+      "iso": "1945-09-02",
+      "zh": "1945年9月2日",
+      "en": "2 September 1945"
+    },
+    "place": {
+      "zh": "东京湾 · 密苏里号战舰",
+      "en": "Tokyo Bay, USS Missouri",
+      "lat": 35.35,
+      "lon": 139.75
+    },
+    "actors": [
+      {
+        "zh": "日本",
+        "en": "Japan"
+      },
+      {
+        "zh": "盟军",
+        "en": "Allied Powers"
+      }
+    ],
+    "background": {
+      "zh": "1945年8月，日本在核爆、苏联参战和盟军封锁下决定接受《波茨坦公告》。",
+      "en": "In August 1945, under atomic bombing, Soviet entry and Allied blockade, Japan decided to accept the Potsdam Declaration."
+    },
+    "course": {
+      "zh": "8月15日天皇广播宣布接受公告；9月2日日本代表在密苏里号战舰上签署投降书。",
+      "en": "The Emperor announced acceptance on 15 August; on 2 September Japanese representatives signed the instrument of surrender aboard USS Missouri."
+    },
+    "outcome": {
+      "zh": "第二次世界大战正式结束，日本进入盟军占领时期，战后国际秩序开始形成。",
+      "en": "World War II formally ended, Japan entered Allied occupation, and the postwar international order took shape."
+    },
+    "chain": [
+      "japan-announces-surrender",
+      "japan-signs-the-instrument-of-surrender",
+      "end-of-world-war-ii"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "JP"
+      ],
+      "year": 1945,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "U.S. National Archives — Japanese surrender",
+        "url": "https://www.archives.gov/education/lessons/japanese-surrender"
+      }
+    ]
+  },
+  "world-war-ii-begins": {
+    "title": {
+      "zh": "第二次世界大战爆发",
+      "en": "World War II Begins"
+    },
+    "date": {
+      "iso": "1939-09-01",
+      "zh": "1939年9月1日",
+      "en": "1 September 1939"
+    },
+    "place": {
+      "zh": "波兰",
+      "en": "Poland",
+      "lat": 52.23,
+      "lon": 21.01
+    },
+    "actors": [
+      {
+        "zh": "德国",
+        "en": "Germany"
+      },
+      {
+        "zh": "波兰",
+        "en": "Poland"
+      },
+      {
+        "zh": "苏联",
+        "en": "Soviet Union"
+      },
+      {
+        "zh": "英国",
+        "en": "United Kingdom"
+      },
+      {
+        "zh": "法国",
+        "en": "France"
+      }
+    ],
+    "background": {
+      "zh": "德国在1939年8月与苏联签订互不侵犯条约并秘密划分东欧势力范围。希特勒在吞并捷克后把目标转向波兰，以但泽问题制造开战借口。",
+      "en": "In August 1939 Germany signed a non-aggression pact with the Soviet Union and secretly divided Eastern Europe. After taking over Czechoslovakia, Hitler turned on Poland, using Danzig as a pretext."
+    },
+    "course": {
+      "zh": "9月1日，德军从西、南、北三面入侵波兰，空军轰炸城市与交通线。9月3日英法对德宣战；9月17日苏联从东面进入波兰。",
+      "en": "On 1 September German forces invaded Poland from west, south and north, with air attacks on cities and transport. Britain and France declared war on 3 September; the Soviet Union entered eastern Poland on 17 September."
+    },
+    "outcome": {
+      "zh": "波兰在数周内被德苏分割，英法虽宣战但未发动大规模地面进攻，出现“假战”。战争随后扩展到北欧、西欧、巴尔干和北非，1941年演变为全球冲突。",
+      "en": "Poland was partitioned by Germany and the Soviet Union within weeks. Britain and France declared war but did not mount a major land offensive, beginning the “Phoney War”. The war spread to Scandinavia, Western Europe, the Balkans and North Africa, becoming global in 1941."
+    },
+    "chain": [
+      "pearl-harbor",
+      "battle-of-stalingrad",
+      "d-day"
+    ],
+    "theatre": "world-war-ii-begins",
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — World War II",
+        "url": "https://www.britannica.com/event/World-War-II"
+      },
+      {
+        "label": "U.S. Holocaust Memorial Museum — Invasion of Poland",
+        "url": "https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939"
+      }
+    ]
+  },
+  "pearl-harbor": {
+    "title": {
+      "zh": "珍珠港事件",
+      "en": "Attack on Pearl Harbor"
+    },
+    "date": {
+      "iso": "1941-12-07",
+      "zh": "1941年12月7日",
+      "en": "7 December 1941"
+    },
+    "place": {
+      "zh": "美国夏威夷珍珠港",
+      "en": "Pearl Harbor, Hawaii, USA",
+      "lat": 21.35,
+      "lon": -157.95
+    },
+    "actors": [
+      {
+        "zh": "日本",
+        "en": "Japan"
+      },
+      {
+        "zh": "美国",
+        "en": "United States"
+      }
+    ],
+    "background": {
+      "zh": "日本侵华战争陷入僵局后决定南进夺取东南亚资源，并把美国太平洋舰队视为主要障碍。日美谈判未果，日本联合舰队秘密集结。",
+      "en": "After its war in China stalled, Japan decided to advance south for Southeast Asian resources and saw the U.S. Pacific Fleet as the main obstacle. Diplomacy failed and the Combined Fleet secretly assembled."
+    },
+    "course": {
+      "zh": "12月7日清晨，日本海军航空兵分两波袭击珍珠港，击沉或重创多艘美国战列舰并摧毁大量飞机；美国航母未在港内。次日美国对日宣战，德国和意大利对美宣战。",
+      "en": "At dawn on 7 December Japanese carrier aircraft attacked in two waves, sinking or damaging several U.S. battleships and destroying many aircraft; the American carriers were at sea. The United States declared war the next day; Germany and Italy declared war on the U.S."
+    },
+    "outcome": {
+      "zh": "美国正式加入二战，太平洋战争爆发。珍珠港使美国社会迅速转向参战，也奠定了以航母为核心的太平洋海战模式。",
+      "en": "The United States entered World War II and the Pacific War began. Pearl Harbor united American public opinion for war and set the stage for carrier-centred Pacific warfare."
+    },
+    "chain": [
+      "world-war-ii-begins",
+      "battle-of-midway",
+      "hiroshima"
+    ],
+    "theatre": "pearl-harbor",
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "U.S. National Archives — Pearl Harbor",
+        "url": "https://www.archives.gov/publications/prologue/2016/winter/pearl-harbor"
+      },
+      {
+        "label": "Britannica — Pearl Harbor attack",
+        "url": "https://www.britannica.com/event/Pearl-Harbor-attack"
+      }
+    ]
+  },
+  "battle-of-stalingrad": {
+    "title": {
+      "zh": "斯大林格勒战役",
+      "en": "Battle of Stalingrad"
+    },
+    "date": {
+      "iso": "1942-08-23",
+      "zh": "1942年8月23日—1943年2月2日",
+      "en": "23 August 1942 – 2 February 1943"
+    },
+    "place": {
+      "zh": "苏联斯大林格勒",
+      "en": "Stalingrad, USSR",
+      "lat": 48.71,
+      "lon": 44.51
+    },
+    "actors": [
+      {
+        "zh": "苏联",
+        "en": "Soviet Union"
+      },
+      {
+        "zh": "德国",
+        "en": "Germany"
+      },
+      {
+        "zh": "轴心国",
+        "en": "Axis"
+      }
+    ],
+    "background": {
+      "zh": "1942年德军夏季攻势指向高加索油田与伏尔加河交通线，斯大林格勒成为关键目标。希特勒要求同时夺取城市与油田，德军兵力被拉长。",
+      "en": "The German summer offensive of 1942 aimed at the Caucasus oilfields and the Volga artery, making Stalingrad a key target. Hitler demanded both the city and the oilfields, stretching German forces."
+    },
+    "course": {
+      "zh": "德军与轴心盟军攻入城市，双方在废墟中逐屋争夺。11月苏军发动“天王星”反攻，合围德国第6集团军；1943年2月保卢斯投降。",
+      "en": "German and Axis forces fought street by street in the ruined city. In November Soviet forces launched Operation Uranus, encircling the German Sixth Army; Paulus surrendered in February 1943."
+    },
+    "outcome": {
+      "zh": "德国第6集团军覆灭，轴心国在东线转入战略防御。斯大林格勒与中途岛、阿拉曼一起被视为二战转折点。",
+      "en": "The German Sixth Army was destroyed and the Axis went onto the strategic defensive in the East. Stalingrad, with Midway and El Alamein, is seen as a turning point of World War II."
+    },
+    "chain": [
+      "world-war-ii-begins",
+      "d-day"
+    ],
+    "theatre": "battle-of-stalingrad",
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Battle of Stalingrad",
+        "url": "https://www.britannica.com/event/Battle-of-Stalingrad"
+      },
+      {
+        "label": "National WWII Museum — Stalingrad",
+        "url": "https://www.nationalww2museum.org/war/articles/battle-stalingrad"
+      }
+    ]
+  },
+  "d-day": {
+    "title": {
+      "zh": "诺曼底登陆",
+      "en": "D-Day"
+    },
+    "date": {
+      "iso": "1944-06-06",
+      "zh": "1944年6月6日",
+      "en": "6 June 1944"
+    },
+    "place": {
+      "zh": "法国诺曼底",
+      "en": "Normandy, France",
+      "lat": 49.34,
+      "lon": -0.58
+    },
+    "actors": [
+      {
+        "zh": "盟军",
+        "en": "Allies"
+      },
+      {
+        "zh": "德国",
+        "en": "Germany"
+      }
+    ],
+    "background": {
+      "zh": "1944年盟军准备在西欧开辟第二战场。艾森豪威尔指挥“霸王行动”，选择诺曼底海滩登陆，以分散德军防御并建立滩头阵地。",
+      "en": "In 1944 the Allies prepared a second front in Western Europe. Eisenhower commanded Operation Overlord, choosing the Normandy beaches to spread German defences and establish a bridgehead."
+    },
+    "course": {
+      "zh": "6月6日，盟军在五个海滩登陆，空降部队在侧翼着陆。奥马哈海滩伤亡惨重，但盟军逐步建立滩头阵地，随后突破诺曼底并解放巴黎。",
+      "en": "On 6 June Allied forces landed on five beaches with airborne troops on the flanks. Omaha Beach was costly, but the Allies established a bridgehead, broke out of Normandy and liberated Paris."
+    },
+    "outcome": {
+      "zh": "诺曼底登陆开辟了欧洲第二战场，加速纳粹德国的崩溃。它也是历史上规模最大的两栖登陆行动之一。",
+      "en": "D-Day opened the Western Front, accelerating the collapse of Nazi Germany. It remains one of the largest amphibious operations in history."
+    },
+    "chain": [
+      "world-war-ii-begins",
+      "battle-of-stalingrad"
+    ],
+    "theatre": "d-day",
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "U.S. Army — D-Day",
+        "url": "https://www.army.mil/d-day"
+      },
+      {
+        "label": "Britannica — Normandy Invasion",
+        "url": "https://www.britannica.com/event/Normandy-Invasion"
+      }
+    ]
+  },
+  "world-war-i": {
+    "title": {
+      "zh": "第一次世界大战",
+      "en": "World War I"
+    },
+    "date": {
+      "iso": "1914-07-28",
+      "zh": "1914年7月28日—1918年11月11日",
+      "en": "28 July 1914 – 11 November 1918"
+    },
+    "place": {
+      "zh": "欧洲",
+      "en": "Europe",
+      "lat": 49.0,
+      "lon": 15.0
+    },
+    "actors": [
+      {
+        "zh": "同盟国",
+        "en": "Central Powers"
+      },
+      {
+        "zh": "协约国",
+        "en": "Allies"
+      }
+    ],
+    "background": {
+      "zh": "19世纪末的联盟体系、军备竞赛、殖民争夺与巴尔干民族主义使欧洲高度紧张。1914年6月斐迪南大公在萨拉热窝遇刺，成为导火索。",
+      "en": "Alliance blocs, arms races, colonial rivalry and Balkan nationalism left Europe tense. The assassination of Archduke Franz Ferdinand in Sarajevo in June 1914 provided the trigger."
+    },
+    "course": {
+      "zh": "7月危机中各国动员，德国实施施里芬计划入侵比利时与法国；西线陷入堑壕战，东线、意大利、巴尔干和中东相继开辟战场。1917年美国参战，1918年同盟国崩溃。",
+      "en": "The July Crisis led to mobilisation; Germany invaded Belgium and France under the Schlieffen Plan. The Western Front became trench warfare, with fronts in the east, Italy, the Balkans and the Middle East. The U.S. entered in 1917; the Central Powers collapsed in 1918."
+    },
+    "outcome": {
+      "zh": "约900万人死亡，四个帝国解体，凡尔赛体系重塑欧洲与中东。战争也推动了俄国革命、民族自决与后续二战的形成。",
+      "en": "About nine million soldiers died, four empires collapsed, and the Versailles order reshaped Europe and the Middle East. The war also enabled the Russian Revolution, national self-determination and the road to World War II."
+    },
+    "chain": [
+      "assassination-at-sarajevo",
+      "treaty-of-versailles"
+    ],
+    "theatre": "world-war-i",
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — World War I",
+        "url": "https://www.britannica.com/event/World-War-I"
+      },
+      {
+        "label": "Imperial War Museums — First World War",
+        "url": "https://www.iwm.org.uk/history/first-world-war"
+      }
+    ]
+  },
+  "french-revolution": {
+    "title": {
+      "zh": "法国大革命",
+      "en": "French Revolution"
+    },
+    "date": {
+      "iso": "1789-07-14",
+      "zh": "1789年7月14日",
+      "en": "14 July 1789"
+    },
+    "place": {
+      "zh": "法国巴黎",
+      "en": "Paris, France",
+      "lat": 48.86,
+      "lon": 2.35
+    },
+    "actors": [
+      {
+        "zh": "法国第三等级",
+        "en": "French Third Estate"
+      },
+      {
+        "zh": "法国王室",
+        "en": "French monarchy"
+      }
+    ],
+    "background": {
+      "zh": "18世纪法国财政危机、等级制度与启蒙思想传播，使旧制度合法性动摇。路易十六被迫召开三级会议，第三等级自行组成国民议会。",
+      "en": "In eighteenth-century France fiscal crisis, the estate system and Enlightenment ideas undermined the ancien régime. Louis XVI convened the Estates-General; the Third Estate broke away to form a National Assembly."
+    },
+    "course": {
+      "zh": "1789年7月14日巴黎民众攻占巴士底狱，革命爆发。随后废除封建特权、发表《人权宣言》，建立君主立宪，1792年成立共和国，1793年处决路易十六，进入恐怖统治。",
+      "en": "On 14 July 1789 Parisians stormed the Bastille. The revolution abolished feudal privilege, issued the Declaration of the Rights of Man, established a constitutional monarchy, then a republic in 1792; Louis XVI was executed in 1793 and the Terror followed."
+    },
+    "outcome": {
+      "zh": "革命传播了自由、平等、主权在民的理念，重塑法国与欧洲政治；它也带来战争、恐怖与拿破仑的崛起。",
+      "en": "The revolution spread ideals of liberty, equality and popular sovereignty, transforming France and Europe; it also brought war, terror and Napoleon’s rise."
+    },
+    "chain": [
+      "haitian-revolution",
+      "battle-of-waterloo"
+    ],
+    "theatre": "french-revolution",
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — French Revolution",
+        "url": "https://www.britannica.com/event/French-Revolution"
+      },
+      {
+        "label": "Château de Versailles — French Revolution",
+        "url": "https://en.chateauversailles.fr/discover/history/great-characters/french-revolution"
+      }
+    ]
+  },
+  "qin-unifies-china": {
+    "title": {
+      "zh": "秦统一六国",
+      "en": "Qin Unifies China"
+    },
+    "date": {
+      "iso": "-221-01-01",
+      "zh": "公元前221年",
+      "en": "221 BCE"
+    },
+    "place": {
+      "zh": "中国",
+      "en": "China",
+      "lat": 34.4,
+      "lon": 108.9
+    },
+    "actors": [
+      {
+        "zh": "秦",
+        "en": "Qin"
+      },
+      {
+        "zh": "六国",
+        "en": "Six States"
+      }
+    ],
+    "background": {
+      "zh": "战国后期，秦国经商鞅变法形成中央集权与军功爵制，国力超过东方六国。秦王政采取远交近攻，逐步削弱对手。",
+      "en": "In the late Warring States period, Qin’s Shang Yang reforms created a centralised state and merit military ranks, giving it an edge over the six eastern states. King Zheng used divide-and-conquer diplomacy."
+    },
+    "course": {
+      "zh": "公元前230年至前221年，秦先后灭韩、赵、魏、楚、燕、齐，完成统一。秦王政称“始皇帝”，推行郡县制、统一文字、度量衡与车轨。",
+      "en": "Between 230 and 221 BCE Qin conquered Han, Zhao, Wei, Chu, Yan and Qi. King Zheng took the title “First Emperor”, imposed commanderies and counties, and standardised script, weights, measures and axle widths."
+    },
+    "outcome": {
+      "zh": "秦建立中国历史上第一个中央集权帝国，奠定后世两千年的帝制与郡县框架。秦朝本身仅延续十余年，但制度影响深远。",
+      "en": "Qin created the first centralised empire in Chinese history, setting the framework of imperial rule and commandery administration for two millennia. The dynasty itself lasted barely fifteen years, but its institutions endured."
+    },
+    "chain": [
+      "the-silk-road"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Qin dynasty",
+        "url": "https://www.britannica.com/topic/Qin-dynasty"
+      },
+      {
+        "label": "Metropolitan Museum — Qin dynasty",
+        "url": "https://www.metmuseum.org/toah/hd/qind/hd_qind.htm"
+      }
+    ]
+  },
+  "xinhai-revolution": {
+    "title": {
+      "zh": "辛亥革命",
+      "en": "Xinhai Revolution"
+    },
+    "date": {
+      "iso": "1911-10-10",
+      "zh": "1911年10月10日",
+      "en": "10 October 1911"
+    },
+    "place": {
+      "zh": "中国武昌",
+      "en": "Wuchang, China",
+      "lat": 30.55,
+      "lon": 114.3
+    },
+    "actors": [
+      {
+        "zh": "革命党",
+        "en": "Revolutionaries"
+      },
+      {
+        "zh": "清廷",
+        "en": "Qing court"
+      }
+    ],
+    "background": {
+      "zh": "清末新政与立宪未能挽回危机，铁路国有政策激化地方不满。同盟会等革命组织在各省新军中发展力量。",
+      "en": "Late Qing reforms failed to resolve the crisis, and railway nationalisation inflamed local opposition. Revolutionary groups such as the Tongmenghui built support in provincial armies."
+    },
+    "course": {
+      "zh": "1911年10月10日武昌起义爆发，各省纷纷响应宣布独立。1912年1月1日中华民国成立，孙中山任临时大总统；2月清帝退位，袁世凯接任。",
+      "en": "The Wuchang Uprising broke out on 10 October 1911 and provinces seceded in response. The Republic of China was founded on 1 January 1912 with Sun Yat-sen as provisional president; the Qing emperor abdicated in February and Yuan Shikai took power."
+    },
+    "outcome": {
+      "zh": "两千多年的帝制结束，共和观念传播；但中央权威衰弱，军阀割据与政治动荡随之而来。",
+      "en": "Two millennia of imperial rule ended and republican ideas spread; central authority weakened, leading to warlordism and political fragmentation."
+    },
+    "chain": [
+      "peoples-republic-of-china"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — 1911 Revolution",
+        "url": "https://www.britannica.com/event/Chinese-Revolution-1911-1912"
+      },
+      {
+        "label": "National Palace Museum — Xinhai Revolution",
+        "url": "https://theme.npm.edu.tw/selection/Article.aspx?sNo=03009100&lang=2"
+      }
+    ]
+  },
+  "partition-of-india": {
+    "title": {
+      "zh": "印巴分治与独立",
+      "en": "Partition of India"
+    },
+    "date": {
+      "iso": "1947-08-15",
+      "zh": "1947年8月15日",
+      "en": "15 August 1947"
+    },
+    "place": {
+      "zh": "印度次大陆",
+      "en": "Indian subcontinent",
+      "lat": 28.61,
+      "lon": 77.21
+    },
+    "actors": [
+      {
+        "zh": "印度",
+        "en": "India"
+      },
+      {
+        "zh": "巴基斯坦",
+        "en": "Pakistan"
+      },
+      {
+        "zh": "英国",
+        "en": "United Kingdom"
+      }
+    ],
+    "background": {
+      "zh": "二战后英国无力维持殖民统治，印度独立运动高涨。国大党与穆斯林联盟在权力分配上分歧严重，教派冲突加剧。",
+      "en": "After World War II Britain could no longer sustain colonial rule, and the independence movement surged. The Congress and Muslim League disagreed over power-sharing as communal violence grew."
+    },
+    "course": {
+      "zh": "1947年8月，英属印度按宗教多数分为印度与巴基斯坦两个自治领。边界委员会划定旁遮普与孟加拉的分界，引发大规模人口迁移与暴力。",
+      "en": "In August 1947 British India was partitioned into India and Pakistan as dominions along religious majorities. A boundary commission divided Punjab and Bengal, triggering mass migration and violence."
+    },
+    "outcome": {
+      "zh": "分治造成数十万人死亡、千万人流离失所；印巴两国随后多次战争，克什米尔争端延续至今。",
+      "en": "Partition killed hundreds of thousands and displaced tens of millions; India and Pakistan fought repeated wars, and the Kashmir dispute continues."
+    },
+    "chain": [
+      "year-of-africa"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Partition of India",
+        "url": "https://www.britannica.com/event/partition-of-india"
+      },
+      {
+        "label": "UK National Archives — Partition of British India",
+        "url": "https://www.nationalarchives.gov.uk/education/resources/partition-of-british-india/"
+      }
+    ]
+  },
+  "year-of-africa": {
+    "title": {
+      "zh": "非洲独立年",
+      "en": "Year of Africa"
+    },
+    "date": {
+      "iso": "1960-01-01",
+      "zh": "1960年",
+      "en": "1960"
+    },
+    "place": {
+      "zh": "非洲",
+      "en": "Africa",
+      "lat": 5.0,
+      "lon": 20.0
+    },
+    "actors": [
+      {
+        "zh": "非洲各国",
+        "en": "African states"
+      },
+      {
+        "zh": "法国",
+        "en": "France"
+      },
+      {
+        "zh": "英国",
+        "en": "United Kingdom"
+      },
+      {
+        "zh": "比利时",
+        "en": "Belgium"
+      }
+    ],
+    "background": {
+      "zh": "二战后殖民体系瓦解，加纳1957年独立鼓舞非洲民族主义。法国、英国、比利时等殖民国家在冷战压力下逐步交出主权。",
+      "en": "After World War II the colonial order unravelled; Ghana’s independence in 1957 inspired African nationalism. France, Britain and Belgium gradually yielded sovereignty under Cold War pressure."
+    },
+    "course": {
+      "zh": "1960年，喀麦隆、塞内加尔、马达加斯加、刚果（金）、索马里、尼日利亚等17个国家独立，联合国大会通过《给予殖民地国家和人民独立宣言》。",
+      "en": "In 1960 seventeen countries, including Cameroon, Senegal, Madagascar, the Congo, Somalia and Nigeria, became independent, and the UN General Assembly adopted the Declaration on the Granting of Independence to Colonial Countries and Peoples."
+    },
+    "outcome": {
+      "zh": "非洲政治地图发生根本变化，但新国家面临人为边界、经济依赖、族群政治与冷战干预等长期问题。",
+      "en": "Africa’s political map was transformed, but the new states faced artificial borders, economic dependence, ethnic politics and Cold War intervention."
+    },
+    "chain": [
+      "partition-of-india"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "United Nations — Declaration on Independence",
+        "url": "https://www.un.org/en/about-us/history-of-the-un"
+      },
+      {
+        "label": "Britannica — Year of Africa",
+        "url": "https://www.britannica.com/event/Year-of-Africa"
+      }
+    ]
+  },
+  "collapse-of-the-ussr": {
+    "title": {
+      "zh": "苏联解体",
+      "en": "Collapse of the USSR"
+    },
+    "date": {
+      "iso": "1991-12-26",
+      "zh": "1991年12月26日",
+      "en": "26 December 1991"
+    },
+    "place": {
+      "zh": "苏联莫斯科",
+      "en": "Moscow, USSR",
+      "lat": 55.75,
+      "lon": 37.62
+    },
+    "actors": [
+      {
+        "zh": "苏联",
+        "en": "Soviet Union"
+      },
+      {
+        "zh": "俄罗斯",
+        "en": "Russia"
+      },
+      {
+        "zh": "各加盟共和国",
+        "en": "Soviet republics"
+      }
+    ],
+    "background": {
+      "zh": "戈尔巴乔夫的改革与“新思维”放松了政治控制，经济困难与民族运动加剧。1991年八一九政变失败后，联盟权威迅速瓦解。",
+      "en": "Gorbachev’s reforms and “new thinking” loosened political control while economic hardship and nationalist movements grew. After the failed August 1991 coup, the union’s authority collapsed."
+    },
+    "course": {
+      "zh": "1991年12月，俄罗斯、乌克兰、白俄罗斯领导人宣布成立独联体；12月26日苏联最高苏维埃通过决议，苏联停止存在。",
+      "en": "In December 1991 the leaders of Russia, Ukraine and Belarus announced the Commonwealth of Independent States; on 26 December the Soviet parliament declared the USSR dissolved."
+    },
+    "outcome": {
+      "zh": "冷战两极格局终结，15个加盟共和国独立；俄罗斯继承苏联核武器与联合国席位，东欧与全球秩序重新调整。",
+      "en": "The bipolar Cold War order ended and fifteen republics became independent; Russia inherited the Soviet nuclear arsenal and UN seat, reshaping Eastern Europe and the global order."
+    },
+    "chain": [
+      "fall-of-the-berlin-wall"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — collapse of the Soviet Union",
+        "url": "https://www.britannica.com/event/the-collapse-of-the-Soviet-Union"
+      },
+      {
+        "label": "U.S. State Department — Soviet Union dissolution",
+        "url": "https://history.state.gov/milestones/1989-1992/breakup-soviet-union"
+      }
+    ]
+  },
+  "september-11-attacks": {
+    "title": {
+      "zh": "“九一一”事件",
+      "en": "September 11 Attacks"
+    },
+    "date": {
+      "iso": "2001-09-11",
+      "zh": "2001年9月11日",
+      "en": "11 September 2001"
+    },
+    "place": {
+      "zh": "美国纽约、华盛顿",
+      "en": "New York and Washington, USA",
+      "lat": 40.71,
+      "lon": -74.01
+    },
+    "actors": [
+      {
+        "zh": "基地组织",
+        "en": "al-Qaeda"
+      },
+      {
+        "zh": "美国",
+        "en": "United States"
+      }
+    ],
+    "background": {
+      "zh": "冷战结束后，基地组织等跨国圣战网络对美国发动多次袭击。2001年9月11日，19名劫机者劫持四架民航客机。",
+      "en": "After the Cold War, transnational jihadist networks such as al-Qaeda attacked U.S. targets repeatedly. On 11 September 2001, nineteen hijackers seized four civilian airliners."
+    },
+    "course": {
+      "zh": "两架飞机撞击纽约世贸中心双子塔，一架撞击五角大楼，第四架在宾夕法尼亚坠毁。双子塔倒塌，约3000人死亡。",
+      "en": "Two aircraft struck the World Trade Center towers, one hit the Pentagon and a fourth crashed in Pennsylvania. The towers collapsed, killing nearly 3,000 people."
+    },
+    "outcome": {
+      "zh": "美国发动“反恐战争”，入侵阿富汗，并通过《爱国者法案》；全球安全政策、航空安检与中东局势深刻改变。",
+      "en": "The United States launched the “War on Terror”, invaded Afghanistan and passed the Patriot Act; global security policy, aviation screening and Middle East politics were transformed."
+    },
+    "chain": [
+      "iraq-war"
+    ],
+    "theatre": "september-11-attacks",
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "9/11 Memorial & Museum",
+        "url": "https://www.911memorial.org/"
+      },
+      {
+        "label": "Britannica — September 11 attacks",
+        "url": "https://www.britannica.com/event/September-11-attacks"
+      }
+    ]
+  },
+  "covid-19-pandemic": {
+    "title": {
+      "zh": "新冠疫情全球大流行",
+      "en": "COVID-19 Pandemic"
+    },
+    "date": {
+      "iso": "2020-01-30",
+      "zh": "2020年起",
+      "en": "From 2020"
+    },
+    "place": {
+      "zh": "全球",
+      "en": "Global",
+      "lat": 31.0,
+      "lon": 121.0
+    },
+    "actors": [
+      {
+        "zh": "世界卫生组织",
+        "en": "World Health Organization"
+      },
+      {
+        "zh": "各国政府",
+        "en": "Governments"
+      }
+    ],
+    "background": {
+      "zh": "2019年底中国武汉出现新型冠状病毒肺炎病例，病毒随后跨越国界传播。2020年1月30日，世卫组织宣布“国际关注的突发公共卫生事件”，3月宣布全球大流行。",
+      "en": "Cases of a novel coronavirus pneumonia appeared in Wuhan, China, in late 2019 and spread across borders. The WHO declared a public health emergency of international concern on 30 January 2020 and a pandemic in March."
+    },
+    "course": {
+      "zh": "各国采取封锁、旅行限制、社交距离与疫苗接种等措施。病毒持续变异，医疗系统承压，全球经济与供应链受到严重冲击。",
+      "en": "Countries imposed lockdowns, travel restrictions, social distancing and vaccination campaigns. The virus kept mutating, health systems were strained, and the global economy and supply chains were hit hard."
+    },
+    "outcome": {
+      "zh": "疫情造成数百万人死亡，加速远程办公、数字经济与公共卫生体系建设，也加剧了国家间的不平等与政治争论。",
+      "en": "The pandemic killed millions, accelerated remote work, the digital economy and public-health investment, and deepened inequalities and political disputes between states."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "WHO — Coronavirus disease (COVID-19) pandemic",
+        "url": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+      },
+      {
+        "label": "Our World in Data — COVID-19",
+        "url": "https://ourworldindata.org/coronavirus"
+      }
+    ]
+  },
+  "russias-full-scale-invasion-of-ukraine": {
+    "title": {
+      "zh": "俄乌战争全面爆发",
+      "en": "Russia’s Full-Scale Invasion of Ukraine"
+    },
+    "date": {
+      "iso": "2022-02-24",
+      "zh": "2022年2月24日",
+      "en": "24 February 2022"
+    },
+    "place": {
+      "zh": "乌克兰",
+      "en": "Ukraine",
+      "lat": 50.45,
+      "lon": 30.52
+    },
+    "actors": [
+      {
+        "zh": "俄罗斯",
+        "en": "Russia"
+      },
+      {
+        "zh": "乌克兰",
+        "en": "Ukraine"
+      }
+    ],
+    "background": {
+      "zh": "2014年克里米亚危机与顿巴斯冲突后，俄乌关系持续紧张。2022年2月，俄罗斯承认顿涅茨克与卢甘斯克“独立”，随后发动全面入侵。",
+      "en": "After the 2014 Crimea crisis and the Donbas conflict, Russia-Ukraine tensions persisted. In February 2022 Russia recognised the “independence” of Donetsk and Luhansk and launched a full-scale invasion."
+    },
+    "course": {
+      "zh": "俄军从北、东、南多方向进入乌克兰，试图夺取基辅；乌军抵抗，战线转向东部与南部。西方国家实施大规模制裁并向乌克兰提供武器。",
+      "en": "Russian forces entered Ukraine from north, east and south, attempting to take Kyiv; Ukrainian resistance shifted the war to the east and south. Western states imposed sweeping sanctions and supplied weapons."
+    },
+    "outcome": {
+      "zh": "战争造成大规模伤亡与难民潮，重塑欧洲安全秩序，加速北约扩张与能源格局调整。战事至今未止。",
+      "en": "The war has caused mass casualties and displacement, reshaped European security, accelerated NATO enlargement and changed energy markets. Fighting continues."
+    },
+    "chain": [],
+    "theatre": "russias-full-scale-invasion-of-ukraine",
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "United Nations — Ukraine",
+        "url": "https://www.un.org/en/ukraine"
+      },
+      {
+        "label": "Britannica — Russia-Ukraine War",
+        "url": "https://www.britannica.com/event/Russia-Ukraine-War"
+      }
+    ]
+  },
+  "chernobyl": {
+    "title": {
+      "zh": "切尔诺贝利核事故",
+      "en": "Chernobyl Disaster"
+    },
+    "date": {
+      "iso": "1986-04-26",
+      "zh": "1986年4月26日",
+      "en": "26 April 1986"
+    },
+    "place": {
+      "zh": "苏联乌克兰切尔诺贝利",
+      "en": "Chernobyl, Ukrainian SSR",
+      "lat": 51.39,
+      "lon": 30.1
+    },
+    "actors": [
+      {
+        "zh": "苏联",
+        "en": "Soviet Union"
+      }
+    ],
+    "background": {
+      "zh": "切尔诺贝利核电站4号机组在进行安全测试时，操作与设计缺陷叠加。反应堆为RBMK型，存在正空泡系数等固有风险。",
+      "en": "A safety test at Chernobyl Unit 4 combined operator error with design flaws. The RBMK reactor had inherent risks, including a positive void coefficient."
+    },
+    "course": {
+      "zh": "4月26日凌晨，功率骤升导致蒸汽爆炸与石墨火灾，大量放射性物质释放。苏联初期信息不透明，随后疏散周边居民并建造石棺。",
+      "en": "In the early hours of 26 April a power surge caused a steam explosion and graphite fire, releasing large amounts of radioactivity. Initial Soviet information was opaque; nearby residents were evacuated and a sarcophagus built."
+    },
+    "outcome": {
+      "zh": "事故造成数十人急性死亡，长期健康与环境影响持续；它加速了苏联核能安全改革，也成为全球核安全与信息公开的转折点。",
+      "en": "Dozens died acutely and long-term health and environmental effects persist. The accident accelerated Soviet nuclear-safety reform and became a turning point for global nuclear safety and transparency."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "IAEA — Chernobyl",
+        "url": "https://www.iaea.org/topics/chernobyl"
+      },
+      {
+        "label": "Britannica — Chernobyl disaster",
+        "url": "https://www.britannica.com/event/Chernobyl-disaster"
+      }
+    ]
+  },
+  "apollo-11": {
+    "title": {
+      "zh": "阿波罗十一号登月",
+      "en": "Apollo 11"
+    },
+    "date": {
+      "iso": "1969-07-20",
+      "zh": "1969年7月20日",
+      "en": "20 July 1969"
+    },
+    "place": {
+      "zh": "月球静海",
+      "en": "Sea of Tranquility, Moon",
+      "lat": 0.67,
+      "lon": 23.47
+    },
+    "actors": [
+      {
+        "zh": "美国",
+        "en": "United States"
+      },
+      {
+        "zh": "苏联",
+        "en": "Soviet Union"
+      }
+    ],
+    "background": {
+      "zh": "冷战太空竞赛中，苏联率先发射卫星与载人飞船。肯尼迪1961年提出在十年内将美国人送上月球，阿波罗计划投入巨大资源。",
+      "en": "In the Cold War space race the Soviet Union led with satellites and human spaceflight. Kennedy’s 1961 goal of landing an American on the Moon within a decade mobilised the Apollo programme."
+    },
+    "course": {
+      "zh": "1969年7月20日，阿姆斯特朗与奥尔德林乘“鹰”号登月舱降落静海，阿姆斯特朗成为第一个踏上月球的人；柯林斯留在指令舱。",
+      "en": "On 20 July 1969 Armstrong and Aldrin landed the Eagle in the Sea of Tranquility; Armstrong became the first person on the Moon while Collins remained in orbit."
+    },
+    "outcome": {
+      "zh": "阿波罗11号实现了人类首次载人登月，展示了航天与系统工程能力，也成为冷战科技竞争的象征。",
+      "en": "Apollo 11 achieved the first crewed Moon landing, demonstrating spaceflight and systems-engineering capability and becoming a symbol of Cold War technological competition."
+    },
+    "chain": [
+      "sputnik-1"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 100
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "NASA — Apollo 11",
+        "url": "https://www.nasa.gov/mission/apollo-11/"
+      },
+      {
+        "label": "Britannica — Apollo 11",
+        "url": "https://www.britannica.com/topic/Apollo-11"
+      }
+    ]
+  },
+  "the-black-death": {
+    "title": {
+      "zh": "黑死病",
+      "en": "The Black Death"
+    },
+    "date": {
+      "iso": "1347-01-01",
+      "zh": "1347—1351年",
+      "en": "1347–1351"
+    },
+    "place": {
+      "zh": "欧亚大陆",
+      "en": "Eurasia",
+      "lat": 45.0,
+      "lon": 12.0
+    },
+    "actors": [
+      {
+        "zh": "欧洲各国",
+        "en": "European states"
+      },
+      {
+        "zh": "蒙古各汗国",
+        "en": "Mongol khanates"
+      }
+    ],
+    "background": {
+      "zh": "14世纪欧亚贸易与战争网络把鼠疫杆菌带入地中海与欧洲。城市卫生条件差、医疗知识有限，使疫情迅速扩散。",
+      "en": "Fourteenth-century Eurasian trade and warfare carried Yersinia pestis into the Mediterranean and Europe. Poor urban sanitation and limited medical knowledge allowed rapid spread."
+    },
+    "course": {
+      "zh": "疫情于1347年经黑海港口进入西西里，随后沿商路传遍欧洲、北非和中东。部分地区人口在数年内减少三分之一至一半。",
+      "en": "The plague entered Sicily through Black Sea ports in 1347 and spread along trade routes across Europe, North Africa and the Middle East. Some regions lost a third to half of their population within years."
+    },
+    "outcome": {
+      "zh": "人口锐减改变了土地、劳动力与宗教秩序，推动工资上涨和农奴制松动，也留下深刻的社会创伤。",
+      "en": "The demographic collapse transformed land, labour and religious authority, pushed wages up and weakened serfdom, while leaving deep social trauma."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 90
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Black Death",
+        "url": "https://www.britannica.com/event/Black-Death"
+      },
+      {
+        "label": "WHO — Plague",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/plague"
+      }
+    ]
+  },
+  "magna-carta": {
+    "title": {
+      "zh": "《大宪章》",
+      "en": "Magna Carta"
+    },
+    "date": {
+      "iso": "1215-06-15",
+      "zh": "1215年6月15日",
+      "en": "15 June 1215"
+    },
+    "place": {
+      "zh": "英格兰兰尼米德",
+      "en": "Runnymede, England",
+      "lat": 51.44,
+      "lon": -0.56
+    },
+    "actors": [
+      {
+        "zh": "英格兰贵族",
+        "en": "English barons"
+      },
+      {
+        "zh": "约翰王",
+        "en": "King John"
+      }
+    ],
+    "background": {
+      "zh": "约翰王在对法战争、征税与教会冲突中失去贵族支持。男爵们以武力迫使国王承认一系列权利与惯例。",
+      "en": "King John lost baronial support through war with France, taxation and conflict with the Church. The barons used force to make him accept a series of rights and customs."
+    },
+    "course": {
+      "zh": "1215年6月，约翰王在兰尼米德签署《大宪章》，限制王权征税、任意拘押和没收财产。教宗随后宣布无效，但后世多次重颁。",
+      "en": "In June 1215 John sealed Magna Carta at Runnymede, limiting arbitrary taxation, imprisonment and seizure of property. The Pope annulled it, but later kings reissued it."
+    },
+    "outcome": {
+      "zh": "《大宪章》成为英美宪政传统的重要象征，尤其“未经同侪合法审判不得剥夺自由”的条款影响深远；其原始文本主要保护贵族，而非普遍人权。",
+      "en": "Magna Carta became a symbol of the English and American constitutional tradition, especially the clause on judgment by peers; its original text mainly protected barons, not universal rights."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 88
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "British Library — Magna Carta",
+        "url": "https://www.bl.uk/magna-carta"
+      },
+      {
+        "label": "Britannica — Magna Carta",
+        "url": "https://www.britannica.com/topic/Magna-Carta"
+      }
+    ]
+  },
+  "gutenbergs-press": {
+    "title": {
+      "zh": "古腾堡活字印刷",
+      "en": "Gutenberg's Press"
+    },
+    "date": {
+      "iso": "1450-01-01",
+      "zh": "约1450年",
+      "en": "c. 1450"
+    },
+    "place": {
+      "zh": "美因茨",
+      "en": "Mainz",
+      "lat": 50.0,
+      "lon": 8.27
+    },
+    "actors": [
+      {
+        "zh": "古腾堡",
+        "en": "Johannes Gutenberg"
+      },
+      {
+        "zh": "美因茨工匠",
+        "en": "Mainz craftsmen"
+      }
+    ],
+    "background": {
+      "zh": "15世纪欧洲纸张普及、金属工艺与葡萄酒压榨技术成熟，为活字印刷提供条件。古腾堡在美因茨试验金属活字与油墨。",
+      "en": "In fifteenth-century Europe paper, metalworking and wine-press technology made movable type feasible. Gutenberg experimented with metal type and oil-based ink in Mainz."
+    },
+    "course": {
+      "zh": "古腾堡用铅合金活字、油墨和压榨机印刷《四十二行圣经》，约1455年完成。印刷术随后迅速传播到欧洲各地。",
+      "en": "Gutenberg printed the 42-line Bible with lead-alloy type, oil ink and a press, completing it around 1455. Printing spread rapidly across Europe."
+    },
+    "outcome": {
+      "zh": "印刷术降低了书籍成本，加速宗教改革、科学革命与民族语言的形成，被视为知识传播的转折点。",
+      "en": "Printing cut the cost of books and accelerated the Reformation, the Scientific Revolution and vernacular literature, becoming a turning point in the spread of knowledge."
+    },
+    "chain": [
+      "the-reformation"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 90
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "British Library — Gutenberg Bible",
+        "url": "https://www.bl.uk/collection-items/gutenberg-bible"
+      },
+      {
+        "label": "Britannica — printing",
+        "url": "https://www.britannica.com/technology/printing-publishing"
+      }
+    ]
+  },
+  "the-reformation": {
+    "title": {
+      "zh": "宗教改革",
+      "en": "The Reformation"
+    },
+    "date": {
+      "iso": "1517-10-31",
+      "zh": "1517年10月31日",
+      "en": "31 October 1517"
+    },
+    "place": {
+      "zh": "神圣罗马帝国维滕贝格",
+      "en": "Wittenberg, Holy Roman Empire",
+      "lat": 51.87,
+      "lon": 12.65
+    },
+    "actors": [
+      {
+        "zh": "马丁·路德",
+        "en": "Martin Luther"
+      },
+      {
+        "zh": "天主教会",
+        "en": "Catholic Church"
+      },
+      {
+        "zh": "诸侯",
+        "en": "Princes"
+      }
+    ],
+    "background": {
+      "zh": "文艺复兴时期的人文主义、印刷术与对教会腐败的不满，使宗教改革的条件成熟。路德反对赎罪券交易。",
+      "en": "Renaissance humanism, printing and resentment of clerical corruption prepared the ground. Luther objected to the sale of indulgences."
+    },
+    "course": {
+      "zh": "1517年路德发表《九十五条论纲》，随后否认教宗权威、主张因信称义。印刷术使论纲迅速传播，路德宗在德意志诸侯中获得支持。",
+      "en": "In 1517 Luther published the Ninety-five Theses, then rejected papal authority and argued for justification by faith. Print spread his ideas and Lutheran churches gained princely support."
+    },
+    "outcome": {
+      "zh": "宗教改革分裂了西欧基督教世界，引发宗教战争、反宗教改革与政治重组，也推动了教育、印刷和民族国家的发展。",
+      "en": "The Reformation fragmented Western Christendom, triggered religious wars, the Counter-Reformation and political realignment, and promoted education, printing and territorial states."
+    },
+    "chain": [
+      "peace-of-westphalia"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 92
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Reformation",
+        "url": "https://www.britannica.com/event/Reformation"
+      },
+      {
+        "label": "British Library — Reformation",
+        "url": "https://www.bl.uk/early-modern-religion"
+      }
+    ]
+  },
+  "peace-of-westphalia": {
+    "title": {
+      "zh": "《威斯特伐利亚和约》",
+      "en": "Peace of Westphalia"
+    },
+    "date": {
+      "iso": "1648-10-24",
+      "zh": "1648年10月24日",
+      "en": "24 October 1648"
+    },
+    "place": {
+      "zh": "明斯特与奥斯纳布吕克",
+      "en": "Münster and Osnabrück",
+      "lat": 51.96,
+      "lon": 7.63
+    },
+    "actors": [
+      {
+        "zh": "神圣罗马帝国",
+        "en": "Holy Roman Empire"
+      },
+      {
+        "zh": "法国",
+        "en": "France"
+      },
+      {
+        "zh": "瑞典",
+        "en": "Sweden"
+      },
+      {
+        "zh": "诸侯",
+        "en": "Princes"
+      }
+    ],
+    "background": {
+      "zh": "三十年战争以宗教与帝国权力冲突为核心，造成中欧巨大人口损失。各方在威斯特伐利亚展开长期谈判。",
+      "en": "The Thirty Years' War combined religious and imperial power conflicts and devastated Central Europe. The parties negotiated for years in Westphalia."
+    },
+    "course": {
+      "zh": "1648年签订的一系列条约确认加尔文宗地位、削弱皇帝权威、承认诸侯主权，并调整法国、瑞典与帝国边界。",
+      "en": "The treaties of 1648 recognised Calvinism, weakened the Emperor, affirmed princely sovereignty and adjusted the borders of France, Sweden and the Empire."
+    },
+    "outcome": {
+      "zh": "和约常被视为现代主权国家体系与欧洲均势的起点；其实际执行与“主权平等”仍有距离。",
+      "en": "The settlement is often seen as the origin of the modern sovereign-state system and the European balance of power, though its implementation fell short of full sovereign equality."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 88
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Peace of Westphalia",
+        "url": "https://www.britannica.com/event/Peace-of-Westphalia"
+      },
+      {
+        "label": "U.S. State Department — Westphalia",
+        "url": "https://history.state.gov/milestones/1648-1750/westphalia"
+      }
+    ]
+  },
+  "declaration-of-independence": {
+    "title": {
+      "zh": "美国独立宣言",
+      "en": "Declaration of Independence"
+    },
+    "date": {
+      "iso": "1776-07-04",
+      "zh": "1776年7月4日",
+      "en": "4 July 1776"
+    },
+    "place": {
+      "zh": "北美费城",
+      "en": "Philadelphia, North America",
+      "lat": 39.95,
+      "lon": -75.15
+    },
+    "actors": [
+      {
+        "zh": "十三殖民地",
+        "en": "Thirteen Colonies"
+      },
+      {
+        "zh": "英国",
+        "en": "Britain"
+      }
+    ],
+    "background": {
+      "zh": "七年战争后英国加强殖民地征税与管控，殖民地以“无代表不纳税”反对。1775年列克星敦枪声后冲突扩大。",
+      "en": "After the Seven Years' War Britain tightened taxation and control of the colonies, which resisted under “no taxation without representation”. Fighting widened after Lexington in 1775."
+    },
+    "course": {
+      "zh": "1776年7月4日，大陆会议通过杰斐逊起草的《独立宣言》，以自然权利与人民主权论证脱离英国的正当性。",
+      "en": "On 4 July 1776 the Continental Congress adopted Jefferson's Declaration of Independence, justifying separation through natural rights and popular sovereignty."
+    },
+    "outcome": {
+      "zh": "宣言成为美国建国文本，也影响法国大革命、海地革命和后续反殖民运动；其“人人生而平等”与现实中的奴隶制形成长期矛盾。",
+      "en": "The Declaration became a founding text of the United States and influenced the French and Haitian revolutions and later anti-colonial movements; its claim of equality coexisted with slavery."
+    },
+    "chain": [
+      "french-revolution",
+      "haitian-revolution"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 95
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "U.S. National Archives — Declaration of Independence",
+        "url": "https://www.archives.gov/founding-docs/declaration"
+      },
+      {
+        "label": "Britannica — Declaration of Independence",
+        "url": "https://www.britannica.com/topic/Declaration-of-Independence"
+      }
+    ]
+  },
+  "haitian-revolution": {
+    "title": {
+      "zh": "海地革命",
+      "en": "Haitian Revolution"
+    },
+    "date": {
+      "iso": "1791-08-22",
+      "zh": "1791年8月22日",
+      "en": "22 August 1791"
+    },
+    "place": {
+      "zh": "法属圣多明各",
+      "en": "Saint-Domingue",
+      "lat": 18.5,
+      "lon": -72.3
+    },
+    "actors": [
+      {
+        "zh": "被奴役者",
+        "en": "Enslaved people"
+      },
+      {
+        "zh": "法国",
+        "en": "France"
+      },
+      {
+        "zh": "英国",
+        "en": "Britain"
+      },
+      {
+        "zh": "西班牙",
+        "en": "Spain"
+      }
+    ],
+    "background": {
+      "zh": "圣多明各是法国最富庶的糖岛，建立在残酷的奴隶制之上。法国大革命的“自由平等”口号传至殖民地，激化了自由有色人与奴隶的反抗。",
+      "en": "Saint-Domingue was France's richest sugar colony, built on brutal slavery. The French Revolution's language of liberty reached the colony and sharpened resistance among free people of colour and the enslaved."
+    },
+    "course": {
+      "zh": "1791年奴隶起义爆发，杜桑·卢维杜尔等领袖组织军队，先后对抗法国、西班牙和英国。1802年拿破仑派军镇压，杜桑被捕。",
+      "en": "A slave uprising began in 1791; leaders such as Toussaint Louverture built armies that fought France, Spain and Britain. Napoleon sent an expedition in 1802 and Toussaint was captured."
+    },
+    "outcome": {
+      "zh": "1804年海地宣布独立，成为第一个由被奴役者建立的黑人共和国。法国随后索取巨额赔款，长期拖累海地经济。",
+      "en": "Haiti declared independence in 1804, becoming the first Black republic founded by formerly enslaved people. France later imposed a huge indemnity that burdened Haiti for generations."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 92
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Haitian Revolution",
+        "url": "https://www.britannica.com/event/Haitian-Revolution"
+      },
+      {
+        "label": "United Nations — Haiti",
+        "url": "https://www.un.org/en/about-us/member-states/haiti"
+      }
+    ]
+  },
+  "meiji-restoration": {
+    "title": {
+      "zh": "明治维新",
+      "en": "Meiji Restoration"
+    },
+    "date": {
+      "iso": "1868-01-03",
+      "zh": "1868年1月3日",
+      "en": "3 January 1868"
+    },
+    "place": {
+      "zh": "日本京都",
+      "en": "Kyoto, Japan",
+      "lat": 35.01,
+      "lon": 135.77
+    },
+    "actors": [
+      {
+        "zh": "明治政府",
+        "en": "Meiji government"
+      },
+      {
+        "zh": "德川幕府",
+        "en": "Tokugawa shogunate"
+      }
+    ],
+    "background": {
+      "zh": "黑船来航后日本被迫开国，幕府权威下降。西南诸藩志士以“尊王攘夷”为号召，推动倒幕。",
+      "en": "After Perry's arrival Japan was forced to open, weakening the shogunate. Activists from southwestern domains used the slogan “revere the Emperor, expel the barbarians” to push for its overthrow."
+    },
+    "course": {
+      "zh": "1868年1月，明治天皇发布王政复古大号令，德川庆喜败退。新政府随后推行废藩置县、征兵制、地税改革、殖产兴业和文明开化。",
+      "en": "In January 1868 the Meiji Emperor proclaimed the restoration of imperial rule and Tokugawa Yoshinobu was defeated. The new government abolished domains, introduced conscription, land-tax reform, industrialisation and Western learning."
+    },
+    "outcome": {
+      "zh": "日本迅速建立中央集权与工业基础，成为亚洲首个工业化强国；改革也带来社会紧张、对外扩张与军国主义道路。",
+      "en": "Japan rapidly built a centralised state and industrial base, becoming Asia's first industrial power; the changes also brought social tension, overseas expansion and militarism."
+    },
+    "chain": [
+      "russo-japanese-war"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 94
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Meiji Restoration",
+        "url": "https://www.britannica.com/event/Meiji-Restoration"
+      },
+      {
+        "label": "Japan National Archives — Meiji",
+        "url": "https://www.archives.go.jp/english/"
+      }
+    ]
+  },
+  "opium-war": {
+    "title": {
+      "zh": "鸦片战争",
+      "en": "Opium War"
+    },
+    "date": {
+      "iso": "1839-06-03",
+      "zh": "1839—1842年",
+      "en": "1839–1842"
+    },
+    "place": {
+      "zh": "中国广东",
+      "en": "Guangdong, China",
+      "lat": 23.13,
+      "lon": 113.26
+    },
+    "actors": [
+      {
+        "zh": "清朝",
+        "en": "Qing China"
+      },
+      {
+        "zh": "英国",
+        "en": "Britain"
+      }
+    ],
+    "background": {
+      "zh": "英国为平衡茶叶贸易向中国大量输入鸦片，清政府禁烟。1839年林则徐在虎门销烟，英国以武力回应。",
+      "en": "Britain exported large quantities of opium to China to balance the tea trade, and the Qing moved to suppress it. In 1839 Lin Zexu destroyed opium at Humen; Britain responded with force."
+    },
+    "course": {
+      "zh": "英军攻占沿海城市并沿长江推进，1842年清廷被迫签订《南京条约》，割让香港岛、开放五口、赔款并协定关税。",
+      "en": "British forces seized coastal cities and advanced up the Yangtze; in 1842 the Qing signed the Treaty of Nanking, ceding Hong Kong Island, opening five ports, paying an indemnity and accepting tariff terms."
+    },
+    "outcome": {
+      "zh": "中国被迫纳入不平等条约体系，主权与关税受损；战争也成为中国近代民族主义与改革运动的起点。",
+      "en": "China was drawn into the unequal treaty system, losing sovereignty and tariff control; the war became a starting point for modern Chinese nationalism and reform."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 94
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Opium Wars",
+        "url": "https://www.britannica.com/event/Opium-Wars"
+      },
+      {
+        "label": "UK Parliament — Opium War",
+        "url": "https://www.parliament.uk/about/living-heritage/evolutionofparliament/legislativescrutiny/parliament-and-empire/collections1/opium-war/"
+      }
+    ]
+  },
+  "treaty-of-versailles": {
+    "title": {
+      "zh": "《凡尔赛和约》",
+      "en": "Treaty of Versailles"
+    },
+    "date": {
+      "iso": "1919-06-28",
+      "zh": "1919年6月28日",
+      "en": "28 June 1919"
+    },
+    "place": {
+      "zh": "法国凡尔赛",
+      "en": "Versailles, France",
+      "lat": 48.8,
+      "lon": 2.13
+    },
+    "actors": [
+      {
+        "zh": "协约国",
+        "en": "Allies"
+      },
+      {
+        "zh": "德国",
+        "en": "Germany"
+      }
+    ],
+    "background": {
+      "zh": "一战结束后，战胜国在巴黎和会上重建欧洲秩序。德国被要求承担战争责任、割地、裁军并支付赔款。",
+      "en": "After World War I the victorious powers rebuilt the European order at Paris. Germany was required to accept war guilt, cede territory, disarm and pay reparations."
+    },
+    "course": {
+      "zh": "1919年6月28日，和约在凡尔赛宫签署。德国失去阿尔萨斯-洛林、殖民地与部分东部领土，军备受到严格限制。",
+      "en": "The treaty was signed at Versailles on 28 June 1919. Germany lost Alsace-Lorraine, colonies and eastern territory, and its military was severely restricted."
+    },
+    "outcome": {
+      "zh": "和约重塑欧洲但未带来稳定；赔款、领土安排与“战争罪责”条款激化德国民族主义，被广泛视为二战爆发的远因之一。",
+      "en": "The treaty reshaped Europe but did not bring stability; reparations, territorial terms and the war-guilt clause inflamed German nationalism and are widely seen as a long-term cause of World War II."
+    },
+    "chain": [
+      "world-war-ii-begins"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 92
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Treaty of Versailles",
+        "url": "https://www.britannica.com/event/Treaty-of-Versailles-1919"
+      },
+      {
+        "label": "U.S. State Department — Versailles",
+        "url": "https://history.state.gov/milestones/1914-1920/versailles"
+      }
+    ]
+  },
+  "the-great-depression": {
+    "title": {
+      "zh": "大萧条",
+      "en": "The Great Depression"
+    },
+    "date": {
+      "iso": "1929-10-29",
+      "zh": "1929年起",
+      "en": "From 1929"
+    },
+    "place": {
+      "zh": "美国及全球",
+      "en": "United States and the world",
+      "lat": 40.71,
+      "lon": -74.01
+    },
+    "actors": [
+      {
+        "zh": "美国",
+        "en": "United States"
+      },
+      {
+        "zh": "各国政府",
+        "en": "Governments"
+      }
+    ],
+    "background": {
+      "zh": "1920年代美国股市与信贷繁荣掩盖了生产过剩、收入不均和金融监管缺失。1929年10月华尔街股市崩盘。",
+      "en": "The 1920s boom masked overproduction, inequality and weak financial regulation. Wall Street crashed in October 1929."
+    },
+    "course": {
+      "zh": "银行倒闭、信贷收缩与贸易萎缩使危机从美国扩散到全球。各国采取关税壁垒、紧缩政策或大规模公共工程应对。",
+      "en": "Bank failures, credit contraction and falling trade spread the crisis worldwide. Countries responded with tariffs, austerity or large public works."
+    },
+    "outcome": {
+      "zh": "失业与贫困加剧，推动罗斯福新政、凯恩斯主义与福利国家；经济民族主义和政治极端化也助长了二战。",
+      "en": "Unemployment and poverty fuelled the New Deal, Keynesian economics and the welfare state; economic nationalism and political extremism contributed to World War II."
+    },
+    "chain": [
+      "world-war-ii-begins"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 90
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Great Depression",
+        "url": "https://www.britannica.com/event/Great-Depression"
+      },
+      {
+        "label": "U.S. National Archives — Great Depression",
+        "url": "https://www.archives.gov/education/lessons/great-depression"
+      }
+    ]
+  },
+  "korean-war": {
+    "title": {
+      "zh": "朝鲜战争",
+      "en": "Korean War"
+    },
+    "date": {
+      "iso": "1950-06-25",
+      "zh": "1950—1953年",
+      "en": "1950–1953"
+    },
+    "place": {
+      "zh": "朝鲜半岛",
+      "en": "Korean Peninsula",
+      "lat": 38.0,
+      "lon": 127.0
+    },
+    "actors": [
+      {
+        "zh": "朝鲜",
+        "en": "North Korea"
+      },
+      {
+        "zh": "韩国",
+        "en": "South Korea"
+      },
+      {
+        "zh": "中国",
+        "en": "China"
+      },
+      {
+        "zh": "美国",
+        "en": "United States"
+      },
+      {
+        "zh": "联合国军",
+        "en": "UN Command"
+      }
+    ],
+    "background": {
+      "zh": "二战结束后朝鲜半岛以北纬38度线分区占领，美苏各自支持政权，南北统一谈判失败。1950年6月朝鲜人民军南进。",
+      "en": "After World War II Korea was divided at the 38th parallel under Soviet and American occupation, with rival regimes and failed unification talks. In June 1950 North Korean forces advanced south."
+    },
+    "course": {
+      "zh": "联合国军干涉后战局反复，1950年10月中国志愿军入朝。1951年后战线稳定在三八线附近，双方开始停战谈判。",
+      "en": "UN forces intervened and the front swung back and forth; Chinese volunteers entered in October 1950. After 1951 the line stabilised near the 38th parallel and armistice talks began."
+    },
+    "outcome": {
+      "zh": "1953年签署停战协定，未签和平条约。半岛分裂固化，驻韩美军与东北亚安全格局延续至今。",
+      "en": "An armistice was signed in 1953 without a peace treaty. The division hardened and the US military presence and Northeast Asian security order persist."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 92
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Korean War",
+        "url": "https://www.britannica.com/event/Korean-War"
+      },
+      {
+        "label": "UN — Korean War",
+        "url": "https://www.un.org/en/about-us/history-of-the-un/korea"
+      }
+    ]
+  },
+  "fall-of-the-berlin-wall": {
+    "title": {
+      "zh": "柏林墙倒塌",
+      "en": "Fall of the Berlin Wall"
+    },
+    "date": {
+      "iso": "1989-11-09",
+      "zh": "1989年11月9日",
+      "en": "9 November 1989"
+    },
+    "place": {
+      "zh": "德国柏林",
+      "en": "Berlin, Germany",
+      "lat": 52.52,
+      "lon": 13.4
+    },
+    "actors": [
+      {
+        "zh": "东德",
+        "en": "East Germany"
+      },
+      {
+        "zh": "西德",
+        "en": "West Germany"
+      },
+      {
+        "zh": "苏联",
+        "en": "Soviet Union"
+      }
+    ],
+    "background": {
+      "zh": "东德经济停滞、改革压力与逃亡潮加剧。匈牙利开放边境后，大量东德人经奥地利逃往西德，抗议扩大。",
+      "en": "East Germany faced economic stagnation, reform pressure and a refugee wave. After Hungary opened its border, many East Germans fled via Austria and protests grew."
+    },
+    "course": {
+      "zh": "1989年11月9日，东德政府误发放宽旅行限制的公告，民众涌向检查站，边防人员最终开放通道，柏林墙被跨越和拆除。",
+      "en": "On 9 November 1989 a mistaken East German announcement eased travel restrictions; crowds surged to checkpoints, guards opened the barriers and the Wall was crossed and dismantled."
+    },
+    "outcome": {
+      "zh": "柏林墙倒塌成为冷战结束的象征，推动两德统一与东欧剧变；欧洲政治地图随之重绘。",
+      "en": "The fall became a symbol of the end of the Cold War, accelerated German reunification and the 1989 revolutions, and redrew Europe's political map."
+    },
+    "chain": [
+      "collapse-of-the-ussr"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 96
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Britannica — Berlin Wall",
+        "url": "https://www.britannica.com/topic/Berlin-Wall"
+      },
+      {
+        "label": "U.S. National Archives — Fall of the Berlin Wall",
+        "url": "https://www.archives.gov/research/foreign-policy/berlin-wall"
+      }
+    ]
+  },
+  "the-world-wide-web": {
+    "title": {
+      "zh": "万维网公开",
+      "en": "The World Wide Web"
+    },
+    "date": {
+      "iso": "1991-08-06",
+      "zh": "1991年8月6日",
+      "en": "6 August 1991"
+    },
+    "place": {
+      "zh": "瑞士日内瓦",
+      "en": "Geneva, Switzerland",
+      "lat": 46.2,
+      "lon": 6.14
+    },
+    "actors": [
+      {
+        "zh": "蒂姆·伯纳斯-李",
+        "en": "Tim Berners-Lee"
+      },
+      {
+        "zh": "CERN",
+        "en": "CERN"
+      }
+    ],
+    "background": {
+      "zh": "1980年代末互联网已连接科研机构，但缺乏统一的超文本界面。伯纳斯-李在CERN提出并实现万维网。",
+      "en": "By the late 1980s the internet linked research institutions but lacked a unified hypertext interface. Berners-Lee proposed and built the Web at CERN."
+    },
+    "course": {
+      "zh": "1991年8月6日，伯纳斯-李公开第一个网站与代码，包括HTTP、HTML、URL和浏览器/服务器。1993年CERN宣布万维网可免费使用。",
+      "en": "On 6 August 1991 Berners-Lee published the first website and code, including HTTP, HTML, URLs and a browser/server. In 1993 CERN made the Web free to use."
+    },
+    "outcome": {
+      "zh": "万维网使互联网走向大众，催生电子商务、社交媒体与全球信息经济，也带来隐私、垄断与信息质量问题。",
+      "en": "The Web brought the internet to the public, enabling e-commerce, social media and the global information economy, along with privacy, monopoly and information-quality problems."
+    },
+    "chain": [
+      "the-generative-ai-boom"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 94
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "CERN — The birth of the Web",
+        "url": "https://home.cern/science/computing/birth-web"
+      },
+      {
+        "label": "W3C — History",
+        "url": "https://www.w3.org/History.html"
+      }
+    ]
+  },
+  "indian-ocean-tsunami": {
+    "title": {
+      "zh": "印度洋海啸",
+      "en": "Indian Ocean Tsunami"
+    },
+    "date": {
+      "iso": "2004-12-26",
+      "zh": "2004年12月26日",
+      "en": "26 December 2004"
+    },
+    "place": {
+      "zh": "印度洋",
+      "en": "Indian Ocean",
+      "lat": 3.3,
+      "lon": 95.98
+    },
+    "actors": [
+      {
+        "zh": "印度尼西亚",
+        "en": "Indonesia"
+      },
+      {
+        "zh": "斯里兰卡",
+        "en": "Sri Lanka"
+      },
+      {
+        "zh": "印度",
+        "en": "India"
+      },
+      {
+        "zh": "泰国",
+        "en": "Thailand"
+      }
+    ],
+    "background": {
+      "zh": "苏门答腊岛西北海域发生巨型逆冲地震，震级约9.1—9.3，引发跨越印度洋的海啸。",
+      "en": "A giant megathrust earthquake of about magnitude 9.1–9.3 struck off northwestern Sumatra and generated a tsunami across the Indian Ocean."
+    },
+    "course": {
+      "zh": "海啸在数小时内袭击印度尼西亚、斯里兰卡、印度、泰国、马尔代夫和东非。缺乏预警系统与公众教育放大了伤亡。",
+      "en": "The waves struck Indonesia, Sri Lanka, India, Thailand, the Maldives and East Africa within hours. The absence of warning systems and public education magnified the toll."
+    },
+    "outcome": {
+      "zh": "约22.7万人死亡或失踪，是 modern 史上最严重的海啸灾难之一。灾后印度洋海啸预警系统逐步建立。",
+      "en": "About 227,000 people died or went missing, one of the deadliest tsunamis in modern history. An Indian Ocean warning system was built after the disaster."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 90
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "UNESCO — Indian Ocean Tsunami",
+        "url": "https://www.unesco.org/en/tsunami"
+      },
+      {
+        "label": "Britannica — Indian Ocean tsunami",
+        "url": "https://www.britannica.com/event/Indian-Ocean-tsunami-of-2004"
+      }
+    ]
+  },
+  "fukushima-disaster": {
+    "title": {
+      "zh": "东日本大地震与福岛",
+      "en": "Fukushima Disaster"
+    },
+    "date": {
+      "iso": "2011-03-11",
+      "zh": "2011年3月11日",
+      "en": "11 March 2011"
+    },
+    "place": {
+      "zh": "日本东北",
+      "en": "Tōhoku, Japan",
+      "lat": 37.42,
+      "lon": 141.03
+    },
+    "actors": [
+      {
+        "zh": "日本",
+        "en": "Japan"
+      },
+      {
+        "zh": "东京电力",
+        "en": "TEPCO"
+      }
+    ],
+    "background": {
+      "zh": "2011年3月11日，日本东北海域发生9.0级地震并引发海啸。福岛第一核电站的防波堤低于海啸高度。",
+      "en": "On 11 March 2011 a magnitude 9.0 earthquake off Tōhoku generated a tsunami. The seawall at Fukushima Daiichi was lower than the wave."
+    },
+    "course": {
+      "zh": "海啸淹没应急电源，导致反应堆失去冷却并发生氢气爆炸与放射性释放。周边居民被疏散，事故等级最终定为7级。",
+      "en": "The tsunami flooded emergency power, causing loss of cooling, hydrogen explosions and radioactive releases. Nearby residents were evacuated; the accident was rated Level 7."
+    },
+    "outcome": {
+      "zh": "事故推动日本核能政策与全球核安全标准反思，福岛重建与污染水处置长期争议。地震海啸本身造成近两万人死亡或失踪。",
+      "en": "The accident forced a rethink of Japanese nuclear policy and global safety standards; reconstruction and treated-water disposal remain contested. The earthquake and tsunami killed or left missing nearly 20,000 people."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 94
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "IAEA — Fukushima Daiichi",
+        "url": "https://www.iaea.org/newscenter/focus/fukushima"
+      },
+      {
+        "label": "Britannica — Fukushima accident",
+        "url": "https://www.britannica.com/event/Fukushima-accident"
+      }
+    ]
+  },
+  "paris-agreement": {
+    "title": {
+      "zh": "《巴黎协定》",
+      "en": "Paris Agreement"
+    },
+    "date": {
+      "iso": "2015-12-12",
+      "zh": "2015年12月12日",
+      "en": "12 December 2015"
+    },
+    "place": {
+      "zh": "法国巴黎",
+      "en": "Paris, France",
+      "lat": 48.86,
+      "lon": 2.35
+    },
+    "actors": [
+      {
+        "zh": "联合国气候变化框架公约缔约方",
+        "en": "UNFCCC parties"
+      }
+    ],
+    "background": {
+      "zh": "气候变化科学证据增强，但《京都议定书》覆盖面有限。2015年巴黎气候大会寻求新的全球减排框架。",
+      "en": "Scientific evidence on climate change strengthened while the Kyoto Protocol's coverage was limited. The 2015 Paris conference sought a new global framework."
+    },
+    "course": {
+      "zh": "2015年12月12日，近200个缔约方通过《巴黎协定》，目标是把全球升温控制在2°C以内并努力限制在1.5°C，各国提交自主贡献。",
+      "en": "On 12 December 2015 nearly 200 parties adopted the Paris Agreement, aiming to hold warming well below 2°C and pursue 1.5°C, with nationally determined contributions."
+    },
+    "outcome": {
+      "zh": "协定确立了全球气候治理框架，但减排力度与资金落实仍不足；美国曾退出后又重新加入，执行政治化明显。",
+      "en": "The agreement established a global climate-governance framework, but mitigation and finance remain insufficient; US withdrawal and re-entry highlighted its politicisation."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 92
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "UNFCCC — Paris Agreement",
+        "url": "https://unfccc.int/process-and-meetings/the-paris-agreement"
+      },
+      {
+        "label": "United Nations — Climate change",
+        "url": "https://www.un.org/en/climatechange/paris-agreement"
+      }
+    ]
+  },
+  "the-generative-ai-boom": {
+    "title": {
+      "zh": "生成式人工智能爆发",
+      "en": "The Generative AI Boom"
+    },
+    "date": {
+      "iso": "2023-01-01",
+      "zh": "2023年起",
+      "en": "From 2023"
+    },
+    "place": {
+      "zh": "全球",
+      "en": "Global",
+      "lat": 37.77,
+      "lon": -122.42
+    },
+    "actors": [
+      {
+        "zh": "AI 研究机构",
+        "en": "AI labs"
+      },
+      {
+        "zh": "科技公司",
+        "en": "Technology companies"
+      },
+      {
+        "zh": "各国政府",
+        "en": "Governments"
+      }
+    ],
+    "background": {
+      "zh": "大语言模型与扩散模型在2022—2023年快速迭代，ChatGPT等产品把生成式AI推向大众。算力、数据与资本投入急剧增加。",
+      "en": "Large language and diffusion models advanced rapidly in 2022–2023, and products such as ChatGPT brought generative AI to the public. Compute, data and capital investment surged."
+    },
+    "course": {
+      "zh": "模型能力从文本扩展到图像、音频、视频与代码，企业开始嵌入工作流；与此同时出现版权、偏见、幻觉、隐私与安全问题。",
+      "en": "Model capabilities expanded from text to images, audio, video and code, and firms embedded them in workflows; copyright, bias, hallucination, privacy and security concerns emerged."
+    },
+    "outcome": {
+      "zh": "生成式AI成为通用技术平台，影响教育、医疗、软件与媒体，也引发就业、监管与地缘竞争讨论。其长期影响仍在展开。",
+      "en": "Generative AI became a general-purpose platform affecting education, medicine, software and media, while raising questions about jobs, regulation and geopolitics. Its long-term effects are still unfolding."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 94
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Stanford HAI — AI Index",
+        "url": "https://aiindex.stanford.edu/"
+      },
+      {
+        "label": "OECD — Artificial intelligence",
+        "url": "https://www.oecd.org/en/topics/artificial-intelligence.html"
+      }
+    ]
+  },
+  "auschwitz-liberated": {
+    "title": {
+      "zh": "奥斯维辛解放",
+      "en": "Auschwitz Liberated"
+    },
+    "date": {
+      "iso": "1945-01-27",
+      "zh": "1945年1月27日",
+      "en": "27 January 1945"
+    },
+    "place": {
+      "zh": "波兰奥斯维辛",
+      "en": "Auschwitz, Poland",
+      "lat": 50.03,
+      "lon": 19.2
+    },
+    "actors": [
+      {
+        "zh": "苏联红军",
+        "en": "Soviet Red Army"
+      },
+      {
+        "zh": "纳粹德国",
+        "en": "Nazi Germany"
+      }
+    ],
+    "background": {
+      "zh": "奥斯维辛是纳粹德国最大的集中营与灭绝营，约110万人在这里遇害，其中绝大多数是犹太人。",
+      "en": "Auschwitz was the largest Nazi concentration and extermination camp; about 1.1 million people were murdered there, the vast majority Jews."
+    },
+    "course": {
+      "zh": "1945年1月27日，苏联红军进入奥斯维辛，发现幸存者、尸体与大量遗留物。纳粹在此之前已疏散部分囚犯进行“死亡行军”。",
+      "en": "On 27 January 1945 Soviet troops entered Auschwitz and found survivors, corpses and vast stores of belongings. The Nazis had evacuated many prisoners on death marches."
+    },
+    "outcome": {
+      "zh": "奥斯维辛解放成为大屠杀记忆的核心象征；1月27日被定为国际大屠杀纪念日。它提醒人们工业化的种族灭绝如何发生。",
+      "en": "The liberation became a central symbol of Holocaust memory; 27 January is International Holocaust Remembrance Day. It stands as a warning of how industrialised genocide can occur."
+    },
+    "chain": [
+      "world-war-ii-begins"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [],
+      "year": null,
+      "priority": 96
+    },
+    "verification": "verified",
+    "sources": [
+      {
+        "label": "Auschwitz-Birkenau Museum",
+        "url": "https://www.auschwitz.org/en/"
+      },
+      {
+        "label": "U.S. Holocaust Memorial Museum — Auschwitz",
+        "url": "https://encyclopedia.ushmm.org/content/en/article/auschwitz"
+      }
+    ]
+  }
+}

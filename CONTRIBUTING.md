@@ -24,7 +24,17 @@ python3 scripts/build-chronicles.py
 python3 scripts/translate-events.py
 ```
 
-The app only needs `js/data_bundle.js` at runtime; regenerate it whenever `data/events.json`, `data/polities.json`, `data/theatre.json` or `data/meta.json` change.
+The app only needs `js/data_bundle.js` at runtime; regenerate it whenever `data/events.json`, `data/polities.json`, `data/theatre.json`, `data/event_details.json`, `data/event_groups.json`, `data/regions.json` or `data/meta.json` change.
+
+Additional data layers:
+
+- `data/event_details.json` — structured background / course / outcome / actors / sources / verification per event. Brief entries are allowed and are labelled “简要条目” in the UI; do not invent missing background.
+- `data/event_groups.json` — event chains and same-place/same-year groups (e.g. `japan-1945`). Country clicks and timeline stops resolve groups through the same trigger.
+- `data/historical_entities.json` — generated historical label layer (snapshots + modern state births + curated entities). Rebuild with `node scripts/build-historical-entities.mjs`; edit `data/entities_curated.json` for China, Japan, Australia and other key regions.
+- `data/regions.json` — top region navigator cameras. `bbox` is `[west, south, east, north]`.
+- `docs/major-events.md` and `docs/coverage-matrix.md` — Phase 0 inventory/coverage reports; regenerate with `node scripts/build-reports.mjs`.
+
+Run `node scripts/build-historical-entities.mjs` whenever curated entities or snapshots change, then `node scripts/build-data.mjs`.
 
 ## Add a historical event
 
