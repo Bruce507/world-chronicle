@@ -13,6 +13,14 @@ const world = read("data/world.geo.json");
 const states = read("data/state_changes.json");
 const curated = read("data/entities_curated.json");
 const nameGloss = read("data/name_gloss.json");
+const nameI18n = read("data/entity_name_i18n.json").names || {};
+// ES/FR/AR for high-frequency snapshot labels. Anything missing stays English
+// on purpose: an invented translation is worse than a visible fallback.
+function withI18n(name, base) {
+  const extra = nameI18n[name];
+  if (extra) for (const lang of ["es", "fr", "ar"]) if (extra[lang]) base[lang] = extra[lang];
+  return base;
+}
 const clamps = read("data/entity_clamps.json");
 const clampByName = clamps.byName || {};
 const clampById = clamps.byId || {};
@@ -162,7 +170,7 @@ for (const [name, list] of occurrences) {
     const area = rep.area || 0;
     entities.push({
       id: "hist-" + slug(name) + "-" + from,
-      name: { zh: rep.zh || nameGloss[name] || "", en: name },
+      name: withI18n(name, { zh: rep.zh || nameGloss[name] || "", en: name }),
       type: kind,
       from, to,
       lat: Math.round(rep.lat * 100) / 100,
@@ -206,7 +214,7 @@ for (const b of states.births || []) {
   const p = f ? f.properties : {};
   entities.push({
     id: "modern-" + (b.iso3 || b.key),
-    name: { zh: b.name.zh || b.name.en, en: b.name.en || b.name.zh },
+    name: withI18n(b.name.en || "", { zh: b.name.zh || b.name.en, en: b.name.en || b.name.zh }),
     type: "modern",
     from: b.year,
     to: 2026,

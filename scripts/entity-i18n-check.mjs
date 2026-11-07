@@ -35,4 +35,23 @@ for (const lang of ["es", "fr", "ar"]) {
 console.table(rows);
 const total = rows.reduce((a, r) => ({ active: a.active + r.active, translated: a.translated + r.translated, shown: a.shown + r.shown, shownTranslated: a.shownTranslated + r.shownTranslated }), { active: 0, translated: 0, shown: 0, shownTranslated: 0 });
 console.log("weighted coverage", (total.translated / total.active).toFixed(2), "shown coverage", (total.shownTranslated / total.shown).toFixed(2));
+/* Nominal coverage (all three languages present) and the labels most worth
+   translating next, ranked by how many sampled years they appear in. */
+import fs from "node:fs";
+const data = JSON.parse(fs.readFileSync("data/historical_entities.json", "utf8"));
+const ents = data.entities || [];
+const full = ents.filter((e) => e.name && e.name.es && e.name.fr && e.name.ar).length;
+const freq = new Map();
+for (const year of [1500, 1800, 1937, 2026]) {
+  for (const e of ents) {
+    if (year < e.from || year > e.to) continue;
+    if (e.name && (e.name.es || e.name.fr || e.name.ar)) continue;
+    const key = (e.name && e.name.en) || "";
+    if (!key) continue;
+    freq.set(key, (freq.get(key) || 0) + 1);
+  }
+}
+const next = [...freq.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).map(([n, c]) => n + " (" + c + ")");
+console.log("entities with ES/FR/AR:", full, "/", ents.length, "(" + Math.round((full / Math.max(1, ents.length)) * 100) + "%)");
+console.log("next labels to translate:", next.join(" · "));
 await browser.close();

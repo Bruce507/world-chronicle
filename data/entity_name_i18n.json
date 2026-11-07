@@ -1,0 +1,1420 @@
+{
+  "_note": "ES/FR/AR names for high-frequency historical snapshot labels. Keyed by the English name used in data/historical/*.json. Applied by scripts/build-historical-entities.mjs; missing keys fall back to English on purpose rather than being machine-translated.",
+  "names": {
+    "Ainu": {
+      "es": "Ainu",
+      "fr": "Aïnous",
+      "ar": "آينو"
+    },
+    "Khoisan": {
+      "es": "Khoisan",
+      "fr": "Khoïsan",
+      "ar": "خويسان"
+    },
+    "Saami": {
+      "es": "Sami",
+      "fr": "Sames",
+      "ar": "سامي"
+    },
+    "Guanches": {
+      "es": "Guanches",
+      "fr": "Guanches",
+      "ar": "الغوانش"
+    },
+    "Austronesians": {
+      "es": "Austronesios",
+      "fr": "Austronésiens",
+      "ar": "الأسترونيزيون"
+    },
+    "Dravidians": {
+      "es": "Drávidas",
+      "fr": "Dravidiens",
+      "ar": "الدرفيديون"
+    },
+    "Blemmyes": {
+      "es": "Blemios",
+      "fr": "Blemmyes",
+      "ar": "البليميون"
+    },
+    "Axum": {
+      "es": "Aksum",
+      "fr": "Aksoum",
+      "ar": "أكسوم"
+    },
+    "Meroe": {
+      "es": "Meroe",
+      "fr": "Méroé",
+      "ar": "مروي"
+    },
+    "Makkura": {
+      "es": "Makuria",
+      "fr": "Makurie",
+      "ar": "مقرة"
+    },
+    "Elam": {
+      "es": "Elam",
+      "fr": "Élam",
+      "ar": "عيلام"
+    },
+    "Kalinga": {
+      "es": "Kalinga",
+      "fr": "Kalinga",
+      "ar": "كالينغا"
+    },
+    "Chorrera": {
+      "es": "Chorrera",
+      "fr": "Chorrera",
+      "ar": "تشوريرا"
+    },
+    "Dorset": {
+      "es": "Dorset",
+      "fr": "Dorset",
+      "ar": "دورست"
+    },
+    "Annam": {
+      "es": "Annam",
+      "fr": "Annam",
+      "ar": "أنام"
+    },
+    "Hadramaut": {
+      "es": "Hadramaut",
+      "fr": "Hadramaout",
+      "ar": "حضرموت"
+    },
+    "Himyarite Kingdom": {
+      "es": "reino himyarita",
+      "fr": "royaume himyarite",
+      "ar": "مملكة حِمْيَر"
+    },
+    "Koguryo": {
+      "es": "Koguryo",
+      "fr": "Koguryŏ",
+      "ar": "كوكوريو"
+    },
+    "Illyrians": {
+      "es": "Ilirios",
+      "fr": "Illyriens",
+      "ar": "الإيليريون"
+    },
+    "Hopewell Culture": {
+      "es": "cultura Hopewell",
+      "fr": "culture Hopewell",
+      "ar": "ثقافة هوبويل"
+    },
+    "Laurel complex": {
+      "es": "complejo Laurel",
+      "fr": "complexe Laurel",
+      "ar": "مجمع لوريل"
+    },
+    "Point Peninsula": {
+      "es": "complejo Point Peninsula",
+      "fr": "complexe Point Peninsula",
+      "ar": "مجمع بوينت بينينسولا"
+    },
+    "Swift Creek Culture": {
+      "es": "cultura Swift Creek",
+      "fr": "culture Swift Creek",
+      "ar": "ثقافة سويفت كريك"
+    },
+    "Marksville Culture": {
+      "es": "cultura Marksville",
+      "fr": "culture Marksville",
+      "ar": "ثقافة ماركسفيل"
+    },
+    "Plain-Pottery culture": {
+      "es": "cultura de la cerámica lisa",
+      "fr": "culture de la céramique lisse",
+      "ar": "ثقافة الفخار البسيط"
+    },
+    "Brushed Pottery culture": {
+      "es": "cultura de la cerámica peinada",
+      "fr": "culture de la céramique brossée",
+      "ar": "ثقافة الفخار الممشط"
+    },
+    "Bell-shaped burials culture": {
+      "es": "cultura de los enterramientos en campana",
+      "fr": "culture des sépultures à cloche",
+      "ar": "ثقافة القبور الجرسية"
+    },
+    "Late Jomon culture": {
+      "es": "Jōmon tardío",
+      "fr": "Jōmon récent",
+      "ar": "جيمون المتأخر"
+    },
+    "El Paraiso": {
+      "es": "El Paraíso",
+      "fr": "El Paraíso",
+      "ar": "إل بارايسو"
+    },
+    "Hindu kingdoms": {
+      "es": "reinos hindúes",
+      "fr": "royaumes hindous",
+      "ar": "الممالك الهندوسية"
+    },
+    "Paleo-Siberian hunter-gatherers": {
+      "es": "cazadores-recolectores paleosiberianos",
+      "fr": "chasseurs-cueilleurs paléosibériens",
+      "ar": "صيادو وجامعو الثمار في شمال شرق سيبيريا"
+    },
+    "Finno-Ugric taiga hunter-gatherers": {
+      "es": "cazadores-recolectores fino-ugrios de la taiga",
+      "fr": "chasseurs-cueilleurs finno-ougriens de la taïga",
+      "ar": "صيادو تايغا فنلنديون-أوغريون"
+    },
+    "Australian aboriginal hunter-gatherers": {
+      "es": "aborígenes australianos cazadores-recolectores",
+      "fr": "Aborigènes d’Australie chasseurs-cueilleurs",
+      "ar": "سكان أستراليا الأصليون صيادون وجامعو ثمار"
+    },
+    "Arctic marine mammal hunters": {
+      "es": "cazadores de mamíferos marinos del Ártico",
+      "fr": "chasseurs de mammifères marins de l’Arctique",
+      "ar": "صيادو ثدييات البحر في القطب الشمالي"
+    },
+    "Subarctic forest hunter-gatherers": {
+      "es": "cazadores-recolectores de los bosques subárticos",
+      "fr": "chasseurs-cueilleurs des forêts subarctiques",
+      "ar": "صيادو غابات شبه القطب الشمالي"
+    },
+    "West African cereal farmers": {
+      "es": "agricultores de cereales de África occidental",
+      "fr": "agriculteurs céréaliers d’Afrique de l’Ouest",
+      "ar": "مزارعو الحبوب في غرب أفريقيا"
+    },
+    "Savanna hunter-gatherers": {
+      "es": "cazadores-recolectores de la sabana",
+      "fr": "chasseurs-cueilleurs de la savane",
+      "ar": "صيادو السافانا"
+    },
+    "Amazon hunter-gatherers": {
+      "es": "cazadores-recolectores amazónicos",
+      "fr": "chasseurs-cueilleurs d’Amazonie",
+      "ar": "صيادو الأمازون"
+    },
+    "Plain bison hunters": {
+      "es": "cazadores de bisontes de las Grandes Llanuras",
+      "fr": "chasseurs de bisons des Grandes Plaines",
+      "ar": "صيادو البيسون في السهول الكبرى"
+    },
+    "Desert hunter-gatherers": {
+      "es": "cazadores-recolectores del desierto",
+      "fr": "chasseurs-cueilleurs du désert",
+      "ar": "صيادو الصحراء"
+    },
+    "Pampas cultures": {
+      "es": "culturas de las Pampas",
+      "fr": "cultures des Pampas",
+      "ar": "ثقافات البامبا"
+    },
+    "Plateau fichers and hunter gatherers": {
+      "es": "pescadores y cazadores-recolectores de la meseta",
+      "fr": "pêcheurs et chasseurs-cueilleurs du plateau",
+      "ar": "صيادو وصيّادو أسماك الهضبة"
+    },
+    "Andean hunter-gatherers": {
+      "es": "cazadores-recolectores andinos",
+      "fr": "chasseurs-cueilleurs des Andes",
+      "ar": "صيادو الأنديز"
+    },
+    "North American Pacific foraging, hunting and fishing peoples": {
+      "es": "pueblos recolectores, cazadores y pescadores del Pacífico norteamericano",
+      "fr": "peuples cueilleurs, chasseurs et pêcheurs du Pacifique nord-américain",
+      "ar": "شعوب الجمع والصيد وصيد الأسماك في ساحل الهادئ"
+    },
+    "Patagonian shellfish and marine mammal hunters": {
+      "es": "cazadores de mariscos y mamíferos marinos de la Patagonia",
+      "fr": "chasseurs de coquillages et de mammifères marins de Patagonie",
+      "ar": "صيادو المحار وثدييات البحر في باتاغونيا"
+    },
+    "Caribbean hunter-gatherers": {
+      "es": "cazadores-recolectores del Caribe",
+      "fr": "chasseurs-cueilleurs des Caraïbes",
+      "ar": "صيادو الكاريبي"
+    },
+    "Tasmanian hunter-gatherers": {
+      "es": "cazadores-recolectores de Tasmania",
+      "fr": "chasseurs-cueilleurs de Tasmanie",
+      "ar": "صيادو تسمانيا"
+    },
+    "Eastern North American hunter-gatherers": {
+      "es": "cazadores-recolectores del este de Norteamérica",
+      "fr": "chasseurs-cueilleurs de l’Est nord-américain",
+      "ar": "صيادو شرق أمريكا الشمالية"
+    },
+    "Shellfish gatherers": {
+      "es": "recolectores de mariscos",
+      "fr": "cueilleurs de coquillages",
+      "ar": "جامعو المحار"
+    },
+    "Saharan pastoral nomads": {
+      "es": "pastores nómadas del Sahara",
+      "fr": "pasteurs nomades du Sahara",
+      "ar": "رعاة الصحراء الرحّل"
+    },
+    "Proto-Altaic pastoralists": {
+      "es": "pastores protoaltáicos",
+      "fr": "pasteurs proto-altaïques",
+      "ar": "رعاة ألتاي الأوائل"
+    },
+    "Manioc farmers": {
+      "es": "agricultores de yuca",
+      "fr": "agriculteurs de manioc",
+      "ar": "مزارعو الكسافا"
+    },
+    "Maize farmers": {
+      "es": "agricultores de maíz",
+      "fr": "agriculteurs de maïs",
+      "ar": "مزارعو الذرة"
+    },
+    "Papuan neolithic farmers": {
+      "es": "agricultores neolíticos papúes",
+      "fr": "agriculteurs néolithiques papous",
+      "ar": "مزارعو بابوا في العصر الحجري الحديث"
+    },
+    "Ethiopian highland farmers": {
+      "es": "agricultores de las tierras altas etíopes",
+      "fr": "agriculteurs des hauts plateaux éthiopiens",
+      "ar": "مزارعو المرتفعات الإثيوبية"
+    },
+    "Afghanistan": {
+      "es": "Afganistán",
+      "fr": "Afghanistan",
+      "ar": "أفغانستان"
+    },
+    "Algeria": {
+      "es": "Argelia",
+      "fr": "Algérie",
+      "ar": "الجزائر"
+    },
+    "Angola": {
+      "es": "Angola",
+      "fr": "Angola",
+      "ar": "أنغولا"
+    },
+    "Argentina": {
+      "es": "Argentina",
+      "fr": "Argentine",
+      "ar": "الأرجنتين"
+    },
+    "Australia": {
+      "es": "Australia",
+      "fr": "Australie",
+      "ar": "أستراليا"
+    },
+    "Belgium": {
+      "es": "Bélgica",
+      "fr": "Belgique",
+      "ar": "بلجيكا"
+    },
+    "Bolivia": {
+      "es": "Bolivia",
+      "fr": "Bolivie",
+      "ar": "بوليفيا"
+    },
+    "Botswana": {
+      "es": "Botsuana",
+      "fr": "Botswana",
+      "ar": "بوتسوانا"
+    },
+    "Brazil": {
+      "es": "Brasil",
+      "fr": "Brésil",
+      "ar": "البرازيل"
+    },
+    "Bulgaria": {
+      "es": "Bulgaria",
+      "fr": "Bulgarie",
+      "ar": "بلغاريا"
+    },
+    "Burkina Faso": {
+      "es": "Burkina Faso",
+      "fr": "Burkina Faso",
+      "ar": "بوركينا فاسو"
+    },
+    "Cambodia": {
+      "es": "Camboya",
+      "fr": "Cambodge",
+      "ar": "كمبوديا"
+    },
+    "Cameroon": {
+      "es": "Camerún",
+      "fr": "Cameroun",
+      "ar": "الكاميرون"
+    },
+    "Canada": {
+      "es": "Canadá",
+      "fr": "Canada",
+      "ar": "كندا"
+    },
+    "Central African Republic": {
+      "es": "República Centroafricana",
+      "fr": "République centrafricaine",
+      "ar": "جمهورية أفريقيا الوسطى"
+    },
+    "Chad": {
+      "es": "Chad",
+      "fr": "Tchad",
+      "ar": "تشاد"
+    },
+    "Chile": {
+      "es": "Chile",
+      "fr": "Chili",
+      "ar": "تشيلي"
+    },
+    "Colombia": {
+      "es": "Colombia",
+      "fr": "Colombie",
+      "ar": "كولومبيا"
+    },
+    "Denmark": {
+      "es": "Dinamarca",
+      "fr": "Danemark",
+      "ar": "الدنمارك"
+    },
+    "Denmark-Norway": {
+      "es": "Dinamarca-Noruega",
+      "fr": "Danemark-Norvège",
+      "ar": "الدنمارك-النرويج"
+    },
+    "Ecuador": {
+      "es": "Ecuador",
+      "fr": "Équateur",
+      "ar": "الإكوادور"
+    },
+    "Egypt": {
+      "es": "Egipto",
+      "fr": "Égypte",
+      "ar": "مصر"
+    },
+    "England": {
+      "es": "Inglaterra",
+      "fr": "Angleterre",
+      "ar": "إنجلترا"
+    },
+    "Ethiopia": {
+      "es": "Etiopía",
+      "fr": "Éthiopie",
+      "ar": "إثيوبيا"
+    },
+    "Finland": {
+      "es": "Finlandia",
+      "fr": "Finlande",
+      "ar": "فنلندا"
+    },
+    "France": {
+      "es": "Francia",
+      "fr": "France",
+      "ar": "فرنسا"
+    },
+    "Gabon": {
+      "es": "Gabón",
+      "fr": "Gabon",
+      "ar": "الغابون"
+    },
+    "Germany": {
+      "es": "Alemania",
+      "fr": "Allemagne",
+      "ar": "ألمانيا"
+    },
+    "Ghana": {
+      "es": "Ghana",
+      "fr": "Ghana",
+      "ar": "غانا"
+    },
+    "Greenland": {
+      "es": "Groenlandia",
+      "fr": "Groenland",
+      "ar": "غرينلاند"
+    },
+    "Guinea": {
+      "es": "Guinea",
+      "fr": "Guinée",
+      "ar": "غينيا"
+    },
+    "Guyana": {
+      "es": "Guyana",
+      "fr": "Guyana",
+      "ar": "غيانا"
+    },
+    "Iceland": {
+      "es": "Islandia",
+      "fr": "Islande",
+      "ar": "آيسلندا"
+    },
+    "India": {
+      "es": "India",
+      "fr": "Inde",
+      "ar": "الهند"
+    },
+    "Indonesia": {
+      "es": "Indonesia",
+      "fr": "Indonésie",
+      "ar": "إندونيسيا"
+    },
+    "Iran": {
+      "es": "Irán",
+      "fr": "Iran",
+      "ar": "إيران"
+    },
+    "Iraq": {
+      "es": "Irak",
+      "fr": "Irak",
+      "ar": "العراق"
+    },
+    "Italy": {
+      "es": "Italia",
+      "fr": "Italie",
+      "ar": "إيطاليا"
+    },
+    "Japan": {
+      "es": "Japón",
+      "fr": "Japon",
+      "ar": "اليابان"
+    },
+    "Kazakhstan": {
+      "es": "Kazajistán",
+      "fr": "Kazakhstan",
+      "ar": "كازاخستان"
+    },
+    "Kenya": {
+      "es": "Kenia",
+      "fr": "Kenya",
+      "ar": "كينيا"
+    },
+    "Korea": {
+      "es": "Corea",
+      "fr": "Corée",
+      "ar": "كوريا"
+    },
+    "Kyrgyzstan": {
+      "es": "Kirguistán",
+      "fr": "Kirghizistan",
+      "ar": "قيرغيزستان"
+    },
+    "Laos": {
+      "es": "Laos",
+      "fr": "Laos",
+      "ar": "لاوس"
+    },
+    "Libya": {
+      "es": "Libia",
+      "fr": "Libye",
+      "ar": "ليبيا"
+    },
+    "Madagascar": {
+      "es": "Madagascar",
+      "fr": "Madagascar",
+      "ar": "مدغشقر"
+    },
+    "Malaysia": {
+      "es": "Malasia",
+      "fr": "Malaisie",
+      "ar": "ماليزيا"
+    },
+    "Mali": {
+      "es": "Malí",
+      "fr": "Mali",
+      "ar": "مالي"
+    },
+    "Mauritania": {
+      "es": "Mauritania",
+      "fr": "Mauritanie",
+      "ar": "موريتانيا"
+    },
+    "Mexico": {
+      "es": "México",
+      "fr": "Mexique",
+      "ar": "المكسيك"
+    },
+    "Mongolia": {
+      "es": "Mongolia",
+      "fr": "Mongolie",
+      "ar": "منغوليا"
+    },
+    "Morocco": {
+      "es": "Marruecos",
+      "fr": "Maroc",
+      "ar": "المغرب"
+    },
+    "Mozambique": {
+      "es": "Mozambique",
+      "fr": "Mozambique",
+      "ar": "موزمبيق"
+    },
+    "Namibia": {
+      "es": "Namibia",
+      "fr": "Namibie",
+      "ar": "ناميبيا"
+    },
+    "Nepal": {
+      "es": "Nepal",
+      "fr": "Népal",
+      "ar": "نيبال"
+    },
+    "New Zealand": {
+      "es": "Nueva Zelanda",
+      "fr": "Nouvelle-Zélande",
+      "ar": "نيوزيلندا"
+    },
+    "Niger": {
+      "es": "Níger",
+      "fr": "Niger",
+      "ar": "النيجر"
+    },
+    "Nigeria": {
+      "es": "Nigeria",
+      "fr": "Nigeria",
+      "ar": "نيجيريا"
+    },
+    "Norway": {
+      "es": "Noruega",
+      "fr": "Norvège",
+      "ar": "النرويج"
+    },
+    "Oman": {
+      "es": "Omán",
+      "fr": "Oman",
+      "ar": "عُمان"
+    },
+    "Pakistan": {
+      "es": "Pakistán",
+      "fr": "Pakistan",
+      "ar": "باكستان"
+    },
+    "Papua New Guinea": {
+      "es": "Papúa Nueva Guinea",
+      "fr": "Papouasie-Nouvelle-Guinée",
+      "ar": "بابوا غينيا الجديدة"
+    },
+    "Paraguay": {
+      "es": "Paraguay",
+      "fr": "Paraguay",
+      "ar": "باراغواي"
+    },
+    "Peru": {
+      "es": "Perú",
+      "fr": "Pérou",
+      "ar": "بيرو"
+    },
+    "Philippines": {
+      "es": "Filipinas",
+      "fr": "Philippines",
+      "ar": "الفلبين"
+    },
+    "Poland": {
+      "es": "Polonia",
+      "fr": "Pologne",
+      "ar": "بولندا"
+    },
+    "Portugal": {
+      "es": "Portugal",
+      "fr": "Portugal",
+      "ar": "البرتغال"
+    },
+    "Romania": {
+      "es": "Rumanía",
+      "fr": "Roumanie",
+      "ar": "رومانيا"
+    },
+    "Russia": {
+      "es": "Rusia",
+      "fr": "Russie",
+      "ar": "روسيا"
+    },
+    "Saudi Arabia": {
+      "es": "Arabia Saudita",
+      "fr": "Arabie saoudite",
+      "ar": "السعودية"
+    },
+    "Senegal": {
+      "es": "Senegal",
+      "fr": "Sénégal",
+      "ar": "السنغال"
+    },
+    "Somalia": {
+      "es": "Somalia",
+      "fr": "Somalie",
+      "ar": "الصومال"
+    },
+    "South Africa": {
+      "es": "Sudáfrica",
+      "fr": "Afrique du Sud",
+      "ar": "جنوب أفريقيا"
+    },
+    "Spain": {
+      "es": "España",
+      "fr": "Espagne",
+      "ar": "إسبانيا"
+    },
+    "Sudan": {
+      "es": "Sudán",
+      "fr": "Soudan",
+      "ar": "السودان"
+    },
+    "Sweden": {
+      "es": "Suecia",
+      "fr": "Suède",
+      "ar": "السويد"
+    },
+    "Syria": {
+      "es": "Siria",
+      "fr": "Syrie",
+      "ar": "سوريا"
+    },
+    "Tajikistan": {
+      "es": "Tayikistán",
+      "fr": "Tadjikistan",
+      "ar": "طاجيكستان"
+    },
+    "Thailand": {
+      "es": "Tailandia",
+      "fr": "Thaïlande",
+      "ar": "تايلاند"
+    },
+    "Tunisia": {
+      "es": "Túnez",
+      "fr": "Tunisie",
+      "ar": "تونس"
+    },
+    "Turkey": {
+      "es": "Turquía",
+      "fr": "Turquie",
+      "ar": "تركيا"
+    },
+    "Turkmenistan": {
+      "es": "Turkmenistán",
+      "fr": "Turkménistan",
+      "ar": "تركمانستان"
+    },
+    "Uganda": {
+      "es": "Uganda",
+      "fr": "Ouganda",
+      "ar": "أوغندا"
+    },
+    "Ukraine": {
+      "es": "Ucrania",
+      "fr": "Ukraine",
+      "ar": "أوكرانيا"
+    },
+    "United Kingdom": {
+      "es": "Reino Unido",
+      "fr": "Royaume-Uni",
+      "ar": "المملكة المتحدة"
+    },
+    "United States of America": {
+      "es": "Estados Unidos",
+      "fr": "États-Unis",
+      "ar": "الولايات المتحدة"
+    },
+    "Uruguay": {
+      "es": "Uruguay",
+      "fr": "Uruguay",
+      "ar": "أوروغواي"
+    },
+    "Uzbekistan": {
+      "es": "Uzbekistán",
+      "fr": "Ouzbékistan",
+      "ar": "أوزبكستان"
+    },
+    "Venezuela": {
+      "es": "Venezuela",
+      "fr": "Venezuela",
+      "ar": "فنزويلا"
+    },
+    "Vietnam": {
+      "es": "Vietnam",
+      "fr": "Viêt Nam",
+      "ar": "فيتنام"
+    },
+    "Western Sahara": {
+      "es": "Sahara Occidental",
+      "fr": "Sahara occidental",
+      "ar": "الصحراء الغربية"
+    },
+    "Yemen": {
+      "es": "Yemen",
+      "fr": "Yémen",
+      "ar": "اليمن"
+    },
+    "Zambia": {
+      "es": "Zambia",
+      "fr": "Zambie",
+      "ar": "زامبيا"
+    },
+    "Zimbabwe": {
+      "es": "Zimbabue",
+      "fr": "Zimbabwe",
+      "ar": "زيمبابوي"
+    },
+    "San Marino": {
+      "es": "San Marino",
+      "fr": "Saint-Marin",
+      "ar": "سان مارينو"
+    },
+    "Caloosahatchee culture": {
+      "es": "cultura Caloosahatchee",
+      "fr": "culture Caloosahatchee",
+      "ar": "ثقافة كالوساهاتشي"
+    },
+    "Maya city-states": {
+      "es": "ciudades-estado mayas",
+      "fr": "cités-États mayas",
+      "ar": "دول المدن المايا"
+    },
+    "Mesoamerican city-states and chiefdoms": {
+      "es": "ciudades-estado y cacicazgos mesoamericanos",
+      "fr": "cités-États et chefferies mésoaméricaines",
+      "ar": "دول المدن والمشيخات في وسط أمريكا"
+    },
+    "Polynesians": {
+      "es": "polinesios",
+      "fr": "Polynésiens",
+      "ar": "البولينيزيون"
+    },
+    "Bantu peoples": {
+      "es": "pueblos bantúes",
+      "fr": "peuples bantous",
+      "ar": "الشعوب البانتو"
+    },
+    "Baltic tribes": {
+      "es": "tribus bálticas",
+      "fr": "tribus baltes",
+      "ar": "القبائل البلطيقية"
+    },
+    "Hainan": {
+      "es": "Hainan",
+      "fr": "Hainan",
+      "ar": "هاينان"
+    },
+    "Champa": {
+      "es": "Champa",
+      "fr": "Champa",
+      "ar": "تشامبا"
+    },
+    "Tuʻi Tonga Empire": {
+      "es": "imperio Tuʻi Tonga",
+      "fr": "empire Tuʻi Tonga",
+      "ar": "إمبراطورية توي تونغا"
+    },
+    "Imperial Japan (Fujiwara)": {
+      "es": "Japón imperial (Fujiwara)",
+      "fr": "Japon impérial (Fujiwara)",
+      "ar": "اليابان الإمبراطورية (فوجيوارا)"
+    },
+    "Merina Kingdom": {
+      "es": "reino Merina",
+      "fr": "royaume Merina",
+      "ar": "مملكة ميرينا"
+    },
+    "Sardinia": {
+      "es": "Cerdeña",
+      "fr": "Sardaigne",
+      "ar": "سردينيا"
+    },
+    "Great Zimbabwe": {
+      "es": "Gran Zimbabue",
+      "fr": "Grand Zimbabwe",
+      "ar": "زيمبابوي الكبرى"
+    },
+    "Islamic city-states": {
+      "es": "ciudades-estado islámicas",
+      "fr": "cités-États islamiques",
+      "ar": "دول المدن الإسلامية"
+    },
+    "Magyars": {
+      "es": "magiares",
+      "fr": "Magyars",
+      "ar": "المجريون"
+    },
+    "Venice": {
+      "es": "Venecia",
+      "fr": "Venise",
+      "ar": "البندقية"
+    },
+    "Corsica": {
+      "es": "Córcega",
+      "fr": "Corse",
+      "ar": "كورسيكا"
+    },
+    "East Java": {
+      "es": "Java Oriental",
+      "fr": "Java oriental",
+      "ar": "جاوة الشرقية"
+    },
+    "Xixia": {
+      "es": "Xixia",
+      "fr": "Xixia",
+      "ar": "شيا الغربية"
+    },
+    "Chola Empire": {
+      "es": "imperio Chola",
+      "fr": "empire Chola",
+      "ar": "إمبراطورية تشولا"
+    },
+    "Song Empire": {
+      "es": "imperio Song",
+      "fr": "empire Song",
+      "ar": "إمبراطورية سونغ"
+    },
+    "Nan Chao": {
+      "es": "Nanzhao",
+      "fr": "Nanzhao",
+      "ar": "نانتشاو"
+    },
+    "Liao": {
+      "es": "Liao",
+      "fr": "Liao",
+      "ar": "لياو"
+    },
+    "minor Hindu and Buddhist states": {
+      "es": "pequeños estados hinduistas y budistas",
+      "fr": "petits États hindous et bouddhistes",
+      "ar": "دول هندوسية وبوذية صغيرة"
+    },
+    "Muscat": {
+      "es": "Mascate",
+      "fr": "Mascate",
+      "ar": "مسقط"
+    },
+    "Alwa": {
+      "es": "Alwa",
+      "fr": "Alwa",
+      "ar": "علوة"
+    },
+    "Scotland": {
+      "es": "Escocia",
+      "fr": "Écosse",
+      "ar": "إسكتلندا"
+    },
+    "Innu": {
+      "es": "Innu",
+      "fr": "Innus",
+      "ar": "الإنو"
+    },
+    "Navarre": {
+      "es": "Navarra",
+      "fr": "Navarre",
+      "ar": "نافارا"
+    },
+    "Aragón": {
+      "es": "Aragón",
+      "fr": "Aragon",
+      "ar": "أراغون"
+    },
+    "Athabaskan": {
+      "es": "athabascanos",
+      "fr": "Athabascans",
+      "ar": "الأثاباسكيون"
+    },
+    "Thule": {
+      "es": "Thule",
+      "fr": "Thulé",
+      "ar": "ثولي"
+    },
+    "Britany": {
+      "es": "Bretaña",
+      "fr": "Bretagne",
+      "ar": "بريتاني"
+    },
+    "Holy Roman Empire": {
+      "es": "Sacro Imperio Romano",
+      "fr": "Saint-Empire romain",
+      "ar": "الإمبراطورية الرومانية المقدسة"
+    },
+    "Orissa": {
+      "es": "Orissa",
+      "fr": "Orissa",
+      "ar": "أوريسا"
+    },
+    "Siberians": {
+      "es": "siberianos",
+      "fr": "Sibériens",
+      "ar": "السيبيريون"
+    },
+    "Beothuk": {
+      "es": "Beothuk",
+      "fr": "Béothuks",
+      "ar": "البيوثوك"
+    },
+    "Ainus": {
+      "es": "ainus",
+      "fr": "Aïnous",
+      "ar": "الآينو"
+    },
+    "Maori": {
+      "es": "maoríes",
+      "fr": "Maoris",
+      "ar": "الماوري"
+    },
+    "Kanem-Bornu": {
+      "es": "Kanem-Bornu",
+      "fr": "Kanem-Bornou",
+      "ar": "كانم-بورنو"
+    },
+    "Papal States": {
+      "es": "Estados Pontificios",
+      "fr": "États pontificaux",
+      "ar": "الدولة البابوية"
+    },
+    "Shuar": {
+      "es": "shuar",
+      "fr": "Shuars",
+      "ar": "الشوار"
+    },
+    "Andorra": {
+      "es": "Andorra",
+      "fr": "Andorre",
+      "ar": "أندورا"
+    },
+    "Switzerland": {
+      "es": "Suiza",
+      "fr": "Suisse",
+      "ar": "سويسرا"
+    },
+    "Monaco": {
+      "es": "Mónaco",
+      "fr": "Monaco",
+      "ar": "موناكو"
+    },
+    "Arakan": {
+      "es": "Arakan",
+      "fr": "Arakan",
+      "ar": "أراكان"
+    },
+    "Mossi States": {
+      "es": "estados mossi",
+      "fr": "États mossis",
+      "ar": "دول الموصي"
+    },
+    "Congo": {
+      "es": "Congo",
+      "fr": "Congo",
+      "ar": "الكونغو"
+    },
+    "Oyo": {
+      "es": "Oyo",
+      "fr": "Oyo",
+      "ar": "أويو"
+    },
+    "Ottoman Empire": {
+      "es": "imperio otomano",
+      "fr": "Empire ottoman",
+      "ar": "الإمبراطورية العثمانية"
+    },
+    "Maya": {
+      "es": "mayas",
+      "fr": "Mayas",
+      "ar": "المايا"
+    },
+    "Lunda": {
+      "es": "Lunda",
+      "fr": "Lunda",
+      "ar": "لوندا"
+    },
+    "Luba": {
+      "es": "Luba",
+      "fr": "Luba",
+      "ar": "لوبا"
+    },
+    "Prussia": {
+      "es": "Prusia",
+      "fr": "Prusse",
+      "ar": "بروسيا"
+    },
+    "Papuans": {
+      "es": "papúes",
+      "fr": "Papous",
+      "ar": "البابويون"
+    },
+    "Viceroyalty of New Spain": {
+      "es": "virreinato de Nueva España",
+      "fr": "vice-royauté de Nouvelle-Espagne",
+      "ar": "نائبية إسبانيا الجديدة"
+    },
+    "Netherlands": {
+      "es": "Países Bajos",
+      "fr": "Pays-Bas",
+      "ar": "هولندا"
+    },
+    "Haiti": {
+      "es": "Haití",
+      "fr": "Haïti",
+      "ar": "هايتي"
+    },
+    "Liechtenstein": {
+      "es": "Liechtenstein",
+      "fr": "Liechtenstein",
+      "ar": "ليختنشتاين"
+    },
+    "Nicaragua": {
+      "es": "Nicaragua",
+      "fr": "Nicaragua",
+      "ar": "نيكاراغوا"
+    },
+    "Costa Rica": {
+      "es": "Costa Rica",
+      "fr": "Costa Rica",
+      "ar": "كوستاريكا"
+    },
+    "Guatemala": {
+      "es": "Guatemala",
+      "fr": "Guatemala",
+      "ar": "غواتيمالا"
+    },
+    "Honduras": {
+      "es": "Honduras",
+      "fr": "Honduras",
+      "ar": "هندوراس"
+    },
+    "El Salvador": {
+      "es": "El Salvador",
+      "fr": "Salvador",
+      "ar": "السلفادور"
+    },
+    "Greece": {
+      "es": "Grecia",
+      "fr": "Grèce",
+      "ar": "اليونان"
+    },
+    "Dominican Republic": {
+      "es": "República Dominicana",
+      "fr": "République dominicaine",
+      "ar": "جمهورية الدومينيكان"
+    },
+    "Liberia": {
+      "es": "Liberia",
+      "fr": "Liberia",
+      "ar": "ليبيريا"
+    },
+    "Luxembourg": {
+      "es": "Luxemburgo",
+      "fr": "Luxembourg",
+      "ar": "لوكسمبورغ"
+    },
+    "Puerto Rico": {
+      "es": "Puerto Rico",
+      "fr": "Porto Rico",
+      "ar": "بورتوريكو"
+    },
+    "Cuba": {
+      "es": "Cuba",
+      "fr": "Cuba",
+      "ar": "كوبا"
+    },
+    "Panama": {
+      "es": "Panamá",
+      "fr": "Panama",
+      "ar": "بنما"
+    },
+    "Bhutan": {
+      "es": "Bután",
+      "fr": "Bhoutan",
+      "ar": "بوتان"
+    },
+    "Albania": {
+      "es": "Albania",
+      "fr": "Albanie",
+      "ar": "ألبانيا"
+    },
+    "Ireland": {
+      "es": "Irlanda",
+      "fr": "Irlande",
+      "ar": "أيرلندا"
+    },
+    "Trinidad": {
+      "es": "Trinidad",
+      "fr": "Trinité",
+      "ar": "ترينيداد"
+    },
+    "Martinique": {
+      "es": "Martinica",
+      "fr": "Martinique",
+      "ar": "مارتينيك"
+    },
+    "Guadeloupe": {
+      "es": "Guadalupe",
+      "fr": "Guadeloupe",
+      "ar": "غوادلوب"
+    },
+    "Netherlands Antilles": {
+      "es": "Antillas Neerlandesas",
+      "fr": "Antilles néerlandaises",
+      "ar": "جزر الأنتيل الهولندية"
+    },
+    "Saint Barthelemy": {
+      "es": "San Bartolomé",
+      "fr": "Saint-Barthélemy",
+      "ar": "سان بارتيلمي"
+    },
+    "United States": {
+      "es": "Estados Unidos",
+      "fr": "États-Unis",
+      "ar": "الولايات المتحدة"
+    },
+    "New Caledonia": {
+      "es": "Nueva Caledonia",
+      "fr": "Nouvelle-Calédonie",
+      "ar": "كاليدونيا الجديدة"
+    },
+    "Taiwan": {
+      "es": "Taiwán",
+      "fr": "Taïwan",
+      "ar": "تايوان"
+    },
+    "Malaya": {
+      "es": "Malaya",
+      "fr": "Malaisie britannique",
+      "ar": "مالايا"
+    },
+    "Portuguese Guinea": {
+      "es": "Guinea portuguesa",
+      "fr": "Guinée portugaise",
+      "ar": "غينيا البرتغالية"
+    },
+    "Portuguese East Africa": {
+      "es": "África Oriental portuguesa",
+      "fr": "Afrique orientale portugaise",
+      "ar": "شرق أفريقيا البرتغالية"
+    },
+    "Ceylon": {
+      "es": "Ceilán",
+      "fr": "Ceylan",
+      "ar": "سيلان"
+    },
+    "Cochin China": {
+      "es": "Cochinchina",
+      "fr": "Cochinchine",
+      "ar": "كوتشينشينا"
+    },
+    "Burma": {
+      "es": "Birmania",
+      "fr": "Birmanie",
+      "ar": "بورما"
+    },
+    "Buganda": {
+      "es": "Buganda",
+      "fr": "Buganda",
+      "ar": "بوغندا"
+    },
+    "Bunyoro": {
+      "es": "Bunyoro",
+      "fr": "Bunyoro",
+      "ar": "بونيورو"
+    },
+    "Lozi": {
+      "es": "Lozi",
+      "fr": "Lozi",
+      "ar": "لوزي"
+    },
+    "Asante": {
+      "es": "Asante",
+      "fr": "Ashanti",
+      "ar": "أشانتي"
+    },
+    "Sweden–Norway": {
+      "es": "Suecia-Noruega",
+      "fr": "Suède-Norvège",
+      "ar": "السويد-النرويج"
+    },
+    "Dutch East Indies": {
+      "es": "Indias Orientales Neerlandesas",
+      "fr": "Indes orientales néerlandaises",
+      "ar": "الهند الشرقية الهولندية"
+    },
+    "French Guiana": {
+      "es": "Guayana Francesa",
+      "fr": "Guyane française",
+      "ar": "غويانا الفرنسية"
+    },
+    "Swaziland": {
+      "es": "Suazilandia",
+      "fr": "Swaziland",
+      "ar": "إسواتيني"
+    },
+    "China": {
+      "es": "China",
+      "fr": "Chine",
+      "ar": "الصين"
+    },
+    "Ivory Coast": {
+      "es": "Costa de Marfil",
+      "fr": "Côte d’Ivoire",
+      "ar": "ساحل العاج"
+    },
+    "Bahamas": {
+      "es": "Bahamas",
+      "fr": "Bahamas",
+      "ar": "الباهاما"
+    },
+    "Zaire": {
+      "es": "Zaire",
+      "fr": "Zaïre",
+      "ar": "زائير"
+    },
+    "Tanzania, United Republic of": {
+      "es": "Tanzania",
+      "fr": "Tanzanie",
+      "ar": "تنزانيا"
+    },
+    "Gambia, The": {
+      "es": "Gambia",
+      "fr": "Gambie",
+      "ar": "غامبيا"
+    },
+    "American Samoa": {
+      "es": "Samoa Americana",
+      "fr": "Samoa américaines",
+      "ar": "ساموا الأمريكية"
+    },
+    "Niue": {
+      "es": "Niue",
+      "fr": "Niue",
+      "ar": "نييوي"
+    },
+    "Rapa Nui": {
+      "es": "Rapa Nui",
+      "fr": "Rapa Nui",
+      "ar": "رابا نوي"
+    },
+    "Turks and Caicos Islands": {
+      "es": "Islas Turcas y Caicos",
+      "fr": "Îles Turques-et-Caïques",
+      "ar": "جزر توركس وكايكوس"
+    },
+    "United States Virgin Islands": {
+      "es": "Islas Vírgenes de los Estados Unidos",
+      "fr": "Îles Vierges des États-Unis",
+      "ar": "جزر العذراء الأمريكية"
+    },
+    "Turkish Cypriot-administered area": {
+      "es": "zona administrada por los turcochipriotas",
+      "fr": "zone administrée par les Chypriotes turcs",
+      "ar": "المنطقة الخاضعة لإدارة القبارصة الأتراك"
+    },
+    "Lebanon": {
+      "es": "Líbano",
+      "fr": "Liban",
+      "ar": "لبنان"
+    },
+    "Chimú Empire": {
+      "es": "imperio chimú",
+      "fr": "empire Chimú",
+      "ar": "إمبراطورية تشيمو"
+    },
+    "Arawaks": {
+      "es": "arawak",
+      "fr": "Arawaks",
+      "ar": "الأراواك"
+    },
+    "Taino": {
+      "es": "taínos",
+      "fr": "Taïnos",
+      "ar": "التاينو"
+    },
+    "Byzantine Empire": {
+      "es": "imperio bizantino",
+      "fr": "Empire byzantin",
+      "ar": "الإمبراطورية البيزنطية"
+    },
+    "Bulgar Khanate": {
+      "es": "kanato búlgaro",
+      "fr": "khanat bulgare",
+      "ar": "خانية البلغار"
+    },
+    "Khmer Empire": {
+      "es": "imperio jemer",
+      "fr": "Empire khmer",
+      "ar": "إمبراطورية الخمير"
+    },
+    "Srivijaya Empire": {
+      "es": "imperio Srivijaya",
+      "fr": "empire Srivijaya",
+      "ar": "إمبراطورية سريفيجايا"
+    },
+    "Đại Việt": {
+      "es": "Đại Việt",
+      "fr": "Đại Việt",
+      "ar": "داي فيت"
+    },
+    "Sicily": {
+      "es": "Sicilia",
+      "fr": "Sicile",
+      "ar": "صقلية"
+    },
+    "Imperial Japan": {
+      "es": "Japón imperial",
+      "fr": "Japon impérial",
+      "ar": "اليابان الإمبراطورية"
+    },
+    "Māori": {
+      "es": "maoríes",
+      "fr": "Maoris",
+      "ar": "الماوري"
+    },
+    "Dutch Guiana": {
+      "es": "Guayana neerlandesa",
+      "fr": "Guyane néerlandaise",
+      "ar": "غويانا الهولندية"
+    },
+    "Netherlands Indies": {
+      "es": "Indias Neerlandesas",
+      "fr": "Indes néerlandaises",
+      "ar": "الهند الشرقية الهولندية"
+    },
+    "British Guiana": {
+      "es": "Guayana británica",
+      "fr": "Guyane britannique",
+      "ar": "غويانا البريطانية"
+    },
+    "Kingdom of Brazil": {
+      "es": "reino de Brasil",
+      "fr": "royaume du Brésil",
+      "ar": "مملكة البرازيل"
+    },
+    "Basutoland": {
+      "es": "Basutolandia",
+      "fr": "Basutoland",
+      "ar": "باسوتولاند"
+    },
+    "Zululand": {
+      "es": "Zululandia",
+      "fr": "Zoulouland",
+      "ar": "زولولاند"
+    },
+    "Ndebele": {
+      "es": "ndebele",
+      "fr": "Ndébélés",
+      "ar": "الندبيلي"
+    },
+    "Sultanate of Zanzibar": {
+      "es": "sultanato de Zanzíbar",
+      "fr": "sultanat de Zanzibar",
+      "ar": "سلطنة زنجبار"
+    },
+    "Shona": {
+      "es": "shona",
+      "fr": "Shona",
+      "ar": "الشونا"
+    },
+    "Arabia": {
+      "es": "Arabia",
+      "fr": "Arabie",
+      "ar": "الجزيرة العربية"
+    },
+    "Trucial Oman": {
+      "es": "Omán de la Tregua",
+      "fr": "Oman de la Trêve",
+      "ar": "عُمان المتصالحة"
+    },
+    "Gambia": {
+      "es": "Gambia",
+      "fr": "Gambie",
+      "ar": "غامبيا"
+    },
+    "Tukular Caliphate": {
+      "es": "califato tukulor",
+      "fr": "califat toucouleur",
+      "ar": "خلافة توكولور"
+    }
+  }
+}
