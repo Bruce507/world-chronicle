@@ -155,4 +155,5 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 - `0879f66`：六个弱项场景构图 pass，资源版本 `20261107n`；估算 4.26，Gate 1 仍未达。
 - `f6fa615`：材料排线与明暗 pass，资源版本 `20261107o`；估算 4.40，Gate 1 仍未达。
 - `acd5012`：前景暗锚与水面排线 pass，资源版本 `20261107p`；估算 4.47，Gate 1 差 0.03。
+- `a16e36f`：Gate 1 通过，资源版本 `20261107q`；30 主题 / 32 条目复评 4.56。
 - **推送状态**：2A/2B 已推送并上线（`3e2018b`）；2C 的 `fc44106` 为本地提交，需在 GitHub Desktop 点 Push。命令行仍无 GitHub 凭据。
