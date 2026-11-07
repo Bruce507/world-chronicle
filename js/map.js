@@ -417,6 +417,13 @@
       return { x: this.originX + robX(lon, lat) * s + this.view.panX, y: this.originY - robY(lat) * s + this.view.panY };
     }
 
+    panByPixels(dx, dy) {
+      this.view.panX += dx || 0;
+      this.view.panY += dy || 0;
+      this.clampPan();
+      this.drawBase();
+    }
+
     clampPan() {
       const s = this.scale();
       const w = WORLD_W * s, h = WORLD_H * s;

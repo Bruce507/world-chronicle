@@ -408,6 +408,7 @@
   let lastChromeYear = null, lastChromePos = "", lastBandEra = null, lastPlayTs = 0, lastHintStep = null;
   let draggingTrack = false, eventTimer = 0, lastAutoGroup = "";
   let searchItems = [], searchActive = -1, noteTimer = 0, toastTimer = 0, navigatingHistory = false;
+  let lastFocusEl = null;
 
   /* ── boot ───────────────────────────────────────── */
   function boot() {
@@ -675,6 +676,10 @@
     const now = performance.now();
     if (state.lastTrigger && state.lastTrigger.id === ev.id && now - state.lastTrigger.at < 600) return;
     state.lastTrigger = { id: ev.id, at: now };
+    if (!(opts && opts.auto)) {
+      const ae = document.activeElement;
+      lastFocusEl = (ae && ae !== document.body && ae.focus) ? ae : null;
+    }
     openEvent(ev, opts);
     if (source === "country") setPanel(true);
   }
@@ -1944,6 +1949,11 @@
     }
     fillTheatreCard(ev);
     syncPauseButtons(false);
+    // Focus lands on the panel title so screen-reader and keyboard users
+    // arrive at the new content; auto-opened scenes never steal focus.
+    if (!(opts && opts.auto)) {
+      setTimeout(() => { if (el["panel-title"] && state.eventView) el["panel-title"].focus({ preventScroll: true }); }, 40);
+    }
     el["theatre-card"].hidden = false;
     document.getElementById("map-stage").classList.add("theatre-open");
     el.hint.classList.add("hide");
@@ -1956,6 +1966,7 @@
     if (window.MapTheatre) window.MapTheatre.clear();
     el["theatre-card"].hidden = true;
     document.getElementById("map-stage").classList.remove("theatre-open");
+    const evId = state.selected && state.selected.id;
     state.selected = null;
     state.eventView = null;
     state.eventGroup = null;
@@ -1965,7 +1976,17 @@
       map.setPaused(false);
     }
     if (state.panelOpen) renderPanel(true);
+    restoreTriggerFocus(evId);
     syncURL();
+  }
+
+  function restoreTriggerFocus(evId) {
+    let t = lastFocusEl;
+    if (t && (!document.contains(t) || t.offsetParent === null)) t = null;
+    if (!t && evId) t = document.querySelector('#a11y-nodes [data-ev="' + evId + '"]');
+    if (!t) t = document.getElementById("track");
+    lastFocusEl = null;
+    if (t && t.focus) { try { t.focus({ preventScroll: true }); } catch (err) { /* older browsers */ } }
   }
 
   function fillTheatreCard(ev) {
@@ -2321,6 +2342,9 @@
     el["side-panel"].classList.toggle("collapsed", !open);
     document.getElementById("map-stage").classList.toggle("panel-open", !!open);
     el["panel-reopen"].hidden = open;
+    if (!open && document.activeElement && el["side-panel"].contains(document.activeElement) && el["panel-reopen"]) {
+      setTimeout(() => el["panel-reopen"].focus({ preventScroll: true }), 60);
+    }
     if (map) map.fit(false);
     if (open && isMobilePanel()) setSheet(state.sheet || "half", { silent: true });
     if (open && map && map.features) renderPanel(true);
@@ -2684,7 +2708,22 @@
       map.fit(true);
       updateFitButton();
     });
-    if (el["sheet-expand"]) el["sheet-expand"].addEventListener("click", () => setSheet("half"));
+    if (el["sheet-expand"]) el["sheet-expand"].addEventListener("click", () => {
+      setSheet("half");
+      setTimeout(() => { if (el["sheet-handle"]) el["sheet-handle"].focus({ preventScroll: true }); }, 60);
+    });
+    if (el["minimap-canvas"]) el["minimap-canvas"].addEventListener("keydown", (e) => {
+      const k = e.key;
+      if (k === "ArrowLeft" || k === "ArrowRight" || k === "ArrowUp" || k === "ArrowDown") {
+        e.preventDefault();
+        const dx = k === "ArrowLeft" ? map.W * 0.24 : k === "ArrowRight" ? -map.W * 0.24 : 0;
+        const dy = k === "ArrowUp" ? map.H * 0.24 : k === "ArrowDown" ? -map.H * 0.24 : 0;
+        map.panByPixels(dx, dy);
+      } else if (k === "Enter" || k === " ") {
+        e.preventDefault();
+        if (map.focus) map.flyTo(map.focus.lat, map.focus.lon, Math.max(1.6, map.view.zoom), 420);
+      }
+    });
     if (el["minimap-fit"]) el["minimap-fit"].addEventListener("click", () => {
       map.setFitMode("world");
       map.fit(true);
@@ -2781,19 +2820,7 @@
       const themeClose = e.target.closest("[data-theme-close]");
       if (themeClose) { state.theme = null; state.region = null; lastPanelKey = ""; map.fit(true); renderPanel(true); updateRegionActive(); return; }
       const closeEv = e.target.closest("[data-ev-close]");
-      if (closeEv) {
-        state.eventView = null;
-        state.eventGroup = null;
-        state.selected = null;
-        if (map) { map.setSelected(null); map.setPaused(false); }
-        if (window.MapTheatre) window.MapTheatre.clear();
-        if (el["theatre-card"]) el["theatre-card"].hidden = true;
-        document.getElementById("map-stage").classList.remove("theatre-open");
-        lastPanelKey = "";
-        renderPanel(true);
-        syncURL();
-        return;
-      }
+      if (closeEv) { closeTheatre(); return; }
       const modalBtn = e.target.closest("[data-ev-modal]");
       if (modalBtn) { openEventModal(byId[modalBtn.getAttribute("data-ev-modal")]); return; }
       const countryBtn = e.target.closest("[data-country-open]");

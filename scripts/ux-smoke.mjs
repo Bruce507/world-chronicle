@@ -64,6 +64,9 @@ try {
   }));
   check("search Enter opens the event panel and theatre", searched.ev === "Marco Polo Bridge Incident" && searched.panel && searched.theatre, JSON.stringify(searched));
 
+  const focusOnOpen = await d.evaluate(() => document.activeElement && document.activeElement.id);
+  check("opening an event moves focus to the panel title", focusOnOpen === "panel-title", focusOnOpen);
+
   const actions = await d.evaluate(() => {
     const top = [...document.querySelectorAll(".ev-detail-actions > button")].map((b) => b.textContent.trim());
     return {
@@ -107,6 +110,8 @@ try {
 
   await d.evaluate(() => document.querySelector("[data-ev-close]")?.click());
   await d.waitForTimeout(300);
+  const focusBack = await d.evaluate(() => ({ id: document.activeElement && document.activeElement.id, cls: document.activeElement && document.activeElement.className }));
+  check("closing the event returns focus to the trigger or map node", focusBack.id === "search" || String(focusBack.cls).indexOf("a11y-node") >= 0 || focusBack.id === "track", JSON.stringify(focusBack));
   const beforeFilter = await d.evaluate(() => window.atlasAPI.map.visibleEvents().length);
   const warChip = await d.$('[data-cat-filter="war"]');
   if (warChip) await warChip.click();
@@ -238,6 +243,8 @@ try {
   await m.waitForTimeout(400);
   const expanded = await m.evaluate(() => window.atlasAPI.state.sheet);
   check("peek has a visible expand action", expandVisible && expanded === "half", expanded);
+  const expandFocus = await m.evaluate(() => document.activeElement && document.activeElement.id);
+  check("expanding the drawer keeps focus on the handle", expandFocus === "sheet-handle", expandFocus);
 
   await m.evaluate(() => window.atlasAPI.setSheet("full"));
   await m.waitForTimeout(400);
@@ -261,6 +268,12 @@ try {
     return { hidden: box.hidden, w: cv.clientWidth, h: cv.clientHeight, stored: localStorage.getItem("world-atlas-fit") };
   });
   check("fill view shows a minimap with the current viewport", !mini.hidden && mini.w >= 90 && mini.h >= 50 && mini.stored === "fill", JSON.stringify(mini));
+  await m.focus("#minimap-canvas");
+  const pan0 = await m.evaluate(() => window.atlasAPI.map.view.panX);
+  await m.keyboard.press("ArrowLeft");
+  await m.waitForTimeout(200);
+  const pan1 = await m.evaluate(() => window.atlasAPI.map.view.panX);
+  check("minimap is keyboard operable", Math.abs(pan1 - pan0) > 5, pan0 + " → " + pan1);
   const focus0 = await m.evaluate(() => ({ lon: window.atlasAPI.map.focus.lon }));
   const box = await m.locator("#minimap-canvas").boundingBox();
   await m.mouse.click(box.x + box.width * 0.2, box.y + box.height * 0.5);
@@ -304,6 +317,36 @@ try {
   check("fill view persists across reload", persisted.mode === "fill" && persisted.mini, JSON.stringify(persisted));
 
   check("mobile page has no console errors", mobile.errors.length === 0, mobile.errors.slice(0, 2).join(" | "));
+
+  const rm = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+  const rmp = await rm.newPage();
+  const rmErrors = [];
+  rmp.on("pageerror", (e) => rmErrors.push(String(e)));
+  await rmp.goto(BASE + "?year=1945", { waitUntil: "networkidle" });
+  await rmp.waitForTimeout(1000);
+  await rmp.evaluate(() => { const b = document.querySelector("#ob-start"); if (b) b.click(); });
+  await rmp.evaluate(() => { const ev = window.WORLD_ATLAS.events.find((e) => e.id === "hiroshima"); window.atlasAPI.openEvent(ev); });
+  await rmp.waitForTimeout(800);
+  const rmState = await rmp.evaluate(() => {
+    const t = window.MapTheatre;
+    const p1 = t.lastP;
+    return { reduce: t.reduceMotion, alpha: t.alpha, auto: window.atlasAPI.state.autoEvent, paused: t.paused, p1 };
+  });
+  await rmp.waitForTimeout(600);
+  const rmP2 = await rmp.evaluate(() => window.MapTheatre.lastP);
+  check("reduced motion makes the theatre static and disables autoplay", rmState.reduce && rmState.alpha === 1 && rmState.auto === false && Math.abs(rmP2 - rmState.p1) < 0.001, JSON.stringify({ ...rmState, p2: rmP2 }));
+  await rmp.evaluate(() => document.querySelector("#ob-close")?.click());
+  await rmp.waitForTimeout(400);
+  const node = await rmp.evaluate(() => {
+    const n = [...document.querySelectorAll("#a11y-nodes .a11y-node")].find((x) => x.getBoundingClientRect().width > 0);
+    if (!n) return null;
+    const r = n.getBoundingClientRect();
+    n.focus();
+    return { w: Math.round(r.width), h: Math.round(r.height), focused: document.activeElement === n, aria: n.getAttribute("aria-label") };
+  });
+  check("map nodes keep a 44px focusable overlay", !!node && node.w >= 44 && node.h >= 44 && node.focused && !!node.aria, JSON.stringify(node));
+  check("reduced-motion page has no console errors", rmErrors.length === 0, rmErrors.slice(0, 2).join(" | "));
+  await rm.close();
 
   if (!SKIP_CLEANUP) {
     await d.evaluate(() => {
