@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   const A = window.WORLD_ATLAS;
-  const ASSET_V = "20261108u";
+  const ASSET_V = "20261108v";
   const $ = (s) => document.querySelector(s);
   let heroScenesP = null, variantScenesP = null;
   function loadScriptOnce(src) {
@@ -461,9 +461,6 @@
   function countryName(f) {
     if (!f) return state.lang === "zh" ? "海域" : "Open sea";
     const p = f.properties;
-    // Display “台湾” on the map and in the country lens; the data record keeps
-    // its province type and China parent, so it is still not a modern state.
-    if ((p.iso3 === "TWN" || p.iso2 === "CN-TW") && state.lang !== "zh") return p[state.lang] || "Taiwan";
     if (state.lang === "zh") return p.zh || p.n;
     if (state.lang === "en") return p.n || p.zh;
     return p[state.lang] || p.n || p.zh;
@@ -577,7 +574,7 @@
   }
 
   function loadAuxData() {
-    const v = "?v=20261108u";
+    const v = "?v=20261108v";
     A.detailsLoading = true;
     A.detailsLoading = true;
     fetch("data/state_changes.json" + v)
@@ -596,7 +593,7 @@
     if (A.eventDetails) { A.detailsLoading = false; return Promise.resolve(A.eventDetails); }
     if (detailsP) return detailsP;
     A.detailsLoading = true;
-    detailsP = fetch("data/event_details.json?v=20261108u")
+    detailsP = fetch("data/event_details.json?v=20261108v")
       .then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); })
       .then((d) => {
         A.eventDetails = d || {};
@@ -613,7 +610,7 @@
   function ensureChronicles() {
     if (A.chronicles) return Promise.resolve(A.chronicles);
     if (chroniclesP) return chroniclesP;
-    chroniclesP = fetch("data/country_chronicles.json?v=20261108u")
+    chroniclesP = fetch("data/country_chronicles.json?v=20261108v")
       .then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); })
       .then((d) => {
         A.chronicles = d || {};
@@ -633,7 +630,7 @@
     loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
-    fetch("data/world.geo.json?v=20261108u")
+    fetch("data/world.geo.json?v=20261108v")
       .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then((geo) => {
         map.setWorld(geo);
@@ -1417,10 +1414,10 @@
     if (!A.chronicles) ensureChronicles();
     const p = f.properties;
     const isTW = countryKey(f) === "TWN";
-    el["panel-kicker"].textContent = (isTW ? L("中国台湾 · ", "TAIWAN, CHINA · ", "TAIWÁN (CHINA) · ", "TAÏWAN (CHINE) · ", "تايوان (الصين) · ") : L("现代国界 · ", "MODERN BORDERS · ", "FRONTERAS MODERNAS · ", "FRONTIÈRES MODERNES · ", "الحدود الحديثة · ")) + rgName(byRegion(p.sub));
+    el["panel-kicker"].textContent = (isTW ? L("中国台湾省 · ", "CHINA'S TAIWAN PROVINCE · ", "PROVINCIA DE TAIWÁN · ", "PROVINCE DE TAÏWAN · ", "مقاطعة تايوان الصينية · ") : L("现代国界 · ", "MODERN BORDERS · ", "FRONTERAS MODERNAS · ", "FRONTIÈRES MODERNES · ", "الحدود الحديثة · ")) + rgName(byRegion(p.sub));
     el["panel-title"].textContent = countryName(f);
     el["panel-sub"].textContent = isTW
-      ? L("台湾是中国的一部分；此处按地区沿革展示历史政权与节点。", "Taiwan is part of China; this view reads its historical powers and nodes through that region.", "Taiwán forma parte de China; esta vista muestra sus poderes y nodos históricos.", "Taïwan fait partie de la Chine ; cette vue présente ses pouvoirs et nœuds historiques.", "تايوان جزء من الصين؛ يعرض هذا القسم قواها وعقدها التاريخية.")
+      ? L("台湾是中国的一个省；此处按地区沿革展示历史政权与节点。", "Taiwan is a province of China; this view reads its historical powers and nodes through that province.", "Taiwán es una provincia de China; esta vista muestra sus poderes y nodos históricos.", "Taïwan est une province de Chine ; cette vue présente ses pouvoirs et nœuds historiques.", "تايوان مقاطعة صينية؛ يعرض هذا القسم قواها وعقدها التاريخية.")
       : L("此处历史上的政权与节点，皆以现代国界为参照。", "Historical powers and nodes, read through the lens of modern borders.", "Poderes y nodos históricos leídos a través de las fronteras modernas.", "Pouvoirs et nœuds historiques lus à travers les frontières modernes.", "القوى والعُقد التاريخية من خلال الحدود الحديثة.");
 
     const key = panelKey();
