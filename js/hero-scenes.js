@@ -7836,6 +7836,32 @@
       ctx.beginPath(); ctx.arc(hx, hy - 4, 3.2, Math.PI, TAU); ctx.fillStyle = "rgba(150,96,58,0.93)"; ctx.fill();
       ctx.strokeStyle = "rgba(74,50,30,0.4)"; ctx.lineWidth = 0.16; ctx.stroke();
     }
+    // market stall with a striped canopy
+    ctx.strokeStyle = "rgba(74,50,30,0.85)"; ctx.lineWidth = 0.26;
+    ctx.beginPath();
+    ctx.moveTo(-2.0, -6.4); ctx.lineTo(-2.0, -12.6);
+    ctx.moveTo(7.4, -6.4); ctx.lineTo(7.4, -12.6);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-4.2, -12.4); ctx.lineTo(9.6, -12.4); ctx.lineTo(7.6, -15.6); ctx.lineTo(-2.2, -15.6);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(168,64,44,0.9)"; ctx.fill();
+    ctx.strokeStyle = "rgba(92,40,28,0.55)"; ctx.lineWidth = 0.2; ctx.stroke();
+    for (let i = 0; i < 4; i++) {
+      ctx.strokeStyle = "rgba(226,206,170,0.55)"; ctx.lineWidth = 0.35;
+      ctx.beginPath();
+      ctx.moveTo(-3.4 + i * 2.8, -12.6);
+      ctx.lineTo(-2.2 + i * 2.4, -15.4);
+      ctx.stroke();
+    }
+    // goods on a mat
+    for (let i = 0; i < 5; i++) {
+      ctx.beginPath();
+      ctx.ellipse(-1.4 + i * 2.0, -7.0, 0.9, 0.55, 0.1, 0, TAU);
+      ctx.fillStyle = i % 2 ? "rgba(216,178,102,0.95)" : "rgba(196,164,116,0.95)";
+      ctx.fill();
+      ctx.strokeStyle = "rgba(92,64,36,0.4)"; ctx.lineWidth = 0.12; ctx.stroke();
+    }
     // market: salt slabs, gold piles, indigo cloth
     const marketX = -6;
     for (let i = 0; i < 4; i++) {
@@ -9104,6 +9130,8 @@
     // llamas, foreground
     llama(ctx, -40, -2.6, 0.60, "rgba(214,196,160,0.97)", t);
     llama(ctx, -31, -1.2, 0.50, "rgba(198,178,142,0.97)", t + 1.2);
+    // dark foreground llama for depth
+    llama(ctx, -35.4, -0.4, 0.68, "rgba(96,76,54,0.98)", t + 0.6);
 
     // stone block, foreground right
     ctx.beginPath();
@@ -9246,6 +9274,17 @@
       }
     }
     ctx.restore();
+    // left-bank abbey silhouette
+    ctx.fillStyle = "rgba(150,132,108,0.5)";
+    ctx.fillRect(-37, -38, 17, 14);
+    ctx.fillRect(-38, -44, 4.2, 6);
+    ctx.fillRect(-30, -46, 4.6, 8);
+    ctx.beginPath();
+    ctx.moveTo(-31.4, -46); ctx.lineTo(-27.7, -54); ctx.lineTo(-24.0, -46);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(134,116,94,0.55)"; ctx.fill();
+    ctx.fillStyle = "rgba(84,68,52,0.45)";
+    ctx.beginPath(); ctx.arc(-33.6, -39.6, 1.4, 0, TAU); ctx.fill();
     // distant cathedral on the right horizon
     ctx.fillStyle = "rgba(146,128,104,0.55)";
     ctx.fillRect(35, -40, 12, 16);
@@ -9811,6 +9850,21 @@
     ctx.stroke();
     // screen glow reflection on the floor
     glow(ctx, -4, -6, 18, "#6fa3a0", 0.12);
+    glow(ctx, -16, -3.4, 10, "#e6b45e", 0.10);
+    glow(ctx, 26, -3, 13, "#7fb2b0", 0.07);
+    // desk clutter: books and a phone
+    ctx.fillStyle = "rgba(96,78,58,0.96)";
+    ctx.fillRect(-19.0, -7.2, 3.8, 1.1);
+    ctx.fillRect(-18.4, -8.2, 2.9, 1.0);
+    ctx.strokeStyle = "rgba(50,40,30,0.5)"; ctx.lineWidth = 0.12;
+    ctx.strokeRect(-19.0, -7.2, 3.8, 1.1);
+    ctx.strokeRect(-18.4, -8.2, 2.9, 1.0);
+    ctx.fillStyle = "rgba(186,178,160,0.95)";
+    ctx.fillRect(9.4, -6.8, 3.2, 1.5);
+    ctx.strokeStyle = "rgba(80,74,64,0.5)"; ctx.lineWidth = 0.14;
+    ctx.strokeRect(9.4, -6.8, 3.2, 1.5);
+    ctx.beginPath(); ctx.arc(10.4, -6.8, 0.35, 0, TAU);
+    ctx.fillStyle = "rgba(60,56,50,0.8)"; ctx.fill();
     // foreground chair, right corner
     ctx.fillStyle = "rgba(30,34,36,0.97)";
     ctx.fillRect(36, -3.0, 11, 1.4);
