@@ -2129,9 +2129,14 @@
     const label = b.querySelector(".zf-label");
     if (label) label.textContent = on ? L("全图", "World", "Mundo", "Monde", "العالم") : L("铺满", "Fill", "Llenar", "Remplir", "ملء");
     if (el["minimap"]) {
+      const wasHidden = el["minimap"].hidden;
       el["minimap"].hidden = !on;
       el["minimap"].setAttribute("aria-label",
         L("迷你地图：显示当前视野在世界中的位置，点击可定位", "Minimap: your current view in the world; click to recentre", "Minimapa: tu vista actual en el mundo; haz clic para centrar", "Mini-carte : votre vue actuelle ; cliquez pour recentrer", "خريطة مصغرة: موقع نظرتك الحالية؛ انقر لإعادة التمركز"));
+      // A hidden canvas has no layout box, so the next frame that follows
+      // showing it is what actually paints it. Without this the minimap
+      // appears blank until the map redraws for another reason.
+      if (on && wasHidden) requestAnimationFrame(() => { if (map) map.drawBase(); });
     }
     if (el["minimap-fit"]) el["minimap-fit"].textContent = L("全图", "World", "Mundo", "Monde", "العالم");
   }

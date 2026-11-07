@@ -51,7 +51,21 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  // Versioned assets (?v=...) change URL on every release, so a cache hit is
+  // always the right bytes for that URL: serve it at once and refresh in the
+  // background (stale-while-revalidate). Navigations and unversioned files
+  // stay network-first so a deploy is never masked by the cache.
+  const versioned = url.searchParams.has("v");
   event.respondWith((async () => {
+    if (versioned) {
+      const hit = await caches.match(req);
+      if (hit) {
+        fetch(req).then(async (res) => {
+          if (res && res.ok) (await caches.open(CACHE)).put(req, res.clone()).catch(() => null);
+        }).catch(() => null);
+        return hit;
+      }
+    }
     try {
       const res = await fetch(req);
       if (res && res.ok) {

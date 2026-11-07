@@ -371,8 +371,12 @@
     _drawMinimap() {
       const cv = this.mini, ctx = this.miniCtx;
       if (!cv || !ctx) return;
-      const w = Math.max(1, cv.clientWidth || cv.width);
-      const h = Math.max(1, cv.clientHeight || cv.height);
+      // While the minimap is hidden it has no layout box. Resizing from the
+      // previous backing-store size would double it on every frame (a hidden
+      // canvas reached ~39 M x 19 M px on a DPR-3 phone before this guard).
+      const cw = cv.clientWidth, ch = cv.clientHeight;
+      if (!cw || !ch) return;
+      const w = Math.max(1, cw), h = Math.max(1, ch);
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) {
         cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);

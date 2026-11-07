@@ -338,9 +338,18 @@ try {
   const mini = await m.evaluate(() => {
     const box = document.querySelector("#minimap");
     const cv = document.querySelector("#minimap-canvas");
-    return { hidden: box.hidden, w: cv.clientWidth, h: cv.clientHeight, stored: localStorage.getItem("world-atlas-fit") };
+    const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+    let painted = 0;
+    for (let i = 3; i < d.length; i += 4) if (d[i] > 0) painted++;
+    return {
+      hidden: box.hidden, w: cv.clientWidth, h: cv.clientHeight, bw: cv.width, bh: cv.height,
+      painted: +(painted / (d.length / 4)).toFixed(2), stored: localStorage.getItem("world-atlas-fit"),
+    };
   });
-  check("fill view shows a minimap with the current viewport", !mini.hidden && mini.w >= 90 && mini.h >= 50 && mini.stored === "fill", JSON.stringify(mini));
+  // bw/bh guard: a hidden canvas once doubled its backing store every frame.
+  check("fill view shows a painted minimap with a sane backing store",
+    !mini.hidden && mini.w >= 90 && mini.h >= 50 && mini.stored === "fill" && mini.painted > 0.5 && mini.bw <= mini.w * 2 + 4 && mini.bh <= mini.h * 2 + 4,
+    JSON.stringify(mini));
   await m.focus("#minimap-canvas");
   const pan0 = await m.evaluate(() => window.atlasAPI.map.view.panX);
   await m.keyboard.press("ArrowLeft");
