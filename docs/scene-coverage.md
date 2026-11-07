@@ -2,7 +2,7 @@
 
 Generated 2026-11-07. Standard A: every event has a correct visual family; the 32 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).
 
-- 事件总数：498
+- 事件总数：499
 - 当前分派：56 个家族
 - 需要修正：0
 - 英雄条目：32
@@ -13,7 +13,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 |---|---:|
 | `modern-founding` | 102 |
 | `city-modern` | 34 |
-| `cannon` | 31 |
+| `cannon` | 32 |
 | `revolution` | 31 |
 | `naval` | 28 |
 | `disaster` | 18 |
@@ -249,6 +249,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1526 | `battle-of-mohacs` | 莫哈奇战役 | eu | `cannon` | `cannon` |  |
 | 1529 | `siege-of-vienna-1529` | 维也纳之围（1529） | eu | `siege` | `siege` |  |
 | 1533 | `fall-of-the-inca` | 皮萨罗灭印加 | la | `cavalry` | `cavalry` | ★ |
+| 1534 | `ottoman-capture-of-baghdad` | 奥斯曼夺取巴格达 | me | `cannon` | `cannon` |  |
 | 1543 | `copernicuss-revolutions` | 哥白尼《天体运行论》 | eu | `city-earlymodern` | `city-earlymodern` |  |
 | 1545 | `potosi-silver` | 波托西银矿 | la | `camel` | `camel` |  |
 | 1551 | `ottomans-take-tripoli` | 奥斯曼夺取的黎波里 | af | `naval` | `naval` |  |

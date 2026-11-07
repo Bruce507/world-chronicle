@@ -51,7 +51,7 @@ Date 2026-11-07. Gate 1 通过后进入 Tier B。本试点实现参数化变体�
 - 非变体事件（`tang-dynasty`）仍走通用家族，`variant=null`。
 - 390×844 无溢出；意大利统一实测平均 16.6ms/帧。
 - 32 个 Hero 场景未受影响；贸易 LOD 1 骆驼/线、战斗上限 16、台湾省、面板滚动通过。
-- `validate-data`、`build-data`、`node --check` 通过；498 / 56 映射未变。
+- `validate-data`、`build-data`、`node --check` 通过；499 / 56 映射未变。
 
 ## 4. 局限
 

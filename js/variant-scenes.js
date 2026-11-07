@@ -1106,6 +1106,7 @@
     "siege-of-vienna-1529": { family: "siege", palette: "dawn", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
     "second-italo-ethiopian-war": { family: "siege", palette: "noon", structure: "keep", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "rocks", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
     "second-battle-of-el-alamein": { family: "siege", palette: "noon", structure: "walls", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
+    "ottoman-capture-of-baghdad": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
   };
 
   function eventById(id) {

@@ -1,8 +1,8 @@
 # 英雄插画场景 / Hero illustration scenes
 
-> 发布状态：Pilot 1（v3 线质/材质精修）+ 2A + 2B + 2C，资源版本 `20261107s`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`；2B 新增 6 个主题（希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利），见 `docs/hero-2b-review.md`；2C 新增 6 个主题（古腾堡、达伽马、印加、法国大革命、印巴分治、万维网），见 `docs/hero-2c-review.md`。
+> 发布状态：Pilot 1（v3 线质/材质精修）+ 2A + 2B + 2C，资源版本 `20261107t`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`；2B 新增 6 个主题（希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利），见 `docs/hero-2b-review.md`；2C 新增 6 个主题（古腾堡、达伽马、印加、法国大革命、印巴分治、万维网），见 `docs/hero-2c-review.md`。
 
-Generated 2026-11-07. Scope: 首批 12 个主题（14 个事件条目，1945 日本组含广岛、长崎、投降广播）+ 2A 6 + 2B 6 + 2C 6；合计 **30 个主题、32 个事件条目**。 The 56-family taxonomy is unchanged; the curated set is now 498 events (2026-11 audit added 16 key nodes).
+Generated 2026-11-07. Scope: 首批 12 个主题（14 个事件条目，1945 日本组含广岛、长崎、投降广播）+ 2A 6 + 2B 6 + 2C 6；合计 **30 个主题、32 个事件条目**。 The 56-family taxonomy is unchanged; the curated set is now 499 events (2026-11 audit added 17 key nodes).
 
 ## 设计语言
 
@@ -191,7 +191,7 @@ Gate 1 通过后，Tier B 变体引擎落地：siege / caravel / modern 3 家族
   - `drawStage(ctx, id, W, H, t)`：史志舞台（事件弹窗左栏），100 单位宽、地面 y=0、人物约 4 单位高的统一尺度。
   - `drawMap(ctx, id, x, y, s, t)`：地图剧场徽章；离屏画布 + 羽化椭圆遮罩，避免在底图上出现矩形卡片边。
   - 共享版画笔刷：`person / horse / camel / ox / wolf / llama / junk / caravel / trireme / cnGate / pagoda / minaret / domeTomb / cathedral / palaceFacade / lunarModule / astronaut / radio / paperVat / paperRack / acropolis / palm / banana / mushroomCloud / ger / mudMosque / baobab / bellStupa / borobudur / aztecPyramid / waka / canoe / printingPress / typeCase / gopuram / bastille / steamLoco / workstation / netGlobe`。
-- `js/scenes.js`：`mount()` 增加 `opts.hero`；英雄场景走 `HeroScenes.drawStage`，跳过通用 `finish()`（暗角会压暗羊皮纸）；其余 498 个事件仍走原有程序化场景族。
+- `js/scenes.js`：`mount()` 增加 `opts.hero`；英雄场景走 `HeroScenes.drawStage`，跳过通用 `finish()`（暗角会压暗羊皮纸）；其余 499 个事件仍走原有程序化场景族。
 - `js/theatre.js`：`playEvent()` 记录 `this.hero`；`draw()` 在英雄事件时只绘制英雄场景、标题标签与既有 16 秒清理逻辑，不再叠加通用路线/单位，避免重复船只与人群堆叠。
 - `js/app.js`：打开史志时传入 `hero: ev.id`；舞台左上标题使用事件英文名，元数据与年份保持原样。
 - `index.html`：新增 `js/hero-scenes.js`，资源版本 `20261107i`。

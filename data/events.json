@@ -4629,6 +4629,34 @@
     }
   },
   {
+    "y": 1534,
+    "lat": 33.315,
+    "lon": 44.366,
+    "c": "IQ",
+    "rg": "me",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "奥斯曼夺取巴格达",
+      "Ottoman Capture of Baghdad"
+    ],
+    "d": [
+      "苏莱曼一世从萨非王朝手中夺取巴格达，奥斯曼帝国控制美索不达米亚与波斯湾门户，与萨非形成长期对峙。",
+      "Suleiman I takes Baghdad from the Safavids, giving the Ottomans control of Mesopotamia and the Persian Gulf approach and locking them into a long rivalry with the Safavids."
+    ],
+    "tx": {
+      "es": "Conquista otomana de Bagdad",
+      "fr": "Prise ottomane de Bagdad",
+      "ar": "الاستيلاء العثماني على بغداد"
+    },
+    "dx": {
+      "es": "Suleimán I toma Bagdad de los safávidas; el Imperio otomano controla Mesopotamia y la entrada al golfo Pérsico, iniciando una larga rivalidad con los safávidas.",
+      "fr": "Soliman Ier prend Bagdad aux Safavides ; l'Empire ottoman contrôle la Mésopotamie et l'accès au golfe Persique, engageant une longue rivalité avec les Safavides.",
+      "ar": "سليمان الأول يستولي على بغداد من الصفويين؛ تسيطر الإمبراطورية العثمانية على بلاد الرافدين ومدخل الخليج الفارسي، مما يبدأ تنافساً طويلاً مع الصفويين."
+    }
+  },
+  {
     "y": 1543,
     "lat": 54.36,
     "lon": 19.68,
