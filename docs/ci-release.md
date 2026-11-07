@@ -70,3 +70,24 @@ npm run version:bump 20261201 # 指定日期
 - GitHub Actions 首次安装 Chrome 可能较慢；超时设为 25 分钟。
 - CI 不跑真机/多浏览器矩阵（P3-1、P3-4）。
 - `npm install` 目前没有提交 `package-lock.json`；如需完全可复现，应提交 lockfile。
+
+---
+
+## 7. 第二轮（2026-11-07）：首次实跑与修复
+
+首次在 GitHub Actions 实跑（run 42391750707，提交 `639c6ff`）：内容、a11y、data-qa 通过，**PWA / offline check 失败**（步骤耗时约 3 秒，说明是断言失败而非 30 秒超时），其后的 entity-i18n 与 smoke 被跳过。
+
+修复（提交 `2db5379`）：
+
+1. **重写 `scripts/pwa-check.mjs`**：
+   - 等 `serviceWorker.ready` 之后**再等页面真的被 worker 控制**（必要时在线重载一次），而不是激活后立刻断网；
+   - 断网前先断言预缓存里确有 shell（`./`、`index.html`、`app.js`、`data_bundle.js`、`map.js`、`world.geo.json`、`style.css`）；
+   - 离线导航到一个**从未在线访问过的一次性 URL**，因此文档只可能来自 Service Worker，而不是 Chrome 的 HTTP 启发式缓存；并断言导航后 `controller` 存在；
+   - 离线阶段的网络失败与脚本异常分开统计（前者是懒加载资源的正常表现，后者才失败）；
+   - 任一项失败时输出 SW 注册状态、controller、缓存键与 URL 列表，CI 日志可直接定位。
+2. **调整 ci.yml 顺序**：PWA 放到最后，内容/a11y/数据/实体/smoke 先跑完；可设 `PW_CHANNEL=chromium` 改用 Playwright 自带内核。
+3. 本地 `npm run pwa`：**7/7**（新增 controller、预缓存、离线来源三项断言），连续 3 次稳定。
+
+**限制**：没有 GitHub Actions 日志读取权限（需 admin），无法逐行确认当时是哪一条断言失败；上述修复按"最可能的竞态 + 可诊断"处理。**下一次推送后的 CI 结果仍待确认**，若再失败，日志会直接指出具体检查项。
+
+另：`package-lock.json` 现已随仓库提交，CI `npm install` 可复现依赖版本。

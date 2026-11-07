@@ -74,3 +74,37 @@ python3 -m http.server 8001 --directory .   # 或 node scripts/serve-gzip.mjs 80
 BASE_URL=http://localhost:8001/ npm run perf
 BASE_URL=http://localhost:8002/ npm run perf:throttle
 ```
+
+---
+
+## 7. 第二轮：DPR 3 / 内存 / 二次访问（2026-11-07）
+
+`npm run perf:throttle` 扩展为：DPR 3 + CPU 4× + Slow 4G(1.6 Mbps/150 ms) + gzip + `--enable-precise-memory-info`，并测量冷启动、二次访问（Service Worker 已接管）、剧场帧率与 JS/画布内存。
+
+| 指标 | 冷启动 | 二次访问 |
+|---|---:|---:|
+| FCP | **684 ms** | 48 ms |
+| 可交互（features ready） | **4.24 s** | **0.30 s** |
+| 网络传输 | **726 KB**（JS 446 + JSON 265） | **0** |
+| JS 堆（used） | 14.1 MB | 22.8 MB（累积上下文） |
+| JS 堆（total） | 20.8 MB | 36.1 MB |
+| 画布后备存储（map+fx+minimap+tick+scene） | **7.8 MB** | 7.8 MB |
+| `window.devicePixelRatio` / map 内部 DPR | 3 / **2**（有上限） | 3 / 2 |
+
+剧场（CPU 4×、DPR 3、390×844）：**平均 16.6 ms / p95 16.7 ms**（约 60fps）。
+
+### 本轮修掉的两个真实缺陷
+
+1. **隐藏的迷你地图画布会指数级放大后备存储。** `_drawMinimap` 在元素 `display:none`（`clientWidth = 0`）时回退到"上一次的画布宽度"，再乘以 DPR 写回，于是每帧翻倍；DPR 3 手机上实测达到 **39,321,600 × 19,660,800 px**。修复：没有布局尺寸时直接返回，不做 resize/绘制。修复后画布总量稳定 7.8 MB。
+2. **迷你地图在"铺满视野"模式下是空白**，要等下一次无关重绘才出现。修复：显示迷你地图时主动调度一次 `drawBase()`；smoke 现在断言像素覆盖 >50% 且后备存储 ≤ 2×CSS 尺寸。
+
+### Service Worker：版本化资源改为 stale-while-revalidate
+
+`?v=YYYYMMDDx` 每次发布都会变，旧 URL 不会被复用，因此命中缓存即可直接返回并在后台刷新；导航与无版本参数的文件仍保持 network-first，避免部署被缓存掩盖。效果即上表的二次访问：**0.30 s 可交互、0 字节网络**。
+
+### 仍未完成
+
+- **没有真机**：以上全部是 CDP 模拟（DPR 3、CPU 4×、带宽/延迟节流），不能替代低端 Android / iPhone SE+Safari 的真实内存、GPU 与发热测量；`performance.memory` 也只有 Chromium 有。
+- 4× CPU 节流下剧场仍 60fps，说明主线程预算充足；但低端 GPU 的栅格化开销无法用 CPU 节流模拟。
+- `world.geo.json` 已是 2 位小数（无 ≥3 位小数的坐标），继续压缩只能减少顶点，会改变边界形状，本轮不做。
+- `data_bundle.js` 仍含多语言短描述（572 KB 未压缩）；按语言拆包需要重做搜索与即时切换语言，风险大于收益，留待 P4 评估。

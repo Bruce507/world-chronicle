@@ -61,3 +61,32 @@ Date 2026-11-07. 本轮落地：收藏/书签、3 条新主题路线、分享卡
 - PWA 安装提示未做；iOS Safari 的离线/安装行为需真机验证。
 - Service Worker 采用 network-first，弱网下首屏仍等网络；离线只在已缓存资源范围内有效。
 - 新路线的 5 条疾病事件较少，后续可补疫苗、公共卫生等节点。
+
+---
+
+## 7. 第二轮：导入导出、国家/路线卡片、安装/更新/离线提示（2026-11-07）
+
+| 功能 | 实现 | 验证 |
+|---|---|---|
+| 收藏导出 | 收藏面板"导出备份"→ `world-chronicle-favorites.json`（含 `app/kind/version/exportedAt/favorites`） | smoke：下载事件 + JSON 解析 |
+| 收藏导入 | "导入备份"→ 文件选择 → 校验类型/长度/年份 → 按 key 去重合并；空列表时也可导入（换浏览器恢复） | smoke：导出→清空→导入回环，条数一致 |
+| 国家分享卡片 | 国家面板新增"分享卡片"，1200×630，标题/英文名/节点数/当前时代 | smoke：`atlasAPI.cardBlob("country")` 断言尺寸与体积 |
+| 路线分享卡片 | 路线面板新增"分享卡片"，含起止年份、路线名、描述、来源域名 | smoke：同上（route） |
+| 安装提示 | `beforeinstallprompt` → 底部条"可安装到主屏幕"；关闭后记住 | 手动（Chromium 无安装条件时不显示） |
+| iOS 提示 | iOS Safari 非 standalone 时显示一次"分享 → 添加到主屏幕" | 截图 `docs/ux-p3-shots/mobile-ios-hint.jpg` |
+| 更新提示 | SW `updatefound` → 底部条"有新版本 · 刷新"；点击 `postMessage(SKIP_WAITING)`，`controllerchange` 后刷新 | 代码路径；**未在真实增量发布中验证** |
+| 离线状态条 | 监听 online/offline，时间轴上方显示"离线 · 显示已缓存内容" | smoke：断网出现、恢复消失 |
+| iOS 限制说明 | 见第 8 节 | — |
+
+卡片渲染抽成一个 `renderShareCard(spec)`，事件/国家/路线共用同一套版式；`atlasAPI.cardBlob(kind)` 暴露给测试用。
+
+### 8. iOS 真机限制（未验证，写在文档里而不是猜）
+
+- iOS Safari 不支持 `beforeinstallprompt`，只能手动"添加到主屏幕"，本项目用一次性提示说明路径；
+- iOS 的 Service Worker 在**标签页被系统回收后可能被清除缓存**（存储压力下），离线可用性弱于 Android；
+- Web Share API 支持分享文件（iOS 15+），但 `navigator.canShare({files})` 的行为需真机确认；
+- 以上三条**均未在 iPhone 上实测**，标记为 P4 真机项。
+
+### 9. 验证
+
+`npm run smoke` 56/56（新增 3 项）、`npm run pwa` 7/7、`npm run a11y` 20/20。
