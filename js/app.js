@@ -1370,7 +1370,7 @@
     el["event-modal"].hidden = false;
     if (sceneCtl) sceneCtl.stop();
     const cat = A.categories[ev.k] || { color: "#b04a32" };
-    sceneCtl = window.Scenes.mount(el["scene-canvas"], ev.s, { color: cat.color, region: ev.rg, year: ev.y, variant: ev.v, hero: (window.HeroScenes && window.HeroScenes.has(ev.id)) ? ev.id : null });
+    sceneCtl = window.Scenes.mount(el["scene-canvas"], ev.s, { color: cat.color, region: ev.rg, year: ev.y, variant: ev.v, hero: (window.HeroScenes && window.HeroScenes.has(ev.id)) ? ev.id : null, tierB: (window.VariantScenes && window.VariantScenes.has(ev.id)) ? ev.id : null });
     scenePaused = false;
     el["scene-toggle"].textContent = "❚❚";
     setTimeout(() => {
@@ -1410,7 +1410,8 @@
       "<div><span>" + en[2] + "</span><b>" + (ev._country ? countryName(ev._country) : (state.lang === "zh" ? "海域" : "Open sea")) + "</b></div>" +
       "<div><span>" + en[3] + "</span><b>" + (sc ? (state.lang === "zh" ? sc.zh : sc.en) : ev.s) + "</b></div>";
     const heroScene = window.HeroScenes && window.HeroScenes.has(ev.id);
-    el["scene-label"].textContent = (heroScene ? ev.t[1] : (A.scenes[ev.s] ? A.scenes[ev.s].en : ev.s)).toUpperCase();
+    const tierBScene = window.VariantScenes && window.VariantScenes.has(ev.id);
+    el["scene-label"].textContent = ((heroScene || tierBScene) ? ev.t[1] : (A.scenes[ev.s] ? A.scenes[ev.s].en : ev.s)).toUpperCase();
     el["scene-era"].textContent = eraName(A.eraOf(ev.y));
     el["scene-caption"].innerHTML = "<b>" + fmtYear(ev.y, state.lang) + "</b> · " + placeOf(ev) + " · " + latlon(ev.lat, ev.lon);
 

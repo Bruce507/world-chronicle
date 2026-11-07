@@ -91,6 +91,8 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 
 ### Phase 3 · Tier B 100–150
 
+> 进度（2026-11-07）：3 家族 × 5 变体试点已完成，见 `docs/tierb-pilot.md`；下一步盲测与扩量。
+
 - 3 家族 × 5 变体试点（建议：modern-founding、siege、caravel）。
 - 参数引擎上线；再做 100–150 个变体。
 - 不改变 `data/scene_variants.json` 的 482 条家族映射；变体是可选覆盖。

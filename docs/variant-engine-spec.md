@@ -1,6 +1,8 @@
 # 半独立变体引擎规格 / Variant Engine Spec
 
-Version 1.0 · 2026-11-06. Tier B：100–150 个重点事件的“半独立”场景。目标不是手工重画，而是**同一家族语法下的参数化变体**。
+Version 1.1 · 2026-11-07. Tier B：100–150 个重点事件的“半独立”场景。
+
+> 执行状态：**试点已完成**（siege / caravel / modern 3 家族 × 5 变体，15 个事件），代码在 `js/variant-scenes.js`，评审见 `docs/tierb-pilot.md`。试点 override 目前内嵌于模块；引擎改为运行时读数据时再导出 `data/variant_overrides.json`。目标不是手工重画，而是**同一家族语法下的参数化变体**。
 
 ## 1. 原则
 

@@ -1,6 +1,6 @@
 # 英雄插画场景 / Hero illustration scenes
 
-> 发布状态：Pilot 1（v3 线质/材质精修）+ 2A + 2B + 2C，资源版本 `20261107q`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`；2B 新增 6 个主题（希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利），见 `docs/hero-2b-review.md`；2C 新增 6 个主题（古腾堡、达伽马、印加、法国大革命、印巴分治、万维网），见 `docs/hero-2c-review.md`。
+> 发布状态：Pilot 1（v3 线质/材质精修）+ 2A + 2B + 2C，资源版本 `20261107r`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`；2B 新增 6 个主题（希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利），见 `docs/hero-2b-review.md`；2C 新增 6 个主题（古腾堡、达伽马、印加、法国大革命、印巴分治、万维网），见 `docs/hero-2c-review.md`。
 
 Generated 2026-11-07. Scope: 首批 12 个主题（14 个事件条目，1945 日本组含广岛、长崎、投降广播）+ 2A 6 + 2B 6 + 2C 6；合计 **30 个主题、32 个事件条目**。 The 482-event / 56-family taxonomy is unchanged.
 
@@ -177,6 +177,12 @@ Phase 2 的最后 6 个主题，把 Hero 层从古代/中世纪推进到印刷�
 30 个主题 / 32 个条目按 rubric 复评**平均 27.3/30（4.56/5）**，全部条目 ≥27.0；版画质感 ≥4；16 秒清理、390×844、60fps、LOD、战斗上限、台湾、面板均通过。详细评分与保留项见 `docs/hero-gate1-review.md`。
 
 ![Gate 1 总览](hero-gate1-contact.jpg)
+
+## Tier B 试点（2026-11-07）
+
+Gate 1 通过后，Tier B 变体引擎落地：siege / caravel / modern 3 家族 × 5 变体，共 15 个事件；共用 Hero 的纸纹、印版与地图羽化，但按家族参数生成，不做独立构图。评审与局限见 `docs/tierb-pilot.md`。
+
+![Tier B 试点](hero-tierb-pilot.jpg)
 
 ## 实现
 

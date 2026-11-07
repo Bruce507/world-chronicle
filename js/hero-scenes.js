@@ -9936,5 +9936,5 @@
     return true;
   }
 
-  window.HeroScenes = { has, title, drawStage, drawMap, list: () => Object.keys(SCENES) };
+  window.HeroScenes = { has, title, drawStage, drawMap, list: () => Object.keys(SCENES), stage, mapWrap };
 })();

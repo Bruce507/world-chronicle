@@ -73,6 +73,7 @@
     mode: null,
     style: null,
     hero: null,
+    variant: null,
     lang: "zh",
     started: 0,
     paused: false,
@@ -105,6 +106,7 @@
       const sm = this.style;
       this.mode = data.mode || (sm === "paper" || sm === "printing" ? "craft" : sm === "mughal-tomb" || sm === "monument" ? "monument" : sm === "revolution" ? "revolution" : this.modeFor(ev));
       this.hero = (window.HeroScenes && window.HeroScenes.has(ev.id)) ? ev.id : null;
+      this.variant = (window.VariantScenes && window.VariantScenes.has(ev.id)) ? ev.id : null;
       this.sides = data.sides || this.defaultSides(ev);
       this.fronts = (data.fronts || []).map((f) => f.pts ? Object.assign({}, f, { pts: unwrapPts(f.pts) }) : f);
       this.battles = data.battles || [];
@@ -148,6 +150,7 @@
       this.data = null;
       this.mode = "trade";
       this.hero = null;
+      this.variant = null;
       this.sides = [];
       this.fronts = [];
       this.battles = [];
@@ -179,6 +182,7 @@
       this.revolution = null;
       this.style = null;
       this.hero = null;
+      this.variant = null;
       clearTimeout(this._stopTimer);
       if (this.map) this.map.setTheatreActive(false);
     },
@@ -395,6 +399,8 @@
 
       if (this.hero) {
         this.drawHeroScene(ctx, map, p);
+      } else if (this.variant) {
+        this.drawVariantScene(ctx, map, p);
       } else {
         this.drawSideTints(ctx, map, p);
         const specialWar = this.mode === "war" && (this.style === "greek-naval" || this.style === "cn-cavalry" || this.style === "cavalry");
@@ -427,6 +433,14 @@
       if (pos.x < -140 || pos.x > map.W + 140 || pos.y < -60 || pos.y > map.H + 160) return;
       const s = clamp(1.9 + map.view.zoom * 0.32, 2.0, 3.6);
       window.HeroScenes.drawMap(ctx, this.hero, pos.x, pos.y + 7 * s, s, p);
+    },
+
+    drawVariantScene(ctx, map, p) {
+      if (!this.variant || !this.ev || !window.VariantScenes) return;
+      const pos = map.project(this.ev.lon, this.ev.lat);
+      if (pos.x < -140 || pos.x > map.W + 140 || pos.y < -60 || pos.y > map.H + 160) return;
+      const s = clamp(1.9 + map.view.zoom * 0.32, 2.0, 3.6);
+      window.VariantScenes.drawMap(ctx, this.variant, pos.x, pos.y + 7 * s, s, p);
     },
 
     drawSideTints(ctx, map, p) {
