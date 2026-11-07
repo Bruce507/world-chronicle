@@ -1913,7 +1913,7 @@ kbd {
 }
 .legend-grid { display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .legend-grid .lg { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--ink-2); }
-.legend-grid .lg i { width: 7px; height: 7px; flex-shrink: 0; }
+.legend-grid .lg i { width: 8px; height: 8px; flex-shrink: 0; }
 
 /* Focusable map nodes (keyboard / screen reader) */
 #a11y-nodes { position: absolute; inset: 0; z-index: 8; pointer-events: none; }

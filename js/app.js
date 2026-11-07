@@ -3047,6 +3047,8 @@
       const sq = q.get("search");
       if (sq) {
         state.searchQuery = sq;
+        state.catFilter = null;
+        if (map) map.setCatFilter(null);
         const res = searchIndex(sq);
         state.searchResults = res ? res.evsAll.map((x) => x.ev.id) : [];
       }
