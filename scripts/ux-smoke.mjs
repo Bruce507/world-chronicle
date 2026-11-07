@@ -186,6 +186,20 @@ try {
   }));
   check("2026 shows modern states instead of a false empty state", modern.heading.indexOf("现代国家") >= 0 && modern.chips >= 8 && !modern.empty, JSON.stringify(modern));
 
+  const brushBtn = await d.$("#tl-brush-btn");
+  const scope0 = await d.evaluate(() => document.querySelector("#tl-scope").textContent);
+  if (brushBtn) {
+    await brushBtn.click();
+    const box = await d.locator("#track").boundingBox();
+    await d.mouse.move(box.x + box.width * 0.45, box.y + box.height / 2);
+    await d.mouse.down();
+    await d.mouse.move(box.x + box.width * 0.65, box.y + box.height / 2, { steps: 8 });
+    await d.mouse.up();
+    await d.waitForTimeout(500);
+  }
+  const brush = await d.evaluate(() => ({ scope: document.querySelector("#tl-scope").textContent, pressed: document.querySelector("#tl-brush-btn").getAttribute("aria-pressed") }));
+  check("explicit range button selects and exposes a time window", !!brushBtn && brush.scope !== scope0 && brush.pressed === "false", JSON.stringify({ scope0, ...brush }));
+
   check("desktop page has no console errors", desktop.errors.length === 0, desktop.errors.slice(0, 2).join(" | "));
 
   const mobile = await openPage(browser, { width: 390, height: 844 });
@@ -301,9 +315,35 @@ try {
   await m.waitForTimeout(600);
   const modernDefault = await m.evaluate(() => ({
     chips: document.querySelectorAll("#panel-body [data-country-open]").length,
+    toggle: (document.querySelector("[data-modern-toggle]") || {}).textContent || "",
+  }));
+  check("2026 modern states use a compact entry", modernDefault.chips === 0 && modernDefault.toggle.includes("196"), JSON.stringify(modernDefault));
+  await m.evaluate(() => document.querySelector("[data-modern-toggle]")?.click());
+  await m.waitForTimeout(400);
+  const modernExpanded = await m.evaluate(() => ({
+    chips: document.querySelectorAll("#panel-body [data-country-open]").length,
     more: (document.querySelector("[data-modern-more]") || {}).textContent || "",
   }));
-  check("2026 modern states default to 8 with an 'all' control", modernDefault.chips === 8 && modernDefault.more.includes("196"), JSON.stringify(modernDefault));
+  check("expanding modern states shows 8 plus '全部 196'", modernExpanded.chips === 8 && modernExpanded.more.includes("196"), JSON.stringify(modernExpanded));
+  await m.evaluate(() => document.querySelector("[data-modern-toggle]")?.click());
+  await m.waitForTimeout(350);
+  const density = await m.evaluate(() => {
+    const body = document.querySelector("#panel-body"); const br = body.getBoundingClientRect();
+    const rows = [...body.querySelectorAll(".event-row")];
+    const visible = rows.filter((r) => { const q = r.getBoundingClientRect(); return q.top >= br.top - 1 && q.bottom <= br.bottom + 1; }).length;
+    const meta = parseFloat(getComputedStyle(document.querySelector(".event-row .er-meta")).fontSize);
+    const head = parseFloat(getComputedStyle(document.querySelector(".p-section h3")).fontSize);
+    return { visible, meta, head, modernToggle: !!document.querySelector("[data-modern-toggle]") };
+  });
+  check("2026 half shows at least 5 events and 10px body type", density.visible >= 5 && density.meta >= 10 && density.head >= 10 && density.modernToggle, JSON.stringify(density));
+  await m.evaluate(() => document.querySelector("#about-btn")?.click());
+  await m.waitForTimeout(300);
+  const legend = await m.evaluate(() => {
+    const i = document.querySelector("#legend-cats .lg i") || document.querySelector(".legend-grid .lg i");
+    return i ? { w: Math.round(i.getBoundingClientRect().width), h: Math.round(i.getBoundingClientRect().height) } : null;
+  });
+  check("legend shapes are at least 10px", legend && legend.w >= 10 && legend.h >= 10, JSON.stringify(legend));
+  await m.evaluate(() => document.querySelector("#about-modal [data-close]")?.click());
 
   const rtl = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: "ar" });
   const rp = await rtl.newPage();

@@ -163,6 +163,8 @@
     sheet: "half",
     routeStripOpen: false,
     modernExpanded: false,
+    modernOpen: false,
+    brushMode: false,
   };
 
   /* ── language detection ─────────────────────────── */
@@ -430,7 +432,7 @@
       "playhead", "playhead-label", "play-btn", "speed-btn", "now-btn", "tl-year", "tl-era",
       "zoom-in", "zoom-out", "zoom-fit", "zoom-fill", "map-empty", "sheet-expand", "toast",
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
-      "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip", "tl-scope",
+      "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip", "tl-scope", "tl-brush-btn",
       "minimap", "minimap-canvas", "minimap-fit",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
       "theatre-card", "tc-kicker", "tc-title", "tc-expand", "tc-pause", "tc-close", "sheet-handle",
@@ -504,7 +506,7 @@
   }
 
   function loadAuxData() {
-    const v = "?v=20261108m";
+    const v = "?v=20261108n";
     A.detailsLoading = true;
     Promise.all([
       fetch("data/country_chronicles.json" + v).then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); }),
@@ -534,7 +536,7 @@
     loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
-    fetch("data/world.geo.json?v=20261108m")
+    fetch("data/world.geo.json?v=20261108n")
       .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then((geo) => {
         map.setWorld(geo);
@@ -860,8 +862,14 @@
     const moderns = state.year >= 1995 ? modernStatesAt(state.year) : [];
 
     let html = "";
-    html += catFilterRow(eraEventsAll);
-    if (moderns.length) {
+    const modernCollapsed = isMobilePanel() && !state.modernOpen;
+    const modernChip = modernCollapsed && moderns.length
+      ? `<button class="cat-chip modern-chip" type="button" data-modern-toggle="1" aria-expanded="false">${L("现代国家", "MODERN", "ESTADOS", "ÉTATS", "الدول")} <small>${moderns.length} ▸</small></button>`
+      : "";
+    html += catFilterRow(eraEventsAll, modernChip);
+    if (moderns.length && modernCollapsed) {
+      // the entry lives as a chip inside the filter row; no extra section row
+    } else if (moderns.length) {
       html += `<section class="p-section"><h3>${L("现代国家", "MODERN STATES", "ESTADOS MODERNOS", "ÉTATS MODERNES", "الدول الحديثة")} · ${moderns.length}</h3><div class="polity-list">`;
       (state.modernExpanded ? moderns : moderns.slice(0, 8)).forEach((e) => {
         const f = A.featureByCode && A.featureByCode[e.code];
@@ -872,6 +880,9 @@
       html += `</div>`;
       if (moderns.length > 8) {
         html += `<button class="polity-more" type="button" data-modern-more="1" aria-expanded="${state.modernExpanded}">${state.modernExpanded ? L("收起", "Show fewer", "Mostrar menos", "Réduire", "أقل") : L("全部 " + moderns.length, "All " + moderns.length, "Todos " + moderns.length, "Tous les " + moderns.length, "كل " + moderns.length)}</button>`;
+      }
+      if (isMobilePanel()) {
+        html += `<button class="polity-more" type="button" data-modern-toggle="1" aria-expanded="true">${L("收起现代国家", "Hide modern states", "Ocultar Estados", "Masquer les États", "إخفاء الدول")}</button>`;
       }
       html += `<div class="panel-note-inline">${L("按现代国界列出；点击查看该国沿革。", "Listed by modern borders; click for the country chronicle.", "Listados por fronteras modernas; haz clic para ver la crónica.", "Listés par frontières modernes ; cliquez pour la chronique.", "مرتبة حسب الحدود الحديثة؛ انقر لسجل الدولة.")}</div></section>`;
     }
@@ -1091,7 +1102,7 @@
       '<div class="route-chips" id="route-chips"' + (open ? "" : " hidden") + ">" + chips + "</div></div>";
   }
 
-  function catFilterRow(events) {
+  function catFilterRow(events, extra) {
     if (!events || !events.length) return "";
     const counts = {};
     events.forEach((e) => { counts[e.k] = (counts[e.k] || 0) + 1; });
@@ -1100,6 +1111,7 @@
     const keys = narrow ? allKeys.slice() : (state.catFilterExpanded ? allKeys.slice() : allKeys.slice(0, 5));
     if (state.catFilter && keys.indexOf(state.catFilter) < 0) keys.push(state.catFilter);
     let html = '<div class="cat-filter" role="group" aria-label="' + L("按类别筛选", "Filter by category", "Filtrar por categoría", "Filtrer par catégorie", "تصفية حسب الفئة") + '">';
+    if (extra) html += extra;
     html += '<button class="cat-chip' + (!state.catFilter ? " is-on" : "") + '" data-cat-filter="" aria-pressed="' + (!state.catFilter) + '">' + L("全部", "All", "Todo", "Tout", "الكل") + " " + events.length + "</button>";
     keys.forEach((k) => {
       const c = A.categories[k] || { color: "#8a6a3f" };
@@ -1544,6 +1556,20 @@
     syncURL();
   }
 
+  function setBrushMode(on) {
+    state.brushMode = !!on;
+    const b = el["tl-brush-btn"];
+    if (b) {
+      b.setAttribute("aria-pressed", String(state.brushMode));
+      b.classList.toggle("is-on", state.brushMode);
+      b.textContent = state.brushMode ? L("刷选中", "Selecting", "Seleccionando", "Sélection", "تحديد") : L("刷选", "Range", "Rango", "Plage", "المدى");
+    }
+    if (el["track"]) el["track"].classList.toggle("is-brush", state.brushMode);
+    if (state.brushMode) {
+      showToast(L("在时间轴上拖动，选择要放大的区间", "Drag on the timeline to select a range", "Arrastra en la línea de tiempo", "Faites glisser sur la chronologie", "اسحب على الشريط الزمني"));
+    }
+  }
+
   function toggleTimelineZoom() {
     stopPlay();
     if (timeline.full) setTimelineWindow(1750, timeline.fullTo);
@@ -1810,7 +1836,7 @@
       const r = track.getBoundingClientRect();
       const x = e.clientX - r.left;
       const p = posFromClientX(e.clientX, r);
-      drag = { id: e.pointerId, startX: x, startP: p, moved: false, brush: !!e.shiftKey, snapEv: null, lastP: p, touch: e.pointerType === "touch" };
+      drag = { id: e.pointerId, startX: x, startP: p, moved: false, brush: !!e.shiftKey || state.brushMode, snapEv: null, lastP: p, touch: e.pointerType === "touch" };
       track.classList.add("dragging");
       hideTimelineCursor();
       // Scrubbing (or brushing) time leaves an open event dossier; clicking
@@ -1864,7 +1890,13 @@
       if (d.brush) {
         const a = timeline.toYear(Math.min(d.startX, x) / r.width);
         const b = timeline.toYear(Math.max(d.startX, x) / r.width);
-        if (d.moved && b - a >= 5) { setTimelineWindow(a, b, { brush: true }); return; }
+        if (d.moved && b - a >= 5) {
+          setTimelineWindow(a, b, { brush: true });
+          if (state.brushMode) setBrushMode(false);
+          showToast(L("时间窗 " + fmtRange(Math.round(a), Math.round(b), state.lang === "zh" ? "zh" : "en"), "Range " + fmtRange(Math.round(a), Math.round(b), "en"), "Rango " + fmtRange(Math.round(a), Math.round(b), "es"), "Plage " + fmtRange(Math.round(a), Math.round(b), "fr"), "المدى " + fmtRange(Math.round(a), Math.round(b), "ar")));
+          return;
+        }
+        if (state.brushMode) { showToast(L("拖动至少 5 年以选择时间窗", "Drag at least 5 years to select a range", "Arrastra al menos 5 años", "Faites glisser au moins 5 ans", "اسحب 5 سنوات على الأقل")); return; }
         const p = clamp(x / r.width, 0, 1);
         applyYear(Math.round(timeline.toYear(p)), p);
         renderPanel(true);
@@ -2717,6 +2749,7 @@
       if (e.key === "Escape") { e.stopPropagation(); closeYearJump(); el["track"].focus({ preventScroll: true }); }
     });
     el["tl-zoom-btn"].addEventListener("click", toggleTimelineZoom);
+    if (el["tl-brush-btn"]) el["tl-brush-btn"].addEventListener("click", () => setBrushMode(!state.brushMode));
     el["era-bands"].addEventListener("dblclick", (e) => {
       const band = e.target.closest(".era-band");
       if (!band) return;
@@ -2805,6 +2838,13 @@
     });
 
     el["panel-body"].addEventListener("click", (e) => {
+      const modernToggle = e.target.closest("[data-modern-toggle]");
+      if (modernToggle) {
+        state.modernOpen = !state.modernOpen;
+        lastPanelKey = "";
+        renderPanel(true);
+        return;
+      }
       const modernBtn = e.target.closest("[data-modern-more]");
       if (modernBtn) {
         state.modernExpanded = !state.modernExpanded;
@@ -3034,6 +3074,9 @@
     } else if (k === "y" || k === "g") {
       e.preventDefault();
       openYearJump();
+    } else if (k === "b" || k === "B") {
+      e.preventDefault();
+      setBrushMode(!state.brushMode);
     } else if (k === "[" || k === "]") {
       e.preventDefault();
       stepEvent(k === "]" ? 1 : -1);
