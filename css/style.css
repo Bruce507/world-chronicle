@@ -1553,6 +1553,39 @@ svg { display: block; }
     linear-gradient(180deg, rgba(246, 241, 231, 0.96), rgba(238, 231, 217, 0.98));
   box-shadow: 0 -8px 26px rgba(45, 35, 22, 0.06);
 }
+/* Slim system strips (offline / install / update) sit above the timeline head
+   so they never overlap the map, the toast or the panel. */
+#timeline .sysbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 0 -22px 6px;
+  padding: 4px 22px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  background: #2b251f;
+  color: #f4ead8;
+}
+#timeline .sysbar[hidden] { display: none !important; }
+#timeline .sysbar-net { background: #6b4a2a; }
+#timeline .sysbar-text { text-align: center; }
+#timeline .sysbar button {
+  min-height: 26px;
+  padding: 2px 10px;
+  border: 1px solid rgba(244, 234, 216, 0.5);
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+#timeline .sysbar button:hover { background: rgba(244, 234, 216, 0.14); }
+#timeline .sysbar .sysbar-close { border-color: transparent; font-weight: 400; opacity: 0.8; padding: 2px 6px; }
+#timeline .sysbar button:focus-visible { outline: 2px solid #f4ead8; outline-offset: 1px; }
 .tl-head { display: flex; align-items: center; gap: 12px; }
 #play-btn {
   width: 38px;
@@ -2451,4 +2484,27 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
   #side-panel.seq-in { transition-delay: 0s !important; }
+}
+
+/* ═══════════ 收藏导入导出 / favourite tools ═══════════ */
+.fav-tools, .panel-tools { display: flex; gap: 8px; margin-top: 12px; }
+.fav-tool, .panel-tool {
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid rgba(85, 75, 64, 0.28);
+  border-radius: 3px;
+  background: rgba(255, 252, 245, 0.7);
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.fav-tool:hover, .panel-tool:hover { border-color: var(--verm); color: var(--verm); }
+.fav-tool:focus-visible, .panel-tool:focus-visible { outline: 2px solid var(--verm); outline-offset: 1px; }
+
+/* ═══════════ 高对比 / forced colors ═══════════ */
+@media (forced-colors: active) {
+  #timeline .sysbar { border: 1px solid CanvasText; }
+  .fav-tool, #timeline .sysbar button { border: 1px solid ButtonText; }
+  #map-canvas { forced-color-adjust: none; }
 }

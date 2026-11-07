@@ -40,6 +40,12 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+/* The page asks for the waiting worker to take over when the reader accepts
+   the "new version" bar. */
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") self.skipWaiting();
+});
+
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;

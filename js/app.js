@@ -491,6 +491,7 @@
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
       "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip", "tl-scope", "tl-brush-btn",
       "minimap", "minimap-canvas", "minimap-fit",
+      "offline-bar", "pwa-bar", "pwa-action", "pwa-dismiss",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
       "theatre-card", "tc-kicker", "tc-title", "tc-expand", "tc-pause", "tc-close", "sheet-handle",
       "sound-btn", "ev-voice", "fav-btn", "fav-count", "fav-toggle",
@@ -546,7 +547,9 @@
     }
 
     bindUI();
-    window.atlasAPI = { map, state, openEvent, openEventModal, openCountry, theatre: window.MapTheatre, placeInfo, setPanel, setSheet, setYear: (y) => applyYear(y, null, { force: true }), shareCardBlob: (ev) => renderShareCard(ev || state.selected) };
+    window.atlasAPI = { map, state, openEvent, openEventModal, openCountry, theatre: window.MapTheatre, placeInfo, setPanel, setSheet, setYear: (y) => applyYear(y, null, { force: true }),
+      shareCardBlob: (ev) => renderShareCard(eventCardSpec(ev || state.selected)),
+      cardBlob: (kind, arg) => renderShareCard(kind === "country" ? countryCardSpec(arg || state.country) : kind === "route" ? routeCardSpec(arg || routeById(state.route)) : eventCardSpec(arg || state.selected)) };
     renderPanel(true);
     updateFavUI();
     updateChrome();
@@ -566,11 +569,7 @@
       else setTimeout(warm, 1500);
     }
     setTimeout(() => el.hint.classList.add("hide"), 11000);
-    if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
-      const reg = () => navigator.serviceWorker.register("sw.js").catch((err) => console.warn("Service worker unavailable:", err.message));
-      if (document.readyState === "complete") reg();
-      else window.addEventListener("load", reg, { once: true });
-    }
+    initPWA();
   }
 
   function loadAuxData() {
@@ -737,7 +736,103 @@
     if (!el["event-modal"].hidden && state.selected) fillEvent(state.selected);
     updateChrome();
     drawTicks();
+    updateNetUI();
+    sysBarText();
     syncURL();
+  }
+
+  /* ── system bars: offline status, install + update prompts ── */
+  const STANDALONE = () => (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+  let deferredInstall = null, pwaMode = "", updateReload = false;
+
+  function sysBarText() {
+    const bar = el["pwa-bar"];
+    if (!bar || bar.hidden) return;
+    const txt = bar.querySelector(".sysbar-text");
+    const act = el["pwa-action"];
+    if (!txt || !act) return;
+    if (pwaMode === "update") {
+      txt.textContent = L("有新版本可用 · 刷新后生效", "A new version is ready — reload to use it", "Hay una versión nueva: recarga para usarla", "Une nouvelle version est prête : rechargez pour l’utiliser", "هناك إصدار جديد — أعد التحميل لاستخدامه");
+      act.hidden = false;
+      act.textContent = L("刷新", "Reload", "Recargar", "Recharger", "إعادة التحميل");
+    } else if (pwaMode === "install") {
+      txt.textContent = L("可安装到主屏幕 · 离线也能打开地图", "Install to the home screen — the atlas opens offline", "Instálalo en la pantalla de inicio: el atlas se abre sin conexión", "Installez sur l’écran d’accueil : l’atlas s’ouvre hors ligne", "ثبّته على الشاشة الرئيسية — يفتح الأطلس دون اتصال");
+      act.hidden = false;
+      act.textContent = L("安装", "Install", "Instalar", "Installer", "تثبيت");
+    } else if (pwaMode === "ios") {
+      txt.textContent = L("iOS：点“分享”→“添加到主屏幕”，即可离线使用", "iOS: Share → Add to Home Screen to use the atlas offline", "iOS: Compartir → Añadir a inicio para usarlo sin conexión", "iOS : Partager → Sur l’écran d’accueil pour l’utiliser hors ligne", "iOS: مشاركة ← إضافة إلى الشاشة الرئيسية للاستخدام دون اتصال");
+      act.hidden = true;
+    }
+  }
+  function showPwaBar(mode) {
+    if (!el["pwa-bar"]) return;
+    pwaMode = mode;
+    el["pwa-bar"].hidden = false;
+    sysBarText();
+  }
+  function hidePwaBar() {
+    if (el["pwa-bar"]) el["pwa-bar"].hidden = true;
+    pwaMode = "";
+  }
+  function updateNetUI() {
+    if (!el["offline-bar"]) return;
+    const off = navigator.onLine === false;
+    el["offline-bar"].hidden = !off;
+    const t = el["offline-bar"].querySelector(".sysbar-text");
+    if (t) t.textContent = L("离线 · 正在显示已缓存的内容；未访问过的事件详情需要联网", "Offline — showing cached content; unvisited records need a connection", "Sin conexión: se muestra lo guardado; las fichas no visitadas necesitan conexión", "Hors ligne : contenu en cache ; les fiches non visitées demandent une connexion", "دون اتصال — يُعرض المخزَّن؛ السجلات غير المزارة تحتاج اتصالًا");
+  }
+  function applyPwaAction() {
+    if (pwaMode === "update") {
+      updateReload = true;
+      navigator.serviceWorker.getRegistration().then((r) => {
+        if (r && r.waiting) r.waiting.postMessage({ type: "SKIP_WAITING" });
+        else location.reload();
+      }).catch(() => location.reload());
+      return;
+    }
+    if (pwaMode === "install" && deferredInstall) {
+      deferredInstall.prompt();
+      deferredInstall.userChoice.then(() => { deferredInstall = null; hidePwaBar(); }).catch(() => {});
+    }
+  }
+  function dismissPwaBar() {
+    if (pwaMode === "install" || pwaMode === "ios") {
+      try { localStorage.setItem("world-atlas-install-dismissed", "1"); } catch (err) { /* private mode */ }
+    }
+    hidePwaBar();
+  }
+  function watchWorker(reg) {
+    if (reg.waiting && navigator.serviceWorker.controller) showPwaBar("update");
+    reg.addEventListener("updatefound", () => {
+      const w = reg.installing;
+      if (!w) return;
+      w.addEventListener("statechange", () => {
+        if (w.state === "installed" && navigator.serviceWorker.controller) showPwaBar("update");
+      });
+    });
+    navigator.serviceWorker.addEventListener("controllerchange", () => { if (updateReload) location.reload(); });
+  }
+  function initPWA() {
+    updateNetUI();
+    window.addEventListener("online", updateNetUI);
+    window.addEventListener("offline", updateNetUI);
+    if (el["pwa-action"]) el["pwa-action"].addEventListener("click", applyPwaAction);
+    if (el["pwa-dismiss"]) el["pwa-dismiss"].addEventListener("click", dismissPwaBar);
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredInstall = e;
+      if (!STANDALONE() && !localStorage.getItem("world-atlas-install-dismissed")) showPwaBar("install");
+    });
+    window.addEventListener("appinstalled", () => { deferredInstall = null; hidePwaBar(); });
+    // iOS Safari never fires beforeinstallprompt: state the manual path once.
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !STANDALONE();
+    if (ios && !localStorage.getItem("world-atlas-install-dismissed")) showPwaBar("ios");
+    if (!("serviceWorker" in navigator) || !/^https?:$/.test(location.protocol)) return;
+    const register = () => navigator.serviceWorker.register("sw.js")
+      .then(watchWorker)
+      .catch((err) => console.warn("Service worker unavailable:", err.message));
+    if (document.readyState === "complete") register();
+    else window.addEventListener("load", register, { once: true });
   }
 
   /* ── favourites / bookmarks ─────────────────────── */
@@ -753,6 +848,69 @@
   function saveFavorites() {
     try { localStorage.setItem(FAV_KEY, JSON.stringify(favorites)); } catch (err) { /* storage full */ }
     updateFavUI();
+  }
+  function exportFavorites() {
+    if (!favorites.length) return;
+    const payload = { app: "world-chronicle", kind: "favorites", version: 1, exportedAt: new Date().toISOString(), favorites };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "world-chronicle-favorites.json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    showToast(L("收藏已导出：world-chronicle-favorites.json", "Favourites exported", "Favoritos exportados", "Favoris exportés", "تم تصدير المفضلة"));
+  }
+  const FAV_TYPES = ["event", "country", "route", "view"];
+  function normalizeFavorite(x) {
+    if (!x || typeof x !== "object") return null;
+    const type = typeof x.type === "string" ? x.type : "";
+    const id = typeof x.id === "string" ? x.id : (typeof x.id === "number" ? String(x.id) : "");
+    if (FAV_TYPES.indexOf(type) < 0 || !id || id.length > 120) return null;
+    const year = Number(x.year);
+    return {
+      type, id,
+      year: Number.isFinite(year) ? Math.max(-12000, Math.min(2026, Math.round(year))) : state.year,
+      cat: typeof x.cat === "string" ? x.cat.slice(0, 40) : "",
+    };
+  }
+  function importFavorites(text) {
+    const bad = L("这不是有效的收藏备份文件", "That file is not a favourites backup", "Ese archivo no es una copia de favoritos", "Ce fichier n’est pas une sauvegarde de favoris", "هذا الملف ليس نسخة مفضلة");
+    let data;
+    try { data = JSON.parse(text); } catch (err) { showToast(bad); return; }
+    const list = Array.isArray(data) ? data : (data && Array.isArray(data.favorites) ? data.favorites : null);
+    if (!list) { showToast(bad); return; }
+    const seen = new Set(favorites.map(favKey));
+    let added = 0;
+    for (const raw of list.slice(0, 500)) {
+      const x = normalizeFavorite(raw);
+      if (!x) continue;
+      const k = favKey(x);
+      if (seen.has(k)) continue;
+      seen.add(k); favorites.push(x); added += 1;
+    }
+    if (added) { saveFavorites(); lastPanelKey = ""; renderPanel(true); }
+    showToast(added
+      ? L(`已导入 ${added} 条收藏`, `Imported ${added} favourite${added === 1 ? "" : "s"}`, `Se importaron ${added} favoritos`, `${added} favori${added === 1 ? "" : "s"} importé${added === 1 ? "" : "s"}`, `تم استيراد ${added} من المفضلة`)
+      : L("没有新的收藏需要导入", "Nothing new to import", "No hay nada nuevo que importar", "Rien de nouveau à importer", "لا جديد للاستيراد"));
+  }
+  function pickFavoritesFile() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "application/json,.json";
+    input.hidden = true;
+    input.setAttribute("data-fav-file", "1");
+    document.body.appendChild(input);
+    input.addEventListener("change", () => {
+      const f = input.files && input.files[0];
+      if (f) {
+        const reader = new FileReader();
+        reader.onload = () => importFavorites(String(reader.result || ""));
+        reader.onerror = () => showToast(L("无法读取该文件", "Could not read that file", "No se pudo leer el archivo", "Impossible de lire ce fichier", "تعذّرت قراءة الملف"));
+        reader.readAsText(f);
+      }
+      input.remove();
+    });
+    input.click();
   }
   function currentFavorite() {
     if (state.favoritesOpen) return null;
@@ -978,7 +1136,8 @@
       html += `</div>`;
       html += `<button class="fav-clear" type="button" data-fav-clear="1">${L("清空收藏", "Clear favourites", "Vaciar favoritos", "Vider les favoris", "مسح المفضلة")}</button>`;
     }
-    html += `<div class="panel-note">${L("收藏保存在 localStorage；换浏览器或清除站点数据后会丢失。", "Favourites live in localStorage; clearing site data or switching browsers removes them.", "Los favoritos viven en localStorage; borrar los datos del sitio los elimina.", "Les favoris vivent dans localStorage ; effacer les données du site les supprime.", "تُحفظ المفضلة في localStorage؛ ومسح بيانات الموقع يزيلها.")}</div>`;
+    html += `<div class="fav-tools">${favorites.length ? `<button type="button" class="fav-tool" data-fav-export="1">${L("导出备份", "Export", "Exportar", "Exporter", "تصدير")}</button>` : ""}<button type="button" class="fav-tool" data-fav-import="1">${L("导入备份", "Import", "Importar", "Importer", "استيراد")}</button></div>`;
+    html += `<div class="panel-note">${L("收藏保存在 localStorage；换浏览器或清除站点数据后会丢失，可导出 JSON 备份。", "Favourites live in localStorage; clearing site data or switching browsers removes them — export a JSON backup to keep them.", "Los favoritos viven en localStorage; borrar los datos del sitio los elimina: exporta una copia JSON para conservarlos.", "Les favoris vivent dans localStorage ; effacer les données du site les supprime — exportez une sauvegarde JSON.", "تُحفظ المفضلة في localStorage؛ ومسح بيانات الموقع يزيلها — صدّر نسخة JSON للاحتفاظ بها.")}</div>`;
     el["panel-body"].innerHTML = html;
     el["panel-body"].scrollTop = 0;
   }
@@ -1223,6 +1382,7 @@
     el["panel-title"].textContent = routeText(r.name);
     el["panel-sub"].textContent = routeText(r.desc);
     let html = `<button class="panel-back" data-route-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
+    html += `<div class="panel-tools"><button type="button" class="panel-tool" data-route-share="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button></div>`;
     html += `<div class="event-list">${eventList(evs, { now: false })}</div>`;
     html += `<div class="panel-note">${L("按时间顺序排列；点击节点可继续查看地图剧场与详情。", "In chronological order; click a node for its map theatre and dossier.", "En orden cronológico; haz clic para el teatro y la ficha.", "Par ordre chronologique ; cliquez pour le théâtre et la fiche.", "بترتيب زمني؛ انقر لمشهد الخريطة والملف.")}</div>`;
     el["panel-body"].innerHTML = html;
@@ -1430,6 +1590,7 @@
 
     let html = `<button class="panel-back" data-back="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
     html += `<div class="country-flags"><span class="country-tag">${countryKey(f)}</span><span class="country-tag">${p.cont || ""}</span><span class="country-tag">${evs.length} ${state.lang === "zh" ? "节点" : "nodes"}</span></div>`;
+    html += `<div class="panel-tools"><button type="button" class="panel-tool" data-country-share="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button></div>`;
 
     html += `<section class="p-section"><h3>${L("此处此时", "HERE, NOW", "AQUÍ, AHORA", "ICI, MAINTENANT", "هنا الآن")} · ${fmtYear(state.year, state.lang, true)}</h3><div class="polity-list">`;
     if (here.length) {
@@ -3143,6 +3304,14 @@
       if (favRemove) { favorites.splice(Number(favRemove.getAttribute("data-fav-remove")), 1); saveFavorites(); lastPanelKey = ""; renderPanel(true); return; }
       const favClear = e.target.closest("[data-fav-clear]");
       if (favClear) { favorites = []; saveFavorites(); lastPanelKey = ""; renderPanel(true); return; }
+      const favExport = e.target.closest("[data-fav-export]");
+      if (favExport) { exportFavorites(); return; }
+      const favImport = e.target.closest("[data-fav-import]");
+      if (favImport) { pickFavoritesFile(); return; }
+      const countryShare = e.target.closest("[data-country-share]");
+      if (countryShare && state.country) { shareCountryCard(state.country); return; }
+      const routeShare = e.target.closest("[data-route-share]");
+      if (routeShare && state.route) { const r = routeById(state.route); if (r) shareRouteCard(r); return; }
       const favClose = e.target.closest("[data-fav-close]");
       if (favClose) { state.favoritesOpen = false; lastPanelKey = ""; renderPanel(true); updateFavUI(); syncURL(true); return; }
       const modernToggle = e.target.closest("[data-modern-toggle]");
@@ -3543,14 +3712,12 @@
     return out;
   }
 
-  function renderShareCard(ev) {
+  function renderShareCard(spec) {
     return new Promise((resolve, reject) => {
       const W = 1200, H = 630;
       const cv = document.createElement("canvas");
       cv.width = W; cv.height = H;
       const ctx = cv.getContext("2d");
-      const d = detailFor(ev) || {};
-      const cat = A.categories[ev.k] || { color: "#a83e28" };
       const bg = ctx.createLinearGradient(0, 0, W, H);
       bg.addColorStop(0, "#f7f0e2");
       bg.addColorStop(0.6, "#f1e8d7");
@@ -3575,18 +3742,21 @@
       ctx.fillStyle = "rgba(85,75,64,0.75)"; ctx.font = "13px Georgia,serif";
       ctx.fillText("CHRONICLES OF THE WORLD", 150, 116);
       // year + category
-      ctx.fillStyle = "#a83e28"; ctx.font = "600 92px 'Iowan Old Style','Palatino',Georgia,serif";
-      ctx.fillText(fmtYear(ev.y, state.lang), 64, 238);
+      const yearFont = spec.yearLabel && spec.yearLabel.length > 12
+        ? "600 62px 'Iowan Old Style','Palatino',Georgia,serif"
+        : "600 92px 'Iowan Old Style','Palatino',Georgia,serif";
+      ctx.fillStyle = "#a83e28"; ctx.font = yearFont;
+      ctx.fillText(spec.yearLabel, 64, 238);
       ctx.fillStyle = "#7d5a20"; ctx.font = "500 18px 'PingFang SC','Noto Sans SC',sans-serif";
-      ctx.fillText(catName(ev.k) + " · " + rgName(ev.rg) + " · " + (d.place ? textOf(d.place) : placeOf(ev)), 68, 278);
+      ctx.fillText(spec.kicker, 68, 278);
       // title
       ctx.fillStyle = "#241f1a"; ctx.font = "600 48px 'Songti SC','Noto Serif SC',serif";
-      const title = evTitle(ev);
-      ctx.fillText(title.length > 22 ? title.slice(0, 22) + "…" : title, 64, 352);
+      ctx.fillText(spec.title.length > 22 ? spec.title.slice(0, 22) + "…" : spec.title, 64, 352);
       ctx.fillStyle = "#554b40"; ctx.font = "italic 22px Georgia,serif";
-      ctx.fillText(ev.t[1].length > 60 ? ev.t[1].slice(0, 60) + "…" : ev.t[1], 66, 388);
+      const subtitle = spec.subtitle || "";
+      ctx.fillText(subtitle.length > 60 ? subtitle.slice(0, 60) + "…" : subtitle, 66, 388);
       // summary
-      const summary = d.summary ? textOf(d.summary) : evDesc(ev);
+      const summary = spec.summary || "";
       ctx.fillStyle = "#554b40"; ctx.font = "19px 'PingFang SC','Noto Sans SC',sans-serif";
       const lines = wrapCanvasText(ctx, summary, W - 150, 4);
       lines.forEach((line, i) => ctx.fillText(line, 64, 440 + i * 30));
@@ -3613,8 +3783,8 @@
       ctx.strokeStyle = "rgba(168,62,40,0.45)"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(64, 560); ctx.lineTo(W - 64, 560); ctx.stroke();
       ctx.fillStyle = "rgba(85,75,64,0.8)"; ctx.font = "12px Georgia,serif";
-      const hosts = (d.sources || []).filter((s) => s.url).slice(0, 2).map((s) => { try { return new URL(s.url).hostname.replace(/^www\./, ""); } catch (err) { return ""; } }).filter(Boolean);
-      ctx.fillText("SOURCES · " + (hosts.join(" · ") || "curated atlas"), 64, 588);
+      const hosts = (spec.hosts || []).slice(0, 2);
+      ctx.fillText(spec.footer || ("SOURCES · " + (hosts.join(" · ") || "curated atlas")), 64, 588);
       const host = location.host + location.pathname.replace(/index\.html$/, "");
       ctx.textAlign = "right";
       ctx.fillText(host, W - 64, 588);
@@ -3622,13 +3792,73 @@
     });
   }
 
-  async function shareCard(ev) {
+  const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (err) { return ""; } };
+  function eventCardSpec(ev) {
+    const d = detailFor(ev) || {};
+    return {
+      yearLabel: fmtYear(ev.y, state.lang),
+      kicker: catName(ev.k) + " · " + rgName(ev.rg) + " · " + (d.place ? textOf(d.place) : placeOf(ev)),
+      title: evTitle(ev),
+      subtitle: ev.t[1],
+      summary: d.summary ? textOf(d.summary) : evDesc(ev),
+      hosts: (d.sources || []).filter((s) => s.url).map((s) => hostOf(s.url)).filter(Boolean),
+    };
+  }
+  function countryCardSpec(f) {
+    const p = f.properties || {};
+    const evs = A.events.filter((e) => e._country === f);
+    const era = eraName(A.eraOf(state.year));
+    const title = countryName(f);
+    const alt = state.lang === "zh" ? (p.n || "") : (p.n && p.n !== title ? p.n : (p.zh || ""));
+    return {
+      yearLabel: fmtYear(state.year, state.lang),
+      kicker: L("现代国界", "MODERN BORDERS", "FRONTERAS MODERNAS", "FRONTIÈRES MODERNES", "الحدود الحديثة") + " · " + rgName(byRegion(p.sub) || p.cont),
+      title,
+      subtitle: alt,
+      summary: L(
+        `此处共有 ${evs.length} 个策展节点；当前时代为${era}。同一片土地在不同时代属于不同政权。`,
+        `${evs.length} curated nodes fall inside this border; the current age is ${era}. The same ground belonged to different powers across time.`,
+        `${evs.length} nodos en esta frontera; la era actual es ${era}. La misma tierra perteneció a distintos poderes.`,
+        `${evs.length} nœuds dans cette frontière ; l’âge courant est ${era}. La même terre a appartenu à des pouvoirs différents.`,
+        `${evs.length} عقدًا داخل هذه الحدود؛ العصر الحالي ${era}. الأرض نفسها حكمتها قوى مختلفة.`
+      ),
+      hosts: [],
+      footer: "ATLAS · MODERN BORDERS · COUNTRY CHRONICLE",
+    };
+  }
+  function routeCardSpec(r) {
+    const evs = r.events.map((id) => byId[id]).filter(Boolean).sort((a, b) => a.y - b.y);
+    const first = evs[0], last = evs[evs.length - 1];
+    const span = first && last ? fmtYear(first.y, state.lang) + " – " + fmtYear(last.y, state.lang) : "";
+    const name = routeText(r.name);
+    const alt = state.lang === "zh" ? (r.name && r.name.en) || "" : (r.name && r.name.zh) || "";
+    const hosts = [];
+    if (A.eventDetails) {
+      for (const e of evs) {
+        for (const s of ((A.eventDetails[e.id] || {}).sources || [])) {
+          const h = s.url && hostOf(s.url);
+          if (h && hosts.indexOf(h) < 0) hosts.push(h);
+          if (hosts.length >= 2) break;
+        }
+        if (hosts.length >= 2) break;
+      }
+    }
+    return {
+      yearLabel: span,
+      kicker: L("主题路线", "THEMED ROUTE", "RUTA TEMÁTICA", "PARCOURS THÉMATIQUE", "مسار موضوعي") + " · " + evs.length + " " + L("节点", "nodes", "nodos", "nœuds", "عقدة"),
+      title: name,
+      subtitle: alt,
+      summary: routeText(r.desc),
+      hosts,
+      footer: "ATLAS · THEMED ROUTE · " + evs.length + " NODES",
+    };
+  }
+  async function shareSpec(spec, filename, title) {
     try {
-      await ensureDetails();
-      const blob = await renderShareCard(ev);
-      const file = new File([blob], "world-chronicle-" + ev.id + ".png", { type: "image/png" });
+      const blob = await renderShareCard(spec);
+      const file = new File([blob], filename, { type: "image/png" });
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: evTitle(ev) });
+        await navigator.share({ files: [file], title });
         return;
       }
       const a = document.createElement("a");
@@ -3641,6 +3871,17 @@
       console.warn("Share card failed:", err.message);
       showToast(L("分享卡片生成失败", "Could not create the card", "No se pudo crear la tarjeta", "Impossible de créer la carte", "تعذّر إنشاء البطاقة"));
     }
+  }
+  async function shareCard(ev) {
+    await ensureDetails();
+    return shareSpec(eventCardSpec(ev), "world-chronicle-" + ev.id + ".png", evTitle(ev));
+  }
+  async function shareCountryCard(f) {
+    return shareSpec(countryCardSpec(f), "world-chronicle-country-" + (countryKey(f) || "x").toLowerCase() + ".png", countryName(f));
+  }
+  async function shareRouteCard(r) {
+    await ensureDetails().catch(() => null);
+    return shareSpec(routeCardSpec(r), "world-chronicle-route-" + r.id + ".png", routeText(r.name));
   }
 
   function shareCurrent() {

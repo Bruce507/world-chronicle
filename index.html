@@ -166,6 +166,14 @@
 
   <!-- ══ 时间轴 ══ -->
   <footer id="timeline">
+    <div id="offline-bar" class="sysbar sysbar-net" role="status" aria-live="polite" hidden>
+      <span class="sysbar-text"></span>
+    </div>
+    <div id="pwa-bar" class="sysbar" role="status" hidden>
+      <span class="sysbar-text"></span>
+      <button id="pwa-action" type="button"></button>
+      <button id="pwa-dismiss" class="sysbar-close" type="button" aria-label="关闭">×</button>
+    </div>
     <div class="tl-head">
       <button id="play-btn" aria-label="播放">
         <svg class="play-ico" viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg>

@@ -4,6 +4,7 @@
           node scripts/ux-smoke.mjs
    Env: BASE_URL (default http://localhost:8001/), SKIP_CLEANUP=1 to skip the 17s timer. */
 import { chromium } from "playwright";
+import fs from "node:fs";
 
 const BASE = process.env.BASE_URL || "http://localhost:8001/";
 const SKIP_CLEANUP = process.env.SKIP_CLEANUP === "1";
@@ -218,10 +219,39 @@ try {
   await d.waitForTimeout(500);
   await d.click("#fav-btn");
   await d.waitForTimeout(350);
+  // Export → clear → import: the JSON backup is the only way to carry
+  // favourites between browsers, so exercise the real file path.
+  const [favDl] = await Promise.all([d.waitForEvent("download", { timeout: 8000 }), d.click("[data-fav-export]")]);
+  const favPath = await favDl.path();
+  const favJson = JSON.parse(fs.readFileSync(favPath, "utf8"));
+  await d.evaluate(() => document.querySelector("[data-fav-clear]")?.click());
+  await d.waitForTimeout(250);
+  const [favChooser] = await Promise.all([d.waitForEvent("filechooser", { timeout: 8000 }), d.click("[data-fav-import]")]);
+  await favChooser.setFiles(favPath);
+  await d.waitForTimeout(600);
+  const reimported = await d.evaluate(() => JSON.parse(localStorage.getItem("world-atlas-favorites") || "[]").length);
+  check("favourites export and import round trip", favJson.kind === "favorites" && favJson.favorites.length >= 1 && reimported === favJson.favorites.length, JSON.stringify({ kind: favJson.kind, exported: favJson.favorites.length, reimported }));
+
   await d.evaluate(() => document.querySelector("[data-fav-clear]")?.click());
   await d.waitForTimeout(250);
   const cleared = await d.evaluate(() => document.querySelectorAll(".fav-row").length);
   check("clearing favourites works", cleared === 0, cleared);
+
+  // Country and route share cards reuse the event card renderer.
+  const cardSize = async () => d.evaluate(async () => {
+    const b = await window.atlasAPI.cardBlob(window.atlasAPI.state.country ? "country" : "route");
+    const bmp = await createImageBitmap(b);
+    return { w: bmp.width, h: bmp.height, bytes: b.size };
+  });
+  await d.goto(BASE + "?year=1937&country=FRA", { waitUntil: "networkidle" });
+  await d.waitForTimeout(800);
+  const countryCard = await cardSize();
+  await d.goto(BASE + "?route=silk-sea", { waitUntil: "networkidle" });
+  await d.waitForTimeout(800);
+  const routeCard = await cardSize();
+  check("country and route share cards render at 1200×630",
+    countryCard.w === 1200 && countryCard.h === 630 && routeCard.w === 1200 && routeCard.h === 630 && countryCard.bytes > 20000 && routeCard.bytes > 20000,
+    JSON.stringify({ countryCard, routeCard }));
 
   check("desktop page has no console errors", desktop.errors.length === 0, desktop.errors.slice(0, 2).join(" | "));
 
@@ -432,6 +462,21 @@ try {
     }));
     check("theatre clears after 16 seconds and keeps a static last frame", !cleanup.active && cleanup.units === 0 && cleanup.still, JSON.stringify(cleanup));
   }
+
+  // Offline status bar (and the install/update bar being present but hidden).
+  const netCtx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const np = await netCtx.newPage();
+  await np.goto(BASE + "?year=1937", { waitUntil: "networkidle" });
+  await np.waitForTimeout(800);
+  const bars = await np.evaluate(() => ({ offline: !!document.querySelector("#offline-bar"), pwa: !!document.querySelector("#pwa-bar"), pwaHidden: document.querySelector("#pwa-bar").hidden }));
+  await netCtx.setOffline(true);
+  await np.waitForTimeout(400);
+  const barOff = await np.evaluate(() => ({ hidden: document.querySelector("#offline-bar").hidden, text: document.querySelector("#offline-bar .sysbar-text").textContent }));
+  await netCtx.setOffline(false);
+  await np.waitForTimeout(400);
+  const barOn = await np.evaluate(() => document.querySelector("#offline-bar").hidden);
+  check("offline status bar appears while offline", bars.offline && bars.pwa && !barOff.hidden && barOff.text.length > 4 && barOn === true, JSON.stringify({ bars, barOff, barOn }));
+  await netCtx.close();
 
   await desktop.ctx.close();
   await mobile.ctx.close();
