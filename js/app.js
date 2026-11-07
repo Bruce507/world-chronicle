@@ -427,7 +427,7 @@
       "playhead", "playhead-label", "play-btn", "speed-btn", "now-btn", "tl-year", "tl-era",
       "zoom-in", "zoom-out", "zoom-fit", "zoom-fill", "map-empty", "sheet-expand", "toast",
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
-      "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip",
+      "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip", "tl-scope",
       "minimap", "minimap-canvas", "minimap-fit",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
       "theatre-card", "tc-kicker", "tc-title", "tc-expand", "tc-pause", "tc-close", "sheet-handle",
@@ -954,7 +954,7 @@
     el["panel-title"].textContent = routeText(r.name);
     el["panel-sub"].textContent = routeText(r.desc);
     let html = `<button class="panel-back" data-route-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
-    html += `<div class="event-list">${eventList(evs)}</div>`;
+    html += `<div class="event-list">${eventList(evs, { now: false })}</div>`;
     html += `<div class="panel-note">${L("按时间顺序排列；点击节点可继续查看地图剧场与详情。", "In chronological order; click a node for its map theatre and dossier.", "En orden cronológico; haz clic para el teatro y la ficha.", "Par ordre chronologique ; cliquez pour le théâtre et la fiche.", "بترتيب زمني؛ انقر لمشهد الخريطة والملف.")}</div>`;
     el["panel-body"].innerHTML = html;
     el["panel-body"].scrollTop = 0;
@@ -969,7 +969,7 @@
     el["panel-title"].textContent = state.searchQuery;
     el["panel-sub"].textContent = L("事件 " + evs.length + " 条；按时间排序。", evs.length + " events, in chronological order.", evs.length + " eventos, en orden cronológico.", evs.length + " événements, par ordre chronologique.", evs.length + " حدثًا بترتيب زمني.");
     let html = `<button class="panel-back" data-search-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
-    html += `<div class="event-list">${eventList(evs)}</div>`;
+    html += `<div class="event-list">${eventList(evs, { now: false })}</div>`;
     html += `<div class="panel-note">${L("搜索范围：事件标题与摘要、文明名、国家名。", "Search covers event titles and summaries, civilizations and countries.", "La búsqueda cubre títulos y resúmenes, civilizaciones y países.", "La recherche couvre titres et résumés, civilisations et pays.", "يشمل البحث عناوين الأحداث وملخصاتها والحضارات والدول.")}</div>`;
     el["panel-body"].innerHTML = html;
     el["panel-body"].scrollTop = 0;
@@ -1115,11 +1115,13 @@
     return evs.filter((e) => e.k === state.catFilter);
   }
 
-  function eventList(evs) {
+  function eventList(evs, opts) {
+    opts = opts || {};
+    const showNow = opts.now !== false;
     let html = "";
     let placed = false;
     evs.forEach((ev) => {
-      if (!placed && ev.y >= state.year - 0.5) { html += nowDivider(); placed = true; }
+      if (showNow && !placed && ev.y >= state.year - 0.5) { html += nowDivider(); placed = true; }
       html += eventRow(ev);
     });
     return html;
@@ -1258,6 +1260,17 @@
 
   function updateTimelineLabels() {
     if (el["tl-jump-go"]) el["tl-jump-go"].textContent = t("tlGo");
+    if (el["tl-scope"]) {
+      const range = fmtRange(timeline.from, timeline.to, state.lang === "zh" ? "zh" : "en");
+      const step = yearStep(state.year);
+      el["tl-scope"].textContent = L(
+        "范围 " + range + " · 步进 " + step + " 年",
+        "Range " + range + " · step " + step + " yr",
+        "Rango " + range + " · paso " + step + " años",
+        "Plage " + range + " · pas " + step + " ans",
+        "المدى " + range + " · خطوة " + step + " سنوات"
+      );
+    }
     if (el["tl-year-input"]) el["tl-year-input"].setAttribute("aria-label", t("tlJump"));
     const zb = el["tl-zoom-btn"];
     if (zb) {
@@ -1516,7 +1529,9 @@
     else timeline.setWindow(from, to);
     buildTimeline();
     if (state.year < timeline.from || state.year > timeline.to) {
-      applyYear(Math.round((timeline.from + timeline.to) / 2), null, { force: true });
+      // keep the user's year when possible; otherwise stop at the nearest
+      // edge instead of jumping to the middle of the new window
+      applyYear(state.year < timeline.from ? timeline.from : timeline.to, null, { force: true });
     } else {
       state.pos = timeline.toPos(state.year);
       updateChrome();
