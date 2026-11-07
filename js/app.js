@@ -83,6 +83,12 @@
     hint: { zh: "拖动底部时间轴 · 点击地图节点观看动态场景", en: "Drag the timeline · click any node to enter its scene" },
     today: { zh: "今天", en: "Today" },
     tlTip: { zh: "← → 逐年 · ⇧ 十倍 · 空格播放", en: "← → year · ⇧ ×10 · Space play" },
+    tlJump: { zh: "跳转年份", en: "Jump to year" },
+    tlGo: { zh: "跳转", en: "Go" },
+    tlZoomIn: { zh: "聚焦近现代", en: "Zoom to 1750–2026" },
+    tlZoomOut: { zh: "全史", en: "Full span" },
+    tlStep: { zh: "步进", en: "step" },
+    tlScrub: { zh: "拖动选择区间可放大", en: "Drag a range to zoom" },
     sameTime: { zh: "同一时刻的世界", en: "Elsewhere at the same moment" },
     prev: { zh: "上一节点", en: "Previous" },
     next: { zh: "下一节点", en: "Next" },
@@ -133,6 +139,8 @@
     lastTrigger: 0,
     toggles: { events: true, polities: false, links: true, labels: false, historicalLabels: true, allEvents: false, historical: true, stateChanges: true },
     panelOpen: true,
+    catFilter: null,
+    sheet: "half",
   };
 
   /* ── language detection ─────────────────────────── */
@@ -149,39 +157,82 @@
   })();
 
   /* ── time scale ─────────────────────────────────── */
+  /* The era weights are a deliberate non-linear scale: 32 years of world
+     war take more room than 163 years of industrial history. A zoom window
+     keeps that same per-era weighting inside the selected range, so the
+     distortion is preserved (and shown by the era bands) rather than silently
+     switching to a linear year axis. */
   const timeline = (function () {
-    const spans = [];
-    let acc = 0;
-    A.eras.forEach((e) => {
-      spans.push({ e, s: acc, t: acc + e.weight });
-      acc += e.weight;
-    });
-    const total = acc;
-    return {
-      spans,
+    const eras = A.eras;
+    const fullFrom = eras[0].from;
+    const fullTo = eras[eras.length - 1].to;
+    let win = { from: fullFrom, to: fullTo };
+    let spans = [];
+    function rebuild() {
+      const out = [];
+      let acc = 0;
+      for (const e of eras) {
+        const a = Math.max(win.from, e.from);
+        const b = Math.min(win.to, e.to);
+        if (b <= a) continue;
+        const frac = (b - a) / Math.max(1, e.to - e.from);
+        const w = e.weight * Math.max(0.0001, frac);
+        out.push({ e, from: a, to: b, w });
+        acc += w;
+      }
+      let s = 0;
+      for (const sp of out) {
+        sp.s = acc ? s / acc : 0;
+        s += sp.w;
+        sp.t = acc ? s / acc : 1;
+      }
+      spans = out;
+    }
+    rebuild();
+    const api = {
+      get spans() { return spans; },
+      get from() { return win.from; },
+      get to() { return win.to; },
+      get fullFrom() { return fullFrom; },
+      get fullTo() { return fullTo; },
+      get full() { return win.from <= fullFrom && win.to >= fullTo; },
+      get span() { return win.to - win.from; },
+      setWindow(from, to) {
+        from = clamp(Math.round(from), fullFrom, fullTo - 5);
+        to = clamp(Math.round(to), from + 5, fullTo);
+        win = { from, to };
+        rebuild();
+        return api;
+      },
+      reset() {
+        win = { from: fullFrom, to: fullTo };
+        rebuild();
+        return api;
+      },
       toPos(y) {
-        y = clamp(nYear(Math.round(y)), -12000, 2026);
+        y = clamp(nYear(Math.round(y)), win.from, win.to);
         for (let i = 0; i < spans.length; i++) {
           const sp = spans[i];
-          if (y < sp.e.to || i === spans.length - 1) {
-            const r = clamp((y - sp.e.from) / (sp.e.to - sp.e.from), 0, 1);
-            return (sp.s + r * (sp.t - sp.s)) / total;
+          if (y < sp.to || i === spans.length - 1) {
+            const r = clamp((y - sp.from) / (sp.to - sp.from), 0, 1);
+            return sp.s + r * (sp.t - sp.s);
           }
         }
         return 1;
       },
       toYear(p) {
-        p = clamp(p, 0, 1) * total;
+        p = clamp(p, 0, 1);
         for (let i = 0; i < spans.length; i++) {
           const sp = spans[i];
           if (p < sp.t || i === spans.length - 1) {
             const r = clamp((p - sp.s) / (sp.t - sp.s), 0, 1);
-            return sp.e.from + r * (sp.e.to - sp.e.from);
+            return sp.from + r * (sp.to - sp.from);
           }
         }
-        return 2026;
+        return win.to;
       },
     };
+    return api;
   })();
   state.pos = timeline.toPos(state.year);
 
@@ -283,7 +334,7 @@
   /* ── DOM references ─────────────────────────────── */
   const el = {};
   let map, sceneCtl, scenePaused = false, lastPanelKey = "", panelTimer = 0, urlTimer = 0;
-  let lastChromeYear = null, lastChromePos = "", lastBandEra = null, lastPlayTs = 0;
+  let lastChromeYear = null, lastChromePos = "", lastBandEra = null, lastPlayTs = 0, lastHintStep = null;
   let draggingTrack = false, eventTimer = 0, lastAutoGroup = "";
 
   /* ── boot ───────────────────────────────────────── */
@@ -293,6 +344,8 @@
       "hud-year", "hud-era", "hud-sub", "panel-kicker", "panel-title", "panel-sub", "panel-body", "map-note",
       "side-panel", "panel-toggle", "panel-reopen", "panel-close", "tooltip", "era-bands", "tick-canvas", "track",
       "playhead", "playhead-label", "play-btn", "speed-btn", "now-btn", "tl-year", "tl-era",
+      "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
+      "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
       "theatre-card", "tc-kicker", "tc-title", "tc-sub", "tc-desc", "tc-tags", "tc-expand", "tc-pause", "tc-close", "tc-voice",
       "sound-btn", "ev-voice",
@@ -446,6 +499,7 @@
       ar: "سجل العالم · أطلس الحضارات العالمي",
     };
     document.title = titles[state.lang] || titles.en;
+    updateTimelineLabels();
   }
 
   function setLang(lang) {
@@ -919,18 +973,48 @@
     const bands = el["era-bands"];
     if (!bands) return;
     bands.innerHTML = "";
-    A.eras.forEach((era) => {
+    timeline.spans.forEach((sp) => {
+      const era = sp.e;
       const d = document.createElement("div");
       d.className = "era-band";
-      d.style.flexGrow = era.weight;
+      d.style.flexGrow = sp.w;
       d.style.flexBasis = "0";
       d.setAttribute("data-era", era.id);
-      d.title = eraName(era) + " · " + fmtRange(era.from, era.to);
-      d.innerHTML = "<b>" + eraName(era) + "</b><small>" + fmtRange(era.from, era.to, state.lang === "zh" ? "zh" : "en") + "</small>";
+      d.title = eraName(era) + " · " + fmtRange(sp.from, sp.to) + " · " + L("双击放大", "double-click to zoom", "doble clic para ampliar", "double-clic pour zoomer", "انقر مرتين للتكبير");
+      d.innerHTML = "<b>" + eraName(era) + "</b><small>" + fmtRange(sp.from, sp.to, state.lang === "zh" ? "zh" : "en") + "</small>";
       bands.appendChild(d);
     });
+    bands.classList.toggle("is-precise", timeline.span <= 160);
     lastBandEra = null;
+    lastChromeYear = null;
+    updateTimelineLabels();
     drawTicks();
+  }
+
+  function updateTimelineLabels() {
+    if (el["tl-jump-go"]) el["tl-jump-go"].textContent = t("tlGo");
+    if (el["tl-year-input"]) el["tl-year-input"].setAttribute("aria-label", t("tlJump"));
+    const zb = el["tl-zoom-btn"];
+    if (zb) {
+      zb.textContent = timeline.full ? t("tlZoomIn") : t("tlZoomOut");
+      zb.classList.toggle("is-on", !timeline.full);
+      zb.setAttribute("aria-pressed", String(!timeline.full));
+      zb.title = timeline.full
+        ? L("放大 1750–2026，便于逐年选择", "Zoom to 1750–2026 for precise years", "Ampliar 1750–2026", "Zoomer sur 1750–2026", "تكبير 1750–2026")
+        : L("回到全史 前12000–2026", "Back to the full span, 12000 BCE–2026", "Volver a la escala completa", "Revenir à la chronologie complète", "العودة إلى المدى الكامل");
+    }
+    const step = yearStep(state.year);
+    if (el["tl-step-back"]) el["tl-step-back"].title = L("后退一年", "Back one year", "Un año atrás", "Reculer d’un an", "سنة إلى الوراء");
+    if (el["tl-step-fwd"]) el["tl-step-fwd"].title = L("前进一年", "Forward one year", "Un año adelante", "Avancer d’un an", "سنة إلى الأمام");
+    if (el["tl-tip"]) {
+      el["tl-tip"].textContent = L(
+        "← → 步进 " + step + " 年 · ↑↓ ±1 · ⇧ ×10 · 空格播放",
+        "← → " + step + "-year step · ↑↓ ±1 · Shift ×10 · Space play",
+        "← → paso de " + step + " años · ↑↓ ±1 · Mayús ×10 · Espacio",
+        "← → pas de " + step + " ans · ↑↓ ±1 · Maj ×10 · Espace",
+        "← → خطوة " + step + " سنوات · ↑↓ ±1 · Shift ×10 · مسافة"
+      );
+    }
   }
 
   /* ── region / theme navigator ───────────────────── */
@@ -1022,10 +1106,29 @@
     ctx.clearRect(0, 0, r.width, r.height);
     const base = r.height - 4;
     const narrow = r.width < 620;
+    const from = timeline.from, to = timeline.to;
+
+    // In a narrow window, show a real year ruler so the zoomed axis is legible.
+    if (timeline.span <= 160) {
+      const span = timeline.span;
+      const step = span <= 20 ? 1 : span <= 50 ? 5 : span <= 110 ? 10 : 25;
+      ctx.font = "500 9px " + (state.lang === "zh" ? "'PingFang SC','Noto Sans SC',sans-serif" : "Georgia,serif");
+      ctx.textAlign = "center";
+      for (let y = Math.ceil(from / step) * step; y <= to; y += step) {
+        const px = timeline.toPos(y) * r.width;
+        ctx.strokeStyle = "rgba(70,60,48,0.14)";
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, base); ctx.stroke();
+        ctx.fillStyle = "rgba(70,62,52,0.62)";
+        ctx.fillText(fmtYear(y, state.lang, true), px, 12);
+      }
+    }
+
     if (A.stateChanges) {
       const all = (A.stateChanges.births || []).map((x) => ({ x, c: "#3f7a5a" }))
         .concat((A.stateChanges.dissolutions || []).map((x) => ({ x, c: "#7a6a66" })));
       for (const it of all) {
+        if (it.x.year < from || it.x.year > to) continue;
         const px = timeline.toPos(it.x.year) * r.width;
         ctx.strokeStyle = hexA(it.c, 0.7);
         ctx.lineWidth = 1;
@@ -1033,7 +1136,9 @@
       }
     }
     for (const ev of A.events) {
+      if (ev.y < from || ev.y > to) continue;
       if (narrow && !ev.f) continue;
+      if (state.catFilter && ev.k !== state.catFilter) continue;
       const x = timeline.toPos(ev.y) * r.width;
       const h = ev.f ? 9 : 5;
       ctx.strokeStyle = hexA(catColor(ev.k), ev.f ? 0.55 : 0.28);
@@ -1066,6 +1171,15 @@
       el["tl-year"].textContent = fmtYear(y, state.lang);
       el["tl-era"].textContent = eraName(era);
       el["playhead-label"].textContent = fmtYear(y, state.lang, true);
+      const tr = el["track"];
+      if (tr) {
+        tr.setAttribute("aria-valuemin", String(timeline.from));
+        tr.setAttribute("aria-valuemax", String(timeline.to));
+        tr.setAttribute("aria-valuenow", String(y));
+        tr.setAttribute("aria-valuetext", fmtYear(y, state.lang) + " · " + eraName(era));
+      }
+      const step = yearStep(y);
+      if (step !== lastHintStep) { lastHintStep = step; updateTimelineLabels(); }
 
       if (lastBandEra !== era.id) {
         lastBandEra = era.id;
@@ -1075,7 +1189,7 @@
         });
         if (map && map.features && !state.country) renderPanel(true);
       }
-      if (el["panel-kicker"] && map && map.features && !state.country) {
+      if (el["panel-kicker"] && map && map.features && !state.country && !state.eventView) {
         el["panel-kicker"].textContent = (state.lang === "zh" ? "此刻世界 · " : "THE WORLD AT ") + fmtYear(y, state.lang, true);
       }
       updateMapNote();
@@ -1090,7 +1204,14 @@
 
   function applyYear(y, pos, opts) {
     opts = opts || {};
-    y = clamp(Math.round(y), -12000, 2026);
+    y = clamp(Math.round(y), timeline.fullFrom, timeline.fullTo);
+    // A year outside the zoomed window brings the whole span back, so the
+    // requested year is always reachable (deep links, Today, search, API).
+    if (y < timeline.from || y > timeline.to) {
+      timeline.reset();
+      buildTimeline();
+      pos = null;
+    }
     if (y === 0) y = -1;
     const changed = y !== state.year;
     state.year = y;
@@ -1104,7 +1225,93 @@
       else if (!state.playing) schedulePanel();
       if (!opts.silentEvent && !opts.noAuto) scheduleAutoEvent();
       syncURL();
+    } else if (pos == null) {
+      // window changed but the year did not: keep the readout consistent
+      updateChrome();
+      if (!state.playing) schedulePanel();
     }
+  }
+
+  /* ── timeline zoom / brush ─────────────────────── */
+  function setTimelineWindow(from, to, opts) {
+    opts = opts || {};
+    const span = Math.max(5, Math.round(to - from));
+    if (span >= timeline.fullTo - timeline.fullFrom) timeline.reset();
+    else timeline.setWindow(from, to);
+    buildTimeline();
+    if (state.year < timeline.from || state.year > timeline.to) {
+      applyYear(Math.round((timeline.from + timeline.to) / 2), null, { force: true });
+    } else {
+      state.pos = timeline.toPos(state.year);
+      updateChrome();
+      drawTicks();
+    }
+    if (opts.brush) el["track"].focus({ preventScroll: true });
+    syncURL();
+  }
+
+  function toggleTimelineZoom() {
+    stopPlay();
+    if (timeline.full) setTimelineWindow(1750, timeline.fullTo);
+    else setTimelineWindow(timeline.fullFrom, timeline.fullTo);
+  }
+
+  function zoomTimelineAt(p, factor) {
+    const anchor = timeline.toYear(p);
+    const span = timeline.span;
+    const next = clamp(span * factor, 10, timeline.fullTo - timeline.fullFrom);
+    let from = anchor - (anchor - timeline.from) * (next / span);
+    let to = from + next;
+    if (from < timeline.fullFrom) { from = timeline.fullFrom; to = from + next; }
+    if (to > timeline.fullTo) { to = timeline.fullTo; from = to - next; }
+    if (next >= timeline.fullTo - timeline.fullFrom) {
+      timeline.reset();
+      buildTimeline();
+      applyYear(anchor, null, { force: true, silentEvent: true });
+      return;
+    }
+    timeline.setWindow(from, to);
+    buildTimeline();
+    applyYear(anchor, null, { force: true, silentEvent: true });
+  }
+
+  function zoomToEra(eraId) {
+    const era = A.eras.find((x) => x.id === eraId);
+    if (!era) return;
+    const inThis = timeline.from <= era.from && timeline.to >= era.to - 1;
+    if (inThis && timeline.span <= (era.to - era.from) + 2) {
+      setTimelineWindow(timeline.fullFrom, timeline.fullTo);
+    } else {
+      setTimelineWindow(era.from, era.to - 1);
+    }
+  }
+
+  /* ── year editor ────────────────────────────────── */
+  function openYearJump() {
+    const f = el["tl-jump"];
+    if (!f) return;
+    f.hidden = false;
+    el["tl-year-input"].value = String(state.year);
+    el["tl-year-btn"].setAttribute("aria-expanded", "true");
+    el["tl-year-input"].focus();
+    el["tl-year-input"].select();
+  }
+  function closeYearJump() {
+    if (!el["tl-jump"]) return;
+    el["tl-jump"].hidden = true;
+    el["tl-year-btn"].setAttribute("aria-expanded", "false");
+  }
+  function parseYearInput(raw) {
+    let s = String(raw == null ? "" : raw).trim().toLowerCase();
+    if (!s) return null;
+    s = s.replace(/\s|年/g, "");
+    let sign = 1;
+    if (/^(前|公元前|bc|bce|-)/i.test(s)) sign = -1;
+    const m = s.match(/\d+/);
+    if (!m) return null;
+    const n = parseInt(m[0], 10);
+    if (!isFinite(n)) return null;
+    return clamp(sign * n, timeline.fullFrom, timeline.fullTo);
   }
 
   function scheduleAutoEvent() {
@@ -1219,35 +1426,145 @@
   }
 
   /* ── track interaction ──────────────────────────── */
-  function posFromEvent(e) {
+  function posFromClientX(cx, r) {
+    return clamp((cx - r.left) / (r.width || 1), 0, 1);
+  }
+  function tickNear(px, tol) {
+    tol = tol || 11;
     const r = el["track"].getBoundingClientRect();
-    return clamp((e.clientX - r.left) / r.width, 0, 1);
+    if (!r.width) return null;
+    let best = null, bd = tol;
+    for (const ev of A.events) {
+      if (ev.y < timeline.from || ev.y > timeline.to) continue;
+      if (state.catFilter && ev.k !== state.catFilter) continue;
+      const x = timeline.toPos(ev.y) * r.width;
+      const dx = Math.abs(x - px) - (ev.f ? 1.5 : 0);
+      if (dx < bd) { bd = dx; best = ev; }
+    }
+    return best;
+  }
+  function placeTimelineCursor(px, label, sub) {
+    const c = el["tl-cursor"];
+    if (!c) return;
+    c.innerHTML = "<b>" + label + "</b>" + (sub ? "<span>" + sub + "</span>" : "");
+    c.style.left = px + "px";
+    c.hidden = false;
+  }
+  function hideTimelineCursor() {
+    if (el["tl-cursor"]) el["tl-cursor"].hidden = true;
+  }
+  function showTimelineCursor(e) {
+    if (e.pointerType === "touch") return;
+    const r = el["track"].getBoundingClientRect();
+    if (!r.width) return;
+    const px = e.clientX - r.left;
+    const year = Math.round(timeline.toYear(posFromClientX(e.clientX, r)));
+    const near = tickNear(px, 22);
+    placeTimelineCursor(px, fmtYear(year, state.lang, true),
+      near ? evTitle(near) : L("拖动选择区间可放大", "drag a range to zoom", "arrastra para ampliar", "glisser pour zoomer", "اسحب للتكبير"));
+  }
+  function updateBrush(x1, x2) {
+    const b = el["tl-brush"];
+    if (!b) return;
+    const left = Math.min(x1, x2), w = Math.abs(x2 - x1);
+    b.style.left = left + "px";
+    b.style.width = w + "px";
+    b.hidden = false;
   }
   function bindTrack() {
-    el["track"].addEventListener("pointerdown", (e) => {
-      draggingTrack = true;
+    const track = el["track"];
+    if (!track) return;
+    let drag = null;
+
+    track.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
       stopPlay();
-      el["track"].classList.add("dragging");
-      el["track"].setPointerCapture && el["track"].setPointerCapture(e.pointerId);
-      const p = posFromEvent(e);
-      applyYear(Math.round(timeline.toYear(p)), p);
+      try { track.focus({ preventScroll: true }); } catch (err) { /* older browsers */ }
+      if (track.setPointerCapture) track.setPointerCapture(e.pointerId);
+      const r = track.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const p = posFromClientX(e.clientX, r);
+      drag = { id: e.pointerId, startX: x, startP: p, moved: false, brush: !!e.shiftKey, snapEv: null, lastP: p, touch: e.pointerType === "touch" };
+      track.classList.add("dragging");
+      hideTimelineCursor();
+      // Scrubbing (or brushing) time leaves an open event dossier; clicking
+      // the same event's tick keeps it.
+      if (state.eventView) {
+        const sameTick = tickNear(x, drag.touch ? 16 : 9);
+        if (!sameTick || sameTick.id !== state.eventView.id) closeTheatre();
+      }
+      if (drag.brush) {
+        updateBrush(x, x);
+        placeTimelineCursor(x, fmtYear(Math.round(timeline.toYear(p)), state.lang, true), t("tlScrub"));
+      } else {
+        const near = tickNear(x, drag.touch ? 16 : 9);
+        const pp = near ? timeline.toPos(near.y) : p;
+        drag.snapEv = near;
+        applyYear(Math.round(timeline.toYear(pp)), pp);
+      }
+      e.preventDefault();
     });
-    el["track"].addEventListener("pointermove", (e) => {
-      if (!draggingTrack) return;
-      const p = posFromEvent(e);
-      applyYear(Math.round(timeline.toYear(p)), p);
+
+    track.addEventListener("pointermove", (e) => {
+      if (!drag) { showTimelineCursor(e); return; }
+      if (e.pointerId !== drag.id) return;
+      const r = track.getBoundingClientRect();
+      const x = clamp(e.clientX - r.left, 0, r.width);
+      const p = posFromClientX(e.clientX, r);
+      if (Math.abs(x - drag.startX) > 3) drag.moved = true;
+      drag.lastP = p;
+      if (drag.brush) {
+        updateBrush(drag.startX, x);
+        const a = timeline.toYear(Math.min(drag.startX, x) / r.width);
+        const b = timeline.toYear(Math.max(drag.startX, x) / r.width);
+        placeTimelineCursor(x, fmtRange(Math.round(a), Math.round(b), state.lang === "zh" ? "zh" : "en"), t("tlScrub"));
+      } else {
+        const near = tickNear(x, drag.touch ? 16 : 9);
+        const pp = near ? timeline.toPos(near.y) : p;
+        drag.snapEv = near;
+        applyYear(Math.round(timeline.toYear(pp)), pp);
+      }
     });
+
     const end = (e) => {
-      if (!draggingTrack) return;
-      draggingTrack = false;
-      el["track"].classList.remove("dragging");
-      const p = posFromEvent(e);
-      applyYear(Math.round(timeline.toYear(p)), p);
+      if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
+      const r = track.getBoundingClientRect();
+      const x = clamp((e.clientX || 0) - r.left, 0, r.width);
+      const d = drag;
+      drag = null;
+      track.classList.remove("dragging");
+      el["tl-brush"].hidden = true;
+      hideTimelineCursor();
+      if (d.brush) {
+        const a = timeline.toYear(Math.min(d.startX, x) / r.width);
+        const b = timeline.toYear(Math.max(d.startX, x) / r.width);
+        if (d.moved && b - a >= 5) { setTimelineWindow(a, b, { brush: true }); return; }
+        const p = clamp(x / r.width, 0, 1);
+        applyYear(Math.round(timeline.toYear(p)), p);
+        renderPanel(true);
+        return;
+      }
+      if (!d.moved && d.snapEv) { triggerEvent(d.snapEv, "timeline"); return; }
+      applyYear(Math.round(timeline.toYear(d.lastP)), d.lastP);
       renderPanel(true);
       syncURL();
     };
-    el["track"].addEventListener("pointerup", end);
-    el["track"].addEventListener("pointercancel", end);
+    track.addEventListener("pointerup", end);
+    track.addEventListener("pointercancel", (e) => {
+      if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
+      drag = null;
+      track.classList.remove("dragging");
+      el["tl-brush"].hidden = true;
+      hideTimelineCursor();
+    });
+    track.addEventListener("pointerleave", () => { if (!drag) hideTimelineCursor(); });
+    track.addEventListener("wheel", (e) => {
+      if (!e.altKey) return;
+      e.preventDefault();
+      const r = track.getBoundingClientRect();
+      zoomTimelineAt(posFromClientX(e.clientX, r), e.deltaY > 0 ? 1.32 : 1 / 1.32);
+      showTimelineCursor(e);
+    }, { passive: false });
   }
 
   /* ── tooltip ────────────────────────────────────── */
@@ -1724,6 +2041,40 @@
       applyYear(2026, null, { force: true, noAuto: true });
       setPanel(state.panelOpen);
     });
+    el["tl-step-back"].addEventListener("click", () => {
+      stopPlay();
+      applyYear(state.year - 1, null, { force: true });
+      renderPanel(true);
+    });
+    el["tl-step-fwd"].addEventListener("click", () => {
+      stopPlay();
+      applyYear(state.year + 1, null, { force: true });
+      renderPanel(true);
+    });
+    el["tl-year-btn"].addEventListener("click", () => {
+      if (el["tl-jump"].hidden) openYearJump(); else closeYearJump();
+    });
+    el["tl-jump-cancel"].addEventListener("click", closeYearJump);
+    el["tl-jump"].addEventListener("submit", (e) => {
+      e.preventDefault();
+      const y = parseYearInput(el["tl-year-input"].value);
+      closeYearJump();
+      if (y == null) return;
+      stopPlay();
+      applyYear(y, null, { force: true });
+      renderPanel(true);
+      el["track"].focus({ preventScroll: true });
+    });
+    el["tl-year-input"].addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { e.stopPropagation(); closeYearJump(); el["track"].focus({ preventScroll: true }); }
+    });
+    el["tl-zoom-btn"].addEventListener("click", toggleTimelineZoom);
+    el["era-bands"].addEventListener("dblclick", (e) => {
+      const band = e.target.closest(".era-band");
+      if (!band) return;
+      e.preventDefault();
+      zoomToEra(band.getAttribute("data-era"));
+    });
     bindTrack();
     el["hint-close"].addEventListener("click", () => el.hint.classList.add("hide"));
 
@@ -1820,6 +2171,9 @@
       if (!el["search-results"].hidden && !el["search-results"].contains(e.target) && e.target !== el.search) {
         el["search-results"].hidden = true;
       }
+      if (!el["tl-jump"].hidden && !el["tl-jump"].contains(e.target) && !el["tl-year-btn"].contains(e.target)) {
+        closeYearJump();
+      }
     });
 
     document.addEventListener("keydown", onKey);
@@ -1835,8 +2189,9 @@
 
   function onKey(e) {
     const tag = (e.target.tagName || "").toLowerCase();
-    const typing = tag === "input" || tag === "textarea";
+    const typing = tag === "input" || tag === "textarea" || tag === "select";
     if (e.key === "Escape") {
+      if (!el["tl-jump"].hidden) { closeYearJump(); return; }
       if (!el["layers-pop"].hidden) { el["layers-pop"].hidden = true; el["layers-btn"].classList.remove("is-on"); return; }
       if (!el["event-modal"].hidden) { closeEvent(); return; }
       if (!el["theatre-card"].hidden) { closeTheatre(); return; }
@@ -1852,21 +2207,46 @@
       }
       return;
     }
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+    const k = e.key;
+    if (k === "ArrowRight" || k === "ArrowLeft") {
       e.preventDefault();
       stopPlay();
-      const unit = yearStep(state.year) * (e.shiftKey ? 10 : 1);
-      applyYear(state.year + (e.key === "ArrowRight" ? unit : -unit), null, { force: true });
+      const unit = e.altKey ? 1 : yearStep(state.year) * (e.shiftKey ? 10 : 1);
+      applyYear(state.year + (k === "ArrowRight" ? unit : -unit), null, { force: true });
       renderPanel(true);
-    } else if (e.key === " ") {
+    } else if (k === "ArrowUp" || k === "ArrowDown") {
+      e.preventDefault();
+      stopPlay();
+      const unit = e.shiftKey ? 10 : 1;
+      applyYear(state.year + (k === "ArrowUp" ? unit : -unit), null, { force: true });
+      renderPanel(true);
+    } else if (k === "PageUp" || k === "PageDown") {
+      e.preventDefault();
+      stopPlay();
+      const i = A.eras.indexOf(A.eraOf(state.year));
+      const target = A.eras[clamp(i + (k === "PageDown" ? 1 : -1), 0, A.eras.length - 1)];
+      applyYear(target.from, null, { force: true });
+      renderPanel(true);
+    } else if (k === "Home" || k === "End") {
+      e.preventDefault();
+      stopPlay();
+      applyYear(k === "Home" ? timeline.from : timeline.to, null, { force: true });
+      renderPanel(true);
+    } else if (k === " ") {
       e.preventDefault();
       togglePlay();
-    } else if (e.key === "/") {
+    } else if (k === "/") {
       e.preventDefault();
       el.search.focus();
-    } else if (e.key === "[" || e.key === "]") {
+    } else if (k === "?" ) {
       e.preventDefault();
-      stepEvent(e.key === "]" ? 1 : -1);
+      openAbout();
+    } else if (k === "y" || k === "g") {
+      e.preventDefault();
+      openYearJump();
+    } else if (k === "[" || k === "]") {
+      e.preventDefault();
+      stepEvent(k === "]" ? 1 : -1);
     }
   }
 

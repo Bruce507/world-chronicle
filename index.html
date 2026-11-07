@@ -7,7 +7,7 @@
 <meta name="description" content="从史前狩猎到人工智能：一张可拖动的全球文明时间地图。470 余个世界历史节点、九大时代、18 个时代疆域快照、地图内动态剧场与全球联动，支持五种界面语言。" />
 <meta name="theme-color" content="#f2ece0" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23b0432c'/%3E%3Ctext x='32' y='46' font-size='42' text-anchor='middle' fill='%23f6efe2' font-family='serif'%3E寰%3C/text%3E%3C/svg%3E" />
-<link rel="stylesheet" href="css/style.css?v=20261107t" />
+<link rel="stylesheet" href="css/style.css?v=20261107u" />
 </head>
 <body>
 <div id="app">
@@ -133,18 +133,31 @@
         <svg class="pause-ico" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
       </button>
       <div class="tl-readout">
-        <b id="tl-year">公元前 3000 年</b>
+        <div class="tl-year-line">
+          <button id="tl-step-back" class="tl-step" type="button" aria-label="后退一年" title="−1 年">−</button>
+          <button id="tl-year-btn" class="tl-year-btn" type="button" aria-label="跳转年份" title="点击输入年份" aria-expanded="false"><b id="tl-year">公元前 3000 年</b></button>
+          <button id="tl-step-fwd" class="tl-step" type="button" aria-label="前进一年" title="+1 年">+</button>
+        </div>
         <span id="tl-era">青铜与早期文明</span>
       </div>
+      <form id="tl-jump" hidden autocomplete="off">
+        <label for="tl-year-input" class="sr-only">跳转年份</label>
+        <input id="tl-year-input" type="number" inputmode="numeric" step="1" min="-12000" max="2026" />
+        <button type="submit" id="tl-jump-go">跳转</button>
+        <button type="button" id="tl-jump-cancel" aria-label="取消">×</button>
+      </form>
       <div class="tl-spacer"></div>
+      <button id="tl-zoom-btn" class="tl-small tl-zoom" type="button" aria-pressed="false" title="放大时间轴 / Zoom the timeline">聚焦近现代</button>
       <button id="speed-btn" class="tl-small" title="播放速度">1×</button>
       <button id="now-btn" class="tl-small" data-i18n="today">今天</button>
-      <div class="tl-tip" data-i18n="tlTip">← → 逐年 · ⇧ 十倍 · 空格播放</div>
+      <div class="tl-tip" id="tl-tip">← → 步进 5 年 · ↑↓ ±1 · ⇧ ×10 · 空格播放</div>
     </div>
-    <div id="track">
+    <div id="track" tabindex="0" role="slider" aria-label="时间轴年份" aria-valuemin="-12000" aria-valuemax="2026" aria-valuenow="1500" aria-valuetext="公元 1500 年">
       <div id="era-bands"></div>
       <canvas id="tick-canvas"></canvas>
+      <div id="tl-brush" hidden></div>
       <div id="playhead"><i></i><span id="playhead-label"></span></div>
+      <div id="tl-cursor" hidden><b></b><span></span></div>
     </div>
   </footer>
 </div>
@@ -231,17 +244,17 @@
   </article>
 </div>
 
-<script src="js/data_bundle.js?v=20261107t"></script>
-<script src="js/hero-scenes.js?v=20261107t"></script>
-<script src="js/variant-scenes.js?v=20261107t"></script>
-<script src="js/scenes.js?v=20261107t"></script>
-<script src="js/historical.js?v=20261107t"></script>
-<script src="js/entities.js?v=20261107t"></script>
-<script src="js/theatre.js?v=20261107t"></script>
-<script src="js/audio.js?v=20261107t"></script>
-<script src="js/statechanges.js?v=20261107t"></script>
-<script src="js/map.js?v=20261107t"></script>
-<script src="js/i18n_extra.js?v=20261107t"></script>
-<script src="js/app.js?v=20261107t"></script>
+<script src="js/data_bundle.js?v=20261107u"></script>
+<script src="js/hero-scenes.js?v=20261107u"></script>
+<script src="js/variant-scenes.js?v=20261107u"></script>
+<script src="js/scenes.js?v=20261107u"></script>
+<script src="js/historical.js?v=20261107u"></script>
+<script src="js/entities.js?v=20261107u"></script>
+<script src="js/theatre.js?v=20261107u"></script>
+<script src="js/audio.js?v=20261107u"></script>
+<script src="js/statechanges.js?v=20261107u"></script>
+<script src="js/map.js?v=20261107u"></script>
+<script src="js/i18n_extra.js?v=20261107u"></script>
+<script src="js/app.js?v=20261107u"></script>
 </body>
 </html>
