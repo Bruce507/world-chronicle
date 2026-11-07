@@ -55,5 +55,8 @@ jobs:
       - name: Data QA
         run: node scripts/data-qa.mjs
 
+      - name: PWA / offline check
+        run: node scripts/pwa-check.mjs
+
       - name: Smoke suite
         run: node scripts/ux-smoke.mjs

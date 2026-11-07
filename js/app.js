@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   const A = window.WORLD_ATLAS;
-  const ASSET_V = "20261108r";
+  const ASSET_V = "20261108s";
   const $ = (s) => document.querySelector(s);
   let heroScenesP = null, variantScenesP = null;
   function loadScriptOnce(src) {
@@ -188,6 +188,7 @@
     modernExpanded: false,
     modernOpen: false,
     brushMode: false,
+    favoritesOpen: false,
   };
 
   /* ── language detection ─────────────────────────── */
@@ -320,6 +321,42 @@
         ar: "الورق والطباعة والسكك والطيران والطاقة النووية والإنترنت: كيف أعادت التقنية كتابة سرعة التواصل.",
       },
       events: ["cai-lun-improves-papermaking", "gutenbergs-press", "stockton-darlington-railway", "wright-brothers-first-flight", "penicillin-discovered", "sputnik-1", "apollo-11", "the-world-wide-web", "the-generative-ai-boom"],
+    },
+    {
+      id: "climate-earth",
+      name: { zh: "环境与灾变", en: "Environment & Catastrophe", es: "Medio ambiente y catástrofe", fr: "Environnement et catastrophe", ar: "البيئة والكوارث" },
+      desc: {
+        zh: "从撒哈拉变绿到核事故与气候协定：环境如何塑造文明，人类又如何改变环境。",
+        en: "From the green Sahara to nuclear accidents and climate agreements: how environments shaped civilizations, and how humans reshaped environments.",
+        es: "Del Sáhara verde a los accidentes nucleares y los acuerdos climáticos: cómo el medio ambiente formó civilizaciones y cómo las sociedades lo transformaron.",
+        fr: "Du Sahara vert aux accidents nucléaires et aux accords climatiques : comment les environnements ont façonné les civilisations et comment les sociétés les ont transformés.",
+        ar: "من الصحراء الخضراء إلى الحوادث النووية واتفاقات المناخ: كيف شكّلت البيئة الحضارات وكيف غيّرتها المجتمعات.",
+      },
+      events: ["the-green-sahara", "thera-eruption", "vesuvius-erupts", "the-black-death", "lisbon-earthquake", "irish-famine", "fukushima-disaster", "paris-agreement"],
+    },
+    {
+      id: "disease-medicine",
+      name: { zh: "疾病与医学", en: "Disease & Medicine", es: "Enfermedad y medicina", fr: "Maladie et médecine", ar: "المرض والطب" },
+      desc: {
+        zh: "瘟疫、流感与抗生素：疾病如何改写人口、帝国与公共卫生。",
+        en: "Plague, influenza and antibiotics: how disease reshaped populations, empires and public health.",
+        es: "Peste, gripe y antibióticos: cómo las enfermedades transformaron poblaciones, imperios y salud pública.",
+        fr: "Peste, grippe et antibiotiques : comment les maladies ont remodelé populations, empires et santé publique.",
+        ar: "الطاعون والإنفلونزا والمضادات الحيوية: كيف أعادت الأمراض تشكيل السكان والإمبراطوريات والصحة العامة.",
+      },
+      events: ["plague-of-justinian", "the-black-death", "the-1918-influenza", "penicillin-discovered", "covid-19-pandemic"],
+    },
+    {
+      id: "ocean-voyages",
+      name: { zh: "海洋与远航", en: "Oceans & Voyages", es: "Océanos y travesías", fr: "Océans et voyages", ar: "المحيطات والرحلات" },
+      desc: {
+        zh: "从拉皮塔独木舟到麦哲伦环球：太平洋与印度洋的航海网络如何连接世界。",
+        en: "From Lapita canoes to Magellan's circumnavigation: how Pacific and Indian Ocean voyaging networks connected the world.",
+        es: "De las canoas lapita a la vuelta al mundo de Magallanes: cómo las redes de navegación del Pacífico y el Índico conectaron el mundo.",
+        fr: "Des pirogues lapita au tour du monde de Magellan : comment les réseaux de navigation du Pacifique et de l’océan Indien ont relié le monde.",
+        ar: "من زوارق لابيتا إلى رحلة ماجلان حول العالم: كيف ربطت شبكات الإبحار في المحيطين الهادئ والهندي العالم.",
+      },
+      events: ["lapita-voyagers", "norse-reach-vinland", "maori-reach-aotearoa", "zheng-hes-voyages", "columbus-reaches-the-americas", "vasco-da-gama-reaches-india", "magellans-circumnavigation", "cook-at-tahiti", "bering-reaches-alaska"],
     },
   ];
   const routeById = (id) => ROUTES.find((r) => r.id === id) || null;
@@ -459,7 +496,7 @@
       "minimap", "minimap-canvas", "minimap-fit",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
       "theatre-card", "tc-kicker", "tc-title", "tc-expand", "tc-pause", "tc-close", "sheet-handle",
-      "sound-btn", "ev-voice",
+      "sound-btn", "ev-voice", "fav-btn", "fav-count", "fav-toggle",
       "ev-year", "ev-cat", "ev-title", "ev-title-en", "ev-desc", "ev-desc-en", "ev-meta", "ev-detail", "ev-links",
       "ev-contemp-list", "ev-prev", "ev-next", "about-modal", "about-eras", "about-scenes",
       "event-modal", "hint", "hint-close", "panel-reopen",
@@ -481,6 +518,7 @@
       if (cb) cb.checked = false;
     }
 
+    loadFavorites();
     applyI18n();
     buildTimeline();
     buildRegionNav();
@@ -511,8 +549,9 @@
     }
 
     bindUI();
-    window.atlasAPI = { map, state, openEvent, openEventModal, openCountry, theatre: window.MapTheatre, placeInfo, setPanel, setSheet, setYear: (y) => applyYear(y, null, { force: true }) };
+    window.atlasAPI = { map, state, openEvent, openEventModal, openCountry, theatre: window.MapTheatre, placeInfo, setPanel, setSheet, setYear: (y) => applyYear(y, null, { force: true }), shareCardBlob: (ev) => renderShareCard(ev || state.selected) };
     renderPanel(true);
+    updateFavUI();
     updateChrome();
     drawTicks();
     requestAnimationFrame(frame);
@@ -530,10 +569,15 @@
       else setTimeout(warm, 1500);
     }
     setTimeout(() => el.hint.classList.add("hide"), 11000);
+    if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+      const reg = () => navigator.serviceWorker.register("sw.js").catch((err) => console.warn("Service worker unavailable:", err.message));
+      if (document.readyState === "complete") reg();
+      else window.addEventListener("load", reg, { once: true });
+    }
   }
 
   function loadAuxData() {
-    const v = "?v=20261108r";
+    const v = "?v=20261108s";
     A.detailsLoading = true;
     A.detailsLoading = true;
     fetch("data/state_changes.json" + v)
@@ -552,7 +596,7 @@
     if (A.eventDetails) { A.detailsLoading = false; return Promise.resolve(A.eventDetails); }
     if (detailsP) return detailsP;
     A.detailsLoading = true;
-    detailsP = fetch("data/event_details.json?v=20261108r")
+    detailsP = fetch("data/event_details.json?v=20261108s")
       .then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); })
       .then((d) => {
         A.eventDetails = d || {};
@@ -569,7 +613,7 @@
   function ensureChronicles() {
     if (A.chronicles) return Promise.resolve(A.chronicles);
     if (chroniclesP) return chroniclesP;
-    chroniclesP = fetch("data/country_chronicles.json?v=20261108r")
+    chroniclesP = fetch("data/country_chronicles.json?v=20261108s")
       .then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); })
       .then((d) => {
         A.chronicles = d || {};
@@ -589,7 +633,7 @@
     loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
-    fetch("data/world.geo.json?v=20261108r")
+    fetch("data/world.geo.json?v=20261108s")
       .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then((geo) => {
         map.setWorld(geo);
@@ -681,6 +725,7 @@
     if (lang === state.lang) return;
     state.lang = lang;
     localStorage.setItem("world-atlas-lang", lang);
+    loadFavorites();
     applyI18n();
     buildTimeline();
     buildRegionNav();
@@ -698,8 +743,122 @@
     syncURL();
   }
 
+  /* ── favourites / bookmarks ─────────────────────── */
+  const FAV_KEY = "world-atlas-favorites";
+  let favorites = [];
+  function loadFavorites() {
+    try {
+      const a = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+      favorites = Array.isArray(a) ? a.filter((x) => x && x.type && x.id) : [];
+    } catch (err) { favorites = []; }
+  }
+  function favKey(x) { return x.type + ":" + x.id + (x.type === "view" ? ":" + x.year + ":" + (x.cat || "") : ""); }
+  function saveFavorites() {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(favorites)); } catch (err) { /* storage full */ }
+    updateFavUI();
+  }
+  function currentFavorite() {
+    if (state.favoritesOpen) return null;
+    if (state.eventView) return { type: "event", id: state.eventView.id, year: state.eventView.y };
+    if (state.country) return { type: "country", id: countryKey(state.country), year: state.year };
+    if (state.route) return { type: "route", id: state.route, year: state.year };
+    return { type: "view", id: "view", year: state.year, cat: state.catFilter || "" };
+  }
+  function isFavorite(x) { return !!x && favorites.some((f) => favKey(f) === favKey(x)); }
+  function toggleFavorite(x) {
+    if (!x) return;
+    const k = favKey(x);
+    if (favorites.some((f) => favKey(f) === k)) {
+      favorites = favorites.filter((f) => favKey(f) !== k);
+      showToast(L("已取消收藏", "Removed from favourites", "Eliminado de favoritos", "Retiré des favoris", "أُزيل من المفضلة"));
+    } else {
+      favorites.push(x);
+      showToast(L("已加入收藏", "Saved to favourites", "Guardado en favoritos", "Ajouté aux favoris", "أُضيف إلى المفضلة"));
+    }
+    saveFavorites();
+    if (state.favoritesOpen) { lastPanelKey = ""; renderPanel(true); }
+  }
+  function favTypeLabel(type) {
+    return { event: L("事件", "Event", "Evento", "Événement", "حدث"), country: L("国家", "Country", "País", "Pays", "دولة"), route: L("路线", "Route", "Ruta", "Parcours", "مسار"), view: L("时刻", "Moment", "Momento", "Moment", "لحظة") }[type] || type;
+  }
+  function favTitle(x) {
+    if (x.type === "event") { const ev = byId[x.id]; return ev ? evTitle(ev) : x.id; }
+    if (x.type === "country") {
+      const f = (A.featureByCode && A.featureByCode[x.id]) || (map && map.features || []).find((q) => countryKey(q) === x.id);
+      return f ? countryName(f) : x.id;
+    }
+    if (x.type === "route") { const r = routeById(x.id); return r ? routeText(r.name) : x.id; }
+    const cat = x.cat ? " · " + catName(x.cat) : "";
+    return fmtYear(x.year, state.lang) + cat;
+  }
+  function favMeta(x) {
+    const y = x.type === "view" ? "" : fmtYear(x.year, state.lang, true) + " · ";
+    return y + favTypeLabel(x.type);
+  }
+  function updateFavUI() {
+    const top = el["fav-btn"];
+    if (top) {
+      const n = favorites.length;
+      top.classList.toggle("is-on", state.favoritesOpen);
+      top.setAttribute("aria-pressed", String(state.favoritesOpen));
+      top.setAttribute("aria-label", L("我的收藏", "My favourites", "Mis favoritos", "Mes favoris", "مفضلتي") + " · " + n);
+    }
+    if (el["fav-count"]) {
+      el["fav-count"].textContent = String(favorites.length);
+      el["fav-count"].hidden = favorites.length === 0;
+    }
+    const btn = el["fav-toggle"];
+    if (!btn) return;
+    const cur = currentFavorite();
+    btn.hidden = !cur;
+    if (cur) {
+      const on = isFavorite(cur);
+      btn.textContent = on ? "★" : "☆";
+      btn.setAttribute("aria-pressed", String(on));
+      btn.setAttribute("aria-label", on ? L("取消收藏", "Remove favourite", "Quitar favorito", "Retirer des favoris", "إزالة من المفضلة") : L("收藏当前", "Add to favourites", "Añadir a favoritos", "Ajouter aux favoris", "أضف إلى المفضلة"));
+      btn.title = btn.getAttribute("aria-label");
+    }
+  }
+  function openFavorites(push) {
+    state.favoritesOpen = true;
+    state.eventView = null;
+    state.eventGroup = null;
+    state.selected = null;
+    state.country = null;
+    state.route = null;
+    state.searchQuery = null;
+    state.searchResults = [];
+    state.theme = null;
+    clearTheatreSurface();
+    if (map) { map.setSelected(null); map.setHighlight(null); }
+    setPanel(true);
+    lastPanelKey = "";
+    renderPanel(true);
+    updateFavUI();
+    if (push) syncURL(true);
+  }
+  function openFavorite(x) {
+    if (!x) return;
+    state.favoritesOpen = false;
+    if (x.type === "event") { const ev = byId[x.id]; if (ev) triggerEvent(ev, "favorites"); return; }
+    if (x.type === "country") {
+      const f = (A.featureByCode && A.featureByCode[x.id]) || (map.features || []).find((q) => countryKey(q) === x.id);
+      if (f) { openCountry(f, { skipGroup: true }); }
+      return;
+    }
+    if (x.type === "route") { openRouteById(x.id); return; }
+    state.catFilter = x.cat || null;
+    if (map) map.setCatFilter(state.catFilter);
+    applyYear(x.year, null, { force: true, noAuto: true });
+    setPanel(true);
+    lastPanelKey = "";
+    renderPanel(true);
+    syncURL(true);
+  }
+
   /* ── panel ──────────────────────────────────────── */
   function panelKey() {
+    if (state.favoritesOpen) return "fav:" + state.lang + ":" + favorites.length;
     if (state.route) return "r:" + state.route + ":" + state.lang;
     if (state.searchQuery) return "q:" + state.searchQuery + ":" + state.lang;
     if (state.country) return "c:" + countryKey(state.country) + ":" + A.eraOf(state.year).id + ":" + Math.round(state.year / 10);
@@ -803,6 +962,30 @@
     return map[v] || map.brief;
   }
 
+  function renderFavoritesPanel(force) {
+    const key = "fav:" + state.lang + ":" + favorites.map(favKey).join(",");
+    if (!force && key === lastPanelKey) return;
+    lastPanelKey = key;
+    el["panel-kicker"].textContent = L("我的收藏 · ", "MY FAVOURITES · ", "MIS FAVORITOS · ", "MES FAVORIS · ", "مفضلتي · ") + favorites.length;
+    el["panel-title"].textContent = L("收藏与书签", "Favourites & bookmarks", "Favoritos y marcadores", "Favoris et signets", "المفضلة والعلامات");
+    el["panel-sub"].textContent = L("保存在本机浏览器中；不会上传。", "Stored in this browser only; never uploaded.", "Guardado solo en este navegador; nunca se sube.", "Enregistré dans ce navigateur uniquement ; jamais envoyé.", "محفوظة في هذا المتصفح فقط؛ لا تُرفع.");
+    let html = `<button class="panel-back" data-fav-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
+    if (!favorites.length) {
+      html += `<div class="panel-empty">${L("还没有收藏。打开事件、国家或路线后，点面板右上角的星标即可保存；时代视图也会保存当前年份与筛选。", "Nothing saved yet. Open an event, country or route and use the star at the top of the panel; era views save the current year and filter.", "Aún no hay nada guardado. Abre un evento, país o ruta y usa la estrella del panel; las vistas de época guardan el año y el filtro.", "Rien d’enregistré. Ouvrez un événement, un pays ou un parcours et utilisez l’étoile du panneau ; les vues d’époque gardent l’année et le filtre.", "لا يوجد محفوظ بعد. افتح حدثًا أو دولة أو مسارًا واستخدم النجمة أعلى اللوحة؛ تحفظ عروض العصور السنة والمرشح.")}</div>`;
+    } else {
+      html += `<div class="fav-list">`;
+      favorites.forEach((x, i) => {
+        const on = x.type === "event" ? isFavorite(x) : true;
+        html += `<div class="fav-row"><button class="fav-open" type="button" data-fav-open="${i}"><span class="fav-kind">${favTypeLabel(x.type)}</span><span class="fav-text"><b>${favTitle(x)}</b><small>${favMeta(x)}</small></span></button><button class="fav-remove" type="button" data-fav-remove="${i}" aria-label="${L("移除收藏", "Remove favourite", "Quitar favorito", "Retirer des favoris", "إزالة من المفضلة")}" title="${L("移除", "Remove", "Quitar", "Retirer", "إزالة")}">×</button></div>`;
+      });
+      html += `</div>`;
+      html += `<button class="fav-clear" type="button" data-fav-clear="1">${L("清空收藏", "Clear favourites", "Vaciar favoritos", "Vider les favoris", "مسح المفضلة")}</button>`;
+    }
+    html += `<div class="panel-note">${L("收藏保存在 localStorage；换浏览器或清除站点数据后会丢失。", "Favourites live in localStorage; clearing site data or switching browsers removes them.", "Los favoritos viven en localStorage; borrar los datos del sitio los elimina.", "Les favoris vivent dans localStorage ; effacer les données du site les supprime.", "تُحفظ المفضلة في localStorage؛ ومسح بيانات الموقع يزيلها.")}</div>`;
+    el["panel-body"].innerHTML = html;
+    el["panel-body"].scrollTop = 0;
+  }
+
   function renderEventPanel(force) {
     const ev = state.eventView;
     if (!ev) return;
@@ -881,7 +1064,8 @@
     html += `<details class="ev-more"><summary aria-label="${L("更多操作", "More actions", "Más acciones", "Autres actions", "مزيد من الإجراءات")}" title="${L("更多操作", "More actions", "Más acciones", "Autres actions", "مزيد من الإجراءات")}">⋯</summary><div class="ev-more-menu">`;
     html += `<button type="button" data-ev="${ev.id}">${L("重新播放动态", "Replay dynamic", "Repetir dinámica", "Relancer la dynamique", "إعادة الحركة")}</button>`;
     html += `<button type="button" data-ev-voice="1">${L("朗读", "Read aloud", "Leer", "Lire", "قراءة")}</button>`;
-    html += `<button type="button" data-ev-share="1">${L("分享", "Share", "Compartir", "Partager", "مشاركة")}</button>`;
+    html += `<button type="button" data-ev-share="1">${L("复制链接", "Copy link", "Copiar enlace", "Copier le lien", "نسخ الرابط")}</button>`;
+    html += `<button type="button" data-share-card="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button>`;
     if (ev._country) html += `<button type="button" data-country-open="${countryKey(ev._country)}">${L("国家沿革", "Country chronicle", "Crónica del país", "Chronique du pays", "سجل الدولة")}</button>`;
     html += `</div></details></div>`;
     html += `<div class="ev-verify${d.verification === "verified" ? " is-verified" : d.verification === "pending" ? " is-pending" : ""}"><i></i>${verifyLabel(d.verification || "brief")}${d.verification === "brief" ? " · " + L("长文待补，不编造", "long form pending, not invented", "texto largo pendiente", "texte long à compléter", "النص الطويل قيد الإضافة") : ""}</div>`;
@@ -893,6 +1077,7 @@
   function renderPanel(force) {
     if (!el["panel-body"]) return;
     if (el["side-panel"]) el["side-panel"].classList.toggle("event-mode", !!state.eventView);
+    updateFavUI();
     if (!map || !map.features) {
       el["panel-kicker"].textContent = t("brand");
       el["panel-title"].textContent = state.lang === "zh" ? "正在展开舆图" : "Unfolding the atlas";
@@ -900,8 +1085,9 @@
       el["panel-body"].innerHTML = `<div class="panel-empty">${state.lang === "zh" ? "地图数据载入后，此处会呈现此刻并立的文明与时代节点。" : "Civilizations and nodes of this moment will appear once the map has loaded."}</div>`;
       return;
     }
-    const showRoutes = !state.eventView && !state.country && !state.theme && !state.route && !state.searchQuery;
+    const showRoutes = !state.eventView && !state.country && !state.theme && !state.route && !state.searchQuery && !state.favoritesOpen;
     if (el["panel-routes"]) el["panel-routes"].innerHTML = showRoutes ? routeStrip() : "";
+    if (state.favoritesOpen) { renderFavoritesPanel(force); return; }
     if (state.eventView) { renderEventPanel(force); return; }
     if (state.country) { renderCountryPanel(force); return; }
     if (state.theme === "china") { renderChinaPanel(force); return; }
@@ -1003,6 +1189,7 @@
   function openRouteById(routeId) {
     const def = routeById(routeId);
     if (!def) return;
+    state.favoritesOpen = false;
     state.route = routeId;
     state.searchQuery = null;
     state.searchResults = [];
@@ -1436,6 +1623,7 @@
       state.eventGroup = null;
       if (map) map.setSelected(null);
     }
+    state.favoritesOpen = false;
     state.region = id;
     state.theme = r.theme || null;
     if (state.theme !== "china") {
@@ -2063,6 +2251,7 @@
     stopPlay();
     if (!el["event-modal"].hidden && !(opts && opts.auto)) closeEvent();
     state.country = null;
+    state.favoritesOpen = false;
     map.setHighlight(null);
     state.eventView = ev;
     const foundGroup = groupForEvent(ev);
@@ -2425,6 +2614,7 @@
   /* ── country lens ───────────────────────────────── */
   function openCountry(f, opts) {
     if (!f) return;
+    state.favoritesOpen = false;
     state.searchQuery = null;
     state.searchResults = [];
     state.route = null;
@@ -2695,6 +2885,7 @@
   function openSearchPanel(q) {
     q = String(q || "").trim();
     if (!q) return;
+    state.favoritesOpen = false;
     const res = searchIndex(q);
     if (!res || !res.evsAll.length) return;
     state.searchQuery = q;
@@ -2757,6 +2948,16 @@
     el["event-modal"].addEventListener("click", (e) => {
       if (e.target.getAttribute("data-close")) closeEvent();
     });
+    if (el["fav-btn"]) el["fav-btn"].addEventListener("click", () => {
+      if (state.favoritesOpen) {
+        state.favoritesOpen = false;
+        lastPanelKey = "";
+        renderPanel(true);
+        updateFavUI();
+        syncURL(true);
+      } else openFavorites(true);
+    });
+    if (el["fav-toggle"]) el["fav-toggle"].addEventListener("click", () => toggleFavorite(currentFavorite()));
     el["panel-toggle"].addEventListener("click", () => setPanel(false));
     el["panel-close"].addEventListener("click", () => setPanel(false));
     el["panel-reopen"].addEventListener("click", () => setPanel(true));
@@ -2939,6 +3140,14 @@
     });
 
     el["panel-body"].addEventListener("click", (e) => {
+      const favOpen = e.target.closest("[data-fav-open]");
+      if (favOpen) { openFavorite(favorites[Number(favOpen.getAttribute("data-fav-open"))]); return; }
+      const favRemove = e.target.closest("[data-fav-remove]");
+      if (favRemove) { favorites.splice(Number(favRemove.getAttribute("data-fav-remove")), 1); saveFavorites(); lastPanelKey = ""; renderPanel(true); return; }
+      const favClear = e.target.closest("[data-fav-clear]");
+      if (favClear) { favorites = []; saveFavorites(); lastPanelKey = ""; renderPanel(true); return; }
+      const favClose = e.target.closest("[data-fav-close]");
+      if (favClose) { state.favoritesOpen = false; lastPanelKey = ""; renderPanel(true); updateFavUI(); syncURL(true); return; }
       const modernToggle = e.target.closest("[data-modern-toggle]");
       if (modernToggle) {
         state.modernOpen = !state.modernOpen;
@@ -3011,6 +3220,8 @@
       if (voiceBtn) { speakSelected(); return; }
       const shareBtn = e.target.closest("[data-ev-share]");
       if (shareBtn) { shareCurrent(); return; }
+      const cardBtn = e.target.closest("[data-share-card]");
+      if (cardBtn && state.selected) { shareCard(state.selected); return; }
       const pauseBtn = e.target.closest("[data-theatre-pause]");
       if (pauseBtn && window.MapTheatre) {
         const paused = window.MapTheatre.togglePause();
@@ -3179,6 +3390,10 @@
     } else if (k === "y" || k === "g") {
       e.preventDefault();
       openYearJump();
+    } else if (k === "f" || k === "F") {
+      e.preventDefault();
+      if (state.favoritesOpen) { state.favoritesOpen = false; lastPanelKey = ""; renderPanel(true); updateFavUI(); syncURL(true); }
+      else openFavorites(true);
     } else if (k === "b" || k === "B") {
       e.preventDefault();
       setBrushMode(!state.brushMode);
@@ -3266,6 +3481,7 @@
     else if (state.region) p.set("region", state.region);
     if (state.route) p.set("route", state.route);
     if (state.searchQuery) p.set("search", state.searchQuery);
+    if (state.favoritesOpen) p.set("favorites", "1");
     if (state.lang !== "zh") p.set("lang", state.lang);
     return "?" + p.toString();
   }
@@ -3310,6 +3526,126 @@
     }
   }
 
+  function wrapCanvasText(ctx, text, maxWidth, maxLines) {
+    const out = [];
+    let line = "";
+    for (const ch of String(text || "")) {
+      const test = line + ch;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        out.push(line);
+        line = ch;
+        if (out.length >= maxLines - 1) break;
+      } else line = test;
+    }
+    if (line && out.length < maxLines) out.push(line);
+    if (out.length === maxLines) {
+      const last = out[maxLines - 1];
+      while (last.length > 1 && ctx.measureText(last + "…").width > maxWidth) out[maxLines - 1] = last.slice(0, -1);
+      out[maxLines - 1] = out[maxLines - 1].replace(/[\s,，;；:：]+$/, "") + "…";
+    }
+    return out;
+  }
+
+  function renderShareCard(ev) {
+    return new Promise((resolve, reject) => {
+      const W = 1200, H = 630;
+      const cv = document.createElement("canvas");
+      cv.width = W; cv.height = H;
+      const ctx = cv.getContext("2d");
+      const d = detailFor(ev) || {};
+      const cat = A.categories[ev.k] || { color: "#a83e28" };
+      const bg = ctx.createLinearGradient(0, 0, W, H);
+      bg.addColorStop(0, "#f7f0e2");
+      bg.addColorStop(0.6, "#f1e8d7");
+      bg.addColorStop(1, "#e7dcc7");
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+      // grain / rules
+      ctx.strokeStyle = "rgba(120,96,64,0.10)"; ctx.lineWidth = 1;
+      for (let y = 24; y < H; y += 9) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+      ctx.strokeStyle = "rgba(168,62,40,0.55)"; ctx.lineWidth = 3;
+      ctx.strokeRect(22, 22, W - 44, H - 44);
+      ctx.strokeStyle = "rgba(120,96,64,0.28)"; ctx.lineWidth = 1;
+      ctx.strokeRect(30, 30, W - 60, H - 60);
+      // seal
+      ctx.fillStyle = "#a83e28"; ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(64, 64, 66, 66, 8); else ctx.rect(64, 64, 66, 66);
+      ctx.fill();
+      ctx.fillStyle = "#f7efdf"; ctx.font = "600 44px 'Songti SC','Noto Serif SC',serif";
+      ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("寰", 97, 99);
+      ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+      ctx.fillStyle = "#7d5a20"; ctx.font = "600 20px 'PingFang SC','Noto Sans SC',sans-serif";
+      ctx.fillText("寰宇时序", 150, 94);
+      ctx.fillStyle = "rgba(85,75,64,0.75)"; ctx.font = "13px Georgia,serif";
+      ctx.fillText("CHRONICLES OF THE WORLD", 150, 116);
+      // year + category
+      ctx.fillStyle = "#a83e28"; ctx.font = "600 92px 'Iowan Old Style','Palatino',Georgia,serif";
+      ctx.fillText(fmtYear(ev.y, state.lang), 64, 238);
+      ctx.fillStyle = "#7d5a20"; ctx.font = "500 18px 'PingFang SC','Noto Sans SC',sans-serif";
+      ctx.fillText(catName(ev.k) + " · " + rgName(ev.rg) + " · " + (d.place ? textOf(d.place) : placeOf(ev)), 68, 278);
+      // title
+      ctx.fillStyle = "#241f1a"; ctx.font = "600 48px 'Songti SC','Noto Serif SC',serif";
+      const title = evTitle(ev);
+      ctx.fillText(title.length > 22 ? title.slice(0, 22) + "…" : title, 64, 352);
+      ctx.fillStyle = "#554b40"; ctx.font = "italic 22px Georgia,serif";
+      ctx.fillText(ev.t[1].length > 60 ? ev.t[1].slice(0, 60) + "…" : ev.t[1], 66, 388);
+      // summary
+      const summary = d.summary ? textOf(d.summary) : evDesc(ev);
+      ctx.fillStyle = "#554b40"; ctx.font = "19px 'PingFang SC','Noto Sans SC',sans-serif";
+      const lines = wrapCanvasText(ctx, summary, W - 150, 4);
+      lines.forEach((line, i) => ctx.fillText(line, 64, 440 + i * 30));
+      // compass rose, filling the right-hand negative space
+      ctx.save();
+      ctx.translate(1030, 300);
+      ctx.strokeStyle = "rgba(125,90,32,0.35)"; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(0, 0, 66, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([2, 5]);
+      ctx.beginPath(); ctx.arc(0, 0, 52, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "rgba(125,90,32,0.55)";
+      ctx.font = "600 13px Georgia,serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillText("N", 0, -78); ctx.fillText("S", 0, 78); ctx.fillText("E", 78, 0); ctx.fillText("W", -78, 0);
+      for (let i = 0; i < 4; i++) {
+        const a = i * Math.PI / 2;
+        ctx.save(); ctx.rotate(a);
+        ctx.beginPath(); ctx.moveTo(0, -48); ctx.lineTo(7, 0); ctx.lineTo(0, 12); ctx.lineTo(-7, 0); ctx.closePath();
+        ctx.fillStyle = i === 0 ? "rgba(168,62,40,0.55)" : "rgba(125,90,32,0.32)"; ctx.fill();
+        ctx.restore();
+      }
+      ctx.restore();
+      // footer
+      ctx.strokeStyle = "rgba(168,62,40,0.45)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(64, 560); ctx.lineTo(W - 64, 560); ctx.stroke();
+      ctx.fillStyle = "rgba(85,75,64,0.8)"; ctx.font = "12px Georgia,serif";
+      const hosts = (d.sources || []).filter((s) => s.url).slice(0, 2).map((s) => { try { return new URL(s.url).hostname.replace(/^www\./, ""); } catch (err) { return ""; } }).filter(Boolean);
+      ctx.fillText("SOURCES · " + (hosts.join(" · ") || "curated atlas"), 64, 588);
+      const host = location.host + location.pathname.replace(/index\.html$/, "");
+      ctx.textAlign = "right";
+      ctx.fillText(host, W - 64, 588);
+      cv.toBlob((blob) => { blob ? resolve(blob) : reject(new Error("card blob failed")); }, "image/png");
+    });
+  }
+
+  async function shareCard(ev) {
+    try {
+      await ensureDetails();
+      const blob = await renderShareCard(ev);
+      const file = new File([blob], "world-chronicle-" + ev.id + ".png", { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: evTitle(ev) });
+        return;
+      }
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = file.name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      showToast(L("分享卡片已生成", "Share card downloaded", "Tarjeta descargada", "Carte téléchargée", "تم تنزيل البطاقة"));
+    } catch (err) {
+      console.warn("Share card failed:", err.message);
+      showToast(L("分享卡片生成失败", "Could not create the card", "No se pudo crear la tarjeta", "Impossible de créer la carte", "تعذّر إنشاء البطاقة"));
+    }
+  }
+
   function shareCurrent() {
     state.autoOpened = false;
     syncURL(true);
@@ -3338,6 +3674,7 @@
       state.route = null;
       state.searchQuery = null;
       state.searchResults = [];
+      state.favoritesOpen = false;
       if (map) { map.setSelected(null); map.setHighlight(null); map.setPaused(false); }
 
       const from = parseInt(q.get("from"), 10), to = parseInt(q.get("to"), 10);
@@ -3374,7 +3711,12 @@
       }
 
       const eid = q.get("event");
-      if (eid && byId[eid]) {
+      if (q.get("favorites") === "1") {
+        state.favoritesOpen = true;
+        setPanel(true);
+        lastPanelKey = "";
+        renderPanel(true);
+      } else if (eid && byId[eid]) {
         openEvent(byId[eid]);
       } else {
         const cid = q.get("country");

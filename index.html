@@ -6,8 +6,12 @@
 <title>寰宇时序 · 全球文明地图 | Chronicles of the World</title>
 <meta name="description" content="从史前狩猎到人工智能：一张可拖动的全球文明时间地图。520 余个世界历史节点、九大时代、18 个时代疆域快照、地图内动态剧场与全球联动，支持五种界面语言。" />
 <meta name="theme-color" content="#f2ece0" />
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23b0432c'/%3E%3Ctext x='32' y='46' font-size='42' text-anchor='middle' fill='%23f6efe2' font-family='serif'%3E寰%3C/text%3E%3C/svg%3E" />
-<link rel="stylesheet" href="css/style.css?v=20261108r" />
+<link rel="stylesheet" href="css/style.css?v=20261108s" />
 </head>
 <body>
 <a class="skip-link" href="#side-panel">跳到详情面板 / Skip to panel</a>
@@ -40,6 +44,10 @@
       </select>
       <button id="layers-btn" class="ctl" data-i18n="layers">图层</button>
       <button id="about-btn" class="ctl" data-i18n="about">凡例</button>
+      <button id="fav-btn" class="ctl icon-ctl fav-ctl" title="我的收藏" aria-label="我的收藏 / Favourites">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.7l5.8-.8z"/></svg>
+        <span id="fav-count" class="fav-count">0</span>
+      </button>
       <button id="reset-btn" class="ctl icon-ctl" title="复位视图" aria-label="复位视图">
         <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg>
       </button>
@@ -108,6 +116,7 @@
       </button>
       <div class="panel-inner">
         <button id="panel-close" class="panel-close" aria-label="关闭面板 / Close panel">×</button>
+        <button id="fav-toggle" class="fav-toggle" type="button" aria-label="收藏当前" title="收藏当前" aria-pressed="false" hidden>★</button>
         <button id="sheet-expand" class="sheet-expand" type="button">展开 ›</button>
         <div class="panel-head">
           <div class="kicker" id="panel-kicker">此刻世界</div>
@@ -284,15 +293,15 @@
   </article>
 </div>
 
-<script src="js/data_bundle.js?v=20261108r"></script>
-<script src="js/scenes.js?v=20261108r"></script>
-<script src="js/historical.js?v=20261108r"></script>
-<script src="js/entities.js?v=20261108r"></script>
-<script src="js/theatre.js?v=20261108r"></script>
-<script src="js/audio.js?v=20261108r"></script>
-<script src="js/statechanges.js?v=20261108r"></script>
-<script src="js/map.js?v=20261108r"></script>
-<script src="js/i18n_extra.js?v=20261108r"></script>
-<script src="js/app.js?v=20261108r"></script>
+<script src="js/data_bundle.js?v=20261108s"></script>
+<script src="js/scenes.js?v=20261108s"></script>
+<script src="js/historical.js?v=20261108s"></script>
+<script src="js/entities.js?v=20261108s"></script>
+<script src="js/theatre.js?v=20261108s"></script>
+<script src="js/audio.js?v=20261108s"></script>
+<script src="js/statechanges.js?v=20261108s"></script>
+<script src="js/map.js?v=20261108s"></script>
+<script src="js/i18n_extra.js?v=20261108s"></script>
+<script src="js/app.js?v=20261108s"></script>
 </body>
 </html>

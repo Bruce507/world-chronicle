@@ -168,6 +168,10 @@ try {
   check("themed route opens with its events", route.route === "silk-sea" && route.rows >= 8 && route.url.indexOf("route=silk-sea") >= 0, JSON.stringify(route));
   await d.evaluate(() => document.querySelector("[data-route-close]")?.click());
   await d.waitForTimeout(300);
+  await d.click("[data-route-strip-toggle]");
+  await d.waitForTimeout(200);
+  const routeChips = await d.evaluate(() => document.querySelectorAll("[data-route]").length);
+  check("six themed routes are available", routeChips === 6, routeChips);
 
   await d.evaluate(() => { window.atlasAPI.state.autoEvent = false; window.atlasAPI.setYear(2026); });
   await d.waitForTimeout(700);
@@ -198,6 +202,24 @@ try {
   }
   const brush = await d.evaluate(() => ({ scope: document.querySelector("#tl-scope").textContent, pressed: document.querySelector("#tl-brush-btn").getAttribute("aria-pressed") }));
   check("explicit range button selects and exposes a time window", !!brushBtn && brush.scope !== scope0 && brush.pressed === "false", JSON.stringify({ scope0, ...brush }));
+
+  await d.evaluate(() => { window.atlasAPI.setYear(1500); window.atlasAPI.setPanel(true); });
+  await d.waitForTimeout(400);
+  await d.click("#fav-toggle");
+  await d.waitForTimeout(250);
+  const saved = await d.evaluate(() => ({ count: document.querySelector("#fav-count").textContent, stored: JSON.parse(localStorage.getItem("world-atlas-favorites") || "[]").length }));
+  await d.click("#fav-btn");
+  await d.waitForTimeout(400);
+  const favPanel = await d.evaluate(() => ({ rows: document.querySelectorAll(".fav-row").length, title: document.querySelector("#panel-title").textContent, url: location.search }));
+  check("saving a moment and opening favourites works", saved.count === "1" && saved.stored === 1 && favPanel.rows === 1 && favPanel.title.indexOf("收藏") >= 0 && favPanel.url.indexOf("favorites=1") >= 0, JSON.stringify({ saved, favPanel }));
+  await d.click(".fav-open");
+  await d.waitForTimeout(500);
+  await d.click("#fav-btn");
+  await d.waitForTimeout(350);
+  await d.evaluate(() => document.querySelector("[data-fav-clear]")?.click());
+  await d.waitForTimeout(250);
+  const cleared = await d.evaluate(() => document.querySelectorAll(".fav-row").length);
+  check("clearing favourites works", cleared === 0, cleared);
 
   check("desktop page has no console errors", desktop.errors.length === 0, desktop.errors.slice(0, 2).join(" | "));
 

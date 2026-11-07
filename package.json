@@ -1,6 +1,6 @@
 {
   "name": "world-chronicle",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "private": true,
   "type": "module",
   "description": "寰宇时序 · World Chronicle — a static, map-anchored atlas of world history.",
@@ -24,6 +24,7 @@
     "content-check": "node scripts/content-check.mjs",
     "a11y": "node scripts/a11y-audit.mjs",
     "data-qa": "node scripts/data-qa.mjs",
+    "pwa": "node scripts/pwa-check.mjs",
     "perf": "node scripts/perf-probe.mjs",
     "perf:throttle": "node scripts/perf-throttle.mjs",
     "version:bump": "node scripts/bump-version.mjs"

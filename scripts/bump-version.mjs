@@ -3,7 +3,7 @@
    Usage: node scripts/bump-version.mjs [YYYYMMDD]
    Without an argument the current local date is used. Letters run a→z. */
 import fs from "node:fs";
-const files = ["index.html", "js/app.js", "js/entities.js"];
+const files = ["index.html", "js/app.js", "js/entities.js", "sw.js"];
 const src = fs.readFileSync("index.html", "utf8");
 const m = src.match(/\?v=(\d{8})([a-z])/);
 if (!m) { console.error("No ?v=YYYYMMDDx token found in index.html"); process.exit(1); }
