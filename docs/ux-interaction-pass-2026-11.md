@@ -1,6 +1,6 @@
 # 交互精修实施记录 / Interaction pass
 
-Date 2026-11-07. Implements the P0/P1 backlog in `docs/ux-review-2026-11.md`, then resumes the content audit.
+Date 2026-11-07. Implements the P0/P1 backlog in `docs/ux-review-2026-11.md`, then resumes the content audit. 之后的第二轮（手机铺满、刻度降噪、RTL、内容 521、长文 52）见 `docs/next-stage-2026-11.md`。
 
 ## 1. P0-1 时间轴精确化（commit `da7e722`）
 
@@ -67,4 +67,4 @@ Date 2026-11-07. Implements the P0/P1 backlog in `docs/ux-review-2026-11.md`, th
 
 - 地图标签位置仍有少量“宗主国名在地”现象（如法国旧殖民地标签），已改名但没有逐条重定位。
 - 手机竖屏世界地图受 2:1 投影限制，陆地仍偏小；本轮只 +8%，未改为按区域默认裁切。
-- `data/event_details.json` 仍为 45 条完整/结构化详情；新增重点事件由构建脚本生成“简要条目”，界面如实标注。
+- 第一轮结束时 `data/event_details.json` 为 45 条；第二轮已补到 52 条（见 `docs/next-stage-2026-11.md`）。

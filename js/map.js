@@ -78,6 +78,9 @@
       this.baseScale = 1;
       this.reservedRight = 370;
       this.viewOffsetY = 0;
+      this.fitMode = "world";
+      try { if (localStorage.getItem("world-atlas-fit") === "fill") this.fitMode = "fill"; } catch (err) { /* file:// */ }
+      this.focus = { lat: 25, lon: 80 };
       this.coarse = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
       this.catFilter = null;
       this.reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -191,16 +194,47 @@
       const padL = wide ? 26 : 12, padT = 14, padB = 16;
       const availW = Math.max(100, this.W - padL - this.reservedRight);
       const availH = Math.max(100, this.H - padT - padB);
-      this.baseScale = Math.min(availW / WORLD_W, availH / WORLD_H) * 0.96 * (this.W < 620 ? 1.08 : 1);
       this.originX = padL + availW / 2;
       this.originY = padT + availH / 2;
+      this.baseScale = Math.min(availW / WORLD_W, availH / WORLD_H) * 0.96 * (this.W < 620 ? 1.08 : 1);
+    }
+
+    /* Portrait "fill" zoom: fit the inhabited land band (72N–50S) to the
+       stage height. It is expressed as a normal zoom level, so pinching out
+       still returns to the full-world view and node flyTo values stay sane. */
+    _fillZoom() {
+      const padT = 14, padB = 16;
+      const availH = Math.max(100, this.H - padT - padB);
+      const landH = Math.max(0.8, robY(72) - robY(-50));
+      return clamp((availH * 0.98) / (landH * this.baseScale), 1, 9);
     }
 
     fit(resetView) {
-      if (resetView !== false) this.view = { zoom: 1, panX: 0, panY: -this.viewOffsetY };
       this._computeFit();
+      if (resetView !== false) {
+        if (this.fitMode === "fill") {
+          this.view.zoom = this._fillZoom();
+          const c = this.focus || { lat: 25, lon: 80 };
+          const s = this.scale();
+          this.view.panX = -robX(c.lon, c.lat) * s;
+          this.view.panY = robY(c.lat) * s - this.viewOffsetY;
+        } else {
+          this.view = { zoom: 1, panX: 0, panY: -this.viewOffsetY };
+        }
+      }
       this.clampPan();
       this.drawBase();
+    }
+
+    setFitMode(mode) {
+      this.fitMode = mode === "fill" ? "fill" : "world";
+      try { localStorage.setItem("world-atlas-fit", this.fitMode); } catch (err) { /* file:// */ }
+      this.fit(true);
+      return this.fitMode;
+    }
+
+    toggleFitMode() {
+      return this.setFitMode(this.fitMode === "fill" ? "world" : "fill");
     }
 
     /* Shift the map's optical centre up when a mobile bottom sheet covers the
@@ -268,6 +302,7 @@
 
     flyTo(lat, lon, zoom, dur) {
       zoom = zoom || 2.3;
+      this.focus = { lat: lat, lon: lon };
       dur = dur || 800;
       const s1 = this.baseScale * clamp(zoom, 1, 9);
       const target = {

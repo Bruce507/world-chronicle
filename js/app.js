@@ -122,7 +122,7 @@
     obKicker: { zh: "第一次来 · FIRST VISIT", en: "FIRST VISIT" },
     obTitle: { zh: "三步读这张地图", en: "Three ways to read this atlas" },
     ob1Title: { zh: "拖动或输入年份", en: "Drag or type the year" },
-    ob1: { zh: "点年份可直接输入；↑↓ 精确到一年；Shift 拖出区间可放大时间轴。", en: "Tap the year to type it; ↑↓ moves one year; Shift-drag a range to zoom the timeline." },
+    ob1: { zh: "点年份可直接输入；↑↓ 精确到一年；Shift 拖出区间可放大；右下角 ⛶ 可铺满手机视野。", en: "Tap the year to type it; ↑↓ moves one year; Shift-drag a range to zoom; the ⛶ button fills the phone screen." },
     ob2Title: { zh: "点击地图节点", en: "Click a map node" },
     ob2: { zh: "节点打开右侧（手机为底部）详情，并在地图上演出当时场景。", en: "A node opens the side panel (bottom sheet on phones) and plays its scene on the map." },
     ob3Title: { zh: "搜索与地区", en: "Search and regions" },
@@ -155,6 +155,7 @@
     toggles: { events: true, polities: false, links: true, labels: false, historicalLabels: true, allEvents: false, historical: true, stateChanges: true },
     panelOpen: true,
     catFilter: null,
+    catFilterExpanded: false,
     sheet: "half",
   };
 
@@ -351,7 +352,7 @@
   let map, sceneCtl, scenePaused = false, lastPanelKey = "", panelTimer = 0, urlTimer = 0;
   let lastChromeYear = null, lastChromePos = "", lastBandEra = null, lastPlayTs = 0, lastHintStep = null;
   let draggingTrack = false, eventTimer = 0, lastAutoGroup = "";
-  let searchItems = [], searchActive = -1;
+  let searchItems = [], searchActive = -1, noteTimer = 0;
 
   /* ── boot ───────────────────────────────────────── */
   function boot() {
@@ -360,6 +361,7 @@
       "hud-year", "hud-era", "hud-sub", "panel-kicker", "panel-title", "panel-sub", "panel-body", "map-note",
       "side-panel", "panel-toggle", "panel-reopen", "panel-close", "tooltip", "era-bands", "tick-canvas", "track",
       "playhead", "playhead-label", "play-btn", "speed-btn", "now-btn", "tl-year", "tl-era",
+      "zoom-in", "zoom-out", "zoom-fit", "zoom-fill", "map-empty",
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
       "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
@@ -448,6 +450,8 @@
   }
 
   function loadWorld() {
+    const stageEl = document.getElementById("map-stage");
+    if (stageEl) stageEl.setAttribute("aria-busy", "true");
     const loading = document.createElement("div");
     loading.className = "map-loading";
     loading.innerHTML = "正在展开舆图…<small>UNFOLDING THE ATLAS</small>";
@@ -465,12 +469,14 @@
         map.fit(true);
         buildCountryIndex();
         loading.remove();
+        if (stageEl) stageEl.setAttribute("aria-busy", "false");
         renderPanel(true);
         drawTicks();
         applyDeepLink();
       })
       .catch((err) => {
         loading.innerHTML = "无法载入地图数据<small>Could not load map data — serve this folder over HTTP (e.g. python3 -m http.server)</small>";
+        if (stageEl) stageEl.setAttribute("aria-busy", "false");
         console.error(err);
       });
   }
@@ -739,7 +745,7 @@
     if (state.theme === "china") { renderChinaPanel(force); return; }
 
     const era = A.eraOf(state.year);
-    el["panel-kicker"].textContent = (state.lang === "zh" ? "此刻世界 · " : "THE WORLD AT ") + fmtYear(state.year, state.lang, true);
+    el["panel-kicker"].textContent = L("此刻世界 · ", "THE WORLD AT ", "EL MUNDO EN ", "LE MONDE EN ", "العالم في ") + fmtYear(state.year, state.lang, true);
     el["panel-title"].textContent = eraName(era);
     el["panel-sub"].textContent = eraSub(era);
 
@@ -905,7 +911,8 @@
     if (!events || !events.length) return "";
     const counts = {};
     events.forEach((e) => { counts[e.k] = (counts[e.k] || 0) + 1; });
-    const keys = Object.keys(counts).sort((a, b) => counts[b] - counts[a]).slice(0, 5);
+    const allKeys = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+    const keys = state.catFilterExpanded ? allKeys.slice() : allKeys.slice(0, 5);
     if (state.catFilter && keys.indexOf(state.catFilter) < 0) keys.push(state.catFilter);
     let html = '<div class="cat-filter" role="group" aria-label="' + L("按类别筛选", "Filter by category", "Filtrar por categoría", "Filtrer par catégorie", "تصفية حسب الفئة") + '">';
     html += '<button class="cat-chip' + (!state.catFilter ? " is-on" : "") + '" data-cat-filter="" aria-pressed="' + (!state.catFilter) + '">' + L("全部", "All", "Todo", "Tout", "الكل") + " " + events.length + "</button>";
@@ -914,6 +921,9 @@
       const on = state.catFilter === k;
       html += '<button class="cat-chip' + (on ? " is-on" : "") + '" data-cat-filter="' + k + '" aria-pressed="' + on + '"><i style="background:' + c.color + '"></i>' + catName(k) + " <small>" + counts[k] + "</small></button>";
     });
+    if (allKeys.length > 5) {
+      html += '<button class="cat-chip more" data-cat-more="1">' + (state.catFilterExpanded ? L("收起", "Less", "Menos", "Moins", "أقل") : L("更多 +", "More +", "Más +", "Plus +", "المزيد +")) + "</button>";
+    }
     html += "</div>";
     return html;
   }
@@ -1200,17 +1210,25 @@
         ctx.beginPath(); ctx.moveTo(px, base - 13); ctx.lineTo(px, base - 9); ctx.stroke();
       }
     }
+    // De-clutter the tick field: one mark per 2–3 px bucket, featured events
+    // win the bucket. Clicking/scubbing still sees every event via tickNear().
+    const buckets = new Map();
     for (const ev of A.events) {
       if (ev.y < from || ev.y > to) continue;
       if (narrow && !ev.f) continue;
       if (state.catFilter && ev.k !== state.catFilter) continue;
       const x = timeline.toPos(ev.y) * r.width;
-      const h = ev.f ? 9 : 5;
-      ctx.strokeStyle = hexA(catColor(ev.k), ev.f ? 0.55 : 0.28);
-      ctx.lineWidth = ev.f ? 1.3 : 1;
+      const key = Math.round(x / (narrow ? 3 : 2));
+      const prev = buckets.get(key);
+      if (!prev || (ev.f && !prev.f)) buckets.set(key, { x, f: !!ev.f, k: ev.k });
+    }
+    for (const b of buckets.values()) {
+      const h = b.f ? 9 : 5;
+      ctx.strokeStyle = hexA(catColor(b.k), b.f ? 0.55 : 0.28);
+      ctx.lineWidth = b.f ? 1.3 : 1;
       ctx.beginPath();
-      ctx.moveTo(x, base);
-      ctx.lineTo(x, base - h);
+      ctx.moveTo(b.x, base);
+      ctx.lineTo(b.x, base - h);
       ctx.stroke();
     }
   }
@@ -1246,6 +1264,7 @@
       const step = yearStep(y);
       if (step !== lastHintStep) { lastHintStep = step; updateTimelineLabels(); }
       if (el["a11y-live"] && !state.playing) el["a11y-live"].textContent = fmtYear(y, state.lang) + " · " + eraName(era);
+      updateMapEmpty();
 
       if (lastBandEra !== era.id) {
         lastBandEra = era.id;
@@ -1256,7 +1275,7 @@
         if (map && map.features && !state.country) renderPanel(true);
       }
       if (el["panel-kicker"] && map && map.features && !state.country && !state.eventView) {
-        el["panel-kicker"].textContent = (state.lang === "zh" ? "此刻世界 · " : "THE WORLD AT ") + fmtYear(y, state.lang, true);
+        el["panel-kicker"].textContent = L("此刻世界 · ", "THE WORLD AT ", "EL MUNDO EN ", "LE MONDE EN ", "العالم في ") + fmtYear(y, state.lang, true);
       }
       updateMapNote();
       lastChromeYear = y;
@@ -1435,6 +1454,30 @@
       : lang === "en" ? (ev.t[1] + ". " + ev.d[1])
       : ((ev.tx && ev.tx[lang]) || ev.t[1]) + ". " + ((ev.dx && ev.dx[lang]) || ev.d[1]);
     window.AtlasAudio.speak(text, lang);
+  }
+
+  function updateMapEmpty() {
+    if (!el["map-empty"] || !map) return;
+    const none = !!state.catFilter && map.visibleEvents().length === 0;
+    el["map-empty"].hidden = !none;
+    el["map-empty"].textContent = L("此类别下此刻暂无节点 · 清除筛选", "No nodes of this category here · clear filter", "Sin nodos de esta categoría · quitar filtro", "Aucun nœud de cette catégorie · effacer le filtre", "لا عقد لهذه الفئة هنا · إزالة التصفية");
+  }
+
+  function updateFitButton() {
+    const b = document.getElementById("zoom-fill");
+    if (!b || !map) return;
+    const on = map.fitMode === "fill";
+    b.classList.toggle("is-on", on);
+    b.setAttribute("aria-pressed", String(on));
+    b.setAttribute("aria-label", on ? L("恢复全图", "Back to world view", "Volver al mapa mundial", "Revenir à la carte mondiale", "العودة إلى العرض العالمي") : L("铺满视野", "Fill the screen", "Ampliar vista", "Remplir l’écran", "ملء الشاشة"));
+    b.title = b.getAttribute("aria-label");
+  }
+
+  function flashMapNote(text) {
+    if (!el["map-note"]) return;
+    clearTimeout(noteTimer);
+    el["map-note"].textContent = text;
+    noteTimer = setTimeout(updateMapNote, 2800);
   }
 
   function updateMapNote() {
@@ -1799,7 +1842,7 @@
       cands.push({ e, d, scoped: !!(scope && codes.length && scope.some((c) => codes.indexOf(c) >= 0)), hasScope: !!scope });
     }
 
-    const scoped = cands.filter((x) => x.scoped && x.e.source === "curated" && ["state", "empire", "colony"].indexOf(x.e.type) >= 0 && x.d < 28).sort((a, b) => a.d - b.d);
+    const scoped = cands.filter((x) => x.scoped && x.e.source === "curated" && ["state", "empire", "colony", "culture"].indexOf(x.e.type) >= 0 && x.d < 28).sort((a, b) => a.d - b.d);
     const modernMatch = cands.filter((x) => x.e.type === "modern" && codes.indexOf(x.e.code) >= 0).sort((a, b) => a.d - b.d)[0];
 
     // A newly founded modern state wins on its own soil: 1949 Beijing is the
@@ -1807,7 +1850,7 @@
     if (modernMatch && (year >= 1949 || modernMatch.e.from >= year - 1)) return modernMatch.e;
     if (scoped.length) return scoped[0].e;
 
-    const curated = cands.filter((x) => x.e.source === "curated" && ["state", "empire", "colony"].indexOf(x.e.type) >= 0 && !x.hasScope && x.d < 5).sort((a, b) => a.d - b.d);
+    const curated = cands.filter((x) => x.e.source === "curated" && ["state", "empire", "colony", "culture"].indexOf(x.e.type) >= 0 && !x.hasScope && x.d < 5).sort((a, b) => a.d - b.d);
     if (curated.length) return curated[0].e;
 
     // Snapshot polygon lookup, validated against the entity layer's lifetimes.
@@ -2359,13 +2402,36 @@
     });
     bindTrack();
     el["hint-close"].addEventListener("click", () => el.hint.classList.add("hide"));
+    if (el["map-empty"]) el["map-empty"].addEventListener("click", () => {
+      state.catFilter = null;
+      if (map) map.setCatFilter(null);
+      lastPanelKey = "";
+      renderPanel(true);
+      drawTicks();
+      updateMapEmpty();
+    });
     if (el["ob-start"]) el["ob-start"].addEventListener("click", () => closeOnboarding(false));
     if (el["ob-close"]) el["ob-close"].addEventListener("click", () => closeOnboarding(false));
     if (el["ob-guide"]) el["ob-guide"].addEventListener("click", () => closeOnboarding(true));
 
     document.getElementById("zoom-in").addEventListener("click", () => map.zoomAt(1.45, map.W / 2, map.H / 2));
     document.getElementById("zoom-out").addEventListener("click", () => map.zoomAt(1 / 1.45, map.W / 2, map.H / 2));
-    document.getElementById("zoom-fit").addEventListener("click", () => map.fit(true));
+    document.getElementById("zoom-fit").addEventListener("click", () => {
+      if (map.fitMode === "fill") map.setFitMode("world");
+      map.fit(true);
+      updateFitButton();
+    });
+    const fillBtn = document.getElementById("zoom-fill");
+    if (fillBtn) {
+      fillBtn.addEventListener("click", () => {
+        const mode = map.toggleFitMode();
+        updateFitButton();
+        flashMapNote(mode === "fill"
+          ? L("铺满视野 · 横向拖动查看全图", "Filled view · pan sideways for the rest", "Vista ampliada · arrastra para ver el resto", "Vue remplie · glissez pour le reste", "عرض ممتلئ · اسحب جانبيًا لبقية العالم")
+          : L("已恢复全图", "World view restored", "Vista mundial restaurada", "Vue mondiale rétablie", "تمت استعادة العرض العالمي"));
+      });
+    }
+    updateFitButton();
 
     el["search"].addEventListener("input", runSearch);
     el["search"].addEventListener("focus", () => { if (el.search.value) runSearch(); });
@@ -2393,6 +2459,16 @@
     });
 
     el["panel-body"].addEventListener("click", (e) => {
+      const moreBtn = e.target.closest("[data-cat-more]");
+      if (moreBtn) {
+        state.catFilterExpanded = !state.catFilterExpanded;
+        lastPanelKey = "";
+        renderPanel(true);
+        const body = el["panel-body"];
+        const rowEl = body && body.querySelector(".cat-filter");
+        if (rowEl) body.scrollTop = Math.max(0, rowEl.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 24);
+        return;
+      }
       const catBtn = e.target.closest("[data-cat-filter]");
       if (catBtn) {
         state.catFilter = catBtn.getAttribute("data-cat-filter") || null;
@@ -2400,6 +2476,7 @@
         lastPanelKey = "";
         renderPanel(true);
         drawTicks();
+        updateMapEmpty();
         const body = el["panel-body"];
         const row = body && body.querySelector(".cat-filter");
         if (row) body.scrollTop = Math.max(0, row.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 24);
