@@ -16,7 +16,7 @@ const nav = await page.evaluate(() => {
   return {
     dom: Math.round(n.domContentLoadedEventEnd || 0), load: Math.round(n.loadEventEnd || 0),
     fcp: Math.round((performance.getEntriesByName("first-contentful-paint")[0] || {}).startTime || 0),
-    jsBytes: sum(/\.js/), jsonBytes: sum(/\.json/), totalBytes: sum(/./),
+    jsBytes: sum(/\.js(\?|$)/), jsonBytes: sum(/\.json(\?|$)/), totalBytes: sum(/./),
     resources: res.length,
   };
 });

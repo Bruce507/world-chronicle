@@ -11,6 +11,8 @@ page.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
 await page.goto("http://localhost:8001/?year=1500", { waitUntil: "networkidle" });
 await page.waitForTimeout(1000);
 await page.evaluate(() => { const b = document.querySelector("#ob-start"); if (b) b.click(); });
+await page.evaluate(() => window.atlasAPI.openEvent(window.WORLD_ATLAS.events[0]));
+await page.waitForFunction(() => window.WORLD_ATLAS.eventDetails && !window.WORLD_ATLAS.detailsLoading, null, { timeout: 20000 });
 let fail = [];
 for (const id of ids) {
   const res = await page.evaluate((id) => {

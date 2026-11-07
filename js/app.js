@@ -4,7 +4,30 @@
 (function () {
   "use strict";
   const A = window.WORLD_ATLAS;
+  const ASSET_V = "20261108o";
   const $ = (s) => document.querySelector(s);
+  let heroScenesP = null, variantScenesP = null;
+  function loadScriptOnce(src) {
+    return new Promise((resolve, reject) => {
+      const el = document.createElement("script");
+      el.src = src;
+      el.async = true;
+      el.onload = () => resolve(true);
+      el.onerror = () => reject(new Error("script " + src));
+      document.body.appendChild(el);
+    });
+  }
+  function ensureHeroScenes() {
+    if (window.HeroScenes) return Promise.resolve(true);
+    if (!heroScenesP) heroScenesP = loadScriptOnce("js/hero-scenes.js?v=" + ASSET_V).catch((err) => { console.warn("Hero scenes unavailable:", err.message); heroScenesP = null; return false; });
+    return heroScenesP;
+  }
+  function ensureVariantScenes() {
+    if (window.VariantScenes) return Promise.resolve(true);
+    if (!variantScenesP) variantScenesP = ensureHeroScenes().then(() => loadScriptOnce("js/variant-scenes.js?v=" + ASSET_V)).catch((err) => { console.warn("Variant scenes unavailable:", err.message); variantScenesP = null; return false; });
+    return variantScenesP;
+  }
+  function ensureSceneAssets() { return ensureVariantScenes(); }
   const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 
   /* ── normalize data ─────────────────────────────── */
@@ -421,7 +444,7 @@
   let lastChromeYear = null, lastChromePos = "", lastBandEra = null, lastPlayTs = 0, lastHintStep = null;
   let draggingTrack = false, eventTimer = 0, lastAutoGroup = "";
   let searchItems = [], searchActive = -1, noteTimer = 0, toastTimer = 0, navigatingHistory = false;
-  let lastFocusEl = null;
+  let lastFocusEl = null, chroniclesP = null, detailsP = null;
 
   /* ── boot ───────────────────────────────────────── */
   function boot() {
@@ -482,12 +505,6 @@
     map.setYear(state.year);
     map.setLang(state.lang);
     map.setToggles(state.toggles);
-    if (window.HistoricalBorders) {
-      window.HistoricalBorders.init(map);
-      window.HistoricalBorders.setLang(state.lang);
-      window.HistoricalBorders.setEnabled(state.toggles.historical);
-    }
-    if (window.HistoricalEntities) window.HistoricalEntities.init(map);
     if (window.MapTheatre) {
       window.MapTheatre.init(map);
       window.MapTheatre.setLang(state.lang);
@@ -502,30 +519,66 @@
 
     loadWorld();
     loadAuxData();
+    // Hero/Tier B modules are only needed when a scene opens; warm them in
+    // idle time so the first theatre click is instant without paying for
+    // 478 KB of script on the critical path.
+    const warm = () => ensureSceneAssets();
+    const conn = navigator.connection || {};
+    const slowNet = conn.saveData || /(^|-)2g$|(^|-)3g$/.test(conn.effectiveType || "");
+    if (!slowNet) {
+      if ("requestIdleCallback" in window) requestIdleCallback(warm, { timeout: 3500 });
+      else setTimeout(warm, 1500);
+    }
     setTimeout(() => el.hint.classList.add("hide"), 11000);
   }
 
   function loadAuxData() {
-    const v = "?v=20261108n";
+    const v = "?v=20261108o";
     A.detailsLoading = true;
-    Promise.all([
-      fetch("data/country_chronicles.json" + v).then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); }),
-      fetch("data/state_changes.json" + v).then((r) => { if (!r.ok) throw new Error("states " + r.status); return r.json(); }),
-      fetch("data/event_details.json" + v).then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); }),
-    ]).then(([chr, st, details]) => {
-      A.chronicles = chr;
-      A.stateChanges = st;
-      A.eventDetails = details || {};
-      A.detailsLoading = false;
-      if (window.StateChanges && map) { window.StateChanges.init(map); window.StateChanges.setLang(state.lang); }
-      lastPanelKey = "";
-      if (map && map.features) renderPanel(true);
-      if (state.selected && !el["event-modal"].hidden) fillEvent(state.selected);
-      drawTicks();
-    }).catch((err) => {
-      A.detailsLoading = false;
-      console.warn("Auxiliary data unavailable:", err.message);
-    });
+    A.detailsLoading = true;
+    fetch("data/state_changes.json" + v)
+      .then((r) => { if (!r.ok) throw new Error("states " + r.status); return r.json(); })
+      .then((st) => {
+        A.stateChanges = st;
+        if (window.StateChanges && map) { window.StateChanges.init(map); window.StateChanges.setLang(state.lang); }
+        lastPanelKey = "";
+        if (map && map.features) renderPanel(true);
+        drawTicks();
+      })
+      .catch((err) => console.warn("Auxiliary data unavailable:", err.message));
+  }
+
+  function ensureDetails() {
+    if (A.eventDetails) { A.detailsLoading = false; return Promise.resolve(A.eventDetails); }
+    if (detailsP) return detailsP;
+    A.detailsLoading = true;
+    detailsP = fetch("data/event_details.json?v=20261108o")
+      .then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); })
+      .then((d) => {
+        A.eventDetails = d || {};
+        A.detailsLoading = false;
+        lastPanelKey = "";
+        if (state.eventView && state.panelOpen) renderPanel(true);
+        if (state.selected && !el["event-modal"].hidden) fillEvent(state.selected);
+        return A.eventDetails;
+      })
+      .catch((err) => { A.detailsLoading = false; console.warn("Event details unavailable:", err.message); detailsP = null; return null; });
+    return detailsP;
+  }
+
+  function ensureChronicles() {
+    if (A.chronicles) return Promise.resolve(A.chronicles);
+    if (chroniclesP) return chroniclesP;
+    chroniclesP = fetch("data/country_chronicles.json?v=20261108o")
+      .then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); })
+      .then((d) => {
+        A.chronicles = d || {};
+        lastPanelKey = "";
+        if (state.country && state.panelOpen) renderPanel(true);
+        return A.chronicles;
+      })
+      .catch((err) => { console.warn("Country chronicles unavailable:", err.message); chroniclesP = null; return null; });
+    return chroniclesP;
   }
 
   function loadWorld() {
@@ -536,7 +589,7 @@
     loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
-    fetch("data/world.geo.json?v=20261108n")
+    fetch("data/world.geo.json?v=20261108o")
       .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then((geo) => {
         map.setWorld(geo);
@@ -552,6 +605,18 @@
         renderPanel(true);
         drawTicks();
         applyDeepLink();
+        // Historical borders, labels and state changes are heavy (≈650 KB).
+        // Let the base map become interactive first, then add the historical
+        // layers; labels fade in when the entity layer is ready.
+        setTimeout(() => {
+          if (window.HistoricalBorders) {
+            window.HistoricalBorders.init(map);
+            window.HistoricalBorders.setLang(state.lang);
+            window.HistoricalBorders.setEnabled(state.toggles.historical);
+          }
+          if (window.HistoricalEntities) window.HistoricalEntities.init(map);
+          if (window.StateChanges) { window.StateChanges.init(map); window.StateChanges.setLang(state.lang); }
+        }, 120);
       })
       .catch((err) => {
         loading.innerHTML = "无法载入地图数据<small>Could not load map data — serve this folder over HTTP (e.g. python3 -m http.server)</small>";
@@ -736,6 +801,7 @@
   function renderEventPanel(force) {
     const ev = state.eventView;
     if (!ev) return;
+    if (!A.eventDetails) ensureDetails();
     const d = detailFor(ev) || {};
     const key = "ev:" + ev.id + ":" + state.lang + (state.eventGroup ? ":g" : "");
     if (!force && key === lastPanelKey) return;
@@ -1156,6 +1222,7 @@
   function renderCountryPanel(force) {
     const f = state.country;
     if (!f) return;
+    if (!A.chronicles) ensureChronicles();
     const p = f.properties;
     const isTW = countryKey(f) === "TWN";
     el["panel-kicker"].textContent = (isTW ? L("中国台湾 · ", "TAIWAN, CHINA · ", "TAIWÁN (CHINA) · ", "TAÏWAN (CHINE) · ", "تايوان (الصين) · ") : L("现代国界 · ", "MODERN BORDERS · ", "FRONTERAS MODERNAS · ", "FRONTIÈRES MODERNES · ", "الحدود الحديثة · ")) + rgName(byRegion(p.sub));
@@ -1199,6 +1266,8 @@
     html += `<section class="p-section"><h3>${isTW ? L("地区沿革", "A PROVINCIAL CHRONICLE", "CRÓNICA PROVINCIAL", "CHRONIQUE PROVINCIALE", "سجل المقاطعة") : L("国家沿革长卷", "A COUNTRY CHRONICLE", "CRÓNICA DEL PAÍS", "CHRONIQUE DU PAYS", "سجل الدولة")} · ${evs.length}</h3>`;
     if (chr) {
       html += chr;
+    } else if (!A.chronicles) {
+      html += `<div class="chronicle-loading"><div class="detail-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><span>${L("正在载入国家沿革…", "Loading the country chronicle…", "Cargando la crónica del país…", "Chargement de la chronique du pays…", "جارٍ تحميل سجل الدولة…")}</span></div>`;
     } else if (!evs.length) {
       html += `<div class="panel-empty">${L("现代国界内暂无策展节点。可拖动时间轴，查看此地所属的文明与政权。", "No curated nodes fall inside these modern borders. Drag the timeline to see the powers that held this ground.", "No hay nodos en estas fronteras modernas. Arrastra el tiempo para ver los poderes que ocuparon esta tierra.", "Aucun nœud dans ces frontières modernes. Faites glisser le temps pour voir les pouvoirs qui ont tenu cette terre.", "لا عُقد داخل هذه الحدود الحديثة. اسحب الزمن لترى القوى التي حكمت هذه الأرض.")}</div>`;
     } else {
@@ -1982,7 +2051,7 @@
   }
 
   /* ── event theatre ──────────────────────────────── */
-  function openEvent(ev, opts) {
+  async function openEvent(ev, opts) {
     if (!ev) return;
     const wasOpen = state.panelOpen;
     state.autoOpened = !!(opts && opts.auto);
@@ -2009,6 +2078,8 @@
     if (!wasOpen) seqPanelAppear();
     setPanel(true);
     renderPanel(true);
+    await ensureSceneAssets();
+    if (state.selected !== ev) return;
     if (window.MapTheatre) {
       window.MapTheatre.setLang(state.lang);
       window.MapTheatre.playEvent(ev);
@@ -2076,7 +2147,7 @@
     if (el["tc-pause"]) el["tc-pause"].textContent = L("暂停", "Pause", "Pausa", "Pause", "إيقاف مؤقت");
   }
 
-  function openEventModal(ev) {
+  async function openEventModal(ev) {
     if (!ev) return;
     stopPlay();
     if (state.country) { state.country = null; map.setHighlight(null); lastPanelKey = ""; renderPanel(true); }
@@ -2086,6 +2157,7 @@
     if (ev.y !== state.year) applyYear(ev.y, null, { force: true });
     else { state.pos = timeline.toPos(ev.y); updateChrome(); }
     map.flyTo(ev.lat, ev.lon, 2.6, 750);
+    await ensureSceneAssets();
     fillEvent(ev);
     el["event-modal"].hidden = false;
     if (sceneCtl) sceneCtl.stop();

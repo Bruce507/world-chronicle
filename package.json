@@ -14,6 +14,7 @@
     "build:world": "python3 scripts/build-world-50m.py",
     "validate": "node scripts/validate-data.mjs",
     "serve": "python3 -m http.server 8000",
+    "serve:gzip": "node scripts/serve-gzip.mjs 8002",
     "build:world-i18n": "python3 scripts/enrich-world-i18n.py",
     "translate": "python3 scripts/translate-events.py",
     "build:entities": "node scripts/build-historical-entities.mjs",
@@ -21,7 +22,8 @@
     "build:scenes": "node scripts/build-scene-taxonomy.mjs",
     "smoke": "node scripts/ux-smoke.mjs",
     "content-check": "node scripts/content-check.mjs",
-    "perf": "node scripts/perf-probe.mjs"
+    "perf": "node scripts/perf-probe.mjs",
+    "perf:throttle": "node scripts/perf-throttle.mjs"
   },
   "devDependencies": {
     "playwright": "^1.64.1"

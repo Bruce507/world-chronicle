@@ -21,6 +21,7 @@ async function openPage(browser, viewport) {
   page.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });
   await page.goto(BASE + "?year=1937", { waitUntil: "networkidle" });
   await page.waitForTimeout(1400);
+  await page.waitForFunction(() => window.HistoricalEntities && window.HistoricalEntities.ready, null, { timeout: 20000 });
   await page.evaluate(() => { const b = document.querySelector("#ob-start"); if (b) b.click(); });
   await page.waitForTimeout(250);
   return { ctx, page, errors };
@@ -31,6 +32,7 @@ try {
   const desktop = await openPage(browser, { width: 1440, height: 900 });
   const d = desktop.page;
 
+  await d.waitForFunction(() => window.HeroScenes && window.VariantScenes, null, { timeout: 15000 });
   const counts = await d.evaluate(() => ({
     events: window.WORLD_ATLAS.events.length,
     families: new Set(Object.values(window.WORLD_ATLAS.sceneVariants)).size,
@@ -41,12 +43,6 @@ try {
   check("scene families = 56", counts.families === 56, counts.families);
   check("Hero scenes = 32", counts.hero === 32, counts.hero);
   check("Tier B variants = 29", counts.tierB === 29, counts.tierB);
-
-  const detailsState = await d.evaluate(() => ({
-    n: Object.keys(window.WORLD_ATLAS.eventDetails || {}).length,
-    loading: !!window.WORLD_ATLAS.detailsLoading,
-  }));
-  check("event details load lazily and completely (112)", detailsState.n === 112 && !detailsState.loading, JSON.stringify(detailsState));
 
   const aria = await d.getAttribute("#track", "aria-valuetext");
   check("timeline slider has aria-valuetext", !!aria && /1937/.test(aria), aria);
@@ -69,6 +65,9 @@ try {
     theatre: window.MapTheatre.active,
   }));
   check("search Enter opens the event panel and theatre", searched.ev === "Marco Polo Bridge Incident" && searched.panel && searched.theatre, JSON.stringify(searched));
+  await d.waitForFunction(() => window.WORLD_ATLAS.eventDetails && !window.WORLD_ATLAS.detailsLoading, null, { timeout: 15000 });
+  const detailsState = await d.evaluate(() => ({ n: Object.keys(window.WORLD_ATLAS.eventDetails || {}).length, loading: !!window.WORLD_ATLAS.detailsLoading }));
+  check("event details load lazily and completely (112)", detailsState.n === 112 && !detailsState.loading, JSON.stringify(detailsState));
 
   const focusOnOpen = await d.evaluate(() => document.activeElement && document.activeElement.id);
   check("opening an event moves focus to the panel title", focusOnOpen === "panel-title", focusOnOpen);
