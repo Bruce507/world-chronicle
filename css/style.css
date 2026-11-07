@@ -2508,3 +2508,7 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
   .fav-tool, #timeline .sysbar button { border: 1px solid ButtonText; }
   #map-canvas { forced-color-adjust: none; }
 }
+
+/* 面板标题接收脚本焦点（深链打开事件后），用站点焦点环而非浏览器默认蓝框 */
+#panel-title:focus,
+#panel-title:focus-visible { outline: 2px solid var(--verm); outline-offset: 4px; border-radius: 2px; }

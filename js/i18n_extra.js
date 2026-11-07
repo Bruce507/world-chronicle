@@ -168,4 +168,54 @@
       },
     },
   };
+  /* Second pass: timeline controls, legend and the first-visit guide were
+     missing outside zh/en, so ES/FR/AR readers saw English there. */
+  Object.assign(window.I18N_EXTRA.es, {
+    tlJump: "Ir al año", tlGo: "Ir", tlZoomIn: "Ampliar a 1750–2026", tlZoomOut: "Todo el arco",
+    tlStep: "paso", tlScrub: "Arrastra un rango para ampliar",
+    how5: "«Crónica de China» es un tema unificado: dinastías, regímenes rivales y Estados modernos por año.",
+    legendTitle: "Colores y leyenda",
+    legendNote: "Los nodos de evento se colorean y forman según su categoría (rombo/cuadrado/círculo/triángulo/hexágono); los halos de las potencias, por región. Ni los colores ni las formas implican jerarquía ni postura.",
+    legendEvents: "Categorías de eventos", legendRegions: "Regiones / potencias",
+    obKicker: "PRIMERA VISITA", obTitle: "Tres maneras de leer este atlas",
+    ob1Title: "Arrastra o escribe el año",
+    ob1: "Toca el año para escribirlo; ↑↓ mueve un año; Mayús+arrastrar amplía un rango; el botón ⛶ llena la pantalla del móvil.",
+    ob2Title: "Haz clic en un nodo",
+    ob2: "El nodo abre el panel lateral (hoja inferior en móviles) y representa su escena sobre el mapa.",
+    ob3Title: "Búsqueda y regiones",
+    ob3: "Busca eventos, civilizaciones o países; ↑↓ para elegir, Intro para abrir. Las regiones mueven la cámara.",
+    obStart: "Empezar a explorar", obGuide: "Ver la guía",
+  });
+  Object.assign(window.I18N_EXTRA.fr, {
+    tlJump: "Aller à l’année", tlGo: "Aller", tlZoomIn: "Zoom 1750–2026", tlZoomOut: "Toute la durée",
+    tlStep: "pas", tlScrub: "Faites glisser une plage pour zoomer",
+    how5: "« Chronique de Chine » est un thème unifié : dynasties, régimes rivaux et États modernes par année.",
+    legendTitle: "Couleurs et légende",
+    legendNote: "Les nœuds d’événement sont colorés et formés selon leur catégorie (losange/carré/cercle/triangle/hexagone) ; les halos de puissance par région. Ni les couleurs ni les formes n’impliquent de hiérarchie ou de parti pris.",
+    legendEvents: "Catégories d’événements", legendRegions: "Régions / puissances",
+    obKicker: "PREMIÈRE VISITE", obTitle: "Trois façons de lire cet atlas",
+    ob1Title: "Faites glisser ou saisissez l’année",
+    ob1: "Touchez l’année pour la saisir ; ↑↓ avance d’un an ; Maj+glisser zoome sur une plage ; le bouton ⛶ remplit l’écran du téléphone.",
+    ob2Title: "Cliquez sur un nœud",
+    ob2: "Le nœud ouvre le panneau latéral (feuille en bas sur mobile) et joue sa scène sur la carte.",
+    ob3Title: "Recherche et régions",
+    ob3: "Cherchez des événements, civilisations ou pays ; ↑↓ pour choisir, Entrée pour ouvrir. Les pastilles de région déplacent la caméra.",
+    obStart: "Commencer l’exploration", obGuide: "Ouvrir le guide",
+  });
+  Object.assign(window.I18N_EXTRA.ar, {
+    tlJump: "الانتقال إلى سنة", tlGo: "انتقال", tlZoomIn: "تكبير إلى 1750–2026", tlZoomOut: "المدى الكامل",
+    tlStep: "خطوة", tlScrub: "اسحب نطاقًا للتكبير",
+    how5: "«تسلسل الصين» موضوع موحّد: السلالات والأنظمة المتنافسة والدول الحديثة حسب السنة.",
+    legendTitle: "الألوان والمفتاح",
+    legendNote: "تُلوَّن عقد الأحداث وتُشكَّل حسب فئتها (معيّن/مربع/دائرة/مثلث/مسدس)، وتُلوَّن هالات القوى حسب المنطقة. لا تدل الألوان أو الأشكال على تفاضل أو موقف.",
+    legendEvents: "فئات الأحداث", legendRegions: "المناطق / القوى",
+    obKicker: "الزيارة الأولى", obTitle: "ثلاث طرق لقراءة هذا الأطلس",
+    ob1Title: "اسحب السنة أو اكتبها",
+    ob1: "انقر السنة لكتابتها؛ ↑↓ يحرّك سنة واحدة؛ Shift+السحب يكبّر نطاقًا؛ زر ⛶ يملأ شاشة الهاتف.",
+    ob2Title: "انقر عقدة على الخريطة",
+    ob2: "تفتح العقدة اللوحة الجانبية (ورقة سفلية على الهاتف) وتعرض مشهدها على الخريطة.",
+    ob3Title: "البحث والمناطق",
+    ob3: "ابحث عن أحداث أو حضارات أو دول؛ ↑↓ للاختيار وEnter للفتح. شرائح المناطق تنقل الكاميرا.",
+    obStart: "ابدأ الاستكشاف", obGuide: "فتح الدليل",
+  });
 })();

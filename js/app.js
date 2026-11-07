@@ -459,7 +459,7 @@
     return n || e.name.en || e.name.zh || "";
   }
   function countryName(f) {
-    if (!f) return state.lang === "zh" ? "海域" : "Open sea";
+    if (!f) return L("海域", "Open sea", "Alta mar", "Haute mer", "عرض البحر");
     const p = f.properties;
     if (state.lang === "zh") return p.zh || p.n;
     if (state.lang === "en") return p.n || p.zh;
@@ -520,6 +520,16 @@
     applyI18n();
     buildTimeline();
     buildRegionNav();
+
+    // If a core script fails to arrive (flaky network, interrupted cache),
+    // say so in the panel instead of leaving a blank map behind the guide.
+    if (typeof AtlasMap !== "function") {
+      el["panel-kicker"].textContent = t("brand");
+      el["panel-title"].textContent = L("地图脚本未能载入", "The map script did not load", "No se cargó el script del mapa", "Le script de la carte n’a pas pu être chargé", "لم يُحمَّل نص الخريطة");
+      el["panel-sub"].textContent = "";
+      el["panel-body"].innerHTML = `<div class="panel-empty">${L("请检查网络后刷新页面重试。", "Check your connection and reload the page.", "Comprueba la conexión y recarga la página.", "Vérifiez la connexion puis rechargez la page.", "تحقق من الاتصال ثم أعد تحميل الصفحة.")}</div>`;
+      return;
+    }
 
     map = new AtlasMap($("#map-canvas"), $("#fx-canvas"), {
       onEventClick: (hit) => {
@@ -736,6 +746,7 @@
     if (!el["event-modal"].hidden && state.selected) fillEvent(state.selected);
     updateChrome();
     drawTicks();
+    updateBrushLabel();
     updateNetUI();
     sysBarText();
     syncURL();
@@ -1236,9 +1247,9 @@
     updateFavUI();
     if (!map || !map.features) {
       el["panel-kicker"].textContent = t("brand");
-      el["panel-title"].textContent = state.lang === "zh" ? "正在展开舆图" : "Unfolding the atlas";
+      el["panel-title"].textContent = L("正在展开舆图", "Unfolding the atlas", "Desplegando el atlas", "Déploiement de l’atlas", "جارٍ فتح الأطلس");
       el["panel-sub"].textContent = "";
-      el["panel-body"].innerHTML = `<div class="panel-empty">${state.lang === "zh" ? "地图数据载入后，此处会呈现此刻并立的文明与时代节点。" : "Civilizations and nodes of this moment will appear once the map has loaded."}</div>`;
+      el["panel-body"].innerHTML = `<div class="panel-empty">${L("地图数据载入后，此处会呈现此刻并立的文明与时代节点。", "Civilizations and nodes of this moment will appear once the map has loaded.", "Cuando carguen los datos del mapa, aquí aparecerán las civilizaciones y los nodos de este momento.", "Une fois les données chargées, les civilisations et les nœuds de ce moment apparaîtront ici.", "بعد تحميل بيانات الخريطة ستظهر هنا حضارات وعُقد هذه اللحظة.")}</div>`;
       return;
     }
     const showRoutes = !state.eventView && !state.country && !state.theme && !state.route && !state.searchQuery && !state.favoritesOpen;
@@ -1492,7 +1503,7 @@
           <span class="chr-range">${fmtRange(seg.from, seg.to)}</span>
           <span class="chr-era">${era}</span>
         </button>
-        <div class="chr-name">${nm}${birth ? `<em class="chr-birth">${state.lang === "zh" ? "新生 " : "born "}${birth.year}</em>` : ""}</div>
+        <div class="chr-name">${nm}${birth ? `<em class="chr-birth">${L("新生 ", "born ", "nace ", "né en ", "قيام ")}${birth.year}</em>` : ""}</div>
         ${list.length ? `<div class="chr-events">${list.map(eventRow).join("")}</div>` : ""}
       </section>`;
     });
@@ -1501,7 +1512,7 @@
   }
 
   function nowDivider() {
-    return '<div class="now-divider"><span>' + (state.lang === "zh" ? "此刻 · " : "NOW · ") + fmtYear(state.year, state.lang, true) + "</span></div>";
+    return '<div class="now-divider"><span>' + L("此刻 · ", "NOW · ", "AHORA · ", "MAINTENANT · ", "الآن · ") + fmtYear(state.year, state.lang, true) + "</span></div>";
   }
 
   function routeStrip() {
@@ -1564,7 +1575,7 @@
     return `<button class="event-row${future ? " is-future" : ""}" data-ev="${ev.id}">
       <span class="er-year">${fmtYear(ev.y, state.lang, true)}</span>
       <span class="er-main"><span class="er-title">${title}</span>
-      <span class="er-meta"><i class="cat-shape shape-${catShape(ev.k)}" style="background:${cat.color}"></i>${catName(ev.k)} · ${rgName(ev.rg)}${future ? (state.lang === "zh" ? " · 未至" : " · ahead") : ""}</span></span>
+      <span class="er-meta"><i class="cat-shape shape-${catShape(ev.k)}" style="background:${cat.color}"></i>${catName(ev.k)} · ${rgName(ev.rg)}${future ? " · " + L("未至", "ahead", "próximo", "à venir", "قادم") : ""}</span></span>
     </button>`;
   }
 
@@ -1589,7 +1600,7 @@
     const scroll = el["panel-body"].scrollTop;
 
     let html = `<button class="panel-back" data-back="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
-    html += `<div class="country-flags"><span class="country-tag">${countryKey(f)}</span><span class="country-tag">${p.cont || ""}</span><span class="country-tag">${evs.length} ${state.lang === "zh" ? "节点" : "nodes"}</span></div>`;
+    html += `<div class="country-flags"><span class="country-tag">${countryKey(f)}</span><span class="country-tag">${p.cont || ""}</span><span class="country-tag">${evs.length} ${L("节点", "nodes", "nodos", "nœuds", "عقدة")}</span></div>`;
     html += `<div class="panel-tools"><button type="button" class="panel-tool" data-country-share="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button></div>`;
 
     html += `<section class="p-section"><h3>${L("此处此时", "HERE, NOW", "AQUÍ, AHORA", "ICI, MAINTENANT", "هنا الآن")} · ${fmtYear(state.year, state.lang, true)}</h3><div class="polity-list">`;
@@ -1976,14 +1987,17 @@
     syncURL();
   }
 
+  function updateBrushLabel() {
+    const b = el["tl-brush-btn"];
+    if (!b) return;
+    b.setAttribute("aria-pressed", String(!!state.brushMode));
+    b.classList.toggle("is-on", !!state.brushMode);
+    b.textContent = state.brushMode ? L("刷选中", "Selecting", "Seleccionando", "Sélection", "تحديد") : L("刷选", "Range", "Rango", "Plage", "المدى");
+  }
+
   function setBrushMode(on) {
     state.brushMode = !!on;
-    const b = el["tl-brush-btn"];
-    if (b) {
-      b.setAttribute("aria-pressed", String(state.brushMode));
-      b.classList.toggle("is-on", state.brushMode);
-      b.textContent = state.brushMode ? L("刷选中", "Selecting", "Seleccionando", "Sélection", "تحديد") : L("刷选", "Range", "Rango", "Plage", "المدى");
-    }
+    updateBrushLabel();
     if (el["track"]) el["track"].classList.toggle("is-brush", state.brushMode);
     if (state.brushMode) {
       showToast(L("在时间轴上拖动，选择要放大的区间", "Drag on the timeline to select a range", "Arrastra en la línea de tiempo", "Faites glisser sur la chronologie", "اسحب على الشريط الزمني"));
@@ -2368,7 +2382,7 @@
     el.tooltip.innerHTML =
       '<div class="tt-year">' + fmtYear(ev.y, state.lang, true) + " · " + rgName(ev.rg) + "</div>" +
       '<div class="tt-title">' + evTitle(ev) + "</div>" +
-      '<div class="tt-hint">' + (state.lang === "zh" ? "点击展开场景" : "Click to enter the scene") + "</div>";
+      '<div class="tt-hint">' + L("点击展开场景", "Click to enter the scene", "Haz clic para abrir la escena", "Cliquez pour ouvrir la scène", "انقر لفتح المشهد") + "</div>";
     placeTooltip(x, y);
     el.tooltip.hidden = false;
   }
@@ -2453,7 +2467,7 @@
     el["theatre-card"].hidden = false;
     document.getElementById("map-stage").classList.add("theatre-open");
     el.hint.classList.add("hide");
-    el["tc-pause"].textContent = state.lang === "zh" ? "暂停" : "Pause";
+    el["tc-pause"].textContent = L("暂停", "Pause", "Pausar", "Pause", "إيقاف مؤقت");
     syncURL(!state.autoOpened);
   }
 
@@ -2639,7 +2653,7 @@
   function placeInfo(ev) {
     const d = detailFor(ev) || {};
     const f = ev._country;
-    const modern = f ? countryName(f) : (state.lang === "zh" ? "海域" : "Open sea");
+    const modern = f ? countryName(f) : L("海域", "Open sea", "Alta mar", "Haute mer", "عرض البحر");
     const power = historicalPowerAt(ev.lat, ev.lon, ev.y, f);
     const powerName = power ? (state.lang === "zh" ? (power.name.zh || power.name.en) : (power.name.en || power.name.zh)) : "";
     const detailPlace = d.place ? textOf(d.place) : "";
@@ -2679,7 +2693,7 @@
     el["ev-meta"].innerHTML =
       "<div><span>" + en[0] + "</span><b>" + eraName(A.eraOf(ev.y)) + "</b></div>" +
       "<div><span>" + en[1] + "</span><b>" + rgName(ev.rg) + "</b></div>" +
-      "<div><span>" + en[2] + "</span><b>" + (ev._country ? nowThen : (state.lang === "zh" ? "海域" : "Open sea")) + "</b></div>" +
+      "<div><span>" + en[2] + "</span><b>" + (ev._country ? nowThen : L("海域", "Open sea", "Alta mar", "Haute mer", "عرض البحر")) + "</b></div>" +
       "<div><span>" + en[3] + "</span><b>" + (sc ? (state.lang === "zh" ? sc.zh : sc.en) : ev.s) + "</b></div>";
     const heroScene = window.HeroScenes && window.HeroScenes.has(ev.id);
     const tierBScene = window.VariantScenes && window.VariantScenes.has(ev.id);
@@ -2749,7 +2763,7 @@
     picks.forEach((c) => {
       ch += '<button class="contemp-row" data-contemp="' + c.id + '"><time>' + fmtYear(c.y, state.lang, true) + "</time><span>" + evTitle(c) + "</span><em>" + rgName(c.rg) + "</em></button>";
     });
-    el["ev-contemp-list"].innerHTML = ch || '<div class="panel-empty">' + (state.lang === "zh" ? "同一时刻暂无其他节点。" : "No other nodes at this moment.") + "</div>";
+    el["ev-contemp-list"].innerHTML = ch || '<div class="panel-empty">' + L("同一时刻暂无其他节点。", "No other nodes at this moment.", "No hay otros nodos en este momento.", "Aucun autre nœud à cet instant.", "لا عقد أخرى في هذه اللحظة.") + "</div>";
   }
 
   function closeEvent() {
