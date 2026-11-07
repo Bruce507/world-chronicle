@@ -716,6 +716,7 @@
     html += `<div class="ev-detail-actions"><button class="primary" data-ev="${ev.id}">${L("重新播放动态", "Replay dynamic", "Repetir dinámica", "Relancer la dynamique", "إعادة الحركة")}</button>`;
     html += `<button data-ev-modal="${ev.id}">${L("展开史志", "Open full record", "Abrir ficha", "Ouvrir la fiche", "فتح السجل")}</button>`;
     html += `<button data-ev-voice="1">${L("朗读", "Read aloud", "Leer", "Lire", "قراءة")}</button>`;
+    html += `<button data-theatre-pause="1">${L("暂停动态", "Pause dynamic", "Pausar dinámica", "Pause dynamique", "إيقاف الحركة")}</button>`;
     if (ev._country) html += `<button data-country-open="${countryKey(ev._country)}">${L("国家沿革", "Country chronicle", "Crónica del país", "Chronique du pays", "سجل الدولة")}</button>`;
     html += `</div>`;
     html += `<div class="ev-verify${d.verification === "verified" ? " is-verified" : d.verification === "pending" ? " is-pending" : ""}"><i></i>${verifyLabel(d.verification || "brief")}${d.verification === "brief" ? " · " + L("长文待补，不编造", "long form pending, not invented", "texto largo pendiente", "texte long à compléter", "النص الطويل قيد الإضافة") : ""}</div>`;
@@ -1542,7 +1543,7 @@
     let drag = null;
 
     track.addEventListener("pointerdown", (e) => {
-      if (e.button !== 0) return;
+      if (e.button !== 0 || e.detail > 1) return;
       stopPlay();
       try { track.focus({ preventScroll: true }); } catch (err) { /* older browsers */ }
       if (track.setPointerCapture) track.setPointerCapture(e.pointerId);
@@ -2168,6 +2169,7 @@
       node.id = "sr-item-" + i;
       node.setAttribute("role", "option");
       node.setAttribute("aria-selected", "false");
+      node.tabIndex = -1;
     });
     el.search.removeAttribute("aria-activedescendant");
   }
@@ -2418,6 +2420,15 @@
       }
       const voiceBtn = e.target.closest("[data-ev-voice]");
       if (voiceBtn) { speakSelected(); return; }
+      const pauseBtn = e.target.closest("[data-theatre-pause]");
+      if (pauseBtn && window.MapTheatre) {
+        const paused = window.MapTheatre.togglePause();
+        pauseBtn.textContent = paused
+          ? L("继续动态", "Resume dynamic", "Reanudar dinámica", "Reprendre la dynamique", "متابعة الحركة")
+          : L("暂停动态", "Pause dynamic", "Pausar dinámica", "Pause dynamique", "إيقاف الحركة");
+        if (el["tc-pause"]) el["tc-pause"].textContent = paused ? L("继续", "Resume", "Reanudar", "Reprendre", "متابعة") : L("暂停", "Pause", "Pausa", "Pause", "إيقاف مؤقت");
+        return;
+      }
       const evBtn = e.target.closest("[data-ev]");
       if (evBtn) { triggerEvent(byId[evBtn.getAttribute("data-ev")], "panel"); return; }
       const polBtn = e.target.closest("[data-polity]");
