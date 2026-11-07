@@ -101,6 +101,7 @@ const OVERRIDES = {
   "manila-galleon-trade": "galleon",
   "the-mayflower": "caravel",
   "dutch-east-india-company": "caravel",
+  "english-east-india-company": "caravel",
   "the-atlantic-slave-trade": "caravel",
   "versailles": "palace",
   "unification-of-egypt": "african-founding",

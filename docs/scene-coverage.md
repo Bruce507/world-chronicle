@@ -2,7 +2,7 @@
 
 Generated 2026-11-07. Standard A: every event has a correct visual family; the 32 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).
 
-- 事件总数：511
+- 事件总数：521
 - 当前分派：56 个家族
 - 需要修正：0
 - 英雄条目：32
@@ -13,20 +13,20 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 |---|---:|
 | `modern-founding` | 102 |
 | `city-modern` | 34 |
+| `revolution` | 33 |
 | `cannon` | 32 |
-| `revolution` | 32 |
 | `naval` | 28 |
 | `disaster` | 19 |
 | `siege` | 18 |
-| `cavalry` | 17 |
-| `city-earlymodern` | 16 |
-| `caravel` | 13 |
-| `city-medieval` | 10 |
-| `treaty` | 10 |
+| `cavalry` | 18 |
+| `city-earlymodern` | 18 |
+| `caravel` | 15 |
+| `city-medieval` | 11 |
+| `treaty` | 11 |
+| `city` | 9 |
 | `industry` | 9 |
 | `city-classical` | 8 |
 | `cn-founding` | 8 |
-| `city` | 8 |
 | `camel` | 8 |
 | `ziggurat` | 6 |
 | `pyramid` | 6 |
@@ -53,11 +53,11 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | `city-ancient` | 3 |
 | `palace` | 3 |
 | `phalanx` | 3 |
+| `south-asian-founding` | 3 |
 | `church` | 3 |
 | `cn-cavalry` | 3 |
 | `african-founding` | 3 |
 | `greek-naval` | 2 |
-| `south-asian-founding` | 2 |
 | `mosque` | 2 |
 | `printing` | 2 |
 | `steppe-founding` | 2 |
@@ -186,6 +186,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 900 | `maya-collapse` | 玛雅古典期崩溃 | la | `disaster` | `disaster` |  |
 | 930 | `althing-at-thingvellir` | 冰岛阿尔庭 | eu | `city-medieval` | `city-medieval` |  |
 | 938 | `battle-of-bach-ang` | 白藤江之战 | sea | `naval` | `naval` |  |
+| 950 | `toltec-and-tula` | 托尔特克与图拉 | la | `city` | `city` |  |
 | 960 | `song-dynasty` | 宋朝建立 | ea | `cn-founding` | `cn-founding` | ★ |
 | 969 | `cairo-founded` | 开罗建城 | af | `islamic-founding` | `islamic-founding` |  |
 | 988 | `kyivan-rus-baptized` | 基辅罗斯受洗 | eu | `church` | `church` |  |
@@ -202,6 +203,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1185 | `kamakura-shogunate` | 镰仓幕府 | ea | `city-medieval` | `city-medieval` |  |
 | 1187 | `battle-of-hattin` | 哈丁战役 | me | `cavalry` | `cavalry` |  |
 | 1200 | `moai-of-rapa-nui` | 复活节岛石像 | oc | `megalith` | `megalith` |  |
+| 1200 | `mixtec-codices` | 米斯特克手抄本 | la | `city-medieval` | `city-medieval` |  |
 | 1206 | `delhi-sultanate` | 德里苏丹国 | sa | `cavalry` | `cavalry` |  |
 | 1206 | `genghis-khan` | 成吉思汗建国 | ca | `steppe-founding` | `steppe-founding` | ★ |
 | 1215 | `magna-carta` | 《大宪章》 | eu | `treaty` | `treaty` |  |
@@ -240,6 +242,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1492 | `fall-of-granada` | 格拉纳达陷落 | eu | `siege` | `siege` |  |
 | 1496 | `aceh-sultanate` | 亚齐苏丹国 | sea | `junk` | `junk` |  |
 | 1498 | `vasco-da-gama-reaches-india` | 达伽马抵达印度 | eu | `caravel` | `caravel` | ★ |
+| 1500 | `khanate-of-bukhara` | 布哈拉汗国 | ca | `city-earlymodern` | `city-earlymodern` |  |
 | 1500 | `bruneis-golden-age` | 文莱苏丹国黄金时代 | sea | `junk` | `junk` |  |
 | 1500 | `cabral-reaches-brazil` | 葡萄牙人抵达巴西 | la | `caravel` | `caravel` |  |
 | 1501 | `safavid-empire-founded` | 萨非王朝建立 | me | `islamic-founding` | `islamic-founding` |  |
@@ -262,10 +265,12 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1556 | `akbars-rule` | 阿克巴治下 | sa | `city-earlymodern` | `city-earlymodern` |  |
 | 1565 | `manila-galleon-trade` | 马尼拉大帆船 | sea | `galleon` | `galleon` |  |
 | 1571 | `battle-of-lepanto` | 勒班陀海战 | eu | `naval` | `naval` |  |
+| 1578 | `battle-of-alcacer-quibir` | 三王战役 | af | `cavalry` | `cavalry` |  |
 | 1588 | `the-spanish-armada` | 西班牙无敌舰队 | eu | `naval` | `naval` |  |
 | 1591 | `battle-of-tondibi` | 通迪比之战 | af | `musket` | `musket` |  |
 | 1592 | `imjin-war` | 壬辰倭乱与李舜臣 | ea | `naval` | `naval` |  |
 | 1600 | `battle-of-sekigahara` | 关原之战 | ea | `musket` | `musket` |  |
+| 1600 | `english-east-india-company` | 英国东印度公司成立 | eu | `caravel` | `caravel` |  |
 | 1602 | `dutch-east-india-company` | 荷兰东印度公司 | eu | `caravel` | `caravel` |  |
 | 1605 | `makassar-sultanate` | 望加锡苏丹国 | sea | `junk` | `junk` |  |
 | 1607 | `jamestown` | 詹姆斯敦 | na | `city-earlymodern` | `city-earlymodern` |  |
@@ -274,6 +279,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1632 | `gustavus-adolphus` | 古斯塔夫二世与瑞典强权 | eu | `musket` | `musket` |  |
 | 1632 | `taj-mahal` | 泰姬陵 | sa | `mughal-tomb` | `mughal-tomb` | ★ |
 | 1635 | `dzungar-khanate` | 准噶尔汗国 | ca | `cn-cavalry` | `cn-cavalry` |  |
+| 1639 | `treaty-of-zuhab` | 祖哈布和约 | me | `treaty` | `treaty` |  |
 | 1644 | `qing-takes-beijing` | 清军入关 | ea | `cn-cavalry` | `cn-cavalry` | ★ |
 | 1648 | `peace-of-westphalia` | 《威斯特伐利亚和约》 | eu | `treaty` | `treaty` |  |
 | 1650 | `oman-expels-the-portuguese` | 阿曼收复马斯喀特 | me | `naval` | `naval` |  |
@@ -285,13 +291,16 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1687 | `newtons-principia` | 牛顿《自然哲学的数学原理》 | eu | `city-earlymodern` | `city-earlymodern` |  |
 | 1689 | `treaty-of-nerchinsk` | 《尼布楚条约》 | ea | `treaty` | `treaty` |  |
 | 1703 | `st-petersburg-founded` | 圣彼得堡建城 | eu | `modern-founding` | `modern-founding` |  |
+| 1710 | `kokand-khanate` | 浩罕汗国 | ca | `city-earlymodern` | `city-earlymodern` |  |
 | 1741 | `bering-reaches-alaska` | 白令抵达阿拉斯加 | na | `caravel` | `caravel` |  |
+| 1747 | `durrani-empire` | 杜兰尼帝国 | sa | `south-asian-founding` | `south-asian-founding` |  |
 | 1755 | `lisbon-earthquake` | 里斯本大地震 | eu | `disaster` | `disaster` |  |
 | 1756 | `seven-years-war` | 七年战争 | eu | `cannon` | `cannon` |  |
 | 1757 | `battle-of-plassey` | 普拉西战役 | sa | `cannon` | `cannon` |  |
 | 1769 | `cook-at-tahiti` | 库克观测金星凌日 | oc | `caravel` | `caravel` |  |
 | 1769 | `watts-steam-engine` | 瓦特改良蒸汽机 | eu | `industry` | `industry` |  |
 | 1776 | `declaration-of-independence` | 美国独立宣言 | na | `modern-founding` | `modern-founding` |  |
+| 1778 | `cook-reaches-hawaii` | 库克抵达夏威夷 | oc | `caravel` | `caravel` |  |
 | 1787 | `us-constitution` | 美国制宪会议 | na | `city-earlymodern` | `city-earlymodern` |  |
 | 1789 | `french-revolution` | 法国大革命 | eu | `revolution` | `revolution` | ★ |
 | 1791 | `haitian-revolution` | 海地革命 | la | `revolution` | `revolution` |  |
@@ -344,6 +353,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1885 | `congo-free-state` | 刚果自由邦 | af | `naval` | `naval` |  |
 | 1885 | `indian-national-congress` | 印度国民大会党成立 | sa | `modern-founding` | `modern-founding` |  |
 | 1889 | `brazilian-republic` | 巴西共和国 | la | `revolution` | `revolution` |  |
+| 1893 | `overthrow-of-the-kingdom-of-hawaii` | 夏威夷王国覆灭 | oc | `revolution` | `revolution` |  |
 | 1893 | `women-win-the-vote-in-new-zealand` | 新西兰女性获得选举权 | oc | `city-earlymodern` | `city-earlymodern` |  |
 | 1896 | `battle-of-adwa` | 阿杜瓦战役 | af | `cannon` | `cannon` |  |
 | 1898 | `puerto-rico-modern-status` | 波多黎各 · 现代地位确立 | na | `city-earlymodern` | `city-earlymodern` |  |

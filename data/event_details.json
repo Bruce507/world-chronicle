@@ -2762,5 +2762,442 @@
         "url": "https://encyclopedia.ushmm.org/content/en/article/auschwitz"
       }
     ]
+  },
+  "marco-polo-bridge-incident": {
+    "title": {
+      "zh": "卢沟桥事变",
+      "en": "Marco Polo Bridge Incident"
+    },
+    "date": {
+      "iso": "1937-07-07",
+      "zh": "1937年7月7日",
+      "en": "7 July 1937"
+    },
+    "place": {
+      "zh": "中国北平西南 · 卢沟桥",
+      "en": "Marco Polo Bridge, southwest of Beiping, China",
+      "lat": 39.849,
+      "lon": 116.213
+    },
+    "actors": [
+      {
+        "zh": "中国",
+        "en": "China"
+      },
+      {
+        "zh": "日本",
+        "en": "Japan"
+      }
+    ],
+    "background": {
+      "zh": "1931年九一八事变后，日本控制中国东北并不断向华北渗透。1937年7月7日夜，日军在卢沟桥附近演习，以一名士兵失踪为由要求进入宛平城搜查。",
+      "en": "After the Mukden Incident of 1931, Japan controlled Manchuria and pressed into northern China. On the night of 7 July 1937, Japanese troops on exercise near the Marco Polo Bridge demanded entry to Wanping to search for a missing soldier."
+    },
+    "course": {
+      "zh": "中国守军拒绝日军进城，双方交火。事变后日军不断增兵，7月底攻占北平、天津；中国方面由第29军局部抵抗转向全国动员。",
+      "en": "Chinese defenders refused entry and fighting broke out. Japan reinforced and took Beiping and Tianjin by late July, while China moved from local resistance by the 29th Army to national mobilisation."
+    },
+    "outcome": {
+      "zh": "卢沟桥事变成为全民族抗战的起点；国共两党走向合作，抗日民族统一战线形成。它也被视为第二次世界大战亚洲战场的开端之一。",
+      "en": "The incident became the starting point of China's full-scale War of Resistance; the KMT and CCP moved toward cooperation and a united front. It is also widely treated as the opening of World War II in Asia."
+    },
+    "chain": [
+      "battle-of-shanghai",
+      "nanjing-massacre",
+      "battle-of-taierzhuang"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "CN",
+        "JP"
+      ],
+      "year": 1937,
+      "priority": 100
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Britannica — Marco Polo Bridge Incident",
+        "url": "https://www.britannica.com/event/Marco-Polo-Bridge-Incident"
+      },
+      {
+        "label": "Britannica — Second Sino-Japanese War",
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+      }
+    ]
+  },
+  "nanjing-massacre": {
+    "title": {
+      "zh": "南京大屠杀",
+      "en": "Nanjing Massacre"
+    },
+    "date": {
+      "iso": "1937-12-13",
+      "zh": "1937年12月13日起",
+      "en": "From 13 December 1937"
+    },
+    "place": {
+      "zh": "中国南京",
+      "en": "Nanjing, China",
+      "lat": 32.06,
+      "lon": 118.8
+    },
+    "actors": [
+      {
+        "zh": "日本帝国军队",
+        "en": "Imperial Japanese Army"
+      },
+      {
+        "zh": "南京平民与战俘",
+        "en": "Nanjing civilians and prisoners of war"
+      }
+    ],
+    "background": {
+      "zh": "淞沪会战结束后，日军向中国首都南京推进。中国军队在装备与补给劣势下撤退，大量平民滞留城内。",
+      "en": "After the Battle of Shanghai, Japanese forces advanced on Nanjing, China's capital. Chinese troops withdrew under severe equipment and supply disadvantages, leaving large civilian populations in the city."
+    },
+    "course": {
+      "zh": "1937年12月13日南京陷落后，日军在数周内对平民和战俘实施大规模屠杀、强奸、纵火与劫掠。留在城内的国际人士建立“南京安全区”，留下了日记、影像与证词。",
+      "en": "After Nanjing fell on 13 December 1937, Japanese forces carried out mass killings, rape, arson and looting against civilians and prisoners over several weeks. International residents established the Nanjing Safety Zone and left diaries, photographs and testimony."
+    },
+    "outcome": {
+      "zh": "死亡人数长期存在不同估计，从数万到三十万以上；远东国际军事法庭与南京军事法庭均认定发生了大规模暴行。南京大屠杀成为中国与东亚战争记忆的核心事件，也是当代历史争议的焦点之一。",
+      "en": "Death-toll estimates have long varied from tens of thousands to over 300,000; the International Military Tribunal for the Far East and the Nanjing War Crimes Tribunal both found that large-scale atrocities occurred. The massacre remains central to Chinese and East Asian war memory and to contemporary historical disputes."
+    },
+    "chain": [
+      "battle-of-shanghai",
+      "marco-polo-bridge-incident"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "CN",
+        "JP"
+      ],
+      "year": 1937,
+      "priority": 100
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Britannica — Nanjing Massacre",
+        "url": "https://www.britannica.com/event/Nanjing-Massacre"
+      },
+      {
+        "label": "USHMM — Nanjing Massacre",
+        "url": "https://encyclopedia.ushmm.org/content/en/article/nanjing-massacre"
+      }
+    ]
+  },
+  "aceh-sultanate": {
+    "title": {
+      "zh": "亚齐苏丹国",
+      "en": "Aceh Sultanate"
+    },
+    "date": {
+      "iso": "1496",
+      "zh": "约1496年",
+      "en": "c. 1496"
+    },
+    "place": {
+      "zh": "苏门答腊北端 · 班达亚齐",
+      "en": "Northern Sumatra, Banda Aceh",
+      "lat": 5.55,
+      "lon": 95.32
+    },
+    "actors": [
+      {
+        "zh": "亚齐苏丹国",
+        "en": "Aceh Sultanate"
+      },
+      {
+        "zh": "葡萄牙商人",
+        "en": "Portuguese traders"
+      },
+      {
+        "zh": "马来诸港",
+        "en": "Malay port polities"
+      }
+    ],
+    "background": {
+      "zh": "马六甲海峡是印度洋与南海之间的香料与胡椒通道。13—15世纪伊斯兰教沿商路传入苏门答腊北端，为亚齐的兴起提供了宗教与商业网络。",
+      "en": "The Malacca Strait was the spice and pepper corridor between the Indian Ocean and the South China Sea. Islam spread along the trade routes to northern Sumatra in the 13th–15th centuries, providing the religious and commercial networks behind Aceh's rise."
+    },
+    "course": {
+      "zh": "阿里·穆加亚特·沙建立亚齐苏丹国，控制苏门答腊北端的胡椒产地与港口。1511年葡萄牙攻占马六甲后，许多穆斯林商人转往亚齐，亚齐遂成为海峡西口的主要伊斯兰商港；17世纪伊斯坎达尔·穆达时期达到鼎盛。",
+      "en": "Ali Mughayat Syah founded the sultanate and controlled the pepper-growing hinterland and ports of northern Sumatra. After Portugal took Malacca in 1511, many Muslim merchants shifted to Aceh, which became the leading Islamic port at the western mouth of the strait and peaked under Iskandar Muda in the 17th century."
+    },
+    "outcome": {
+      "zh": "亚齐长期保持独立，直到19世纪亚齐战争后被荷兰征服。其伊斯兰学术传统、港口贸易与抗荷记忆深刻塑造了今日亚齐的地方认同；印尼现给予亚齐特别自治地位。",
+      "en": "Aceh remained independent until the Dutch conquest after the Aceh War of the 19th century. Its Islamic scholarship, port trade and memory of resistance shaped modern Acehnese identity; Indonesia now grants Aceh special autonomy."
+    },
+    "chain": [
+      "portuguese-capture-malacca"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "ID"
+      ],
+      "year": 1496,
+      "priority": 80
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Britannica — Aceh",
+        "url": "https://www.britannica.com/place/Aceh"
+      },
+      {
+        "label": "Britannica — Indonesia",
+        "url": "https://www.britannica.com/place/Indonesia"
+      }
+    ]
+  },
+  "monte-alban-and-the-zapotec": {
+    "title": {
+      "zh": "蒙特阿尔班与萨波特克",
+      "en": "Monte Albán and the Zapotec"
+    },
+    "date": {
+      "iso": "-500",
+      "zh": "约公元前500年",
+      "en": "c. 500 BCE"
+    },
+    "place": {
+      "zh": "墨西哥瓦哈卡谷地 · 蒙特阿尔班",
+      "en": "Monte Albán, Oaxaca Valley, Mexico",
+      "lat": 17.04,
+      "lon": -96.77
+    },
+    "actors": [
+      {
+        "zh": "萨波特克人",
+        "en": "Zapotec"
+      },
+      {
+        "zh": "瓦哈卡谷地诸聚落",
+        "en": "Oaxaca valley communities"
+      }
+    ],
+    "background": {
+      "zh": "瓦哈卡谷地由多个农耕聚落组成。约公元前500年，萨波特克人在谷地中央的山顶营建大型仪式与行政中心，整合周边人口。",
+      "en": "The Oaxaca Valley was home to several farming communities. Around 500 BCE the Zapotec built a large ceremonial and administrative centre on a hilltop at the centre of the valley, integrating the surrounding population."
+    },
+    "course": {
+      "zh": "蒙特阿尔班拥有规划过的广场、神庙、球场与宫殿，山坡上修建梯田与住宅。萨波特克人发展出历法、象形文字与黑陶传统，城市在全盛期可能居住两万余人。",
+      "en": "Monte Albán had a planned plaza, temples, a ball court and palaces, with terraces and residences on the slopes. The Zapotec developed a calendar, hieroglyphic writing and black pottery; the city may have housed more than 20,000 people at its height."
+    },
+    "outcome": {
+      "zh": "城市在公元8世纪前后逐渐衰落，但蒙特阿尔班长期被后世米斯特克人继续使用。1987年列入联合国教科文组织世界遗产，是理解前哥伦布美洲城市文明的关键遗址。",
+      "en": "The city declined around the 8th century CE, though later Mixtec groups continued to use the site. It became a UNESCO World Heritage Site in 1987 and is a key site for understanding pre-Columbian urban civilisation."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "MX"
+      ],
+      "year": -500,
+      "priority": 80
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Britannica — Monte Albán",
+        "url": "https://www.britannica.com/place/Monte-Alban"
+      },
+      {
+        "label": "UNESCO — Monte Albán",
+        "url": "https://whc.unesco.org/en/list/415"
+      }
+    ]
+  },
+  "india-pakistan-nuclear-tests": {
+    "title": {
+      "zh": "印巴核试验",
+      "en": "India-Pakistan Nuclear Tests"
+    },
+    "date": {
+      "iso": "1998-05",
+      "zh": "1998年5月",
+      "en": "May 1998"
+    },
+    "place": {
+      "zh": "印度波克兰 / 巴基斯坦恰盖",
+      "en": "Pokhran, India / Chagai, Pakistan",
+      "lat": 27.09,
+      "lon": 71.75
+    },
+    "actors": [
+      {
+        "zh": "印度",
+        "en": "India"
+      },
+      {
+        "zh": "巴基斯坦",
+        "en": "Pakistan"
+      },
+      {
+        "zh": "国际社会",
+        "en": "International community"
+      }
+    ],
+    "background": {
+      "zh": "印度在1974年进行过一次“和平核爆炸”，巴基斯坦则长期寻求对等能力。1996年《全面禁止核试验条约》开放签署，但印巴均未加入，南亚安全困境持续。",
+      "en": "India conducted a 'peaceful nuclear explosion' in 1974, while Pakistan long sought a matching capability. The Comprehensive Nuclear-Test-Ban Treaty opened for signature in 1996, but neither India nor Pakistan joined, and South Asia's security dilemma persisted."
+    },
+    "course": {
+      "zh": "1998年5月11日和13日，印度在波克兰进行多次地下核试验；5月28日，巴基斯坦在恰盖进行核试验作为回应。两国随后宣布具备核武器能力，国际社会实施制裁并推动对话。",
+      "en": "On 11 and 13 May 1998 India conducted a series of underground tests at Pokhran; on 28 May Pakistan responded with tests at Chagai. Both declared nuclear-weapon capabilities, prompting sanctions and diplomatic engagement."
+    },
+    "outcome": {
+      "zh": "南亚进入公开核威慑时代。1999年《拉合尔宣言》短暂缓和局势，但1999年卡吉尔冲突与后续危机显示核威慑下的常规冲突风险仍在。核供应国集团对印巴实施出口限制，地区核治理至今是国际安全的核心议题。",
+      "en": "South Asia entered an era of open nuclear deterrence. The 1999 Lahore Declaration briefly eased tensions, but the Kargil conflict and later crises showed that conventional conflict remains possible under nuclear deterrence. Nuclear Suppliers Group restrictions and regional nuclear governance remain central security issues."
+    },
+    "chain": [
+      "partition-of-india"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "IN",
+        "PK"
+      ],
+      "year": 1998,
+      "priority": 85
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "UN Security Council — Resolution 1172 (1998)",
+        "url": "https://docs.un.org/en/S/RES/1172(1998)"
+      },
+      {
+        "label": "Arms Control Association — India and Pakistan nuclear tests",
+        "url": "https://www.armscontrol.org/factsheets/IndiaPakistanNuclearTests"
+      }
+    ]
+  },
+  "mumbai-attacks": {
+    "title": {
+      "zh": "孟买袭击",
+      "en": "Mumbai Attacks"
+    },
+    "date": {
+      "iso": "2008-11-26",
+      "zh": "2008年11月26—29日",
+      "en": "26–29 November 2008"
+    },
+    "place": {
+      "zh": "印度孟买",
+      "en": "Mumbai, India",
+      "lat": 18.94,
+      "lon": 72.83
+    },
+    "actors": [
+      {
+        "zh": "武装袭击者",
+        "en": "Armed attackers"
+      },
+      {
+        "zh": "印度安全部队",
+        "en": "Indian security forces"
+      },
+      {
+        "zh": "孟买平民",
+        "en": "Mumbai civilians"
+      }
+    ],
+    "background": {
+      "zh": "2000年代以来，南亚城市恐怖袭击频发。孟买是印度金融与媒体中心，火车站、酒店与宗教场所人流密集，安全防护面临挑战。",
+      "en": "South Asia saw repeated urban terrorist attacks from the 2000s. Mumbai, India's financial and media centre, concentrates railway stations, hotels and religious sites, making protection difficult."
+    },
+    "course": {
+      "zh": "2008年11月26日晚，十名武装分子乘船抵达孟买，袭击贾特拉帕蒂·希瓦吉火车站、泰姬陵酒店、奥贝罗伊酒店与纳里曼大楼等目标。印度国家安全卫队展开约60小时清剿，事件于29日结束。",
+      "en": "On the evening of 26 November 2008, ten attackers arrived in Mumbai by boat and struck Chhatrapati Shivaji Terminus, the Taj and Oberoi hotels, Nariman House and other targets. India's National Security Guard mounted a roughly 60-hour operation that ended on 29 November."
+    },
+    "outcome": {
+      "zh": "袭击造成166人死亡、300余人受伤。印度指责巴基斯坦境内的武装组织策划袭击，南亚关系一度紧张；印度随后加强海岸安全、城市警务与反恐协调。孟买以纪念碑与年度悼念铭记遇难者。",
+      "en": "The attacks killed 166 people and injured more than 300. India blamed a Pakistan-based militant group, sharply raising regional tensions; India subsequently strengthened coastal security, urban policing and counter-terrorism coordination. Mumbai commemorates the victims with memorials and annual observances."
+    },
+    "chain": [
+      "partition-of-india"
+    ],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "IN"
+      ],
+      "year": 2008,
+      "priority": 85
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Britannica — Mumbai terrorist attacks of 2008",
+        "url": "https://www.britannica.com/event/Mumbai-terrorist-attacks-of-2008"
+      }
+    ]
+  },
+  "mexico-city-earthquake": {
+    "title": {
+      "zh": "墨西哥城地震",
+      "en": "Mexico City Earthquake"
+    },
+    "date": {
+      "iso": "1985-09-19",
+      "zh": "1985年9月19日",
+      "en": "19 September 1985"
+    },
+    "place": {
+      "zh": "墨西哥墨西哥城",
+      "en": "Mexico City, Mexico",
+      "lat": 19.43,
+      "lon": -99.13
+    },
+    "actors": [
+      {
+        "zh": "墨西哥城居民",
+        "en": "Mexico City residents"
+      },
+      {
+        "zh": "墨西哥政府",
+        "en": "Mexican government"
+      },
+      {
+        "zh": "民间救援队",
+        "en": "Civilian rescue brigades"
+      }
+    ],
+    "background": {
+      "zh": "墨西哥城建于古湖床之上，松软的湖积土会放大地震波。20世纪后期城市人口与高层建筑快速增长，抗震规范与应急体系尚未充分成熟。",
+      "en": "Mexico City is built on a former lakebed whose soft sediments amplify seismic waves. Rapid late-20th-century population and high-rise growth outpaced building codes and emergency systems."
+    },
+    "course": {
+      "zh": "1985年9月19日上午，墨西哥太平洋沿岸发生8.0级地震，墨西哥城大量中高层建筑倒塌，医院、学校与政府大楼受损。市民自发组成救援队，在废墟中搜寻幸存者；余震与救援持续数日。",
+      "en": "On the morning of 19 September 1985 an magnitude 8.0 earthquake struck off Mexico's Pacific coast, collapsing many mid- and high-rise buildings in Mexico City and damaging hospitals, schools and government offices. Citizens formed rescue brigades to search the rubble, and aftershocks and rescue work continued for days."
+    },
+    "outcome": {
+      "zh": "死亡人数估计从数千到一万以上不等，数十万人无家可归。灾后墨西哥修订建筑规范、建立民防体系，并把9月19日作为全国防灾演练日；这场地震也成为拉美城市灾难记忆与公民动员的重要象征。",
+      "en": "Death-toll estimates range from several thousand to over 10,000, with hundreds of thousands left homeless. Mexico revised building codes, built a civil-protection system and turned 19 September into a national drill day; the earthquake became a symbol of urban disaster memory and civic mobilisation in Latin America."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "MX"
+      ],
+      "year": 1985,
+      "priority": 75
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Britannica — Mexico City earthquake of 1985",
+        "url": "https://www.britannica.com/event/Mexico-City-earthquake-of-1985"
+      }
+    ]
   }
 }

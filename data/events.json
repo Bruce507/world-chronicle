@@ -15624,5 +15624,282 @@
       "fr": "Dans les années 2000, des gouvernements de gauche accèdent au pouvoir au Brésil, au Venezuela, en Bolivie et ailleurs, élargissent les dépenses sociales grâce au boom des matières premières et affrontent polarisation et conflits de gouvernance.",
       "ar": "في العقد الأول من القرن الحادي والعشرين وصلت حكومات يسارية إلى السلطة في البرازيل وفنزويلا وبوليفيا وغيرها، ووسّعت الإنفاق الاجتماعي مع ازدهار السلع الأساسية، وواجهت استقطابًا وخلافات حوكمة."
     }
+  },
+{
+    "y": 1500,
+    "lat": 39.77,
+    "lon": 64.42,
+    "c": "UZ",
+    "rg": "ca",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "布哈拉汗国",
+      "Khanate of Bukhara"
+    ],
+    "d": [
+      "昔班尼汗击败帖木儿后裔，以布哈拉为中心建立汗国；它控制河中绿洲与丝路商道，与萨非、奥斯曼和莫卧儿长期互动。",
+      "Shaybani Khan defeats the Timurids and founds a khanate centred on Bukhara, controlling the oases and caravan routes of Transoxiana between the Safavids, Ottomans and Mughals."
+    ],
+    "tx": {
+      "es": "Kanato de Bujará",
+      "fr": "Khanat de Boukhara",
+      "ar": "خانية بخارى"
+    },
+    "dx": {
+      "es": "Shaybani Kan derrota a los timúridas y funda un kanato centrado en Bujará, que controla los oasis y las rutas de caravanas de Transoxiana entre safávidas, otomanos y mogoles.",
+      "fr": "Shaybani Khan bat les Timourides et fonde un khanat centré sur Boukhara, contrôlant les oasis et les routes caravanières de Transoxiane entre Safavides, Ottomans et Moghols.",
+      "ar": "هزم شيباني خان أحفاد تيمور وأسس خانية مركزها بخارى، سيطرت على واحات وطرق قوافل ما وراء النهر بين الصفويين والعثمانيين والمغول."
+    }
+  },
+{
+    "y": 1710,
+    "lat": 40.53,
+    "lon": 70.94,
+    "c": "UZ",
+    "rg": "ca",
+    "k": "politics",
+    "s": "city",
+    "t": [
+      "浩罕汗国",
+      "Kokand Khanate"
+    ],
+    "d": [
+      "费尔干纳谷地的浩罕汗国在18—19世纪成为中亚重要商贸与宗教中心，控制通往喀什噶尔的商路，直至1876年为俄国所并。",
+      "The Kokand Khanate in the Ferghana valley becomes a major Central Asian trading and religious centre in the 18th–19th centuries, controlling routes to Kashgar until its annexation by Russia in 1876."
+    ],
+    "tx": {
+      "es": "Kanato de Kokand",
+      "fr": "Khanat de Kokand",
+      "ar": "خانية خوقند"
+    },
+    "dx": {
+      "es": "El kanato de Kokand, en el valle de Fergana, se convierte en un centro comercial y religioso de Asia Central en los siglos XVIII-XIX y controla las rutas hacia Kashgar hasta su anexión por Rusia en 1876.",
+      "fr": "Le khanat de Kokand, dans la vallée de Ferghana, devient un grand centre commercial et religieux d’Asie centrale aux XVIIIe-XIXe siècles et contrôle les routes vers Kachgar jusqu’à son annexion par la Russie en 1876.",
+      "ar": "أصبحت خانية خوقند في وادي فرغانة مركزًا تجاريًا ودينيًا مهمًا في آسيا الوسطى في القرنين الثامن عشر والتاسع عشر، وسيطرت على طرق كاشغر حتى ضمّتها روسيا عام 1876."
+    }
+  },
+{
+    "y": 1747,
+    "lat": 31.61,
+    "lon": 65.7,
+    "c": "AF",
+    "rg": "sa",
+    "k": "politics",
+    "s": "cavalry",
+    "f": 1,
+    "t": [
+      "杜兰尼帝国",
+      "Durrani Empire"
+    ],
+    "d": [
+      "艾哈迈德沙·杜兰尼在坎大哈建立帝国，统一普什图诸部并多次远征印度；它被视为现代阿富汗国家形成的关键起点。",
+      "Ahmad Shah Durrani founds an empire at Kandahar, uniting Pashtun tribes and campaigning into India; it is widely seen as a key origin of the modern Afghan state."
+    ],
+    "tx": {
+      "es": "Imperio durrani",
+      "fr": "Empire durrani",
+      "ar": "الإمبراطورية الدرانية"
+    },
+    "dx": {
+      "es": "Ahmad Shah Durrani funda un imperio en Kandahar, une tribus pastunes y campa en la India; se considera un origen clave del Estado afgano moderno.",
+      "fr": "Ahmad Shah Durrani fonde un empire à Kandahar, unit les tribus pachtounes et mène des campagnes en Inde ; il est considéré comme une origine clé de l’État afghan moderne.",
+      "ar": "أسس أحمد شاه الدراني إمبراطورية في قندهار، ووحّد القبائل البشتونية وحملاته إلى الهند؛ ويُعد أصلًا رئيسيًا للدولة الأفغانية الحديثة."
+    }
+  },
+{
+    "y": 1578,
+    "lat": 35.02,
+    "lon": -5.98,
+    "c": "MA",
+    "rg": "af",
+    "k": "war",
+    "s": "cavalry",
+    "f": 1,
+    "t": [
+      "三王战役",
+      "Battle of Alcácer Quibir"
+    ],
+    "d": [
+      "葡萄牙国王塞巴斯蒂昂在摩洛哥三王战役中阵亡，葡萄牙王位继承危机随之爆发；这场战役改变了北非与伊比利亚的权力格局。",
+      "King Sebastian of Portugal dies at Alcácer Quibir in Morocco, triggering a Portuguese succession crisis and reshaping power in North Africa and Iberia."
+    ],
+    "tx": {
+      "es": "Batalla de Alcazarquivir",
+      "fr": "Bataille d’Alcácer-Quibir",
+      "ar": "معركة القصر الكبير"
+    },
+    "dx": {
+      "es": "El rey Sebastián de Portugal muere en Alcazarquivir, en Marruecos, y desencadena una crisis sucesoria que transforma el poder en el norte de África y la península ibérica.",
+      "fr": "Le roi Sébastien de Portugal meurt à Alcácer-Quibir, au Maroc, provoquant une crise successorale qui transforme les rapports de force en Afrique du Nord et dans la péninsule Ibérique.",
+      "ar": "مات سيباستيان ملك البرتغال في معركة القصر الكبير بالمغرب، فأثار أزمة خلافة غيّرت موازين القوى في شمال أفريقيا وشبه الجزيرة الأيبيرية."
+    }
+  },
+{
+    "y": 1639,
+    "lat": 34.5,
+    "lon": 45.5,
+    "c": "IQ",
+    "rg": "me",
+    "k": "politics",
+    "s": "musket",
+    "t": [
+      "祖哈布和约",
+      "Treaty of Zuhab"
+    ],
+    "d": [
+      "奥斯曼与萨非王朝签订祖哈布和约，结束长期战争并划定两河与伊朗高原的边界；该边界格局影响后世数百年。",
+      "The Ottomans and Safavids sign the Treaty of Zuhab, ending a long war and fixing a frontier between Mesopotamia and the Iranian plateau that shaped later centuries."
+    ],
+    "tx": {
+      "es": "Tratado de Zuhab",
+      "fr": "Traité de Zuhab",
+      "ar": "معاهدة زهاب"
+    },
+    "dx": {
+      "es": "Otomanos y safávidas firman el Tratado de Zuhab, que pone fin a una larga guerra y fija una frontera entre Mesopotamia y la meseta iraní que marcó los siglos posteriores.",
+      "fr": "Ottomans et Safavides signent le traité de Zuhab, qui met fin à une longue guerre et fixe une frontière entre Mésopotamie et plateau iranien, durable pendant des siècles.",
+      "ar": "وقّع العثمانيون والصفويون معاهدة زهاب، فأنهت حربًا طويلة وحدّدت حدودًا بين بلاد الرافدين والهضبة الإيرانية أثّرت في القرون التالية."
+    }
+  },
+{
+    "y": 1600,
+    "lat": 51.51,
+    "lon": -0.09,
+    "c": "GB",
+    "rg": "eu",
+    "k": "trade",
+    "s": "ship",
+    "f": 1,
+    "t": [
+      "英国东印度公司成立",
+      "English East India Company"
+    ],
+    "d": [
+      "伦敦商人获王室特许成立东印度公司，垄断好望角以东贸易；它后来从商馆发展为统治南亚大片地区的准国家力量。",
+      "London merchants receive a royal charter for the East India Company, monopolising trade beyond the Cape of Good Hope; it grows from trading posts into a quasi-state ruling much of South Asia."
+    ],
+    "tx": {
+      "es": "Compañía Británica de las Indias Orientales",
+      "fr": "Compagnie anglaise des Indes orientales",
+      "ar": "شركة الهند الشرقية الإنجليزية"
+    },
+    "dx": {
+      "es": "Comerciantes de Londres obtienen una carta real para la Compañía de las Indias Orientales y el monopolio del comercio más allá del cabo de Buena Esperanza; la compañía pasa de factorías a un cuasi-Estado que gobierna gran parte del sur de Asia.",
+      "fr": "Des marchands londoniens obtiennent une charte royale pour la Compagnie des Indes orientales et le monopole du commerce au-delà du cap de Bonne-Espérance ; elle passe de comptoirs à un quasi-État gouvernant une grande partie de l’Asie du Sud.",
+      "ar": "حصل تجار لندن على امتياز ملكي لشركة الهند الشرقية واحتكار التجارة شرق رأس الرجاء الصالح؛ وتحولت من مراكز تجارية إلى شبه دولة تحكم جزءًا كبيرًا من جنوب آسيا."
+    }
+  },
+{
+    "y": 1778,
+    "lat": 21.3,
+    "lon": -157.9,
+    "c": "US",
+    "rg": "oc",
+    "k": "exploration",
+    "s": "ship",
+    "f": 1,
+    "t": [
+      "库克抵达夏威夷",
+      "Cook Reaches Hawaii"
+    ],
+    "d": [
+      "库克船队在太平洋航行中抵达夏威夷群岛，欧洲人与夏威夷王国的首次持续接触由此开始，也带来疾病、贸易与殖民压力。",
+      "Cook's expedition reaches the Hawaiian Islands during its Pacific voyage, beginning sustained European contact with the Kingdom of Hawaii — and bringing disease, trade and colonial pressure."
+    ],
+    "tx": {
+      "es": "Cook llega a Hawái",
+      "fr": "Cook atteint Hawaï",
+      "ar": "وصول كوك إلى هاواي"
+    },
+    "dx": {
+      "es": "La expedición de Cook llega a las islas Hawái durante su viaje por el Pacífico, iniciando un contacto europeo sostenido con el Reino de Hawái, junto con enfermedades, comercio y presión colonial.",
+      "fr": "L’expédition de Cook atteint les îles Hawaï lors de son voyage dans le Pacifique, inaugurant un contact européen durable avec le royaume d’Hawaï, avec maladies, commerce et pression coloniale.",
+      "ar": "وصلت بعثة كوك إلى جزر هاواي خلال رحلتها في المحيط الهادئ، فبدأ اتصال أوروبي مستمر مع مملكة هاواي، جالبًا الأمراض والتجارة والضغط الاستعماري."
+    }
+  },
+{
+    "y": 1893,
+    "lat": 21.3,
+    "lon": -157.86,
+    "c": "US",
+    "rg": "oc",
+    "k": "politics",
+    "s": "protest",
+    "t": [
+      "夏威夷王国覆灭",
+      "Overthrow of the Kingdom of Hawaii"
+    ],
+    "d": [
+      "美国糖业种植者与商人推翻夏威夷女王利留卡拉尼，建立临时政府；五年后夏威夷被美国吞并，原住民主权运动延续至今。",
+      "American sugar planters and businessmen overthrow Queen Liliʻuokalani and form a provisional government; five years later Hawaii is annexed by the United States, while Native Hawaiian sovereignty movements continue."
+    ],
+    "tx": {
+      "es": "Derrocamiento del Reino de Hawái",
+      "fr": "Renversement du royaume d’Hawaï",
+      "ar": "الإطاحة بمملكة هاواي"
+    },
+    "dx": {
+      "es": "Plantadores y comerciantes estadounidenses derrocan a la reina Liliʻuokalani y forman un gobierno provisional; cinco años después Hawái es anexado por Estados Unidos, mientras los movimientos de soberanía nativa continúan.",
+      "fr": "Des planteurs et hommes d’affaires américains renversent la reine Liliʻuokalani et forment un gouvernement provisoire ; cinq ans plus tard, Hawaï est annexé par les États-Unis, tandis que les mouvements de souveraineté autochtone persistent.",
+      "ar": "أطاح مزارعو وتجار السكر الأمريكيون بالملكة ليليوكالاني وشكّلوا حكومة مؤقتة؛ وبعد خمس سنوات ضمّت الولايات المتحدة هاواي، بينما تستمر حركات السيادة الأصلية."
+    }
+  },
+{
+    "y": 950,
+    "lat": 20.06,
+    "lon": -99.34,
+    "c": "MX",
+    "rg": "la",
+    "k": "city",
+    "s": "temple",
+    "v": "pyramid",
+    "f": 1,
+    "t": [
+      "托尔特克与图拉",
+      "Toltec and Tula"
+    ],
+    "d": [
+      "图拉成为托尔特克人的都城，武士柱廊与羽蛇神庙影响后世中美美洲的城邦想象；托尔特克传统后来被阿兹特克人追认为正统源头。",
+      "Tula becomes the Toltec capital, its warrior columns and Feathered Serpent temple shaping later Mesoamerican civic imagery; the Toltec tradition is later claimed by the Aztecs as a source of legitimacy."
+    ],
+    "tx": {
+      "es": "Toltecas y Tula",
+      "fr": "Toltèques et Tula",
+      "ar": "التولتك وتولا"
+    },
+    "dx": {
+      "es": "Tula se convierte en la capital tolteca; sus columnas de guerreros y el templo de la Serpiente Emplumada influyen en la imaginería cívica mesoamericana posterior, y los aztecas reivindican la tradición tolteca como fuente de legitimidad.",
+      "fr": "Tula devient la capitale toltèque ; ses colonnes de guerriers et son temple du Serpent à plumes marquent l’imaginaire civique mésoaméricain, et les Aztèques revendiquent plus tard la tradition toltèque comme source de légitimité.",
+      "ar": "أصبحت تولا عاصمة التولتك، وأثّرت أعمدة المحاربين ومعبد الأفعى المكسوة بالريش في تصورات المدن في أمريكا الوسطى لاحقًا، وادّعى الأزتك لاحقًا تراث التولتك مصدرًا للشرعية."
+    }
+  },
+{
+    "y": 1200,
+    "lat": 17.3,
+    "lon": -97.7,
+    "c": "MX",
+    "rg": "la",
+    "k": "culture",
+    "s": "city",
+    "t": [
+      "米斯特克手抄本",
+      "Mixtec Codices"
+    ],
+    "d": [
+      "米斯特克人用图画文字记录谱系、战争与仪式，手抄本在殖民时期部分留存，成为理解前哥伦布美洲历史与语言的关键材料。",
+      "Mixtec painters record genealogies, wars and rituals in pictographic codices; some survive the colonial period and become key sources for pre-Columbian history and language."
+    ],
+    "tx": {
+      "es": "Códices mixtecos",
+      "fr": "Codex mixtèques",
+      "ar": "مخطوطات الميكستيك"
+    },
+    "dx": {
+      "es": "Los pintores mixtecos registran genealogías, guerras y rituales en códices pictográficos; algunos sobreviven al periodo colonial y se vuelven fuentes clave para la historia y la lengua precolombinas.",
+      "fr": "Les peintres mixtèques consignent généalogies, guerres et rituels dans des codex pictographiques ; certains survivent à la période coloniale et deviennent des sources clés de l’histoire et des langues précolombiennes.",
+      "ar": "سجّل رسامو الميكستيك الأنساب والحروب والطقوس في مخطوطات مصورة؛ وقد نجا بعضها من الحقبة الاستعمارية وأصبح مصدرًا رئيسيًا لتاريخ ولغات أمريكا قبل كولومبوس."
+    }
   }
 ]

@@ -95,7 +95,7 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 
 - 3 家族 × 5 变体试点（建议：modern-founding、siege、caravel）。
 - 参数引擎上线；再做 100–150 个变体。
-- 不改变 `data/scene_variants.json` 的 511 条家族映射；变体是可选覆盖。
+- 不改变 `data/scene_variants.json` 的 521 条家族映射；变体是可选覆盖。
 
 ### Phase 4 · Tier C 家族基线
 

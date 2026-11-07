@@ -1,59 +1,171 @@
 [
   {
     "id": "asia",
-    "name": { "zh": "亚洲", "en": "Asia" },
-    "center": [32, 92],
+    "name": {
+      "zh": "亚洲",
+      "en": "Asia",
+      "es": "Asia",
+      "fr": "Asie",
+      "ar": "آسيا"
+    },
+    "center": [
+      32,
+      92
+    ],
     "zoom": 1.55,
-    "bbox": [73, 22, 135, 56]
+    "bbox": [
+      73,
+      22,
+      135,
+      56
+    ]
   },
   {
     "id": "europe",
-    "name": { "zh": "欧洲", "en": "Europe" },
-    "center": [51, 15],
+    "name": {
+      "zh": "欧洲",
+      "en": "Europe",
+      "es": "Europa",
+      "fr": "Europe",
+      "ar": "أوروبا"
+    },
+    "center": [
+      51,
+      15
+    ],
     "zoom": 2.05,
-    "bbox": [-25, 34, 45, 72]
+    "bbox": [
+      -25,
+      34,
+      45,
+      72
+    ]
   },
   {
     "id": "africa",
-    "name": { "zh": "非洲", "en": "Africa" },
-    "center": [5, 20],
+    "name": {
+      "zh": "非洲",
+      "en": "Africa",
+      "es": "África",
+      "fr": "Afrique",
+      "ar": "أفريقيا"
+    },
+    "center": [
+      5,
+      20
+    ],
     "zoom": 1.8,
-    "bbox": [-20, -36, 52, 38]
+    "bbox": [
+      -20,
+      -36,
+      52,
+      38
+    ]
   },
   {
     "id": "americas",
-    "name": { "zh": "美洲", "en": "Americas" },
-    "center": [12, -82],
+    "name": {
+      "zh": "美洲",
+      "en": "Americas",
+      "es": "Américas",
+      "fr": "Amériques",
+      "ar": "الأمريكتان"
+    },
+    "center": [
+      12,
+      -82
+    ],
     "zoom": 1.32,
-    "bbox": [-170, -58, -30, 72]
+    "bbox": [
+      -170,
+      -58,
+      -30,
+      72
+    ]
   },
   {
     "id": "oceania",
-    "name": { "zh": "大洋洲", "en": "Oceania" },
-    "center": [-24, 150],
+    "name": {
+      "zh": "大洋洲",
+      "en": "Oceania",
+      "es": "Oceanía",
+      "fr": "Océanie",
+      "ar": "أوقيانوسيا"
+    },
+    "center": [
+      -24,
+      150
+    ],
     "zoom": 1.95,
-    "bbox": [110, -50, 180, 0]
+    "bbox": [
+      110,
+      -50,
+      180,
+      0
+    ]
   },
   {
     "id": "middle-east",
-    "name": { "zh": "中东", "en": "Middle East" },
-    "center": [28, 45],
+    "name": {
+      "zh": "中东",
+      "en": "Middle East",
+      "es": "Oriente Medio",
+      "fr": "Moyen-Orient",
+      "ar": "الشرق الأوسط"
+    },
+    "center": [
+      28,
+      45
+    ],
     "zoom": 2.35,
-    "bbox": [25, 12, 63, 42]
+    "bbox": [
+      25,
+      12,
+      63,
+      42
+    ]
   },
   {
     "id": "southeast-asia",
-    "name": { "zh": "东南亚", "en": "Southeast Asia" },
-    "center": [6, 110],
+    "name": {
+      "zh": "东南亚",
+      "en": "Southeast Asia",
+      "es": "Sudeste Asiático",
+      "fr": "Asie du Sud-Est",
+      "ar": "جنوب شرق آسيا"
+    },
+    "center": [
+      6,
+      110
+    ],
     "zoom": 2.45,
-    "bbox": [92, -12, 141, 28]
+    "bbox": [
+      92,
+      -12,
+      141,
+      28
+    ]
   },
   {
     "id": "china-theme",
-    "name": { "zh": "中国江山时序", "en": "China Chronicle" },
-    "center": [34, 105],
+    "name": {
+      "zh": "中国江山时序",
+      "en": "China Chronicle",
+      "es": "Crónica de China",
+      "fr": "Chronique de Chine",
+      "ar": "سجل الصين"
+    },
+    "center": [
+      34,
+      105
+    ],
     "zoom": 3.05,
-    "bbox": [73, 18, 135, 54],
+    "bbox": [
+      73,
+      18,
+      135,
+      54
+    ],
     "theme": "china"
   }
 ]

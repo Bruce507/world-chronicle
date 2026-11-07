@@ -973,5 +973,20 @@
     "priority": 100,
     "minZoom": 1,
     "approx": false
+  },
+  {
+    "id": "curated-zapotec",
+    "name": {
+      "zh": "萨波特克",
+      "en": "Zapotec"
+    },
+    "type": "culture",
+    "from": -500,
+    "to": 800,
+    "lat": 17.04,
+    "lon": -96.77,
+    "priority": 86,
+    "minZoom": 1.2,
+    "approx": true
   }
 ]
