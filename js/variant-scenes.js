@@ -861,13 +861,24 @@
       ctx.beginPath(); ctx.arc(0, 0, 26, 0, TAU); ctx.fillStyle = cg; ctx.fill();
       ctx.restore();
     }
-    for (let i = 0; i < 3; i++) {
+    // horizon, sun glow and long Atlantic swell
+    ctx.strokeStyle = "rgba(232,240,226,0.22)"; ctx.lineWidth = 0.4;
+    ctx.beginPath(); ctx.moveTo(-50, -22); ctx.lineTo(50, -22); ctx.stroke();
+    glow(ctx, 22, -26, 18, "#f0d79a", 0.22);
+    for (let i = 0; i < 5; i++) {
       ctx.beginPath();
-      ctx.moveTo(-46, -4 + i * 2.6);
-      ctx.quadraticCurveTo(0, -2 + i * 2.6 + Math.sin(t * 1.4 + i) * 0.8, 46, -4 + i * 2.6);
-      ctx.strokeStyle = "rgba(232,240,226," + (0.10 + i * 0.03) + ")"; ctx.lineWidth = 0.5; ctx.stroke();
+      ctx.moveTo(-48, -6 + i * 3.2);
+      ctx.quadraticCurveTo(0, -3 + i * 3.2 + Math.sin(t * 1.4 + i) * 1.1, 48, -6 + i * 3.2);
+      ctx.strokeStyle = "rgba(232,240,226," + (0.12 + i * 0.035) + ")"; ctx.lineWidth = 0.55; ctx.stroke();
     }
-    ship(ctx, 6, -8, 0.52, t, { flag: v.flag || RED });
+    // a large flagship and a smaller consort, both under sail
+    ship(ctx, 8, -11, 1.12, t, { flag: v.flag || RED });
+    ship(ctx, -33, -13, 0.48, t + 0.6, { flag: v.flag || RED, sail: "rgba(238,226,200,0.9)" });
+    for (let i = 0; i < 6; i++) {
+      ctx.beginPath();
+      ctx.arc(30 + i * 2.6, -28 - (i % 3) * 2, 0.55, 0, TAU);
+      ctx.fillStyle = "rgba(82,72,54,0.35)"; ctx.fill();
+    }
   }
 
   /* ── family: modern-founding ───────────────────────────── */
@@ -1160,33 +1171,88 @@
 
   function modernMap(ctx, t, v) {
     const pal = PAL[v.palette] || PAL.dawn;
-    mapSky(ctx, pal, -28, 55, 0.60);
-    mapGround(ctx, "#b49c78", 0.92, -3, 55);
-    // a soft town silhouette behind the square
-    for (let i = 0; i < 8; i++) {
-      const bx = -44 + i * 11;
-      const bh = 6 + (i % 4) * 4;
-      ctx.fillStyle = "rgba(168,148,116,0.26)";
-      ctx.fillRect(bx, -16 - bh, 7, bh);
+    mapSky(ctx, pal, -28, 56, 0.62);
+    mapGround(ctx, "#b49c78", 0.94, -4, 56);
+    // town silhouette, taller at the edges so the square reads as a place
+    for (let i = 0; i < 10; i++) {
+      const bx = -48 + i * 10.5;
+      const bh = 7 + ((i * 3) % 5) * 4;
+      ctx.fillStyle = "rgba(168,148,116," + (0.24 + (i % 3) * 0.04) + ")";
+      ctx.fillRect(bx, -18 - bh, 7, bh);
       ctx.beginPath();
-      ctx.moveTo(bx - 1, -16 - bh); ctx.lineTo(bx + 3.5, -20 - bh); ctx.lineTo(bx + 8, -16 - bh);
-      ctx.closePath(); ctx.fillStyle = "rgba(150,126,92,0.24)"; ctx.fill();
+      ctx.moveTo(bx - 1.4, -18 - bh); ctx.lineTo(bx + 3.5, -23 - bh); ctx.lineTo(bx + 8.4, -18 - bh);
+      ctx.closePath(); ctx.fillStyle = "rgba(150,126,92,0.26)"; ctx.fill();
+      ctx.fillStyle = "rgba(244,228,190,0.28)";
+      for (let k = 0; k < 2; k++) ctx.fillRect(bx + 1.5, -16 - bh + k * 5, 1.6, 2.6);
     }
-    ctx.fillStyle = "rgba(226,216,194,0.96)";
-    ctx.fillRect(-14, -30, 28, 16);
-    ctx.strokeStyle = "rgba(74,60,44,0.5)"; ctx.lineWidth = 0.3;
-    ctx.strokeRect(-14, -30, 28, 16);
-    for (let i = 0; i < 5; i++) {
-      ctx.fillStyle = "rgba(240,232,214,0.97)";
-      ctx.fillRect(-11 + i * 5.2, -26, 1.4, 10);
+    // paved square in light perspective
+    ctx.strokeStyle = "rgba(110,88,60,0.18)"; ctx.lineWidth = 0.35;
+    for (let i = -5; i <= 5; i++) {
+      ctx.beginPath(); ctx.moveTo(i * 8, -6); ctx.lineTo(i * 12, 6); ctx.stroke();
     }
-    ctx.strokeStyle = "rgba(64,46,30,0.9)"; ctx.lineWidth = 0.4;
-    ctx.beginPath(); ctx.moveTo(-28, -6); ctx.lineTo(-28, -34); ctx.stroke();
     for (let i = 0; i < 3; i++) {
-      ctx.fillStyle = (v.flagCols && v.flagCols[i]) || ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"][i];
-      ctx.fillRect(-27.6 + i * 2.0, -33.6, 2.0, 4.0);
+      ctx.beginPath(); ctx.moveTo(-50, -2 + i * 3.4); ctx.lineTo(50, -2 + i * 3.4); ctx.stroke();
     }
-    for (let i = 0; i < 4; i++) p(ctx, -18 + i * 8, -5, 0.34, "rgba(58,42,26,0.98)", { phase: t + i });
+    // capitol / hall with steps, columns and pediment
+    ctx.fillStyle = "rgba(236,226,204,0.97)";
+    ctx.fillRect(-18, -32, 36, 18);
+    ctx.strokeStyle = "rgba(74,60,44,0.55)"; ctx.lineWidth = 0.35;
+    ctx.strokeRect(-18, -32, 36, 18);
+    ctx.fillStyle = "rgba(214,198,168,0.9)";
+    ctx.fillRect(-22, -14, 44, 3);
+    ctx.fillRect(-24, -11, 48, 3);
+    for (let i = 0; i < 6; i++) {
+      ctx.fillStyle = "rgba(246,238,220,0.98)";
+      ctx.fillRect(-14 + i * 5.6, -29, 1.8, 14);
+      ctx.strokeStyle = "rgba(90,70,50,0.35)"; ctx.lineWidth = 0.18;
+      ctx.strokeRect(-14 + i * 5.6, -29, 1.8, 14);
+    }
+    ctx.beginPath(); ctx.moveTo(-20, -32); ctx.lineTo(0, -42); ctx.lineTo(20, -32); ctx.closePath();
+    ctx.fillStyle = "rgba(222,204,170,0.97)"; ctx.fill();
+    ctx.strokeStyle = "rgba(74,60,44,0.5)"; ctx.lineWidth = 0.35; ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, -33, 4.6, Math.PI, TAU);
+    ctx.fillStyle = "rgba(198,170,120,0.55)"; ctx.fill();
+    // flanking banners
+    for (const [bx, col] of [[-34, v.flagCols && v.flagCols[0]], [34, v.flagCols && v.flagCols[2]]]) {
+      ctx.strokeStyle = "rgba(74,54,36,0.9)"; ctx.lineWidth = 0.7;
+      ctx.beginPath(); ctx.moveTo(bx, -4); ctx.lineTo(bx, -38); ctx.stroke();
+      const wave = Math.sin(t * 2.4 + bx) * 1.6;
+      ctx.beginPath();
+      ctx.moveTo(bx + 0.4, -37);
+      ctx.quadraticCurveTo(bx + 8 + wave, -36, bx + 11 + wave, -31);
+      ctx.lineTo(bx + 0.4, -26); ctx.closePath();
+      ctx.fillStyle = col || "rgba(168,64,44,0.9)"; ctx.fill();
+      ctx.strokeStyle = "rgba(90,60,40,0.35)"; ctx.lineWidth = 0.25; ctx.stroke();
+    }
+    // citizens: a gathering, not a row of four dots
+    for (let i = 0; i < 11; i++) {
+      const cx = -32 + i * 6.4 + Math.sin(t * 1.8 + i) * 0.8;
+      const cy = -4 + (i % 3) * 1.8;
+      const sc = 0.9 + (i % 2) * 0.12;
+      ctx.save(); ctx.translate(cx, cy); ctx.scale(sc, sc);
+      ctx.strokeStyle = "rgba(74,54,36,0.9)"; ctx.lineWidth = 0.8;
+      ctx.beginPath(); ctx.moveTo(0, -5); ctx.lineTo(-1, 0); ctx.moveTo(0, -5); ctx.lineTo(1, 0); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, -12);
+      ctx.quadraticCurveTo(-2.4, -9, -2.6, -5); ctx.lineTo(2.6, -5);
+      ctx.quadraticCurveTo(2.4, -9, 0, -12); ctx.closePath();
+      ctx.fillStyle = i % 4 === 0 ? "rgba(168,64,44,0.9)" : i % 3 === 0 ? "rgba(74,104,138,0.85)" : "rgba(112,92,72,0.92)";
+      ctx.fill();
+      ctx.beginPath(); ctx.arc(0, -13.6, 1.25, 0, TAU);
+      ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+      ctx.fillStyle = "rgba(60,46,32,0.9)"; ctx.fillRect(-1.7, -15.4, 3.4, 0.9);
+      if (i % 3 === 0) {
+        ctx.strokeStyle = "rgba(74,54,36,0.85)"; ctx.lineWidth = 0.6;
+        ctx.beginPath(); ctx.moveTo(1.4, -9); ctx.lineTo(3.6, -17 + Math.sin(t * 2 + i) * 0.5); ctx.stroke();
+      }
+      ctx.restore();
+    }
+    // confetti / sparks above the crowd
+    for (let i = 0; i < 6; i++) {
+      const q = (t * 0.25 + i * 0.16) % 1;
+      ctx.beginPath(); ctx.arc(-24 + i * 9, -20 - q * 12, 0.6 + (1 - q) * 0.5, 0, TAU);
+      ctx.fillStyle = "rgba(226,190,112," + (0.25 * (1 - q)) + ")"; ctx.fill();
+    }
   }
 
   /* ── registry ──────────────────────────────────────────── */
@@ -1226,6 +1292,24 @@
     "second-italo-ethiopian-war": { family: "siege", palette: "noon", structure: "keep", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "rocks", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
     "second-battle-of-el-alamein": { family: "siege", palette: "noon", structure: "walls", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
     "ottoman-capture-of-baghdad": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
+    /* Gate 3 seed batch (P3-2): existing families applied to prominent
+       non-Tier-B events. No new drawing code; each is a parameter variant. */
+    "fall-of-the-aztec-empire": { family: "siege", palette: "noon", structure: "walls", skyline: "city", weather: "dust", crowd: "soldiers", frame: "banner", props: ["tower"], flag: "rgba(196,150,78,0.95)" },
+    "the-spanish-armada": { family: "caravel", palette: "storm", skyline: "cliffs", weather: "storm", crowd: "sailors", frame: "hull", flag: "rgba(168,64,44,0.95)" },
+    "latin-american-independence": { family: "modern", palette: "dawn", structure: "square", crowd: "soldiers", frame: "banner", weather: "clear", props: ["statue"], flagCols: ["rgba(74,104,138,0.96)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.96)"] },
+    "revolutions-of-1848": { family: "modern", palette: "dawn", structure: "square", crowd: "citizens", frame: "banner", weather: "clear", props: ["drums"], flagCols: ["rgba(40,40,40,0.97)", "rgba(168,64,44,0.96)", "rgba(214,176,72,0.97)"] },
+    "german-unification": { family: "modern", palette: "noon", structure: "capitol", crowd: "citizens", frame: "arch", weather: "clear", props: ["statue"], flagCols: ["rgba(40,40,40,0.97)", "rgba(168,64,44,0.96)", "rgba(214,176,72,0.97)"] },
+    "haitian-revolution": { family: "modern", palette: "dusk", structure: "square", crowd: "soldiers", frame: "banner", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
+    "mexican-revolution": { family: "modern", palette: "noon", structure: "square", crowd: "soldiers", frame: "banner", weather: "dust", props: ["drums"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "xinhai-revolution": { family: "modern", palette: "dawn", structure: "square", crowd: "soldiers", frame: "banner", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.97)"] },
+    "turkish-republic": { family: "modern", palette: "noon", structure: "capitol", crowd: "citizens", frame: "arch", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.97)"] },
+    "vietnam-declares-independence": { family: "modern", palette: "dawn", structure: "square", crowd: "citizens", frame: "banner", weather: "clear", props: ["microphone"], flagCols: ["rgba(168,64,44,0.97)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.97)"] },
+    "cuban-revolution": { family: "modern", palette: "noon", structure: "square", crowd: "soldiers", frame: "banner", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "bangladesh-independence": { family: "modern", palette: "dawn", structure: "square", crowd: "citizens", frame: "banner", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
+    "iranian-revolution": { family: "modern", palette: "dusk", structure: "square", crowd: "citizens", frame: "banner", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "end-of-apartheid": { family: "modern", palette: "noon", structure: "capitol", crowd: "citizens", frame: "arch", weather: "clear", props: ["statue"], flagCols: ["rgba(88,140,90,0.96)", "rgba(214,176,72,0.97)", "rgba(40,40,40,0.97)"] },
+    "hong-kong-handover": { family: "modern", palette: "dusk", structure: "square", crowd: "citizens", frame: "arch", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.97)"] },
+    "arab-spring": { family: "modern", palette: "dawn", structure: "square", crowd: "citizens", frame: "banner", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
   };
 
   function eventById(id) {

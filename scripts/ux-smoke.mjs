@@ -42,7 +42,7 @@ try {
   check("events = 521", counts.events === 521, counts.events);
   check("scene families = 56", counts.families === 56, counts.families);
   check("Hero scenes = 32", counts.hero === 32, counts.hero);
-  check("Tier B variants = 29", counts.tierB === 29, counts.tierB);
+  check("Tier B variants = 45", counts.tierB === 45, counts.tierB);
 
   const aria = await d.getAttribute("#track", "aria-valuetext");
   check("timeline slider has aria-valuetext", !!aria && /1937/.test(aria), aria);

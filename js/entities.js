@@ -7,7 +7,7 @@
 (function () {
   "use strict";
   const BASE = "data/historical_entities.json";
-  const V = "?v=20261108t";
+  const V = "?v=20261108u";
 
   // A curated polity suppresses the rough snapshot labels that name the same
   // ground under an older or generic name (清 / 中国 / 中国军阀 while the
