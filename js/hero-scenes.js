@@ -1279,6 +1279,21 @@
     ctx.closePath();
     ctx.fillStyle = riv;
     ctx.fill();
+    // water cross-hatching, clipped to the river band
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(-50, -38); ctx.lineTo(50, -38); ctx.lineTo(50, -4); ctx.lineTo(-50, -14);
+    ctx.closePath();
+    ctx.clip();
+    ctx.strokeStyle = "rgba(56,86,86,0.16)"; ctx.lineWidth = 0.16;
+    ctx.beginPath();
+    for (let i = 0; i < 14; i++) {
+      const yy = -37 + i * 2.6;
+      ctx.moveTo(-50, yy);
+      ctx.lineTo(50, yy - 2);
+    }
+    ctx.stroke();
+    ctx.restore();
     // far bank line
     ctx.strokeStyle = hexA(INK, 0.35); ctx.lineWidth = 0.22;
     ctx.beginPath(); ctx.moveTo(-50, -38); ctx.lineTo(50, -38); ctx.stroke();
@@ -2015,6 +2030,18 @@
     // birds
     bird(ctx, -40, -80, 1.4, "rgba(67,48,29,0.4)");
     bird(ctx, -34, -84, 1.0, "rgba(67,48,29,0.35)");
+    // dark foreground boulder and spear
+    ctx.beginPath();
+    ctx.moveTo(31, 0); ctx.lineTo(33.5, -5.2); ctx.lineTo(41, -6.8); ctx.lineTo(49, -3.2); ctx.lineTo(50, 0);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(78,60,42,0.92)"; ctx.fill();
+    ctx.strokeStyle = "rgba(40,30,20,0.7)"; ctx.lineWidth = 0.25; ctx.stroke();
+    hatch(ctx, 32, -6.6, 18, 6.4, "rgba(40,30,20,0.25)", 1.6, -0.6);
+    ctx.strokeStyle = "rgba(60,42,26,0.95)"; ctx.lineWidth = 0.32;
+    ctx.beginPath(); ctx.moveTo(38, 0); ctx.lineTo(46, -14); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(46, -14); ctx.lineTo(45.4, -11.8); ctx.lineTo(46.6, -11.8);
+    ctx.closePath(); ctx.fillStyle = "rgba(150,146,132,0.9)"; ctx.fill();
   };
 
   const qingMap = function (ctx, t) {
@@ -3810,6 +3837,8 @@
     sea.addColorStop(1, "#345c66");
     ctx.fillStyle = sea;
     ctx.fillRect(-50, -30, 100, 30);
+    hatch(ctx, -50, -30, 100, 30, "rgba(40,72,76,0.13)", 2.0, -0.06);
+    hatch(ctx, -50, -30, 100, 30, "rgba(40,72,76,0.08)", 2.6, 0.5);
     for (let i = 0; i < 12; i++) {
       const wy = -28 + i * 2.4;
       ctx.strokeStyle = "rgba(226,236,224," + (0.1 + (i % 3) * 0.04) + ")";
@@ -3896,6 +3925,8 @@
     sea.addColorStop(1, "#8fbcb0");
     ctx.fillStyle = sea;
     ctx.fillRect(-50, -32, 100, 32);
+    hatch(ctx, -50, -32, 100, 32, "rgba(38,74,72,0.12)", 2.2, -0.05);
+    hatch(ctx, -50, -32, 100, 32, "rgba(38,74,72,0.07)", 2.8, 0.45);
     // shallow sandbars
     for (let i = 0; i < 4; i++) {
       ctx.beginPath();
@@ -5480,6 +5511,15 @@
       ctx.beginPath(); ctx.arc(-30 + i * 2.6, -3 - q * 6, 1.4 + q * 3.4, 0, TAU);
       ctx.fillStyle = "rgba(214,180,132," + (0.12 * (1 - q)) + ")"; ctx.fill();
     }
+    // dark foreground stone block
+    ctx.beginPath();
+    ctx.moveTo(26, 0); ctx.lineTo(28.5, -6.0); ctx.lineTo(38, -7.6); ctx.lineTo(48, -3.2); ctx.lineTo(50, 0);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(120,92,60,0.92)"; ctx.fill();
+    ctx.strokeStyle = "rgba(62,44,28,0.7)"; ctx.lineWidth = 0.26; ctx.stroke();
+    hatch(ctx, 28, -7.4, 20, 7.2, "rgba(40,28,16,0.24)", 1.5, -0.5);
+    ctx.strokeStyle = "rgba(84,62,40,0.55)"; ctx.lineWidth = 0.18;
+    ctx.beginPath(); ctx.moveTo(31, -5.4); ctx.lineTo(41, -1.2); ctx.stroke();
   };
 
   const gizaMap = function (ctx, t) {
@@ -5833,6 +5873,13 @@
       ctx.beginPath(); ctx.ellipse(28 + i * 3.2, -2.2 - Math.sin(i) * 1.2, 1.5, 0.7, 0.4, 0, TAU);
       ctx.fillStyle = "rgba(108,120,74,0.8)"; ctx.fill();
     }
+    // dark foreground rock, right corner
+    ctx.beginPath();
+    ctx.moveTo(40, 0); ctx.lineTo(41.4, -4.8); ctx.lineTo(46.6, -5.8); ctx.lineTo(50, -2.6); ctx.lineTo(50, 0);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(96,84,58,0.9)"; ctx.fill();
+    ctx.strokeStyle = "rgba(56,44,28,0.65)"; ctx.lineWidth = 0.24; ctx.stroke();
+    hatch(ctx, 41, -5.6, 9, 5.6, "rgba(40,30,18,0.28)", 1.4, -0.7);
   };
 
   const athensMap = function (ctx, t) {
@@ -7829,6 +7876,13 @@
       ctx.beginPath(); ctx.ellipse(-46 + i * 12.4, -1.0, 2.0, 0.7, 0.2, 0, TAU);
       ctx.fillStyle = "rgba(120,86,52,0.5)"; ctx.fill();
     }
+    // dark foreground bank, right corner
+    ctx.beginPath();
+    ctx.moveTo(38, 0); ctx.lineTo(40, -4.4); ctx.lineTo(46.4, -5.4); ctx.lineTo(50, -2.0); ctx.lineTo(50, 0);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(104,76,48,0.92)"; ctx.fill();
+    ctx.strokeStyle = "rgba(60,42,26,0.6)"; ctx.lineWidth = 0.22; ctx.stroke();
+    hatch(ctx, 39, -5.2, 11, 5.2, "rgba(50,34,20,0.26)", 1.4, -0.6);
   };
 
   const maliMap = function (ctx, t) {
@@ -9064,6 +9118,17 @@
       ctx.beginPath(); ctx.arc(-10 + i * 5.0, -7 - q * 7, 1.4 + q * 2.6, 0, TAU);
       ctx.fillStyle = "rgba(204,176,132," + (0.10 * (1 - q)) + ")"; ctx.fill();
     }
+    // foreground polygonal wall corner
+    ctx.beginPath();
+    ctx.moveTo(-50, 0); ctx.lineTo(-50, -5.2); ctx.lineTo(-46, -6.4); ctx.lineTo(-39, -5.6); ctx.lineTo(-35, 0);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(108,90,64,0.96)"; ctx.fill();
+    ctx.strokeStyle = "rgba(58,44,28,0.65)"; ctx.lineWidth = 0.24; ctx.stroke();
+    ctx.strokeStyle = "rgba(70,54,36,0.4)"; ctx.lineWidth = 0.18;
+    ctx.beginPath();
+    ctx.moveTo(-46, -6.2); ctx.lineTo(-44.4, -2.4);
+    ctx.moveTo(-41, -5.8); ctx.lineTo(-40.2, -1.6);
+    ctx.stroke();
   };
 
   const incaMap = function (ctx, t) {
@@ -9345,6 +9410,19 @@
       ctx.beginPath(); ctx.arc(-24 + i * 4.6, -8 - q * 7, 1.4 + q * 2.6, 0, TAU);
       ctx.fillStyle = "rgba(204,176,132," + (0.10 * (1 - q)) + ")"; ctx.fill();
     }
+    // dark foreground barricade, right corner
+    ctx.beginPath();
+    ctx.moveTo(26, 0); ctx.lineTo(28.4, -4.0); ctx.lineTo(39, -4.8); ctx.lineTo(50, -2.2); ctx.lineTo(50, 0);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(96,72,48,0.92)"; ctx.fill();
+    ctx.strokeStyle = "rgba(52,36,22,0.7)"; ctx.lineWidth = 0.24; ctx.stroke();
+    ctx.strokeStyle = "rgba(70,50,32,0.4)"; ctx.lineWidth = 0.16;
+    for (let i = 0; i < 4; i++) {
+      ctx.beginPath();
+      ctx.moveTo(29 + i * 5.4, -4.4);
+      ctx.lineTo(30.4 + i * 5.4, -0.6);
+      ctx.stroke();
+    }
   };
 
   const frenchMap = function (ctx, t) {
@@ -9590,6 +9668,20 @@
     ctx.fillRect(-17.2, -1.6, 2.8, 1.6);
     ctx.strokeStyle = "rgba(54,38,24,0.7)"; ctx.lineWidth = 0.18;
     ctx.strokeRect(-17.2, -1.6, 2.8, 1.6);
+    // dark foreground luggage cart, right corner
+    ctx.fillStyle = "rgba(86,64,44,0.95)";
+    ctx.fillRect(31, -3.6, 13, 2.4);
+    ctx.strokeStyle = "rgba(46,32,20,0.7)"; ctx.lineWidth = 0.22;
+    ctx.strokeRect(31, -3.6, 13, 2.4);
+    ctx.beginPath(); ctx.arc(33.4, -0.6, 1.1, 0, TAU);
+    ctx.arc(41.6, -0.6, 1.1, 0, TAU);
+    ctx.strokeStyle = "rgba(46,32,20,0.8)"; ctx.lineWidth = 0.3; ctx.stroke();
+    ctx.fillStyle = "rgba(150,118,82,0.98)";
+    ctx.fillRect(32.2, -5.8, 5.2, 2.2);
+    ctx.fillRect(38.4, -6.4, 4.6, 2.8);
+    ctx.strokeStyle = "rgba(60,42,26,0.5)"; ctx.lineWidth = 0.16;
+    ctx.strokeRect(32.2, -5.8, 5.2, 2.2);
+    ctx.strokeRect(38.4, -6.4, 4.6, 2.8);
   };
 
   const partitionMap = function (ctx, t) {
@@ -9719,6 +9811,14 @@
     ctx.stroke();
     // screen glow reflection on the floor
     glow(ctx, -4, -6, 18, "#6fa3a0", 0.12);
+    // foreground chair, right corner
+    ctx.fillStyle = "rgba(30,34,36,0.97)";
+    ctx.fillRect(36, -3.0, 11, 1.4);
+    ctx.fillRect(36, -12.4, 10, 1.8);
+    ctx.fillRect(36, -12.4, 1.5, 9.4);
+    ctx.fillRect(44.5, -12.4, 1.5, 9.4);
+    ctx.strokeStyle = "rgba(80,96,98,0.35)"; ctx.lineWidth = 0.2;
+    ctx.strokeRect(36, -12.4, 10, 9.4);
   };
 
   const webMap = function (ctx, t) {
