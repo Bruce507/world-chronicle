@@ -28,7 +28,8 @@
     "entity-i18n": "node scripts/entity-i18n-check.mjs",
     "perf": "node scripts/perf-probe.mjs",
     "perf:throttle": "node scripts/perf-throttle.mjs",
-    "version:bump": "node scripts/bump-version.mjs"
+    "version:bump": "node scripts/bump-version.mjs",
+    "sources:check": "node scripts/source-check.mjs"
   },
   "devDependencies": {
     "axe-core": "^4.14.0",

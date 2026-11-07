@@ -443,6 +443,10 @@
       {
         "label": "Wikipedia — Battle of Plassey",
         "url": "https://en.wikipedia.org/wiki/Battle_of_Plassey"
+      },
+      {
+        "label": "National Army Museum (UK) — The Battle of Plassey",
+        "url": "https://www.nam.ac.uk/explore/battle-plassey"
       }
     ]
   },
@@ -572,6 +576,10 @@
       {
         "label": "National WWII Museum — Stalingrad",
         "url": "https://www.britannica.com/event/Battle-of-Stalingrad"
+      },
+      {
+        "label": "Imperial War Museums — What you need to know about the Battle of Stalingrad",
+        "url": "https://www.iwm.org.uk/history/second-world-war/eastern-front/what-you-need-to-know-about-the-battle-of-stalingrad"
       }
     ]
   },
@@ -1324,6 +1332,10 @@
       {
         "label": "Wikipedia — Voyages of Christopher Columbus",
         "url": "https://en.wikipedia.org/wiki/Voyages_of_Christopher_Columbus"
+      },
+      {
+        "label": "Library of Congress — 1492: An Ongoing Voyage",
+        "url": "https://www.loc.gov/exhibits/1492/"
       }
     ]
   },
@@ -1971,6 +1983,10 @@
       {
         "label": "Britannica — Berlin Wall",
         "url": "https://www.britannica.com/event/Berlin-Wall"
+      },
+      {
+        "label": "Imperial War Museums — What was the Berlin Wall and how did it fall?",
+        "url": "https://www.iwm.org.uk/history/the-berlin-wall"
       }
     ]
   },
@@ -2040,6 +2056,10 @@
       {
         "label": "Wikipedia — End of the Han dynasty",
         "url": "https://en.wikipedia.org/wiki/End_of_the_Han_dynasty"
+      },
+      {
+        "label": "The Metropolitan Museum of Art — Han Dynasty (206 B.C.-220 A.D.)",
+        "url": "https://www.metmuseum.org/toah/hd/hand/hd_hand.htm"
       }
     ]
   },
@@ -2178,6 +2198,10 @@
       {
         "label": "Wikipedia — Fall of the Western Roman Empire",
         "url": "https://en.wikipedia.org/wiki/Fall_of_the_Western_Roman_Empire"
+      },
+      {
+        "label": "The Metropolitan Museum of Art — The Roman Empire (27 B.C.-393 A.D.)",
+        "url": "https://www.metmuseum.org/toah/hd/roem/hd_roem.htm"
       }
     ]
   },
@@ -2219,7 +2243,7 @@
       "en": "Romans traced their city to Romulus in 753 BCE; archaeology shows settlements on the Palatine by the eighth century BCE, from which Rome grew into a Mediterranean empire."
     },
     "background": {
-      "zh": "罗马建城故事融合了阿尔巴隆伽王位斗争、双子被母狼哺育与兄弟相残的母题。它并非 同时代 记录，而是罗马人在数百年后对自身起源的整理。",
+      "zh": "罗马建城故事融合了阿尔巴隆伽王位斗争、双子被母狼哺育与兄弟相残的母题。它并非同时代记录，而是罗马人在数百年后对自身起源的整理。",
       "en": "The foundation story blends a dynastic struggle at Alba Longa, twins suckled by a she-wolf and fratricide. It is not a contemporary record but Rome's later shaping of its own origins."
     },
     "course": {
@@ -2429,6 +2453,10 @@
       {
         "label": "Wikipedia — Genghis Khan",
         "url": "https://en.wikipedia.org/wiki/Genghis_Khan"
+      },
+      {
+        "label": "The Metropolitan Museum of Art — The Legacy of Genghis Khan",
+        "url": "https://www.metmuseum.org/toah/hd/khan1/hd_khan1.htm"
       }
     ]
   },
@@ -2935,7 +2963,7 @@
       "en": "The waves struck Indonesia, Sri Lanka, India, Thailand, the Maldives and East Africa within hours. The absence of warning systems and public education magnified the toll."
     },
     "outcome": {
-      "zh": "约22.7万人死亡或失踪，是 近代 史上最严重的海啸灾难之一。灾后印度洋海啸预警系统逐步建立。",
+      "zh": "约22.7万人死亡或失踪，是近代史上最严重的海啸灾难之一。灾后印度洋海啸预警系统逐步建立。",
       "en": "About 227,000 people died or went missing, one of the deadliest tsunamis in modern history. An Indian Ocean warning system was built after the disaster."
     },
     "chain": [],
@@ -3348,6 +3376,10 @@
       {
         "label": "Britannica — Korean War",
         "url": "https://www.britannica.com/event/Korean-War"
+      },
+      {
+        "label": "Imperial War Museums — A short history of the Korean War",
+        "url": "https://www.iwm.org.uk/history/cold-war/korean-war"
       }
     ]
   },
@@ -3470,6 +3502,10 @@
       {
         "label": "Britannica — Magna Carta",
         "url": "https://www.britannica.com/topic/Magna-Carta"
+      },
+      {
+        "label": "The National Archives (UK) — Magna Carta 1214-1225",
+        "url": "https://www.nationalarchives.gov.uk/education/resources/magna-carta/"
       }
     ]
   },
@@ -4242,6 +4278,10 @@
       {
         "label": "Britannica — Nanjing Massacre",
         "url": "https://www.britannica.com/event/Nanjing-Massacre"
+      },
+      {
+        "label": "Memorial Hall of the Victims in Nanjing Massacre — official English site",
+        "url": "http://www.19371213.net/en/"
       }
     ]
   },
@@ -4744,6 +4784,10 @@
       {
         "label": "Wikipedia — Peloponnesian War",
         "url": "https://en.wikipedia.org/wiki/Peloponnesian_War"
+      },
+      {
+        "label": "Perseus Digital Library, Tufts University — Greek and Roman texts",
+        "url": "https://www.perseus.tufts.edu/hopper/collection?collection=Perseus:collection:Greco-Roman"
       }
     ]
   },
@@ -5475,6 +5519,10 @@
       {
         "label": "Wikipedia — Second Battle of El Alamein",
         "url": "https://en.wikipedia.org/wiki/Second_Battle_of_El_Alamein"
+      },
+      {
+        "label": "Imperial War Museums — How the Second Battle of El Alamein was won",
+        "url": "https://www.iwm.org.uk/history/second-world-war/north-africa-campaign/second-battle-of-el-alamein"
       }
     ]
   },
@@ -5668,6 +5716,10 @@
       {
         "label": "Wikipedia — Siege of Leningrad",
         "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad"
+      },
+      {
+        "label": "United States Holocaust Memorial Museum — The Soviet Union and the Eastern Front",
+        "url": "https://encyclopedia.ushmm.org/content/en/article/the-soviet-union-and-the-eastern-front"
       }
     ]
   },
@@ -6314,6 +6366,10 @@
       {
         "label": "Britannica — Great Depression",
         "url": "https://www.britannica.com/event/Great-Depression"
+      },
+      {
+        "label": "Library of Congress — Bound for Glory: America in Color",
+        "url": "https://www.loc.gov/exhibits/bound-for-glory/"
       }
     ]
   },
@@ -6941,7 +6997,7 @@
       "en": "On the morning of 17 December 1903 Orville flew the Flyer for 12 seconds and about 36 metres; the longest of four flights that day, by Wilbur, lasted 59 seconds and covered about 260 metres. The aircraft used the brothers' own four-cylinder engine and twin propellers."
     },
     "outcome": {
-      "zh": "早期飞行仍受风力与场地限制，但莱特兄弟的 控制方法成为航空基础。1908年后欧洲与美国开始规模化发展飞机，军事与民用航空迅速兴起。",
+      "zh": "早期飞行仍受风力与场地限制，但莱特兄弟的控制方法成为航空基础。1908年后欧洲与美国开始规模化发展飞机，军事与民用航空迅速兴起。",
       "en": "Early flights remained limited by wind and terrain, but the Wrights' control methods became foundational. After 1908 aircraft development expanded rapidly in Europe and America, with military and civil aviation following."
     },
     "why": {
