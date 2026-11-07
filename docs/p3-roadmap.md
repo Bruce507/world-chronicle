@@ -57,7 +57,7 @@ Date 2026-11-07. 基于 P2 完成状态（见 `docs/p2-completion-2026-11.md`）
 
 **范围**
 - 历史实体名称的 ES/FR/AR 翻译（优先 curated 实体与高频标签，再扩到快照实体）；
-- 台湾省等 curated province 的地名本地化，避免 2026 西班牙语界面出现“Taiwan Province”；
+- 台湾等 curated 非主权实体的地名本地化，避免 2026 西班牙语界面出现“Taiwan Province”；
 - 409 条简要条目的长文补齐，优先 featured（143 条）与用户搜索高频词；
 - 翻译来源与回退规则写入数据字段（`name.es/fr/ar`、`translation_status`），不伪装成已翻译。
 

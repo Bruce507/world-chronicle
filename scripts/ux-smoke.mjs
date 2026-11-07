@@ -178,10 +178,12 @@ try {
   const evClose = await d.$("[data-ev-close]");
   if (evClose) { await evClose.click(); await d.waitForTimeout(300); }
   const taiwan = await d.evaluate(() => {
-    const list = window.HistoricalEntities.list.filter((e) => e.type === "province" && e.from <= 2026 && e.to >= 2026);
-    return list.map((e) => e.name.zh);
+    const e = window.HistoricalEntities.list.find((x) => x.code === "TWN" || x.id === "curated-taiwan-province");
+    const modernStates = (window.HistoricalEntities.list || []).filter((x) => x.type === "modern" && x.code === "TWN").length;
+    const inModernChips = !!document.querySelector('#panel-body [data-country-open="TWN"]');
+    return { name: e && e.name.zh, type: e && e.type, code: e && e.code, parent: e && e.parent, modernStates, inModernChips };
   });
-  check("Taiwan remains a province in 2026, labelled 台湾", taiwan.includes("台湾"), taiwan.join(","));
+  check("Taiwan is a non-sovereign Chinese entity labelled 台湾", taiwan.name === "台湾" && taiwan.code === "TWN" && taiwan.type === "modern" && taiwan.parent === "china" && !taiwan.inModernChips, JSON.stringify(taiwan));
   const modern = await d.evaluate(() => ({
     heading: Array.prototype.map.call(document.querySelectorAll("#panel-body .p-section h3"), (h) => h.textContent).find((t) => t.indexOf("现代国家") >= 0) || "",
     chips: document.querySelectorAll("#panel-body [data-country-open]").length,

@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   const A = window.WORLD_ATLAS;
-  const ASSET_V = "20261108v";
+  const ASSET_V = "20261108w";
   const $ = (s) => document.querySelector(s);
   let heroScenesP = null, variantScenesP = null;
   function loadScriptOnce(src) {
@@ -574,7 +574,7 @@
   }
 
   function loadAuxData() {
-    const v = "?v=20261108v";
+    const v = "?v=20261108w";
     A.detailsLoading = true;
     A.detailsLoading = true;
     fetch("data/state_changes.json" + v)
@@ -593,7 +593,7 @@
     if (A.eventDetails) { A.detailsLoading = false; return Promise.resolve(A.eventDetails); }
     if (detailsP) return detailsP;
     A.detailsLoading = true;
-    detailsP = fetch("data/event_details.json?v=20261108v")
+    detailsP = fetch("data/event_details.json?v=20261108w")
       .then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); })
       .then((d) => {
         A.eventDetails = d || {};
@@ -610,7 +610,7 @@
   function ensureChronicles() {
     if (A.chronicles) return Promise.resolve(A.chronicles);
     if (chroniclesP) return chroniclesP;
-    chroniclesP = fetch("data/country_chronicles.json?v=20261108v")
+    chroniclesP = fetch("data/country_chronicles.json?v=20261108w")
       .then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); })
       .then((d) => {
         A.chronicles = d || {};
@@ -630,7 +630,7 @@
     loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
-    fetch("data/world.geo.json?v=20261108v")
+    fetch("data/world.geo.json?v=20261108w")
       .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then((geo) => {
         map.setWorld(geo);
@@ -1414,7 +1414,7 @@
     if (!A.chronicles) ensureChronicles();
     const p = f.properties;
     const isTW = countryKey(f) === "TWN";
-    el["panel-kicker"].textContent = (isTW ? L("中国台湾省 · ", "CHINA'S TAIWAN PROVINCE · ", "PROVINCIA DE TAIWÁN · ", "PROVINCE DE TAÏWAN · ", "مقاطعة تايوان الصينية · ") : L("现代国界 · ", "MODERN BORDERS · ", "FRONTERAS MODERNAS · ", "FRONTIÈRES MODERNES · ", "الحدود الحديثة · ")) + rgName(byRegion(p.sub));
+    el["panel-kicker"].textContent = (isTW ? L("中国台湾 · ", "TAIWAN, CHINA · ", "TAIWÁN (CHINA) · ", "TAÏWAN (CHINE) · ", "تايوان (الصين) · ") : L("现代国界 · ", "MODERN BORDERS · ", "FRONTERAS MODERNAS · ", "FRONTIÈRES MODERNES · ", "الحدود الحديثة · ")) + rgName(byRegion(p.sub));
     el["panel-title"].textContent = countryName(f);
     el["panel-sub"].textContent = isTW
       ? L("台湾是中国的一个省；此处按地区沿革展示历史政权与节点。", "Taiwan is a province of China; this view reads its historical powers and nodes through that province.", "Taiwán es una provincia de China; esta vista muestra sus poderes y nodos históricos.", "Taïwan est une province de Chine ; cette vue présente ses pouvoirs et nœuds historiques.", "تايوان مقاطعة صينية؛ يعرض هذا القسم قواها وعقدها التاريخية.")
@@ -1486,7 +1486,7 @@
   };
   function byRegion(sub) { return SUB2RG[sub] || ""; }
 
-  const NON_SOVEREIGN = { HKG: 1, MAC: 1, GRL: 1, NCL: 1, PRI: 1 };
+  const NON_SOVEREIGN = { HKG: 1, MAC: 1, TWN: 1, GRL: 1, NCL: 1, PRI: 1 };
   function modernStatesAt(year) {
     const list = (window.HistoricalEntities && window.HistoricalEntities.list) || [];
     return list

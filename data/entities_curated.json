@@ -1117,7 +1117,7 @@
       "fr": "Taïwan",
       "ar": "تايوان"
     },
-    "type": "province",
+    "type": "modern",
     "from": 1949,
     "to": 2026,
     "lat": 23.65,
@@ -1125,7 +1125,8 @@
     "priority": 92,
     "minZoom": 1,
     "approx": false,
-    "parent": "china"
+    "parent": "china",
+    "code": "TWN"
   },
   {
     "id": "curated-france",
