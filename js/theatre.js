@@ -333,6 +333,7 @@
       const kind = this.unitKind(ev || { s: "march" });
       // battles: two sides eddying around the point
       (data.battles || []).slice(0, 4).forEach((b) => {
+        if (b.kind === "crowd") return; // crowds are drawn as a gathering, not orbiting units
         bases.forEach((side) => {
           const n = b.kind === "crowd" ? 2 : 2;
           for (let i = 0; i < n; i++) {
@@ -563,9 +564,12 @@
           const q2 = pointAt(u.path, Math.min(1, t + 0.01));
           ang = Math.atan2(-(q2[0] - q[0]), q2[1] - q[1]);
         } else {
-          const a = u.a + p * u.speed * TAU;
-          lat = u.lat + Math.sin(a) * u.r;
-          lon = u.lon + Math.cos(a) * u.r * 1.4;
+          // hold formation and sway in place instead of orbiting the point
+          const sway = Math.sin(p * 0.9 + (u.phase || 0) * 6) * 0.05;
+          const a = u.a + sway;
+          const rr = u.r * (1 + Math.sin(p * 0.7 + (u.phase || 0) * 5) * 0.05);
+          lat = u.lat + Math.sin(a) * rr;
+          lon = u.lon + Math.cos(a) * rr * 1.4;
           ang = -a;
         }
         const sp = map.project(lon, lat);
@@ -706,13 +710,59 @@
 
     drawCrowd(ctx, x, y, s, p, color) {
       ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-      for (let i = 0; i < 6; i++) {
-        const dx = (i - 2.5) * 4 + Math.sin(p * 2 + i) * 1.2;
-        const dy = (i % 2) * 2;
+      // gathering, not a ring: staggered figures facing the centre
+      ctx.beginPath(); ctx.ellipse(0, 3, 20, 4, 0, 0, TAU);
+      ctx.fillStyle = "rgba(120,96,64,0.12)"; ctx.fill();
+      const n = 7;
+      for (let i = 0; i < n; i++) {
+        const dx = (i - (n - 1) / 2) * 4.6 + Math.sin(p * 1.6 + i) * 0.7;
+        const dy = (i % 3) * 1.4 - (i === 3 ? 0.8 : 0);
+        const sc = 0.9 + (i % 3) * 0.12;
+        ctx.save(); ctx.translate(dx, dy); ctx.scale(sc, sc);
+        // legs
         ctx.strokeStyle = "rgba(92,66,43,0.92)"; ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.moveTo(dx, dy - 6); ctx.lineTo(dx - 1, dy); ctx.moveTo(dx, dy - 6); ctx.lineTo(dx + 1, dy); ctx.stroke();
-        ctx.beginPath(); ctx.arc(dx, dy - 8, 1.6, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
-        if (i === 2) { ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(dx + 1, dy - 8); ctx.lineTo(dx + 1, dy - 16); ctx.stroke(); ctx.fillStyle = color; ctx.fillRect(dx + 1, dy - 16, 4, 3); }
+        ctx.beginPath();
+        ctx.moveTo(0, -6); ctx.lineTo(-1.2, 0);
+        ctx.moveTo(0, -6); ctx.lineTo(1.2, 0);
+        ctx.stroke();
+        // robe
+        ctx.beginPath();
+        ctx.moveTo(0, -14);
+        ctx.quadraticCurveTo(-2.6, -11, -3.2, -5.6);
+        ctx.lineTo(-3.4, -4.2); ctx.lineTo(3.4, -4.2); ctx.lineTo(3.2, -5.6);
+        ctx.quadraticCurveTo(2.6, -11, 0, -14);
+        ctx.closePath();
+        ctx.fillStyle = i % 3 === 0 ? "rgba(150,112,74,0.95)" : i % 3 === 1 ? "rgba(96,86,70,0.95)" : "rgba(126,94,64,0.95)";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(74,54,36,0.6)"; ctx.lineWidth = 0.4; ctx.stroke();
+        // head
+        ctx.beginPath(); ctx.arc(0, -15.6, 1.6, 0, TAU);
+        ctx.fillStyle = "rgba(192,142,94,0.95)"; ctx.fill();
+        ctx.strokeStyle = "rgba(74,54,36,0.5)"; ctx.lineWidth = 0.3; ctx.stroke();
+        // raised arm / cheer
+        if (i % 2 === 0) {
+          ctx.strokeStyle = "rgba(92,66,43,0.9)"; ctx.lineWidth = 0.9;
+          ctx.beginPath(); ctx.moveTo(2.2, -11); ctx.lineTo(4.6, -17 + Math.sin(p * 2 + i) * 0.6); ctx.stroke();
+        }
+        // central and right-hand banners
+        if (i === 3 || i === 6) {
+          ctx.strokeStyle = "rgba(74,54,36,0.9)"; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(1.6, -6); ctx.lineTo(1.6, -24); ctx.stroke();
+          const wave = Math.sin(p * 2.2 + i) * 1.6;
+          ctx.beginPath();
+          ctx.moveTo(1.8, -23.6);
+          ctx.quadraticCurveTo(6.4 + wave, -22.8, 8.6 + wave, -20.0);
+          ctx.lineTo(1.8, -19.0); ctx.closePath();
+          ctx.fillStyle = color || "rgba(176,67,44,0.9)"; ctx.fill();
+        }
+        ctx.restore();
+      }
+      // small cheer sparks
+      for (let i = 0; i < 5; i++) {
+        const q = (p * 0.35 + i * 0.2) % 1;
+        ctx.beginPath();
+        ctx.arc(-10 + i * 5, -18 - q * 8, 0.5 + (1 - q) * 0.5, 0, TAU);
+        ctx.fillStyle = "rgba(226,190,112," + (0.25 * (1 - q)) + ")"; ctx.fill();
       }
       ctx.restore();
     },

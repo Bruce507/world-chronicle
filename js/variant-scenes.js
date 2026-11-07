@@ -826,6 +826,66 @@
         ctx.fillStyle = "rgba(96,74,50,0.9)";
         ctx.fillRect(bx - 18 + i * 11, by - 3.0, 1.4, 3.0);
       }
+    } else if (v.structure === "tiananmen") {
+      // Tiananmen-style gate: red wall, five arches, double roof
+      const tx = 6, ty = -12;
+      ctx.fillStyle = "rgba(168,64,44,0.97)";
+      ctx.fillRect(tx - 26, ty - 10, 52, 10);
+      ctx.strokeStyle = "rgba(92,40,28,0.7)"; ctx.lineWidth = 0.3;
+      ctx.strokeRect(tx - 26, ty - 10, 52, 10);
+      for (let i = -2; i <= 2; i++) {
+        const ax = tx + i * 8;
+        ctx.beginPath();
+        ctx.moveTo(ax - 1.6, ty);
+        ctx.lineTo(ax - 1.6, ty - 4.6);
+        ctx.quadraticCurveTo(ax, ty - 6.4, ax + 1.6, ty - 4.6);
+        ctx.lineTo(ax + 1.6, ty);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(52,34,24,0.85)"; ctx.fill();
+      }
+      // gate tower base (red, gold trim)
+      ctx.fillStyle = "rgba(168,64,44,0.98)";
+      ctx.fillRect(tx - 20, ty - 22, 40, 12);
+      ctx.strokeStyle = "rgba(92,40,28,0.7)"; ctx.lineWidth = 0.28;
+      ctx.strokeRect(tx - 20, ty - 22, 40, 12);
+      ctx.strokeStyle = "rgba(226,188,100,0.75)"; ctx.lineWidth = 0.3;
+      ctx.beginPath();
+      ctx.moveTo(tx - 19, ty - 21.4); ctx.lineTo(tx + 19, ty - 21.4);
+      ctx.moveTo(tx - 19, ty - 10.6); ctx.lineTo(tx + 19, ty - 10.6);
+      ctx.stroke();
+      // portrait: dark panel in a gold frame
+      ctx.fillStyle = "rgba(60,40,30,0.9)";
+      ctx.fillRect(tx - 2.6, ty - 20, 5.2, 6.4);
+      ctx.strokeStyle = "rgba(226,188,100,0.85)"; ctx.lineWidth = 0.35;
+      ctx.strokeRect(tx - 2.6, ty - 20, 5.2, 6.4);
+      // double roof: solid lower and upper eaves
+      ctx.beginPath();
+      ctx.moveTo(tx - 28, ty - 22);
+      ctx.quadraticCurveTo(tx - 14, ty - 27, tx, ty - 28);
+      ctx.quadraticCurveTo(tx + 14, ty - 27, tx + 28, ty - 22);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(150,66,44,0.98)"; ctx.fill();
+      ctx.strokeStyle = "rgba(70,32,22,0.7)"; ctx.lineWidth = 0.28; ctx.stroke();
+      // upturned eave tips
+      ctx.beginPath();
+      ctx.moveTo(tx - 28, ty - 22); ctx.quadraticCurveTo(tx - 30.4, ty - 23.4, tx - 29.8, ty - 25.2);
+      ctx.moveTo(tx + 28, ty - 22); ctx.quadraticCurveTo(tx + 30.4, ty - 23.4, tx + 29.8, ty - 25.2);
+      ctx.strokeStyle = "rgba(70,32,22,0.7)"; ctx.lineWidth = 0.35; ctx.stroke();
+      // upper roof
+      ctx.beginPath();
+      ctx.moveTo(tx - 18, ty - 28);
+      ctx.quadraticCurveTo(tx - 8, ty - 31, tx, ty - 32);
+      ctx.quadraticCurveTo(tx + 8, ty - 31, tx + 18, ty - 28);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(162,76,50,0.98)"; ctx.fill();
+      ctx.strokeStyle = "rgba(70,32,22,0.7)"; ctx.stroke();
+      // roof ridge + finials
+      ctx.strokeStyle = "rgba(226,188,100,0.9)"; ctx.lineWidth = 0.3;
+      ctx.beginPath(); ctx.moveTo(tx - 14, ty - 27.6); ctx.lineTo(tx + 14, ty - 27.6); ctx.stroke();
+      for (const dx of [-22, 22]) {
+        ctx.strokeStyle = "rgba(74,50,30,0.9)"; ctx.lineWidth = 0.3;
+        ctx.beginPath(); ctx.moveTo(tx + dx, ty - 23); ctx.lineTo(tx + dx, ty - 27); ctx.stroke();
+      }
     } else {
       // square: stone arch
       ctx.fillStyle = "rgba(198,172,134,0.96)";
@@ -899,7 +959,9 @@
     crowd.forEach(([cx, cy, cs], i) => {
       p(ctx, cx, cy, cs, "rgba(58,42,26,0.98)", {
         phase: t * 0.7 + i, seed: i,
-        fill: i % 4 === 0 ? "rgba(150,112,74,0.95)" : i % 4 === 1 ? "rgba(84,104,112,0.95)" : i % 4 === 2 ? "rgba(168,64,44,0.92)" : "rgba(112,88,58,0.95)",
+        fill: v.structure === "tiananmen"
+          ? (i % 6 === 0 ? "rgba(168,64,44,0.92)" : i % 2 ? "rgba(74,96,112,0.95)" : "rgba(96,80,62,0.95)")
+          : (i % 4 === 0 ? "rgba(150,112,74,0.95)" : i % 4 === 1 ? "rgba(84,104,112,0.95)" : i % 4 === 2 ? "rgba(168,64,44,0.92)" : "rgba(112,88,58,0.95)"),
         hat: i % 3 === 0 ? "cap" : null,
         arm: i % 5 === 0,
         noShadow: true,
@@ -1031,6 +1093,19 @@
     "greek-war-of-independence": { family: "modern", palette: "dusk", structure: "square", crowd: "soldiers", frame: "arch", weather: "clear", props: ["church"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(74,104,138,0.96)"] },
     "italian-unification": { family: "modern", palette: "noon", structure: "capitol", crowd: "citizens", frame: "banner", weather: "clear", props: ["statue"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
     "indonesia-proclaims-independence": { family: "modern", palette: "dawn", structure: "square", crowd: "citizens", frame: "banner", weather: "clear", props: ["microphone"], flagCols: ["rgba(168,64,44,0.96)", "rgba(242,234,214,0.97)", "rgba(242,234,214,0.97)"] },
+    "peoples-republic-of-china": { family: "modern", palette: "noon", structure: "tiananmen", crowd: "citizens", frame: "none", weather: "clear", props: [], flagCols: ["rgba(168,64,44,0.97)", "rgba(168,64,44,0.97)", "rgba(168,64,44,0.97)"] },
+    "marco-polo-bridge-incident": { family: "siege", palette: "dawn", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "battle-of-shanghai": { family: "siege", palette: "storm", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "rocks", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "battle-of-taierzhuang": { family: "siege", palette: "noon", structure: "gate", skyline: "city", weather: "dust", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "battle-of-wuhan": { family: "siege", palette: "dusk", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "hundred-regiments-offensive": { family: "siege", palette: "dawn", structure: "keep", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "rocks", props: ["tower"], flag: "rgba(168,64,44,0.95)" },
+    "battle-of-plassey": { family: "siege", palette: "noon", structure: "gate", skyline: "city", weather: "dust", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
+    "mukden-incident": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "ottoman-conquest-of-egypt": { family: "siege", palette: "noon", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
+    "battle-of-mohacs": { family: "siege", palette: "storm", structure: "walls", skyline: "city", weather: "dust", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "siege-of-vienna-1529": { family: "siege", palette: "dawn", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "second-italo-ethiopian-war": { family: "siege", palette: "noon", structure: "keep", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "rocks", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
+    "second-battle-of-el-alamein": { family: "siege", palette: "noon", structure: "walls", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
   };
 
   function eventById(id) {

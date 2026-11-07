@@ -2,7 +2,7 @@
 
 Generated 2026-11-07. Standard A: every event has a correct visual family; the 32 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).
 
-- 事件总数：482
+- 事件总数：498
 - 当前分派：56 个家族
 - 需要修正：0
 - 英雄条目：32
@@ -12,14 +12,14 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 家族 | 事件数 |
 |---|---:|
 | `modern-founding` | 102 |
-| `city-modern` | 33 |
-| `revolution` | 30 |
+| `city-modern` | 34 |
+| `cannon` | 31 |
+| `revolution` | 31 |
 | `naval` | 28 |
-| `cannon` | 22 |
 | `disaster` | 18 |
+| `siege` | 17 |
+| `cavalry` | 16 |
 | `city-earlymodern` | 16 |
-| `siege` | 15 |
-| `cavalry` | 15 |
 | `caravel` | 13 |
 | `treaty` | 10 |
 | `city-medieval` | 9 |
@@ -45,6 +45,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | `sea-founding` | 4 |
 | `roman-founding` | 4 |
 | `stupa` | 4 |
+| `islamic-founding` | 4 |
 | `atomic` | 4 |
 | `rocket` | 4 |
 | `hunt` | 3 |
@@ -52,14 +53,13 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | `palace` | 3 |
 | `phalanx` | 3 |
 | `church` | 3 |
-| `islamic-founding` | 3 |
+| `african-founding` | 3 |
 | `greek-naval` | 2 |
 | `south-asian-founding` | 2 |
 | `cn-cavalry` | 2 |
 | `mosque` | 2 |
 | `printing` | 2 |
 | `steppe-founding` | 2 |
-| `african-founding` | 2 |
 | `american-founding` | 2 |
 | `junk` | 2 |
 | `wave` | 2 |
@@ -170,6 +170,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 629 | `xuanzangs-journey-to-the-west` | 玄奘西行求法 | ca | `pilgrim` | `pilgrim` | ★ |
 | 650 | `srivijaya` | 室利佛逝的海上帝国 | sea | `sea-founding` | `sea-founding` |  |
 | 691 | `dome-of-the-rock` | 圆顶清真寺 | me | `mosque` | `mosque` |  |
+| 700 | `rise-of-the-ghana-empire` | 加纳帝国兴起 | af | `african-founding` | `african-founding` |  |
 | 711 | `islam-enters-iberia` | 穆斯林渡海入伊比利亚 | eu | `cavalry` | `cavalry` |  |
 | 732 | `battle-of-tours` | 图尔战役 | eu | `phalanx` | `phalanx` |  |
 | 751 | `battle-of-talas` | 怛罗斯之战 | ca | `cavalry` | `cavalry` |  |
@@ -196,6 +197,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1099 | `first-crusade` | 第一次十字军东征 | me | `siege` | `siege` |  |
 | 1121 | `battle-of-didgori` | 迪德戈里之战 | me | `cavalry` | `cavalry` |  |
 | 1185 | `kamakura-shogunate` | 镰仓幕府 | ea | `city-medieval` | `city-medieval` |  |
+| 1187 | `battle-of-hattin` | 哈丁战役 | me | `cavalry` | `cavalry` |  |
 | 1200 | `moai-of-rapa-nui` | 复活节岛石像 | oc | `megalith` | `megalith` |  |
 | 1206 | `delhi-sultanate` | 德里苏丹国 | sa | `cavalry` | `cavalry` |  |
 | 1206 | `genghis-khan` | 成吉思汗建国 | ca | `steppe-founding` | `steppe-founding` | ★ |
@@ -235,13 +237,17 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1498 | `vasco-da-gama-reaches-india` | 达伽马抵达印度 | eu | `caravel` | `caravel` | ★ |
 | 1500 | `bruneis-golden-age` | 文莱苏丹国黄金时代 | sea | `junk` | `junk` |  |
 | 1500 | `cabral-reaches-brazil` | 葡萄牙人抵达巴西 | la | `caravel` | `caravel` |  |
+| 1501 | `safavid-empire-founded` | 萨非王朝建立 | me | `islamic-founding` | `islamic-founding` |  |
 | 1505 | `mozambique-island` | 葡萄牙人占领莫桑比克岛 | af | `caravel` | `caravel` |  |
 | 1511 | `portuguese-capture-malacca` | 葡萄牙攻占马六甲 | sea | `naval` | `naval` |  |
+| 1517 | `ottoman-conquest-of-egypt` | 奥斯曼征服埃及 | me | `cannon` | `cannon` |  |
 | 1517 | `the-reformation` | 宗教改革 | eu | `city-earlymodern` | `city-earlymodern` |  |
 | 1519 | `magellans-circumnavigation` | 麦哲伦环球航行 | la | `caravel` | `caravel` |  |
 | 1521 | `fall-of-the-aztec-empire` | 科尔特斯灭阿兹特克 | la | `siege` | `siege` |  |
 | 1521 | `magellan-in-the-philippines` | 麦哲伦抵菲律宾 | sea | `caravel` | `caravel` |  |
 | 1526 | `first-battle-of-panipat` | 第一次帕尼帕特战役 | sa | `cavalry` | `cavalry` |  |
+| 1526 | `battle-of-mohacs` | 莫哈奇战役 | eu | `cannon` | `cannon` |  |
+| 1529 | `siege-of-vienna-1529` | 维也纳之围（1529） | eu | `siege` | `siege` |  |
 | 1533 | `fall-of-the-inca` | 皮萨罗灭印加 | la | `cavalry` | `cavalry` | ★ |
 | 1543 | `copernicuss-revolutions` | 哥白尼《天体运行论》 | eu | `city-earlymodern` | `city-earlymodern` |  |
 | 1545 | `potosi-silver` | 波托西银矿 | la | `camel` | `camel` |  |
@@ -273,6 +279,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1741 | `bering-reaches-alaska` | 白令抵达阿拉斯加 | na | `caravel` | `caravel` |  |
 | 1755 | `lisbon-earthquake` | 里斯本大地震 | eu | `disaster` | `disaster` |  |
 | 1756 | `seven-years-war` | 七年战争 | eu | `cannon` | `cannon` |  |
+| 1757 | `battle-of-plassey` | 普拉西战役 | sa | `cannon` | `cannon` |  |
 | 1769 | `cook-at-tahiti` | 库克观测金星凌日 | oc | `caravel` | `caravel` |  |
 | 1769 | `watts-steam-engine` | 瓦特改良蒸汽机 | eu | `industry` | `industry` |  |
 | 1776 | `declaration-of-independence` | 美国独立宣言 | na | `modern-founding` | `modern-founding` |  |
@@ -358,6 +365,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1918 | `the-1918-influenza` | 1918 年流感大流行 | na | `plague` | `plague` |  |
 | 1918 | `armistice-of-1918` | 一战停战 | eu | `treaty` | `treaty` |  |
 | 1919 | `treaty-of-versailles` | 《凡尔赛和约》 | eu | `treaty` | `treaty` |  |
+| 1919 | `may-fourth-movement` | 五四运动 | ea | `revolution` | `revolution` |  |
 | 1919 | `amritsar-massacre` | 阿姆利则惨案 | sa | `revolution` | `revolution` |  |
 | 1920 | `league-of-nations` | 国际联盟成立 | eu | `modern-founding` | `modern-founding` |  |
 | 1920 | `womens-suffrage-in-the-us` | 美国女性获得选举权 | na | `revolution` | `revolution` |  |
@@ -370,19 +378,27 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1930 | `gandhis-salt-march` | 甘地食盐进军 | sa | `revolution` | `revolution` |  |
 | 1931 | `mukden-incident` | 九一八事变 | ea | `cannon` | `cannon` |  |
 | 1933 | `hitler-comes-to-power` | 希特勒上台 | eu | `revolution` | `revolution` |  |
+| 1935 | `second-italo-ethiopian-war` | 第二次意埃战争 | af | `cannon` | `cannon` |  |
 | 1935 | `the-long-march` | 长征 | ea | `march` | `march` |  |
+| 1936 | `xian-incident` | 西安事变 | ea | `city-modern` | `city-modern` |  |
 | 1936 | `spanish-civil-war` | 西班牙内战 | eu | `cannon` | `cannon` |  |
 | 1937 | `nanjing-massacre` | 南京大屠杀 | ea | `disaster` | `disaster` |  |
+| 1937 | `marco-polo-bridge-incident` | 卢沟桥事变 | ea | `cannon` | `cannon` |  |
+| 1937 | `battle-of-shanghai` | 淞沪会战 | ea | `siege` | `siege` |  |
+| 1938 | `battle-of-taierzhuang` | 台儿庄战役 | ea | `cannon` | `cannon` |  |
 | 1938 | `munich-agreement` | 慕尼黑协定 | eu | `treaty` | `treaty` |  |
+| 1938 | `battle-of-wuhan` | 武汉会战 | ea | `cannon` | `cannon` |  |
 | 1939 | `world-war-ii-begins` | 第二次世界大战爆发 | eu | `trench` | `trench` |  |
 | 1940 | `battle-of-britain` | 不列颠空战 | eu | `air` | `air` |  |
 | 1940 | `dunkirk` | 敦刻尔克大撤退 | eu | `naval` | `naval` |  |
+| 1940 | `hundred-regiments-offensive` | 百团大战 | ea | `cannon` | `cannon` |  |
 | 1941 | `siege-of-leningrad` | 列宁格勒围城 | eu | `siege` | `siege` |  |
 | 1941 | `operation-barbarossa` | 巴巴罗萨行动 | eu | `cannon` | `cannon` |  |
 | 1941 | `pearl-harbor` | 珍珠港事件 | na | `naval` | `naval` |  |
 | 1942 | `battle-of-midway` | 中途岛海战 | oc | `naval` | `naval` |  |
 | 1942 | `battle-of-stalingrad` | 斯大林格勒战役 | eu | `trench` | `trench` |  |
 | 1942 | `guadalcanal` | 瓜达尔卡纳尔岛战役 | oc | `naval` | `naval` |  |
+| 1942 | `second-battle-of-el-alamein` | 第二次阿拉曼战役 | af | `cannon` | `cannon` |  |
 | 1943 | `bengal-famine` | 孟加拉大饥荒 | sa | `plague` | `plague` |  |
 | 1944 | `d-day` | 诺曼底登陆 | eu | `trench` | `trench` |  |
 | 1945 | `china-theater-surrender-ceremony` | 中国战区受降 | ea | `city-modern` | `city-modern` |  |

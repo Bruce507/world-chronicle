@@ -1332,12 +1332,12 @@
 
   SCENES.siege = function (ctx, W, H, t, P) {
     const horizon = H * 0.72;
-    sky(ctx, W, H, "#171210", "#5e3c25", 0.7);
-    glow(ctx, W * 0.7, horizon - 60, W * 0.5, "#c07038", 0.18);
-    ctx.fillStyle = "#241b13"; ctx.fillRect(0, horizon + 30, W, H);
+    sky(ctx, W, H, "#2b2119", "#7a4e30", 0.7);
+    glow(ctx, W * 0.7, horizon - 60, W * 0.5, "#c07a40", 0.2);
+    ctx.fillStyle = "#2e241b"; ctx.fillRect(0, horizon + 30, W, H);
     // wall
     const wx = W * 0.62;
-    ctx.fillStyle = "#2c2218";
+    ctx.fillStyle = "#3a2c1e";
     ctx.fillRect(wx, H * 0.34, W * 0.38, horizon - H * 0.34 + 30);
     // stones
     ctx.strokeStyle = "rgba(220,190,140,0.10)";
@@ -1631,11 +1631,11 @@
 
   SCENES.cannon = function (ctx, W, H, t, P) {
     const horizon = H * 0.7;
-    sky(ctx, W, H, "#17120f", "#5c3a24", 0.7);
-    glow(ctx, W * 0.8, horizon - 50, W * 0.5, "#b06030", 0.14);
-    ctx.fillStyle = "#241b13"; ctx.fillRect(0, horizon, W, H - horizon);
+    sky(ctx, W, H, "#2b2119", "#7a4e30", 0.7);
+    glow(ctx, W * 0.8, horizon - 50, W * 0.5, "#c07a40", 0.18);
+    ctx.fillStyle = "#2e241b"; ctx.fillRect(0, horizon, W, H - horizon);
     // wall
-    ctx.fillStyle = "#2c2218";
+    ctx.fillStyle = "#3a2c1e";
     ctx.fillRect(W * 0.78, H * 0.38, W * 0.22, horizon - H * 0.38 + 20);
     for (let i = 0; i < 5; i++) ctx.fillRect(W * 0.78 + i * (W * 0.22 / 5), H * 0.38 - 12, 16, 14);
     // cannons

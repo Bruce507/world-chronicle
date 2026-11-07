@@ -2560,6 +2560,34 @@
     }
   },
   {
+    "y": 700,
+    "lat": 15.77,
+    "lon": -7.98,
+    "c": "MR",
+    "rg": "af",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "加纳帝国兴起",
+      "Rise of the Ghana Empire"
+    ],
+    "d": [
+      "西非索宁克人在萨赫勒建立加纳帝国，控制跨撒哈拉黄金与食盐贸易，成为中世纪西非第一个大帝国。",
+      "Soninke rulers build the Ghana Empire in the Sahel, controlling trans-Saharan gold and salt trade and creating medieval West Africa's first great empire."
+    ],
+    "tx": {
+      "es": "Auge del Imperio de Ghana",
+      "fr": "Essor de l'Empire du Ghana",
+      "ar": "صعود إمبراطورية غانا"
+    },
+    "dx": {
+      "es": "Los soninké fundan el Imperio de Ghana en el Sahel y controlan el comercio transahariano de oro y sal, creando el primer gran imperio de África occidental medieval.",
+      "fr": "Les Soninké fondent l'Empire du Ghana au Sahel et contrôlent le commerce transsaharien de l'or et du sel, premier grand empire de l'Afrique de l'Ouest médiévale.",
+      "ar": "السوننكي يؤسسون إمبراطورية غانا في الساحل ويسيطرون على تجارة الذهب والملح عبر الصحراء، مما ينشئ أول إمبراطورية كبرى في غرب أفريقيا الوسيطة."
+    }
+  },
+  {
     "y": 711,
     "lat": 36,
     "lon": -5.6,
@@ -3181,6 +3209,34 @@
       "es": "Los Minamoto derrotan a los Taira; El gobierno guerrero suplanta a la corte, dando comienzo a siete siglos de gobierno del shogunato.",
       "fr": "Les Minamoto battent les Taira ; le gouvernement guerrier supplante la cour, marquant le début de sept siècles de règne du shogunat.",
       "ar": "ميناموتو يهزم تايرا. تحل الحكومة المحاربة محل المحكمة، لتبدأ سبعة قرون من حكم الشوغون."
+    }
+  },
+  {
+    "y": 1187,
+    "lat": 32.805,
+    "lon": 35.447,
+    "c": "IL",
+    "rg": "me",
+    "k": "war",
+    "s": "cavalry",
+    "f": 1,
+    "t": [
+      "哈丁战役",
+      "Battle of Hattin"
+    ],
+    "d": [
+      "萨拉丁在哈丁歼灭十字军主力并俘获耶路撒冷国王，随后收复耶路撒冷，十字军国家由盛转衰。",
+      "Saladin destroys the Crusader field army at Hattin and captures the King of Jerusalem, then retakes Jerusalem; the Crusader states begin their decline."
+    ],
+    "tx": {
+      "es": "Batalla de Hattin",
+      "fr": "Bataille de Hattin",
+      "ar": "معركة حطين"
+    },
+    "dx": {
+      "es": "Saladino aniquila al ejército cruzado en Hattin y captura al rey de Jerusalén; luego recupera Jerusalén y los estados cruzados inician su declive.",
+      "fr": "Saladin anéantit l'armée croisée à Hattin et capture le roi de Jérusalem ; il reprend ensuite Jérusalem et les États croisés entament leur déclin.",
+      "ar": "صلاح الدين يدمر جيش الصليبيين في حطين ويأسر ملك القدس، ثم يستعيد القدس وتبدأ دول الصليبيين بالانحدار."
     }
   },
   {
@@ -4235,6 +4291,34 @@
     }
   },
   {
+    "y": 1501,
+    "lat": 38.08,
+    "lon": 46.29,
+    "c": "IR",
+    "rg": "me",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "萨非王朝建立",
+      "Safavid Empire Founded"
+    ],
+    "d": [
+      "伊斯玛仪一世在Tabriz建立萨非王朝，以十二伊玛目派为国教，奠定近代伊朗的疆域与教派格局。",
+      "Ismail I founds the Safavid Empire at Tabriz and makes Twelver Shi'ism the state religion, shaping modern Iran's borders and confessional identity."
+    ],
+    "tx": {
+      "es": "Fundación del Imperio safávida",
+      "fr": "Fondation de l'Empire safavide",
+      "ar": "تأسيس الدولة الصفوية"
+    },
+    "dx": {
+      "es": "Ismail I funda el Imperio safávida en Tabriz e impone el chiismo duodecimano como religión de Estado, configurando las fronteras y la identidad confesional del Irán moderno.",
+      "fr": "Ismaïl Ier fonde l'Empire safavide à Tabriz et fait du chiisme duodécimain la religion d'État, façonnant les frontières et l'identité confessionnelle de l'Iran moderne.",
+      "ar": "إسماعيل الأول يؤسس الدولة الصفوية في تبريز ويجعل الاثنا عشرية دين الدولة، مشكلاً حدود إيران الحديثة وهويتها المذهبية."
+    }
+  },
+  {
     "y": 1511,
     "lat": 2.2,
     "lon": 102.2,
@@ -4287,6 +4371,34 @@
       "es": "Martín Lutero publica sus Noventa y cinco tesis; La impresión extiende la protesta por toda Europa y divide a la cristiandad latina.",
       "fr": "Martin Luther publie ses quatre-vingt-quinze thèses ; La presse écrite propage la protestation à travers l’Europe et divise la chrétienté latine.",
       "ar": "مارتن لوثر ينشر أطروحاته الخمسة والتسعين؛ تنشر الطباعة الاحتجاج في جميع أنحاء أوروبا وتقسم العالم المسيحي اللاتيني."
+    }
+  },
+  {
+    "y": 1517,
+    "lat": 30.04,
+    "lon": 31.24,
+    "c": "EG",
+    "rg": "me",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "奥斯曼征服埃及",
+      "Ottoman Conquest of Egypt"
+    ],
+    "d": [
+      "塞利姆一世击败马穆鲁克，占领开罗，埃及成为奥斯曼行省；奥斯曼帝国控制红海与东地中海商路。",
+      "Selim I defeats the Mamluks and takes Cairo; Egypt becomes an Ottoman province and the empire controls Red Sea and eastern Mediterranean trade."
+    ],
+    "tx": {
+      "es": "Conquista otomana de Egipto",
+      "fr": "Conquête ottomane de l'Égypte",
+      "ar": "الفتح العثماني لمصر"
+    },
+    "dx": {
+      "es": "Selim I derrota a los mamelucos y toma El Cairo; Egipto se convierte en provincia otomana y el imperio controla el comercio del mar Rojo y del Mediterráneo oriental.",
+      "fr": "Sélim Ier défait les Mamelouks et prend Le Caire ; l'Égypte devient une province ottomane et l'empire contrôle le commerce de la mer Rouge et de la Méditerranée orientale.",
+      "ar": "سليم الأول يهزم المماليك ويستولي على القاهرة؛ تصبح مصر ولاية عثمانية وتسيطر الإمبراطورية على تجارة البحر الأحمر وشرق المتوسط."
     }
   },
   {
@@ -4430,6 +4542,62 @@
       "es": "La artillería y la caballería de Babur derrotan al Sultanato de Delhi y fundan el Imperio Mughal, la última gran época imperial del sur de Asia.",
       "fr": "L'artillerie et la cavalerie de Babur battent le sultanat de Delhi, fondant l'empire moghol – la dernière grande époque impériale d'Asie du Sud.",
       "ar": "هزمت مدفعية وفرسان بابر سلطنة دلهي، وأسست إمبراطورية المغول - آخر عصر إمبراطوري عظيم في جنوب آسيا."
+    }
+  },
+  {
+    "y": 1526,
+    "lat": 45.99,
+    "lon": 18.68,
+    "c": "HU",
+    "rg": "eu",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "莫哈奇战役",
+      "Battle of Mohács"
+    ],
+    "d": [
+      "奥斯曼军队在莫哈奇击溃匈牙利王国军队，国王阵亡；匈牙利被分割，奥斯曼势力深入中欧。",
+      "The Ottoman army routs the Hungarian royal army at Mohács and the king is killed; Hungary is partitioned and Ottoman power pushes into Central Europe."
+    ],
+    "tx": {
+      "es": "Batalla de Mohács",
+      "fr": "Bataille de Mohács",
+      "ar": "معركة موهاج"
+    },
+    "dx": {
+      "es": "El ejército otomano derrota al ejército húngaro en Mohács y el rey muere; Hungría queda dividida y el poder otomano penetra en Europa central.",
+      "fr": "L'armée ottomane écrase l'armée hongroise à Mohács et le roi est tué ; la Hongrie est partagée et la puissance ottomane pénètre en Europe centrale.",
+      "ar": "الجيش العثماني يهزم الجيش المجري في موهاج ويقتل الملك؛ تنقسم المجر وتتوغل القوة العثمانية في أوروبا الوسطى."
+    }
+  },
+  {
+    "y": 1529,
+    "lat": 48.21,
+    "lon": 16.37,
+    "c": "AT",
+    "rg": "eu",
+    "k": "war",
+    "s": "siege",
+    "f": 1,
+    "t": [
+      "维也纳之围（1529）",
+      "Siege of Vienna (1529)"
+    ],
+    "d": [
+      "苏莱曼一世率奥斯曼大军围攻维也纳，未能破城；此役成为奥斯曼向中欧扩张的极限标志。",
+      "Suleiman I besieges Vienna with a large Ottoman army but fails to take it; the siege marks the limit of Ottoman expansion into Central Europe."
+    ],
+    "tx": {
+      "es": "Asedio de Viena (1529)",
+      "fr": "Siège de Vienne (1529)",
+      "ar": "حصار فيينا (1529)"
+    },
+    "dx": {
+      "es": "Suleimán I asedia Viena con un gran ejército otomano pero no logra tomarla; el asedio marca el límite de la expansión otomana en Europa central.",
+      "fr": "Soliman Ier assiège Vienne avec une grande armée ottomane mais ne parvient pas à la prendre ; le siège marque la limite de l'expansion ottomane en Europe centrale.",
+      "ar": "سليمان الأول يحاصر فيينا بجيش عثماني كبير لكنه يفشل في احتلالها؛ يمثل الحصار حد التوسع العثماني في أوروبا الوسطى."
     }
   },
   {
@@ -5288,6 +5456,34 @@
       "es": "Las potencias europeas luchan en los cinco continentes; Gran Bretaña y Francia se disputan la India y América del Norte, mientras Prusia sobrevive contra todo pronóstico: la rivalidad imperial global toma forma.",
       "fr": "Les puissances européennes combattent sur cinq continents ; La Grande-Bretagne et la France se disputent l’Inde et l’Amérique du Nord tandis que la Prusse survit contre toute attente – une rivalité impériale mondiale prend forme.",
       "ar": "تتقاتل القوى الأوروبية في خمس قارات؛ تتنافس بريطانيا وفرنسا مع الهند وأمريكا الشمالية بينما تنجو بروسيا رغم الصعاب - ويتشكل التنافس الإمبراطوري العالمي."
+    }
+  },
+  {
+    "y": 1757,
+    "lat": 23.8,
+    "lon": 88.25,
+    "c": "IN",
+    "rg": "sa",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "普拉西战役",
+      "Battle of Plassey"
+    ],
+    "d": [
+      "英国东印度公司军队在普拉西击败孟加拉纳瓦布，取得孟加拉征税权，为英国统治印度奠定基础。",
+      "The East India Company defeats the Nawab of Bengal at Plassey, gaining control of Bengal's revenues and laying the foundation for British rule in India."
+    ],
+    "tx": {
+      "es": "Batalla de Plassey",
+      "fr": "Bataille de Plassey",
+      "ar": "معركة بلاسي"
+    },
+    "dx": {
+      "es": "La Compañía de las Indias Orientales derrota al nawab de Bengala en Plassey y obtiene el control de sus rentas, base del dominio británico en la India.",
+      "fr": "La Compagnie des Indes orientales défait le nawab du Bengale à Plassey et prend le contrôle de ses revenus, posant les bases de la domination britannique en Inde.",
+      "ar": "شركة الهند الشرقية تهزم نواب البنغال في بلاسي وتسيطر على إيراداته، مما يمهد للحكم البريطاني في الهند."
     }
   },
   {
@@ -7262,6 +7458,34 @@
     }
   },
   {
+    "y": 1919,
+    "lat": 39.904,
+    "lon": 116.407,
+    "c": "CN",
+    "rg": "ea",
+    "k": "culture",
+    "s": "protest",
+    "f": 1,
+    "t": [
+      "五四运动",
+      "May Fourth Movement"
+    ],
+    "d": [
+      "北京学生抗议巴黎和会把德国在山东权益转让日本，运动迅速扩及全国，成为新文化运动与民族觉醒的转折点。",
+      "Beijing students protest the Paris Peace Conference's transfer of German rights in Shandong to Japan; the movement spreads nationwide and marks a turning point in modern Chinese nationalism."
+    ],
+    "tx": {
+      "es": "Movimiento del Cuatro de Mayo",
+      "fr": "Mouvement du 4 mai",
+      "ar": "حركة الرابع من مايو"
+    },
+    "dx": {
+      "es": "Estudiantes de Pekín protestan contra la transferencia a Japón de los derechos alemanes en Shandong; el movimiento se extiende por todo el país y marca un giro del nacionalismo chino moderno.",
+      "fr": "Des étudiants de Pékin protestent contre le transfert au Japon des droits allemands au Shandong ; le mouvement gagne tout le pays et marque un tournant du nationalisme chinois moderne.",
+      "ar": "طلاب بكين يحتجون على نقل الحقوق الألمانية في شاندونغ إلى اليابان؛ تمتد الحركة في أنحاء البلاد وتشكل منعطفاً في القومية الصينية الحديثة."
+    }
+  },
+  {
     "y": 1920,
     "lat": 46.2,
     "lon": 6.14,
@@ -7610,6 +7834,34 @@
     }
   },
   {
+    "y": 1935,
+    "lat": 9.03,
+    "lon": 38.74,
+    "c": "ET",
+    "rg": "af",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "第二次意埃战争",
+      "Second Italo-Ethiopian War"
+    ],
+    "d": [
+      "墨索里尼发动侵埃战争，意大利以飞机与毒气击败埃塞俄比亚，占领亚的斯亚贝巴；国联制裁失败。",
+      "Mussolini invades Ethiopia; Italian aircraft and poison gas defeat the Ethiopians and Addis Ababa falls, exposing the failure of League of Nations sanctions."
+    ],
+    "tx": {
+      "es": "Segunda guerra ítalo-etíope",
+      "fr": "Seconde guerre italo-éthiopienne",
+      "ar": "الحرب الإيطالية الإثيوبية الثانية"
+    },
+    "dx": {
+      "es": "Mussolini invade Etiopía; la aviación y los gases italianos derrotan a los etíopes y cae Addis Abeba, evidenciando el fracaso de las sanciones de la Sociedad de Naciones.",
+      "fr": "Mussolini envahit l'Éthiopie ; l'aviation et les gaz italiens défont les Éthiopiens et Addis-Abeba tombe, révélant l'échec des sanctions de la Société des Nations.",
+      "ar": "موسوليني يغزو إثيوبيا؛ الطيران والغازات الإيطالية تهزم الإثيوبيين وتسقط أديس أبابا، مما يكشف فشل عقوبات عصبة الأمم."
+    }
+  },
+  {
     "y": 1936,
     "lat": 40.42,
     "lon": -3.7,
@@ -7635,6 +7887,34 @@
       "es": "Los republicanos y los nacionalistas de Franco luchan durante tres años; La intervención alemana e italiana y las Brigadas Internacionales lo convierten en el preludio de la Segunda Guerra Mundial.",
       "fr": "Les Républicains et les Nationalistes de Franco se battent pendant trois ans ; Les interventions allemandes et italiennes et les Brigades internationales en font un prélude à la Seconde Guerre mondiale.",
       "ar": "يتقاتل الجمهوريون والقوميون التابعون لفرانكو لمدة ثلاث سنوات. التدخل الألماني والإيطالي والألوية الدولية جعلها مقدمة للحرب العالمية الثانية."
+    }
+  },
+  {
+    "y": 1936,
+    "lat": 34.27,
+    "lon": 108.95,
+    "c": "CN",
+    "rg": "ea",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "西安事变",
+      "Xi'an Incident"
+    ],
+    "d": [
+      "张学良、杨虎城在西安扣留蒋介石，逼其停止内战、联共抗日；事变和平解决，抗日民族统一战线初步形成。",
+      "Zhang Xueliang and Yang Hucheng detain Chiang Kai-shek in Xi'an, forcing an end to the civil war and a united front against Japan; the peaceful settlement helps form the Second United Front."
+    ],
+    "tx": {
+      "es": "Incidente de Xi'an",
+      "fr": "Incident de Xi'an",
+      "ar": "حادثة شيان"
+    },
+    "dx": {
+      "es": "Zhang Xueliang y Yang Hucheng retienen a Chiang Kai-shek en Xi'an y lo obligan a poner fin a la guerra civil y unirse contra Japón; el arreglo pacífico ayuda a formar el Segundo Frente Unido.",
+      "fr": "Zhang Xueliang et Yang Hucheng retiennent Tchang Kaï-chek à Xi'an et le contraignent à cesser la guerre civile et à s'unir contre le Japon ; le règlement pacifique aide à former le second front uni.",
+      "ar": "تشانغ شيويليانغ ويانغ هوتشينغ يحتجزان تشيانغ كاي شيك في شيان ويجبرانه على إنهاء الحرب الأهلية والاتحاد ضد اليابان؛ التسوية السلمية تساعد في تشكيل الجبهة المتحدة الثانية."
     }
   },
   {
@@ -7666,6 +7946,62 @@
     }
   },
   {
+    "y": 1937,
+    "lat": 31.23,
+    "lon": 121.47,
+    "c": "CN",
+    "rg": "ea",
+    "k": "war",
+    "s": "siege",
+    "f": 1,
+    "t": [
+      "淞沪会战",
+      "Battle of Shanghai"
+    ],
+    "d": [
+      "中日双方在上海投入百万兵力，血战三个月；中国军队粉碎日军“速战速决”企图，但伤亡惨重。",
+      "China and Japan commit vast forces to Shanghai in a three-month battle; Chinese troops frustrate Japan's bid for a quick victory at heavy cost."
+    ],
+    "tx": {
+      "es": "Batalla de Shanghái",
+      "fr": "Bataille de Shanghai",
+      "ar": "معركة شنغهاي"
+    },
+    "dx": {
+      "es": "China y Japón movilizan enormes fuerzas en Shanghái durante tres meses; las tropas chinas frustran la victoria rápida japonesa a un costo enorme.",
+      "fr": "La Chine et le Japon engagent d'énormes forces à Shanghai pendant trois mois ; les troupes chinoises déjouent la victoire rapide japonaise au prix de lourdes pertes.",
+      "ar": "الصين واليابان تحشدان قوات ضخمة في شنغهاي لثلاثة أشهر؛ القوات الصينية تحبط الانتصار الياباني السريع بتكلفة باهظة."
+    }
+  },
+  {
+    "y": 1937,
+    "lat": 39.849,
+    "lon": 116.213,
+    "c": "CN",
+    "rg": "ea",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "卢沟桥事变",
+      "Marco Polo Bridge Incident"
+    ],
+    "d": [
+      "日军在卢沟桥附近演习后借口士兵失踪，炮击宛平城；中国守军奋起抵抗，全民族抗战由此爆发。",
+      "After a night exercise near the Marco Polo Bridge, Japanese troops shell Wanping on the pretext of a missing soldier; Chinese defenders resist, igniting full-scale war."
+    ],
+    "tx": {
+      "es": "Incidente del puente de Marco Polo",
+      "fr": "Incident du pont Marco-Polo",
+      "ar": "حادثة جسر ماركو بولو"
+    },
+    "dx": {
+      "es": "Tras unas maniobras nocturnas cerca del puente de Marco Polo, las tropas japonesas bombardean Wanping con el pretexto de un soldado desaparecido; la resistencia china desencadena la guerra total.",
+      "fr": "Après des manœuvres nocturnes près du pont Marco-Polo, les troupes japonaises bombardent Wanping sous prétexte d'un soldat disparu ; la résistance chinoise déclenche la guerre totale.",
+      "ar": "بعد مناورات ليلية قرب جسر ماركو بولو، تقصف القوات اليابانية وانبينغ بذريعة جندي مفقود؛ المقاومة الصينية تشعل الحرب الشاملة."
+    }
+  },
+  {
     "y": 1938,
     "lat": 48.14,
     "lon": 11.58,
@@ -7690,6 +8026,62 @@
       "es": "Gran Bretaña y Francia sacrifican Checoslovaquia por \"la paz en nuestro tiempo\"; el apaciguamiento fracasa y la guerra se acerca.",
       "fr": "La Grande-Bretagne et la France sacrifient la Tchécoslovaquie pour « la paix à notre époque » ; l’apaisement échoue et la guerre se rapproche.",
       "ar": "بريطانيا وفرنسا تضحيان بتشيكوسلوفاكيا من أجل \"السلام في عصرنا\"؛ تفشل التهدئة وتقترب الحرب."
+    }
+  },
+  {
+    "y": 1938,
+    "lat": 30.59,
+    "lon": 114.3,
+    "c": "CN",
+    "rg": "ea",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "武汉会战",
+      "Battle of Wuhan"
+    ],
+    "d": [
+      "百万军民围绕武汉展开四个多月的会战，日军虽占领武汉，却未能迫使中国屈服，战争转入长期相持。",
+      "A four-month campaign around Wuhan ends with the city's fall, but Japan cannot force China to capitulate; the war settles into stalemate."
+    ],
+    "tx": {
+      "es": "Batalla de Wuhan",
+      "fr": "Bataille de Wuhan",
+      "ar": "معركة ووهان"
+    },
+    "dx": {
+      "es": "Una campaña de cuatro meses alrededor de Wuhan termina con la caída de la ciudad, pero Japón no logra forzar la capitulación china; la guerra entra en un punto muerto.",
+      "fr": "Une campagne de quatre mois autour de Wuhan s'achève par la chute de la ville, mais le Japon ne parvient pas à forcer la capitulation chinoise ; la guerre s'enlise.",
+      "ar": "حملة استمرت أربعة أشهر حول ووهان تنتهي بسقوط المدينة، لكن اليابان لا تستطيع إجبار الصين على الاستسلام؛ تتحول الحرب إلى جمود."
+    }
+  },
+  {
+    "y": 1938,
+    "lat": 34.56,
+    "lon": 117.73,
+    "c": "CN",
+    "rg": "ea",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "台儿庄战役",
+      "Battle of Taierzhuang"
+    ],
+    "d": [
+      "中国军队在台儿庄围歼日军一部，取得抗战初期正面战场的重要胜利，鼓舞全国士气。",
+      "Chinese forces encircle and defeat a Japanese detachment at Taierzhuang, a rare early front-line victory that lifts national morale."
+    ],
+    "tx": {
+      "es": "Batalla de Taierzhuang",
+      "fr": "Bataille de Taierzhuang",
+      "ar": "معركة تاييرتشوانغ"
+    },
+    "dx": {
+      "es": "Las fuerzas chinas cercan y derrotan a un destacamento japonés en Taierzhuang, una rara victoria temprana en el frente que eleva la moral nacional.",
+      "fr": "Les forces chinoises encerclent et défont un détachement japonais à Taierzhuang, une rare victoire précoce du front qui relève le moral national.",
+      "ar": "القوات الصينية تحاصر وتهزم مفرزة يابانية في تاييرتشوانغ، وهو انتصار مبكر نادر في الجبهة يرفع الروح المعنوية الوطنية."
     }
   },
   {
@@ -7803,6 +8195,34 @@
       "es": "La RAF, ayudada por radares y Spitfires, repele a la Luftwaffe; La primera derrota de Hitler mantiene a Gran Bretaña en la guerra.",
       "fr": "La RAF, aidée par les radars et les Spitfire, repousse la Luftwaffe ; La première défaite d'Hitler maintient la Grande-Bretagne dans la guerre.",
       "ar": "يقوم سلاح الجو الملكي البريطاني، بمساعدة الرادار وطائرات سبيتفاير، بصد طائرات Luftwaffe؛ هزيمة هتلر الأولى أبقت بريطانيا في الحرب."
+    }
+  },
+  {
+    "y": 1940,
+    "lat": 37.9,
+    "lon": 113.5,
+    "c": "CN",
+    "rg": "ea",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "百团大战",
+      "Hundred Regiments Offensive"
+    ],
+    "d": [
+      "八路军在华北发动大规模破袭战，破坏铁路、据点与矿山，打击日军“囚笼政策”，也暴露了敌后战场的力量。",
+      "The Eighth Route Army launches a large sabotage campaign across North China, wrecking railways, strongpoints and mines, disrupting Japan's cage strategy."
+    ],
+    "tx": {
+      "es": "Ofensiva de los Cien Regimientos",
+      "fr": "Offensive des cent régiments",
+      "ar": "هجوم المئة فوج"
+    },
+    "dx": {
+      "es": "El Octavo Ejército de Ruta lanza una gran campaña de sabotaje en el norte de China, destruyendo ferrocarriles, fortines y minas, y alterando la estrategia japonesa de cerco.",
+      "fr": "La Huitième armée de route lance une vaste campagne de sabotage dans le nord de la Chine, détruisant voies ferrées, forts et mines, et perturbant la stratégie d'encerclement japonaise.",
+      "ar": "جيش الطريق الثامن يشن حملة تخريب واسعة في شمال الصين، يدمر السكك الحديدية والحصون والمناجم، ويعطل استراتيجية التطويق اليابانية."
     }
   },
   {
@@ -7982,6 +8402,34 @@
       "es": "Los combates callejeros y un cerco invernal destruyen al Sexto Ejército alemán: el frente oriental gira y las fuerzas soviéticas avanzan hacia el oeste.",
       "fr": "Les combats de rue et un encerclement hivernal détruisent la Sixième Armée allemande ; le front de l'Est se retourne et les forces soviétiques avancent vers l'ouest.",
       "ar": "يدمر قتال الشوارع والتطويق الشتوي الجيش السادس الألماني - وتنعطف الجبهة الشرقية وتتقدم القوات السوفيتية غربًا."
+    }
+  },
+  {
+    "y": 1942,
+    "lat": 30.83,
+    "lon": 28.95,
+    "c": "EG",
+    "rg": "af",
+    "k": "war",
+    "s": "cannon",
+    "f": 1,
+    "t": [
+      "第二次阿拉曼战役",
+      "Second Battle of El Alamein"
+    ],
+    "d": [
+      "蒙哥马利指挥英联邦军队在阿拉曼击退隆美尔的非洲军团，北非战局转折，轴心国失去埃及。",
+      "Montgomery's Commonwealth forces defeat Rommel's Afrika Korps at El Alamein, turning the North African campaign and ending Axis hopes in Egypt."
+    ],
+    "tx": {
+      "es": "Segunda batalla de El Alamein",
+      "fr": "Seconde bataille d'El-Alamein",
+      "ar": "معركة العلمين الثانية"
+    },
+    "dx": {
+      "es": "Las fuerzas de Montgomery derrotan al Afrika Korps de Rommel en El Alamein y cambian el rumbo de la campaña del norte de África.",
+      "fr": "Les forces de Montgomery défont l'Afrika Korps de Rommel à El-Alamein et renversent la campagne d'Afrique du Nord.",
+      "ar": "قوات مونتغمري تهزم فيلق أفريقيا بقيادة رومل في العلمين وتغير مسار حملة شمال أفريقيا."
     }
   },
   {
