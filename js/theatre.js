@@ -93,12 +93,98 @@
     revolution: null,
     byIso: null,
     lastP: 0,
+    /* ── unified stage / motion state (P2-1) ──────────
+       alpha: 0→1 on entry, 1→0 on exit.
+       phase: idle | in | settle | out.
+       still: the last frame of a finished scene, drawn statically so the
+       map never "blanks" while the reader is still in the panel. */
+    alpha: 0,
+    phase: "idle",
+    introAt: 0,
+    outroAt: 0,
+    outFrom: 1,
+    stage: null,
+    still: null,
+    settled: false,
+    frozenP: 0,
+    reduceMotion: false,
 
-    init(map) { this.map = map; },
+    init(map) {
+      this.map = map;
+      this.reduceMotion = !!(map && map.reduceMotion);
+    },
     setLang(lang) { this.lang = lang; },
+
+    /* Shared geometry for every scene. The main visual should read as the
+       subject of the map, not as a sticker: ~33% of the map width on
+       desktop, floored so phones still get a legible scene. */
+    sceneTargetW(map) { return clamp((map || this.map).W * 0.33, 230, 520); },
+    iconScale(map) { return clamp(this.sceneTargetW(map) / 112, 1.2, 4.4); },
+    heroScale(map) { return clamp(this.sceneTargetW(map) / 120, 0.7, 5.2); },
+    stageR(map) {
+      return clamp(this.sceneTargetW(map) * 0.62 + 26, 150, Math.min(map.W, map.H) * 0.55);
+    },
+    stagePos(map) {
+      if (!this.stage) return null;
+      const p = map.project(this.stage.lon, this.stage.lat);
+      return { x: p.x, y: p.y, r: this.stageR(map), seed: this.stage.seed || 0.5 };
+    },
+
+    /* How strongly a map label survives while the theatre is open. The
+       current event and its neighbours stay; distant names recede. */
+    labelWeight(x, y) {
+      if (!this.active && !this.still) return 1;
+      const st = this.stagePos(this.map);
+      if (!st) return 1;
+      const d = Math.hypot(x - st.x, y - st.y);
+      if (d < st.r * 1.02) return 0.46;
+      if (d < st.r * 1.9) return 0.3;
+      return 0.14;
+    },
+
+    clearStill() { this.still = null; },
+
+    currentAlpha(now) {
+      if (this.phase === "in") {
+        const t = clamp((now - this.introAt) / 280, 0, 1);
+        return ease(t);
+      }
+      if (this.phase === "out") {
+        const t = clamp((now - this.outroAt) / 520, 0, 1);
+        return this.outFrom * (1 - ease(t));
+      }
+      return this.alpha;
+    },
+
+    beginSettle() {
+      if (!this.active) return;
+      this.settled = true;
+      this.frozenP = this.lastP || 14.2;
+      this.phase = "settle";
+      this.alpha = 1;
+      clearTimeout(this._settleTimer);
+      this._settleTimer = setTimeout(() => this.freezeToStill(), 260);
+    },
+
+    freezeToStill() {
+      if (!this.active) return;
+      const s = {
+        ev: this.ev, data: this.data, mode: this.mode, style: this.style,
+        hero: this.hero, variant: this.variant, sides: this.sides,
+        fronts: this.fronts, battles: this.battles, routes: this.routes,
+        units: this.units, end: this.end, atomic: this.atomic,
+        disaster: this.disaster, founding: this.founding, craft: this.craft,
+        city: this.city, monument: this.monument, revolution: this.revolution,
+        stage: this.stage, p: this.frozenP, alpha: 1,
+      };
+      this.hardClear();
+      this.still = s;
+    },
 
     playEvent(ev) {
       if (!this.map || !ev) return;
+      this.cancelExit();
+      this.clearStill();
       const data = (A.theatres && A.theatres[ev.id]) || this.defaultTheatre(ev);
       this.ev = ev;
       this.data = data;
@@ -125,15 +211,21 @@
       this.started = performance.now();
       this.paused = false;
       this.frozen = 0;
+      this.settled = false;
       this.byIso = this.byIso || this.buildIso();
       this.units = this.buildUnits(ev, data);
       this.active = true;
       this.map.setTheatreActive(true);
-      clearTimeout(this._stopTimer);
-      this._stopTimer = setTimeout(() => { if (this.active) this.clear(); }, 16000);
       const c = data.center || [ev.lat, ev.lon];
+      this.stage = { lat: c[0], lon: c[1], seed: hash(ev.id || "ev") };
+      this.phase = "in";
+      this.introAt = this.started + (this.reduceMotion ? 0 : 520);
+      this.alpha = this.reduceMotion ? 1 : 0;
+      clearTimeout(this._stopTimer);
+      clearTimeout(this._settleTimer);
+      this._stopTimer = setTimeout(() => this.beginSettle(), 16000);
       const z = data.zoom || this.defaultZoom(this.mode, ev);
-      this.map.flyTo(c[0], c[1], z, 950);
+      this.map.flyTo(c[0], c[1], z, 620);
     },
 
     playCountry(f) {
@@ -145,7 +237,9 @@
         if (r.countries && iso && r.countries.indexOf(iso) >= 0) return true;
         return r.pts.some((p) => this.inBBox(p[1], p[0], f._rawBBox));
       });
-      if (!routes.length) { this.clear(); return false; }
+      if (!routes.length) { this.cancelExit(); this.clearStill(); this.hardClear(); return false; }
+      this.cancelExit();
+      this.clearStill();
       this.ev = null;
       this.data = null;
       this.mode = "trade";
@@ -157,18 +251,58 @@
       this.end = null;
       this.atomic = null;
       this.disaster = null;
+      this.founding = null;
+      this.craft = null;
+      this.city = null;
+      this.monument = null;
+      this.revolution = null;
       this.started = performance.now();
       this.paused = false;
       this.frozen = 0;
+      this.settled = false;
       this.routes = routes.map((r) => ({ mode: r.mode, label: r.name, pts: unwrapPts(r.pts) }));
       this.units = this.buildUnits(null, { routes: this.routes, mode: "trade" });
       this.active = true;
       this.map.setTheatreActive(true);
+      this.stage = { lat: f.properties.ly, lon: f.properties.lx, seed: hash(iso || f.properties.n || "port"), country: f.properties.n };
+      this.phase = "in";
+      this.introAt = this.started + (this.reduceMotion ? 0 : 420);
+      this.alpha = this.reduceMotion ? 1 : 0;
+      clearTimeout(this._stopTimer);
+      this._stopTimer = setTimeout(() => this.beginSettle(), 16000);
       return true;
     },
 
-    clear() {
+    cancelExit() {
+      clearTimeout(this._finalizeTimer);
+      clearTimeout(this._settleTimer);
+      if (this.phase === "out" || this.phase === "settle") this.phase = "idle";
+    },
+
+    /* Public close. Fades out (400–600ms) unless the caller asks for an
+       immediate teardown; a still thumbnail is dropped. */
+    clear(opts) {
+      opts = opts || {};
+      clearTimeout(this._stopTimer);
+      clearTimeout(this._settleTimer);
+      this.settled = false;
+      if (!opts.keepStill) this.still = null;
+      if (opts.immediate || !this.active || this.reduceMotion) { this.hardClear(); return; }
+      if (this.phase !== "out") {
+        const now = performance.now();
+        this.phase = "out";
+        this.outroAt = now;
+        this.outFrom = this.currentAlpha(now) || this.alpha || 1;
+        this.alpha = this.outFrom;
+      }
+      clearTimeout(this._finalizeTimer);
+      this._finalizeTimer = setTimeout(() => this.hardClear(), 540);
+    },
+
+    hardClear() {
       this.active = false;
+      this.phase = "idle";
+      this.alpha = 0;
       this.ev = null;
       this.units = [];
       this.fronts = [];
@@ -183,6 +317,8 @@
       this.style = null;
       this.hero = null;
       this.variant = null;
+      this.stage = null;
+      this.settled = false;
       clearTimeout(this._stopTimer);
       if (this.map) this.map.setTheatreActive(false);
     },
@@ -200,6 +336,8 @@
     },
 
     elapsed(now) {
+      if (this.settled) return this.frozenP;
+      if (this.reduceMotion) return 4.2;
       if (this.paused) return this.frozen;
       return (now - this.started) / 1000;
     },
@@ -282,9 +420,15 @@
         const pts = [[ev.lat, ev.lon]].concat(links);
         data.routes = [{ mode: ev.s === "camel" ? "camel" : "ship", pts, label: [ev.t[0], ev.t[1]] }];
         if (pts.length > 1) {
-          const lats = pts.map((p) => p[0]), lons = pts.map((p) => p[1]);
-          data.center = [(Math.min(...lats) + Math.max(...lats)) / 2, (Math.min(...lons) + Math.max(...lons)) / 2];
-          const span = Math.max(Math.max(...lats) - Math.min(...lats), Math.max(...lons) - Math.min(...lons));
+          // Routes that cross the antimeridian must not average to Greenwich.
+          const lats = pts.map((p) => p[0]);
+          const lon0 = ev.lon;
+          const unwrapped = pts.map((p) => lon0 + ((((p[1] - lon0 + 540) % 360) - 180)));
+          let midLon = unwrapped.reduce((a, b) => a + b, 0) / unwrapped.length;
+          while (midLon > 180) midLon -= 360;
+          while (midLon < -180) midLon += 360;
+          data.center = [(Math.min(...lats) + Math.max(...lats)) / 2, midLon];
+          const span = Math.max(Math.max(...lats) - Math.min(...lats), Math.max(...unwrapped) - Math.min(...unwrapped));
           data.zoom = span > 100 ? 1.5 : span > 50 ? 1.9 : span > 20 ? 2.4 : 3.2;
         }
       } else if (mode === "atomic") {
@@ -389,14 +533,37 @@
 
     /* ── main draw ─────────────────────────────────── */
     draw(ctx, map, now) {
+      if (this.still) this.drawStill(ctx, map);
       if (!this.active) return;
+      if (this.phase === "in") this.alpha = this.currentAlpha(now);
+      else if (this.phase === "out") this.alpha = this.currentAlpha(now);
+      else if (this.phase === "settle") this.alpha = 1;
+      if (this.alpha <= 0.004) return;
       const p = this.elapsed(now);
       this.lastP = p;
+      this.drawScene(ctx, map, p, this.alpha);
+    },
+
+    drawStill(ctx, map) {
+      const s = this.still;
+      if (!s) return;
+      const keys = ["ev", "data", "mode", "style", "hero", "variant", "sides", "fronts", "battles", "routes", "units", "end", "atomic", "disaster", "founding", "craft", "city", "monument", "revolution", "stage"];
+      const bak = {};
+      keys.forEach((k) => { bak[k] = this[k]; this[k] = s[k]; });
+      this.drawScene(ctx, map, s.p, s.alpha);
+      keys.forEach((k) => { this[k] = bak[k]; });
+    },
+
+    drawScene(ctx, map, p, alpha) {
       ctx.save();
       ctx.setTransform(map.dpr, 0, 0, map.dpr, 0, 0);
-      ctx.globalAlpha = 1;
+      ctx.globalAlpha = alpha;
       ctx.globalCompositeOperation = "source-over";
       ctx.setLineDash([]);
+
+      // The unified stage sits under every scene: a soft paper wash, a
+      // vignette and a torn ink edge — no rectangular card.
+      this.drawStage(ctx, map, p);
 
       if (this.hero) {
         this.drawHeroScene(ctx, map, p);
@@ -421,26 +588,90 @@
         else if (this.mode === "city") this.drawCity(ctx, map, p);
         else if (this.mode === "monument") this.drawMonument(ctx, map, p);
         else if (this.mode === "revolution") this.drawRevolution(ctx, map, p);
-        else if (this.mode === "disaster") this.drawDisaster(ctx, map, p);
+        else if (this.mode === "disaster") { this.drawDisaster(ctx, map, p); this.drawDisasterEmblem(ctx, map, p); }
+        if (this.mode === "trade") this.drawPortBadge(ctx, map, p);
+        if (this.mode === "war" || this.mode === "march") this.drawWarEmblem(ctx, map, p);
         this.drawEnd(ctx, map, p);
       }
       this.drawLabels(ctx, map, p);
       ctx.restore();
     },
 
+    /* Soft parchment wash + vignette + a jittered, torn-paper ink edge. */
+    drawStage(ctx, map, p) {
+      const st = this.stagePos(map);
+      if (!st) return;
+      const R = st.r;
+      const g = ctx.createRadialGradient(st.x, st.y, 0, st.x, st.y, R);
+      g.addColorStop(0, "rgba(251,245,230,0.70)");
+      g.addColorStop(0.42, "rgba(248,238,216,0.52)");
+      g.addColorStop(0.74, "rgba(242,228,199,0.24)");
+      g.addColorStop(1, "rgba(240,224,194,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(st.x, st.y, R, 0, TAU); ctx.fill();
+
+      // vignette: quietly darkens the rim so the eye stays on the scene
+      const v = ctx.createRadialGradient(st.x, st.y, R * 0.6, st.x, st.y, R);
+      v.addColorStop(0, "rgba(96,72,44,0)");
+      v.addColorStop(0.78, "rgba(96,72,44,0.045)");
+      v.addColorStop(1, "rgba(96,72,44,0.115)");
+      ctx.fillStyle = v;
+      ctx.beginPath(); ctx.arc(st.x, st.y, R, 0, TAU); ctx.fill();
+
+      // torn outer edge
+      this._stagePath(ctx, st, 1);
+      ctx.strokeStyle = "rgba(104,78,48,0.17)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      this._stagePath(ctx, st, 0.982);
+      ctx.strokeStyle = "rgba(140,110,70,0.12)";
+      ctx.lineWidth = 0.7;
+      ctx.stroke();
+
+      // deckle hairlines along the rim
+      const rand = rng(st.seed + 0.31);
+      ctx.strokeStyle = "rgba(116,88,56,0.13)";
+      ctx.lineWidth = 0.7;
+      for (let i = 0; i < 34; i++) {
+        const a = rand() * TAU;
+        const r0 = R * (0.972 + rand() * 0.02);
+        const r1 = r0 - 2 - rand() * 5;
+        ctx.beginPath();
+        ctx.moveTo(st.x + Math.cos(a) * r0, st.y + Math.sin(a) * r0);
+        ctx.lineTo(st.x + Math.cos(a) * r1, st.y + Math.sin(a) * r1);
+        ctx.stroke();
+      }
+    },
+
+    _stagePath(ctx, st, k) {
+      const rand = rng(st.seed + 0.07);
+      const ph = rand() * TAU;
+      const N = 108;
+      ctx.beginPath();
+      for (let i = 0; i <= N; i++) {
+        const a = (i / N) * TAU;
+        const n = Math.sin(a * 7 + ph) * 0.017 + Math.sin(a * 15 + ph * 1.7) * 0.011 + (rand() - 0.5) * 0.006;
+        const r = st.r * k * (1 + n);
+        const x = st.x + Math.cos(a) * r;
+        const y = st.y + Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    },
+
     drawHeroScene(ctx, map, p) {
       if (!this.hero || !this.ev || !window.HeroScenes) return;
       const pos = map.project(this.ev.lon, this.ev.lat);
-      if (pos.x < -140 || pos.x > map.W + 140 || pos.y < -60 || pos.y > map.H + 160) return;
-      const s = clamp(1.9 + map.view.zoom * 0.32, 2.0, 3.6);
+      if (pos.x < -240 || pos.x > map.W + 240 || pos.y < -120 || pos.y > map.H + 260) return;
+      const s = this.heroScale(map);
       window.HeroScenes.drawMap(ctx, this.hero, pos.x, pos.y + 7 * s, s, p);
     },
 
     drawVariantScene(ctx, map, p) {
       if (!this.variant || !this.ev || !window.VariantScenes) return;
       const pos = map.project(this.ev.lon, this.ev.lat);
-      if (pos.x < -140 || pos.x > map.W + 140 || pos.y < -60 || pos.y > map.H + 160) return;
-      const s = clamp(1.9 + map.view.zoom * 0.32, 2.0, 3.6);
+      if (pos.x < -240 || pos.x > map.W + 240 || pos.y < -120 || pos.y > map.H + 260) return;
+      const s = this.heroScale(map);
       window.VariantScenes.drawMap(ctx, this.variant, pos.x, pos.y + 7 * s, s, p);
     },
 
@@ -532,29 +763,29 @@
     },
 
     drawBattles(ctx, map, p) {
+      const mk = clamp(this.iconScale(map) / 2.9, 0.85, 1.7);
       for (const b of this.battles) {
         const pos = map.project(b.lon, b.lat);
-        if (pos.x < -50 || pos.x > map.W + 50 || pos.y < -50 || pos.y > map.H + 50) continue;
+        if (pos.x < -80 || pos.x > map.W + 80 || pos.y < -80 || pos.y > map.H + 80) continue;
         const col = this.sideColor(b.side) || "#a83e2c";
         const kind = b.kind || "land";
         if (kind === "outbreak" || kind === "wave" || kind === "atomic") continue;
         const pulse = (p * 0.35 + hash(b.name ? b.name[1] : "b")) % 1;
         ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 10 + pulse * 26, 0, TAU);
+        ctx.arc(pos.x, pos.y, (10 + pulse * 26) * mk, 0, TAU);
         ctx.strokeStyle = hexA(col, 0.4 * (1 - pulse));
         ctx.lineWidth = 1.2;
         ctx.stroke();
-        if (kind === "air" || kind === "naval") this.drawAir(ctx, pos.x, pos.y, 0.8, p, col);
-        else if (kind === "urban" || kind === "artillery" || kind === "siege") this.drawFire(ctx, pos.x, pos.y, 0.9, p, col);
-        else if (kind === "cavalry") this.drawHorseIcon(ctx, pos.x, pos.y, 0.8, p, col);
-        else if (kind === "crowd") this.drawCrowd(ctx, pos.x, pos.y, 0.8, p, col);
-        else this.drawCrossed(ctx, pos.x, pos.y, 0.8, col);
+        if (kind === "air" || kind === "naval") this.drawAir(ctx, pos.x, pos.y, 0.8 * mk, p, col);
+        else if (kind === "urban" || kind === "artillery" || kind === "siege") this.drawFire(ctx, pos.x, pos.y, 0.9 * mk, p, col);
+        else if (kind === "cavalry") this.drawHorseIcon(ctx, pos.x, pos.y, 0.8 * mk, p, col);
+        else if (kind === "crowd") this.drawCrowd(ctx, pos.x, pos.y, 0.8 * mk, p, col);
+        else this.drawCrossed(ctx, pos.x, pos.y, 0.8 * mk, col);
       }
     },
 
     drawUnits(ctx, map, p) {
-      const zoom = map.view.zoom;
-      const scale = clamp(0.5 + zoom * 0.24, 0.8, 1.5);
+      const scale = clamp(this.iconScale(map) * 0.42, 0.85, 1.9);
       for (const u of this.units) {
         let lat, lon, ang = 0;
         if (u.path) {
@@ -622,7 +853,7 @@
         ctx.lineWidth = 1.4;
         ctx.beginPath(); ctx.moveTo(-9, 0); ctx.quadraticCurveTo(0, 4, 9, 0); ctx.lineTo(6, -2); ctx.lineTo(-6, -2); ctx.closePath(); ctx.fillStyle = "#3b2d1e"; ctx.fill();
         ctx.beginPath(); ctx.moveTo(0, -2); ctx.lineTo(0, -11); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(1, -10); ctx.quadraticCurveTo(8, -7, 1, -3); ctx.closePath(); ctx.fillStyle = color; ctx.globalAlpha = 0.8; ctx.fill(); ctx.globalAlpha = 1;
+        ctx.beginPath(); ctx.moveTo(1, -10); ctx.quadraticCurveTo(8, -7, 1, -3); ctx.closePath(); ctx.save(); ctx.globalAlpha *= 0.8; ctx.fillStyle = color; ctx.fill(); ctx.restore();
         ctx.strokeStyle = "rgba(255,255,255,0.25)"; ctx.lineWidth = 0.8;
         ctx.beginPath(); ctx.moveTo(-12, 2); ctx.quadraticCurveTo(0, 5, 12, 2); ctx.stroke();
       } else if (type === "plane") {
@@ -816,7 +1047,7 @@
       if (this.style === "american-founding") return this.drawAmericanFounding(ctx, map, p);
       const pos = map.project(f.lon, f.lat);
       if (pos.x < -80 || pos.x > map.W + 80 || pos.y < -80 || pos.y > map.H + 80) return;
-      const s = clamp(1.08 + map.view.zoom * 0.32, 1.25, 3.0);
+      const s = this.iconScale(map);
       const ink = "rgba(72,52,34,0.82)";
       const warm = "rgba(176,67,44,0.9)";
       const gold = "rgba(184,138,62,0.9)";
@@ -965,7 +1196,7 @@
     drawRomanFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", stone = "rgba(232,220,198,0.92)", gold = "rgba(176,138,62,0.95)", red = "rgba(176,67,44,0.9)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 92, "#c9a45f", 0.16);
@@ -998,7 +1229,7 @@
     drawIslamicFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", stone = "rgba(238,225,198,0.94)", gold = "rgba(176,138,62,0.95)", green = "rgba(70,100,82,0.9)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 92, "#c9a45f", 0.16);
@@ -1024,7 +1255,7 @@
     drawModernFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", stone = "rgba(236,228,212,0.95)", gold = "rgba(176,138,62,0.95)", red = "rgba(176,67,44,0.9)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 90, "#c9a45f", 0.14);
@@ -1051,7 +1282,7 @@
     drawMegalithFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", stone = "rgba(158,144,118,0.85)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 84, "#c9a45f", 0.12);
@@ -1069,7 +1300,7 @@
     drawCastleFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", stone = "rgba(206,184,148,0.75)", red = "rgba(176,67,44,0.9)", gold = "rgba(176,138,62,0.95)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 86, "#c9a45f", 0.14);
@@ -1089,7 +1320,7 @@
     drawSteppeFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", warm = "rgba(206,174,128,0.9)", red = "rgba(176,67,44,0.9)", gold = "rgba(176,138,62,0.95)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 84, "#c9a45f", 0.14);
@@ -1107,7 +1338,7 @@
     drawSouthAsianFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", stone = "rgba(236,220,190,0.95)", gold = "rgba(176,138,62,0.95)", warm = "rgba(204,168,112,0.9)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 88, "#c9a45f", 0.14);
@@ -1125,7 +1356,7 @@
     drawSeaFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", stone = "rgba(230,212,180,0.9)", gold = "rgba(176,138,62,0.95)", red = "rgba(176,67,44,0.9)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 88, "#8aa8a0", 0.14);
@@ -1144,7 +1375,7 @@
     drawAfricanFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", warm = "rgba(206,172,120,0.88)", gold = "rgba(176,138,62,0.95)", red = "rgba(176,67,44,0.9)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 84, "#c9a45f", 0.14);
@@ -1163,7 +1394,7 @@
     drawAmericanFounding(ctx, map, p) {
       const f = this.founding; if (!f) return;
       const pos = map.project(f.lon, f.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.28, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", stone = "rgba(218,188,144,0.9)", gold = "rgba(176,138,62,0.95)", red = "rgba(176,67,44,0.9)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 86, "#c9a45f", 0.14);
@@ -1185,7 +1416,7 @@
       const c = this.craft; if (!c) return;
       if (this.style === "treaty" || this.style === "script") return this.drawDocumentScene(ctx, map, p);
       const pos = map.project(c.lon, c.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", paper = "rgba(246,236,214,0.95)", gold = "rgba(176,138,62,0.95)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 84, "#c9a45f", 0.14);
@@ -1212,7 +1443,7 @@
       const m = this.monument; if (!m) return;
       if (this.style && this.style !== "mughal-tomb") return this.drawArchitecture(ctx, map, p, this.style);
       const pos = map.project(m.lon, m.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.8)", stone = "rgba(246,236,216,0.96)", gold = "rgba(176,138,62,0.95)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 92, "#d0b070", 0.16);
@@ -1235,36 +1466,110 @@
     drawRevolution(ctx, map, p) {
       const r = this.revolution; if (!r) return;
       const pos = map.project(r.lon, r.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", red = "rgba(176,67,44,0.92)", gold = "rgba(176,138,62,0.95)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 84, "#c0603a", 0.16);
-      // Winter Palace-like facade behind the barricade
-      ctx.fillStyle = "rgba(226,212,186,0.32)";
-      ctx.fillRect(-52, -32, 104, 34);
-      ctx.strokeStyle = "rgba(86,64,44,0.45)"; ctx.lineWidth = 0.8;
-      ctx.strokeRect(-52, -32, 104, 34);
-      ctx.beginPath(); ctx.moveTo(-54, -32); ctx.lineTo(0, -40); ctx.lineTo(54, -32); ctx.stroke();
-      for (let i = -4; i <= 4; i++) {
-        ctx.fillStyle = "rgba(250,242,224,0.35)";
-        ctx.fillRect(i * 10 - 1, -29, 3, 27);
-        ctx.strokeStyle = "rgba(86,64,44,0.3)"; ctx.strokeRect(i * 10 - 1, -29, 3, 27);
+      // town silhouettes, feathered — not a flat facade rectangle
+      for (const side of [-1, 1]) {
+        for (let i = 0; i < 4; i++) {
+          const bx = side * (16 + i * 10);
+          const bh = 22 + ((i * 7 + (side > 0 ? 3 : 0)) % 17);
+          const bw = 9 + (i % 2) * 3;
+          ctx.beginPath();
+          ctx.moveTo(bx - bw / 2, 2);
+          ctx.lineTo(bx - bw / 2, -bh);
+          ctx.lineTo(bx, -bh - 6);
+          ctx.lineTo(bx + bw / 2, -bh);
+          ctx.lineTo(bx + bw / 2, 2);
+          ctx.closePath();
+          ctx.fillStyle = "rgba(180,158,126," + (0.22 + i * 0.035) + ")";
+          ctx.fill();
+          ctx.strokeStyle = "rgba(86,64,44,0.22)"; ctx.lineWidth = 0.5; ctx.stroke();
+          // windows
+          for (let k = 0; k < 2; k++) {
+            ctx.fillStyle = "rgba(250,230,180," + (0.18 + (i + k) % 2 * 0.1) + ")";
+            ctx.fillRect(bx - 2, -bh + 5 + k * 8, 2.2, 3.4);
+          }
+        }
       }
-      ctx.fillStyle = "rgba(86,64,44,0.25)"; ctx.fillRect(-7, -24, 14, 22);
-      // barricade
-      ctx.strokeStyle = "rgba(102,74,48,0.9)"; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.moveTo(-42, 8); ctx.lineTo(42, -4); ctx.moveTo(-42, -4); ctx.lineTo(42, 8); ctx.stroke();
-      ctx.beginPath(); ctx.ellipse(0, 12, 44, 6, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.12)"; ctx.fill();
-      // flag
-      ctx.strokeStyle = gold; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(0, 6); ctx.lineTo(0, -48); ctx.stroke();
+      // a dome and a clock tower on the horizon
+      ctx.beginPath(); ctx.arc(-40, -30, 9, Math.PI, TAU); ctx.fillStyle = "rgba(186,164,132,0.35)"; ctx.fill();
+      ctx.strokeStyle = "rgba(90,66,44,0.3)"; ctx.lineWidth = 0.5; ctx.stroke();
+      ctx.fillStyle = "rgba(186,164,132,0.3)"; ctx.fillRect(38, -52, 5, 54);
+      ctx.beginPath(); ctx.moveTo(34, -52); ctx.lineTo(40.5, -60); ctx.lineTo(47, -52); ctx.closePath();
+      ctx.fillStyle = "rgba(150,104,66,0.4)"; ctx.fill();
+      ctx.beginPath(); ctx.arc(40.5, -46, 2.6, 0, TAU); ctx.fillStyle = "rgba(240,224,190,0.6)"; ctx.fill();
+      // smoke drifting above the roofs
+      for (let i = 0; i < 3; i++) {
+        const q = (p * 0.1 + i * 0.33) % 1;
+        ctx.beginPath();
+        ctx.arc(-24 + i * 24 + Math.sin(p + i) * 3, -34 - q * 20, 5 + q * 5, 0, TAU);
+        ctx.fillStyle = "rgba(150,136,118," + (0.12 * (1 - q)) + ")"; ctx.fill();
+      }
+      // barricade: cobbles, overturned cart, barrels, pikes
+      const by = 6;
+      ctx.beginPath(); ctx.ellipse(0, by + 4, 48, 7, 0, 0, TAU);
+      ctx.fillStyle = "rgba(120,96,64,0.16)"; ctx.fill();
+      for (let i = 0; i < 13; i++) {
+        const cx = -42 + i * 7 + (i % 2) * 1.6;
+        const cy = by - (i % 3) * 2.4;
+        ctx.beginPath(); ctx.ellipse(cx, cy, 4.4, 2.8, (i % 5) * 0.2, 0, TAU);
+        ctx.fillStyle = i % 2 ? "rgba(178,154,120,0.85)" : "rgba(150,126,96,0.85)"; ctx.fill();
+        ctx.strokeStyle = "rgba(80,58,38,0.45)"; ctx.lineWidth = 0.4; ctx.stroke();
+      }
+      // cart wheel
+      ctx.beginPath(); ctx.arc(-18, by - 4, 8, 0, TAU);
+      ctx.strokeStyle = "rgba(92,68,44,0.9)"; ctx.lineWidth = 1.4; ctx.stroke();
+      for (let i = 0; i < 6; i++) {
+        const a = i / 6 * TAU + p * 0.25;
+        ctx.beginPath(); ctx.moveTo(-18, by - 4); ctx.lineTo(-18 + Math.cos(a) * 7.4, by - 4 + Math.sin(a) * 7.4);
+        ctx.lineWidth = 0.7; ctx.stroke();
+      }
+      // barrels
+      for (const [bx, bs] of [[24, 1], [31, 0.78]]) {
+        ctx.beginPath(); ctx.ellipse(bx, by - 3 * bs, 4.6 * bs, 6 * bs, 0, 0, TAU);
+        ctx.fillStyle = "rgba(150,110,68,0.9)"; ctx.fill();
+        ctx.strokeStyle = "rgba(80,56,36,0.6)"; ctx.lineWidth = 0.6; ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx - 4.4 * bs, by - 4 * bs); ctx.lineTo(bx + 4.4 * bs, by - 4 * bs);
+        ctx.moveTo(bx - 4.6 * bs, by - 1.4 * bs); ctx.lineTo(bx + 4.6 * bs, by - 1.4 * bs); ctx.stroke();
+      }
+      // flag on a pike, centre
+      ctx.strokeStyle = gold; ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.moveTo(0, by - 2); ctx.lineTo(0, -50); ctx.stroke();
       const wave = Math.sin(p * 2.6) * 4;
-      ctx.beginPath(); ctx.moveTo(0.5, -46); ctx.quadraticCurveTo(18 + wave, -44, 28 + wave, -36); ctx.lineTo(0.5, -28); ctx.closePath(); ctx.fillStyle = red; ctx.fill();
-      // spaced crowd, warm ink
-      for (let i = -4; i <= 4; i++) {
-        const cx = i * 9 + Math.sin(p * 2 + i) * 1.4;
-        ctx.strokeStyle = i % 2 ? "rgba(102,76,52,0.9)" : "rgba(74,54,36,0.9)"; ctx.lineWidth = 1.1;
-        ctx.beginPath(); ctx.moveTo(cx, 6); ctx.lineTo(cx - 1, 12); ctx.moveTo(cx, 6); ctx.lineTo(cx + 1, 12); ctx.stroke();
-        ctx.beginPath(); ctx.arc(cx, 4, 1.5, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(0.5, -48);
+      ctx.quadraticCurveTo(16 + wave, -46, 26 + wave, -38);
+      ctx.lineTo(0.5, -30); ctx.closePath();
+      ctx.fillStyle = red; ctx.fill();
+      ctx.strokeStyle = "rgba(120,50,36,0.35)"; ctx.lineWidth = 0.5; ctx.stroke();
+      // crowd: raised arms, hats, pikes
+      for (let i = -5; i <= 5; i++) {
+        const cx = i * 8 + Math.sin(p * 2 + i) * 1.2;
+        const cy = by - 6 - (i % 2) * 1.6;
+        ctx.strokeStyle = i % 2 ? "rgba(88,64,44,0.92)" : "rgba(64,48,34,0.92)";
+        ctx.lineWidth = 1.1;
+        ctx.beginPath(); ctx.moveTo(cx, cy + 6); ctx.lineTo(cx - 1.2, cy + 13); ctx.moveTo(cx, cy + 6); ctx.lineTo(cx + 1.2, cy + 13); ctx.stroke();
+        // torso
+        ctx.beginPath();
+        ctx.moveTo(cx, cy + 6); ctx.lineTo(cx - 2.2, cy - 1); ctx.lineTo(cx + 2.2, cy - 1); ctx.closePath();
+        ctx.fillStyle = i % 3 === 0 ? "rgba(150,104,68,0.95)" : "rgba(112,92,72,0.95)"; ctx.fill();
+        ctx.beginPath(); ctx.arc(cx, cy - 3.2, 1.6, 0, TAU);
+        ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+        // hat
+        ctx.fillStyle = "rgba(60,46,32,0.9)";
+        ctx.fillRect(cx - 2.2, cy - 5.4, 4.4, 1.2);
+        // raised arm / pike
+        if (i % 2 === 0) {
+          ctx.strokeStyle = "rgba(88,64,44,0.9)"; ctx.lineWidth = 0.9;
+          ctx.beginPath(); ctx.moveTo(cx + 1.6, cy + 2); ctx.lineTo(cx + 5, cy - 8 + Math.sin(p * 2 + i) * 0.8); ctx.stroke();
+        } else {
+          ctx.strokeStyle = "rgba(88,64,44,0.8)"; ctx.lineWidth = 0.8;
+          ctx.beginPath(); ctx.moveTo(cx - 2, cy + 4); ctx.lineTo(cx - 4, cy - 16); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(cx - 4, cy - 16); ctx.lineTo(cx - 2.6, cy - 19); ctx.lineTo(cx - 5.4, cy - 19); ctx.closePath();
+          ctx.fillStyle = "rgba(74,54,36,0.85)"; ctx.fill();
+        }
       }
       ctx.restore();
     },
@@ -1272,7 +1577,7 @@
     drawCavalryScene(ctx, map, p) {
       const ev = this.ev; if (!ev) return;
       const pos = map.project(ev.lon, ev.lat);
-      const s = clamp(0.9 + map.view.zoom * 0.28, 1.1, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.8)", red = "rgba(176,67,44,0.9)", gold = "rgba(176,138,62,0.95)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 84, "#c9a45f", 0.14);
@@ -1299,7 +1604,7 @@
     drawNavalScene(ctx, map, p) {
       const ev = this.ev; if (!ev) return;
       const pos = map.project(ev.lon, ev.lat);
-      const s = clamp(0.9 + map.view.zoom * 0.28, 1.1, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.8)", gold = "rgba(176,138,62,0.95)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       // sea wash + foam
@@ -1329,22 +1634,119 @@
     drawCity(ctx, map, p) {
       const c = this.city; if (!c) return;
       const pos = map.project(c.lon, c.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.8)";
       const era = (this.style || "city").replace("city-", "");
-      const roofs = era === "modern" ? "rgba(138,148,152,0.75)" : era === "medieval" ? "rgba(158,98,60,0.85)" : "rgba(196,154,102,0.85)";
+      const modern = era === "modern";
+      const roofs = era === "medieval" ? "rgba(158,98,60,0.85)" : modern ? "rgba(138,148,152,0.75)" : "rgba(196,154,102,0.85)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
-      glow(ctx, 0, 0, 88, "#c9a45f", 0.12);
-      ctx.beginPath(); ctx.ellipse(0, 6, 56, 12, 0, 0, TAU); ctx.fillStyle = "rgba(120,96,64,0.12)"; ctx.fill();
-      if (era === "modern") {
-        ctx.fillStyle = "rgba(220,218,210,0.85)";
-        for (let i = -4; i <= 4; i++) { const h = 22 + (i % 3 + 3) * 9; ctx.fillRect(i * 11 - 3, 4 - h, 6, h); ctx.strokeStyle = "rgba(90,80,70,0.35)"; ctx.strokeRect(i * 11 - 3, 4 - h, 6, h); }
+      glow(ctx, 0, 6, 88, "#c9a45f", 0.14);
+      // the tell / ground: a feathered mound, never a strip
+      const mg = ctx.createRadialGradient(0, 8, 4, 0, 8, 62);
+      mg.addColorStop(0, "rgba(150,120,82,0.24)");
+      mg.addColorStop(0.62, "rgba(150,120,82,0.13)");
+      mg.addColorStop(1, "rgba(150,120,82,0)");
+      ctx.save(); ctx.translate(0, 8); ctx.scale(1, 0.26);
+      ctx.beginPath(); ctx.arc(0, 0, 64, 0, TAU); ctx.fillStyle = mg; ctx.fill();
+      ctx.restore();
+      if (modern) {
+        // varied skyline: setbacks, towers, roof plant, lit windows
+        const hs = [30, 52, 22, 64, 38, 46, 26];
+        for (let i = 0; i < hs.length; i++) {
+          const bx = -44 + i * 13, h = hs[i];
+          ctx.fillStyle = "rgba(214,210,200,0.92)";
+          ctx.fillRect(bx, 4 - h, 10, h);
+          ctx.strokeStyle = "rgba(90,80,70,0.38)"; ctx.lineWidth = 0.7;
+          ctx.strokeRect(bx, 4 - h, 10, h);
+          ctx.fillStyle = "rgba(120,130,136,0.55)";
+          ctx.fillRect(bx + 3.4, 2 - h, 3.2, 4);
+          ctx.strokeStyle = "rgba(90,80,70,0.22)"; ctx.lineWidth = 0.4;
+          for (let wy = 4 - h + 6; wy < 0; wy += 5) {
+            ctx.beginPath(); ctx.moveTo(bx + 2, wy); ctx.lineTo(bx + 8, wy); ctx.stroke();
+          }
+        }
+        // street and a tiny crowd
+        ctx.beginPath(); ctx.moveTo(-50, 8); ctx.lineTo(48, 8);
+        ctx.strokeStyle = "rgba(120,104,82,0.5)"; ctx.lineWidth = 2; ctx.stroke();
+        for (let i = -4; i <= 4; i++) {
+          const cx = i * 10 + Math.sin(p * 2 + i) * 0.6;
+          ctx.fillStyle = "rgba(74,62,50,0.75)";
+          ctx.fillRect(cx - 0.5, -1, 1, 3.4);
+          ctx.beginPath(); ctx.arc(cx, -2, 1.1, 0, TAU); ctx.fill();
+        }
       } else {
-        ctx.fillStyle = "rgba(208,184,146,0.55)"; ctx.fillRect(-48, 0, 96, 10); ctx.strokeStyle = ink; ctx.strokeRect(-48, 0, 96, 10);
-        for (let i = -3; i <= 3; i++) {
-          const h = era === "medieval" ? 30 : 22;
-          ctx.fillStyle = "rgba(226,208,180,0.75)"; ctx.fillRect(i * 13 - 4, 4 - h, 8, h); ctx.strokeRect(i * 13 - 4, 4 - h, 8, h);
-          ctx.beginPath(); ctx.moveTo(i * 13 - 7, 4 - h); ctx.lineTo(i * 13, 4 - h - 9); ctx.lineTo(i * 13 + 7, 4 - h); ctx.closePath(); ctx.fillStyle = roofs; ctx.fill(); ctx.stroke();
+        // clustered houses inside a low wall
+        const houses = [
+          [-34, 20, 8], [-25, 26, 9], [-16, 18, 7], [-8, 30, 10], [2, 22, 8],
+          [10, 28, 9], [20, 19, 8], [28, 24, 7], [35, 16, 9],
+        ];
+        for (const [hx, hh, hw] of houses) {
+          const hy = -2;
+          ctx.fillStyle = "rgba(226,208,180,0.92)";
+          ctx.fillRect(hx - hw / 2, hy - hh, hw, hh);
+          ctx.strokeStyle = ink; ctx.lineWidth = 0.55; ctx.strokeRect(hx - hw / 2, hy - hh, hw, hh);
+          // roof: pitched or domed by era
+          if (era === "medieval" || era === "ancient") {
+            ctx.beginPath();
+            ctx.moveTo(hx - hw / 2 - 1.4, hy - hh);
+            ctx.quadraticCurveTo(hx, hy - hh - 5.2, hx + hw / 2 + 1.4, hy - hh);
+            ctx.closePath(); ctx.fillStyle = roofs; ctx.fill();
+            ctx.strokeStyle = "rgba(90,60,40,0.45)"; ctx.lineWidth = 0.4; ctx.stroke();
+          } else {
+            ctx.fillStyle = "rgba(210,188,152,0.9)";
+            ctx.fillRect(hx - hw / 2 - 1.2, hy - hh - 2.4, hw + 2.4, 2.4);
+            ctx.strokeStyle = "rgba(90,60,40,0.4)"; ctx.strokeRect(hx - hw / 2 - 1.2, hy - hh - 2.4, hw + 2.4, 2.4);
+          }
+          // door
+          ctx.fillStyle = "rgba(78,56,38,0.55)";
+          ctx.fillRect(hx - 1, hy - 3.4, 2, 3.4);
+          // window
+          ctx.fillStyle = "rgba(90,70,50,0.35)";
+          ctx.fillRect(hx + hw * 0.18, hy - hh + 3, 1.6, 2);
+        }
+        // city wall with a gate tower in front
+        ctx.beginPath();
+        ctx.moveTo(-46, 0); ctx.lineTo(-46, -8); ctx.lineTo(-8, -11); ctx.lineTo(30, -8); ctx.lineTo(30, 0);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(206,184,146,0.72)"; ctx.fill();
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.8; ctx.stroke();
+        for (let i = -44; i < 28; i += 4.6) {
+          ctx.fillStyle = "rgba(214,194,158,0.95)";
+          ctx.fillRect(i, -12, 2.6, 3);
+          ctx.strokeStyle = "rgba(90,66,44,0.4)"; ctx.lineWidth = 0.3; ctx.strokeRect(i, -12, 2.6, 3);
+        }
+        // gate tower
+        ctx.fillStyle = "rgba(222,202,166,0.96)";
+        ctx.fillRect(-16, -20, 12, 18);
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.7; ctx.strokeRect(-16, -20, 12, 18);
+        ctx.beginPath(); ctx.moveTo(-18, -20); ctx.lineTo(-10, -25); ctx.lineTo(-2, -20); ctx.closePath();
+        ctx.fillStyle = roofs; ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-13, 0); ctx.lineTo(-13, -8); ctx.quadraticCurveTo(-10, -12, -7, -8); ctx.lineTo(-7, 0); ctx.closePath();
+        ctx.fillStyle = "rgba(60,44,30,0.65)"; ctx.fill();
+        // palm / well and a cooking fire
+        ctx.strokeStyle = "rgba(96,72,44,0.9)"; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(38, 0); ctx.lineTo(39, -22); ctx.stroke();
+        for (let i = 0; i < 5; i++) {
+          const a = -Math.PI / 2 + (i - 2) * 0.5;
+          ctx.beginPath(); ctx.moveTo(39, -22);
+          ctx.quadraticCurveTo(39 + Math.cos(a) * 8, -24 + Math.sin(a) * 4, 39 + Math.cos(a) * 13, -20 + Math.sin(a) * 7);
+          ctx.strokeStyle = "rgba(96,110,64,0.8)"; ctx.lineWidth = 0.8; ctx.stroke();
+        }
+        const fl = 0.6 + 0.4 * Math.sin(p * 5);
+        glow(ctx, 44, -4, 7 * fl, "#d0783a", 0.35);
+        // tiny figures entering the gate
+        for (let i = 0; i < 3; i++) {
+          const fx = -13 + i * 3.4, fy = 2.4;
+          ctx.strokeStyle = "rgba(74,54,36,0.9)"; ctx.lineWidth = 0.7;
+          ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx - 0.6, fy + 2.6); ctx.moveTo(fx, fy); ctx.lineTo(fx + 0.6, fy + 2.6); ctx.stroke();
+          ctx.beginPath(); ctx.arc(fx, fy - 1.2, 1.1, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+        }
+        // smoke from a chimney
+        for (let i = 0; i < 2; i++) {
+          const q = (p * 0.14 + i * 0.5) % 1;
+          ctx.beginPath();
+          ctx.arc(-24 + Math.sin(p + i) * 2, -30 - q * 16, 2.5 + q * 3, 0, TAU);
+          ctx.fillStyle = "rgba(150,140,124," + (0.1 * (1 - q)) + ")"; ctx.fill();
         }
       }
       ctx.restore();
@@ -1353,7 +1755,7 @@
     drawArchitecture(ctx, map, p, style) {
       const m = this.monument; if (!m) return;
       const pos = map.project(m.lon, m.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.82)", stone = "rgba(240,228,206,0.95)", gold = "rgba(176,138,62,0.95)", red = "rgba(176,67,44,0.9)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 90, "#c9a45f", 0.14);
@@ -1395,7 +1797,7 @@
     drawDocumentScene(ctx, map, p) {
       const c = this.craft; if (!c) return;
       const pos = map.project(c.lon, c.lat);
-      const s = clamp(1.0 + map.view.zoom * 0.3, 1.2, 2.8);
+      const s = this.iconScale(map);
       const ink = "rgba(74,54,36,0.85)", paper = "rgba(246,236,214,0.95)", gold = "rgba(176,138,62,0.95)";
       ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
       glow(ctx, 0, 0, 84, "#c9a45f", 0.12);
@@ -1420,7 +1822,7 @@
         for (let i = 0; i < 4; i++) {
           const q = ((p * 0.16 + i * 0.25) % 1);
           ctx.beginPath();
-          ctx.arc(epic.x, epic.y, 10 + q * Math.max(map.W, map.H) * 0.4, 0, TAU);
+          ctx.arc(epic.x, epic.y, 10 + q * Math.max(map.W, map.H) * 0.26, 0, TAU);
           ctx.strokeStyle = "rgba(150,50,40," + (0.4 * (1 - q)) + ")";
           ctx.lineWidth = 1.6 * (1 - q) + 0.4;
           ctx.stroke();
@@ -1441,6 +1843,277 @@
         }
         ctx.beginPath(); ctx.arc(pos.x, pos.y, 3.2, 0, TAU); ctx.fillStyle = hexA(col, 0.9); ctx.fill();
       }
+    },
+
+    /* War / march: a formed body of troops gives the mode a main visual.
+       Fronts and patrols alone read as scattered marks at map zoom. */
+    drawWarEmblem(ctx, map, p) {
+      const b = (this.battles && this.battles[0]) || null;
+      const at = b || this.stage;
+      if (!at) return;
+      const pos = map.project(at.lon, at.lat);
+      if (pos.x < -60 || pos.x > map.W + 60 || pos.y < -60 || pos.y > map.H + 60) return;
+      const s = this.iconScale(map) * 0.86;
+      const ink = "rgba(64,48,34,0.9)";
+      const red = (this.sides[0] && this.sides[0].color) || "#a83e2c";
+      const blue = (this.sides[1] && this.sides[1].color) || "#3f6278";
+      const march = this.mode === "march";
+      ctx.save();
+      ctx.translate(pos.x, pos.y);
+      ctx.scale(s, s);
+      // ground
+      ctx.beginPath(); ctx.ellipse(0, 4, 44, 7, 0, 0, TAU);
+      ctx.fillStyle = "rgba(120,96,64,0.15)"; ctx.fill();
+      // dust
+      for (let i = 0; i < 4; i++) {
+        const q = (p * 0.12 + i * 0.25) % 1;
+        ctx.beginPath(); ctx.arc(-26 + i * 17, 1 - q * 8, 5 + q * 5, 0, TAU);
+        ctx.fillStyle = "rgba(176,150,112," + (0.08 * (1 - q)) + ")"; ctx.fill();
+      }
+      const figure = (fx, fy, col, dir, i) => {
+        const step = Math.sin(p * 6 + i * 1.3) * 0.7;
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(fx, fy - 5); ctx.lineTo(fx - 0.8 + step, fy);
+        ctx.moveTo(fx, fy - 5); ctx.lineTo(fx + 0.8 - step, fy);
+        ctx.moveTo(fx, fy - 5); ctx.lineTo(fx, fy - 12);
+        ctx.stroke();
+        ctx.beginPath(); ctx.arc(fx, fy - 13.6, 1.3, 0, TAU);
+        ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+        // helmet / cap
+        ctx.fillStyle = col;
+        ctx.beginPath(); ctx.arc(fx, fy - 14.2, 1.7, Math.PI, TAU); ctx.fill();
+        // spear
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.55;
+        ctx.beginPath(); ctx.moveTo(fx + dir * 1.6, fy - 8); ctx.lineTo(fx + dir * 1.6, fy - 22); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(fx + dir * 1.6, fy - 22); ctx.lineTo(fx + dir * 1.6 + dir * 1.8, fy - 24.4); ctx.lineTo(fx + dir * 1.6, fy - 25.8);
+        ctx.closePath(); ctx.fillStyle = col; ctx.fill();
+        // shield
+        ctx.beginPath(); ctx.arc(fx - dir * 1.4, fy - 8, 1.7, 0, TAU);
+        ctx.fillStyle = "rgba(232,216,186,0.85)"; ctx.fill();
+        ctx.strokeStyle = col; ctx.lineWidth = 0.4; ctx.stroke();
+      };
+      if (march) {
+        // a column of march, standard at its head
+        for (let i = 0; i < 7; i++) figure(-32 + i * 9, 3, i % 2 ? red : "rgba(96,70,46,0.95)", 1, i);
+        ctx.strokeStyle = "rgba(74,54,36,0.95)"; ctx.lineWidth = 0.9;
+        ctx.beginPath(); ctx.moveTo(22, 2); ctx.lineTo(22, -30); ctx.stroke();
+        const wave = Math.sin(p * 2.4) * 2.2;
+        ctx.beginPath(); ctx.moveTo(22.4, -29); ctx.quadraticCurveTo(34 + wave, -28, 40 + wave, -22); ctx.lineTo(22.4, -16); ctx.closePath();
+        ctx.fillStyle = red; ctx.fill();
+      } else {
+        // two ranks facing each other, banners behind
+        for (let i = 0; i < 6; i++) {
+          figure(-38 + i * 6.4, 3, blue, 1, i);
+          figure(38 - i * 6.4, 3, red, -1, i + 7);
+        }
+        // commander on horseback, centre
+        ctx.save(); ctx.translate(0, -2);
+        this.drawHorseIcon(ctx, 0, 0, 0.86, p, red);
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.9;
+        ctx.beginPath(); ctx.moveTo(0, -14); ctx.lineTo(0, -24); ctx.stroke();
+        ctx.beginPath(); ctx.arc(0, -26, 1.5, 0, TAU); ctx.fillStyle = "rgba(126,94,64,0.95)"; ctx.fill();
+        ctx.restore();
+        // standards
+        for (const [bx, col] of [[-44, blue], [44, red]]) {
+          ctx.strokeStyle = "rgba(74,54,36,0.95)"; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(bx, 2); ctx.lineTo(bx, -34); ctx.stroke();
+          const wave = Math.sin(p * 2.2 + bx) * 2.4;
+          ctx.beginPath();
+          ctx.moveTo(bx + 0.4, -33);
+          ctx.quadraticCurveTo(bx + 11 + wave, -32, bx + 16 + wave, -26);
+          ctx.lineTo(bx + 0.4, -20); ctx.closePath();
+          ctx.fillStyle = col; ctx.fill();
+        }
+      }
+      ctx.restore();
+    },
+
+    /* Trade / voyage: the route is the movement, the port is the anchor.
+       A drawn harbour emblem gives the mode a definite main visual instead
+       of a few small ships floating on an empty sea. */
+    drawPortBadge(ctx, map, p) {
+      const st = this.stagePos(map);
+      if (!st) return;
+      const s = this.iconScale(map) * 1.02;
+      const ink = "rgba(74,54,36,0.82)";
+      const gold = "rgba(176,138,62,0.9)";
+      const verm = "rgba(176,67,44,0.85)";
+      const sea = "rgba(63,122,131,0.55)";
+      const sway = Math.sin(p * 1.8) * 0.8;
+      ctx.save();
+      ctx.translate(st.x, st.y);
+      ctx.scale(s, s);
+      glow(ctx, 0, 4, 74, "#c9a45f", 0.16);
+      // compass ring anchoring the emblem
+      ctx.beginPath(); ctx.arc(0, 4, 40, 0, TAU);
+      ctx.strokeStyle = "rgba(140,108,66,0.30)"; ctx.lineWidth = 0.9;
+      ctx.setLineDash([3, 5]); ctx.lineDashOffset = -p * 4; ctx.stroke(); ctx.setLineDash([]);
+      // quay
+      ctx.beginPath(); ctx.moveTo(-42, 18); ctx.lineTo(30, 18);
+      ctx.strokeStyle = ink; ctx.lineWidth = 2.4; ctx.stroke();
+      ctx.strokeStyle = "rgba(120,92,58,0.55)"; ctx.lineWidth = 0.7;
+      for (let x = -40; x < 28; x += 7) { ctx.beginPath(); ctx.moveTo(x, 18); ctx.lineTo(x + 3, 22); ctx.stroke(); }
+      ctx.beginPath(); ctx.moveTo(-42, 22.5); ctx.lineTo(30, 22.5);
+      ctx.strokeStyle = "rgba(120,92,58,0.35)"; ctx.lineWidth = 1; ctx.stroke();
+      // water
+      for (let i = 0; i < 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(-44, 28 + i * 4);
+        ctx.quadraticCurveTo(-6, 31 + i * 4 + Math.sin(p * 2 + i) * 1.2, 34, 28 + i * 4);
+        ctx.strokeStyle = hexA("#3f7a83", 0.28 - i * 0.06); ctx.lineWidth = 0.9; ctx.stroke();
+      }
+      // moored ship (three-master silhouette, stays readable at 28% width)
+      const bx = -16, by = 18 + sway;
+      ctx.save(); ctx.translate(bx, by);
+      ctx.beginPath();
+      ctx.moveTo(-24, 0); ctx.quadraticCurveTo(-8, 7, 20, 2); ctx.lineTo(26, -3); ctx.lineTo(16, -1);
+      ctx.quadraticCurveTo(-2, 3, -20, -4); ctx.closePath();
+      ctx.fillStyle = "rgba(128,88,52,0.95)"; ctx.fill();
+      ctx.strokeStyle = ink; ctx.lineWidth = 0.9; ctx.stroke();
+      for (const mx of [-13, -1, 11]) {
+        ctx.beginPath(); ctx.moveTo(mx, -2); ctx.lineTo(mx, -34); ctx.strokeStyle = ink; ctx.lineWidth = 1; ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(mx - 8, -31);
+        ctx.quadraticCurveTo(mx, -35 + Math.sin(p * 2.4 + mx) * 1.6, mx + 8, -31);
+        ctx.lineTo(mx + 7, -13); ctx.quadraticCurveTo(mx, -15 + Math.sin(p * 2.4 + mx) * 1.2, mx - 7, -13);
+        ctx.closePath(); ctx.fillStyle = "rgba(244,234,214,0.96)"; ctx.fill();
+        ctx.strokeStyle = gold; ctx.lineWidth = 0.7; ctx.stroke();
+      }
+      ctx.beginPath(); ctx.moveTo(26, -3); ctx.lineTo(34, -2); ctx.lineTo(26, 1.5); ctx.closePath();
+      ctx.fillStyle = verm; ctx.fill();
+      ctx.restore();
+      // lighthouse on the mole
+      const lx = 34;
+      ctx.beginPath(); ctx.moveTo(lx - 5, 18); ctx.lineTo(lx - 3, -14); ctx.lineTo(lx + 3, -14); ctx.lineTo(lx + 5, 18); ctx.closePath();
+      ctx.fillStyle = "rgba(240,228,202,0.96)"; ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 0.9; ctx.stroke();
+      ctx.fillStyle = verm; ctx.fillRect(lx - 4, -8, 8, 3.4); ctx.fillRect(lx - 3.4, 0, 7, 3.2);
+      ctx.beginPath(); ctx.rect(lx - 4.5, -20, 9, 6);
+      ctx.fillStyle = "rgba(190,150,80,0.9)"; ctx.fill(); ctx.strokeStyle = ink; ctx.stroke();
+      // light rays (still when reduced motion, frozen p otherwise)
+      const fl = this.reduceMotion ? 0.5 : 0.55 + 0.45 * Math.sin(p * 2.2);
+      for (const dir of [-1, 1]) {
+        const g = ctx.createLinearGradient(lx, -17, lx + dir * 30, -24);
+        g.addColorStop(0, "rgba(240,204,126," + (0.34 * fl) + ")");
+        g.addColorStop(1, "rgba(240,204,126,0)");
+        ctx.beginPath();
+        ctx.moveTo(lx, -18); ctx.lineTo(lx + dir * 34, -28); ctx.lineTo(lx + dir * 34, -14); ctx.closePath();
+        ctx.fillStyle = g; ctx.fill();
+      }
+      // crates / barrels on the quay
+      ctx.fillStyle = "rgba(176,140,92,0.92)";
+      ctx.fillRect(-40, 10, 10, 8); ctx.strokeStyle = ink; ctx.lineWidth = 0.6; ctx.strokeRect(-40, 10, 10, 8);
+      ctx.fillRect(-27, 12, 7, 6); ctx.strokeRect(-27, 12, 7, 6);
+      ctx.beginPath(); ctx.ellipse(10, 13.5, 4.2, 4.6, 0, 0, TAU);
+      ctx.fillStyle = "rgba(150,110,68,0.92)"; ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(10, 9); ctx.lineTo(10, 18); ctx.strokeStyle = "rgba(90,66,42,0.6)"; ctx.stroke();
+      // an anchor mark on the quay
+      ctx.strokeStyle = sea; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(20, 14, 3.2, Math.PI * 0.15, Math.PI * 0.85); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(20, 10.5); ctx.lineTo(20, 17.5); ctx.moveTo(17.6, 12.6); ctx.lineTo(22.4, 12.6); ctx.stroke();
+      ctx.restore();
+    },
+
+    /* Disaster: give the epicentre something to look at — a volcano for
+       eruptions, cracked ground for quakes/collapse, a miasma field for
+       plagues. The rings alone read as a target, not a place. */
+    drawDisasterEmblem(ctx, map, p) {
+      const d = this.disaster;
+      if (!d) return;
+      const pos = map.project(d.lon, d.lat);
+      if (pos.x < -60 || pos.x > map.W + 60 || pos.y < -60 || pos.y > map.H + 60) return;
+      const s = this.iconScale(map) * 0.94;
+      const title = ((this.ev && this.ev.t && (this.ev.t[0] + " " + this.ev.t[1])) || "").toLowerCase();
+      const volcano = /火山|喷发|erupt|volcan/.test(title);
+      const plague = this.style === "plague";
+      const ink = "rgba(74,54,36,0.8)";
+      ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(s, s);
+      // ground shadow
+      ctx.beginPath(); ctx.ellipse(0, 6, 46, 9, 0, 0, TAU);
+      ctx.fillStyle = "rgba(120,96,64,0.15)"; ctx.fill();
+      if (volcano) {
+        glow(ctx, 0, -18, 60, "#c0603a", 0.20);
+        // cone
+        ctx.beginPath();
+        ctx.moveTo(-44, 6);
+        ctx.quadraticCurveTo(-18, -18, -9, -34);
+        ctx.quadraticCurveTo(0, -39, 9, -34);
+        ctx.quadraticCurveTo(18, -18, 44, 6);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(150,120,92,0.92)"; ctx.fill();
+        ctx.strokeStyle = ink; ctx.lineWidth = 1; ctx.stroke();
+        // strata
+        ctx.strokeStyle = "rgba(90,66,44,0.3)"; ctx.lineWidth = 0.5;
+        for (let i = 0; i < 5; i++) {
+          ctx.beginPath();
+          ctx.moveTo(-34 + i * 3, 1 - i * 5);
+          ctx.quadraticCurveTo(0, -6 - i * 5, 34 - i * 3, 1 - i * 5);
+          ctx.stroke();
+        }
+        // crater glow
+        const fl = this.reduceMotion ? 0.7 : 0.55 + 0.45 * Math.sin(p * 4);
+        ctx.beginPath(); ctx.ellipse(0, -36, 9, 3.4, 0, 0, TAU);
+        ctx.fillStyle = "rgba(255,150,60," + (0.75 * fl) + ")"; ctx.fill();
+        glow(ctx, 0, -38, 22 * fl, "#ff9a45", 0.45);
+        // ash plume
+        for (let i = 0; i < 14; i++) {
+          const q = (p * 0.16 + i * 0.071) % 1;
+          const r = 6 + q * 26;
+          const x = Math.sin(i * 2.1 + q * 3) * r * 0.7;
+          ctx.beginPath();
+          ctx.arc(x, -42 - q * 60, 4 + q * 9, 0, TAU);
+          ctx.fillStyle = "rgba(120,112,102," + (0.20 * (1 - q)) + ")"; ctx.fill();
+        }
+        // lava trickles
+        ctx.strokeStyle = "rgba(214,96,48,0.85)"; ctx.lineWidth = 1.1;
+        for (const lx of [-6, 4, 10]) {
+          ctx.beginPath();
+          ctx.moveTo(lx, -33);
+          ctx.quadraticCurveTo(lx + 3, -18, lx + 8 + Math.sin(p * 2 + lx) * 1.4, -2);
+          ctx.stroke();
+        }
+        // sea or plain
+        ctx.strokeStyle = "rgba(63,122,131,0.35)"; ctx.lineWidth = 0.8;
+        ctx.beginPath(); ctx.moveTo(-50, 8); ctx.quadraticCurveTo(0, 11, 50, 8); ctx.stroke();
+      } else if (plague) {
+        // a quiet field of memorial crosses and a drifting miasma
+        for (let i = 0; i < 9; i++) {
+          const cx = -32 + (i % 5) * 15 + (i > 4 ? 7 : 0);
+          const cy = -2 - Math.floor(i / 5) * 12;
+          ctx.strokeStyle = "rgba(90,74,54,0.72)"; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(cx, cy + 5); ctx.lineTo(cx, cy - 4); ctx.moveTo(cx - 2.4, cy - 1.4); ctx.lineTo(cx + 2.4, cy - 1.4); ctx.stroke();
+        }
+        for (let i = 0; i < 5; i++) {
+          const q = (p * 0.08 + i * 0.2) % 1;
+          ctx.beginPath();
+          ctx.ellipse(-26 + i * 13, -16 - q * 10, 9 + q * 5, 5 + q * 3, 0, 0, TAU);
+          ctx.fillStyle = "rgba(120,110,96," + (0.09 * (1 - q)) + ")"; ctx.fill();
+        }
+      } else {
+        // cracked ground + a toppled column
+        ctx.strokeStyle = "rgba(92,66,44,0.6)"; ctx.lineWidth = 1;
+        for (let i = 0; i < 7; i++) {
+          const a = (i / 7) * TAU + 0.3;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(a) * 5, Math.sin(a) * 3);
+          ctx.lineTo(Math.cos(a + 0.18) * 18, Math.sin(a + 0.18) * 9);
+          ctx.lineTo(Math.cos(a + 0.05) * 34, Math.sin(a + 0.05) * 15);
+          ctx.stroke();
+        }
+        ctx.save(); ctx.rotate(-0.32);
+        ctx.fillStyle = "rgba(214,198,168,0.95)";
+        ctx.fillRect(-18, -3, 34, 5);
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.8; ctx.strokeRect(-18, -3, 34, 5);
+        for (let i = -14; i < 14; i += 6) { ctx.beginPath(); ctx.moveTo(i, -3); ctx.lineTo(i, 2); ctx.stroke(); }
+        ctx.restore();
+        for (let i = 0; i < 3; i++) {
+          const q = (p * 0.15 + i * 0.33) % 1;
+          ctx.beginPath(); ctx.arc(-10 + i * 11, -8 - q * 14, 3 + q * 4, 0, TAU);
+          ctx.fillStyle = "rgba(150,136,118," + (0.12 * (1 - q)) + ")"; ctx.fill();
+        }
+      }
+      ctx.restore();
     },
 
     drawEnd(ctx, map, p) {

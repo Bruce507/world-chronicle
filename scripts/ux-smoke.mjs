@@ -64,6 +64,19 @@ try {
   }));
   check("search Enter opens the event panel and theatre", searched.ev === "Marco Polo Bridge Incident" && searched.panel && searched.theatre, JSON.stringify(searched));
 
+  const stage = await d.evaluate(() => {
+    const t = window.MapTheatre, m = window.atlasAPI.map;
+    const usable = Math.max(100, m.W - m.reservedRight);
+    return {
+      phase: t.phase, stage: !!t.stage,
+      r: Math.round(t.stageR(m)),
+      ratio: +(t.sceneTargetW(m) / usable).toFixed(2),
+      farLabel: +t.labelWeight(2, 2).toFixed(2),
+    };
+  });
+  check("theatre has a unified stage at 28–45% of usable width", stage.stage && stage.r > 150 && stage.ratio >= 0.28 && stage.ratio <= 0.45, JSON.stringify(stage));
+  check("map labels recede outside the stage while theatre is open", stage.farLabel <= 0.2, stage.farLabel);
+
   await d.goBack();
   await d.waitForTimeout(600);
   const back = await d.evaluate(() => ({ ev: window.atlasAPI.state.eventView, url: location.search }));
@@ -205,8 +218,12 @@ try {
       window.atlasAPI.openEvent(ev);
     });
     await d.waitForTimeout(17200);
-    const cleanup = await d.evaluate(() => ({ active: window.MapTheatre.active, units: window.MapTheatre.units.length }));
-    check("theatre clears after 16 seconds", !cleanup.active && cleanup.units === 0, JSON.stringify(cleanup));
+    const cleanup = await d.evaluate(() => ({
+      active: window.MapTheatre.active,
+      units: window.MapTheatre.units.length,
+      still: !!window.MapTheatre.still,
+    }));
+    check("theatre clears after 16 seconds and keeps a static last frame", !cleanup.active && cleanup.units === 0 && cleanup.still, JSON.stringify(cleanup));
   }
 
   await desktop.ctx.close();

@@ -21,6 +21,35 @@
     night: { top: "#2f3a4a", mid: "#4a4c52", low: "#8a6f5a", sun: "#e0c080" },
   };
 
+
+  /* Soft map-scene backdrops. Tier B scenes sit on a feathered parchment
+     medallion, so backgrounds must never paint a hard rectangle: every
+     horizon is an elliptical wash that dissolves into the paper. */
+  function mapSky(ctx, pal, cy, r, squash) {
+    const g = ctx.createRadialGradient(0, cy, 2, 0, cy, r);
+    g.addColorStop(0, hexA(pal.mid, 0.62));
+    g.addColorStop(0.55, hexA(pal.mid, 0.34));
+    g.addColorStop(1, hexA(pal.mid, 0));
+    ctx.save();
+    ctx.translate(0, cy);
+    ctx.scale(1, squash || 0.62);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU);
+    ctx.fillStyle = g; ctx.fill();
+    ctx.restore();
+  }
+  function mapGround(ctx, color, alpha, cy, r) {
+    const g = ctx.createRadialGradient(0, cy, 2, 0, cy, r);
+    g.addColorStop(0, hexA(color, alpha));
+    g.addColorStop(0.55, hexA(color, alpha * 0.8));
+    g.addColorStop(1, hexA(color, 0));
+    ctx.save();
+    ctx.translate(0, cy);
+    ctx.scale(1, 0.22);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU);
+    ctx.fillStyle = g; ctx.fill();
+    ctx.restore();
+  }
+
   function rng(seed) {
     let s = Math.floor(seed * 9301 + 49297) % 233280 || 12345;
     return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; };
@@ -242,41 +271,87 @@
 
   function wall(ctx, x, baseY, w, h, o) {
     o = o || {};
-    ctx.fillStyle = o.col || "rgba(164,146,118,0.98)";
-    ctx.fillRect(x - w / 2, baseY - h, w, h);
+    const col = o.col || "rgba(164,146,118,0.98)";
+    const left = x - w / 2, top = baseY - h;
+    // right-hand side face: gives the curtain wall depth instead of a slab
+    ctx.beginPath();
+    ctx.moveTo(left + w, top);
+    ctx.lineTo(left + w + 3.6, top - 3.2);
+    ctx.lineTo(left + w + 3.6, baseY - 3.2);
+    ctx.lineTo(left + w, baseY);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(126,108,84,0.95)"; ctx.fill();
+    ctx.strokeStyle = "rgba(70,56,40,0.45)"; ctx.lineWidth = 0.22; ctx.stroke();
+    // top walkway
+    ctx.beginPath();
+    ctx.moveTo(left, top);
+    ctx.lineTo(left + 3.6, top - 3.2);
+    ctx.lineTo(left + w + 3.6, top - 3.2);
+    ctx.lineTo(left + w, top);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(198,180,148,0.98)"; ctx.fill();
+    ctx.strokeStyle = "rgba(74,62,46,0.55)"; ctx.lineWidth = 0.2; ctx.stroke();
+    // front face
+    ctx.fillStyle = col;
+    ctx.fillRect(left, top, w, h);
     ctx.strokeStyle = "rgba(74,62,46,0.65)"; ctx.lineWidth = 0.3;
-    ctx.strokeRect(x - w / 2, baseY - h, w, h);
+    ctx.strokeRect(left, top, w, h);
     // courses
     ctx.strokeStyle = "rgba(80,66,48,0.22)"; ctx.lineWidth = 0.13;
-    for (let yy = baseY - h + 2; yy < baseY; yy += 2.2) {
-      ctx.beginPath(); ctx.moveTo(x - w / 2 + 0.5, yy); ctx.lineTo(x + w / 2 - 0.5, yy); ctx.stroke();
+    for (let yy = top + 2; yy < baseY; yy += 2.2) {
+      ctx.beginPath(); ctx.moveTo(left + 0.5, yy); ctx.lineTo(left + w - 0.5, yy); ctx.stroke();
     }
-    // crenellations
+    // crenellations on the walkway
     for (let i = 0; i < Math.floor(w / 2.4); i++) {
-      const cx = x - w / 2 + 1.0 + i * 2.4;
-      ctx.fillStyle = o.col || "rgba(164,146,118,0.98)";
-      ctx.fillRect(cx, baseY - h - 1.7, 1.4, 1.7);
+      const cx = left + 1.0 + i * 2.4;
+      ctx.fillStyle = col;
+      ctx.fillRect(cx, top - 5.0, 1.4, 1.9);
       ctx.strokeStyle = "rgba(74,62,46,0.5)"; ctx.lineWidth = 0.14;
-      ctx.strokeRect(cx, baseY - h - 1.7, 1.4, 1.7);
+      ctx.strokeRect(cx, top - 5.0, 1.4, 1.9);
     }
     if (o.towers !== false) {
       for (const dx of [-0.42, 0.42]) {
         const tx = x + dx * w;
-        ctx.fillStyle = o.col || "rgba(164,146,118,0.98)";
-        ctx.fillRect(tx - 3.0, baseY - h * 1.22, 6.0, h * 1.22);
+        const tw = 6.0, th = h * 1.22, ty = baseY - th;
+        // tower side
+        ctx.fillStyle = "rgba(120,102,80,0.95)";
+        ctx.beginPath();
+        ctx.moveTo(tx + tw / 2, ty); ctx.lineTo(tx + tw / 2 + 2.4, ty - 2.2);
+        ctx.lineTo(tx + tw / 2 + 2.4, baseY - 2.2); ctx.lineTo(tx + tw / 2, baseY); ctx.closePath(); ctx.fill();
+        // tower top
+        ctx.beginPath();
+        ctx.moveTo(tx - tw / 2, ty); ctx.lineTo(tx - tw / 2 + 2.4, ty - 2.2);
+        ctx.lineTo(tx + tw / 2 + 2.4, ty - 2.2); ctx.lineTo(tx + tw / 2, ty); ctx.closePath();
+        ctx.fillStyle = "rgba(202,184,152,0.98)"; ctx.fill();
+        ctx.strokeStyle = "rgba(74,62,46,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
+        // tower front
+        ctx.fillStyle = col;
+        ctx.fillRect(tx - tw / 2, ty, tw, th);
         ctx.strokeStyle = "rgba(74,62,46,0.6)"; ctx.lineWidth = 0.26;
-        ctx.strokeRect(tx - 3.0, baseY - h * 1.22, 6.0, h * 1.22);
-        for (let k = -2.4; k <= 2.0; k += 1.4) ctx.fillRect(tx + k, baseY - h * 1.22 - 1.6, 0.9, 1.6);
+        ctx.strokeRect(tx - tw / 2, ty, tw, th);
+        for (let k = -2.4; k <= 2.0; k += 1.4) {
+          ctx.fillStyle = col;
+          ctx.fillRect(tx + k, ty - 4.0, 0.9, 1.8);
+        }
+        // slit window
+        ctx.fillStyle = "rgba(52,38,26,0.55)";
+        ctx.fillRect(tx - 0.5, ty + th * 0.42, 1.0, th * 0.24);
       }
     }
     if (o.gate !== false) {
+      // gatehouse with a shallow arch and a darker recess
       ctx.beginPath();
-      ctx.moveTo(x - 3.0, baseY);
-      ctx.lineTo(x - 3.0, baseY - 6.2);
-      ctx.quadraticCurveTo(x, baseY - 8.6, x + 3.0, baseY - 6.2);
-      ctx.lineTo(x + 3.0, baseY);
+      ctx.moveTo(x - 4.2, baseY);
+      ctx.lineTo(x - 4.2, baseY - 7.2);
+      ctx.quadraticCurveTo(x, baseY - 10.6, x + 4.2, baseY - 7.2);
+      ctx.lineTo(x + 4.2, baseY);
       ctx.closePath();
-      ctx.fillStyle = "rgba(52,38,26,0.8)"; ctx.fill();
+      ctx.fillStyle = "rgba(52,38,26,0.82)"; ctx.fill();
+      ctx.strokeStyle = "rgba(74,60,42,0.6)"; ctx.lineWidth = 0.3; ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x - 4.2, baseY - 7.2);
+      ctx.quadraticCurveTo(x, baseY - 10.6, x + 4.2, baseY - 7.2);
+      ctx.strokeStyle = "rgba(214,194,158,0.85)"; ctx.lineWidth = 0.8; ctx.stroke();
     }
   }
 
@@ -556,17 +631,48 @@
 
   function siegeMap(ctx, t, v) {
     const pal = PAL[v.palette] || PAL.dawn;
-    const skyG = ctx.createRadialGradient(0, -28, 6, 0, -22, 56);
-    skyG.addColorStop(0, hexA(pal.mid, 0.6));
-    skyG.addColorStop(1, hexA(pal.mid, 0));
-    ctx.fillStyle = skyG;
-    ctx.fillRect(-50, -60, 100, 60);
-    const grd = ctx.createLinearGradient(0, -18, 0, 0);
-    grd.addColorStop(0, hexA("#b0946a", 0));
-    grd.addColorStop(1, hexA("#b0946a", 0.95));
-    ctx.fillStyle = grd;
-    ctx.fillRect(-50, -18, 100, 18);
+    mapSky(ctx, pal, -28, 54, 0.62);
+    mapGround(ctx, "#b0946a", 0.95, -4, 54);
+    // rooftops and a dome rising behind the wall, so the city reads as a
+    // place rather than a flat rectangle on the paper
+    for (let i = 0; i < 7; i++) {
+      const bx = -34 + i * 10 + Math.sin(i * 2.3) * 2;
+      const bh = 7 + (i % 3) * 3;
+      ctx.fillStyle = "rgba(190,166,128," + (0.34 + (i % 2) * 0.1) + ")";
+      ctx.fillRect(bx, -22 - bh, 7, bh);
+      ctx.beginPath();
+      ctx.moveTo(bx - 1, -22 - bh); ctx.lineTo(bx + 3.5, -26 - bh); ctx.lineTo(bx + 8, -22 - bh);
+      ctx.closePath(); ctx.fillStyle = "rgba(150,108,70,0.42)"; ctx.fill();
+    }
+    // dome + minaret silhouette
+    ctx.beginPath(); ctx.arc(22, -26, 7.5, Math.PI, TAU); ctx.fillStyle = "rgba(206,182,142,0.55)"; ctx.fill();
+    ctx.strokeStyle = "rgba(110,84,54,0.35)"; ctx.lineWidth = 0.22; ctx.stroke();
+    ctx.fillStyle = "rgba(206,182,142,0.5)"; ctx.fillRect(30, -38, 2.2, 18);
+    // smoke plumes from the bombardment
+    for (let i = 0; i < 3; i++) {
+      const sx = -8 + i * 14, sy = -30 - i * 4;
+      const q = (t * 0.10 + i * 0.33) % 1;
+      ctx.beginPath();
+      ctx.ellipse(sx + Math.sin(t + i) * 2, sy - q * 18, 6 + q * 5, 4 + q * 3, 0.2, 0, TAU);
+      ctx.fillStyle = "rgba(150,140,124," + (0.10 * (1 - q)) + ")"; ctx.fill();
+    }
     wall(ctx, 8, -10, 52, 18, { towers: true, gate: true, col: v.wallCol });
+    // wall face in slight perspective and a breach
+    ctx.beginPath();
+    ctx.moveTo(-18, -10); ctx.lineTo(-14, -4); ctx.lineTo(30, -4); ctx.lineTo(34, -10);
+    ctx.closePath(); ctx.fillStyle = "rgba(120,98,70,0.22)"; ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(18, -10); ctx.lineTo(20, -17); ctx.lineTo(25, -18); ctx.lineTo(23, -10);
+    ctx.closePath(); ctx.fillStyle = "rgba(58,44,30,0.42)"; ctx.fill();
+    // cannon + gabions in the foreground
+    ctx.strokeStyle = "rgba(64,46,30,0.9)"; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(-26, -2); ctx.lineTo(-36, -7); ctx.stroke();
+    ctx.beginPath(); ctx.arc(-24, -2, 3.2, 0, TAU); ctx.fillStyle = "rgba(96,72,46,0.9)"; ctx.fill();
+    for (const gx of [-38, -32, -26]) {
+      ctx.beginPath(); ctx.arc(gx, -4.5, 3.4, 0, TAU);
+      ctx.fillStyle = "rgba(190,166,126,0.85)"; ctx.fill();
+      ctx.strokeStyle = "rgba(92,70,44,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
+    }
     tent(ctx, -30, -8, 1.0);
     tent(ctx, -20, -7, 0.8);
     for (let i = 0; i < 3; i++) p(ctx, -14 + i * 7, -5, 0.3, "rgba(74,58,40,0.97)", { phase: t + i, spear: true });
@@ -735,20 +841,31 @@
 
   function caravelMap(ctx, t, v) {
     const pal = PAL[v.palette] || PAL.dawn;
-    const skyG = ctx.createRadialGradient(0, -34, 6, 0, -28, 56);
-    skyG.addColorStop(0, hexA(pal.mid, 0.6));
-    skyG.addColorStop(1, hexA(pal.mid, 0));
-    ctx.fillStyle = skyG;
-    ctx.fillRect(-50, -64, 100, 64);
-    const seaG = ctx.createLinearGradient(0, -20, 0, 0);
-    seaG.addColorStop(0, hexA("#4f7b7c", 0));
-    seaG.addColorStop(1, hexA("#4f7b7c", 0.9));
-    ctx.fillStyle = seaG;
-    ctx.fillRect(-50, -20, 100, 20);
+    mapSky(ctx, pal, -30, 56, 0.60);
+    mapGround(ctx, "#4f7b7c", 0.88, -5, 56);
     if (v.skyline === "palms") {
-      ctx.fillStyle = "rgba(150,156,96,0.85)";
-      ctx.fillRect(-50, -16, 20, 8);
+      // low headland, feathered into the sea
+      const hg = ctx.createRadialGradient(-36, -14, 0, -36, -14, 22);
+      hg.addColorStop(0, "rgba(150,156,96,0.85)");
+      hg.addColorStop(0.6, "rgba(150,156,96,0.42)");
+      hg.addColorStop(1, "rgba(150,156,96,0)");
+      ctx.save(); ctx.translate(-36, -14); ctx.scale(1, 0.32);
+      ctx.beginPath(); ctx.arc(0, 0, 24, 0, TAU); ctx.fillStyle = hg; ctx.fill();
+      ctx.restore();
       palm(ctx, -42, -14, 16, 2, "rgba(84,72,44,0.9)");
+    } else if (v.skyline === "cliffs") {
+      const cg = ctx.createRadialGradient(-38, -22, 0, -38, -22, 24);
+      cg.addColorStop(0, "rgba(140,128,104,0.75)");
+      cg.addColorStop(1, "rgba(140,128,104,0)");
+      ctx.save(); ctx.translate(-38, -22); ctx.scale(1, 0.5);
+      ctx.beginPath(); ctx.arc(0, 0, 26, 0, TAU); ctx.fillStyle = cg; ctx.fill();
+      ctx.restore();
+    }
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
+      ctx.moveTo(-46, -4 + i * 2.6);
+      ctx.quadraticCurveTo(0, -2 + i * 2.6 + Math.sin(t * 1.4 + i) * 0.8, 46, -4 + i * 2.6);
+      ctx.strokeStyle = "rgba(232,240,226," + (0.10 + i * 0.03) + ")"; ctx.lineWidth = 0.5; ctx.stroke();
     }
     ship(ctx, 6, -8, 0.52, t, { flag: v.flag || RED });
   }
@@ -1043,16 +1160,18 @@
 
   function modernMap(ctx, t, v) {
     const pal = PAL[v.palette] || PAL.dawn;
-    const skyG = ctx.createRadialGradient(0, -30, 6, 0, -24, 56);
-    skyG.addColorStop(0, hexA(pal.mid, 0.6));
-    skyG.addColorStop(1, hexA(pal.mid, 0));
-    ctx.fillStyle = skyG;
-    ctx.fillRect(-50, -62, 100, 62);
-    const grd = ctx.createLinearGradient(0, -16, 0, 0);
-    grd.addColorStop(0, hexA("#b49c78", 0));
-    grd.addColorStop(1, hexA("#b49c78", 0.92));
-    ctx.fillStyle = grd;
-    ctx.fillRect(-50, -16, 100, 16);
+    mapSky(ctx, pal, -28, 55, 0.60);
+    mapGround(ctx, "#b49c78", 0.92, -3, 55);
+    // a soft town silhouette behind the square
+    for (let i = 0; i < 8; i++) {
+      const bx = -44 + i * 11;
+      const bh = 6 + (i % 4) * 4;
+      ctx.fillStyle = "rgba(168,148,116,0.26)";
+      ctx.fillRect(bx, -16 - bh, 7, bh);
+      ctx.beginPath();
+      ctx.moveTo(bx - 1, -16 - bh); ctx.lineTo(bx + 3.5, -20 - bh); ctx.lineTo(bx + 8, -16 - bh);
+      ctx.closePath(); ctx.fillStyle = "rgba(150,126,92,0.24)"; ctx.fill();
+    }
     ctx.fillStyle = "rgba(226,216,194,0.96)";
     ctx.fillRect(-14, -30, 28, 16);
     ctx.strokeStyle = "rgba(74,60,44,0.5)"; ctx.lineWidth = 0.3;

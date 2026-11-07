@@ -205,10 +205,12 @@
         if (!placed) continue;
         rects.push(placed);
         c.drawY = drawY;
+        const wgt = (window.MapTheatre && window.MapTheatre.labelWeight) ? window.MapTheatre.labelWeight(c.x, c.drawY) : 1;
+        c.weight = wgt;
         ctx.lineWidth = 2.8;
-        ctx.strokeStyle = "rgba(250,246,238,0.92)";
+        ctx.strokeStyle = "rgba(250,246,238," + (0.92 * wgt) + ")";
         ctx.strokeText(c.name, c.x, c.drawY);
-        ctx.fillStyle = modern ? "rgba(54,45,34,0.74)" : c.e.type === "culture" ? "rgba(88,72,54,0.7)" : "rgba(48,40,31,0.86)";
+        ctx.fillStyle = modern ? "rgba(54,45,34," + (0.74 * wgt) + ")" : c.e.type === "culture" ? "rgba(88,72,54," + (0.7 * wgt) + ")" : "rgba(48,40,31," + (0.86 * wgt) + ")";
         ctx.fillText(c.name, c.x, c.drawY);
       }
       ctx.restore();

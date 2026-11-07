@@ -594,10 +594,11 @@
         // Don't label if text is much wider than the country at low zoom
         if (zoom < 1.8 && w > Math.sqrt(c.area) * 2.1) continue;
         rects.push(r);
+        const wgt = (window.MapTheatre && window.MapTheatre.labelWeight) ? window.MapTheatre.labelWeight(c.pos.x, c.pos.y) : 1;
         ctx.lineWidth = 2.6;
-        ctx.strokeStyle = "rgba(250,246,238,0.9)";
+        ctx.strokeStyle = "rgba(250,246,238," + (0.9 * wgt) + ")";
         ctx.strokeText(c.name, c.pos.x, c.pos.y);
-        ctx.fillStyle = "rgba(48,40,31,0.84)";
+        ctx.fillStyle = "rgba(48,40,31," + (0.84 * wgt) + ")";
         ctx.fillText(c.name, c.pos.x, c.pos.y);
       }
       ctx.restore();
@@ -772,16 +773,17 @@
         for (const q of placed) if (r[0] < q[2] && r[2] > q[0] && r[1] < q[3] && r[3] > q[1]) { hit = true; break; }
         if (hit) continue;
         placed.push(r);
-        ctx.fillStyle = "rgba(249,244,234," + (0.44 * a) + ")";
+        const wgt = (window.MapTheatre && window.MapTheatre.labelWeight) ? window.MapTheatre.labelWeight(pos.x, pos.y) : 1;
+        ctx.fillStyle = "rgba(249,244,234," + (0.44 * a * wgt) + ")";
         if (ctx.roundRect) {
           ctx.beginPath();
           ctx.roundRect(r[0] + 1, r[1] + 1, r[2] - r[0] - 2, r[3] - r[1] - 2, 3);
           ctx.fill();
         }
         ctx.lineWidth = 3;
-        ctx.strokeStyle = "rgba(248,242,230," + (0.85 * a) + ")";
+        ctx.strokeStyle = "rgba(248,242,230," + (0.85 * a * wgt) + ")";
         ctx.strokeText(name, pos.x, pos.y);
-        ctx.fillStyle = "rgba(66,48,30," + (0.92 * a) + ")";
+        ctx.fillStyle = "rgba(66,48,30," + (0.92 * a * wgt) + ")";
         ctx.fillText(name, pos.x, pos.y);
       }
       ctx.restore();

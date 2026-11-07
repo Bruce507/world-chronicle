@@ -1854,6 +1854,13 @@
     placeTooltip(x, y);
   }
 
+  function seqPanelAppear() {
+    const p = el["side-panel"];
+    if (!p) return;
+    p.classList.add("seq-in");
+    setTimeout(() => p.classList.remove("seq-in"), 1200);
+  }
+
   function clearTheatreSurface() {
     if (window.MapTheatre) window.MapTheatre.clear();
     if (el["theatre-card"]) el["theatre-card"].hidden = true;
@@ -1865,6 +1872,7 @@
   /* ── event theatre ──────────────────────────────── */
   function openEvent(ev, opts) {
     if (!ev) return;
+    const wasOpen = state.panelOpen;
     state.autoOpened = !!(opts && opts.auto);
     stopPlay();
     if (!el["event-modal"].hidden) closeEvent();
@@ -1882,6 +1890,11 @@
     if (ev.y !== state.year) applyYear(ev.y, null, { force: true, silentEvent: true });
     else { state.pos = timeline.toPos(ev.y); updateChrome(); }
     lastPanelKey = "";
+    // Choreography: camera first, then the scene fades in, then — on a
+    // first open — the panel/drawer slides in slightly later. The delay
+    // class must exist before the panel's open state changes, otherwise
+    // the transition has already started without it.
+    if (!wasOpen) seqPanelAppear();
     setPanel(true);
     renderPanel(true);
     if (window.MapTheatre) {

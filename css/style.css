@@ -550,6 +550,10 @@ svg { display: block; }
   pointer-events: none;
 }
 #side-panel.collapsed { transform: translateX(calc(100% + 26px)); opacity: 0; pointer-events: none; }
+/* Motion choreography (P2-1): camera → scene → panel. The panel's layout
+   is applied at once (so the camera can aim at the real usable area), but
+   its slide-in is delayed on the first open for a cleaner sequence. */
+#side-panel.seq-in { transition-delay: 0.58s, 0.58s; }
 #panel-reopen {
   position: absolute;
   right: 14px;
@@ -2108,6 +2112,11 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
   .tl-readout span { font-size: 8px; }
 }
 
+@media (max-width: 860px) {
+  #side-panel.seq-in { transition-delay: 0s, 0.74s, 0.5s; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  #side-panel.seq-in { transition-delay: 0s !important; }
 }
