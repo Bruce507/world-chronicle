@@ -77,6 +77,7 @@
       this.originX = 0; this.originY = 0;
       this.baseScale = 1;
       this.reservedRight = 370;
+      this.viewOffsetY = 0;
 
       this._initEvents();
       this._bindEvents();
@@ -190,8 +191,19 @@
     }
 
     fit(resetView) {
-      if (resetView !== false) this.view = { zoom: 1, panX: 0, panY: 0 };
+      if (resetView !== false) this.view = { zoom: 1, panX: 0, panY: -this.viewOffsetY };
       this._computeFit();
+      this.clampPan();
+      this.drawBase();
+    }
+
+    /* Shift the map's optical centre up when a mobile bottom sheet covers the
+       lower part of the stage, so a focused node stays visible above it. */
+    setViewOffset(y) {
+      y = Math.max(0, Math.round(y || 0));
+      const d = y - this.viewOffsetY;
+      this.viewOffsetY = y;
+      this.view.panY -= d;
       this.clampPan();
       this.drawBase();
     }
@@ -255,7 +267,7 @@
       const target = {
         zoom: clamp(zoom, 1, 9),
         panX: -robX(lon, lat) * s1,
-        panY: robY(lat) * s1,
+        panY: robY(lat) * s1 - this.viewOffsetY,
       };
       const start = { ...this.view };
       const t0 = performance.now();
@@ -969,8 +981,13 @@
     }
 
     _up(e) {
+      // Only a pointer that began on the map surface may end a pan/pick.
+      // Pointerups from the side panel, sheet handle, theatre card or zoom
+      // buttons bubble through the stage and must not trigger map picking.
+      const wasTracked = this.pointers.has(e.pointerId);
       this.pointers.delete(e.pointerId);
       if (this.pointers.size < 2) this.pinch = null;
+      if (!wasTracked) return;
       if (this.pointers.size === 0) {
         this.dragging = false;
         this.canvas.style.cursor = this.hovered ? "pointer" : "grab";

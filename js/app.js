@@ -347,7 +347,7 @@
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
       "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
-      "theatre-card", "tc-kicker", "tc-title", "tc-sub", "tc-desc", "tc-tags", "tc-expand", "tc-pause", "tc-close", "tc-voice",
+      "theatre-card", "tc-kicker", "tc-title", "tc-expand", "tc-pause", "tc-close", "sheet-handle",
       "sound-btn", "ev-voice",
       "ev-year", "ev-cat", "ev-title", "ev-title-en", "ev-desc", "ev-desc-en", "ev-meta", "ev-detail", "ev-links",
       "ev-contemp-list", "ev-prev", "ev-next", "about-modal", "about-eras", "about-scenes",
@@ -388,7 +388,7 @@
     }
 
     bindUI();
-    window.atlasAPI = { map, state, openEvent, openEventModal, openCountry, theatre: window.MapTheatre, placeInfo, setYear: (y) => applyYear(y, null, { force: true }) };
+    window.atlasAPI = { map, state, openEvent, openEventModal, openCountry, theatre: window.MapTheatre, placeInfo, setPanel, setSheet, setYear: (y) => applyYear(y, null, { force: true }) };
     renderPanel(true);
     updateChrome();
     drawTicks();
@@ -631,11 +631,12 @@
     lastPanelKey = key;
     const scroll = el["panel-body"].scrollTop;
 
-    el["panel-kicker"].textContent = L("重大事件 · ", "MAJOR EVENT · ", "ACONTECIMIENTO · ", "ÉVÉNEMENT · ", "حدث كبرى · ") + fmtYear(ev.y, state.lang, true);
-    el["panel-title"].textContent = state.eventGroup ? textOf(state.eventGroup.name) : L("事件详情", "Event dossier", "Ficha del evento", "Dossier d’événement", "ملف الحدث");
-    el["panel-sub"].textContent = state.eventGroup ? (state.lang === "zh" ? state.eventGroup.name.en : state.eventGroup.name.zh) : "";
+    el["panel-kicker"].textContent = (state.eventGroup ? textOf(state.eventGroup.name) + " · " : "") +
+      L("重大事件 · ", "MAJOR EVENT · ", "ACONTECIMIENTO · ", "ÉVÉNEMENT · ", "حدث كبرى · ") +
+      fmtYear(ev.y, state.lang, true) + " · " + catName(ev.k);
+    el["panel-title"].textContent = evTitle(ev);
+    el["panel-sub"].textContent = state.lang === "zh" ? ev.t[1] : ev.t[0];
 
-    const titleEn = state.lang === "zh" ? ev.t[1] : ev.t[0];
     const pinfo = placeInfo(ev);
     const place = pinfo.main;
     const actors = (d.actors || []).map((a) => textOf(a)).filter(Boolean);
@@ -643,8 +644,6 @@
     const sourceLinks = (d.sources || []).filter((s) => s.url).slice(0, 4);
 
     let html = `<button class="panel-back" data-ev-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
-    html += `<div class="ev-detail-head"><div class="ev-detail-kicker">${catName(ev.k)} · ${rgName(ev.rg)}</div>`;
-    html += `<h2 class="ev-detail-title">${evTitle(ev)}</h2><p class="ev-detail-en">${titleEn}</p></div>`;
     html += `<div class="ev-detail-meta">`;
     html += `<div><span>${L("时间", "DATE", "FECHA", "DATE", "التاريخ")}</span><b>${dateText}</b></div>`;
     html += `<div><span>${L("地点", "PLACE", "LUGAR", "LIEU", "المكان")}</span><b>${place || L("待确认", "TBD", "Por confirmar", "À confirmer", "قيد التأكيد")}</b>${pinfo.sub ? `<small class="meta-sub">${pinfo.sub}</small>` : ""}</div>`;
@@ -683,6 +682,7 @@
 
     html += `<div class="ev-detail-actions"><button class="primary" data-ev="${ev.id}">${L("重新播放动态", "Replay dynamic", "Repetir dinámica", "Relancer la dynamique", "إعادة الحركة")}</button>`;
     html += `<button data-ev-modal="${ev.id}">${L("展开史志", "Open full record", "Abrir ficha", "Ouvrir la fiche", "فتح السجل")}</button>`;
+    html += `<button data-ev-voice="1">${L("朗读", "Read aloud", "Leer", "Lire", "قراءة")}</button>`;
     if (ev._country) html += `<button data-country-open="${countryKey(ev._country)}">${L("国家沿革", "Country chronicle", "Crónica del país", "Chronique du pays", "سجل الدولة")}</button>`;
     html += `</div>`;
     html += `<div class="ev-verify${d.verification === "verified" ? " is-verified" : d.verification === "pending" ? " is-pending" : ""}"><i></i>${verifyLabel(d.verification || "brief")}${d.verification === "brief" ? " · " + L("长文待补，不编造", "long form pending, not invented", "texto largo pendiente", "texte long à compléter", "النص الطويل قيد الإضافة") : ""}</div>`;
@@ -1660,20 +1660,8 @@
     }[mode] || L("地图剧场", "MAP THEATRE", "TEATRO DEL MAPA", "THÉÂTRE DE LA CARTE", "مسرح الخريطة");
     el["tc-kicker"].textContent = fmtYear(ev.y, state.lang) + " · " + catName(ev.k) + " · " + modeName;
     el["tc-title"].textContent = evTitle(ev);
-    el["tc-sub"].textContent = state.lang === "zh" ? ev.t[1] : (state.lang === "en" ? ev.t[0] : ev.t[1]);
-    el["tc-desc"].textContent = evDesc(ev);
-    let tags = "";
-    if (th && th.sides && th.sides.length) {
-      th.sides.forEach((sd) => {
-        const sdName = Array.isArray(sd.name) ? (state.lang === "zh" ? sd.name[0] : sd.name[1]) : (state.lang === "zh" ? sd.name.zh : sd.name.en);
-        tags += '<span class="tc-tag"><i style="background:' + sd.color + '"></i>' + sdName + "</span>";
-      });
-    }
-    if (ev.link && ev.link.length) {
-      tags += '<span class="tc-tag">' + L("联动 " + ev.link.length + " 地", ev.link.length + " linked places", ev.link.length + " lugares vinculados", ev.link.length + " lieux liés", ev.link.length + " أماكن مرتبطة") + "</span>";
-    }
-    tags += '<span class="tc-tag">' + L("动态绘制于地图", "drawn on the map", "dibujado en el mapa", "dessiné sur la carte", "مرسوم على الخريطة") + "</span>";
-    el["tc-tags"].innerHTML = tags;
+    if (el["tc-expand"]) el["tc-expand"].textContent = L("展开史志", "Open full record", "Abrir ficha", "Ouvrir la fiche", "فتح السجل");
+    if (el["tc-pause"]) el["tc-pause"].textContent = L("暂停", "Pause", "Pausa", "Pause", "إيقاف مؤقت");
   }
 
   function openEventModal(ev) {
@@ -1962,14 +1950,98 @@
   }
 
   /* ── panel open/close ───────────────────────────── */
+  function isMobilePanel() { return window.innerWidth <= 860; }
+  const SHEET_STATES = ["peek", "half", "full"];
+
+  function clearSheetClasses() {
+    document.body.classList.remove("sheet-peek", "sheet-half", "sheet-full");
+  }
+
+  function setSheet(name, opts) {
+    if (!isMobilePanel()) { clearSheetClasses(); return; }
+    if (SHEET_STATES.indexOf(name) < 0) name = "half";
+    state.sheet = name;
+    clearSheetClasses();
+    document.body.classList.add("sheet-" + name);
+    const offset = name === "peek" ? 0 : Math.round((map ? map.H : window.innerHeight) * (name === "full" ? 0.26 : 0.15));
+    if (map) map.setViewOffset(offset);
+    if (el["sheet-handle"]) {
+      el["sheet-handle"].setAttribute("aria-label",
+        name === "peek" ? L("上拉展开详情", "Swipe up for details", "Desliza para ver detalles", "Glisser vers le haut", "اسحب للأعلى للتفاصيل")
+        : name === "half" ? L("上拉全屏", "Swipe up for full screen", "Desliza para pantalla completa", "Glisser en plein écran", "اسحب لملء الشاشة")
+        : L("下拉收起详情", "Swipe down to reduce", "Desliza para reducir", "Glisser vers le bas", "اسحب للأسفل للتصغير"));
+    }
+    if (!opts || !opts.silent) requestAnimationFrame(updatePanelScrollbar);
+  }
+
+  function cycleSheet() {
+    if (!state.panelOpen) return;
+    if (state.sheet === "peek") setSheet("half");
+    else if (state.sheet === "half") setSheet("full");
+    else setSheet("half");
+  }
+
   function setPanel(open) {
     state.panelOpen = open;
+    if (open && isMobilePanel()) setSheet(state.sheet || "half", { silent: true });
+    else if (!open) {
+      clearSheetClasses();
+      if (map) map.setViewOffset(0);
+    }
     el["side-panel"].classList.toggle("collapsed", !open);
     document.getElementById("map-stage").classList.toggle("panel-open", !!open);
     el["panel-reopen"].hidden = open;
     if (map) map.fit(false);
+    if (open && isMobilePanel()) setSheet(state.sheet || "half", { silent: true });
     if (open && map && map.features) renderPanel(true);
     requestAnimationFrame(updatePanelScrollbar);
+  }
+
+  function bindSheet() {
+    const h = el["sheet-handle"];
+    if (!h) return;
+    h.addEventListener("click", () => {
+      if (h.dataset.dragged === "1") { h.dataset.dragged = "0"; return; }
+      cycleSheet();
+    });
+    let drag = null;
+    h.addEventListener("pointerdown", (e) => {
+      if (!isMobilePanel() || e.button !== 0) return;
+      drag = { y: e.clientY, id: e.pointerId, moved: false };
+      if (h.setPointerCapture) h.setPointerCapture(e.pointerId);
+      h.style.cursor = "grabbing";
+    });
+    h.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dy = e.clientY - drag.y;
+      if (Math.abs(dy) > 6) drag.moved = true;
+      if (drag.moved) h.style.transform = "translateY(" + clamp(dy, -30, 30) + "px)";
+      e.preventDefault();
+    });
+    const end = (e) => {
+      if (!drag) return;
+      const dy = (e.clientY || 0) - drag.y;
+      const moved = drag.moved;
+      drag = null;
+      h.style.transform = "";
+      h.style.cursor = "grab";
+      if (!moved) return;
+      h.dataset.dragged = "1";
+      if (dy < -24) {
+        if (state.sheet === "peek") setSheet("half");
+        else if (state.sheet === "half") setSheet("full");
+      } else if (dy > 24) {
+        if (state.sheet === "full") setSheet("half");
+        else if (state.sheet === "half") setSheet("peek");
+        else if (state.sheet === "peek") setPanel(false);
+      }
+    };
+    h.addEventListener("pointerup", end);
+    h.addEventListener("pointercancel", () => { drag = null; h.style.transform = ""; h.style.cursor = "grab"; });
+    h.addEventListener("dblclick", () => {
+      if (!state.panelOpen || !isMobilePanel()) return;
+      setSheet(state.sheet === "full" ? "half" : "full");
+    });
   }
 
   function updatePanelScrollbar() {
@@ -2210,6 +2282,8 @@
         if (f) openCountry(f, { skipGroup: true });
         return;
       }
+      const voiceBtn = e.target.closest("[data-ev-voice]");
+      if (voiceBtn) { speakSelected(); return; }
       const evBtn = e.target.closest("[data-ev]");
       if (evBtn) { triggerEvent(byId[evBtn.getAttribute("data-ev")], "panel"); return; }
       const polBtn = e.target.closest("[data-polity]");
@@ -2255,8 +2329,8 @@
       updateSoundBtn();
     });
     el["tc-close"].addEventListener("click", closeTheatre);
-    el["tc-voice"].addEventListener("click", speakSelected);
     el["ev-voice"].addEventListener("click", speakSelected);
+    bindSheet();
     el["tc-expand"].addEventListener("click", () => { if (state.selected) openEventModal(state.selected); });
     el["tc-pause"].addEventListener("click", () => {
       if (!window.MapTheatre) return;
@@ -2290,6 +2364,10 @@
     document.addEventListener("keydown", onKey);
     window.addEventListener("resize", () => {
       if (map) map.resize();
+      if (state.panelOpen) {
+        if (isMobilePanel()) setSheet(state.sheet || "half", { silent: true });
+        else { clearSheetClasses(); if (map) map.setViewOffset(0); }
+      }
       drawTicks();
     });
     if (window.ResizeObserver) {
