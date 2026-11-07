@@ -63,7 +63,7 @@ Date 2026-11-07. Follows `docs/ux-interaction-pass-2026-11.md` with mobile-map, 
 | 项 | 结果 |
 |---|---|
 | `node scripts/validate-data.mjs` | 521 events valid |
-| `node scripts/build-data.mjs` | 749 KB bundle |
+| `node scripts/build-data.mjs` | 约 780 KB bundle |
 | `node scripts/build-scene-taxonomy.mjs` | 521 / 56 / 0 mismatches |
 | `node --check js/*.js` | 全部通过 |
 | `npm run smoke` | 19/19 checks passed |
