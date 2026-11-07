@@ -19,7 +19,8 @@
     "build:entities": "node scripts/build-historical-entities.mjs",
     "build:reports": "node scripts/build-reports.mjs",
     "build:scenes": "node scripts/build-scene-taxonomy.mjs",
-    "smoke": "node scripts/ux-smoke.mjs"
+    "smoke": "node scripts/ux-smoke.mjs",
+    "content-check": "node scripts/content-check.mjs"
   },
   "devDependencies": {
     "playwright": "^1.64.1"

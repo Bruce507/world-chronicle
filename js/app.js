@@ -735,6 +735,10 @@
 
     const summary = d.summary ? textOf(d.summary) : evDesc(ev);
     if (summary) html += `<section class="ev-detail-section"><h4>${L("摘要", "SUMMARY", "RESUMEN", "RÉSUMÉ", "الملخص")}</h4><p>${summary}</p></section>`;
+    if (d.why) {
+      const why = textOf(d.why);
+      if (why) html += `<section class="ev-detail-section ev-why"><h4>${L("为何重要", "WHY IT MATTERS", "POR QUÉ IMPORTA", "POURQUOI C’EST IMPORTANT", "لماذا يهم")}</h4><p>${why}</p></section>`;
+    }
     const sections = [
       ["background", L("背景", "BACKGROUND", "CONTEXTO", "CONTEXTE", "الخلفية")],
       ["course", L("经过", "COURSE", "DESARROLLO", "DÉROULEMENT", "مجريات الحدث")],
@@ -743,7 +747,7 @@
     for (const [key, label] of sections) {
       const val = d[key] ? textOf(d[key]) : "";
       if (val) html += `<section class="ev-detail-section"><h4>${label}</h4><p>${val}</p></section>`;
-      else if (key === "background") html += `<section class="ev-detail-section"><h4>${label}</h4><p class="ev-missing">${L("详细背景待补；当前只保留可核实的摘要与元数据。", "Detailed background pending; only verified summary and metadata are shown for now.", "Contexto detallado pendiente; por ahora solo el resumen verificado.", "Contexte détaillé à compléter ; seuls le résumé vérifié et les métadonnées sont affichés.", "الخلفية التفصيلية قيد الإضافة؛ يُعرض الملخص الموثّق فقط.")}</p></section>`;
+      else if (key === "background") html += `<section class="ev-detail-section"><h4>${label}</h4><p class="ev-missing">${L("本条为策展摘要：长文、参与方与来源仍待补齐，不以推测填充。", "This is a curated summary: long-form text, actors and sources are still pending and are not invented.", "Este es un resumen curatorial: el texto largo, los actores y las fuentes están pendientes y no se inventan.", "Ceci est un résumé curatorial : le texte long, les acteurs et les sources restent à compléter et ne sont pas inventés.", "هذا ملخص تخطيطي: النص الطويل والأطراف والمصادر قيد الإضافة، ولا تُختلق.")}</p></section>`;
     }
 
     const chainIds = state.eventGroup ? (state.eventGroup.events || []) : ((d.chain && d.chain.length) ? d.chain : []);
@@ -2115,6 +2119,10 @@
       let dh = "";
       const sum = d.summary ? textOf(d.summary) : "";
       if (sum) dh += `<section class="ev-detail-section"><h4>${L("摘要", "SUMMARY", "RESUMEN", "RÉSUMÉ", "الملخص")}</h4><p>${sum}</p></section>`;
+      if (d.why) {
+        const why = textOf(d.why);
+        if (why) dh += `<section class="ev-detail-section ev-why"><h4>${L("为何重要", "WHY IT MATTERS", "POR QUÉ IMPORTA", "POURQUOI C’EST IMPORTANT", "لماذا يهم")}</h4><p>${why}</p></section>`;
+      }
       for (const [k, label] of [["background", L("背景", "BACKGROUND", "CONTEXTO", "CONTEXTE", "الخلفية")], ["course", L("经过", "COURSE", "DESARROLLO", "DÉROULEMENT", "مجريات الحدث")], ["outcome", L("结果与影响", "OUTCOME", "RESULTADO", "CONSÉQUENCES", "النتائج والأثر")]]) {
         const val = d[k] ? textOf(d[k]) : "";
         if (val) dh += `<section class="ev-detail-section"><h4>${label}</h4><p>${val}</p></section>`;

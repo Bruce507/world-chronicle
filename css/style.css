@@ -1032,6 +1032,12 @@ svg { display: block; }
   color: var(--muted);
 }
 .ev-detail-section { margin-top: 13px; }
+.ev-detail-section.ev-why {
+  padding: 8px 10px 9px;
+  border-left: 2px solid rgba(176, 67, 44, 0.55);
+  background: rgba(176, 67, 44, 0.045);
+}
+.ev-detail-section.ev-why h4 { color: var(--verm); }
 .ev-detail-section h4 {
   margin: 0 0 5px;
   font-size: 8px;
