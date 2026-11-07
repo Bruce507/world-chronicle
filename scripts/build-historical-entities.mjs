@@ -234,13 +234,15 @@ for (const e of entities) dedup.set(e.id, e);
 for (const e of dedup.values()) {
   if (e.source === "curated" || e.type === "modern" || e.type === "province") continue;
   const name = String((e.name && e.name.en) || "").trim();
-  const c = clampById[e.id] || clampByName[name];
+  const c = Object.assign({}, clampByName[name], clampById[e.id] || {});
   if (c) {
     if (typeof c.from === "number") e.from = Math.max(e.from, c.from);
     if (typeof c.to === "number") e.to = Math.min(e.to, c.to);
     if (e.from > e.to) e.from = e.to;
     if (c.zh) e.name.zh = c.zh;
     if (c.en) e.name.en = c.en;
+    if (typeof c.lat === "number") e.lat = c.lat;
+    if (typeof c.lon === "number") e.lon = c.lon;
   }
 }
 const out = [...dedup.values()]

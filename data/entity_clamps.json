@@ -521,19 +521,49 @@
     },
     "hist-spain-1520": {
       "zh": "新西班牙",
+      "from": 1520,
       "to": 1821
     },
     "hist-portugal-1150": {
       "zh": "巴西",
+      "from": 1500,
       "to": 1822
     },
     "hist-belgium-1830": {
       "zh": "比属刚果",
+      "from": 1908,
       "to": 1960
     },
     "hist-italy-1861": {
       "zh": "意属东非",
+      "from": 1936,
       "to": 1941
+    },
+    "hist-ethiopia-italy-1858": {
+      "zh": "意属埃塞俄比亚",
+      "from": 1936,
+      "to": 1941
+    },
+    "hist-eritrea-italy-1858": {
+      "zh": "意属厄立特里亚",
+      "from": 1890,
+      "to": 1952
+    },
+    "hist-ussr-1858": {
+      "lat": 56,
+      "lon": 40
+    },
+    "hist-russian-empire-1735": {
+      "lat": 56,
+      "lon": 40
+    },
+    "hist-central-asian-khanates-1520": {
+      "lat": 43,
+      "lon": 68
+    },
+    "hist-tibet-750": {
+      "lat": 31,
+      "lon": 90
     }
   }
 }
