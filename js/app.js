@@ -721,7 +721,12 @@
       L("重大事件 · ", "MAJOR EVENT · ", "ACONTECIMIENTO · ", "ÉVÉNEMENT · ", "حدث كبرى · ") +
       fmtYear(ev.y, state.lang, true) + " · " + catName(ev.k);
     el["panel-title"].textContent = evTitle(ev);
-    el["panel-sub"].textContent = state.lang === "zh" ? ev.t[1] : ev.t[0];
+    // The header carries a one-line summary, not just the foreign title.
+    const summary = d.summary ? textOf(d.summary) : evDesc(ev);
+    const shortSummary = summary.length > (state.lang === "zh" ? 58 : 118)
+      ? summary.slice(0, state.lang === "zh" ? 58 : 118).replace(/[\s,，;；:：]+$/, "") + "…"
+      : summary;
+    el["panel-sub"].textContent = shortSummary;
 
     const pinfo = placeInfo(ev);
     const place = pinfo.main;
@@ -737,7 +742,6 @@
     html += `<div><span>${L("校验", "VERIFICATION", "VERIFICACIÓN", "VÉRIFICATION", "التحقق")}</span><b>${verifyLabel(d.verification || "brief")}</b></div>`;
     html += `</div>`;
 
-    const summary = d.summary ? textOf(d.summary) : evDesc(ev);
     if (summary) html += `<section class="ev-detail-section"><h4>${L("摘要", "SUMMARY", "RESUMEN", "RÉSUMÉ", "الملخص")}</h4><p>${summary}</p></section>`;
     if (d.why) {
       const why = textOf(d.why);
@@ -770,13 +774,17 @@
       html += `</section>`;
     }
 
-    html += `<div class="ev-detail-actions"><button class="primary" data-ev="${ev.id}">${L("重新播放动态", "Replay dynamic", "Repetir dinámica", "Relancer la dynamique", "إعادة الحركة")}</button>`;
-    html += `<button data-ev-modal="${ev.id}">${L("展开史志", "Open full record", "Abrir ficha", "Ouvrir la fiche", "فتح السجل")}</button>`;
-    html += `<button data-ev-voice="1">${L("朗读", "Read aloud", "Leer", "Lire", "قراءة")}</button>`;
-    html += `<button data-theatre-pause="1">${L("暂停动态", "Pause dynamic", "Pausar dinámica", "Pause dynamique", "إيقاف الحركة")}</button>`;
-    html += `<button data-ev-share="1">${L("分享", "Share", "Compartir", "Partager", "مشاركة")}</button>`;
-    if (ev._country) html += `<button data-country-open="${countryKey(ev._country)}">${L("国家沿革", "Country chronicle", "Crónica del país", "Chronique du pays", "سجل الدولة")}</button>`;
-    html += `</div>`;
+    const paused = !!(window.MapTheatre && window.MapTheatre.paused);
+    const pauseLabel = paused ? L("继续动态", "Resume dynamic", "Reanudar dinámica", "Reprendre la dynamique", "متابعة الحركة") : L("暂停动态", "Pause dynamic", "Pausar dinámica", "Pause dynamique", "إيقاف الحركة");
+    html += `<div class="ev-detail-actions">`;
+    html += `<button class="primary" data-ev-modal="${ev.id}">${L("展开史志", "Open full record", "Abrir ficha", "Ouvrir la fiche", "فتح السجل")}</button>`;
+    html += `<button class="ev-pause" type="button" data-theatre-pause="1" aria-label="${pauseLabel}" title="${pauseLabel}">${paused ? "▶" : "❚❚"}</button>`;
+    html += `<details class="ev-more"><summary aria-label="${L("更多操作", "More actions", "Más acciones", "Autres actions", "مزيد من الإجراءات")}" title="${L("更多操作", "More actions", "Más acciones", "Autres actions", "مزيد من الإجراءات")}">⋯</summary><div class="ev-more-menu">`;
+    html += `<button type="button" data-ev="${ev.id}">${L("重新播放动态", "Replay dynamic", "Repetir dinámica", "Relancer la dynamique", "إعادة الحركة")}</button>`;
+    html += `<button type="button" data-ev-voice="1">${L("朗读", "Read aloud", "Leer", "Lire", "قراءة")}</button>`;
+    html += `<button type="button" data-ev-share="1">${L("分享", "Share", "Compartir", "Partager", "مشاركة")}</button>`;
+    if (ev._country) html += `<button type="button" data-country-open="${countryKey(ev._country)}">${L("国家沿革", "Country chronicle", "Crónica del país", "Chronique du pays", "سجل الدولة")}</button>`;
+    html += `</div></details></div>`;
     html += `<div class="ev-verify${d.verification === "verified" ? " is-verified" : d.verification === "pending" ? " is-pending" : ""}"><i></i>${verifyLabel(d.verification || "brief")}${d.verification === "brief" ? " · " + L("长文待补，不编造", "long form pending, not invented", "texto largo pendiente", "texte long à compléter", "النص الطويل قيد الإضافة") : ""}</div>`;
 
     el["panel-body"].innerHTML = html;
@@ -785,6 +793,7 @@
 
   function renderPanel(force) {
     if (!el["panel-body"]) return;
+    if (el["side-panel"]) el["side-panel"].classList.toggle("event-mode", !!state.eventView);
     if (!map || !map.features) {
       el["panel-kicker"].textContent = t("brand");
       el["panel-title"].textContent = state.lang === "zh" ? "正在展开舆图" : "Unfolding the atlas";
@@ -1884,6 +1893,13 @@
     setTimeout(() => p.classList.remove("seq-in"), 1200);
   }
 
+  function syncPauseButtons(paused) {
+    const b = el["panel-body"] && el["panel-body"].querySelector("[data-theatre-pause]");
+    const label = paused ? L("继续动态", "Resume dynamic", "Reanudar dinámica", "Reprendre la dynamique", "متابعة الحركة") : L("暂停动态", "Pause dynamic", "Pausar dinámica", "Pause dynamique", "إيقاف الحركة");
+    if (b) { b.textContent = paused ? "▶" : "❚❚"; b.setAttribute("aria-label", label); b.title = label; }
+    if (el["tc-pause"]) el["tc-pause"].textContent = paused ? L("继续", "Resume", "Reanudar", "Reprendre", "متابعة") : L("暂停", "Pause", "Pausa", "Pause", "إيقاف مؤقت");
+  }
+
   function clearTheatreSurface() {
     if (window.MapTheatre) window.MapTheatre.clear();
     if (el["theatre-card"]) el["theatre-card"].hidden = true;
@@ -1927,6 +1943,7 @@
       map.flyTo(ev.lat, ev.lon, 2.8, 800);
     }
     fillTheatreCard(ev);
+    syncPauseButtons(false);
     el["theatre-card"].hidden = false;
     document.getElementById("map-stage").classList.add("theatre-open");
     el.hint.classList.add("hide");
@@ -2793,10 +2810,7 @@
       const pauseBtn = e.target.closest("[data-theatre-pause]");
       if (pauseBtn && window.MapTheatre) {
         const paused = window.MapTheatre.togglePause();
-        pauseBtn.textContent = paused
-          ? L("继续动态", "Resume dynamic", "Reanudar dinámica", "Reprendre la dynamique", "متابعة الحركة")
-          : L("暂停动态", "Pause dynamic", "Pausar dinámica", "Pause dynamique", "إيقاف الحركة");
-        if (el["tc-pause"]) el["tc-pause"].textContent = paused ? L("继续", "Resume", "Reanudar", "Reprendre", "متابعة") : L("暂停", "Pause", "Pausa", "Pause", "إيقاف مؤقت");
+        syncPauseButtons(paused);
         return;
       }
       const evBtn = e.target.closest("[data-ev]");
@@ -2849,8 +2863,7 @@
     el["tc-expand"].addEventListener("click", () => { if (state.selected) openEventModal(state.selected); });
     el["tc-pause"].addEventListener("click", () => {
       if (!window.MapTheatre) return;
-      const paused = window.MapTheatre.togglePause();
-      el["tc-pause"].textContent = paused ? (state.lang === "zh" ? "继续" : "Resume") : (state.lang === "zh" ? "暂停" : "Pause");
+      syncPauseButtons(window.MapTheatre.togglePause());
     });
     el["scene-toggle"].addEventListener("click", () => {
       if (!sceneCtl) return;
@@ -2877,6 +2890,9 @@
       if (!el["tl-jump"].hidden && !el["tl-jump"].contains(e.target) && !el["tl-year-btn"].contains(e.target)) {
         closeYearJump();
       }
+      const more = e.target.closest && e.target.closest(".ev-more");
+      const inMenu = e.target.closest && e.target.closest(".ev-more-menu");
+      el["panel-body"].querySelectorAll(".ev-more[open]").forEach((d) => { if (inMenu || d !== more) d.open = false; });
     });
 
     document.addEventListener("keydown", onKey);
@@ -2899,6 +2915,8 @@
     const tag = (e.target.tagName || "").toLowerCase();
     const typing = tag === "input" || tag === "textarea" || tag === "select";
     if (e.key === "Escape") {
+      const openMore = el["panel-body"] && el["panel-body"].querySelector(".ev-more[open]");
+      if (openMore) { openMore.open = false; const sm = openMore.querySelector("summary"); if (sm) sm.focus(); return; }
       if (el["onboarding"] && !el["onboarding"].hidden) { closeOnboarding(false); return; }
       if (!el["tl-jump"].hidden) { closeYearJump(); return; }
       if (!el["layers-pop"].hidden) { el["layers-pop"].hidden = true; el["layers-btn"].classList.remove("is-on"); return; }

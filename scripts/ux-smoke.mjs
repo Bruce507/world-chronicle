@@ -64,6 +64,25 @@ try {
   }));
   check("search Enter opens the event panel and theatre", searched.ev === "Marco Polo Bridge Incident" && searched.panel && searched.theatre, JSON.stringify(searched));
 
+  const actions = await d.evaluate(() => {
+    const top = [...document.querySelectorAll(".ev-detail-actions > button")].map((b) => b.textContent.trim());
+    return {
+      top,
+      sub: document.querySelector("#panel-sub").textContent,
+      more: document.querySelectorAll(".ev-more-menu button").length,
+      details: !!document.querySelector(".ev-more summary"),
+    };
+  });
+  check("event panel has two primary actions plus a more menu", actions.top.length === 2 && actions.details && actions.more >= 3 && actions.sub.indexOf("Marco Polo") < 0, JSON.stringify(actions));
+  await d.focus(".ev-more summary");
+  await d.keyboard.press("Enter");
+  await d.waitForTimeout(150);
+  const menuOpen = await d.evaluate(() => document.querySelector(".ev-more").open);
+  await d.keyboard.press("Escape");
+  await d.waitForTimeout(120);
+  const menuClosed = await d.evaluate(() => !document.querySelector(".ev-more").open);
+  check("more menu is keyboard operable and closes on Escape", menuOpen && menuClosed, JSON.stringify({ menuOpen, menuClosed }));
+
   const stage = await d.evaluate(() => {
     const t = window.MapTheatre, m = window.atlasAPI.map;
     const usable = Math.max(100, m.W - m.reservedRight);
@@ -175,6 +194,12 @@ try {
     h: Math.round(document.querySelector("#side-panel").getBoundingClientRect().height),
   }));
   check("mobile node opens half sheet and theatre", sheet.open && sheet.state === "half" && sheet.theatre && sheet.h > 250, JSON.stringify(sheet));
+  const mActs = await m.evaluate(() => {
+    const a = document.querySelector(".ev-detail-actions").getBoundingClientRect();
+    const b = document.querySelector("#panel-body").getBoundingClientRect();
+    return { aw: Math.round(a.width), bw: Math.round(b.width), buttons: document.querySelectorAll(".ev-detail-actions > button").length };
+  });
+  check("mobile event actions fit inside the half sheet", mActs.aw <= mActs.bw && mActs.buttons === 2, JSON.stringify(mActs));
 
   await m.evaluate(() => { document.querySelector("[data-ev-close]")?.click(); window.atlasAPI.setSheet("half"); });
   await m.waitForTimeout(400);
