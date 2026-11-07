@@ -126,6 +126,8 @@ try {
   await d.evaluate(() => document.querySelector("[data-search-close]")?.click());
   await d.waitForTimeout(300);
 
+  await d.click("[data-route-strip-toggle]");
+  await d.waitForTimeout(200);
   await d.click('[data-route="silk-sea"]');
   await d.waitForTimeout(500);
   const route = await d.evaluate(() => ({
@@ -152,7 +154,7 @@ try {
     chips: document.querySelectorAll("#panel-body [data-country-open]").length,
     empty: !!document.querySelector("#panel-body .panel-empty"),
   }));
-  check("2026 shows modern states instead of a false empty state", modern.heading.indexOf("现代国家") >= 0 && modern.chips >= 10 && !modern.empty, JSON.stringify(modern));
+  check("2026 shows modern states instead of a false empty state", modern.heading.indexOf("现代国家") >= 0 && modern.chips >= 8 && !modern.empty, JSON.stringify(modern));
 
   check("desktop page has no console errors", desktop.errors.length === 0, desktop.errors.slice(0, 2).join(" | "));
 
@@ -174,6 +176,29 @@ try {
   }));
   check("mobile node opens half sheet and theatre", sheet.open && sheet.state === "half" && sheet.theatre && sheet.h > 250, JSON.stringify(sheet));
 
+  await m.evaluate(() => { document.querySelector("[data-ev-close]")?.click(); window.atlasAPI.setSheet("half"); });
+  await m.waitForTimeout(400);
+  const drawer = await m.evaluate(() => {
+    const head = document.querySelector(".panel-head").getBoundingClientRect();
+    const body = document.querySelector("#panel-body");
+    const br = body.getBoundingClientRect();
+    const rows = [...body.querySelectorAll(".event-row")];
+    const visible = rows.filter((r) => { const q = r.getBoundingClientRect(); return q.top >= br.top - 1 && q.bottom <= br.bottom + 1; }).length;
+    return {
+      head: Math.round(head.height), body: Math.round(body.clientHeight), visible,
+      filterRows: getComputedStyle(document.querySelector(".cat-filter")).flexWrap,
+      routeToggle: !!document.querySelector("[data-route-strip-toggle]"),
+      routeOpen: document.querySelector("[data-route-strip-toggle]")?.getAttribute("aria-expanded") === "true",
+    };
+  });
+  check("half drawer shows 4–5 events with a compact head", drawer.head <= 100 && drawer.body >= 230 && drawer.visible >= 4 && drawer.filterRows === "nowrap", JSON.stringify(drawer));
+  check("route strip is collapsed to one line by default", drawer.routeToggle && drawer.routeOpen === false, JSON.stringify(drawer));
+
+  await m.evaluate(() => {
+    const ev = window.WORLD_ATLAS.events.find((e) => e.t[1] === "Marco Polo Bridge Incident");
+    window.atlasAPI.openEvent(ev);
+  });
+  await m.waitForTimeout(600);
   await m.evaluate(() => window.atlasAPI.setSheet("peek"));
   await m.waitForTimeout(400);
   const peek = await m.evaluate(() => ({
@@ -205,10 +230,53 @@ try {
   }));
   const fillLabel = await m.evaluate(() => document.querySelector("#zoom-fill .zf-label").textContent);
   check("mobile fill view is labelled and zooms in", fill.mode === "fill" && fill.zoom > 2 && fill.pressed === "true" && fillLabel.length > 0, JSON.stringify(fill) + " label=" + fillLabel);
+  const mini = await m.evaluate(() => {
+    const box = document.querySelector("#minimap");
+    const cv = document.querySelector("#minimap-canvas");
+    return { hidden: box.hidden, w: cv.clientWidth, h: cv.clientHeight, stored: localStorage.getItem("world-atlas-fit") };
+  });
+  check("fill view shows a minimap with the current viewport", !mini.hidden && mini.w >= 90 && mini.h >= 50 && mini.stored === "fill", JSON.stringify(mini));
+  const focus0 = await m.evaluate(() => ({ lon: window.atlasAPI.map.focus.lon }));
+  const box = await m.locator("#minimap-canvas").boundingBox();
+  await m.mouse.click(box.x + box.width * 0.2, box.y + box.height * 0.5);
+  await m.waitForTimeout(750);
+  const focus1 = await m.evaluate(() => ({ lon: window.atlasAPI.map.focus.lon }));
+  check("clicking the minimap recentres the camera", Math.abs(focus1.lon - focus0.lon) > 10, JSON.stringify([focus0, focus1]));
   await m.click("#zoom-fit");
   await m.waitForTimeout(400);
   const world = await m.evaluate(() => ({ mode: window.atlasAPI.map.fitMode, zoom: window.atlasAPI.map.view.zoom }));
   check("full-map button restores world view", world.mode === "world" && Math.abs(world.zoom - 1) < 0.05, JSON.stringify(world));
+
+  await m.evaluate(() => {
+    document.querySelector("[data-ev-close]")?.click();
+    window.atlasAPI.state.autoEvent = false;
+    window.atlasAPI.setYear(2026);
+    window.atlasAPI.setPanel(true);
+    window.atlasAPI.setSheet("half");
+  });
+  await m.waitForTimeout(600);
+  const modernDefault = await m.evaluate(() => ({
+    chips: document.querySelectorAll("#panel-body [data-country-open]").length,
+    more: (document.querySelector("[data-modern-more]") || {}).textContent || "",
+  }));
+  check("2026 modern states default to 8 with an 'all' control", modernDefault.chips === 8 && modernDefault.more.includes("196"), JSON.stringify(modernDefault));
+
+  const rtl = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: "ar" });
+  const rp = await rtl.newPage();
+  await rp.goto(BASE + "?year=1500&lang=ar", { waitUntil: "networkidle" });
+  await rp.waitForTimeout(900);
+  await rp.evaluate(() => { const b = document.querySelector("#ob-start"); if (b) b.click(); window.atlasAPI.setPanel(true); window.atlasAPI.setSheet("half"); });
+  await rp.waitForTimeout(500);
+  const rtlOverflow = await rp.evaluate(() => ({ docW: document.documentElement.scrollWidth, win: innerWidth }));
+  check("RTL 390×844 has no horizontal overflow", rtlOverflow.docW <= rtlOverflow.win, JSON.stringify(rtlOverflow));
+  await rtl.close();
+
+  await m.click("#zoom-fill");
+  await m.waitForTimeout(500);
+  await m.reload({ waitUntil: "networkidle" });
+  await m.waitForTimeout(1100);
+  const persisted = await m.evaluate(() => ({ mode: window.atlasAPI.map.fitMode, mini: !document.querySelector("#minimap").hidden }));
+  check("fill view persists across reload", persisted.mode === "fill" && persisted.mini, JSON.stringify(persisted));
 
   check("mobile page has no console errors", mobile.errors.length === 0, mobile.errors.slice(0, 2).join(" | "));
 

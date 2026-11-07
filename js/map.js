@@ -122,6 +122,9 @@
       this._a11ySig = "";
       this._a11yButtons = [];
       this._a11yAt = 0;
+      this.mini = null;
+      this._miniWorld = null;
+      this._miniAt = 0;
 
       this._initEvents();
       this._bindEvents();
@@ -213,6 +216,7 @@
       });
       this.c.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
       this.fx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+      this._miniWorld = null;
       if (this._pickCanvas) {
         this._pickCanvas.width = Math.round(this.W);
         this._pickCanvas.height = Math.round(this.H);
@@ -306,6 +310,108 @@
     }
 
     scale() { return this.baseScale * this.view.zoom; }
+
+    /* ── minimap: world silhouette + current viewport (mobile fill mode) ── */
+    setMinimap(cv) {
+      if (!cv) return;
+      this.mini = cv;
+      this.miniCtx = cv.getContext("2d");
+      cv.addEventListener("click", (e) => {
+        const r = cv.getBoundingClientRect();
+        const px = (e.clientX - r.left) / Math.max(1, r.width);
+        const py = (e.clientY - r.top) / Math.max(1, r.height);
+        const wx = (px - 0.5) * WORLD_W;
+        const wy = (0.5 - py) * WORLD_H;
+        const ll = this.unprojectWorld(wx, wy);
+        if (ll) this.flyTo(ll.lat, ll.lon, Math.max(1.6, this.view.zoom), 520);
+      });
+    }
+
+    unprojectWorld(x, y) {
+      let lo = -90, hi = 90;
+      for (let i = 0; i < 26; i++) {
+        const mid = (lo + hi) / 2;
+        if (robY(mid) < y) lo = mid; else hi = mid;
+      }
+      const lat = (lo + hi) / 2;
+      const factor = lerpTable(XT, Math.abs(lat));
+      let lon = x / (KX * factor) * 180 / Math.PI;
+      while (lon > 180) lon -= 360;
+      while (lon < -180) lon += 360;
+      return { lat, lon };
+    }
+
+    _buildMiniWorld(w, h) {
+      const cv = document.createElement("canvas");
+      cv.width = Math.round(w * 2);
+      cv.height = Math.round(h * 2);
+      const c = cv.getContext("2d");
+      c.scale(2, 2);
+      c.fillStyle = "rgba(178,201,197,0.95)";
+      c.fillRect(0, 0, w, h);
+      c.fillStyle = "rgba(226,213,186,0.98)";
+      c.strokeStyle = "rgba(120,98,70,0.35)";
+      c.lineWidth = 0.35;
+      for (const f of this.features) {
+        c.beginPath();
+        for (const ring of f._rings) {
+          for (let i = 0; i < ring.length; i += 2) {
+            const x = (ring[i] / WORLD_W + 0.5) * w;
+            const y = (0.5 - ring[i + 1] / WORLD_H) * h;
+            if (i === 0) c.moveTo(x, y); else c.lineTo(x, y);
+          }
+          c.closePath();
+        }
+        c.fill();
+        c.stroke();
+      }
+      this._miniWorld = cv;
+    }
+
+    _drawMinimap() {
+      const cv = this.mini, ctx = this.miniCtx;
+      if (!cv || !ctx) return;
+      const w = Math.max(1, cv.clientWidth || cv.width);
+      const h = Math.max(1, cv.clientHeight || cv.height);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) {
+        cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+        this._miniWorld = null;
+      }
+      if (!this._miniWorld) this._buildMiniWorld(w, h);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      ctx.save();
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(0, 0, w, h, 3); else ctx.rect(0, 0, w, h);
+      ctx.clip();
+      ctx.drawImage(this._miniWorld, 0, 0, w, h);
+      // current viewport
+      const s = this.scale();
+      const x0 = (-this.originX - this.view.panX) / s;
+      const x1 = (this.W - this.originX - this.view.panX) / s;
+      const y0 = (this.originY + this.view.panY) / s;
+      const y1 = (this.originY + this.view.panY - this.H) / s;
+      const px = (v) => (v / WORLD_W + 0.5) * w;
+      const py = (v) => (0.5 - v / WORLD_H) * h;
+      let rx = px(x0), ry = py(y0), rw = px(x1) - rx, rh = py(y1) - ry;
+      rx = Math.max(-2, Math.min(w + 2, rx));
+      ry = Math.max(-2, Math.min(h + 2, ry));
+      rw = Math.max(3, Math.min(w + 4 - rx, rw));
+      rh = Math.max(3, Math.min(h + 4 - ry, rh));
+      ctx.fillStyle = "rgba(250,246,238,0.10)";
+      ctx.fillRect(rx, ry, rw, rh);
+      ctx.strokeStyle = "rgba(176,67,44,0.9)";
+      ctx.lineWidth = 1.2;
+      ctx.strokeRect(rx + 0.5, ry + 0.5, Math.max(1, rw - 1), Math.max(1, rh - 1));
+      ctx.restore();
+      // north mark
+      ctx.fillStyle = "rgba(74,54,36,0.72)";
+      ctx.font = "600 7px Georgia,serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "top";
+      ctx.fillText("N", w - 4, 3);
+    }
     project(lon, lat) {
       const s = this.scale();
       return { x: this.originX + robX(lon, lat) * s + this.view.panX, y: this.originY - robY(lat) * s + this.view.panY };
@@ -420,6 +526,7 @@
       if (this.toggles.historicalLabels && window.HistoricalEntities) window.HistoricalEntities.draw(ctx, this);
       if (this.toggles.labels) this._drawCountryLabels(ctx);
       ctx.restore();
+      this._drawMinimap();
 
       if (!this.dragging && !this._flying) { this._drawPicking(); this._syncA11y(); }
     }

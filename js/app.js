@@ -161,6 +161,8 @@
     route: null,
     autoOpened: false,
     sheet: "half",
+    routeStripOpen: false,
+    modernExpanded: false,
   };
 
   /* ── language detection ─────────────────────────── */
@@ -417,6 +419,7 @@
       "zoom-in", "zoom-out", "zoom-fit", "zoom-fill", "map-empty", "sheet-expand", "toast",
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
       "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip",
+      "minimap", "minimap-canvas", "minimap-fit",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
       "theatre-card", "tc-kicker", "tc-title", "tc-expand", "tc-pause", "tc-close", "sheet-handle",
       "sound-btn", "ev-voice",
@@ -461,6 +464,7 @@
       onHover: showTooltip,
       onHoverMove: moveTooltip,
     });
+    if (el["minimap-canvas"]) map.setMinimap(el["minimap-canvas"]);
     map.setYear(state.year);
     map.setLang(state.lang);
     map.setToggles(state.toggles);
@@ -824,13 +828,17 @@
     html += catFilterRow(eraEventsAll);
     if (moderns.length) {
       html += `<section class="p-section"><h3>${L("现代国家", "MODERN STATES", "ESTADOS MODERNOS", "ÉTATS MODERNES", "الدول الحديثة")} · ${moderns.length}</h3><div class="polity-list">`;
-      moderns.slice(0, 18).forEach((e) => {
+      (state.modernExpanded ? moderns : moderns.slice(0, 8)).forEach((e) => {
         const f = A.featureByCode && A.featureByCode[e.code];
         const rg = f ? byRegion(f.properties.sub) : "";
         const nm = state.lang === "zh" ? (e.name.zh || e.name.en) : (e.name.en || e.name.zh);
         html += `<button class="polity-chip" data-country-open="${e.code}"><i style="background:${rg ? regionColor(rg) : "#8a6a3f"}"></i>${nm}<small>${rg ? rgName(rg) : ""}</small></button>`;
       });
-      html += `</div><div class="panel-note-inline">${L("按现代国界列出；点击查看该国沿革。", "Listed by modern borders; click for the country chronicle.", "Listados por fronteras modernas; haz clic para ver la crónica.", "Listés par frontières modernes ; cliquez pour la chronique.", "مرتبة حسب الحدود الحديثة؛ انقر لسجل الدولة.")}</div></section>`;
+      html += `</div>`;
+      if (moderns.length > 8) {
+        html += `<button class="polity-more" type="button" data-modern-more="1" aria-expanded="${state.modernExpanded}">${state.modernExpanded ? L("收起", "Show fewer", "Mostrar menos", "Réduire", "أقل") : L("全部 " + moderns.length, "All " + moderns.length, "Todos " + moderns.length, "Tous les " + moderns.length, "كل " + moderns.length)}</button>`;
+      }
+      html += `<div class="panel-note-inline">${L("按现代国界列出；点击查看该国沿革。", "Listed by modern borders; click for the country chronicle.", "Listados por fronteras modernas; haz clic para ver la crónica.", "Listés par frontières modernes ; cliquez pour la chronique.", "مرتبة حسب الحدود الحديثة؛ انقر لسجل الدولة.")}</div></section>`;
     }
     html += `<section class="p-section"><h3>${L("时代节点", "NODES OF THE AGE", "NODOS DE LA ERA", "NŒUDS DE L’ÂGE", "عُقد العصر")} · ${eraEvents.length}</h3>`;
     html += `<div class="event-list">`;
@@ -1036,12 +1044,16 @@
   }
 
   function routeStrip() {
-    let html = '<div class="route-strip"><span class="route-strip-label">' + L("主题路线", "THEMED ROUTES", "RUTAS TEMÁTICAS", "PARCOURS THÉMATIQUES", "مسارات موضوعية") + "</span>";
-    ROUTES.forEach((r) => {
-      html += '<button class="route-chip" data-route="' + r.id + '">' + routeText(r.name) + " <small>" + r.events.length + "</small></button>";
-    });
-    html += '<button class="route-chip random" data-random="1">' + L("随机一瞥", "Random glimpse", "Vistazo aleatorio", "Aperçu aléatoire", "لمحة عشوائية") + "</button></div>";
-    return html;
+    const chips = ROUTES.map((r) =>
+      '<button class="route-chip" data-route="' + r.id + '">' + routeText(r.name) + " <small>" + r.events.length + "</small></button>"
+    ).join("") +
+      '<button class="route-chip random" data-random="1">' + L("随机一瞥", "Random glimpse", "Vistazo aleatorio", "Aperçu aléatoire", "لمحة عشوائية") + "</button>";
+    const open = state.routeStripOpen;
+    return '<div class="route-strip' + (open ? " is-open" : "") + '">' +
+      '<button class="route-strip-toggle" type="button" data-route-strip-toggle="1" aria-expanded="' + open + '" aria-controls="route-chips">' +
+      '<span>' + L("探索路线", "EXPLORE ROUTES", "RUTAS PARA EXPLORAR", "PARCOURS À EXPLORER", "مسارات للاستكشاف") + "</span>" +
+      "<small>· " + ROUTES.length + "</small><i aria-hidden=\"true\">" + (open ? "▴" : "▾") + "</i></button>" +
+      '<div class="route-chips" id="route-chips"' + (open ? "" : " hidden") + ">" + chips + "</div></div>";
   }
 
   function catFilterRow(events) {
@@ -1049,7 +1061,8 @@
     const counts = {};
     events.forEach((e) => { counts[e.k] = (counts[e.k] || 0) + 1; });
     const allKeys = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
-    const keys = state.catFilterExpanded ? allKeys.slice() : allKeys.slice(0, 5);
+    const narrow = isMobilePanel();
+    const keys = narrow ? allKeys.slice() : (state.catFilterExpanded ? allKeys.slice() : allKeys.slice(0, 5));
     if (state.catFilter && keys.indexOf(state.catFilter) < 0) keys.push(state.catFilter);
     let html = '<div class="cat-filter" role="group" aria-label="' + L("按类别筛选", "Filter by category", "Filtrar por categoría", "Filtrer par catégorie", "تصفية حسب الفئة") + '">';
     html += '<button class="cat-chip' + (!state.catFilter ? " is-on" : "") + '" data-cat-filter="" aria-pressed="' + (!state.catFilter) + '">' + L("全部", "All", "Todo", "Tout", "الكل") + " " + events.length + "</button>";
@@ -1058,7 +1071,7 @@
       const on = state.catFilter === k;
       html += '<button class="cat-chip' + (on ? " is-on" : "") + '" data-cat-filter="' + k + '" aria-pressed="' + on + '"><i style="background:' + c.color + '"></i>' + catName(k) + " <small>" + counts[k] + "</small></button>";
     });
-    if (allKeys.length > 5) {
+    if (!narrow && allKeys.length > 5) {
       html += '<button class="cat-chip more" data-cat-more="1">' + (state.catFilterExpanded ? L("收起", "Less", "Menos", "Moins", "أقل") : L("更多 +", "More +", "Más +", "Plus +", "المزيد +")) + "</button>";
     }
     html += "</div>";
@@ -1619,6 +1632,12 @@
     b.title = b.getAttribute("aria-label");
     const label = b.querySelector(".zf-label");
     if (label) label.textContent = on ? L("全图", "World", "Mundo", "Monde", "العالم") : L("铺满", "Fill", "Llenar", "Remplir", "ملء");
+    if (el["minimap"]) {
+      el["minimap"].hidden = !on;
+      el["minimap"].setAttribute("aria-label",
+        L("迷你地图：显示当前视野在世界中的位置，点击可定位", "Minimap: your current view in the world; click to recentre", "Minimapa: tu vista actual en el mundo; haz clic para centrar", "Mini-carte : votre vue actuelle ; cliquez pour recentrer", "خريطة مصغرة: موقع نظرتك الحالية؛ انقر لإعادة التمركز"));
+    }
+    if (el["minimap-fit"]) el["minimap-fit"].textContent = L("全图", "World", "Mundo", "Monde", "العالم");
   }
 
   function flashMapNote(text) {
@@ -2536,6 +2555,14 @@
     });
     if (el["panel-routes"]) {
       el["panel-routes"].addEventListener("click", (e) => {
+        const toggle = e.target.closest("[data-route-strip-toggle]");
+        if (toggle) {
+          state.routeStripOpen = !state.routeStripOpen;
+          el["panel-routes"].innerHTML = routeStrip();
+          const btn = el["panel-routes"].querySelector("[data-route-strip-toggle]");
+          if (btn) btn.focus({ preventScroll: true });
+          return;
+        }
         const routeBtn = e.target.closest("[data-route]");
         if (routeBtn) { openRouteById(routeBtn.getAttribute("data-route")); return; }
         if (e.target.closest("[data-random]")) openRandomEvent();
@@ -2641,6 +2668,11 @@
       updateFitButton();
     });
     if (el["sheet-expand"]) el["sheet-expand"].addEventListener("click", () => setSheet("half"));
+    if (el["minimap-fit"]) el["minimap-fit"].addEventListener("click", () => {
+      map.setFitMode("world");
+      map.fit(true);
+      updateFitButton();
+    });
     const fillBtn = document.getElementById("zoom-fill");
     if (fillBtn) {
       fillBtn.addEventListener("click", () => {
@@ -2681,6 +2713,16 @@
     });
 
     el["panel-body"].addEventListener("click", (e) => {
+      const modernBtn = e.target.closest("[data-modern-more]");
+      if (modernBtn) {
+        state.modernExpanded = !state.modernExpanded;
+        lastPanelKey = "";
+        renderPanel(true);
+        const body = el["panel-body"];
+        const sec = body && body.querySelector(".polity-more");
+        if (sec) body.scrollTop = Math.max(0, sec.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 160);
+        return;
+      }
       const moreBtn = e.target.closest("[data-cat-more]");
       if (moreBtn) {
         state.catFilterExpanded = !state.catFilterExpanded;
