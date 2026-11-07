@@ -388,7 +388,7 @@
     }
 
     bindUI();
-    window.atlasAPI = { map, state, openEvent, openEventModal, openCountry, theatre: window.MapTheatre, setYear: (y) => applyYear(y, null, { force: true }) };
+    window.atlasAPI = { map, state, openEvent, openEventModal, openCountry, theatre: window.MapTheatre, placeInfo, setYear: (y) => applyYear(y, null, { force: true }) };
     renderPanel(true);
     updateChrome();
     drawTicks();
@@ -636,7 +636,8 @@
     el["panel-sub"].textContent = state.eventGroup ? (state.lang === "zh" ? state.eventGroup.name.en : state.eventGroup.name.zh) : "";
 
     const titleEn = state.lang === "zh" ? ev.t[1] : ev.t[0];
-    const place = d.place ? (textOf(d.place) || (ev._country ? countryName(ev._country) : "")) : (ev._country ? countryName(ev._country) : "");
+    const pinfo = placeInfo(ev);
+    const place = pinfo.main;
     const actors = (d.actors || []).map((a) => textOf(a)).filter(Boolean);
     const dateText = d.date ? (textOf(d.date) || fmtYear(ev.y, state.lang)) : fmtYear(ev.y, state.lang);
     const sourceLinks = (d.sources || []).filter((s) => s.url).slice(0, 4);
@@ -646,7 +647,7 @@
     html += `<h2 class="ev-detail-title">${evTitle(ev)}</h2><p class="ev-detail-en">${titleEn}</p></div>`;
     html += `<div class="ev-detail-meta">`;
     html += `<div><span>${L("时间", "DATE", "FECHA", "DATE", "التاريخ")}</span><b>${dateText}</b></div>`;
-    html += `<div><span>${L("地点", "PLACE", "LUGAR", "LIEU", "المكان")}</span><b>${place || L("待确认", "TBD", "Por confirmar", "À confirmer", "قيد التأكيد")}</b></div>`;
+    html += `<div><span>${L("地点", "PLACE", "LUGAR", "LIEU", "المكان")}</span><b>${place || L("待确认", "TBD", "Por confirmar", "À confirmer", "قيد التأكيد")}</b>${pinfo.sub ? `<small class="meta-sub">${pinfo.sub}</small>` : ""}</div>`;
     html += `<div><span>${L("主要参与方", "ACTORS", "ACTORES", "ACTEURS", "الأطراف")}</span><b>${actors.length ? actors.join(" · ") : L("待补", "To be added", "Por añadir", "À compléter", "قيد الإضافة")}</b></div>`;
     html += `<div><span>${L("校验", "VERIFICATION", "VERIFICACIÓN", "VÉRIFICATION", "التحقق")}</span><b>${verifyLabel(d.verification || "brief")}</b></div>`;
     html += `</div>`;
@@ -1603,14 +1604,16 @@
     const foundGroup = groupForEvent(ev);
     if (foundGroup) state.eventGroup = foundGroup;
     else if (!state.eventGroup || !(state.eventGroup.events || []).includes(ev.id)) state.eventGroup = null;
-    lastPanelKey = "";
-    setPanel(true);
-    renderPanel(true);
     state.selected = ev;
     map.setSelected(ev);
     map.setPaused(false);
+    // Set the year before rendering: the "当时" line reads the historical
+    // snapshot for the event's own year, not the year the user came from.
     if (ev.y !== state.year) applyYear(ev.y, null, { force: true, silentEvent: true });
     else { state.pos = timeline.toPos(ev.y); updateChrome(); }
+    lastPanelKey = "";
+    setPanel(true);
+    renderPanel(true);
     if (window.MapTheatre) {
       window.MapTheatre.setLang(state.lang);
       window.MapTheatre.playEvent(ev);
@@ -1697,11 +1700,113 @@
     syncURL();
   }
 
-  function placeOf(ev) {
+  /* ── place: modern name + the power that held it then ── */
+  const CURATED_SCOPE = {
+    "curated-china-roc": ["CN"],
+    "curated-japan-empire": ["JP", "TW", "KR", "KP"],
+    "curated-british-raj": ["IN", "PK", "BD"],
+    "curated-french-indochina": ["VN", "LA", "KH"],
+    "curated-dutch-east-indies": ["ID"],
+    "curated-british-malaya": ["MY", "SG"],
+    "curated-australia-federation": ["AU"],
+  };
+
+  const SNAP_NAME_ALIAS = {
+    "usa": "united states",
+    "us": "united states",
+    "u.s.a.": "united states",
+    "uk": "united kingdom",
+    "u.k.": "united kingdom",
+    "soviet union": "ussr",
+    "u.s.s.r.": "ussr",
+    "byelarus": "belarus",
+    "burma": "myanmar",
+  };
+
+  function historicalPowerAt(lat, lon, year, feature) {
+    const list = (window.HistoricalEntities && window.HistoricalEntities.list) || [];
+    if (!list.length) return null;
+    const codes = feature ? [countryKey(feature), feature.properties && feature.properties.iso3, feature.properties && feature.properties.iso2].filter(Boolean) : [];
+    const cos = Math.max(0.25, Math.cos(lat * Math.PI / 180));
+    const cands = [];
+    for (const e of list) {
+      if (year < e.from || year > e.to) continue;
+      if (e.type === "modern" && year < 1900) continue;
+      const scope = CURATED_SCOPE[e.id];
+      const d = Math.hypot((lat - e.lat) * 0.9, (((lon - e.lon + 540) % 360) - 180) * cos);
+      cands.push({ e, d, scoped: !!(scope && codes.length && scope.some((c) => codes.indexOf(c) >= 0)), hasScope: !!scope });
+    }
+
+    const scoped = cands.filter((x) => x.scoped && x.e.source === "curated" && ["state", "empire", "colony"].indexOf(x.e.type) >= 0 && x.d < 28).sort((a, b) => a.d - b.d);
+    const modernMatch = cands.filter((x) => x.e.type === "modern" && codes.indexOf(x.e.code) >= 0).sort((a, b) => a.d - b.d)[0];
+
+    // A newly founded modern state wins on its own soil: 1949 Beijing is the
+    // PRC, not the Republic of China whose span ends that year.
+    if (modernMatch && (year >= 1949 || modernMatch.e.from >= year - 1)) return modernMatch.e;
+    if (scoped.length) return scoped[0].e;
+
+    const curated = cands.filter((x) => x.e.source === "curated" && ["state", "empire", "colony"].indexOf(x.e.type) >= 0 && !x.hasScope && x.d < 5).sort((a, b) => a.d - b.d);
+    if (curated.length) return curated[0].e;
+
+    // Snapshot polygon lookup, validated against the entity layer's lifetimes.
+    // Spatial containment fixes large empires whose label centroid is far away
+    // (USSR, France with its colonies), while the year-matched validation
+    // blocks stale snapshot names ("Chinese warlords" over 1937 Beijing).
+    const hb = window.HistoricalBorders;
+    if (hb && hb.polityAt) {
+      let hit = hb.polityAtYear ? hb.polityAtYear(lat, lon, year) : null;
+      if (!hit && hb.current && Math.abs(hb.current.year - year) <= 8) hit = hb.polityAt(lat, lon);
+      if (hit) {
+        const names = [hit.name, hit.sub].filter(Boolean).map((n) => String(n).toLowerCase().trim());
+        const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+        const clamps = (window.HistoricalEntities && window.HistoricalEntities.clamps) || {};
+        for (const n of names) {
+          const key = SNAP_NAME_ALIAS[n] || n;
+          const matches = list.filter((e) => norm(e.name.en) === norm(n) || norm(e.name.en) === norm(key));
+          const same = matches.find((e) => e.name.zh) || matches[0];
+          if (same) {
+            if (year >= same.from && year <= same.to) return same;
+            // A hand-checked clamp means this name is stale for this year
+            // (Chinese warlords over 1937 Beijing); do not synthesise it.
+            if (clamps[hit.name] || clamps[same.name.en]) continue;
+          }
+          // No entity record (or a name that simply predates the snapshot
+          // coverage, e.g. "France" in 1916): trust the localized snapshot
+          // name. Unlocalised names are skipped rather than shown in English
+          // inside a Chinese dossier.
+          if (hit.zh) return { name: { zh: hit.zh, en: hit.name }, type: "state", source: "snapshot", synthetic: true };
+        }
+      }
+    }
+
+    if (modernMatch && year >= 1900) return modernMatch.e;
+
+    const gen = cands
+      .filter((x) => x.e.source !== "curated" && x.e.type !== "modern" && x.d < 5)
+      .sort((a, b) => a.d - b.d || (b.e.priority || 0) - (a.e.priority || 0));
+    if (gen.length) return gen[0].e;
+    return null;
+  }
+
+  function placeInfo(ev) {
+    const d = detailFor(ev) || {};
     const f = ev._country;
-    const prefix = { zh: "今", en: "now", es: "hoy", fr: "aujourd’hui", ar: "اليوم" }[state.lang] || "now";
-    if (!f) return state.lang === "zh" ? "海域" : (state.lang === "es" ? "Mar abierto" : state.lang === "fr" ? "Haute mer" : state.lang === "ar" ? "أعالي البحر" : "Open sea");
-    return prefix + " " + countryName(f);
+    const modern = f ? countryName(f) : (state.lang === "zh" ? "海域" : "Open sea");
+    const power = historicalPowerAt(ev.lat, ev.lon, ev.y, f);
+    const powerName = power ? (state.lang === "zh" ? (power.name.zh || power.name.en) : (power.name.en || power.name.zh)) : "";
+    const detailPlace = d.place ? textOf(d.place) : "";
+    const today = L("今", "now", "hoy", "aujourd’hui", "اليوم");
+    const then = L("当时", "then", "entonces", "alors", "آنذاك");
+    let main = detailPlace || (today + " " + modern);
+    const bits = [];
+    if (detailPlace && modern) bits.push(today + " " + modern);
+    if (powerName && powerName !== modern) bits.push(then + " " + powerName);
+    return { main, sub: bits.join(" · "), modern, powerName, power };
+  }
+
+  function placeOf(ev) {
+    const info = placeInfo(ev);
+    return info.sub || info.main;
   }
 
   function fillEvent(ev) {
@@ -1714,17 +1819,19 @@
     el["ev-desc"].textContent = evDesc(ev);
     el["ev-desc-en"].textContent = state.lang === "zh" ? ev.d[1] : (state.lang === "en" ? ev.d[0] : ev.d[1]);
     const en = ({
-      zh: ["时代", "地域", "今地", "场景"],
-      en: ["AGE", "REGION", "TODAY", "SCENE"],
-      es: ["ÉPOCA", "REGIÓN", "HOY", "ESCENA"],
-      fr: ["ÂGE", "RÉGION", "AUJOURD’HUI", "SCÈNE"],
-      ar: ["العصر", "المنطقة", "اليوم", "المشهد"],
-    })[state.lang] || ["AGE", "REGION", "TODAY", "SCENE"];
+      zh: ["时代", "地域", "今地 / 当时", "场景"],
+      en: ["AGE", "REGION", "NOW / THEN", "SCENE"],
+      es: ["ÉPOCA", "REGIÓN", "HOY / ENTONCES", "ESCENA"],
+      fr: ["ÂGE", "RÉGION", "AUJOURD’HUI / ALORS", "SCÈNE"],
+      ar: ["العصر", "المنطقة", "اليوم / آنذاك", "المشهد"],
+    })[state.lang] || ["AGE", "REGION", "NOW / THEN", "SCENE"];
     const sc = A.scenes[ev.s];
+    const pinfo = placeInfo(ev);
+    const nowThen = pinfo.modern + (pinfo.powerName && pinfo.powerName !== pinfo.modern ? " / " + pinfo.powerName : "");
     el["ev-meta"].innerHTML =
       "<div><span>" + en[0] + "</span><b>" + eraName(A.eraOf(ev.y)) + "</b></div>" +
       "<div><span>" + en[1] + "</span><b>" + rgName(ev.rg) + "</b></div>" +
-      "<div><span>" + en[2] + "</span><b>" + (ev._country ? countryName(ev._country) : (state.lang === "zh" ? "海域" : "Open sea")) + "</b></div>" +
+      "<div><span>" + en[2] + "</span><b>" + (ev._country ? nowThen : (state.lang === "zh" ? "海域" : "Open sea")) + "</b></div>" +
       "<div><span>" + en[3] + "</span><b>" + (sc ? (state.lang === "zh" ? sc.zh : sc.en) : ev.s) + "</b></div>";
     const heroScene = window.HeroScenes && window.HeroScenes.has(ev.id);
     const tierBScene = window.VariantScenes && window.VariantScenes.has(ev.id);
@@ -2162,7 +2269,11 @@
       el["scene-toggle"].textContent = scenePaused ? "▶" : "❚❚";
     });
 
-    window.addEventListener("historicalchange", updateMapNote);
+    window.addEventListener("historicalchange", () => {
+      updateMapNote();
+      // A snapshot that finishes loading can refine the "当时" line.
+      if (state.eventView && state.panelOpen) renderPanel(true);
+    });
     document.addEventListener("click", (e) => {
       if (!el["layers-pop"].hidden && !el["layers-pop"].contains(e.target) && e.target !== el["layers-btn"]) {
         el["layers-pop"].hidden = true;

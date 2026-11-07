@@ -1,0 +1,539 @@
+{
+  "note": "Hand-checked end (and sometimes start) years for generated basemap labels whose snapshot interpolation overruns the historical entity. Applied by scripts/build-historical-entities.mjs and again at runtime by js/entities.js so an older cached data file cannot resurrect an expired label. Only generated (historical-basemaps) entries are clamped; curated entries are authoritative.",
+  "byName": {
+    "Manchu Empire": {
+      "to": 1912
+    },
+    "Chinese warlords": {
+      "from": 1916,
+      "to": 1928
+    },
+    "USSR": {
+      "from": 1922,
+      "to": 1991
+    },
+    "Soviet Union": {
+      "from": 1922,
+      "to": 1991
+    },
+    "Russian Empire": {
+      "to": 1917
+    },
+    "Imperial Japan": {
+      "to": 1947,
+      "zh": "大日本帝国"
+    },
+    "Empire of Japan": {
+      "to": 1947,
+      "zh": "大日本帝国"
+    },
+    "Ottoman Empire": {
+      "to": 1922
+    },
+    "Austria-Hungary": {
+      "to": 1918
+    },
+    "Austria Hungary": {
+      "to": 1918,
+      "zh": "奥匈帝国"
+    },
+    "Austro-Hungarian Empire": {
+      "to": 1918,
+      "zh": "奥匈帝国"
+    },
+    "German Empire": {
+      "to": 1918
+    },
+    "Weimar Republic": {
+      "to": 1933
+    },
+    "Nazi Germany": {
+      "to": 1945
+    },
+    "Third Reich": {
+      "to": 1945
+    },
+    "Germany (Soviet)": {
+      "from": 1945,
+      "to": 1949,
+      "zh": "苏占德国"
+    },
+    "East Germany": {
+      "from": 1949,
+      "to": 1990,
+      "zh": "东德"
+    },
+    "West Germany": {
+      "from": 1949,
+      "to": 1990,
+      "zh": "西德"
+    },
+    "Saar Protectorate": {
+      "from": 1920,
+      "to": 1957,
+      "zh": "萨尔保护领"
+    },
+    "Yugoslavia": {
+      "from": 1918,
+      "to": 1992
+    },
+    "Czechoslovakia": {
+      "from": 1918,
+      "to": 1992
+    },
+    "Macedonia": {
+      "from": 1991
+    },
+    "Czech Republic": {
+      "from": 1993
+    },
+    "Tibet": {
+      "to": 842
+    },
+    "Korea": {
+      "to": 1910
+    },
+    "Korea, Republic of": {
+      "from": 1948
+    },
+    "Korea, Democratic People's Republic of": {
+      "from": 1948
+    },
+    "Annam": {
+      "to": 1945
+    },
+    "Tonkin": {
+      "to": 1945
+    },
+    "Cochinchina": {
+      "to": 1949
+    },
+    "Siam": {
+      "to": 1939
+    },
+    "British Raj": {
+      "to": 1947
+    },
+    "British India": {
+      "to": 1947
+    },
+    "French Indochina": {
+      "from": 1887,
+      "to": 1954
+    },
+    "French Indo-China": {
+      "from": 1887,
+      "to": 1954
+    },
+    "Dutch East Indies": {
+      "from": 1800,
+      "to": 1949
+    },
+    "Dutch Formosa": {
+      "to": 1662
+    },
+    "Malaya": {
+      "to": 1963
+    },
+    "British Malaya": {
+      "to": 1957
+    },
+    "Ceylon": {
+      "to": 1972,
+      "zh": "锡兰"
+    },
+    "Burma": {
+      "to": 1989
+    },
+    "Union of South Africa": {
+      "to": 1961,
+      "zh": "南非联邦"
+    },
+    "Kingdom of Hawaii": {
+      "to": 1893,
+      "zh": "夏威夷王国"
+    },
+    "German South-West Africa": {
+      "to": 1919,
+      "zh": "德属西南非洲"
+    },
+    "Italian East Africa": {
+      "to": 1941,
+      "zh": "意属东非"
+    },
+    "Byelarus": {
+      "from": 1991,
+      "zh": "白俄罗斯"
+    },
+    "Rattanakosin Kingdom": {
+      "to": 1932,
+      "zh": "拉达那哥欣王国"
+    },
+    "Persia": {
+      "to": 1935,
+      "zh": "波斯"
+    },
+    "Abyssinia": {
+      "to": 1941,
+      "zh": "阿比西尼亚"
+    },
+    "Manchuria": {
+      "to": 1945
+    },
+    "Manchukuo": {
+      "to": 1945
+    },
+    "central Asian khanates": {
+      "to": 1920
+    },
+    "Central Asian khanates": {
+      "to": 1920
+    },
+    "Gran Colombia": {
+      "to": 1831
+    },
+    "Prussia": {
+      "to": 1947
+    },
+    "Portuguese Guinea": {
+      "to": 1974
+    },
+    "Portuguese East Africa": {
+      "to": 1975
+    },
+    "Portuguese West Africa": {
+      "to": 1975
+    },
+    "Belgian Congo": {
+      "to": 1960,
+      "zh": "比属刚果"
+    },
+    "French West Africa": {
+      "to": 1960,
+      "zh": "法属西非"
+    },
+    "French Equatorial Africa": {
+      "to": 1960,
+      "zh": "法属赤道非洲"
+    },
+    "British East Africa": {
+      "to": 1963,
+      "zh": "英属东非"
+    },
+    "British Somaliland": {
+      "to": 1960,
+      "zh": "英属索马里兰"
+    },
+    "Spanish Sahara": {
+      "to": 1975,
+      "zh": "西属撒哈拉"
+    },
+    "Spanish Guinea": {
+      "to": 1968
+    },
+    "Dutch Guiana": {
+      "to": 1975
+    },
+    "British Guiana": {
+      "to": 1966
+    },
+    "Algeria (France)": {
+      "to": 1962,
+      "zh": "法属阿尔及利亚"
+    },
+    "Angola (Portugal)": {
+      "to": 1975,
+      "zh": "葡属安哥拉"
+    },
+    "Mozambique (Portugal)": {
+      "to": 1975,
+      "zh": "葡属莫桑比克"
+    },
+    "Guinea-Bissau (Portugal)": {
+      "to": 1974,
+      "zh": "葡属几内亚"
+    },
+    "Madagascar (France)": {
+      "to": 1960,
+      "zh": "法属马达加斯加"
+    },
+    "Morocco (France)": {
+      "to": 1956,
+      "zh": "法属摩洛哥"
+    },
+    "Syria (France)": {
+      "to": 1946,
+      "zh": "法属叙利亚"
+    },
+    "Yemen (UK)": {
+      "to": 1967,
+      "zh": "英属亚丁"
+    },
+    "Jamaica (UK)": {
+      "to": 1962,
+      "zh": "牙买加"
+    },
+    "Congo (France)": {
+      "to": 1960,
+      "zh": "法属刚果"
+    },
+    "Rwanda (Belgium)": {
+      "to": 1962,
+      "zh": "卢旺达"
+    },
+    "Eritrea (Italy)": {
+      "to": 1952,
+      "zh": "意属厄立特里亚"
+    },
+    "Ethiopia (Italy)": {
+      "to": 1941,
+      "zh": "意属埃塞俄比亚"
+    },
+    "French Somaliland": {
+      "to": 1977
+    },
+    "Spanish Morocco": {
+      "to": 1956
+    },
+    "Germany (UK)": {
+      "from": 1945,
+      "to": 1949,
+      "zh": "英占德国"
+    },
+    "Germany (USA)": {
+      "from": 1945,
+      "to": 1949,
+      "zh": "美占德国"
+    },
+    "Germany (France)": {
+      "from": 1945,
+      "to": 1949,
+      "zh": "法占德国"
+    },
+    "Germany (USSR)": {
+      "from": 1945,
+      "to": 1949,
+      "zh": "苏占德国"
+    },
+    "Oman (British Raj)": {
+      "to": 1956,
+      "zh": "阿曼"
+    },
+    "New South Wales (UK)": {
+      "to": 1901
+    },
+    "Victoria (UK)": {
+      "to": 1901
+    },
+    "Queensland (UK)": {
+      "to": 1901
+    },
+    "South Australia (UK)": {
+      "to": 1901
+    },
+    "Western Australia (UK)": {
+      "to": 1901
+    },
+    "Northern Territory (UK)": {
+      "to": 1901
+    },
+    "Tasmania (UK)": {
+      "to": 1901
+    },
+    "Grand Duchy of Finland": {
+      "to": 1917
+    },
+    "German E. Africa (Tanganyika)": {
+      "to": 1919
+    },
+    "Anglo-Egyptian Sudan": {
+      "to": 1956,
+      "zh": "英属苏丹"
+    },
+    "United Kingdom of Great Britain and Ireland": {
+      "to": 1927
+    },
+    "Rhodesia": {
+      "to": 1980,
+      "zh": "罗得西亚"
+    },
+    "Muscat and Oman": {
+      "to": 1970,
+      "zh": "马斯喀特和阿曼"
+    },
+    "Mandatory Palestine (GB)": {
+      "to": 1948,
+      "zh": "英属巴勒斯坦托管地"
+    },
+    "Mesopotamia (GB)": {
+      "to": 1932,
+      "zh": "美索不达米亚托管地"
+    },
+    "Trucial Oman": {
+      "to": 1971,
+      "zh": "特鲁西尔阿曼"
+    },
+    "Cape Colony": {
+      "to": 1910,
+      "zh": "开普殖民地"
+    },
+    "Natal": {
+      "to": 1910,
+      "zh": "纳塔尔"
+    },
+    "Transvaal": {
+      "to": 1910,
+      "zh": "德兰士瓦"
+    },
+    "Orange Free State": {
+      "to": 1910,
+      "zh": "奥兰治自由邦"
+    },
+    "Basutoland": {
+      "to": 1966,
+      "zh": "巴苏陀兰"
+    },
+    "Bechuanaland": {
+      "to": 1966,
+      "zh": "贝专纳"
+    },
+    "Nyasaland": {
+      "to": 1964,
+      "zh": "尼亚萨兰"
+    },
+    "Northern Rhodesia": {
+      "to": 1964,
+      "zh": "北罗得西亚"
+    },
+    "Southern Rhodesia": {
+      "to": 1980,
+      "zh": "南罗得西亚"
+    },
+    "Gold Coast": {
+      "to": 1957,
+      "zh": "黄金海岸"
+    },
+    "Portuguese Timor": {
+      "to": 1975,
+      "zh": "葡属帝汶"
+    },
+    "Netherlands New Guinea": {
+      "to": 1963,
+      "zh": "荷属新几内亚"
+    },
+    "Italian Somaliland": {
+      "to": 1960,
+      "zh": "意属索马里兰"
+    },
+    "French Togoland": {
+      "to": 1960,
+      "zh": "法属多哥"
+    },
+    "British Togoland": {
+      "to": 1957,
+      "zh": "英属多哥"
+    },
+    "Sakhalin (RU)": {
+      "to": 1945
+    },
+    "Kingdom of Italy": {
+      "to": 1946
+    },
+    "Russia": {
+      "to": 1917
+    },
+    "British Protectorate": {
+      "to": 1960
+    },
+    "Cochin China": {
+      "to": 1949,
+      "zh": "交趾支那"
+    },
+    "Saipan": {
+      "to": 1944,
+      "zh": "塞班"
+    },
+    "Guam": {
+      "zh": "关岛"
+    },
+    "Dutch Guinea": {
+      "to": 1963,
+      "zh": "荷属新几内亚"
+    },
+    "Netherlands Indies": {
+      "to": 1949
+    },
+    "Martinique (France)": {
+      "zh": "马提尼克"
+    },
+    "Ivory Coast": {
+      "zh": "科特迪瓦"
+    },
+    "French Cameroons": {
+      "zh": "法属喀麦隆"
+    },
+    "New Caledonia": {
+      "zh": "新喀里多尼亚"
+    },
+    "New Hebrides": {
+      "zh": "新赫布里底"
+    },
+    "Cyraneica (UK Lybia)": {
+      "zh": "昔兰尼加"
+    },
+    "Tripolitana (UK Lybia)": {
+      "zh": "的黎波里塔尼亚"
+    },
+    "Fezzan (Frech Lybia)": {
+      "zh": "费赞"
+    },
+    "Gilbert and Ellice Islands": {
+      "zh": "吉尔伯特和埃利斯群岛"
+    },
+    "Southern Cameroon": {
+      "zh": "南喀麦隆"
+    },
+    "Tanzania, United Republic of": {
+      "zh": "坦桑尼亚"
+    },
+    "Walbis Bay": {
+      "zh": "沃尔维斯湾"
+    },
+    "Denmark (Greenland)": {
+      "zh": "格陵兰"
+    },
+    "Spain (New Spain)": {
+      "zh": "新西班牙"
+    }
+  },
+  "drop": [
+    "British Protectorate",
+    "Germany (USSR)",
+    "Japan (USA)",
+    "Korea (USA)",
+    "Korea (USSR)",
+    "Post-Ming Warlords",
+    "Sakhalin (RU)"
+  ],
+  "byId": {
+    "hist-denmark-1849": {
+      "zh": "格陵兰"
+    },
+    "hist-spain-1520": {
+      "zh": "新西班牙",
+      "to": 1821
+    },
+    "hist-portugal-1150": {
+      "zh": "巴西",
+      "to": 1822
+    },
+    "hist-belgium-1830": {
+      "zh": "比属刚果",
+      "to": 1960
+    },
+    "hist-italy-1861": {
+      "zh": "意属东非",
+      "to": 1941
+    }
+  }
+}

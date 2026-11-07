@@ -818,7 +818,7 @@
         }
 
         // year chip
-        const showYear = (past && this.view.zoom >= 1.65) || isHov || isSel || (ev.f && past);
+        const showYear = (past && this.view.zoom >= 1.65) || isHov || isSel || (ev.f && past && this.view.zoom >= 1.35);
         if (showYear) {
           const label = fmtYearShort(ev.y);
           const fs = isSel || isHov ? 9.5 : 8.5;
@@ -836,7 +836,7 @@
         }
 
         // miniature living scene, lifted on a thin staff
-        if (near && past && window.Scenes && !(this.theatreActive && ev === this.selected) && !(this.W < 600 && this.view.zoom < 1.4)) {
+        if (near && past && window.Scenes && !(this.theatreActive && ev === this.selected) && this.view.zoom >= 1.35 && !(this.W < 600 && this.view.zoom < 1.55)) {
           const scale = clamp(0.95 + this.view.zoom * 0.16, 1.0, 1.48) * (this.W < 600 ? 0.82 : 1);
           const lift = Math.min(40, 24 + this.view.zoom * 5) * (this.W < 600 ? 0.85 : 1);
           const mx = p.x, my = p.y - lift;

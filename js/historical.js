@@ -89,6 +89,34 @@
       return String(y < 0 ? -y + " BCE" : y + " CE") + " borders";
     },
 
+    /* Which snapshot polity polygon contains a point? Used only as a fallback
+       for "当时" labels; callers must validate the name against the entity
+       layer's lifetimes before trusting it. */
+    polityAt(lat, lon) {
+      return this._polityIn(this.current, lat, lon);
+    },
+
+    /* Cache-only lookup for the snapshot nearest a specific year. Used by
+       event dossiers ("当时") so a 1914 event does not read the 1938 map. */
+    polityAtYear(lat, lon, year) {
+      if (!this.manifest) return null;
+      const s = this.nearest(year);
+      if (!s) return null;
+      const fc = this.cache[s.year];
+      return fc ? this._polityIn(fc, lat, lon) : null;
+    },
+
+    _polityIn(fc, lat, lon) {
+      if (!fc || !fc.features) return null;
+      for (const f of fc.features) {
+        const b = f._bbox || (f._bbox = geometryBBox(f.geometry));
+        if (!b) continue;
+        if (lon < b[0] - 1 || lon > b[2] + 1 || lat < b[1] - 1 || lat > b[3] + 1) continue;
+        if (pointInGeometry(lon, lat, f.geometry)) return f.properties || null;
+      }
+      return null;
+    },
+
     draw(ctx, map) {
       if (!this.enabled || !this.current) return false;
       const fc = this.current;
@@ -166,5 +194,41 @@
   function hexA(hex, a) {
     const n = parseInt(hex.slice(1), 16);
     return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+  }
+  function geometryBBox(geom) {
+    if (!geom) return null;
+    const polys = geom.type === "Polygon" ? [geom.coordinates] : geom.coordinates;
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (const poly of polys) {
+      for (const ring of poly) {
+        for (const pt of ring) {
+          const x = pt[0], y = pt[1];
+          if (x < x0) x0 = x; if (x > x1) x1 = x;
+          if (y < y0) y0 = y; if (y > y1) y1 = y;
+        }
+      }
+    }
+    return Number.isFinite(x0) ? [x0, y0, x1, y1] : null;
+  }
+  function ringContains(x, y, ring) {
+    let inside = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+      if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+    }
+    return inside;
+  }
+  function pointInGeometry(x, y, geom) {
+    if (!geom) return false;
+    const polys = geom.type === "Polygon" ? [geom.coordinates] : geom.coordinates;
+    for (const poly of polys) {
+      if (!poly || !poly[0] || !ringContains(x, y, poly[0])) continue;
+      let hole = false;
+      for (let k = 1; k < poly.length; k++) {
+        if (ringContains(x, y, poly[k])) { hole = true; break; }
+      }
+      if (!hole) return true;
+    }
+    return false;
   }
 })();

@@ -13,6 +13,10 @@ const world = read("data/world.geo.json");
 const states = read("data/state_changes.json");
 const curated = read("data/entities_curated.json");
 const nameGloss = read("data/name_gloss.json");
+const clamps = read("data/entity_clamps.json");
+const clampByName = clamps.byName || {};
+const clampById = clamps.byId || {};
+const dropNames = new Set((clamps.drop || []).map((n) => String(n).toLowerCase()));
 
 const slug = (s) => String(s).toLowerCase().normalize("NFKD")
   .replace(/[̀-ͯ]/g, "").replace(/['’]/g, "")
@@ -164,6 +168,7 @@ for (const [name, list] of occurrences) {
       lat: Math.round(rep.lat * 100) / 100,
       lon: Math.round(rep.lon * 100) / 100,
       priority: kind === "culture" ? 48 : 62,
+      area: Math.round(area),
       minZoom: area > 500 ? 1.0 : area > 120 ? 1.35 : 1.8,
       approx: true,
       source: "historical-basemaps",
@@ -177,6 +182,19 @@ for (const [name, list] of occurrences) {
   flush();
 }
 
+
+function geometrySpanArea(geom) {
+  if (!geom) return 0;
+  const polys = geom.type === "Polygon" ? [geom.coordinates] : geom.coordinates;
+  let total = 0;
+  for (const poly of polys) {
+    if (!poly || !poly[0] || poly[0].length < 3) continue;
+    total += Math.abs(ringArea(poly[0]));
+  }
+  return total;
+}
+
+const MAJOR_POWERS = new Set(["USA","CHN","RUS","IND","JPN","GBR","FRA","DEU","ITA","ESP","BRA","CAN","AUS","MEX","IDN","NGA","EGY","TUR","IRN","SAU","KOR","ZAF","ARG","PAK","UKR","POL"]);
 const byIso = new Map();
 for (const f of world.features) {
   const p = f.properties;
@@ -194,7 +212,8 @@ for (const b of states.births || []) {
     to: 2026,
     lat: b.lat != null ? b.lat : (p.ly || 0),
     lon: b.lon != null ? b.lon : (p.lx || 0),
-    priority: 86,
+    priority: 86 + (MAJOR_POWERS.has(b.iso3 || b.key) ? 8 : 0),
+    area: Math.round(geometrySpanArea(f && f.geometry)),
     minZoom: 1.0,
     approx: false,
     code: b.iso3 || b.key,
@@ -207,13 +226,35 @@ for (const e of curated) entities.push({ ...e, source: e.source || "curated" });
 // Curated entries win over generated entries with the same id.
 const dedup = new Map();
 for (const e of entities) dedup.set(e.id, e);
-const out = [...dedup.values()].sort((a, b) => a.from - b.from || a.priority - b.priority);
+
+// Generated labels from historical-basemaps carry the span between snapshots,
+// which can overrun the polity's actual lifetime (Qing to 1994, warlords to
+// 2018, colonial labels to 2018...). entity_clamps.json holds hand-checked
+// corrections; curated entries are never clamped.
+for (const e of dedup.values()) {
+  if (e.source === "curated" || e.type === "modern" || e.type === "province") continue;
+  const name = String((e.name && e.name.en) || "").trim();
+  const c = clampById[e.id] || clampByName[name];
+  if (c) {
+    if (typeof c.from === "number") e.from = Math.max(e.from, c.from);
+    if (typeof c.to === "number") e.to = Math.min(e.to, c.to);
+    if (e.from > e.to) e.from = e.to;
+    if (c.zh) e.name.zh = c.zh;
+    if (c.en) e.name.en = c.en;
+  }
+}
+const out = [...dedup.values()]
+  .filter((e) => !(e.source !== "curated" && dropNames.has(String((e.name && e.name.en) || "").trim().toLowerCase())))
+  .sort((a, b) => a.from - b.from || a.priority - b.priority);
 
 fs.writeFileSync(path.join(ROOT, "data/historical_entities.json"), JSON.stringify({
   generated: new Date().toISOString(),
   source: "historical-basemaps + state_changes + curated",
   license: "GPL-3.0",
-  note: "Approximate label positions and date ranges; blank where the source has no named entity.",
+  note: "Approximate label positions and date ranges; blank where the source has no named entity. Entity end years are clamped by entity_clamps.json where the snapshot interpolation overruns the polity.",
+  clamps: clampByName,
+  clampsById: clampById,
+  drop: [...dropNames],
   entities: out,
 }, null, 0));
-console.log(`✓ data/historical_entities.json — ${out.length} entities (${entities.length - curated.length} generated, ${curated.length} curated)`);
+console.log(`✓ data/historical_entities.json — ${out.length} entities (${entities.length - curated.length} generated, ${curated.length} curated, ${dropNames.size} dropped)`);

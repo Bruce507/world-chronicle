@@ -943,5 +943,35 @@
     "minZoom": 1.0,
     "approx": false,
     "parent": "china"
+  },
+  {
+    "id": "curated-france",
+    "name": {
+      "zh": "法国",
+      "en": "France"
+    },
+    "type": "state",
+    "from": 843,
+    "to": 2026,
+    "lat": 46.6,
+    "lon": 2.4,
+    "priority": 100,
+    "minZoom": 1,
+    "approx": false
+  },
+  {
+    "id": "curated-germany",
+    "name": {
+      "zh": "德国",
+      "en": "Germany"
+    },
+    "type": "state",
+    "from": 1871,
+    "to": 2026,
+    "lat": 51.0,
+    "lon": 10.0,
+    "priority": 100,
+    "minZoom": 1,
+    "approx": false
   }
 ]
