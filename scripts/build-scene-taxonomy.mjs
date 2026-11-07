@@ -143,6 +143,8 @@ const HERO = new Set([
   "qin-unifies-china", "maurya-empire",
   "the-hijra", "genghis-khan", "mali-empire",
   "borobudur", "tenochtitlan-founded", "maori-reach-aotearoa",
+  "gutenbergs-press", "vasco-da-gama-reaches-india", "fall-of-the-inca",
+  "french-revolution", "partition-of-india", "the-world-wide-web",
 ]);
 
 function titleOf(ev) { return ((ev.t && ev.t[0]) || "") + " " + ((ev.t && ev.t[1]) || ""); }
@@ -238,7 +240,7 @@ for (const ev of A.events) {
 rows.sort((a, b) => a.ev.y - b.ev.y || a.ev.t[0].localeCompare(b.ev.t[0]));
 
 let md = `# 场景分型审计 / Scene coverage audit\n\n`;
-md += `Generated ${new Date().toISOString().slice(0, 10)}. Standard A: every event has a correct visual family; the ${HERO.size} hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 themes).\n\n`;
+md += `Generated ${new Date().toISOString().slice(0, 10)}. Standard A: every event has a correct visual family; the ${HERO.size} hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).\n\n`;
 md += `- 事件总数：${A.events.length}\n- 当前分派：${Object.keys(counts).length} 个家族\n- 需要修正：${mismatches.length}\n- 英雄条目：${HERO.size}\n\n`;
 md += `## 家族分布（目标）\n\n| 家族 | 事件数 |\n|---|---:|\n`;
 Object.entries(counts).sort((a, b) => b[1] - a[1]).forEach(([k, v]) => { md += `| \`${k}\` | ${v} |\n`; });

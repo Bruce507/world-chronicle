@@ -2,7 +2,7 @@
 
 Version 1.0 · 2026-11-06. 用于从 24 个候选中选出下一批 18 个，使 Hero Tier 从 12 个主题达到 30 个。
 
-> 执行状态：2A、2B 各 6 个已完成结构复审（4.08/5，见 `docs/hero-2a-review.md`、`docs/hero-2b-review.md`），当前 24 个主题 / 26 个事件条目；2C 可开工，纹理 pass 留到 30 个 Hero。
+> 执行状态：2A、2B、2C 各 6 个已完成结构复审（2A/2B 4.08、2C 4.06，见 `docs/hero-2a-review.md`、`hero-2b-review.md`、`hero-2c-review.md`），当前 **30 个主题 / 32 个事件条目**；数量达到 Gate 1，质量待统一 texture pass。
 
 ## 1. 评分模型
 

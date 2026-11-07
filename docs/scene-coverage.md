@@ -1,11 +1,11 @@
 # 场景分型审计 / Scene coverage audit
 
-Generated 2026-11-05. Standard A: every event has a correct visual family; the 26 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 themes).
+Generated 2026-11-07. Standard A: every event has a correct visual family; the 32 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).
 
 - 事件总数：482
 - 当前分派：56 个家族
 - 需要修正：0
-- 英雄条目：26
+- 英雄条目：32
 
 ## 家族分布（目标）
 
@@ -227,12 +227,12 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 1438 | `inca-empire` | 印加帝国 | la | `american-founding` | `american-founding` |  |
 | 1440 | `kingdom-of-benin` | 贝宁王国 | af | `city-medieval` | `city-medieval` |  |
 | 1443 | `hangul-proclaimed` | 训民正音 | ea | `script` | `script` |  |
-| 1450 | `gutenbergs-press` | 古腾堡活字印刷 | eu | `printing` | `printing` |  |
+| 1450 | `gutenbergs-press` | 古腾堡活字印刷 | eu | `printing` | `printing` | ★ |
 | 1453 | `fall-of-constantinople` | 君士坦丁堡陷落 | eu | `siege` | `siege` |  |
 | 1464 | `songhai-empire` | 桑海帝国 | af | `african-founding` | `african-founding` |  |
 | 1492 | `columbus-reaches-the-americas` | 哥伦布抵达美洲 | la | `caravel` | `caravel` | ★ |
 | 1492 | `fall-of-granada` | 格拉纳达陷落 | eu | `siege` | `siege` |  |
-| 1498 | `vasco-da-gama-reaches-india` | 达伽马抵达印度 | eu | `caravel` | `caravel` |  |
+| 1498 | `vasco-da-gama-reaches-india` | 达伽马抵达印度 | eu | `caravel` | `caravel` | ★ |
 | 1500 | `bruneis-golden-age` | 文莱苏丹国黄金时代 | sea | `junk` | `junk` |  |
 | 1500 | `cabral-reaches-brazil` | 葡萄牙人抵达巴西 | la | `caravel` | `caravel` |  |
 | 1505 | `mozambique-island` | 葡萄牙人占领莫桑比克岛 | af | `caravel` | `caravel` |  |
@@ -242,7 +242,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 1521 | `fall-of-the-aztec-empire` | 科尔特斯灭阿兹特克 | la | `siege` | `siege` |  |
 | 1521 | `magellan-in-the-philippines` | 麦哲伦抵菲律宾 | sea | `caravel` | `caravel` |  |
 | 1526 | `first-battle-of-panipat` | 第一次帕尼帕特战役 | sa | `cavalry` | `cavalry` |  |
-| 1533 | `fall-of-the-inca` | 皮萨罗灭印加 | la | `cavalry` | `cavalry` |  |
+| 1533 | `fall-of-the-inca` | 皮萨罗灭印加 | la | `cavalry` | `cavalry` | ★ |
 | 1543 | `copernicuss-revolutions` | 哥白尼《天体运行论》 | eu | `city-earlymodern` | `city-earlymodern` |  |
 | 1545 | `potosi-silver` | 波托西银矿 | la | `camel` | `camel` |  |
 | 1551 | `ottomans-take-tripoli` | 奥斯曼夺取的黎波里 | af | `naval` | `naval` |  |
@@ -277,7 +277,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 1769 | `watts-steam-engine` | 瓦特改良蒸汽机 | eu | `industry` | `industry` |  |
 | 1776 | `declaration-of-independence` | 美国独立宣言 | na | `modern-founding` | `modern-founding` |  |
 | 1787 | `us-constitution` | 美国制宪会议 | na | `city-earlymodern` | `city-earlymodern` |  |
-| 1789 | `french-revolution` | 法国大革命 | eu | `revolution` | `revolution` |  |
+| 1789 | `french-revolution` | 法国大革命 | eu | `revolution` | `revolution` | ★ |
 | 1791 | `haitian-revolution` | 海地革命 | la | `revolution` | `revolution` |  |
 | 1792 | `freetown-founded` | 弗里敦建立 | af | `modern-founding` | `modern-founding` |  |
 | 1798 | `napoleon-in-egypt` | 拿破仑远征埃及 | af | `cannon` | `cannon` |  |
@@ -402,7 +402,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 1945 | `yalta-conference` | 雅尔塔会议 | eu | `city-modern` | `city-modern` |  |
 | 1946 | `bikini-atoll-tests` | 比基尼环礁核试验 | oc | `atomic` | `atomic` |  |
 | 1946 | `philippine-independence` | 菲律宾独立 | sea | `modern-founding` | `modern-founding` |  |
-| 1947 | `partition-of-india` | 印巴分治与独立 | sa | `modern-founding` | `modern-founding` |  |
+| 1947 | `partition-of-india` | 印巴分治与独立 | sa | `modern-founding` | `modern-founding` | ★ |
 | 1947 | `marshall-plan` | 马歇尔计划 | na | `naval` | `naval` |  |
 | 1948 | `state-of-israel` | 以色列建国 | me | `modern-founding` | `modern-founding` |  |
 | 1948 | `dprk-founded` | 朝鲜民主主义人民共和国成立 | ea | `modern-founding` | `modern-founding` |  |
@@ -501,7 +501,7 @@ Generated 2026-11-05. Standard A: every event has a correct visual family; the 2
 | 1989 | `romanian-revolution` | 罗马尼亚革命 | eu | `revolution` | `revolution` |  |
 | 1990 | `german-reunification` | 两德统一 | eu | `modern-founding` | `modern-founding` |  |
 | 1990 | `mandela-freed` | 曼德拉获释 | af | `revolution` | `revolution` |  |
-| 1991 | `the-world-wide-web` | 万维网公开 | eu | `digital` | `digital` |  |
+| 1991 | `the-world-wide-web` | 万维网公开 | eu | `digital` | `digital` | ★ |
 | 1991 | `north-macedonia-independence` | 北马其顿 · 独立建国 | eu | `modern-founding` | `modern-founding` |  |
 | 1991 | `yugoslavia-dissolves` | 南斯拉夫解体 | eu | `cannon` | `cannon` |  |
 | 1991 | `turkmenistan-independence` | 土库曼斯坦 · 独立建国 | ca | `modern-founding` | `modern-founding` |  |

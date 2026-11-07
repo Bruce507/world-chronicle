@@ -36,7 +36,8 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 
 ### Gate 1 · 30 个 Hero
 
-- 在 Pilot 1 基础上增加 18 个，达到 30 个。
+- 在 Pilot 1 基础上增加 18 个，达到 30 个主题（32 个事件条目）——**数量已达成**。
+- 质量：当前均分 4.06（2A/2B 4.08、2C 4.06），**未达 4.5**；待统一 texture pass。
 - 质量：rubric 平均 ≥4.5；版画质感 ≥4；构图去重通过。
 - 产能：单场景 ≤1.5 个工作日（含评审）。
 - 性能：中端手机 60fps，低端 ≥30fps；单场景首帧 <200ms。
@@ -81,7 +82,7 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 
 ### Phase 2 · 下一批 18（3 批 × 6）
 
-> 进度：2A 6 个、2B 6 个均已完成结构复审（各 4.08/5，见 `docs/hero-2a-review.md`、`docs/hero-2b-review.md`），当前 24 个主题 / 26 个事件条目；纹理强化留到 30 个 Hero 的统一 pass；下一步 2C。
+> 进度：2A、2B、2C 各 6 个均已完成结构复审（2A/2B 4.08、2C 4.06，见 `docs/hero-2*-review.md`），当前 **30 个主题 / 32 个事件条目**；数量达到 Gate 1，下一步统一 texture pass 后复评 4.5。
 
 - 2A 古代轴心：吉萨、汉谟拉比、雅典民主、秦统一、孔雀王朝、丝绸之路。
 - 2B 中世纪交流：希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利抵达。
@@ -149,4 +150,5 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 - `70d3c2a`：Hero 路线图、风格指南、选片矩阵与变体引擎规格。
 - `9dc8dac`：2A 六个场景；`0fe54c2`：2A 复审精修。
 - `c3b034d`：2B 六个场景与复审，资源版本 `20261107k`；24 个主题 / 26 个事件条目。
-- **推送状态**：本机命令行无 GitHub 凭据（无 `gh`、无 SSH key、钥匙串无 HTTPS 凭据），需在 GitHub Desktop 点 Push；推送后线上才会从 v1 更新到当前版本。
+- `ecec1aa`：2C 六个场景与复审，资源版本 `20261107l`；**30 个主题 / 32 个事件条目**（Gate 1 数量达成，质量待 texture pass）。
+- **推送状态**：2A/2B 已推送并上线（`3e2018b`）；2C 的 `ecec1aa` 为本地提交，需在 GitHub Desktop 点 Push。命令行仍无 GitHub 凭据。

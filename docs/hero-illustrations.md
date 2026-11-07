@@ -1,8 +1,8 @@
 # 英雄插画场景 / Hero illustration scenes
 
-> 发布状态：Pilot 1（v3 线质/材质精修）+ 2A + 2B，资源版本 `20261107k`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`；2B 新增 6 个主题（希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利），见 `docs/hero-2b-review.md`。
+> 发布状态：Pilot 1（v3 线质/材质精修）+ 2A + 2B + 2C，资源版本 `20261107l`；2A 新增 6 个主题（吉萨、汉谟拉比、雅典、秦、孔雀、丝路），见 `docs/hero-2a-review.md`；2B 新增 6 个主题（希吉拉、成吉思汗、马里、婆罗浮屠、特诺奇蒂特兰、毛利），见 `docs/hero-2b-review.md`；2C 新增 6 个主题（古腾堡、达伽马、印加、法国大革命、印巴分治、万维网），见 `docs/hero-2c-review.md`。
 
-Generated 2026-11-06. Scope: 首批 12 个主题（14 个事件条目，1945 日本组含广岛、长崎、投降广播）+ 2A 6 个主题 + 2B 6 个主题；合计 24 个主题、26 个事件条目。 The 482-event / 56-family taxonomy is unchanged.
+Generated 2026-11-07. Scope: 首批 12 个主题（14 个事件条目，1945 日本组含广岛、长崎、投降广播）+ 2A 6 + 2B 6 + 2C 6；合计 **30 个主题、32 个事件条目**。 The 482-event / 56-family taxonomy is unchanged.
 
 ## 设计语言
 
@@ -38,6 +38,12 @@ Generated 2026-11-06. Scope: 首批 12 个主题（14 个事件条目，1945 日
 | 16 | 婆罗浮屠 | `borobudur` | 曼荼罗：六层方台、三层圆台与钟形塔、中央穹顶、火山与朝圣者 | 天空/火山 → 丛林 → 雾 → 石塔 → 朝圣者/供台 |
 | 17 | 特诺奇蒂特兰建城 | `tenochtitlan-founded` | 湖上城：双神庙金字塔、堤道、独木舟、奇南帕浮田、火山 | 天空/火山 → 湖面 → 岛台/房屋 → 金字塔 → 舟/人群 |
 | 18 | 毛利抵达奥特亚罗瓦 | `maori-reach-aotearoa` | 双体瓦卡：蟹爪帆、划手、海岸岬角、海豚与晨星 | 星空/晨光 → 海面 → 岬角/林 → 瓦卡 → 浪/海豚 |
+| 19 | 古腾堡活字印刷 | `gutenbergs-press` | 美因茨印刷坊：木构墙、拱窗城景、螺旋压印机、排字盘、晾纸线 | 墙/木构 → 窗与城市 → 印张线 → 压印机 → 纸堆/散字 |
+| 20 | 达伽马抵达印度 | `vasco-da-gama-reaches-india` | 卡利卡特外海：卡拉维尔、红土码头、南印塔门、香料袋、登岸长艇 | 天空/太阳 → 海面 → 帆船 → 海岸/塔门 → 长艇/香料 |
+| 21 | 皮萨罗灭印加 | `fall-of-the-inca` | 卡哈马卡：安第斯雪峰、梯田、印加石厅、金轿、骑兵与羊驼 | 天空/雪峰 → 梯田 → 广场/石厅 → 金轿/随从 → 骑兵/羊驼 |
+| 22 | 法国大革命 | `french-revolution` | 巴士底：城堡/吊桥/壕沟、巴黎屋顶、烟柱、三色旗、街垒人群 | 黎明天空/烟 → 屋顶 → 巴士底 → 人群 → 推车/木桶/断链 |
+| 23 | 印巴分治 | `partition-of-india` | 1947 火车站：两台反向蒸汽机车、雨棚、钟楼/水塔、界石与人群 | 季风天空 → 城镇/钟楼 → 铁轨/站台 → 两列车 → 人群/界石 |
+| 24 | 万维网公开 | `the-world-wide-web` | CERN 办公室：NeXT 工作站、服务器机柜、白板链接图、网络地球 | 夜墙/书架 → 窗 → 白板/地球 → 工作站 → 研究员/线缆 |
 
 ## 场景缩略图
 
@@ -123,13 +129,28 @@ v2 的评分里“版画质感”普遍停在 3/5，v3 专攻线质、材质和�
 
 评分见 `docs/hero-2b-review.md`：平均 **24.5/30（4.08/5）**，与 2A 持平；版画质感仍为 4，留待 30 个 Hero 的统一 texture pass。
 
+## 2C 早期现代与全球（2026-11-07）
+
+Phase 2 的最后 6 个主题，把 Hero 层从古代/中世纪推进到印刷、远洋、殖民、革命、去殖民与数字网络：
+
+![2C 六个场景缩略图](hero-2c-contact.jpg)
+
+- **古腾堡**：木构印刷坊内景；螺旋压印机、排字盘、晾纸线、装订书柜与钉住的校样；拱窗外是美因茨屋顶与主教座堂。
+- **达伽马**：印度洋暖光下的卡拉维尔与卡利卡特红土码头；南印塔门、香料麻袋与登岸长艇。
+- **印加**：不规则安第斯雪峰与梯田石壁；印加石厅、金轿与太阳金盘、西班牙骑兵与修士、羊驼。
+- **法国大革命**：巴士底八塔剪影、吊桥与壕沟；三色旗、街垒推车、木桶与断链；烟柱与巴黎屋顶。
+- **印巴分治**：两台反向蒸汽机车夹住站台；雨棚、钟楼、水塔、界石与分界白线；两股反向人流与行李。
+- **万维网**：1991 年 CERN 办公室；NeXT 工作站、服务器机柜、白板链接图、网络地球、书架与挂钟。
+
+评分见 `docs/hero-2c-review.md`：平均 **24.3/30（4.06/5）**。数量上达到 **30 个主题 / 32 个事件条目**，但 Gate 1 的 4.5 质量线仍未达到，统一 texture pass 后再复评。
+
 ## 实现
 
 - 新文件 `js/hero-scenes.js`：
-  - `SCENES[id] = { stage, map, title }`，共 26 个事件条目（12 主题 14 条目 + 2A 6 + 2B 6）。
+  - `SCENES[id] = { stage, map, title }`，共 32 个事件条目（12 主题 14 条目 + 2A 6 + 2B 6 + 2C 6）。
   - `drawStage(ctx, id, W, H, t)`：史志舞台（事件弹窗左栏），100 单位宽、地面 y=0、人物约 4 单位高的统一尺度。
   - `drawMap(ctx, id, x, y, s, t)`：地图剧场徽章；离屏画布 + 羽化椭圆遮罩，避免在底图上出现矩形卡片边。
-  - 共享版画笔刷：`person / horse / camel / ox / wolf / junk / caravel / trireme / cnGate / pagoda / minaret / domeTomb / cathedral / palaceFacade / lunarModule / astronaut / radio / paperVat / paperRack / acropolis / palm / banana / mushroomCloud / ger / mudMosque / baobab / bellStupa / borobudur / aztecPyramid / waka / canoe`。
+  - 共享版画笔刷：`person / horse / camel / ox / wolf / llama / junk / caravel / trireme / cnGate / pagoda / minaret / domeTomb / cathedral / palaceFacade / lunarModule / astronaut / radio / paperVat / paperRack / acropolis / palm / banana / mushroomCloud / ger / mudMosque / baobab / bellStupa / borobudur / aztecPyramid / waka / canoe / printingPress / typeCase / gopuram / bastille / steamLoco / workstation / netGlobe`。
 - `js/scenes.js`：`mount()` 增加 `opts.hero`；英雄场景走 `HeroScenes.drawStage`，跳过通用 `finish()`（暗角会压暗羊皮纸）；其余 482 个事件仍走原有 25 种程序化场景。
 - `js/theatre.js`：`playEvent()` 记录 `this.hero`；`draw()` 在英雄事件时只绘制英雄场景、标题标签与既有 16 秒清理逻辑，不再叠加通用路线/单位，避免重复船只与人群堆叠。
 - `js/app.js`：打开史志时传入 `hero: ev.id`；舞台左上标题使用事件英文名，元数据与年份保持原样。
@@ -141,8 +162,8 @@ v2 的评分里“版画质感”普遍停在 3/5，v3 专攻线质、材质和�
 
 | 检查 | 方法 | 结果 |
 |---|---|---|
-| 26 个事件均可打开专属插画 | `HeroScenes.list()` 与逐个 `openEvent` | 26/26 |
-| 桌面完整剧场构图可辨 | 1200×800 逐个截图（史志舞台） | 通过；26 个场景构图互不相同 |
+| 32 个事件均可打开专属插画 | `HeroScenes.list()` 与逐个 `openEvent` | 32/32 |
+| 桌面完整剧场构图可辨 | 1200×800 逐个截图（史志舞台） | 通过；32 个场景构图互不相同 |
 | 手机可运行 | 390×844 打开 `apollo-11` 史志 | 通过；舞台自适应，无横向溢出 |
 | 16 秒自动清理 | 打开 `song-dynasty`，等待 17.5 s | `MapTheatre.active=false`，`hero=null` |
 | 节点徽章尺寸 | 代码审计 `discR = 21 × clamp(0.95+zoom×0.16, 1.0, 1.48)` | 最大直径约 62 px（<64 px） |
