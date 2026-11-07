@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Static data and syntax checks
+        run: |
+          node scripts/validate-data.mjs
+          node scripts/build-data.mjs
+          node scripts/build-scene-taxonomy.mjs
+          for f in js/*.js; do node --check "$f"; done
+
+      - name: Generated files are committed
+        run: |
+          git diff --exit-code -- js/data_bundle.js data/scene_variants.json docs/scene-coverage.md
+
+      - name: Install Chrome for Playwright
+        run: npx playwright install --with-deps chrome
+
+      - name: Start local server
+        run: |
+          python3 -m http.server 8001 --directory . &
+          for i in $(seq 1 40); do
+            curl -sf http://localhost:8001/ >/dev/null && exit 0
+            sleep 1
+          done
+          echo "server did not start" && exit 1
+
+      - name: Content records
+        run: node scripts/content-check.mjs
+
+      - name: Smoke suite
+        run: node scripts/ux-smoke.mjs

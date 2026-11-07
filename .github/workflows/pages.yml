@@ -15,7 +15,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Static data and syntax checks
+        run: |
+          node scripts/validate-data.mjs
+          node scripts/build-data.mjs
+          node scripts/build-scene-taxonomy.mjs
+          for f in js/*.js; do node --check "$f"; done
+      - name: Generated files are committed
+        run: git diff --exit-code -- js/data_bundle.js data/scene_variants.json docs/scene-coverage.md
+
   deploy:
+    needs: verify
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
