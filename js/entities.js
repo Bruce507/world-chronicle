@@ -170,7 +170,7 @@
         const modern = c.e.type === "modern";
         let size = modern ? 11.6 : c.e.type === "culture" ? 10.8 : 12.2;
         size = (size + (zoom - 1) * 0.9) * (narrow ? 0.93 : 1);
-        size = Math.max(narrow ? 9.4 : 10.2, Math.min(15, size));
+        size = Math.max(narrow ? 10 : 10.4, Math.min(15, size));
         const font = modern
           ? "500 " + size.toFixed(1) + "px 'PingFang SC','Noto Sans SC',sans-serif"
           : (c.e.type === "culture" ? "italic 400 " : "500 ") + size.toFixed(1) + "px " + (this.map && this.map.lang === "zh" ? "'Songti SC','Noto Serif SC',serif" : "Georgia,serif");

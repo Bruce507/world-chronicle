@@ -78,6 +78,12 @@
       this.baseScale = 1;
       this.reservedRight = 370;
       this.viewOffsetY = 0;
+      this.coarse = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+      this.catFilter = null;
+      this.reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+      this._a11ySig = "";
+      this._a11yButtons = [];
+      this._a11yAt = 0;
 
       this._initEvents();
       this._bindEvents();
@@ -185,7 +191,7 @@
       const padL = wide ? 26 : 12, padT = 14, padB = 16;
       const availW = Math.max(100, this.W - padL - this.reservedRight);
       const availH = Math.max(100, this.H - padT - padB);
-      this.baseScale = Math.min(availW / WORLD_W, availH / WORLD_H) * 0.96;
+      this.baseScale = Math.min(availW / WORLD_W, availH / WORLD_H) * 0.96 * (this.W < 620 ? 1.08 : 1);
       this.originX = padL + availW / 2;
       this.originY = padT + availH / 2;
     }
@@ -345,7 +351,47 @@
       if (this.toggles.labels) this._drawCountryLabels(ctx);
       ctx.restore();
 
-      if (!this.dragging && !this._flying) this._drawPicking();
+      if (!this.dragging && !this._flying) { this._drawPicking(); this._syncA11y(); }
+    }
+
+    _syncA11y() {
+      const host = document.getElementById("a11y-nodes");
+      if (!host || !this.geo) return;
+      const now = performance.now();
+      if (this._a11yAt && now - this._a11yAt < 150) return;
+      this._a11yAt = now;
+      const list = this.hotEvents(this.visibleEvents()).slice(0, 10);
+      const sig = list.map((e) => e.id).join("|");
+      if (sig !== this._a11ySig) {
+        this._a11ySig = sig;
+        this._a11yButtons = [];
+        host.innerHTML = "";
+        for (const ev of list) {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "a11y-node";
+          b.dataset.ev = ev.id;
+          b.addEventListener("click", () => { if (this.opts.onEventClick) this.opts.onEventClick(ev); });
+          b.addEventListener("focus", () => {
+            this.hovered = ev;
+            if (this.opts.onHover) { const p = this.project(ev.lon, ev.lat); this.opts.onHover(ev, p.x, p.y); }
+          });
+          b.addEventListener("blur", () => {
+            this.hovered = null;
+            if (this.opts.onHover) this.opts.onHover(null);
+          });
+          host.appendChild(b);
+          this._a11yButtons.push({ ev, b });
+        }
+      }
+      for (const pair of this._a11yButtons) {
+        const p = this.project(pair.ev.lon, pair.ev.lat);
+        pair.b.style.left = p.x + "px";
+        pair.b.style.top = p.y + "px";
+        pair.b.style.display = (p.x < 0 || p.x > this.W || p.y < 0 || p.y > this.H) ? "none" : "block";
+        const name = this.lang === "zh" ? pair.ev.t[0] : pair.ev.t[1];
+        pair.b.setAttribute("aria-label", name + " · " + (pair.ev.y < 0 ? "前" + (-pair.ev.y) : pair.ev.y));
+      }
     }
 
     _landColor(f) {
@@ -674,14 +720,22 @@
     visibleEvents() {
       if (!this.toggles.events) return [];
       const y = this.year;
+      let list;
       if (this.toggles.allEvents) {
-        return this.events.filter((e) => e.y <= y + 0.5);
+        list = this.events.filter((e) => e.y <= y + 0.5);
+      } else {
+        const era = A.eraOf(y);
+        const win = Math.max(1.2, (era.to - era.from) / 14);
+        list = this.events.filter((e) => e.y >= y - win && e.y <= y + win * 0.35);
       }
-      const era = A.eraOf(y);
-      const win = Math.max(1.2, (era.to - era.from) / 14);
-      const list = this.events.filter((e) => e.y >= y - win && e.y <= y + win * 0.35);
-      if (this.selected && !list.includes(this.selected)) list.push(this.selected);
+      if (this.catFilter) list = list.filter((e) => e.k === this.catFilter);
+      if (this.selected && list.indexOf(this.selected) < 0) list.push(this.selected);
       return list;
+    }
+
+    setCatFilter(k) {
+      this.catFilter = k || null;
+      this.drawBase();
     }
 
     hotEvents(list) {
@@ -723,19 +777,21 @@
           ctx.strokeStyle = rgba(col, alpha * 0.78);
           ctx.lineWidth = ev === this.selected ? 1.7 : 1.3;
           ctx.setLineDash([3, 4.5]);
-          ctx.lineDashOffset = -((ts * 0.022 + i * 8) % 7.5);
+          ctx.lineDashOffset = this.reduceMotion ? 0 : -((ts * 0.022 + i * 8) % 7.5);
           ctx.stroke();
           ctx.setLineDash([]);
           // travelling light
-          const t = ((ts * 0.00035 + i * 0.17 + ev.seed) % 1);
-          const qx = (1 - t) * (1 - t) * from.x + 2 * (1 - t) * t * cx + t * t * to.x;
-          const qy = (1 - t) * (1 - t) * from.y + 2 * (1 - t) * t * cy + t * t * to.y;
-          ctx.beginPath();
-          ctx.arc(qx, qy, 2.2, 0, Math.PI * 2);
-          ctx.fillStyle = rgba(col, alpha * (0.55 + 0.45 * Math.sin(t * Math.PI)));
-          ctx.fill();
+          if (!this.reduceMotion) {
+            const t = ((ts * 0.00035 + i * 0.17 + ev.seed) % 1);
+            const qx = (1 - t) * (1 - t) * from.x + 2 * (1 - t) * t * cx + t * t * to.x;
+            const qy = (1 - t) * (1 - t) * from.y + 2 * (1 - t) * t * cy + t * t * to.y;
+            ctx.beginPath();
+            ctx.arc(qx, qy, 2.2, 0, Math.PI * 2);
+            ctx.fillStyle = rgba(col, alpha * (0.55 + 0.45 * Math.sin(t * Math.PI)));
+            ctx.fill();
+          }
           // endpoint ring
-          const pulse = (Math.sin(ts * 0.003 + i) + 1) / 2;
+          const pulse = this.reduceMotion ? 0.5 : (Math.sin(ts * 0.003 + i) + 1) / 2;
           ctx.beginPath();
           ctx.arc(to.x, to.y, 4 + pulse * 3, 0, Math.PI * 2);
           ctx.strokeStyle = rgba(col, alpha * (0.6 - pulse * 0.3));
@@ -745,19 +801,98 @@
       }
     }
 
-    _drawPins(ctx, ts) {
+    _clusters() {
       const list = this.visibleEvents();
-      if (!list.length) return;
-      const hot = new Set(this.hotEvents(list));
-      const s = this.scale();
+      if (!list.length) return [];
+      const sel = this.selected;
+      if (this.theatreActive) {
+        return list.map((ev) => {
+          const p = this.project(ev.lon, ev.lat);
+          return { members: [ev], count: 1, lead: ev, x: p.x, y: p.y, n: 1, sx: p.x, sy: p.y };
+        });
+      }
+      const radius = this.W < 600 ? 34 : 26;
+      const clusters = [];
       for (const ev of list) {
+        if (ev === sel) continue;
         const p = this.project(ev.lon, ev.lat);
         if (p.x < -30 || p.x > this.W + 30 || p.y < -30 || p.y > this.H + 30) continue;
+        let best = null, bd = radius * radius;
+        for (const c of clusters) {
+          const dx = p.x - c.x, dy = p.y - c.y, d = dx * dx + dy * dy;
+          if (d < bd) { bd = d; best = c; }
+        }
+        if (best) {
+          best.sx += p.x; best.sy += p.y; best.n++;
+          best.members.push(ev);
+          best.x = best.sx / best.n; best.y = best.sy / best.n;
+        } else {
+          clusters.push({ members: [ev], n: 1, sx: p.x, sy: p.y, x: p.x, y: p.y, count: 1, lead: ev });
+        }
+      }
+      for (const c of clusters) {
+        c.count = c.members.length;
+        c.lead = c.members.slice().sort((a, b) => Math.abs(a.y - this.year) - Math.abs(b.y - this.year))[0];
+      }
+      if (sel) {
+        const p = this.project(sel.lon, sel.lat);
+        clusters.push({ members: [sel], n: 1, sx: p.x, sy: p.y, x: p.x, y: p.y, count: 1, lead: sel, selected: true });
+      }
+      return clusters;
+    }
+
+    _drawPins(ctx, ts) {
+      const clusters = this._clusters();
+      if (!clusters.length) return;
+      const hot = new Set(this.hotEvents(this.visibleEvents()));
+      for (const c of clusters) {
+        if (c.count > 1) this._drawCluster(ctx, ts, c);
+        else this._drawPin(ctx, ts, c.members[0], hot);
+      }
+    }
+
+    _drawCluster(ctx, ts, c) {
+      const r = clamp(9 + Math.sqrt(c.count) * 2.4, 11, 18);
+      const pulse = this.reduceMotion ? 0.5 : 0.5 + 0.5 * Math.sin(ts * 0.002 + c.x * 0.01);
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, r + 7 + pulse * 2, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(250,246,238,0.26)";
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(250,246,238,0.95)";
+      ctx.fill();
+      ctx.strokeStyle = "rgba(90,70,48,0.55)";
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      const kinds = [];
+      for (const ev of c.members) if (kinds.indexOf(ev.k) < 0) kinds.push(ev.k);
+      const shown = kinds.slice(0, 6);
+      const step = (Math.PI * 2) / Math.max(1, shown.length);
+      shown.forEach((k, i) => {
+        const a = -Math.PI / 2 + i * step;
+        const col = (A.categories[k] || {}).color || "#8a6a3f";
+        ctx.beginPath();
+        ctx.arc(c.x + Math.cos(a) * (r - 3.5), c.y + Math.sin(a) * (r - 3.5), 2.1, 0, Math.PI * 2);
+        ctx.fillStyle = col;
+        ctx.fill();
+      });
+      ctx.fillStyle = "#2b2118";
+      ctx.font = "600 10px " + (this.lang === "zh" ? "'PingFang SC',sans-serif" : "Georgia,serif");
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(String(c.count), c.x, c.y + 0.5);
+    }
+
+    _drawPin(ctx, ts, ev, hot) {
+      {
+        const p = this.project(ev.lon, ev.lat);
+        if (p.x < -30 || p.x > this.W + 30 || p.y < -30 || p.y > this.H + 30) return;
         if (this.theatreActive && ev !== this.selected) {
           const cc = A.categories[ev.k] || { color: "#8a6a3f" };
           ctx.beginPath(); ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
           ctx.fillStyle = rgba(cc.color, 0.2); ctx.fill();
-          continue;
+          return;
         }
         const past = ev.y <= this.year + 0.5;
         const near = hot.has(ev);
@@ -774,7 +909,7 @@
         ctx.fill();
 
         // pulse rings for near events
-        if (near && past) {
+        if (near && past && !this.reduceMotion) {
           const ph = (ts * 0.0006 + ev.seed) % 1;
           ctx.beginPath();
           ctx.arc(p.x, p.y, 6 + ph * 21, 0, Math.PI * 2);
@@ -789,7 +924,7 @@
         }
 
         // featured rotating seal
-        if (ev.f) {
+        if (ev.f && !this.reduceMotion) {
           ctx.save();
           ctx.translate(p.x, p.y);
           ctx.rotate((ts * 0.00012 + ev.seed * 6) % (Math.PI * 2));
@@ -994,7 +1129,7 @@
         this._drawPicking();
         if (!this.moved) {
           const p = this._local(e);
-          const hit = this._eventAt(p.x, p.y, 18);
+          const hit = this._eventAt(p.x, p.y, this.coarse ? 26 : 18);
           if (hit) {
             if (this.opts.onEventClick) this.opts.onEventClick(hit);
           } else {
@@ -1008,13 +1143,18 @@
     _eventAt(sx, sy, tol) {
       tol = tol || 16;
       let best = null, bd = tol * tol;
-      for (const ev of this.visibleEvents()) {
-        const p = this.project(ev.lon, ev.lat);
-        const dx = p.x - sx, dy = p.y - sy;
+      for (const c of this._clusters()) {
+        const dx = c.x - sx, dy = c.y - sy;
         const d = dx * dx + dy * dy;
-        if (d < bd) { bd = d; best = ev; }
+        if (d < bd) { bd = d; best = c; }
       }
-      return best;
+      if (!best) return null;
+      if (best.count > 1) {
+        let lat = 0, lon = 0;
+        for (const ev of best.members) { lat += ev.lat; lon += ev.lon; }
+        return { __cluster: best.members, count: best.count, lat: lat / best.members.length, lon: lon / best.members.length, x: best.x, y: best.y };
+      }
+      return best.members[0];
     }
   }
 
