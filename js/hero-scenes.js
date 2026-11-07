@@ -135,10 +135,10 @@
   function finishPlate(ctx, W, H) {
     // Source-over only: large blend modes can leave stale compositor tiles
     // on some GPU paths; alpha overlays give the same print weight safely.
-    const b = ctx.createLinearGradient(0, H * 0.50, 0, H);
+    const b = ctx.createLinearGradient(0, H * 0.48, 0, H);
     b.addColorStop(0, "rgba(96,62,32,0)");
-    b.addColorStop(0.72, "rgba(96,62,32,0.07)");
-    b.addColorStop(1, "rgba(88,54,26,0.22)");
+    b.addColorStop(0.72, "rgba(96,62,32,0.10)");
+    b.addColorStop(1, "rgba(88,54,26,0.30)");
     ctx.fillStyle = b;
     ctx.fillRect(0, 0, W, H);
 
@@ -690,6 +690,20 @@
     ctx.lineWidth = 0.32;
     ctx.fillRect(x - w / 2, y - h, w, h);
     ctx.strokeRect(x - w / 2, y - h, w, h);
+    // plaster shading + courses
+    const bg = ctx.createLinearGradient(x - w / 2, 0, x + w / 2, 0);
+    bg.addColorStop(0, "rgba(90,60,30,0)");
+    bg.addColorStop(0.58, "rgba(90,60,30,0)");
+    bg.addColorStop(1, "rgba(90,60,30,0.18)");
+    ctx.fillStyle = bg;
+    ctx.fillRect(x - w / 2, y - h, w, h);
+    ctx.strokeStyle = "rgba(90,62,36,0.15)"; ctx.lineWidth = 0.13;
+    for (let yy = y - h + 2.2; yy < y - 1; yy += 2.4) {
+      ctx.beginPath();
+      ctx.moveTo(x - w / 2 + 0.6, yy);
+      ctx.lineTo(x + w / 2 - 0.6, yy);
+      ctx.stroke();
+    }
     // columns + lattice windows
     for (let i = -1; i <= 1; i++) {
       const cx = x + i * w * 0.27;
@@ -715,6 +729,15 @@
       ctx.closePath();
       ctx.fillStyle = "rgba(67,48,29,0.78)";
       ctx.fill();
+      // door studs
+      ctx.fillStyle = "rgba(196,150,78,0.55)";
+      for (let r = 0; r < 3; r++) {
+        for (let c = -1; c <= 1; c++) {
+          ctx.beginPath();
+          ctx.arc(x + c * w * 0.055, y - h * 0.08 - r * h * 0.07, 0.22, 0, TAU);
+          ctx.fill();
+        }
+      }
     }
     // hip roof with flicked eaves
     const ry = y - h;
@@ -1111,6 +1134,7 @@
     sky.addColorStop(1, "#e7c489");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -38 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, -26, -78, 24, "#dda75c", 0.42);
     ctx.beginPath(); ctx.arc(-26, -78, 6, 0, TAU);
     ctx.fillStyle = "rgba(216,158,80,0.92)"; ctx.fill();
@@ -1787,6 +1811,7 @@
     sky.addColorStop(1, "#e6cfa4");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -30 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 4, -46, 26, "#cf9854", 0.42);
     ctx.beginPath(); ctx.arc(4, -46, 5.4, 0, TAU);
     ctx.fillStyle = "rgba(206,148,78,0.88)"; ctx.fill();
@@ -2051,6 +2076,7 @@
     sky.addColorStop(1, "#e6c489");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -36 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 10, -78, 26, "#e5ae60", 0.4);
     ctx.beginPath(); ctx.arc(10, -78, 6, 0, TAU);
     ctx.fillStyle = "rgba(224,169,90,0.9)"; ctx.fill();
@@ -2789,6 +2815,24 @@
     ctx.fillRect(x - w * 0.36, baseY - h * 0.72, w * 0.72, h * 0.72);
     ctx.strokeStyle = hexA(INK, 0.55); ctx.lineWidth = 0.24;
     ctx.strokeRect(x - w * 0.36, baseY - h * 0.72, w * 0.72, h * 0.72);
+    // brick courses + shadow side
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x - w * 0.36, baseY - h * 0.72, w * 0.72, h * 0.72);
+    ctx.clip();
+    ctx.strokeStyle = "rgba(92,58,40,0.18)"; ctx.lineWidth = 0.13;
+    for (let yy = baseY - h * 0.70; yy < baseY; yy += 1.7) {
+      ctx.beginPath();
+      ctx.moveTo(x - w * 0.36, yy);
+      ctx.lineTo(x + w * 0.36, yy);
+      ctx.stroke();
+    }
+    const cg = ctx.createLinearGradient(x, 0, x + w * 0.36, 0);
+    cg.addColorStop(0, "rgba(60,36,24,0)");
+    cg.addColorStop(1, "rgba(60,36,24,0.18)");
+    ctx.fillStyle = cg;
+    ctx.fillRect(x, baseY - h * 0.72, w * 0.36, h * 0.72);
+    ctx.restore();
     // gable
     ctx.beginPath();
     ctx.moveTo(x - w * 0.36, baseY - h * 0.72);
@@ -2836,6 +2880,21 @@
     ctx.fillRect(x - w / 2, baseY - h, w, h);
     ctx.strokeStyle = "rgba(74,64,50,0.55)"; ctx.lineWidth = 0.22;
     ctx.strokeRect(x - w / 2, baseY - h, w, h);
+    // facade shading + floor cornices
+    const pg = ctx.createLinearGradient(x - w / 2, 0, x + w / 2, 0);
+    pg.addColorStop(0, "rgba(60,56,44,0)");
+    pg.addColorStop(0.6, "rgba(60,56,44,0)");
+    pg.addColorStop(1, "rgba(60,56,44,0.16)");
+    ctx.fillStyle = pg;
+    ctx.fillRect(x - w / 2, baseY - h, w, h);
+    ctx.strokeStyle = "rgba(74,64,50,0.28)"; ctx.lineWidth = 0.18;
+    for (let r = 0; r < 2; r++) {
+      const cy = baseY - h + h * (0.16 + r * 0.36);
+      ctx.beginPath();
+      ctx.moveTo(x - w / 2 + 1.2, cy);
+      ctx.lineTo(x + w / 2 - 1.2, cy);
+      ctx.stroke();
+    }
     // two window rows
     for (let row = 0; row < 2; row++) {
       const wy = baseY - h + h * (0.22 + row * 0.34);
@@ -3133,6 +3192,7 @@
     sky.addColorStop(1, "#eac197");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -34 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 22, -76, 24, "#e8b46c", 0.38);
     ctx.beginPath(); ctx.arc(22, -76, 6.4, 0, TAU);
     ctx.fillStyle = "rgba(230,176,104,0.9)"; ctx.fill();
@@ -3557,6 +3617,7 @@
     sky.addColorStop(1, "#e8c894");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -34 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 18, -78, 22, "#e0aa5e", 0.35);
     ctx.beginPath(); ctx.arc(18, -78, 5.2, 0, TAU);
     ctx.fillStyle = "rgba(224,170,94,0.9)"; ctx.fill();
@@ -3714,6 +3775,7 @@
     sky.addColorStop(1, "#ecd3a3");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -32 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     // stars + compass arc
     stars(ctx, top, t, 30, 9);
     ctx.save();
@@ -3819,6 +3881,7 @@
     sky.addColorStop(1, "#f3d9a8");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -34 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, -20, -72, 20, "#e8bc72", 0.32);
     ctx.beginPath(); ctx.arc(-20, -72, 5.4, 0, TAU);
     ctx.fillStyle = "rgba(232,184,110,0.9)"; ctx.fill();
@@ -3970,6 +4033,7 @@
     sky.addColorStop(1, "#e4bc82");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -40 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 26, -74, 24, "#dfa85e", 0.38);
     ctx.beginPath(); ctx.arc(26, -74, 5.8, 0, TAU);
     ctx.fillStyle = "rgba(220,164,86,0.9)"; ctx.fill();
@@ -4342,6 +4406,7 @@
     sky.addColorStop(1, "#debb8a");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -30 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, -4, -54, 38, "#e8b878", 0.26);
     // far hills
     ridge(ctx, -50, 50, -32, 2.6, "rgba(150,126,92,0.28)", 11, 5, -30);
@@ -4482,6 +4547,7 @@
     sky.addColorStop(1, "#d6b78d");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -38 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     // cloud beyond the far ridge
     mushroomCloud(ctx, 12, -38, 18, 40, t, "rgba(190,142,96,0.9)");
 
@@ -4665,6 +4731,7 @@
     sky.addColorStop(1, "#e6c48f");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -34 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, -22, -66, 22, "#e0b46e", 0.32);
     ctx.beginPath(); ctx.arc(-22, -66, 5.0, 0, TAU);
     ctx.fillStyle = "rgba(224,176,100,0.92)"; ctx.fill();
@@ -5260,6 +5327,7 @@
     sky.addColorStop(1, "#e4bd83");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -36 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 30, -62, 26, "#e3a95c", 0.4);
     ctx.beginPath(); ctx.arc(30, -62, 6.4, 0, TAU);
     ctx.fillStyle = "rgba(222,166,88,0.9)"; ctx.fill();
@@ -5432,6 +5500,7 @@
     sky.addColorStop(1, "#e2bf8c");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -36 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 24, -70, 22, "#e2ab62", 0.35);
     ctx.beginPath(); ctx.arc(24, -70, 5.4, 0, TAU);
     ctx.fillStyle = "rgba(224,174,96,0.9)"; ctx.fill();
@@ -5583,6 +5652,7 @@
     sky.addColorStop(1, "#e7c58d");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -36 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, -28, -70, 24, "#e2ad62", 0.36);
     ctx.beginPath(); ctx.arc(-28, -70, 5.6, 0, TAU);
     ctx.fillStyle = "rgba(224,174,96,0.9)"; ctx.fill();
@@ -5845,6 +5915,7 @@
     sky.addColorStop(1, "#d9b988");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -36 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 20, -68, 22, "#d8a45e", 0.3);
     ctx.beginPath(); ctx.arc(20, -68, 5.2, 0, TAU);
     ctx.fillStyle = "rgba(216,166,90,0.88)"; ctx.fill();
@@ -5998,6 +6069,7 @@
     sky.addColorStop(1, "#d8b98a");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -36 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, -20, -64, 24, "#d8a65e", 0.28);
     ctx.beginPath(); ctx.arc(-20, -64, 5.4, 0, TAU);
     ctx.fillStyle = "rgba(216,166,90,0.85)"; ctx.fill();
@@ -6188,6 +6260,7 @@
     sky.addColorStop(1, "#e2bc84");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -40 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 24, -70, 22, "#dfa85e", 0.35);
     ctx.beginPath(); ctx.arc(24, -70, 5.4, 0, TAU);
     ctx.fillStyle = "rgba(220,164,86,0.9)"; ctx.fill();
@@ -7782,6 +7855,7 @@
     sky.addColorStop(1, "#e3c28c");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -36 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, -22, -64, 22, "#e0ad64", 0.3);
     ctx.beginPath(); ctx.arc(-22, -64, 5.2, 0, TAU);
     ctx.fillStyle = "rgba(222,172,96,0.85)"; ctx.fill();
@@ -7890,6 +7964,7 @@
     sky.addColorStop(1, "#e2bd86");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -34 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     glow(ctx, 20, -66, 22, "#dfa85e", 0.32);
     ctx.beginPath(); ctx.arc(20, -66, 5.4, 0, TAU);
     ctx.fillStyle = "rgba(220,166,88,0.88)"; ctx.fill();
@@ -8048,6 +8123,7 @@
     sky.addColorStop(1, "#e8c88f");
     ctx.fillStyle = sky;
     ctx.fillRect(-50, top, 100, -34 - top);
+    skyHatch(ctx, -50, top, 100, -32 - top, "rgba(104,88,62,0.05)", 3.0, 5);
     stars(ctx, top, t, 20, 11);
     glow(ctx, 30, -64, 22, "#e0b06a", 0.32);
     ctx.beginPath(); ctx.arc(30, -64, 5.4, 0, TAU);
