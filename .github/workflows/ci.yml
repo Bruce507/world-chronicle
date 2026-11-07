@@ -49,5 +49,8 @@ jobs:
       - name: Content records
         run: node scripts/content-check.mjs
 
+      - name: Accessibility audit
+        run: node scripts/a11y-audit.mjs
+
       - name: Smoke suite
         run: node scripts/ux-smoke.mjs

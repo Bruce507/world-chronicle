@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   const A = window.WORLD_ATLAS;
-  const ASSET_V = "20261108p";
+  const ASSET_V = "20261108q";
   const $ = (s) => document.querySelector(s);
   let heroScenesP = null, variantScenesP = null;
   function loadScriptOnce(src) {
@@ -444,7 +444,7 @@
   let lastChromeYear = null, lastChromePos = "", lastBandEra = null, lastPlayTs = 0, lastHintStep = null;
   let draggingTrack = false, eventTimer = 0, lastAutoGroup = "";
   let searchItems = [], searchActive = -1, noteTimer = 0, toastTimer = 0, navigatingHistory = false;
-  let lastFocusEl = null, chroniclesP = null, detailsP = null;
+  let lastFocusEl = null, chroniclesP = null, detailsP = null, modalReturnFocus = null, aboutReturnFocus = null;
 
   /* ── boot ───────────────────────────────────────── */
   function boot() {
@@ -533,7 +533,7 @@
   }
 
   function loadAuxData() {
-    const v = "?v=20261108p";
+    const v = "?v=20261108q";
     A.detailsLoading = true;
     A.detailsLoading = true;
     fetch("data/state_changes.json" + v)
@@ -552,7 +552,7 @@
     if (A.eventDetails) { A.detailsLoading = false; return Promise.resolve(A.eventDetails); }
     if (detailsP) return detailsP;
     A.detailsLoading = true;
-    detailsP = fetch("data/event_details.json?v=20261108p")
+    detailsP = fetch("data/event_details.json?v=20261108q")
       .then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); })
       .then((d) => {
         A.eventDetails = d || {};
@@ -569,7 +569,7 @@
   function ensureChronicles() {
     if (A.chronicles) return Promise.resolve(A.chronicles);
     if (chroniclesP) return chroniclesP;
-    chroniclesP = fetch("data/country_chronicles.json?v=20261108p")
+    chroniclesP = fetch("data/country_chronicles.json?v=20261108q")
       .then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); })
       .then((d) => {
         A.chronicles = d || {};
@@ -589,7 +589,7 @@
     loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
-    fetch("data/world.geo.json?v=20261108p")
+    fetch("data/world.geo.json?v=20261108q")
       .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then((geo) => {
         map.setWorld(geo);
@@ -642,7 +642,12 @@
   }
 
   function applyDeepLink() {
-    setTimeout(() => applyURLState(false), 350);
+    // The initial URL state is applied once. If the reader has already opened
+    // an event, country, route or search result, do not reset it underneath them.
+    setTimeout(() => {
+      if (state.selected || state.country || state.route || state.searchQuery || state.eventView) return;
+      applyURLState(false);
+    }, 350);
   }
 
   /* ── language ───────────────────────────────────── */
@@ -1705,9 +1710,9 @@
 
   function scheduleAutoEvent() {
     clearTimeout(eventTimer);
-    if (!state.autoEvent || state.playing || state.eventView || state.country) return;
+    if (!state.autoEvent || state.playing || state.eventView || state.country || !el["event-modal"].hidden) return;
     eventTimer = setTimeout(() => {
-      if (!state.autoEvent || state.playing || state.eventView || state.country) return;
+      if (!state.autoEvent || state.playing || state.eventView || state.country || !el["event-modal"].hidden) return;
       let groups = Object.values(A.eventGroups || {}).filter((g) => g.year === state.year);
       if (!groups.length) {
         const yearEvents = A.events.filter((e) => e.y === state.year && e.f).sort((a, b) => {
@@ -2056,7 +2061,7 @@
     const wasOpen = state.panelOpen;
     state.autoOpened = !!(opts && opts.auto);
     stopPlay();
-    if (!el["event-modal"].hidden) closeEvent();
+    if (!el["event-modal"].hidden && !(opts && opts.auto)) closeEvent();
     state.country = null;
     map.setHighlight(null);
     state.eventView = ev;
@@ -2147,8 +2152,26 @@
     if (el["tc-pause"]) el["tc-pause"].textContent = L("暂停", "Pause", "Pausa", "Pause", "إيقاف مؤقت");
   }
 
+  function setBackgroundInert(on) {
+    const app = document.getElementById("app");
+    if (!app) return;
+    const anyOpen = !el["event-modal"].hidden || (el["about-modal"] && !el["about-modal"].hidden);
+    app.inert = !!on && anyOpen;
+  }
+
+  function trapTab(e, root) {
+    const nodes = [...root.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')]
+      .filter((n) => n.offsetParent !== null && n.getAttribute("aria-hidden") !== "true");
+    if (!nodes.length) return;
+    const first = nodes[0], last = nodes[nodes.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
   async function openEventModal(ev) {
     if (!ev) return;
+    clearTimeout(eventTimer);
+    if (el["event-modal"].hidden) modalReturnFocus = document.activeElement;
     stopPlay();
     if (state.country) { state.country = null; map.setHighlight(null); lastPanelKey = ""; renderPanel(true); }
     state.selected = ev;
@@ -2160,6 +2183,7 @@
     await ensureSceneAssets();
     fillEvent(ev);
     el["event-modal"].hidden = false;
+    setBackgroundInert(true);
     if (sceneCtl) sceneCtl.stop();
     const cat = A.categories[ev.k] || { color: "#b04a32" };
     sceneCtl = window.Scenes.mount(el["scene-canvas"], ev.s, { color: cat.color, region: ev.rg, year: ev.y, variant: ev.v, hero: (window.HeroScenes && window.HeroScenes.has(ev.id)) ? ev.id : null, tierB: (window.VariantScenes && window.VariantScenes.has(ev.id)) ? ev.id : null });
@@ -2380,7 +2404,12 @@
     if (window.AtlasAudio) window.AtlasAudio.stopSpeak();
     if (sceneCtl) { sceneCtl.stop(); sceneCtl = null; }
     el["event-modal"].hidden = true;
+    setBackgroundInert(false);
     if (map) map.setPaused(false);
+    let back = state.selected && state.panelOpen ? el["panel-title"] : modalReturnFocus;
+    if (!back || back.offsetParent === null) back = modalReturnFocus;
+    modalReturnFocus = null;
+    if (back && back.focus) setTimeout(() => { try { back.focus({ preventScroll: true }); } catch (err) { /* noop */ } }, 40);
     syncURL();
   }
 
@@ -3087,6 +3116,10 @@
   }
 
   function onKey(e) {
+    if (e.key === "Tab") {
+      if (!el["event-modal"].hidden) { trapTab(e, el["event-modal"].querySelector(".event-card")); return; }
+      if (!el["about-modal"].hidden) { trapTab(e, el["about-modal"].querySelector(".about-card")); return; }
+    }
     const tag = (e.target.tagName || "").toLowerCase();
     const typing = tag === "input" || tag === "textarea" || tag === "select";
     if (e.key === "Escape") {
@@ -3175,14 +3208,23 @@
 
   /* ── about ──────────────────────────────────────── */
   function openAbout() {
+    if (!el["event-modal"].hidden) closeEvent();
+    aboutReturnFocus = document.activeElement;
     populateAbout();
     el["about-modal"].hidden = false;
+    setBackgroundInert(true);
     setTimeout(() => {
       const c = el["about-modal"].querySelector(".ev-close");
       if (c) c.focus();
     }, 40);
   }
-  function closeAbout() { el["about-modal"].hidden = true; }
+  function closeAbout() {
+    el["about-modal"].hidden = true;
+    setBackgroundInert(false);
+    const back = aboutReturnFocus || document.getElementById("about-btn");
+    aboutReturnFocus = null;
+    if (back && back.focus) setTimeout(() => { try { back.focus({ preventScroll: true }); } catch (err) { /* noop */ } }, 40);
+  }
   function populateAbout() {
     el["about-eras"].innerHTML = A.eras.map((era) =>
       "<li><time>" + fmtRange(era.from, era.to) + "</time><span><b>" + eraName(era) + "</b><em>" + eraSub(era) + "</em></span></li>"

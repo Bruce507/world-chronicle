@@ -9,11 +9,11 @@
   --paper-3: #faf6ee;
   --ink: #241f1a;
   --ink-2: #554b40;
-  --muted: #6d6459;
-  --verm: #b0432c;
+  --muted: #655c51;
+  --verm: #a83e28;
   --verm-deep: #8e3523;
-  --gold: #8a6427;
-  --jade: #3f6f68;
+  --gold: #7d5a20;
+  --jade: #38635d;
   --line: rgba(43, 38, 34, 0.14);
   --line-soft: rgba(43, 38, 34, 0.08);
   --shadow: 0 18px 50px rgba(45, 35, 22, 0.18), 0 2px 6px rgba(45, 35, 22, 0.08);
@@ -24,6 +24,19 @@
 }
 
 * { box-sizing: border-box; }
+.skip-link {
+  position: fixed;
+  top: -48px;
+  left: 12px;
+  z-index: 100;
+  padding: 8px 12px;
+  border-radius: 3px;
+  background: var(--verm);
+  color: #fbf2df;
+  font-size: 12px;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 8px; }
 
 html, body {
   height: 100%;

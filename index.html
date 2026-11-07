@@ -7,9 +7,10 @@
 <meta name="description" content="从史前狩猎到人工智能：一张可拖动的全球文明时间地图。520 余个世界历史节点、九大时代、18 个时代疆域快照、地图内动态剧场与全球联动，支持五种界面语言。" />
 <meta name="theme-color" content="#f2ece0" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23b0432c'/%3E%3Ctext x='32' y='46' font-size='42' text-anchor='middle' fill='%23f6efe2' font-family='serif'%3E寰%3C/text%3E%3C/svg%3E" />
-<link rel="stylesheet" href="css/style.css?v=20261108p" />
+<link rel="stylesheet" href="css/style.css?v=20261108q" />
 </head>
 <body>
+<a class="skip-link" href="#side-panel">跳到详情面板 / Skip to panel</a>
 <div id="app">
 
   <!-- ══ 顶栏 ══ -->
@@ -64,7 +65,7 @@
   <!-- ══ 地图 ══ -->
   <main id="map-stage">
     <canvas id="map-canvas" aria-label="世界历史地图 / World history map"></canvas>
-    <canvas id="fx-canvas"></canvas>
+    <canvas id="fx-canvas" aria-hidden="true"></canvas>
     <div id="grain" aria-hidden="true"></div>
     <div id="a11y-nodes" aria-label="地图节点 / Map nodes"></div>
     <div id="a11y-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
@@ -100,7 +101,7 @@
       <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
       <span data-i18n="panelOpen">卷</span>
     </button>
-    <aside id="side-panel">
+    <aside id="side-panel" tabindex="-1">
       <button id="sheet-handle" class="sheet-handle" type="button" aria-label="展开或收起详情 / Expand or collapse"><span></span></button>
       <button id="panel-toggle" aria-label="收起面板">
         <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
@@ -185,7 +186,7 @@
     </div>
     <div id="track" tabindex="0" role="slider" aria-orientation="horizontal" aria-label="时间轴年份" aria-valuemin="-12000" aria-valuemax="2026" aria-valuenow="1500" aria-valuetext="公元 1500 年">
       <div id="era-bands"></div>
-      <canvas id="tick-canvas"></canvas>
+      <canvas id="tick-canvas" aria-hidden="true"></canvas>
       <div id="tl-brush" hidden></div>
       <div id="playhead"><i></i><span id="playhead-label"></span></div>
       <div id="tl-cursor" hidden><b></b><span></span></div>
@@ -198,7 +199,7 @@
   <div class="modal-scrim" data-close="event"></div>
   <article class="event-card" role="dialog" aria-modal="true" aria-labelledby="ev-title">
     <div class="event-stage">
-      <canvas id="scene-canvas"></canvas>
+      <canvas id="scene-canvas" aria-hidden="true"></canvas>
       <div class="stage-frame"></div>
       <div class="stage-top">
         <span id="scene-label">THE HUNT</span>
@@ -283,15 +284,15 @@
   </article>
 </div>
 
-<script src="js/data_bundle.js?v=20261108p"></script>
-<script src="js/scenes.js?v=20261108p"></script>
-<script src="js/historical.js?v=20261108p"></script>
-<script src="js/entities.js?v=20261108p"></script>
-<script src="js/theatre.js?v=20261108p"></script>
-<script src="js/audio.js?v=20261108p"></script>
-<script src="js/statechanges.js?v=20261108p"></script>
-<script src="js/map.js?v=20261108p"></script>
-<script src="js/i18n_extra.js?v=20261108p"></script>
-<script src="js/app.js?v=20261108p"></script>
+<script src="js/data_bundle.js?v=20261108q"></script>
+<script src="js/scenes.js?v=20261108q"></script>
+<script src="js/historical.js?v=20261108q"></script>
+<script src="js/entities.js?v=20261108q"></script>
+<script src="js/theatre.js?v=20261108q"></script>
+<script src="js/audio.js?v=20261108q"></script>
+<script src="js/statechanges.js?v=20261108q"></script>
+<script src="js/map.js?v=20261108q"></script>
+<script src="js/i18n_extra.js?v=20261108q"></script>
+<script src="js/app.js?v=20261108q"></script>
 </body>
 </html>
