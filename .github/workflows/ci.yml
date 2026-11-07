@@ -55,11 +55,14 @@ jobs:
       - name: Data QA
         run: node scripts/data-qa.mjs
 
-      - name: PWA / offline check
-        run: node scripts/pwa-check.mjs
-
       - name: Entity language coverage
         run: node scripts/entity-i18n-check.mjs
 
       - name: Smoke suite
         run: node scripts/ux-smoke.mjs
+
+      # Browser/PWA checks are the most environment-sensitive step, so they run
+      # last: a failure here never hides the content, a11y, data or smoke
+      # results. Set PW_CHANNEL=chromium to use Playwright's bundled build.
+      - name: PWA / offline check
+        run: node scripts/pwa-check.mjs
