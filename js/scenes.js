@@ -60,13 +60,13 @@
   function palette(opts) {
     const accent = (opts && opts.color) || "#c0553a";
     return {
-      bg0: "#0f0c09",
-      bg1: "#1d1610",
-      bg2: "#2a2016",
+      bg0: "#241a11",
+      bg1: "#332417",
+      bg2: "#40301f",
       ink: "#ead9b7",
       ink2: "#c4ad86",
-      dim: "#8f7a5b",
-      faint: "#5e4d39",
+      dim: "#a08a68",
+      faint: "#6e5a42",
       accent,
       accent2: accent,
       gold: "#d3a94f",
@@ -96,8 +96,8 @@
     // vignette
     const v = ctx.createRadialGradient(W / 2, H * 0.45, Math.min(W, H) * 0.2, W / 2, H * 0.5, Math.max(W, H) * 0.78);
     v.addColorStop(0, "rgba(0,0,0,0)");
-    v.addColorStop(0.72, "rgba(0,0,0,0.18)");
-    v.addColorStop(1, "rgba(0,0,0,0.55)");
+    v.addColorStop(0.72, "rgba(0,0,0,0.10)");
+    v.addColorStop(1, "rgba(0,0,0,0.40)");
     ctx.fillStyle = v;
     ctx.fillRect(0, 0, W, H);
     // grain
@@ -113,7 +113,7 @@
     // thin bottom fade
     const fg = ctx.createLinearGradient(0, H * 0.82, 0, H);
     fg.addColorStop(0, "rgba(12,9,6,0)");
-    fg.addColorStop(1, "rgba(12,9,6,0.62)");
+    fg.addColorStop(1, "rgba(20,14,9,0.52)");
     ctx.fillStyle = fg;
     ctx.fillRect(0, H * 0.82, W, H * 0.18);
   }
@@ -793,7 +793,7 @@
 
   SCENES.hunt = function (ctx, W, H, t, P) {
     const horizon = H * 0.64;
-    sky(ctx, W, H, "#1b1719", "#6a4a30", 0.66);
+    sky(ctx, W, H, "#2a211a", "#6a4a30", 0.66);
     glow(ctx, W * 0.46, horizon - 18, H * 0.7, "#d08a4a", 0.24);
     ctx.beginPath(); ctx.arc(W * 0.46, horizon - 26, 30, 0, TAU);
     ctx.fillStyle = "rgba(226,172,108,0.58)"; ctx.fill();
@@ -848,7 +848,7 @@
 
   SCENES.agri = function (ctx, W, H, t, P) {
     const horizon = H * 0.48;
-    sky(ctx, W, H, "#211912", "#8a5c32", 0.55);
+    sky(ctx, W, H, "#2e2419", "#8a5c32", 0.55);
     glow(ctx, W * 0.3, horizon - 10, H * 0.55, "#e0a04a", 0.28);
     ctx.beginPath(); ctx.arc(W * 0.3, horizon - 18, 28, 0, TAU);
     ctx.fillStyle = "rgba(238,190,110,0.75)"; ctx.fill();
@@ -910,7 +910,7 @@
 
   SCENES.march = function (ctx, W, H, t, P) {
     const horizon = H * 0.6;
-    sky(ctx, W, H, "#17120f", "#6e4a2e", 0.66);
+    sky(ctx, W, H, "#2a2016", "#6e4a2e", 0.66);
     glow(ctx, W * 0.62, horizon - 30, H * 0.6, "#c77a3e", 0.2);
     ctx.beginPath(); ctx.arc(W * 0.62, horizon - 40, 30, 0, TAU);
     ctx.fillStyle = "rgba(220,160,90,0.55)"; ctx.fill();
@@ -941,7 +941,7 @@
     const horizon = H * 0.78;
     const ancient = (opts && opts.year != null ? opts.year : 0) < 1800;
     if (ancient) {
-      sky(ctx, W, H, "#1a1410", "#7a4a2c", 0.74);
+      sky(ctx, W, H, "#2c2117", "#7a4a2c", 0.74);
       glow(ctx, W * 0.7, horizon - 50, H * 0.8, "#e09a4e", 0.28);
       ctx.beginPath(); ctx.arc(W * 0.7, horizon - 58, 34, 0, TAU);
       ctx.fillStyle = "rgba(238,186,110,0.55)"; ctx.fill();
@@ -1011,7 +1011,7 @@
       }
       return;
     }
-    sky(ctx, W, H, "#14110e", "#4a3524", 0.78);
+    sky(ctx, W, H, "#241b13", "#5a4030", 0.78);
     stars(ctx, W, H, t, 80, 3, 0.5);
     ctx.beginPath(); ctx.arc(W * 0.78, H * 0.2, 24, 0, TAU);
     ctx.fillStyle = "rgba(234,218,184,0.62)"; ctx.fill();
@@ -1062,7 +1062,7 @@
   SCENES.temple = function (ctx, W, H, t, P, opts) {
     const horizon = H * 0.78;
     const v = (opts && opts.variant) || "ziggurat";
-    sky(ctx, W, H, "#15110d", "#6a482a", 0.74);
+    sky(ctx, W, H, "#2a1e14", "#7a5230", 0.74);
     glow(ctx, W * 0.5, horizon - 130, H * 0.85, "#e0a552", 0.30);
     ctx.beginPath(); ctx.arc(W * 0.5, horizon - 128, 82, 0, TAU);
     ctx.fillStyle = "rgba(236,192,116,0.40)"; ctx.fill();
@@ -1225,7 +1225,7 @@
 
   SCENES.chariot = function (ctx, W, H, t, P) {
     const horizon = H * 0.64;
-    sky(ctx, W, H, "#1a1410", "#7a4726", 0.7);
+    sky(ctx, W, H, "#2c2117", "#7a4726", 0.7);
     glow(ctx, W * 0.5, horizon, W * 0.7, "#c0703a", 0.18);
     ctx.fillStyle = "#2a1f15"; ctx.fillRect(0, horizon, W, H - horizon);
     // dust
@@ -1293,7 +1293,7 @@
 
   SCENES.phalanx = function (ctx, W, H, t, P) {
     const horizon = H * 0.6;
-    sky(ctx, W, H, "#181310", "#6d4a2c", 0.68);
+    sky(ctx, W, H, "#2a2119", "#6d4a2c", 0.68);
     ctx.fillStyle = "#251d14"; ctx.fillRect(0, horizon, W, H - horizon);
     glow(ctx, W * 0.5, horizon + 30, W * 0.5, "#b06a3a", 0.12);
     const advance = (Math.sin(t * 0.5) * 0.5 + 0.5) * W * 0.06;
@@ -1394,7 +1394,7 @@
 
   SCENES.pilgrim = function (ctx, W, H, t, P, opts) {
     const horizon = H * 0.7;
-    sky(ctx, W, H, "#1a1511", "#7a4a2e", 0.72);
+    sky(ctx, W, H, "#2b2219", "#7a4a2e", 0.72);
     glow(ctx, W * 0.68, horizon - 40, H * 0.7, "#d08a4a", 0.26);
     ctx.beginPath(); ctx.arc(W * 0.68, horizon - 48, 30, 0, TAU);
     ctx.fillStyle = "rgba(232,180,110,0.6)"; ctx.fill();
@@ -1491,7 +1491,7 @@
 
   SCENES.cavalry = function (ctx, W, H, t, P, opts) {
     const horizon = H * 0.63;
-    sky(ctx, W, H, "#15120f", "#6e4729", 0.68);
+    sky(ctx, W, H, "#2a1e14", "#7a4e2e", 0.68);
     glow(ctx, W * 0.25, horizon - 40, H * 0.55, "#cf8440", 0.2);
     ctx.beginPath(); ctx.arc(W * 0.25, horizon - 50, 30, 0, TAU); ctx.fillStyle = "rgba(226,170,100,0.5)"; ctx.fill();
     ctx.fillStyle = "#241c14"; ctx.fillRect(0, horizon, W, H - horizon);
@@ -1522,7 +1522,7 @@
 
   SCENES.naval = function (ctx, W, H, t, P, opts) {
     const sea = H * 0.58;
-    sky(ctx, W, H, "#11100f", "#4f3a29", 0.6);
+    sky(ctx, W, H, "#251d16", "#604430", 0.6);
     glow(ctx, W * 0.75, sea - 70, H * 0.6, "#c08a50", 0.16);
     ctx.beginPath(); ctx.arc(W * 0.75, sea - 80, 26, 0, TAU); ctx.fillStyle = "rgba(226,200,160,0.6)"; ctx.fill();
     // sea
@@ -1586,7 +1586,7 @@
 
   SCENES.ship = function (ctx, W, H, t, P, opts) {
     const sea = H * 0.62;
-    sky(ctx, W, H, "#141317", "#8a5a34", 0.62);
+    sky(ctx, W, H, "#241c16", "#8a5a34", 0.62);
     glow(ctx, W * 0.72, sea - 40, H * 0.7, "#e0a050", 0.25);
     ctx.beginPath(); ctx.arc(W * 0.72, sea - 50, 34, 0, TAU); ctx.fillStyle = "rgba(240,190,120,0.6)"; ctx.fill();
     const g = ctx.createLinearGradient(0, sea, 0, H);
@@ -1669,7 +1669,7 @@
 
   SCENES.musket = function (ctx, W, H, t, P) {
     const horizon = H * 0.68;
-    sky(ctx, W, H, "#181411", "#6a4a2e", 0.7);
+    sky(ctx, W, H, "#2a2119", "#6a4a2e", 0.7);
     ctx.fillStyle = "#251c14"; ctx.fillRect(0, horizon, W, H - horizon);
     // lines of infantry
     for (let row = 0; row < 4; row++) {
@@ -1701,7 +1701,7 @@
 
   SCENES.revolution = function (ctx, W, H, t, P) {
     const horizon = H * 0.66;
-    sky(ctx, W, H, "#121013", "#4a2c22", 0.7);
+    sky(ctx, W, H, "#2a1e18", "#6a3a28", 0.7);
     stars(ctx, W, H, t, 50, 2, 0.4);
     // city silhouettes
     const r = rng(33);
@@ -1749,7 +1749,7 @@
 
   SCENES.industry = function (ctx, W, H, t, P) {
     const horizon = H * 0.72;
-    sky(ctx, W, H, "#15120f", "#4c3523", 0.7);
+    sky(ctx, W, H, "#2a1e14", "#5e4029", 0.7);
     glow(ctx, W * 0.2, horizon - 40, W * 0.5, "#c07a3a", 0.14);
     // factory
     for (let i = 0; i < 4; i++) {
@@ -2159,7 +2159,7 @@
 
   SCENES.protest = function (ctx, W, H, t, P) {
     const horizon = H * 0.7;
-    sky(ctx, W, H, "#131016", "#4a2e28", 0.72);
+    sky(ctx, W, H, "#251c18", "#5a3830", 0.72);
     // city
     const r = rng(61);
     for (let i = 0; i < 10; i++) {
@@ -2199,7 +2199,7 @@
 
   SCENES.plague = function (ctx, W, H, t, P) {
     const horizon = H * 0.72;
-    sky(ctx, W, H, "#10100f", "#3a2f26", 0.72);
+    sky(ctx, W, H, "#221c17", "#4a3a2e", 0.72);
     // houses
     const r = rng(71);
     for (let i = 0; i < 8; i++) {
@@ -2255,7 +2255,7 @@
 
   SCENES.disaster = function (ctx, W, H, t, P) {
     const horizon = H * 0.58;
-    sky(ctx, W, H, "#0d0d14", "#4a2c22", 0.66);
+    sky(ctx, W, H, "#241d1a", "#5a3528", 0.66);
     // clouds
     for (let i = 0; i < 7; i++) {
       ctx.beginPath();

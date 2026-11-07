@@ -2,7 +2,7 @@
 
 Generated 2026-11-07. Standard A: every event has a correct visual family; the 32 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).
 
-- 事件总数：499
+- 事件总数：511
 - 当前分派：56 个家族
 - 需要修正：0
 - 英雄条目：32
@@ -14,20 +14,20 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | `modern-founding` | 102 |
 | `city-modern` | 34 |
 | `cannon` | 32 |
-| `revolution` | 31 |
+| `revolution` | 32 |
 | `naval` | 28 |
-| `disaster` | 18 |
-| `siege` | 17 |
-| `cavalry` | 16 |
+| `disaster` | 19 |
+| `siege` | 18 |
+| `cavalry` | 17 |
 | `city-earlymodern` | 16 |
 | `caravel` | 13 |
+| `city-medieval` | 10 |
 | `treaty` | 10 |
-| `city-medieval` | 9 |
 | `industry` | 9 |
 | `city-classical` | 8 |
+| `cn-founding` | 8 |
+| `city` | 8 |
 | `camel` | 8 |
-| `cn-founding` | 7 |
-| `city` | 7 |
 | `ziggurat` | 6 |
 | `pyramid` | 6 |
 | `plague` | 6 |
@@ -35,8 +35,10 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | `march` | 5 |
 | `megalith` | 5 |
 | `script` | 5 |
+| `junk` | 5 |
 | `trench` | 5 |
 | `air` | 5 |
+| `atomic` | 5 |
 | `digital` | 5 |
 | `agri` | 4 |
 | `chariot` | 4 |
@@ -46,22 +48,20 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | `roman-founding` | 4 |
 | `stupa` | 4 |
 | `islamic-founding` | 4 |
-| `atomic` | 4 |
 | `rocket` | 4 |
 | `hunt` | 3 |
 | `city-ancient` | 3 |
 | `palace` | 3 |
 | `phalanx` | 3 |
 | `church` | 3 |
+| `cn-cavalry` | 3 |
 | `african-founding` | 3 |
 | `greek-naval` | 2 |
 | `south-asian-founding` | 2 |
-| `cn-cavalry` | 2 |
 | `mosque` | 2 |
 | `printing` | 2 |
 | `steppe-founding` | 2 |
 | `american-founding` | 2 |
-| `junk` | 2 |
 | `wave` | 2 |
 | `paper` | 1 |
 | `galleon` | 1 |
@@ -129,6 +129,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | -539 | `cyrus-takes-babylon` | 居鲁士入巴比伦 | me | `siege` | `siege` |  |
 | -518 | `persepolis` | 波斯波利斯 | me | `palace` | `palace` |  |
 | -508 | `athenian-democracy` | 雅典民主改革 | eu | `city` | `city` | ★ |
+| -500 | `monte-alban-and-the-zapotec` | 蒙特阿尔班与萨波特克 | la | `city` | `city` |  |
 | -480 | `thermopylae-salamis` | 温泉关与萨拉米斯 | eu | `phalanx` | `phalanx` |  |
 | -431 | `peloponnesian-war` | 伯罗奔尼撒战争 | eu | `greek-naval` | `greek-naval` | ★ |
 | -331 | `battle-of-gaugamela` | 高加米拉之战 | me | `cavalry` | `cavalry` |  |
@@ -179,7 +180,9 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 800 | `charlemagne-crowned` | 查理曼加冕 | eu | `roman-founding` | `roman-founding` |  |
 | 802 | `khmer-empire` | 吴哥王朝 | sea | `stupa` | `stupa` |  |
 | 825 | `borobudur` | 婆罗浮屠 | sea | `stupa` | `stupa` | ★ |
+| 840 | `kara-khanid-khanate` | 喀喇汗国建立 | ca | `cn-founding` | `cn-founding` |  |
 | 868 | `diamond-sutra-printed` | 《金刚经》雕版印刷 | ea | `printing` | `printing` |  |
+| 900 | `chimu-kingdom` | 奇穆王国 | la | `city-medieval` | `city-medieval` |  |
 | 900 | `maya-collapse` | 玛雅古典期崩溃 | la | `disaster` | `disaster` |  |
 | 930 | `althing-at-thingvellir` | 冰岛阿尔庭 | eu | `city-medieval` | `city-medieval` |  |
 | 938 | `battle-of-bach-ang` | 白藤江之战 | sea | `naval` | `naval` |  |
@@ -206,6 +209,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1240 | `mongols-sack-kyiv` | 蒙古攻陷基辅 | eu | `siege` | `siege` |  |
 | 1250 | `great-zimbabwe` | 大津巴布韦 | af | `city-medieval` | `city-medieval` |  |
 | 1258 | `mongols-sack-baghdad` | 蒙古攻陷巴格达 | me | `siege` | `siege` |  |
+| 1260 | `chagatai-khanate` | 察合台汗国 | ca | `cavalry` | `cavalry` |  |
 | 1271 | `yuan-dynasty` | 元朝建立 | ea | `cn-founding` | `cn-founding` |  |
 | 1274 | `mongol-invasions-of-japan` | 元军征日 | ea | `naval` | `naval` |  |
 | 1278 | `andorra-modern-statehood` | 安道尔 · 现代国家形成 | eu | `city-medieval` | `city-medieval` |  |
@@ -234,6 +238,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1464 | `songhai-empire` | 桑海帝国 | af | `african-founding` | `african-founding` |  |
 | 1492 | `columbus-reaches-the-americas` | 哥伦布抵达美洲 | la | `caravel` | `caravel` | ★ |
 | 1492 | `fall-of-granada` | 格拉纳达陷落 | eu | `siege` | `siege` |  |
+| 1496 | `aceh-sultanate` | 亚齐苏丹国 | sea | `junk` | `junk` |  |
 | 1498 | `vasco-da-gama-reaches-india` | 达伽马抵达印度 | eu | `caravel` | `caravel` | ★ |
 | 1500 | `bruneis-golden-age` | 文莱苏丹国黄金时代 | sea | `junk` | `junk` |  |
 | 1500 | `cabral-reaches-brazil` | 葡萄牙人抵达巴西 | la | `caravel` | `caravel` |  |
@@ -245,6 +250,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1519 | `magellans-circumnavigation` | 麦哲伦环球航行 | la | `caravel` | `caravel` |  |
 | 1521 | `fall-of-the-aztec-empire` | 科尔特斯灭阿兹特克 | la | `siege` | `siege` |  |
 | 1521 | `magellan-in-the-philippines` | 麦哲伦抵菲律宾 | sea | `caravel` | `caravel` |  |
+| 1526 | `banten-sultanate` | 万丹苏丹国 | sea | `junk` | `junk` |  |
 | 1526 | `first-battle-of-panipat` | 第一次帕尼帕特战役 | sa | `cavalry` | `cavalry` |  |
 | 1526 | `battle-of-mohacs` | 莫哈奇战役 | eu | `cannon` | `cannon` |  |
 | 1529 | `siege-of-vienna-1529` | 维也纳之围（1529） | eu | `siege` | `siege` |  |
@@ -261,11 +267,13 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1592 | `imjin-war` | 壬辰倭乱与李舜臣 | ea | `naval` | `naval` |  |
 | 1600 | `battle-of-sekigahara` | 关原之战 | ea | `musket` | `musket` |  |
 | 1602 | `dutch-east-india-company` | 荷兰东印度公司 | eu | `caravel` | `caravel` |  |
+| 1605 | `makassar-sultanate` | 望加锡苏丹国 | sea | `junk` | `junk` |  |
 | 1607 | `jamestown` | 詹姆斯敦 | na | `city-earlymodern` | `city-earlymodern` |  |
 | 1618 | `thirty-years-war` | 三十年战争 | eu | `cannon` | `cannon` |  |
 | 1620 | `the-mayflower` | 五月花号 | na | `caravel` | `caravel` |  |
 | 1632 | `gustavus-adolphus` | 古斯塔夫二世与瑞典强权 | eu | `musket` | `musket` |  |
 | 1632 | `taj-mahal` | 泰姬陵 | sa | `mughal-tomb` | `mughal-tomb` | ★ |
+| 1635 | `dzungar-khanate` | 准噶尔汗国 | ca | `cn-cavalry` | `cn-cavalry` |  |
 | 1644 | `qing-takes-beijing` | 清军入关 | ea | `cn-cavalry` | `cn-cavalry` | ★ |
 | 1648 | `peace-of-westphalia` | 《威斯特伐利亚和约》 | eu | `treaty` | `treaty` |  |
 | 1650 | `oman-expels-the-portuguese` | 阿曼收复马斯喀特 | me | `naval` | `naval` |  |
@@ -510,6 +518,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1981 | `antigua-and-barbuda-independence` | 安提瓜和巴布达 · 独立建国 | na | `modern-founding` | `modern-founding` |  |
 | 1982 | `falklands-war` | 马岛战争 | la | `naval` | `naval` |  |
 | 1983 | `saint-kitts-and-nevis-independence` | 圣基茨和尼维斯 · 独立建国 | na | `modern-founding` | `modern-founding` |  |
+| 1985 | `mexico-city-earthquake` | 墨西哥城地震 | la | `disaster` | `disaster` |  |
 | 1986 | `chernobyl` | 切尔诺贝利核事故 | eu | `disaster` | `disaster` |  |
 | 1986 | `micronesia-independence` | 密克罗尼西亚 · 独立建国 | oc | `modern-founding` | `modern-founding` |  |
 | 1988 | `seoul-olympics` | 汉城奥运会 | ea | `city-modern` | `city-modern` |  |
@@ -541,6 +550,7 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1996 | `al-jazeera-launches` | 半岛电视台开播 | me | `digital` | `digital` |  |
 | 1997 | `kyoto-protocol` | 《京都议定书》 | ea | `city-modern` | `city-modern` |  |
 | 1997 | `hong-kong-handover` | 香港回归 | ea | `city-modern` | `city-modern` |  |
+| 1998 | `india-pakistan-nuclear-tests` | 印巴核试验 | sa | `atomic` | `atomic` |  |
 | 1998 | `good-friday-agreement` | 贝尔法斯特协议 | eu | `city-modern` | `city-modern` |  |
 | 1999 | `the-euro` | 欧元诞生 | eu | `city-modern` | `city-modern` |  |
 | 1999 | `macao-statehood` | 澳门 · 国家地位确立 | ea | `city-modern` | `city-modern` |  |
@@ -550,12 +560,14 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 2001 | `china-joins-the-wto` | 中国加入世贸组织 | ea | `industry` | `industry` |  |
 | 2002 | `timor-leste-independent` | 东帝汶独立 | sea | `modern-founding` | `modern-founding` |  |
 | 2003 | `iraq-war` | 伊拉克战争 | me | `air` | `air` |  |
+| 2003 | `latin-americas-pink-tide` | 拉美粉红浪潮 | la | `revolution` | `revolution` |  |
 | 2003 | `darfur-crisis` | 达尔富尔危机 | af | `ziggurat` | `ziggurat` |  |
 | 2004 | `indian-ocean-tsunami` | 印度洋海啸 | sea | `wave` | `wave` |  |
 | 2006 | `montenegro-independence` | 黑山 · 独立建国 | eu | `modern-founding` | `modern-founding` |  |
 | 2007 | `the-iphone` | iPhone 发布 | na | `digital` | `digital` |  |
 | 2008 | `global-financial-crisis` | 全球金融危机 | na | `city-modern` | `city-modern` |  |
 | 2008 | `beijing-olympics` | 北京奥运会 | ea | `city-modern` | `city-modern` |  |
+| 2008 | `mumbai-attacks` | 孟买袭击 | sa | `siege` | `siege` |  |
 | 2008 | `kosovo-statehood` | 科索沃 · 国家地位确立 | eu | `city-modern` | `city-modern` |  |
 | 2010 | `arab-spring` | 阿拉伯之春 | af | `revolution` | `revolution` |  |
 | 2011 | `fukushima-disaster` | 东日本大地震与福岛 | ea | `disaster` | `disaster` |  |

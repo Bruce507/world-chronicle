@@ -15294,5 +15294,335 @@
       "9月9日，中国战区受降仪式在南京举行，侵华日军向中国投降。",
       "On 9 September the China Theater surrender ceremony is held in Nanjing, and Japanese forces in China capitulate."
     ]
+  },
+{
+    "y": 840,
+    "lat": 39.47,
+    "lon": 75.99,
+    "c": "CN",
+    "rg": "ca",
+    "k": "politics",
+    "s": "city",
+    "f": 1,
+    "t": [
+      "喀喇汗国建立",
+      "Kara-Khanid Khanate"
+    ],
+    "d": [
+      "回鹘西迁后，样磨等部在喀什噶尔与七河一带建立喀喇汗国；10世纪起伊斯兰化，成为中亚突厥—伊斯兰文化的开端。",
+      "After the Uyghur migrations, Turkic groups found the Kara-Khanid Khanate around Kashgar and the Seven Rivers; its conversion to Islam from the 10th century marks the beginning of Turco-Islamic Central Asia."
+    ],
+    "tx": {
+      "es": "Kanato karajánida",
+      "fr": "Khanat karakhanide",
+      "ar": "خانية القراخانيين"
+    },
+    "dx": {
+      "es": "Tras las migraciones uigures, grupos túrquicos fundan el kanato karajánida en torno a Kashgar y los Siete Ríos; su conversión al islam desde el siglo X marca el inicio del Asia Central turco-islámica.",
+      "fr": "Après les migrations ouïghoures, des groupes turciques fondent le khanat karakhanide autour de Kachgar et des Sept Rivières ; sa conversion à l’islam à partir du Xe siècle marque le début de l’Asie centrale turco-islamique.",
+      "ar": "بعد هجرات الأويغور، أسست جماعات تركية خانية القراخانيين حول كاشغر وسبعة الأنهار؛ واعتناقها الإسلام من القرن العاشر يمثل بداية آسيا الوسطى التركية الإسلامية."
+    }
+  },
+{
+    "y": 1260,
+    "lat": 43.2,
+    "lon": 80.2,
+    "c": "KZ",
+    "rg": "ca",
+    "k": "politics",
+    "s": "cavalry",
+    "f": 1,
+    "t": [
+      "察合台汗国",
+      "Chagatai Khanate"
+    ],
+    "d": [
+      "成吉思汗次子察合台的后裔统治中亚草原与绿洲，连接蒙古、波斯与印度；14世纪分裂，在帖木儿崛起前构成中亚秩序的骨架。",
+      "The descendants of Genghis Khan's second son Chagatai rule the Central Asian steppe and oases, linking Mongolia, Persia and India; fragmentation in the 14th century precedes Timur's rise."
+    ],
+    "tx": {
+      "es": "Kanato de Chagatai",
+      "fr": "Khanat de Djaghataï",
+      "ar": "خانية جغتاي"
+    },
+    "dx": {
+      "es": "Los descendientes de Chagatai, segundo hijo de Gengis Kan, gobiernan la estepa y los oasis de Asia Central y conectan Mongolia, Persia y la India; su fragmentación en el siglo XIV precede al ascenso de Timur.",
+      "fr": "Les descendants de Djaghataï, deuxième fils de Gengis Khan, gouvernent la steppe et les oasis d’Asie centrale et relient la Mongolie, la Perse et l’Inde ; sa fragmentation au XIVe siècle précède l’ascension de Tamerlan.",
+      "ar": "حكم أحفاد جغتاي، الابن الثاني لجنكيز خان، سهوب آسيا الوسطى وواحاتها وربطوا منغوليا وفارس والهند؛ وتفتّتها في القرن الرابع عشر سبق صعود تيمور."
+    }
+  },
+{
+    "y": 1635,
+    "lat": 43.9,
+    "lon": 87.6,
+    "c": "CN",
+    "rg": "ca",
+    "k": "politics",
+    "s": "cavalry",
+    "t": [
+      "准噶尔汗国",
+      "Dzungar Khanate"
+    ],
+    "d": [
+      "卫拉特蒙古准噶尔部在伊犁河—额尔齐斯河之间建立游牧帝国，与清、俄及中亚诸部长期角力；1755—1758年为清所灭。",
+      "The Dzungar Oirats build a steppe empire between the Ili and Irtysh, contending with Qing China, Russia and Central Asian polities until its destruction in 1755–58."
+    ],
+    "tx": {
+      "es": "Kanato dzungaro",
+      "fr": "Khanat dzoungar",
+      "ar": "خانية الدزونغار"
+    },
+    "dx": {
+      "es": "Los oirates dzungaros construyen un imperio estepario entre el Ilí y el Irtish y compiten con China Qing, Rusia y los pueblos de Asia Central hasta su destrucción en 1755-58.",
+      "fr": "Les Oïrats dzoungars bâtissent un empire des steppes entre l’Ili et l’Irtych et rivalisent avec la Chine Qing, la Russie et les peuples d’Asie centrale jusqu’à sa destruction en 1755-1758.",
+      "ar": "بنى الدزونغار الأويراتيون إمبراطورية سهبية بين نهر إيلي وإيرتيش، ونافسوا الصين التشينغية وروسيا وشعوب آسيا الوسطى حتى تدميرها في 1755–1758."
+    }
+  },
+{
+    "y": -500,
+    "lat": 17.04,
+    "lon": -96.77,
+    "c": "MX",
+    "rg": "la",
+    "k": "city",
+    "s": "temple",
+    "v": "pyramid",
+    "f": 1,
+    "t": [
+      "蒙特阿尔班与萨波特克",
+      "Monte Albán and the Zapotec"
+    ],
+    "d": [
+      "萨波特克人在瓦哈卡谷地山顶建成蒙特阿尔班，历法、文字与黑陶工艺延续千余年，是前哥伦布美洲最早的城市文明之一。",
+      "The Zapotec build Monte Albán above the Oaxaca valleys; its calendar, writing and black pottery endure for over a millennium, making it one of the earliest urban civilizations of the Americas."
+    ],
+    "tx": {
+      "es": "Monte Albán y los zapotecas",
+      "fr": "Monte Albán et les Zapotèques",
+      "ar": "مونتي ألبان والزابوتيك"
+    },
+    "dx": {
+      "es": "Los zapotecas construyen Monte Albán sobre los valles de Oaxaca; su calendario, escritura y cerámica negra perduran más de un milenio, una de las primeras civilizaciones urbanas de América.",
+      "fr": "Les Zapotèques bâtissent Monte Albán au-dessus des vallées d’Oaxaca ; leur calendrier, leur écriture et leur céramique noire perdurent plus d’un millénaire, l’une des premières civilisations urbaines des Amériques.",
+      "ar": "بنى الزابوتيك مونتي ألبان فوق وديان واخاكا؛ واستمر تقويمهم وكتابتهم وفخارهم الأسود أكثر من ألف عام، لتكون من أوائل الحضارات الحضرية في الأمريكتين."
+    }
+  },
+{
+    "y": 900,
+    "lat": -8.1,
+    "lon": -79.07,
+    "c": "PE",
+    "rg": "la",
+    "k": "politics",
+    "s": "city",
+    "t": [
+      "奇穆王国",
+      "Chimú Kingdom"
+    ],
+    "d": [
+      "奇穆人在莫切谷地建都昌昌，以灌溉网络、金工与土坯城市著称；15世纪为印加所并。",
+      "The Chimú make Chan Chan their capital in the Moche valley, famed for irrigation networks, goldwork and adobe cities, until the Inca absorb them in the 15th century."
+    ],
+    "tx": {
+      "es": "Reino chimú",
+      "fr": "Royaume chimú",
+      "ar": "مملكة تشيمو"
+    },
+    "dx": {
+      "es": "Los chimú establecen su capital en Chan Chan, en el valle de Moche, famosos por sus redes de riego, orfebrería y ciudades de adobe, hasta que los incas los absorben en el siglo XV.",
+      "fr": "Les Chimú établissent leur capitale à Chan Chan, dans la vallée de Moche, réputés pour leurs réseaux d’irrigation, leur orfèvrerie et leurs cités d’adobe, avant leur absorption par les Incas au XVe siècle.",
+      "ar": "اتخذ التشيمو تشان تشان عاصمة لهم في وادي موتشي، واشتهروا بشبكات الري وصناعة الذهب ومدن الطوب اللبن، حتى ضمّهم الإنكا في القرن الخامس عشر."
+    }
+  },
+{
+    "y": 1496,
+    "lat": 5.55,
+    "lon": 95.32,
+    "c": "ID",
+    "rg": "sea",
+    "k": "trade",
+    "s": "ship",
+    "f": 1,
+    "t": [
+      "亚齐苏丹国",
+      "Aceh Sultanate"
+    ],
+    "d": [
+      "亚齐在苏门答腊北端崛起，控制马六甲海峡西口的胡椒贸易，成为印度洋伊斯兰世界的重要港口与学术中心。",
+      "Aceh rises at the northern tip of Sumatra, controlling the pepper trade at the western mouth of the Malacca Strait and becoming a major Indian Ocean Islamic port and centre of learning."
+    ],
+    "tx": {
+      "es": "Sultanato de Aceh",
+      "fr": "Sultanat d’Aceh",
+      "ar": "سلطنة آتشيه"
+    },
+    "dx": {
+      "es": "Aceh surge en el extremo norte de Sumatra, controla el comercio de pimienta en la boca occidental del estrecho de Malaca y se convierte en un puerto islámico y centro de saber del Índico.",
+      "fr": "Aceh s’impose à la pointe nord de Sumatra, contrôle le commerce du poivre à l’entrée occidentale du détroit de Malacca et devient un grand port islamique et un centre de savoir de l’océan Indien.",
+      "ar": "نهضت آتشيه في الطرف الشمالي من سومطرة، وسيطرت على تجارة الفلفل عند المدخل الغربي لمضيق ملقا، وأصبحت ميناءً إسلاميًا رئيسيًا ومركزًا للعلم في المحيط الهندي."
+    }
+  },
+{
+    "y": 1526,
+    "lat": -6.04,
+    "lon": 106.16,
+    "c": "ID",
+    "rg": "sea",
+    "k": "trade",
+    "s": "ship",
+    "t": [
+      "万丹苏丹国",
+      "Banten Sultanate"
+    ],
+    "d": [
+      "万丹港控制巽他海峡的胡椒输出，与爪哇内陆、中国和欧洲商人相连，是早期现代东南亚的海上商港政权。",
+      "The port of Banten controls pepper exports through the Sunda Strait, linking Java's interior with Chinese and European merchants as a maritime entrepôt of early modern Southeast Asia."
+    ],
+    "tx": {
+      "es": "Sultanato de Bantén",
+      "fr": "Sultanat de Banten",
+      "ar": "سلطنة بانتن"
+    },
+    "dx": {
+      "es": "El puerto de Bantén controla la exportación de pimienta por el estrecho de Sonda y conecta el interior de Java con mercaderes chinos y europeos como emporio marítimo del sudeste asiático moderno.",
+      "fr": "Le port de Banten contrôle l’exportation du poivre par le détroit de la Sonde et relie l’intérieur de Java aux marchands chinois et européens comme entrepôt maritime de l’Asie du Sud-Est moderne.",
+      "ar": "سيطر ميناء بانتن على صادرات الفلفل عبر مضيق سوندا، وربط داخل جاوة بالتجار الصينيين والأوروبيين كمركز تجاري بحري في جنوب شرق آسيا الحديثة."
+    }
+  },
+{
+    "y": 1605,
+    "lat": -5.13,
+    "lon": 119.42,
+    "c": "ID",
+    "rg": "sea",
+    "k": "trade",
+    "s": "ship",
+    "t": [
+      "望加锡苏丹国",
+      "Makassar Sultanate"
+    ],
+    "d": [
+      "望加锡（戈瓦—塔洛）凭借香料中转与自由贸易，在荷兰东印度公司扩张前维持南洋贸易的独立枢纽。",
+      "Makassar (Gowa–Tallo) thrives as an independent spice-trading hub through free trade and transshipment before the Dutch East India Company's expansion."
+    ],
+    "tx": {
+      "es": "Sultanato de Makasar",
+      "fr": "Sultanat de Makassar",
+      "ar": "سلطنة ماكاسار"
+    },
+    "dx": {
+      "es": "Makasar (Gowa-Tallo) prospera como centro independiente del comercio de especias mediante el libre comercio y el transbordo antes de la expansión de la Compañía Neerlandesa de las Indias Orientales.",
+      "fr": "Makassar (Gowa-Tallo) prospère comme centre indépendant du commerce des épices grâce au libre-échange et au transbordement avant l’expansion de la Compagnie néerlandaise des Indes orientales.",
+      "ar": "ازدهرت ماكاسار (غوا-تالو) كمركز مستقل لتجارة التوابل عبر التجارة الحرة وإعادة الشحن قبل توسع شركة الهند الشرقية الهولندية."
+    }
+  },
+{
+    "y": 1998,
+    "lat": 27.09,
+    "lon": 71.75,
+    "c": "IN",
+    "rg": "sa",
+    "k": "science",
+    "s": "atomic",
+    "f": 1,
+    "t": [
+      "印巴核试验",
+      "India-Pakistan Nuclear Tests"
+    ],
+    "d": [
+      "1998年5月，印度与巴基斯坦先后进行核试验，南亚进入公开核威慑时代；国际制裁与随后的对话重塑了地区安全。",
+      "In May 1998 India and Pakistan conduct nuclear tests, bringing open nuclear deterrence to South Asia; sanctions and later dialogue reshape regional security."
+    ],
+    "tx": {
+      "es": "Pruebas nucleares India-Pakistán",
+      "fr": "Essais nucléaires Inde-Pakistan",
+      "ar": "التجارب النووية الهندية الباكستانية"
+    },
+    "dx": {
+      "es": "En mayo de 1998 India y Pakistán realizan pruebas nucleares y llevan la disuasión nuclear abierta al sur de Asia; las sanciones y el diálogo posterior reconfiguran la seguridad regional.",
+      "fr": "En mai 1998, l’Inde et le Pakistan procèdent à des essais nucléaires, installant la dissuasion nucléaire ouverte en Asie du Sud ; sanctions et dialogue ultérieur reconfigurent la sécurité régionale.",
+      "ar": "في مايو 1998 أجرت الهند وباكستان تجارب نووية، فأدخلتا الردع النووي العلني إلى جنوب آسيا؛ وأعادت العقوبات والحوار اللاحق تشكيل الأمن الإقليمي."
+    }
+  },
+{
+    "y": 2008,
+    "lat": 18.94,
+    "lon": 72.83,
+    "c": "IN",
+    "rg": "sa",
+    "k": "war",
+    "s": "siege",
+    "t": [
+      "孟买袭击",
+      "Mumbai Attacks"
+    ],
+    "d": [
+      "2008年11月，武装分子袭击孟买火车站、酒店等目标，166人遇难；事件推动南亚反恐合作与安全反思。纪念逝者，不美化暴力。",
+      "In November 2008 armed attackers strike Mumbai's railway station and hotels, killing 166; the attack reshapes counter-terrorism and security debate in South Asia. A memorial, not a glorification of violence."
+    ],
+    "tx": {
+      "es": "Atentados de Bombay",
+      "fr": "Attentats de Bombay",
+      "ar": "هجمات مومباي"
+    },
+    "dx": {
+      "es": "En noviembre de 2008, atacantes armados golpean la estación de Bombay y varios hoteles y matan a 166 personas; el ataque transforma la cooperación antiterrorista y el debate de seguridad en el sur de Asia. Memoria, no glorificación de la violencia.",
+      "fr": "En novembre 2008, des assaillants armés frappent la gare de Bombay et des hôtels, tuant 166 personnes ; l’attaque transforme la coopération antiterroriste et le débat sécuritaire en Asie du Sud. Mémoire, non glorification de la violence.",
+      "ar": "في نوفمبر 2008 هاجم مسلحون محطة مومباي وفنادق وقتلوا 166 شخصًا؛ وأعاد الهجوم تشكيل التعاون لمكافحة الإرهاب والنقاش الأمني في جنوب آسيا. تخليد للضحايا لا تمجيد للعنف."
+    }
+  },
+{
+    "y": 1985,
+    "lat": 19.43,
+    "lon": -99.13,
+    "c": "MX",
+    "rg": "la",
+    "k": "disaster",
+    "s": "disaster",
+    "t": [
+      "墨西哥城地震",
+      "Mexico City Earthquake"
+    ],
+    "d": [
+      "1985年9月19日，墨西哥城发生8.0级地震，数千人遇难；民间救援与建筑规范改革成为城市灾难记忆的一部分。",
+      "On 19 September 1985 an 8.0 earthquake strikes Mexico City, killing thousands; civilian rescue brigades and building-code reform become part of the city's disaster memory."
+    ],
+    "tx": {
+      "es": "Terremoto de Ciudad de México",
+      "fr": "Séisme de Mexico",
+      "ar": "زلزال مدينة مكسيكو"
+    },
+    "dx": {
+      "es": "El 19 de septiembre de 1985 un terremoto de magnitud 8,0 golpea Ciudad de México y mata a miles de personas; las brigadas de rescate civil y la reforma de las normas de construcción forman parte de la memoria del desastre.",
+      "fr": "Le 19 septembre 1985, un séisme de magnitude 8,0 frappe Mexico et tue des milliers de personnes ; les brigades de secours civiles et la réforme des normes de construction marquent la mémoire de la catastrophe.",
+      "ar": "في 19 سبتمبر 1985 ضرب زلزال بقوة 8.0 مدينة مكسيكو وقتل آلافًا؛ وأصبحت فرق الإنقاذ المدنية وإصلاح قوانين البناء جزءًا من ذاكرة الكارثة."
+    }
+  },
+{
+    "y": 2003,
+    "lat": -15.79,
+    "lon": -47.88,
+    "c": "BR",
+    "rg": "la",
+    "k": "politics",
+    "s": "protest",
+    "t": [
+      "拉美粉红浪潮",
+      "Latin America's Pink Tide"
+    ],
+    "d": [
+      "2000年代，巴西、委内瑞拉、玻利维亚等国左翼政府相继执政，借大宗商品繁荣扩大社会支出，也面临极化与治理争议。",
+      "In the 2000s left-leaning governments take power in Brazil, Venezuela, Bolivia and elsewhere, expanding social spending on a commodity boom while facing polarization and governance disputes."
+    ],
+    "tx": {
+      "es": "Marea rosa latinoamericana",
+      "fr": "Marée rose latino-américaine",
+      "ar": "المد الوردي في أمريكا اللاتينية"
+    },
+    "dx": {
+      "es": "En los años 2000, gobiernos de izquierda llegan al poder en Brasil, Venezuela, Bolivia y otros países, amplían el gasto social con el auge de las materias primas y afrontan polarización y disputas de gobernanza.",
+      "fr": "Dans les années 2000, des gouvernements de gauche accèdent au pouvoir au Brésil, au Venezuela, en Bolivie et ailleurs, élargissent les dépenses sociales grâce au boom des matières premières et affrontent polarisation et conflits de gouvernance.",
+      "ar": "في العقد الأول من القرن الحادي والعشرين وصلت حكومات يسارية إلى السلطة في البرازيل وفنزويلا وبوليفيا وغيرها، ووسّعت الإنفاق الاجتماعي مع ازدهار السلع الأساسية، وواجهت استقطابًا وخلافات حوكمة."
+    }
   }
 ]

@@ -1,10 +1,10 @@
 # 重大事件清单 / Major events inventory
 
-Generated 2026-11-05. Source: `data/events.json`.
+Generated 2026-11-07. Source: `data/events.json`.
 
 | 总数 | 重点事件 | 有专属动态 | 完整详情 | 结构化简版 |
 |---:|---:|---:|---:|---:|
-| 482 | 208 | 27 | 45 | 163 |
+| 511 | 230 | 27 | 45 | 185 |
 
 ## 重点事件（`f:1`）
 
@@ -27,6 +27,7 @@ Generated 2026-11-05. Source: `data/events.json`.
 | -563 | `birth-of-the-buddha` | 佛陀诞生 / Birth of the Buddha | 南亚 | NP | 示意/无 | brief | — |
 | -551 | `birth-of-confucius` | 孔子诞生 / Birth of Confucius | 东亚 | CN | 示意/无 | brief | — |
 | -508 | `athenian-democracy` | 雅典民主改革 / Athenian Democracy | 欧洲 | GR | 示意/无 | brief | — |
+| -500 | `monte-alban-and-the-zapotec` | 蒙特阿尔班与萨波特克 / Monte Albán and the Zapotec | 拉丁美洲 | MX | 示意/无 | brief | — |
 | -480 | `thermopylae-salamis` | 温泉关与萨拉米斯 / Thermopylae & Salamis | 欧洲 | GR | 示意/无 | brief | — |
 | -331 | `battle-of-gaugamela` | 高加米拉之战 / Battle of Gaugamela | 西亚·中东 | IQ | 专属 | brief | — |
 | -264 | `the-punic-wars` | 布匿战争 / The Punic Wars | 欧洲 | IT | 专属 | brief | — |
@@ -43,16 +44,20 @@ Generated 2026-11-05. Source: `data/events.json`.
 | 570 | `birth-of-muhammad` | 穆罕默德诞生 / Birth of Muhammad | 西亚·中东 | SA | 示意/无 | brief | — |
 | 618 | `tang-dynasty` | 唐朝建立 / Tang Dynasty | 东亚 | CN | 示意/无 | brief | — |
 | 629 | `xuanzangs-journey-to-the-west` | 玄奘西行求法 / Xuanzang's Journey to the West | 中亚·草原 | CN | 专属 | brief | — |
+| 700 | `rise-of-the-ghana-empire` | 加纳帝国兴起 / Rise of the Ghana Empire | 非洲 | MR | 示意/无 | brief | — |
 | 762 | `baghdad-founded` | 巴格达建城 / Baghdad Founded | 西亚·中东 | IQ | 示意/无 | brief | — |
 | 802 | `khmer-empire` | 吴哥王朝 / Khmer Empire | 东南亚 | KH | 示意/无 | brief | — |
+| 840 | `kara-khanid-khanate` | 喀喇汗国建立 / Kara-Khanid Khanate | 中亚·草原 | CN | 示意/无 | brief | — |
 | 960 | `song-dynasty` | 宋朝建立 / Song Dynasty | 东亚 | CN | 示意/无 | brief | — |
 | 1000 | `norse-reach-vinland` | 诺斯人抵达文兰 / Norse Reach Vinland | 北美 | CA | 示意/无 | brief | — |
 | 1066 | `battle-of-hastings` | 黑斯廷斯战役 / Battle of Hastings | 欧洲 | GB | 示意/无 | brief | — |
 | 1099 | `first-crusade` | 第一次十字军东征 / First Crusade | 西亚·中东 | IL | 专属 | brief | — |
+| 1187 | `battle-of-hattin` | 哈丁战役 / Battle of Hattin | 西亚·中东 | IL | 示意/无 | brief | — |
 | 1206 | `genghis-khan` | 成吉思汗建国 / Genghis Khan | 中亚·草原 | MN | 专属 | brief | — |
 | 1215 | `magna-carta` | 《大宪章》 / Magna Carta | 欧洲 | GB | 示意/无 | full | — |
 | 1235 | `mali-empire` | 马里帝国 / Mali Empire | 非洲 | GN | 示意/无 | brief | — |
 | 1258 | `mongols-sack-baghdad` | 蒙古攻陷巴格达 / Mongols Sack Baghdad | 西亚·中东 | IQ | 示意/无 | brief | — |
+| 1260 | `chagatai-khanate` | 察合台汗国 / Chagatai Khanate | 中亚·草原 | KZ | 示意/无 | brief | — |
 | 1324 | `mansa-musas-pilgrimage` | 曼萨·穆萨朝觐 / Mansa Musa's Pilgrimage | 非洲 | ML | 示意/无 | brief | — |
 | 1325 | `tenochtitlan-founded` | 特诺奇蒂特兰建城 / Tenochtitlan Founded | 拉丁美洲 | MX | 示意/无 | brief | — |
 | 1347 | `the-black-death` | 黑死病 / The Black Death | 欧洲 | UA | 示意/无 | full | — |
@@ -63,12 +68,18 @@ Generated 2026-11-05. Source: `data/events.json`.
 | 1450 | `gutenbergs-press` | 古腾堡活字印刷 / Gutenberg's Press | 欧洲 | DE | 示意/无 | full | — |
 | 1453 | `fall-of-constantinople` | 君士坦丁堡陷落 / Fall of Constantinople | 欧洲 | TR | 示意/无 | brief | — |
 | 1492 | `columbus-reaches-the-americas` | 哥伦布抵达美洲 / Columbus Reaches the Americas | 拉丁美洲 | BS | 示意/无 | brief | — |
+| 1496 | `aceh-sultanate` | 亚齐苏丹国 / Aceh Sultanate | 东南亚 | ID | 示意/无 | brief | — |
 | 1498 | `vasco-da-gama-reaches-india` | 达伽马抵达印度 / Vasco da Gama Reaches India | 欧洲 | IN | 示意/无 | brief | — |
+| 1501 | `safavid-empire-founded` | 萨非王朝建立 / Safavid Empire Founded | 西亚·中东 | IR | 示意/无 | brief | — |
+| 1517 | `ottoman-conquest-of-egypt` | 奥斯曼征服埃及 / Ottoman Conquest of Egypt | 西亚·中东 | EG | 示意/无 | brief | — |
 | 1517 | `the-reformation` | 宗教改革 / The Reformation | 欧洲 | DE | 示意/无 | full | — |
 | 1519 | `magellans-circumnavigation` | 麦哲伦环球航行 / Magellan's Circumnavigation | 拉丁美洲 | CL | 示意/无 | brief | — |
 | 1521 | `fall-of-the-aztec-empire` | 科尔特斯灭阿兹特克 / Fall of the Aztec Empire | 拉丁美洲 | MX | 示意/无 | brief | — |
 | 1526 | `first-battle-of-panipat` | 第一次帕尼帕特战役 / First Battle of Panipat | 南亚 | IN | 示意/无 | brief | — |
+| 1526 | `battle-of-mohacs` | 莫哈奇战役 / Battle of Mohács | 欧洲 | HU | 示意/无 | brief | — |
+| 1529 | `siege-of-vienna-1529` | 维也纳之围（1529） / Siege of Vienna (1529) | 欧洲 | AT | 示意/无 | brief | — |
 | 1533 | `fall-of-the-inca` | 皮萨罗灭印加 / Fall of the Inca | 拉丁美洲 | PE | 示意/无 | brief | — |
+| 1534 | `ottoman-capture-of-baghdad` | 奥斯曼夺取巴格达 / Ottoman Capture of Baghdad | 西亚·中东 | IQ | 示意/无 | brief | — |
 | 1543 | `copernicuss-revolutions` | 哥白尼《天体运行论》 / Copernicus's Revolutions | 欧洲 | PL | 示意/无 | brief | — |
 | 1571 | `battle-of-lepanto` | 勒班陀海战 / Battle of Lepanto | 欧洲 | GR | 示意/无 | brief | — |
 | 1588 | `the-spanish-armada` | 西班牙无敌舰队 / The Spanish Armada | 欧洲 | GB | 专属 | brief | — |
@@ -87,6 +98,7 @@ Generated 2026-11-05. Source: `data/events.json`.
 | 1703 | `st-petersburg-founded` | 圣彼得堡建城 / St Petersburg Founded | 欧洲 | RU | 示意/无 | brief | — |
 | 1755 | `lisbon-earthquake` | 里斯本大地震 / Lisbon Earthquake | 欧洲 | PT | 示意/无 | brief | — |
 | 1756 | `seven-years-war` | 七年战争 / Seven Years' War | 欧洲 | DE | 示意/无 | brief | — |
+| 1757 | `battle-of-plassey` | 普拉西战役 / Battle of Plassey | 南亚 | IN | 示意/无 | brief | — |
 | 1769 | `watts-steam-engine` | 瓦特改良蒸汽机 / Watt's Steam Engine | 欧洲 | GB | 示意/无 | brief | — |
 | 1776 | `declaration-of-independence` | 美国独立宣言 / Declaration of Independence | 北美 | US | 示意/无 | full | — |
 | 1789 | `french-revolution` | 法国大革命 / French Revolution | 欧洲 | FR | 专属 | full | — |
@@ -126,22 +138,31 @@ Generated 2026-11-05. Source: `data/events.json`.
 | 1918 | `the-1918-influenza` | 1918 年流感大流行 / The 1918 Influenza | 北美 | US | 示意/无 | brief | — |
 | 1918 | `armistice-of-1918` | 一战停战 / Armistice of 1918 | 欧洲 | FR | 示意/无 | brief | — |
 | 1919 | `treaty-of-versailles` | 《凡尔赛和约》 / Treaty of Versailles | 欧洲 | FR | 示意/无 | full | — |
+| 1919 | `may-fourth-movement` | 五四运动 / May Fourth Movement | 东亚 | CN | 示意/无 | brief | — |
 | 1923 | `turkish-republic` | 土耳其共和国 / Turkish Republic | 西亚·中东 | TR | 示意/无 | brief | — |
 | 1928 | `penicillin-discovered` | 青霉素发现 / Penicillin Discovered | 欧洲 | GB | 示意/无 | brief | — |
 | 1929 | `the-great-depression` | 大萧条 / The Great Depression | 北美 | US | 示意/无 | full | — |
 | 1930 | `gandhis-salt-march` | 甘地食盐进军 / Gandhi's Salt March | 南亚 | IN | 专属 | brief | — |
 | 1931 | `mukden-incident` | 九一八事变 / Mukden Incident | 东亚 | CN | 示意/无 | brief | — |
 | 1933 | `hitler-comes-to-power` | 希特勒上台 / Hitler Comes to Power | 欧洲 | DE | 示意/无 | brief | — |
+| 1935 | `second-italo-ethiopian-war` | 第二次意埃战争 / Second Italo-Ethiopian War | 非洲 | ET | 示意/无 | brief | — |
 | 1935 | `the-long-march` | 长征 / The Long March | 东亚 | CN | 专属 | brief | — |
+| 1936 | `xian-incident` | 西安事变 / Xi'an Incident | 东亚 | CN | 示意/无 | brief | — |
 | 1936 | `spanish-civil-war` | 西班牙内战 / Spanish Civil War | 欧洲 | ES | 示意/无 | brief | — |
 | 1937 | `nanjing-massacre` | 南京大屠杀 / Nanjing Massacre | 东亚 | CN | 示意/无 | brief | — |
+| 1937 | `marco-polo-bridge-incident` | 卢沟桥事变 / Marco Polo Bridge Incident | 东亚 | CN | 示意/无 | brief | — |
+| 1937 | `battle-of-shanghai` | 淞沪会战 / Battle of Shanghai | 东亚 | CN | 示意/无 | brief | — |
+| 1938 | `battle-of-taierzhuang` | 台儿庄战役 / Battle of Taierzhuang | 东亚 | CN | 示意/无 | brief | — |
+| 1938 | `battle-of-wuhan` | 武汉会战 / Battle of Wuhan | 东亚 | CN | 示意/无 | brief | — |
 | 1939 | `world-war-ii-begins` | 第二次世界大战爆发 / World War II Begins | 欧洲 | PL | 专属 | full | — |
 | 1940 | `battle-of-britain` | 不列颠空战 / Battle of Britain | 欧洲 | GB | 专属 | brief | — |
+| 1940 | `hundred-regiments-offensive` | 百团大战 / Hundred Regiments Offensive | 东亚 | CN | 示意/无 | brief | — |
 | 1941 | `operation-barbarossa` | 巴巴罗萨行动 / Operation Barbarossa | 欧洲 | BY | 示意/无 | brief | — |
 | 1941 | `pearl-harbor` | 珍珠港事件 / Pearl Harbor | 北美 | US | 专属 | full | — |
 | 1942 | `battle-of-midway` | 中途岛海战 / Battle of Midway | 大洋洲·太平洋 | US | 示意/无 | brief | — |
 | 1942 | `battle-of-stalingrad` | 斯大林格勒战役 / Battle of Stalingrad | 欧洲 | RU | 专属 | full | — |
 | 1942 | `guadalcanal` | 瓜达尔卡纳尔岛战役 / Guadalcanal | 大洋洲·太平洋 | SB | 示意/无 | brief | — |
+| 1942 | `second-battle-of-el-alamein` | 第二次阿拉曼战役 / Second Battle of El Alamein | 非洲 | EG | 示意/无 | brief | — |
 | 1944 | `d-day` | 诺曼底登陆 / D-Day | 欧洲 | FR | 专属 | full | — |
 | 1945 | `china-theater-surrender-ceremony` | 中国战区受降 / China Theater Surrender Ceremony | 东亚 | CN | 示意/无 | full | japan-1945 |
 | 1945 | `chinas-victory-in-the-war-of-resistance` | 中国抗日战争胜利 / China's Victory in the War of Resistance | 东亚 | CN | 示意/无 | full | japan-1945 |
@@ -197,6 +218,7 @@ Generated 2026-11-05. Source: `data/events.json`.
 | 1994 | `end-of-apartheid` | 南非种族隔离终结 / End of Apartheid | 非洲 | ZA | 示意/无 | brief | — |
 | 1994 | `rwandan-genocide` | 卢旺达大屠杀 / Rwandan Genocide | 非洲 | RW | 示意/无 | brief | — |
 | 1997 | `hong-kong-handover` | 香港回归 / Hong Kong Handover | 东亚 | HK | 示意/无 | brief | — |
+| 1998 | `india-pakistan-nuclear-tests` | 印巴核试验 / India-Pakistan Nuclear Tests | 南亚 | IN | 示意/无 | brief | — |
 | 1999 | `the-euro` | 欧元诞生 / The Euro | 欧洲 | DE | 示意/无 | brief | — |
 | 2001 | `september-11-attacks` | “九一一”事件 / September 11 Attacks | 北美 | US | 专属 | full | — |
 | 2001 | `china-joins-the-wto` | 中国加入世贸组织 / China Joins the WTO | 东亚 | CN | 示意/无 | brief | — |
