@@ -479,6 +479,7 @@
   let draggingTrack = false, eventTimer = 0, lastAutoGroup = "";
   let searchItems = [], searchActive = -1, noteTimer = 0, toastTimer = 0, navigatingHistory = false;
   let lastFocusEl = null, chroniclesP = null, detailsP = null, modalReturnFocus = null, aboutReturnFocus = null;
+  let bootFailed = false;
 
   /* ── boot ───────────────────────────────────────── */
   function boot() {
@@ -524,6 +525,8 @@
     // If a core script fails to arrive (flaky network, interrupted cache),
     // say so in the panel instead of leaving a blank map behind the guide.
     if (typeof AtlasMap !== "function") {
+      bootFailed = true;
+      el["onboarding"].hidden = true;
       el["panel-kicker"].textContent = t("brand");
       el["panel-title"].textContent = L("地图脚本未能载入", "The map script did not load", "No se cargó el script del mapa", "Le script de la carte n’a pas pu être chargé", "لم يُحمَّل نص الخريطة");
       el["panel-sub"].textContent = "";
@@ -3598,6 +3601,8 @@
 
   /* ── onboarding ─────────────────────────────────── */
   function showOnboarding() {
+    // Never cover the "map script did not load" message with the guide.
+    if (bootFailed) return;
     if (el["onboarding"]) el["onboarding"].hidden = false;
   }
   function closeOnboarding(openGuide) {
