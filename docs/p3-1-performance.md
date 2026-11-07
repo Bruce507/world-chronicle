@@ -93,6 +93,8 @@ BASE_URL=http://localhost:8002/ npm run perf:throttle
 
 剧场（CPU 4×、DPR 3、390×844）：**平均 16.6 ms / p95 16.7 ms**（约 60fps）。
 
+本机无节流（`npm run perf`，1440×900）：地图可交互 **126 ms**，521 事件 `drawBase` **8 ms**，剧场 16.6 ms / p95 16.8 ms。
+
 ### 本轮修掉的两个真实缺陷
 
 1. **隐藏的迷你地图画布会指数级放大后备存储。** `_drawMinimap` 在元素 `display:none`（`clientWidth = 0`）时回退到"上一次的画布宽度"，再乘以 DPR 写回，于是每帧翻倍；DPR 3 手机上实测达到 **39,321,600 × 19,660,800 px**。修复：没有布局尺寸时直接返回，不做 resize/绘制。修复后画布总量稳定 7.8 MB。
