@@ -23,6 +23,7 @@
     "smoke": "node scripts/ux-smoke.mjs",
     "content-check": "node scripts/content-check.mjs",
     "a11y": "node scripts/a11y-audit.mjs",
+    "data-qa": "node scripts/data-qa.mjs",
     "perf": "node scripts/perf-probe.mjs",
     "perf:throttle": "node scripts/perf-throttle.mjs",
     "version:bump": "node scripts/bump-version.mjs"

@@ -185,6 +185,10 @@
       {
         "label": "Wikipedia — Athenian democracy",
         "url": "https://en.wikipedia.org/wiki/Athenian_democracy"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Acropolis, Athens",
+        "url": "https://whc.unesco.org/en/list/404/"
       }
     ]
   },
@@ -824,6 +828,10 @@
       {
         "label": "Wikipedia — Borobudur",
         "url": "https://en.wikipedia.org/wiki/Borobudur"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Borobudur",
+        "url": "https://whc.unesco.org/en/list/592/"
       }
     ]
   },
@@ -1750,6 +1758,10 @@
       {
         "label": "Wikipedia — Fall of Constantinople",
         "url": "https://en.wikipedia.org/wiki/Fall_of_Constantinople"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Historic Areas of Istanbul",
+        "url": "https://whc.unesco.org/en/list/356/"
       }
     ]
   },
@@ -1823,6 +1835,10 @@
       {
         "label": "Wikipedia — Granada War",
         "url": "https://en.wikipedia.org/wiki/Granada_War"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Alhambra, Generalife and Albayzín",
+        "url": "https://whc.unesco.org/en/list/314/"
       }
     ]
   },
@@ -2093,6 +2109,10 @@
       {
         "label": "Wikipedia — Spanish conquest of the Inca Empire",
         "url": "https://en.wikipedia.org/wiki/Spanish_conquest_of_the_Inca_Empire"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — City of Cuzco",
+        "url": "https://whc.unesco.org/en/list/273/"
       }
     ]
   },
@@ -2199,7 +2219,7 @@
       "en": "Romans traced their city to Romulus in 753 BCE; archaeology shows settlements on the Palatine by the eighth century BCE, from which Rome grew into a Mediterranean empire."
     },
     "background": {
-      "zh": "罗马建城故事融合了阿尔巴隆伽王位斗争、双子被母狼哺育与兄弟相残的母题。它并非 contemporaneous 记录，而是罗马人在数百年后对自身起源的整理。",
+      "zh": "罗马建城故事融合了阿尔巴隆伽王位斗争、双子被母狼哺育与兄弟相残的母题。它并非 同时代 记录，而是罗马人在数百年后对自身起源的整理。",
       "en": "The foundation story blends a dynastic struggle at Alba Longa, twins suckled by a she-wolf and fratricide. It is not a contemporary record but Rome's later shaping of its own origins."
     },
     "course": {
@@ -2223,6 +2243,10 @@
       {
         "label": "Wikipedia — Founding of Rome",
         "url": "https://en.wikipedia.org/wiki/Founding_of_Rome"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Historic Centre of Rome",
+        "url": "https://whc.unesco.org/en/list/91/"
       }
     ]
   },
@@ -2911,7 +2935,7 @@
       "en": "The waves struck Indonesia, Sri Lanka, India, Thailand, the Maldives and East Africa within hours. The absence of warning systems and public education magnified the toll."
     },
     "outcome": {
-      "zh": "约22.7万人死亡或失踪，是 modern 史上最严重的海啸灾难之一。灾后印度洋海啸预警系统逐步建立。",
+      "zh": "约22.7万人死亡或失踪，是 近代 史上最严重的海啸灾难之一。灾后印度洋海啸预警系统逐步建立。",
       "en": "About 227,000 people died or went missing, one of the deadliest tsunamis in modern history. An Indian Ocean warning system was built after the disaster."
     },
     "chain": [],
@@ -3511,6 +3535,10 @@
       {
         "label": "Wikipedia — Mali Empire",
         "url": "https://en.wikipedia.org/wiki/Mali_Empire"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Timbuktu",
+        "url": "https://whc.unesco.org/en/list/119/"
       }
     ]
   },
@@ -3705,6 +3733,10 @@
       {
         "label": "Wikipedia — Maurya Empire",
         "url": "https://en.wikipedia.org/wiki/Maurya_Empire"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Buddhist Monuments at Sanchi",
+        "url": "https://whc.unesco.org/en/list/524/"
       }
     ]
   },
@@ -4393,6 +4425,10 @@
       {
         "label": "Wikipedia — Ottoman conquest of Egypt",
         "url": "https://en.wikipedia.org/wiki/Ottoman_conquest_of_Egypt"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Historic Cairo",
+        "url": "https://whc.unesco.org/en/list/89/"
       }
     ]
   },
@@ -4773,6 +4809,10 @@
       {
         "label": "Wikipedia — Alexander Fleming",
         "url": "https://en.wikipedia.org/wiki/Alexander_Fleming"
+      },
+      {
+        "label": "Nobel Prize — Alexander Fleming facts",
+        "url": "https://www.nobelprize.org/prizes/medicine/1945/fleming/facts/"
       }
     ]
   },
@@ -4903,6 +4943,10 @@
       {
         "label": "Wikipedia — Capture of Malacca (1511)",
         "url": "https://en.wikipedia.org/wiki/Capture_of_Malacca_%281511%29"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Melaka and George Town",
+        "url": "https://whc.unesco.org/en/list/1223/"
       }
     ]
   },
@@ -5039,6 +5083,10 @@
       {
         "label": "Wikipedia — Great Pyramid of Giza",
         "url": "https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Memphis and its Necropolis",
+        "url": "https://whc.unesco.org/en/list/86/"
       }
     ]
   },
@@ -5685,6 +5733,10 @@
       {
         "label": "Wikipedia — Siege of Vienna (1529)",
         "url": "https://en.wikipedia.org/wiki/Siege_of_Vienna_(1529)"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Historic Centre of Vienna",
+        "url": "https://whc.unesco.org/en/list/1033/"
       }
     ]
   },
@@ -5878,6 +5930,10 @@
       {
         "label": "Wikipedia — Sputnik 1",
         "url": "https://en.wikipedia.org/wiki/Sputnik_1"
+      },
+      {
+        "label": "NASA History — Sputnik and the Dawn of the Space Age",
+        "url": "https://www.nasa.gov/history/sputnik/"
       }
     ]
   },
@@ -5939,6 +5995,10 @@
       {
         "label": "Wikipedia — Stockton and Darlington Railway",
         "url": "https://en.wikipedia.org/wiki/Stockton_and_Darlington_Railway"
+      },
+      {
+        "label": "National Railway Museum — Stockton and Darlington Railway",
+        "url": "https://www.railwaymuseum.org.uk/"
       }
     ]
   },
@@ -6004,6 +6064,10 @@
       {
         "label": "Wikipedia — Taj Mahal",
         "url": "https://en.wikipedia.org/wiki/Taj_Mahal"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Taj Mahal",
+        "url": "https://whc.unesco.org/en/list/252/"
       }
     ]
   },
@@ -6069,6 +6133,10 @@
       {
         "label": "Wikipedia — Tenochtitlan",
         "url": "https://en.wikipedia.org/wiki/Tenochtitlan"
+      },
+      {
+        "label": "UNESCO World Heritage Centre — Historic Centre of Mexico City",
+        "url": "https://whc.unesco.org/en/list/412/"
       }
     ]
   },
@@ -6508,6 +6576,10 @@
       {
         "label": "Wikipedia — Silk Road",
         "url": "https://en.wikipedia.org/wiki/Silk_Road"
+      },
+      {
+        "label": "UNESCO — Silk Roads Programme",
+        "url": "https://en.unesco.org/silkroad/"
       }
     ]
   },
@@ -6885,6 +6957,10 @@
       {
         "label": "Wikipedia — Wright Flyer",
         "url": "https://en.wikipedia.org/wiki/Wright_Flyer"
+      },
+      {
+        "label": "U.S. National Park Service — Wright Brothers National Memorial",
+        "url": "https://www.nps.gov/wrbr/index.htm"
       }
     ]
   },

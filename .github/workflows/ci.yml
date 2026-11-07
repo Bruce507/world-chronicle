@@ -52,5 +52,8 @@ jobs:
       - name: Accessibility audit
         run: node scripts/a11y-audit.mjs
 
+      - name: Data QA
+        run: node scripts/data-qa.mjs
+
       - name: Smoke suite
         run: node scripts/ux-smoke.mjs
