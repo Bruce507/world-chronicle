@@ -7,7 +7,7 @@
 (function () {
   "use strict";
   const BASE = "data/historical_entities.json";
-  const V = "?v=20261108s";
+  const V = "?v=20261108t";
 
   // A curated polity suppresses the rough snapshot labels that name the same
   // ground under an older or generic name (清 / 中国 / 中国军阀 while the
@@ -90,6 +90,7 @@
     labelOf(e, lang) {
       if (!e.name) return "";
       if (lang === "zh") return e.name.zh || "";
+      if (lang !== "en" && e.name[lang]) return e.name[lang];
       if (lang !== "en" && e.type === "modern" && e.code && this.map) {
         if (!this._byCode) {
           this._byCode = {};

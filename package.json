@@ -25,6 +25,7 @@
     "a11y": "node scripts/a11y-audit.mjs",
     "data-qa": "node scripts/data-qa.mjs",
     "pwa": "node scripts/pwa-check.mjs",
+    "entity-i18n": "node scripts/entity-i18n-check.mjs",
     "perf": "node scripts/perf-probe.mjs",
     "perf:throttle": "node scripts/perf-throttle.mjs",
     "version:bump": "node scripts/bump-version.mjs"

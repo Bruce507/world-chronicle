@@ -58,5 +58,8 @@ jobs:
       - name: PWA / offline check
         run: node scripts/pwa-check.mjs
 
+      - name: Entity language coverage
+        run: node scripts/entity-i18n-check.mjs
+
       - name: Smoke suite
         run: node scripts/ux-smoke.mjs

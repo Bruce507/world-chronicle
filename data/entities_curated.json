@@ -3,7 +3,10 @@
     "id": "curated-china-xia",
     "name": {
       "zh": "夏",
-      "en": "Xia"
+      "en": "Xia",
+      "es": "dinastía Xia",
+      "fr": "dynastie Xia",
+      "ar": "أسرة شيا"
     },
     "type": "state",
     "from": -2070,
@@ -19,7 +22,10 @@
     "id": "curated-china-shang",
     "name": {
       "zh": "商",
-      "en": "Shang"
+      "en": "Shang",
+      "es": "dinastía Shang",
+      "fr": "dynastie Shang",
+      "ar": "أسرة شانغ"
     },
     "type": "state",
     "from": -1600,
@@ -35,7 +41,10 @@
     "id": "curated-china-western-zhou",
     "name": {
       "zh": "西周",
-      "en": "Western Zhou"
+      "en": "Western Zhou",
+      "es": "Zhou Occidental",
+      "fr": "Zhou de l’Ouest",
+      "ar": "أسرة تشو الغربية"
     },
     "type": "state",
     "from": -1046,
@@ -51,7 +60,10 @@
     "id": "curated-china-spring-autumn",
     "name": {
       "zh": "春秋",
-      "en": "Spring and Autumn"
+      "en": "Spring and Autumn",
+      "es": "Primaveras y Otoños",
+      "fr": "Printemps et Automnes",
+      "ar": "فترتا الربيع والخريف"
     },
     "type": "state",
     "from": -771,
@@ -67,7 +79,10 @@
     "id": "curated-china-warring-states",
     "name": {
       "zh": "战国",
-      "en": "Warring States"
+      "en": "Warring States",
+      "es": "Reinos Combatientes",
+      "fr": "Royaumes combattants",
+      "ar": "الممالك المتحاربة"
     },
     "type": "state",
     "from": -475,
@@ -83,7 +98,10 @@
     "id": "curated-china-qin",
     "name": {
       "zh": "秦",
-      "en": "Qin"
+      "en": "Qin",
+      "es": "dinastía Qin",
+      "fr": "dynastie Qin",
+      "ar": "أسرة تشين"
     },
     "type": "empire",
     "from": -221,
@@ -99,7 +117,10 @@
     "id": "curated-china-western-han",
     "name": {
       "zh": "西汉",
-      "en": "Western Han"
+      "en": "Western Han",
+      "es": "Han Occidental",
+      "fr": "Han de l’Ouest",
+      "ar": "أسرة هان الغربية"
     },
     "type": "empire",
     "from": -206,
@@ -115,7 +136,10 @@
     "id": "curated-china-xin",
     "name": {
       "zh": "新",
-      "en": "Xin"
+      "en": "Xin",
+      "es": "dinastía Xin",
+      "fr": "dynastie Xin",
+      "ar": "أسرة شين"
     },
     "type": "state",
     "from": 9,
@@ -131,7 +155,10 @@
     "id": "curated-china-eastern-han",
     "name": {
       "zh": "东汉",
-      "en": "Eastern Han"
+      "en": "Eastern Han",
+      "es": "Han Oriental",
+      "fr": "Han de l’Est",
+      "ar": "أسرة هان الشرقية"
     },
     "type": "empire",
     "from": 25,
@@ -147,7 +174,10 @@
     "id": "curated-china-three-kingdoms",
     "name": {
       "zh": "三国",
-      "en": "Three Kingdoms"
+      "en": "Three Kingdoms",
+      "es": "Tres Reinos",
+      "fr": "Trois Royaumes",
+      "ar": "الممالك الثلاث"
     },
     "type": "state",
     "from": 220,
@@ -163,7 +193,10 @@
     "id": "curated-china-western-jin",
     "name": {
       "zh": "西晋",
-      "en": "Western Jin"
+      "en": "Western Jin",
+      "es": "Jin Occidental",
+      "fr": "Jin de l’Ouest",
+      "ar": "أسرة جين الغربية"
     },
     "type": "empire",
     "from": 265,
@@ -179,7 +212,10 @@
     "id": "curated-china-eastern-jin",
     "name": {
       "zh": "东晋",
-      "en": "Eastern Jin"
+      "en": "Eastern Jin",
+      "es": "Jin Oriental",
+      "fr": "Jin de l’Est",
+      "ar": "أسرة جين الشرقية"
     },
     "type": "state",
     "from": 317,
@@ -195,7 +231,10 @@
     "id": "curated-china-northern-southern",
     "name": {
       "zh": "南北朝",
-      "en": "Northern and Southern Dynasties"
+      "en": "Northern and Southern Dynasties",
+      "es": "Dinastías del Norte y del Sur",
+      "fr": "Dynasties du Nord et du Sud",
+      "ar": "الأسر الشمالية والجنوبية"
     },
     "type": "state",
     "from": 420,
@@ -211,7 +250,10 @@
     "id": "curated-china-sui",
     "name": {
       "zh": "隋",
-      "en": "Sui"
+      "en": "Sui",
+      "es": "dinastía Sui",
+      "fr": "dynastie Sui",
+      "ar": "أسرة سوي"
     },
     "type": "empire",
     "from": 581,
@@ -227,7 +269,10 @@
     "id": "curated-china-tang",
     "name": {
       "zh": "唐",
-      "en": "Tang"
+      "en": "Tang",
+      "es": "dinastía Tang",
+      "fr": "dynastie Tang",
+      "ar": "أسرة تانغ"
     },
     "type": "empire",
     "from": 618,
@@ -243,7 +288,10 @@
     "id": "curated-china-five-dynasties",
     "name": {
       "zh": "五代十国",
-      "en": "Five Dynasties and Ten Kingdoms"
+      "en": "Five Dynasties and Ten Kingdoms",
+      "es": "Cinco Dinastías y Diez Reinos",
+      "fr": "Cinq Dynasties et Dix Royaumes",
+      "ar": "الأسر الخمس والممالك العشر"
     },
     "type": "state",
     "from": 907,
@@ -259,7 +307,10 @@
     "id": "curated-china-song",
     "name": {
       "zh": "宋",
-      "en": "Song"
+      "en": "Song",
+      "es": "dinastía Song",
+      "fr": "dynastie Song",
+      "ar": "أسرة سونغ"
     },
     "type": "empire",
     "from": 960,
@@ -275,7 +326,10 @@
     "id": "curated-china-liao",
     "name": {
       "zh": "辽",
-      "en": "Liao"
+      "en": "Liao",
+      "es": "dinastía Liao",
+      "fr": "dynastie Liao",
+      "ar": "أسرة لياو"
     },
     "type": "empire",
     "from": 916,
@@ -291,7 +345,10 @@
     "id": "curated-china-western-xia",
     "name": {
       "zh": "西夏",
-      "en": "Western Xia"
+      "en": "Western Xia",
+      "es": "Xia Occidental",
+      "fr": "Xia de l’Ouest",
+      "ar": "شيا الغربية"
     },
     "type": "state",
     "from": 1038,
@@ -307,7 +364,10 @@
     "id": "curated-china-jin",
     "name": {
       "zh": "金",
-      "en": "Jin"
+      "en": "Jin",
+      "es": "dinastía Jin",
+      "fr": "dynastie Jin",
+      "ar": "أسرة جين"
     },
     "type": "empire",
     "from": 1115,
@@ -323,7 +383,10 @@
     "id": "curated-china-yuan",
     "name": {
       "zh": "元",
-      "en": "Yuan"
+      "en": "Yuan",
+      "es": "dinastía Yuan",
+      "fr": "dynastie Yuan",
+      "ar": "أسرة يوان"
     },
     "type": "empire",
     "from": 1271,
@@ -339,7 +402,10 @@
     "id": "curated-china-ming",
     "name": {
       "zh": "明",
-      "en": "Ming"
+      "en": "Ming",
+      "es": "dinastía Ming",
+      "fr": "dynastie Ming",
+      "ar": "أسرة مينغ"
     },
     "type": "empire",
     "from": 1368,
@@ -355,7 +421,10 @@
     "id": "curated-china-qing",
     "name": {
       "zh": "清",
-      "en": "Qing"
+      "en": "Qing",
+      "es": "dinastía Qing",
+      "fr": "dynastie Qing",
+      "ar": "أسرة تشينغ"
     },
     "type": "empire",
     "from": 1644,
@@ -371,7 +440,10 @@
     "id": "curated-china-roc",
     "name": {
       "zh": "中华民国",
-      "en": "Republic of China"
+      "en": "Republic of China",
+      "es": "República de China",
+      "fr": "République de Chine",
+      "ar": "جمهورية الصين"
     },
     "type": "state",
     "from": 1912,
@@ -387,7 +459,10 @@
     "id": "curated-china-prc",
     "name": {
       "zh": "中华人民共和国",
-      "en": "People's Republic of China"
+      "en": "People's Republic of China",
+      "es": "República Popular China",
+      "fr": "République populaire de Chine",
+      "ar": "جمهورية الصين الشعبية"
     },
     "type": "state",
     "from": 1949,
@@ -403,7 +478,10 @@
     "id": "curated-china-yangshao",
     "name": {
       "zh": "仰韶文化",
-      "en": "Yangshao culture"
+      "en": "Yangshao culture",
+      "es": "cultura Yangshao",
+      "fr": "culture de Yangshao",
+      "ar": "ثقافة يانغشاو"
     },
     "type": "culture",
     "from": -5000,
@@ -419,7 +497,10 @@
     "id": "curated-china-longshan",
     "name": {
       "zh": "龙山文化",
-      "en": "Longshan culture"
+      "en": "Longshan culture",
+      "es": "cultura Longshan",
+      "fr": "culture de Longshan",
+      "ar": "ثقافة لونغشان"
     },
     "type": "culture",
     "from": -3000,
@@ -435,7 +516,10 @@
     "id": "curated-china-liangzhu",
     "name": {
       "zh": "良渚文化",
-      "en": "Liangzhu culture"
+      "en": "Liangzhu culture",
+      "es": "cultura Liangzhu",
+      "fr": "culture de Liangzhu",
+      "ar": "ثقافة ليانغتشو"
     },
     "type": "culture",
     "from": -3300,
@@ -451,7 +535,10 @@
     "id": "curated-china-erlitou",
     "name": {
       "zh": "二里头文化",
-      "en": "Erlitou culture"
+      "en": "Erlitou culture",
+      "es": "cultura Erlitou",
+      "fr": "culture d’Erlitou",
+      "ar": "ثقافة إرليتو"
     },
     "type": "culture",
     "from": -1900,
@@ -467,7 +554,10 @@
     "id": "curated-japan-yamato",
     "name": {
       "zh": "日本",
-      "en": "Japan"
+      "en": "Japan",
+      "es": "Japón",
+      "fr": "Japon",
+      "ar": "اليابان"
     },
     "type": "state",
     "from": -300,
@@ -482,7 +572,10 @@
     "id": "curated-japan-empire",
     "name": {
       "zh": "日本帝国",
-      "en": "Empire of Japan"
+      "en": "Empire of Japan",
+      "es": "Imperio del Japón",
+      "fr": "Empire du Japon",
+      "ar": "الإمبراطورية اليابانية"
     },
     "type": "empire",
     "from": 1868,
@@ -497,7 +590,10 @@
     "id": "curated-japan-state",
     "name": {
       "zh": "日本国",
-      "en": "Japan"
+      "en": "Japan",
+      "es": "Japón",
+      "fr": "Japon",
+      "ar": "اليابان"
     },
     "type": "state",
     "from": 1947,
@@ -512,7 +608,10 @@
     "id": "curated-australia-indigenous",
     "name": {
       "zh": "澳洲原住民",
-      "en": "Aboriginal Australia"
+      "en": "Aboriginal Australia",
+      "es": "Aborígenes australianos",
+      "fr": "Aborigènes d’Australie",
+      "ar": "السكان الأصليون في أستراليا"
     },
     "type": "indigenous",
     "from": -12000,
@@ -527,7 +626,10 @@
     "id": "curated-australia-colony",
     "name": {
       "zh": "英属澳大利亚殖民地",
-      "en": "British Australian colonies"
+      "en": "British Australian colonies",
+      "es": "colonias británicas de Australia",
+      "fr": "colonies britanniques d’Australie",
+      "ar": "المستعمرات البريطانية في أستراليا"
     },
     "type": "colony",
     "from": 1788,
@@ -542,7 +644,10 @@
     "id": "curated-australia-federation",
     "name": {
       "zh": "澳大利亚联邦",
-      "en": "Commonwealth of Australia"
+      "en": "Commonwealth of Australia",
+      "es": "Mancomunidad de Australia",
+      "fr": "Commonwealth d’Australie",
+      "ar": "كومنولث أستراليا"
     },
     "type": "state",
     "from": 1901,
@@ -557,7 +662,10 @@
     "id": "curated-rome-republic",
     "name": {
       "zh": "罗马共和国",
-      "en": "Roman Republic"
+      "en": "Roman Republic",
+      "es": "República romana",
+      "fr": "République romaine",
+      "ar": "الجمهورية الرومانية"
     },
     "type": "state",
     "from": -509,
@@ -572,7 +680,10 @@
     "id": "curated-rome-empire",
     "name": {
       "zh": "罗马帝国",
-      "en": "Roman Empire"
+      "en": "Roman Empire",
+      "es": "Imperio romano",
+      "fr": "Empire romain",
+      "ar": "الإمبراطورية الرومانية"
     },
     "type": "empire",
     "from": -27,
@@ -587,7 +698,10 @@
     "id": "curated-byzantium",
     "name": {
       "zh": "拜占庭帝国",
-      "en": "Byzantine Empire"
+      "en": "Byzantine Empire",
+      "es": "Imperio bizantino",
+      "fr": "Empire byzantin",
+      "ar": "الإمبراطورية البيزنطية"
     },
     "type": "empire",
     "from": 395,
@@ -602,7 +716,10 @@
     "id": "curated-frankish",
     "name": {
       "zh": "法兰克王国",
-      "en": "Frankish Kingdom"
+      "en": "Frankish Kingdom",
+      "es": "Reino franco",
+      "fr": "Royaume franc",
+      "ar": "المملكة الفرنجية"
     },
     "type": "state",
     "from": 481,
@@ -617,7 +734,10 @@
     "id": "curated-hre",
     "name": {
       "zh": "神圣罗马帝国",
-      "en": "Holy Roman Empire"
+      "en": "Holy Roman Empire",
+      "es": "Sacro Imperio Romano Germánico",
+      "fr": "Saint-Empire romain germanique",
+      "ar": "الإمبراطورية الرومانية المقدسة"
     },
     "type": "empire",
     "from": 962,
@@ -632,7 +752,10 @@
     "id": "curated-olmec",
     "name": {
       "zh": "奥尔梅克",
-      "en": "Olmec"
+      "en": "Olmec",
+      "es": "olmeca",
+      "fr": "olmèque",
+      "ar": "الأولمك"
     },
     "type": "culture",
     "from": -1500,
@@ -647,7 +770,10 @@
     "id": "curated-maya",
     "name": {
       "zh": "玛雅",
-      "en": "Maya"
+      "en": "Maya",
+      "es": "maya",
+      "fr": "maya",
+      "ar": "المايا"
     },
     "type": "culture",
     "from": -2000,
@@ -662,7 +788,10 @@
     "id": "curated-aztec",
     "name": {
       "zh": "阿兹特克",
-      "en": "Aztec Empire"
+      "en": "Aztec Empire",
+      "es": "Imperio azteca",
+      "fr": "Empire aztèque",
+      "ar": "إمبراطورية الأزتك"
     },
     "type": "empire",
     "from": 1428,
@@ -677,7 +806,10 @@
     "id": "curated-inca",
     "name": {
       "zh": "印加帝国",
-      "en": "Inca Empire"
+      "en": "Inca Empire",
+      "es": "Imperio inca",
+      "fr": "Empire inca",
+      "ar": "إمبراطورية الإنكا"
     },
     "type": "empire",
     "from": 1438,
@@ -692,7 +824,10 @@
     "id": "curated-maurya",
     "name": {
       "zh": "孔雀王朝",
-      "en": "Maurya Empire"
+      "en": "Maurya Empire",
+      "es": "Imperio maurya",
+      "fr": "Empire maurya",
+      "ar": "إمبراطورية موريا"
     },
     "type": "empire",
     "from": -322,
@@ -707,7 +842,10 @@
     "id": "curated-gupta",
     "name": {
       "zh": "笈多王朝",
-      "en": "Gupta Empire"
+      "en": "Gupta Empire",
+      "es": "Imperio gupta",
+      "fr": "Empire Gupta",
+      "ar": "إمبراطورية غوبتا"
     },
     "type": "empire",
     "from": 320,
@@ -722,7 +860,10 @@
     "id": "curated-mughal",
     "name": {
       "zh": "莫卧儿帝国",
-      "en": "Mughal Empire"
+      "en": "Mughal Empire",
+      "es": "Imperio mogol",
+      "fr": "Empire moghol",
+      "ar": "إمبراطورية المغول"
     },
     "type": "empire",
     "from": 1526,
@@ -737,7 +878,10 @@
     "id": "curated-british-raj",
     "name": {
       "zh": "英属印度",
-      "en": "British Raj"
+      "en": "British Raj",
+      "es": "Raj británico",
+      "fr": "Raj britannique",
+      "ar": "الراج البريطاني"
     },
     "type": "colony",
     "from": 1858,
@@ -752,7 +896,10 @@
     "id": "curated-india",
     "name": {
       "zh": "印度",
-      "en": "India"
+      "en": "India",
+      "es": "India",
+      "fr": "Inde",
+      "ar": "الهند"
     },
     "type": "state",
     "from": 1947,
@@ -767,7 +914,10 @@
     "id": "curated-achaemenid",
     "name": {
       "zh": "阿契美尼德波斯",
-      "en": "Achaemenid Empire"
+      "en": "Achaemenid Empire",
+      "es": "Imperio aqueménida",
+      "fr": "Empire achéménide",
+      "ar": "الإمبراطورية الأخمينية"
     },
     "type": "empire",
     "from": -550,
@@ -782,7 +932,10 @@
     "id": "curated-abbasid",
     "name": {
       "zh": "阿拔斯哈里发",
-      "en": "Abbasid Caliphate"
+      "en": "Abbasid Caliphate",
+      "es": "Califato abasí",
+      "fr": "Califat abbasside",
+      "ar": "الخلافة العباسية"
     },
     "type": "empire",
     "from": 750,
@@ -797,7 +950,10 @@
     "id": "curated-ottoman",
     "name": {
       "zh": "奥斯曼帝国",
-      "en": "Ottoman Empire"
+      "en": "Ottoman Empire",
+      "es": "Imperio otomano",
+      "fr": "Empire ottoman",
+      "ar": "الإمبراطورية العثمانية"
     },
     "type": "empire",
     "from": 1299,
@@ -812,7 +968,10 @@
     "id": "curated-new-spain",
     "name": {
       "zh": "新西班牙",
-      "en": "New Spain"
+      "en": "New Spain",
+      "es": "Nueva España",
+      "fr": "Nouvelle-Espagne",
+      "ar": "إسبانيا الجديدة"
     },
     "type": "colony",
     "from": 1521,
@@ -827,7 +986,10 @@
     "id": "curated-british-america",
     "name": {
       "zh": "英属北美殖民地",
-      "en": "British American colonies"
+      "en": "British American colonies",
+      "es": "colonias británicas de América",
+      "fr": "colonies britanniques d’Amérique",
+      "ar": "المستعمرات البريطانية في أمريكا"
     },
     "type": "colony",
     "from": 1607,
@@ -842,7 +1004,10 @@
     "id": "curated-new-france",
     "name": {
       "zh": "新法兰西",
-      "en": "New France"
+      "en": "New France",
+      "es": "Nueva Francia",
+      "fr": "Nouvelle-France",
+      "ar": "فرنسا الجديدة"
     },
     "type": "colony",
     "from": 1534,
@@ -857,7 +1022,10 @@
     "id": "curated-colonial-brazil",
     "name": {
       "zh": "葡属巴西",
-      "en": "Colonial Brazil"
+      "en": "Colonial Brazil",
+      "es": "Brasil colonial",
+      "fr": "Brésil colonial",
+      "ar": "البرازيل الاستعمارية"
     },
     "type": "colony",
     "from": 1500,
@@ -872,7 +1040,10 @@
     "id": "curated-spanish-peru",
     "name": {
       "zh": "西属秘鲁",
-      "en": "Spanish Peru"
+      "en": "Spanish Peru",
+      "es": "Perú español",
+      "fr": "Pérou espagnol",
+      "ar": "بيرو الإسبانية"
     },
     "type": "colony",
     "from": 1542,
@@ -887,7 +1058,10 @@
     "id": "curated-dutch-east-indies",
     "name": {
       "zh": "荷属东印度",
-      "en": "Dutch East Indies"
+      "en": "Dutch East Indies",
+      "es": "Indias Orientales Neerlandesas",
+      "fr": "Indes orientales néerlandaises",
+      "ar": "جزر الهند الشرقية الهولندية"
     },
     "type": "colony",
     "from": 1800,
@@ -902,7 +1076,10 @@
     "id": "curated-french-indochina",
     "name": {
       "zh": "法属印度支那",
-      "en": "French Indochina"
+      "en": "French Indochina",
+      "es": "Indochina francesa",
+      "fr": "Indochine française",
+      "ar": "الهند الصينية الفرنسية"
     },
     "type": "colony",
     "from": 1887,
@@ -917,7 +1094,10 @@
     "id": "curated-british-malaya",
     "name": {
       "zh": "英属马来亚",
-      "en": "British Malaya"
+      "en": "British Malaya",
+      "es": "Malaya británica",
+      "fr": "Malaisie britannique",
+      "ar": "مالايا البريطانية"
     },
     "type": "colony",
     "from": 1826,
@@ -932,7 +1112,10 @@
     "id": "curated-taiwan-province",
     "name": {
       "zh": "台湾",
-      "en": "Taiwan"
+      "en": "Taiwan",
+      "es": "Taiwán",
+      "fr": "Taïwan",
+      "ar": "تايوان"
     },
     "type": "province",
     "from": 1949,
@@ -948,7 +1131,10 @@
     "id": "curated-france",
     "name": {
       "zh": "法国",
-      "en": "France"
+      "en": "France",
+      "es": "Francia",
+      "fr": "France",
+      "ar": "فرنسا"
     },
     "type": "state",
     "from": 843,
@@ -963,7 +1149,10 @@
     "id": "curated-germany",
     "name": {
       "zh": "德国",
-      "en": "Germany"
+      "en": "Germany",
+      "es": "Alemania",
+      "fr": "Allemagne",
+      "ar": "ألمانيا"
     },
     "type": "state",
     "from": 1871,
@@ -978,7 +1167,10 @@
     "id": "curated-zapotec",
     "name": {
       "zh": "萨波特克",
-      "en": "Zapotec"
+      "en": "Zapotec",
+      "es": "zapoteca",
+      "fr": "zapotèque",
+      "ar": "الزابوتيك"
     },
     "type": "culture",
     "from": -500,
