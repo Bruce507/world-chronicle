@@ -106,4 +106,4 @@ node scripts/build-reports.mjs
 - 面板：事件头显示标题 + 一句摘要；动作收敛为“展开史志”（主）与暂停图标，“更多”菜单收纳重播/朗读/分享/国家沿革，支持 Enter/Escape 与外部点击关闭。
 - 无障碍：打开事件焦点到 `#panel-title`，关闭回到触发控件/地图节点/时间轴；展开抽屉焦点到把手；迷你地图可聚焦并用方向键平移；地图节点保持 44px 覆盖层；`prefers-reduced-motion` 下剧场静止、自动播放关闭，烟雾测试覆盖。
 - 性能：事件详情从首屏 bundle 拆出按需载入（`data_bundle.js` 911KB → 571KB）；历史标签 450ms 淡入；聚类结果缓存；地图/详情载入 skeleton；DPR 上限 2。本机 Chrome 1440×900 测得 ready 约 192ms、剧场平均 16.6ms/帧（p95 16.7ms）、283 个全事件 drawBase 约 8ms。**未在低端 Android / Safari 真机验证。**
-- 烟雾测试扩展到 **43 项**（含迷你地图、抽屉指标、RTL、焦点交接、reduced-motion、静态末帧）。
+- 烟雾测试扩展到 **46 项**（含迷你地图、抽屉指标、RTL、焦点交接、reduced-motion、静态末帧）。

@@ -501,7 +501,7 @@
   }
 
   function loadAuxData() {
-    const v = "?v=20261108k";
+    const v = "?v=20261108l";
     A.detailsLoading = true;
     Promise.all([
       fetch("data/country_chronicles.json" + v).then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); }),
