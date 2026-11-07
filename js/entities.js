@@ -30,6 +30,7 @@
     "curated-france": ["france", "french republic", "french empire", "kingdom of france", "法国", "法兰西"],
     "curated-germany": ["germany", "german empire", "weimar republic", "nazi germany", "third reich", "german reich", "德国", "德意志帝国", "魏玛共和国"],
   };
+  const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
   const normName = (s) => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
   const lonDelta = (a, b) => ((a - b + 540) % 360) - 180;
 
@@ -68,7 +69,16 @@
             });
           this.ready = true;
           this.loading = false;
+          this.fadeStart = (this.map && this.map.reduceMotion) ? 0 : performance.now();
           if (this.map) this.map.drawBase();
+          if (this.fadeStart) {
+            let n = 0;
+            const tick = () => {
+              if (this.map) this.map.drawBase();
+              if (++n < 8) setTimeout(tick, 70);
+            };
+            setTimeout(tick, 0);
+          }
           window.dispatchEvent(new CustomEvent("historicalentitieschange"));
         })
         .catch((err) => {
@@ -80,6 +90,18 @@
     labelOf(e, lang) {
       if (!e.name) return "";
       if (lang === "zh") return e.name.zh || "";
+      if (lang !== "en" && e.type === "modern" && e.code && this.map) {
+        if (!this._byCode) {
+          this._byCode = {};
+          for (const f of this.map.features || []) {
+            if (f.properties.iso3) this._byCode[f.properties.iso3] = f;
+            if (f.properties.iso2) this._byCode[f.properties.iso2] = f;
+          }
+        }
+        const f = this._byCode[e.code];
+        const n = f && f.properties && f.properties[lang];
+        if (n) return n;
+      }
       return e.name.en || e.name.zh || "";
     },
 
@@ -205,7 +227,8 @@
         if (!placed) continue;
         rects.push(placed);
         c.drawY = drawY;
-        const wgt = (window.MapTheatre && window.MapTheatre.labelWeight) ? window.MapTheatre.labelWeight(c.x, c.drawY) : 1;
+        const wgt = ((window.MapTheatre && window.MapTheatre.labelWeight) ? window.MapTheatre.labelWeight(c.x, c.drawY) : 1) *
+          (this.fadeStart ? clamp((performance.now() - this.fadeStart) / 450, 0, 1) : 1);
         c.weight = wgt;
         ctx.lineWidth = 2.8;
         ctx.strokeStyle = "rgba(250,246,238," + (0.92 * wgt) + ")";

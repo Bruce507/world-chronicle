@@ -388,6 +388,14 @@
   };
   const catShape = (k) => CAT_SHAPES[k] || "circle";
   const regionColor = (k) => (A.regions[k] ? A.regions[k].color : "#8a6a3f");
+  function modernEntityName(e) {
+    if (!e) return "";
+    if (state.lang === "zh") return e.name.zh || e.name.en || "";
+    if (state.lang === "en") return e.name.en || e.name.zh || "";
+    const f = A.featureByCode && e.code && A.featureByCode[e.code];
+    const n = f && f.properties && f.properties[state.lang];
+    return n || e.name.en || e.name.zh || "";
+  }
   function countryName(f) {
     if (!f) return state.lang === "zh" ? "海域" : "Open sea";
     const p = f.properties;
@@ -493,18 +501,26 @@
   }
 
   function loadAuxData() {
-    const v = "?v=20261105s";
+    const v = "?v=20261108k";
+    A.detailsLoading = true;
     Promise.all([
       fetch("data/country_chronicles.json" + v).then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); }),
       fetch("data/state_changes.json" + v).then((r) => { if (!r.ok) throw new Error("states " + r.status); return r.json(); }),
-    ]).then(([chr, st]) => {
+      fetch("data/event_details.json" + v).then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); }),
+    ]).then(([chr, st, details]) => {
       A.chronicles = chr;
       A.stateChanges = st;
+      A.eventDetails = details || {};
+      A.detailsLoading = false;
       if (window.StateChanges && map) { window.StateChanges.init(map); window.StateChanges.setLang(state.lang); }
       lastPanelKey = "";
       if (map && map.features) renderPanel(true);
+      if (state.selected && !el["event-modal"].hidden) fillEvent(state.selected);
       drawTicks();
-    }).catch((err) => console.warn("Auxiliary data unavailable:", err.message));
+    }).catch((err) => {
+      A.detailsLoading = false;
+      console.warn("Auxiliary data unavailable:", err.message);
+    });
   }
 
   function loadWorld() {
@@ -512,7 +528,7 @@
     if (stageEl) stageEl.setAttribute("aria-busy", "true");
     const loading = document.createElement("div");
     loading.className = "map-loading";
-    loading.innerHTML = "正在展开舆图…<small>UNFOLDING THE ATLAS</small>";
+    loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
     fetch("data/world.geo.json?v=20261105s")
@@ -757,7 +773,9 @@
       ["course", L("经过", "COURSE", "DESARROLLO", "DÉROULEMENT", "مجريات الحدث")],
       ["outcome", L("结果与影响", "OUTCOME", "RESULTADO", "CONSÉQUENCES", "النتائج والأثر")],
     ];
-    for (const [key, label] of sections) {
+    if (A.detailsLoading && !d.background) {
+      html += `<div class="detail-skeleton" aria-hidden="true"><i></i><i></i><i></i><i></i></div>`;
+    } else for (const [key, label] of sections) {
       const val = d[key] ? textOf(d[key]) : "";
       if (val) html += `<section class="ev-detail-section"><h4>${label}</h4><p>${val}</p></section>`;
       else if (key === "background") html += `<section class="ev-detail-section"><h4>${label}</h4><p class="ev-missing">${L("本条为策展摘要：长文、参与方与来源仍待补齐，不以推测填充。", "This is a curated summary: long-form text, actors and sources are still pending and are not invented.", "Este es un resumen curatorial: el texto largo, los actores y las fuentes están pendientes y no se inventan.", "Ceci est un résumé curatorial : le texte long, les acteurs et les sources restent à compléter et ne sont pas inventés.", "هذا ملخص تخطيطي: النص الطويل والأطراف والمصادر قيد الإضافة، ولا تُختلق.")}</p></section>`;
@@ -845,7 +863,7 @@
       (state.modernExpanded ? moderns : moderns.slice(0, 8)).forEach((e) => {
         const f = A.featureByCode && A.featureByCode[e.code];
         const rg = f ? byRegion(f.properties.sub) : "";
-        const nm = state.lang === "zh" ? (e.name.zh || e.name.en) : (e.name.en || e.name.zh);
+        const nm = modernEntityName(e);
         html += `<button class="polity-chip" data-country-open="${e.code}"><i style="background:${rg ? regionColor(rg) : "#8a6a3f"}"></i>${nm}<small>${rg ? rgName(rg) : ""}</small></button>`;
       });
       html += `</div>`;
@@ -990,7 +1008,7 @@
     html += `<section class="p-section"><h3>${L("此刻中国", "CHINA AT THIS MOMENT", "CHINA EN ESTE MOMENTO", "LA CHINE À CET INSTANT", "الصين في هذه اللحظة")} · ${uniq.length}</h3><div class="polity-list">`;
     if (uniq.length) {
       uniq.slice(0, 14).forEach((e) => {
-        const nm = state.lang === "zh" ? (e.name.zh || e.name.en) : (e.name.en || e.name.zh);
+        const nm = modernEntityName(e);
         html += `<span class="polity-chip"><i style="background:${e.type === "culture" ? "#8a7a9a" : "#b0432c"}"></i>${nm}<small>${fmtRange(e.from, e.to)}</small></span>`;
       });
     } else {
@@ -3039,6 +3057,16 @@
     const used = [];
     A.events.forEach((e) => { if (used.indexOf(e.s) < 0) used.push(e.s); });
     el["about-scenes"].textContent = used.map((s) => (A.scenes[s] ? (state.lang === "zh" ? A.scenes[s].zh : A.scenes[s].en) : s)).join(" · ");
+    const langNote = document.getElementById("about-lang-note");
+    if (langNote) {
+      langNote.textContent = L(
+        "现代国家与地区名在 ES / FR / AR 下优先使用 Natural Earth 的对应语言名称；历史地名与 1,800 余条历史实体仍以中英为主，缺译时回退英文。事件长文目前以中英为主。",
+        "Modern country and region names use Natural Earth's Spanish, French or Arabic names where available. Historical place names and the 1,800+ historical entities remain Chinese/English-first and fall back to English when a translation is pending. Long-form event records are currently Chinese/English.",
+        "Los nombres modernos de países y regiones usan los nombres español, francés o árabe de Natural Earth cuando existen. Los nombres históricos y las más de 1.800 entidades históricas siguen en chino/inglés y recurren al inglés si falta traducción. Las fichas largas están por ahora en chino e inglés.",
+        "Les noms modernes de pays et de régions utilisent les noms espagnol, français ou arabe de Natural Earth lorsqu’ils existent. Les noms historiques et les plus de 1 800 entités historiques restent en chinois/anglais et reviennent à l’anglais faute de traduction. Les fiches longues sont pour l’instant en chinois et en anglais.",
+        "تستخدم أسماء الدول والمناطق الحديثة أسماء Natural Earth بالإسبانية أو الفرنسية أو العربية حيث تتوفر. أما الأسماء التاريخية وأكثر من 1800 كيان تاريخي فتبقى بالصينية والإنجليزية وتعود إلى الإنجليزية عند غياب الترجمة. السجلات الطويلة حاليًا بالصينية والإنجليزية."
+      );
+    }
     if (el["legend-cats"]) {
       el["legend-cats"].innerHTML = Object.keys(A.categories).map((k) =>
         '<span class="lg"><i class="lg-shape cat-shape shape-' + catShape(k) + '" style="background:' + A.categories[k].color + '"></i>' + catName(k) + "</span>"

@@ -42,6 +42,12 @@ try {
   check("Hero scenes = 32", counts.hero === 32, counts.hero);
   check("Tier B variants = 29", counts.tierB === 29, counts.tierB);
 
+  const detailsState = await d.evaluate(() => ({
+    n: Object.keys(window.WORLD_ATLAS.eventDetails || {}).length,
+    loading: !!window.WORLD_ATLAS.detailsLoading,
+  }));
+  check("event details load lazily and completely (112)", detailsState.n === 112 && !detailsState.loading, JSON.stringify(detailsState));
+
   const aria = await d.getAttribute("#track", "aria-valuetext");
   check("timeline slider has aria-valuetext", !!aria && /1937/.test(aria), aria);
   const y0 = await d.evaluate(() => window.atlasAPI.state.year);
@@ -307,6 +313,8 @@ try {
   await rp.waitForTimeout(500);
   const rtlOverflow = await rp.evaluate(() => ({ docW: document.documentElement.scrollWidth, win: innerWidth }));
   check("RTL 390×844 has no horizontal overflow", rtlOverflow.docW <= rtlOverflow.win, JSON.stringify(rtlOverflow));
+  const rtlLabels = await rp.evaluate(() => (window.HistoricalEntities.lastLabels || []).map((x) => x[0]).slice(0, 5));
+  check("Arabic mode uses Arabic map names where available", rtlLabels.some((s) => /[\u0600-\u06FF]/.test(s)), rtlLabels.join(","));
   await rtl.close();
 
   await m.click("#zoom-fill");

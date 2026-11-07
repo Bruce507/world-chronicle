@@ -919,6 +919,25 @@ svg { display: block; }
   letter-spacing: 0.16em;
 }
 .map-loading small { display: block; margin-top: 8px; font-family: var(--sans); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-align: center; }
+.map-loading-inner { text-align: center; }
+.map-loading-inner b { font-weight: 500; }
+.map-skeleton { display: flex; gap: 6px; justify-content: center; margin-top: 16px; }
+.map-skeleton i, .detail-skeleton i {
+  display: block;
+  height: 9px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(150,132,104,0.10) 0%, rgba(150,132,104,0.24) 45%, rgba(150,132,104,0.10) 100%);
+  background-size: 240px 100%;
+  animation: skel 1.5s linear infinite;
+}
+.map-skeleton i { width: 46px; height: 8px; }
+.map-skeleton i:nth-child(2) { width: 70px; }
+.detail-skeleton { margin-top: 14px; }
+.detail-skeleton i { width: 100%; margin-bottom: 7px; }
+.detail-skeleton i:nth-child(2) { width: 92%; }
+.detail-skeleton i:nth-child(3) { width: 96%; }
+.detail-skeleton i:nth-child(4) { width: 64%; }
+@keyframes skel { from { background-position: -240px 0; } to { background-position: 240px 0; } }
 
 .change-list { display: flex; flex-direction: column; }
 .change-row {

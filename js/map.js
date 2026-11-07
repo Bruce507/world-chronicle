@@ -988,14 +988,19 @@
     }
 
     _clusters() {
-      const list = this.visibleEvents();
-      if (!list.length) return [];
       const sel = this.selected;
+      const key = [this.year, this.view.zoom.toFixed(3), Math.round(this.view.panX), Math.round(this.view.panY), this.W, this.H,
+        this.catFilter || "", this.toggles.allEvents ? 1 : 0, this.theatreActive ? 1 : 0, sel ? sel.id : ""].join("|");
+      if (this._clustersKey === key) return this._clustersCache;
+      this._clustersKey = key;
+      const list = this.visibleEvents();
+      if (!list.length) { this._clustersCache = []; return this._clustersCache; }
       if (this.theatreActive) {
-        return list.map((ev) => {
+        this._clustersCache = list.map((ev) => {
           const p = this.project(ev.lon, ev.lat);
           return { members: [ev], count: 1, lead: ev, x: p.x, y: p.y, n: 1, sx: p.x, sy: p.y };
         });
+        return this._clustersCache;
       }
       const radius = this.W < 600 ? 34 : 26;
       const clusters = [];
@@ -1024,6 +1029,7 @@
         const p = this.project(sel.lon, sel.lat);
         clusters.push({ members: [sel], n: 1, sx: p.x, sy: p.y, x: p.x, y: p.y, count: 1, lead: sel, selected: true });
       }
+      this._clustersCache = clusters;
       return clusters;
     }
 
