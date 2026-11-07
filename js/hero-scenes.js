@@ -1811,35 +1811,75 @@
     hatch(ctx, -50, -46, 40, 20, "rgba(67,48,29,0.16)", 2.2, -0.7);
     hatch(ctx, 10, -46, 40, 18, "rgba(67,48,29,0.16)", 2.2, -0.7);
 
+    // distant wall winding over the left ridge
+    ctx.beginPath();
+    ctx.moveTo(-50, -64);
+    ctx.lineTo(-40, -58);
+    ctx.lineTo(-30, -50);
+    ctx.lineTo(-20, -45);
+    ctx.lineTo(-20, -41);
+    ctx.lineTo(-32, -46);
+    ctx.lineTo(-42, -54);
+    ctx.lineTo(-50, -60);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(202,178,136,0.55)"; ctx.fill();
+    ctx.strokeStyle = "rgba(92,66,40,0.35)"; ctx.lineWidth = 0.22; ctx.stroke();
+    for (let i = 0; i < 6; i++) {
+      const dx = -48 + i * 5;
+      const dy = -61 + i * 3.2;
+      ctx.fillStyle = "rgba(206,182,140,0.6)";
+      ctx.fillRect(dx, dy - 1.2, 1.2, 1.2);
+    }
+
     // Great Wall band
-    const wall = [[-50, -54], [-34, -50], [-20, -38], [-10, -31], [10, -31], [22, -38], [38, -48], [50, -52]];
+    const wall = [[-50, -52], [-42, -51], [-36, -48], [-32, -43], [-28, -37], [-24, -33.5], [-20, -32], [-10, -31.5], [10, -31.5], [20, -32], [24, -33.5], [28, -37], [32, -43], [36, -48], [42, -51], [50, -52]];
     ctx.beginPath();
     ctx.moveTo(wall[0][0], wall[0][1]);
     for (let i = 1; i < wall.length; i++) ctx.lineTo(wall[i][0], wall[i][1]);
     ctx.lineTo(50, -45);
-    for (let i = wall.length - 1; i >= 0; i--) ctx.lineTo(wall[i][0], wall[i][1] + 5.4);
+    for (let i = wall.length - 1; i >= 0; i--) ctx.lineTo(wall[i][0], wall[i][1] + 7.2);
     ctx.closePath();
     ctx.fillStyle = "rgba(190,162,120,0.96)";
     ctx.fill();
     ctx.strokeStyle = hexA(INK, 0.6);
     ctx.lineWidth = 0.3;
     ctx.stroke();
+    // parapet shadow line
+    ctx.beginPath();
+    ctx.moveTo(wall[0][0], wall[0][1] + 1.2);
+    for (let i = 1; i < wall.length; i++) ctx.lineTo(wall[i][0], wall[i][1] + 1.2);
+    ctx.strokeStyle = "rgba(74,48,28,0.45)"; ctx.lineWidth = 0.7; ctx.stroke();
     // crenellations
     for (let i = 0; i < wall.length - 1; i++) {
       const [x0, y0] = wall[i], [x1, y1] = wall[i + 1];
-      for (let k = 0; k < 4; k++) {
-        const x = lerp(x0, x1, k / 4);
-        const y = lerp(y0, y1, k / 4);
+      for (let k = 0; k < 3; k++) {
+        const x = lerp(x0, x1, (k + 0.5) / 3);
+        const y = lerp(y0, y1, (k + 0.5) / 3);
         ctx.fillStyle = "rgba(200,172,130,0.98)";
-        ctx.fillRect(x, y - 1.6, 1.5, 1.6);
-        ctx.strokeStyle = hexA(INK, 0.45); ctx.lineWidth = 0.16;
-        ctx.strokeRect(x, y - 1.6, 1.5, 1.6);
+        ctx.fillRect(x - 0.85, y - 1.7, 1.7, 1.7);
+        ctx.strokeStyle = hexA(INK, 0.45); ctx.lineWidth = 0.15;
+        ctx.strokeRect(x - 0.85, y - 1.7, 1.7, 1.7);
       }
     }
-    // wall masonry
-    for (let x = -48; x < 48; x += 4) {
-      ctx.strokeStyle = "rgba(90,62,36,0.16)"; ctx.lineWidth = 0.14;
-      ctx.beginPath(); ctx.moveTo(x, -50 + Math.abs(x) * 0.02); ctx.lineTo(x, -44 + Math.abs(x) * 0.02); ctx.stroke();
+    // wall masonry following the face
+    ctx.strokeStyle = "rgba(90,62,36,0.18)"; ctx.lineWidth = 0.14;
+    for (let i = 0; i < wall.length - 1; i++) {
+      const [x0, y0] = wall[i], [x1, y1] = wall[i + 1];
+      for (let k = 1; k < 5; k++) {
+        const x = lerp(x0, x1, k / 5), y = lerp(y0, y1, k / 5);
+        ctx.beginPath(); ctx.moveTo(x, y + 1.6); ctx.lineTo(x, y + 6.6); ctx.stroke();
+      }
+    }
+    // horizontal courses
+    ctx.strokeStyle = "rgba(90,62,36,0.12)"; ctx.lineWidth = 0.12;
+    for (let j = 1; j < 3; j++) {
+      ctx.beginPath();
+      for (let i = 0; i < wall.length; i++) {
+        const p = wall[i];
+        const yy = p[1] + j * 2.0;
+        if (i === 0) ctx.moveTo(p[0], yy); else ctx.lineTo(p[0], yy);
+      }
+      ctx.stroke();
     }
     // small flags along the wall
     for (const fx of [-40, -20, 20, 40]) {
@@ -1850,7 +1890,7 @@
       ctx.fillStyle = fx < 0 ? "rgba(168,64,44,0.85)" : "rgba(78,106,122,0.85)"; ctx.fill();
     }
     // wall watchtowers
-    for (const [tx, ty] of [[-34, -50], [38, -48]]) {
+    for (const [tx, ty] of [[-36, -48], [36, -48]]) {
       ctx.fillStyle = "rgba(198,168,126,0.98)";
       ctx.fillRect(tx - 3, ty - 7, 6, 7);
       ctx.strokeStyle = hexA(INK, 0.6); ctx.lineWidth = 0.24;
@@ -1881,6 +1921,14 @@
     ctx.fillStyle = "rgba(92,58,38,0.92)";
     ctx.fillRect(-3.6, -45.6, 7.2, 1.9);
     ctx.strokeStyle = hexA(GOLD, 0.7); ctx.lineWidth = 0.12; ctx.strokeRect(-3.6, -45.6, 7.2, 1.9);
+    // dust and smoke drifting over the pass
+    for (let i = 0; i < 5; i++) {
+      const q = (t * 0.12 + i * 0.18) % 1;
+      ctx.beginPath();
+      ctx.arc(2 + q * 9, -50 - q * 20, 2.2 + q * 5.6, 0, TAU);
+      ctx.fillStyle = "rgba(122,106,88," + (0.09 * (1 - q)) + ")";
+      ctx.fill();
+    }
 
     // cavalry
     const riders = [
@@ -2430,28 +2478,51 @@
     // Parthenon
     const py = baseY - w * 0.30;
     const pw = w * 0.46;
-    ctx.fillStyle = "rgba(236,226,204,0.96)";
-    ctx.fillRect(x - pw / 2, py - 6, pw, 6);
-    ctx.strokeStyle = hexA(INK, 0.5); ctx.lineWidth = 0.2;
-    ctx.strokeRect(x - pw / 2, py - 6, pw, 6);
-    // columns
+    // three-step base
+    for (let i = 0; i < 3; i++) {
+      ctx.fillStyle = "rgba(228,216,192,0.97)";
+      ctx.fillRect(x - pw / 2 - 2.4 + i * 0.7, py - 1.6 + i * 0.5, pw + 5.0 - i * 1.4, 0.7);
+      ctx.strokeStyle = hexA(INK, 0.35); ctx.lineWidth = 0.16;
+      ctx.strokeRect(x - pw / 2 - 2.4 + i * 0.7, py - 1.6 + i * 0.5, pw + 5.0 - i * 1.4, 0.7);
+    }
+    // cella wall
+    ctx.fillStyle = "rgba(230,218,194,0.97)";
+    ctx.fillRect(x - pw / 2 + 1.6, py - 8.2, pw - 3.2, 6.6);
+    ctx.strokeStyle = hexA(INK, 0.4); ctx.lineWidth = 0.18;
+    ctx.strokeRect(x - pw / 2 + 1.6, py - 8.2, pw - 3.2, 6.6);
+    // shadow side of the cella
+    ctx.fillStyle = "rgba(74,54,30,0.12)";
+    ctx.fillRect(x + pw * 0.18, py - 8.0, pw * 0.30, 6.3);
+    // colonnade
     for (let i = 0; i < 8; i++) {
       const cx = x - pw / 2 + 1.4 + i * (pw - 2.8) / 7;
-      ctx.fillStyle = "rgba(246,238,220,0.95)";
-      ctx.fillRect(cx - 0.45, py - 9.4, 0.9, 3.6);
-      ctx.strokeRect(cx - 0.45, py - 9.4, 0.9, 3.6);
+      ctx.fillStyle = "rgba(246,238,220,0.97)";
+      ctx.fillRect(cx - 0.5, py - 8.0, 1.0, 6.4);
+      ctx.strokeStyle = hexA(INK, 0.45); ctx.lineWidth = 0.14;
+      ctx.strokeRect(cx - 0.5, py - 8.0, 1.0, 6.4);
+      // capitals
+      ctx.fillStyle = "rgba(238,228,206,0.98)";
+      ctx.fillRect(cx - 0.75, py - 8.4, 1.5, 0.5);
     }
     // entablature + pediment
-    ctx.fillStyle = "rgba(232,220,198,0.96)";
-    ctx.fillRect(x - pw / 2 - 1, py - 10.4, pw + 2, 1.2);
-    ctx.strokeRect(x - pw / 2 - 1, py - 10.4, pw + 2, 1.2);
+    ctx.fillStyle = "rgba(232,220,198,0.98)";
+    ctx.fillRect(x - pw / 2 - 1.2, py - 9.6, pw + 2.4, 1.2);
+    ctx.strokeStyle = hexA(INK, 0.45); ctx.lineWidth = 0.18;
+    ctx.strokeRect(x - pw / 2 - 1.2, py - 9.6, pw + 2.4, 1.2);
     ctx.beginPath();
-    ctx.moveTo(x - pw / 2 - 1, py - 10.4);
-    ctx.lineTo(x, py - 13.2);
-    ctx.lineTo(x + pw / 2 + 1, py - 10.4);
+    ctx.moveTo(x - pw / 2 - 1.4, py - 9.6);
+    ctx.lineTo(x, py - 12.8);
+    ctx.lineTo(x + pw / 2 + 1.4, py - 9.6);
     ctx.closePath();
-    ctx.fillStyle = "rgba(236,226,204,0.96)"; ctx.fill();
-    ctx.stroke();
+    ctx.fillStyle = "rgba(236,226,204,0.97)"; ctx.fill();
+    ctx.strokeStyle = hexA(INK, 0.45); ctx.lineWidth = 0.2; ctx.stroke();
+    // pediment shadow
+    ctx.beginPath();
+    ctx.moveTo(x + pw * 0.08, py - 10.0);
+    ctx.lineTo(x + pw / 2 + 1.4, py - 9.6);
+    ctx.lineTo(x + pw * 0.10, py - 12.2);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(74,54,30,0.10)"; ctx.fill();
   }
 
   function paperVat(ctx, x, baseY, w, h) {
@@ -3775,9 +3846,9 @@
     }
 
     // caravel
-    ctx.beginPath(); ctx.ellipse(16, -12.4, 20, 2.2, 0, 0, TAU);
+    ctx.beginPath(); ctx.ellipse(14, -12.4, 19, 2.2, 0, 0, TAU);
     ctx.fillStyle = "rgba(64,92,94,0.28)"; ctx.fill();
-    caravel(ctx, 16, -17, 0.92, t, { hull: "rgba(120,82,50,0.98)" });
+    caravel(ctx, 14, -16, 0.86, t, { hull: "rgba(120,82,50,0.98)" });
     // gunports
     for (let i = 0; i < 3; i++) {
       ctx.fillStyle = "rgba(74,50,30,0.75)";
@@ -3789,10 +3860,13 @@
       ctx.beginPath(); ctx.moveTo(-2 - i * 3, -10 + i * 1.2); ctx.quadraticCurveTo(4 - i * 3, -8.6 + i * 1.2, 10 - i * 3, -9.4 + i * 1.2); ctx.stroke();
     }
     // small boat lowered
-    ctx.save(); ctx.translate(2, -12); ctx.scale(0.9, 0.9);
-    ctx.beginPath(); ctx.moveTo(-5, 0); ctx.quadraticCurveTo(0, 2.2, 5, 0); ctx.quadraticCurveTo(0, 1, -5, 0); ctx.closePath();
+    ctx.save(); ctx.translate(4, -11); ctx.scale(1.25, 1.25);
+    ctx.beginPath(); ctx.moveTo(-5, 0); ctx.quadraticCurveTo(0, 2.6, 5, 0); ctx.quadraticCurveTo(0, 1, -5, 0); ctx.closePath();
     ctx.fillStyle = "rgba(120,84,52,0.95)"; ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 0.3; ctx.stroke();
-    person(ctx, -1, -0.4, 0.16, "rgba(67,48,29,0.95)", { phase: t });
+    person(ctx, -1.6, -0.6, 0.17, "rgba(67,48,29,0.95)", { phase: t });
+    person(ctx, 2.0, -0.5, 0.17, "rgba(67,48,29,0.95)", { phase: t + 1, fill: "rgba(92,104,122,0.95)" });
+    ctx.strokeStyle = "rgba(74,50,30,0.85)"; ctx.lineWidth = 0.2;
+    ctx.beginPath(); ctx.moveTo(-2.2, -1.2); ctx.lineTo(-4.6, 1.4); ctx.stroke();
     ctx.restore();
 
     // island: low green strip with palms
@@ -3821,9 +3895,11 @@
     palm(ctx, -30, -16, 17, -2, "rgba(84,72,44,0.92)");
     palm(ctx, -20, -15, 14, 2, "rgba(84,72,44,0.92)");
     // Taíno figures on the beach (dignified, simple)
-    person(ctx, -16, -6.6, 0.26, "rgba(78,58,40,0.95)", { phase: t, fill: "rgba(150,112,74,0.95)" });
-    person(ctx, -12.6, -6.4, 0.26, "rgba(78,58,40,0.95)", { phase: t + 1, fill: "rgba(138,102,70,0.95)", arm: true });
-    person(ctx, -9.4, -6.2, 0.25, "rgba(78,58,40,0.95)", { phase: t + 2, fill: "rgba(160,122,82,0.95)" });
+    person(ctx, -17.6, -6.8, 0.30, "rgba(78,58,40,0.95)", { phase: t, fill: "rgba(150,112,74,0.95)" });
+    person(ctx, -14.6, -6.5, 0.33, "rgba(78,58,40,0.95)", { phase: t + 1, fill: "rgba(138,102,70,0.95)", arm: true });
+    person(ctx, -11.6, -6.2, 0.31, "rgba(78,58,40,0.95)", { phase: t + 2, fill: "rgba(160,122,82,0.95)" });
+    person(ctx, -9.2, -6.0, 0.29, "rgba(78,58,40,0.95)", { phase: t + 3, fill: "rgba(150,112,74,0.95)" });
+    person(ctx, -15.8, -5.9, 0.20, "rgba(78,58,40,0.95)", { phase: t + 4, fill: "rgba(170,130,88,0.95)", noShadow: true });
     // rowboat on the beach
     ctx.beginPath(); ctx.moveTo(-24, -5.4); ctx.lineTo(-17, -5.8); ctx.lineTo(-15.4, -4.4); ctx.lineTo(-23, -4.0); ctx.closePath();
     ctx.fillStyle = "rgba(128,90,54,0.95)"; ctx.fill();
@@ -5569,6 +5645,24 @@
       ctx.moveTo(bx - 0.4, -20 - bh); ctx.lineTo(bx + 1.8, -21.8 - bh); ctx.lineTo(bx + 4.0, -20 - bh); ctx.closePath();
       ctx.fillStyle = "rgba(150,98,64,0.75)"; ctx.fill();
     }
+    // western town below the Pnyx
+    for (let i = 0; i < 9; i++) {
+      const bx = -46 + i * 4.4;
+      const bh = 2.0 + (i % 4) * 0.9;
+      ctx.fillStyle = "rgba(200,170,128,0.75)";
+      ctx.fillRect(bx, -19.4 - bh, 3.4, bh);
+      ctx.beginPath();
+      ctx.moveTo(bx - 0.4, -19.4 - bh);
+      ctx.lineTo(bx + 1.7, -21.0 - bh);
+      ctx.lineTo(bx + 3.8, -19.4 - bh);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(146,94,60,0.7)"; ctx.fill();
+    }
+    // town wall
+    ctx.fillStyle = "rgba(188,166,126,0.7)";
+    ctx.fillRect(-50, -15.4, 44, 1.6);
+    ctx.strokeStyle = "rgba(74,54,30,0.3)"; ctx.lineWidth = 0.18;
+    ctx.strokeRect(-50, -15.4, 44, 1.6);
     // Pnyx terraces
     for (let i = 0; i < 4; i++) {
       const yy = -14 + i * 3.2;
@@ -5611,17 +5705,17 @@
       [-18, -4.4, 0.29], [-4, -3.8, 0.30], [2, -3.2, 0.29], [8, -2.6, 0.28],
     ];
     crowd.forEach(([cx, cy, cs], i) => {
-      person(ctx, cx, cy, cs, "rgba(58,42,26,0.98)", {
+      person(ctx, cx, cy, cs * 1.18, "rgba(58,42,26,0.98)", {
         phase: t * 0.7 + i, seed: i,
         fill: i % 4 === 0 ? "rgba(150,112,74,0.95)" : i % 4 === 1 ? "rgba(84,104,112,0.95)" : i % 4 === 2 ? "rgba(168,64,44,0.9)" : "rgba(112,88,58,0.95)",
         hat: i % 3 === 0 ? "straw" : null,
       });
     });
     // seated citizens and a second speaker
-    seatedPerson(ctx, -34, -8.2, 0.28, "rgba(58,42,26,0.98)", { fill: "rgba(112,88,58,0.95)", hat: "straw" });
-    seatedPerson(ctx, -24, -6.6, 0.28, "rgba(58,42,26,0.98)", { fill: "rgba(84,104,112,0.95)" });
-    seatedPerson(ctx, -4, -4.4, 0.30, "rgba(58,42,26,0.98)", { fill: "rgba(150,112,74,0.95)", hat: "cap" });
-    seatedPerson(ctx, 12, -3.6, 0.30, "rgba(58,42,26,0.98)", { fill: "rgba(168,64,44,0.9)" });
+    seatedPerson(ctx, -34, -8.2, 0.34, "rgba(58,42,26,0.98)", { fill: "rgba(112,88,58,0.95)", hat: "straw" });
+    seatedPerson(ctx, -24, -6.6, 0.34, "rgba(58,42,26,0.98)", { fill: "rgba(84,104,112,0.95)" });
+    seatedPerson(ctx, -4, -4.4, 0.36, "rgba(58,42,26,0.98)", { fill: "rgba(150,112,74,0.95)", hat: "cap" });
+    seatedPerson(ctx, 12, -3.6, 0.36, "rgba(58,42,26,0.98)", { fill: "rgba(168,64,44,0.9)" });
     person(ctx, 6, -11.4, 0.34, "rgba(58,42,26,0.98)", { phase: t + 3, fill: "rgba(84,104,112,0.95)", hat: "straw", arm: true });
     person(ctx, -44, -3.2, 0.40, "rgba(58,42,26,0.98)", { phase: t + 4, fill: "rgba(150,112,74,0.95)", hat: "straw" });
     person(ctx, 26, -2.6, 0.38, "rgba(58,42,26,0.98)", { phase: t + 5, fill: "rgba(84,104,112,0.95)", hat: "cap", arm: true });
@@ -7516,6 +7610,10 @@
     });
     // front rider
     horse(ctx, 34, -4.6, 0.66, "rgba(58,44,30,0.98)", t + 2, { rider: true, riderCol: "rgba(150,60,42,0.95)", banner: "#a8402c" });
+    // foreground outrider, framing the left
+    horse(ctx, -23, -1.0, 0.92, "rgba(52,38,24,0.99)", t + 2.4, {
+      rider: true, riderCol: "rgba(84,104,112,0.96)", banner: "rgba(84,104,112,0.95)",
+    });
     // foreground grass + stones
     for (let i = 0; i < 28; i++) {
       const gx = -48 + i * 3.5;
@@ -9007,6 +9105,19 @@
       }
     }
     ctx.restore();
+    // distant cathedral on the right horizon
+    ctx.fillStyle = "rgba(146,128,104,0.55)";
+    ctx.fillRect(35, -40, 12, 16);
+    ctx.fillRect(33.6, -46, 3.6, 6);
+    ctx.fillRect(44.8, -46, 3.6, 6);
+    ctx.beginPath();
+    ctx.moveTo(35.4, -46); ctx.lineTo(37.4, -55); ctx.lineTo(39.4, -46);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(128,110,90,0.6)"; ctx.fill();
+    // spire window slits
+    ctx.fillStyle = "rgba(80,64,50,0.5)";
+    ctx.fillRect(37.0, -44, 0.9, 2.2);
+    ctx.fillRect(46.0, -44, 0.9, 2.2);
     // horizon haze
     const hz = ctx.createLinearGradient(0, -30, 0, -18);
     hz.addColorStop(0, "rgba(198,172,134,0)");
@@ -9280,14 +9391,35 @@
     // platform canopy
     ctx.strokeStyle = "rgba(92,70,46,0.9)"; ctx.lineWidth = 0.55;
     ctx.beginPath();
-    ctx.moveTo(-10, 0); ctx.lineTo(-3.2, -24);
-    ctx.moveTo(10, 0); ctx.lineTo(3.2, -24);
+    ctx.moveTo(-12, 0); ctx.lineTo(-4.6, -23);
+    ctx.moveTo(12, 0); ctx.lineTo(4.6, -23);
+    ctx.moveTo(-7, 0); ctx.lineTo(-2.6, -23);
+    ctx.moveTo(7, 0); ctx.lineTo(2.6, -23);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(-12, -20); ctx.lineTo(12, -20); ctx.lineTo(6, -26); ctx.lineTo(-6, -26);
+    ctx.moveTo(-18, -22); ctx.lineTo(18, -22); ctx.lineTo(11, -29); ctx.lineTo(-11, -29);
     ctx.closePath();
-    ctx.fillStyle = "rgba(120,94,66,0.95)"; ctx.fill();
-    ctx.strokeStyle = "rgba(74,54,36,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
+    ctx.fillStyle = "rgba(112,86,60,0.96)"; ctx.fill();
+    ctx.strokeStyle = "rgba(70,50,34,0.6)"; ctx.lineWidth = 0.24; ctx.stroke();
+    // ridge and trusses
+    ctx.strokeStyle = "rgba(70,50,34,0.8)"; ctx.lineWidth = 0.32;
+    ctx.beginPath(); ctx.moveTo(-11, -29); ctx.lineTo(11, -29); ctx.stroke();
+    ctx.lineWidth = 0.2;
+    for (let x = -14; x <= 14; x += 5.6) {
+      ctx.beginPath(); ctx.moveTo(x, -22); ctx.lineTo(x * 0.62, -28.8); ctx.stroke();
+    }
+    // glazing glints
+    ctx.strokeStyle = "rgba(226,220,196,0.35)"; ctx.lineWidth = 0.16;
+    for (let x = -12; x <= 12; x += 5.6) {
+      ctx.beginPath(); ctx.moveTo(x, -23); ctx.lineTo(x * 0.8, -28); ctx.stroke();
+    }
+    // hanging lamps
+    for (const lx of [-6, 6]) {
+      ctx.strokeStyle = "rgba(64,46,30,0.8)"; ctx.lineWidth = 0.2;
+      ctx.beginPath(); ctx.moveTo(lx, -29); ctx.lineTo(lx, -26); ctx.stroke();
+      ctx.beginPath(); ctx.arc(lx, -25.4, 0.6, 0, TAU);
+      ctx.fillStyle = "rgba(226,190,110,0.9)"; ctx.fill();
+    }
 
     // two trains, opposite directions
     steamLoco(ctx, -34, -6, 0.95, t, { phase: 0 });
@@ -9376,6 +9508,12 @@
       ctx.lineTo(-45.4 + i * 3.6, -31 + q * 30);
       ctx.stroke();
     }
+    // foreground traveler with a bedroll
+    person(ctx, -13.4, -0.4, 0.62, "rgba(44,32,22,0.99)", { phase: t + 7, fill: "rgba(88,70,52,0.98)", noShadow: true, bundle: true });
+    ctx.fillStyle = "rgba(96,70,46,0.98)";
+    ctx.fillRect(-17.2, -1.6, 2.8, 1.6);
+    ctx.strokeStyle = "rgba(54,38,24,0.7)"; ctx.lineWidth = 0.18;
+    ctx.strokeRect(-17.2, -1.6, 2.8, 1.6);
   };
 
   const partitionMap = function (ctx, t) {
