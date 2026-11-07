@@ -125,11 +125,12 @@
       ctx.save();
       ctx.lineJoin = "round";
       // Fills first. Same subject color makes adjacent territories read as one polity.
+      const fillAlpha = zoom < 1.5 ? 0.25 : 0.33;
       for (const f of fc.features) {
         const p = f.properties || {};
         const col = p.color || "#9a7a55";
         this._trace(ctx, map, f.geometry);
-        ctx.fillStyle = hexA(col, 0.40);
+        ctx.fillStyle = hexA(col, fillAlpha);
         ctx.fill("evenodd");
       }
       // A hairline border, tinted to the polity color so internal seams stay quiet.
@@ -137,7 +138,7 @@
         const p = f.properties || {};
         const col = p.color || "#9a7a55";
         this._trace(ctx, map, f.geometry);
-        ctx.strokeStyle = hexA(col, 0.55);
+        ctx.strokeStyle = hexA(col, 0.48);
         ctx.lineWidth = zoom > 2 ? 0.8 : 0.55;
         ctx.stroke();
       }

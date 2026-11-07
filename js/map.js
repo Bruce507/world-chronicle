@@ -40,6 +40,41 @@
     return String(y);
   }
 
+  const SHAPE_BY_CAT = {
+    war: "diamond", politics: "square", trade: "circle", exploration: "circle",
+    culture: "square", religion: "square", science: "square",
+    disaster: "triangle", plague: "triangle",
+    city: "hex", agri: "hex", industry: "hex", hunt: "hex", digital: "hex",
+  };
+  function shapeFor(k) { return SHAPE_BY_CAT[k] || "circle"; }
+  function shapePath(ctx, x, y, r, shape) {
+    if (shape === "square") {
+      const a = r * 0.82;
+      ctx.rect(x - a, y - a, a * 2, a * 2);
+    } else if (shape === "triangle") {
+      ctx.moveTo(x, y - r);
+      ctx.lineTo(x + r * 0.96, y + r * 0.78);
+      ctx.lineTo(x - r * 0.96, y + r * 0.78);
+      ctx.closePath();
+    } else if (shape === "hex") {
+      for (let i = 0; i < 6; i++) {
+        const a = -Math.PI / 2 + i * Math.PI / 3;
+        const px = x + Math.cos(a) * r, py = y + Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+    } else if (shape === "diamond") {
+      const d = r + 0.8;
+      ctx.moveTo(x, y - d);
+      ctx.lineTo(x + d, y);
+      ctx.lineTo(x, y + d);
+      ctx.lineTo(x - d, y);
+      ctx.closePath();
+    } else {
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+    }
+  }
+
   const CONTINENT_FILL = {
     Africa: "#e9d6b4",
     Asia: "#efe1c4",
@@ -973,18 +1008,9 @@
           ctx.setLineDash([]);
         }
 
-        // core
+        // core — shape encodes the event category (legend repeats it)
         ctx.beginPath();
-        if (ev.f) {
-          const d = baseR + 0.8;
-          ctx.moveTo(p.x, p.y - d);
-          ctx.lineTo(p.x + d, p.y);
-          ctx.lineTo(p.x, p.y + d);
-          ctx.lineTo(p.x - d, p.y);
-          ctx.closePath();
-        } else {
-          ctx.arc(p.x, p.y, baseR, 0, Math.PI * 2);
-        }
+        shapePath(ctx, p.x, p.y, baseR, shapeFor(ev.k));
         ctx.fillStyle = rgba(cat.color, 0.92 * alpha);
         ctx.fill();
         ctx.strokeStyle = "rgba(250,246,236," + (0.9 * alpha) + ")";

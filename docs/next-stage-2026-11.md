@@ -1,6 +1,6 @@
 # 下一阶段实施记录 / Stage 2
 
-Date 2026-11-07. Follows `docs/ux-interaction-pass-2026-11.md` with mobile-map, polish, content and QA work.
+Date 2026-11-07. Follows `docs/ux-interaction-pass-2026-11.md` with mobile-map, polish, content and QA work. 后续 P0/P1 第二轮见 `docs/p0-p1-round2-2026-11.md`。
 
 ## 1. 手机地图铺满视野
 

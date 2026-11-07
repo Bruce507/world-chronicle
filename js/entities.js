@@ -25,6 +25,8 @@
     "curated-spanish-peru": ["spain", "秘鲁", "西班牙"],
     "curated-colonial-brazil": ["portugal", "brazil", "葡属巴西", "葡萄牙", "巴西"],
     "curated-new-france": ["france", "新法兰西", "法国"],
+    "curated-china-qing": ["china", "manchu empire", "qing", "中国", "清", "大清"],
+    "curated-china-prc": ["china", "people's republic of china", "中华人民共和国", "中国"],
     "curated-france": ["france", "french republic", "french empire", "kingdom of france", "法国", "法兰西"],
     "curated-germany": ["germany", "german empire", "weimar republic", "nazi germany", "third reich", "german reich", "德国", "德意志帝国", "魏玛共和国"],
   };
@@ -52,7 +54,7 @@
             .filter((e) => e && e.from <= e.to)
             .map((e) => {
               if (e.source === "curated" || e.type === "modern" || e.type === "province") return e;
-              const c = clampById[e.id] || clampTable[(e.name && e.name.en) || ""];
+              const c = Object.assign({}, clampTable[(e.name && e.name.en) || ""], clampById[e.id] || {});
               if (!c) return e;
               const out = { ...e, name: { ...(e.name || {}) } };
               if (typeof c.from === "number") out.from = Math.max(out.from, c.from);
@@ -60,11 +62,14 @@
               if (out.from > out.to) out.from = out.to;
               if (c.zh) out.name.zh = c.zh;
               if (c.en) out.name.en = c.en;
+              if (typeof c.lat === "number") out.lat = c.lat;
+              if (typeof c.lon === "number") out.lon = c.lon;
               return out;
             });
           this.ready = true;
           this.loading = false;
           if (this.map) this.map.drawBase();
+          window.dispatchEvent(new CustomEvent("historicalentitieschange"));
         })
         .catch((err) => {
           this.loading = false;
@@ -139,8 +144,9 @@
           }
           if (shadowed) continue;
         }
+        const edge = map.W < 620 ? 14 : 20;
         const p = map.project(e.lon, e.lat);
-        if (p.x < 8 || p.x > map.W - 8 || p.y < 8 || p.y > map.H - 8) continue;
+        if (p.x < edge || p.x > map.W - edge || p.y < edge || p.y > map.H - edge) continue;
         // Avoid labels hidden under the side panel / theatre card.
         if (p.x > map.W - map.reservedRight - 8 && map.reservedRight > 40) continue;
         seenNames.add(norm);
@@ -185,7 +191,7 @@
         // and East Asia from overprinting without shrinking the type.
         for (const dy of offsets) {
           const y = c.y + dy;
-          if (y < 10 || y > map.H - 10) continue;
+          if (y < 14 || y > map.H - 14) continue;
           const r = [c.x - w / 2 - 4, y - h / 2 - 2, c.x + w / 2 + 4, y + h / 2 + 2];
           let hit = false;
           for (const q of nodeRects) {

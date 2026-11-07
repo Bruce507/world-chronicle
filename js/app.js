@@ -82,7 +82,7 @@
     mapNote: { zh: "示意图 · 现代国界仅作地理参照", en: "Schematic · modern borders for reference only" },
     hint: { zh: "拖动底部时间轴 · 点击地图节点观看动态场景", en: "Drag the timeline · click any node to enter its scene" },
     today: { zh: "今天", en: "Today" },
-    tlTip: { zh: "← → 逐年 · ⇧ 十倍 · 空格播放", en: "← → year · ⇧ ×10 · Space play" },
+    tlTip: { zh: "← → 按年代步进 · ↑↓ ±1 · ⇧ ×10 · 空格播放", en: "← → era step · ↑↓ ±1 · ⇧ ×10 · Space play" },
     tlJump: { zh: "跳转年份", en: "Jump to year" },
     tlGo: { zh: "跳转", en: "Go" },
     tlZoomIn: { zh: "聚焦近现代", en: "Zoom to 1750–2026" },
@@ -94,15 +94,15 @@
     next: { zh: "下一节点", en: "Next" },
     aboutTitle: { zh: "一部可以走进去的世界史", en: "A world history you can walk into" },
     aboutLead: {
-      zh: "一万四千年，九大时代，四百余个节点。拖动时间，世界随之明灭；点击一地，看见那个时刻正在发生什么。",
-      en: "Fourteen thousand years, nine ages, more than four hundred nodes. Drag time and watch the world light up; click a place to step into its moment.",
+      zh: "一万四千年，九大时代，五百余个节点。拖动时间，世界随之明灭；点击一地，看见那个时刻正在发生什么。",
+      en: "Fourteen thousand years, nine ages, more than five hundred nodes. Drag time and watch the world light up; click a place to step into its moment.",
     },
     aboutEras: { zh: "时代", en: "Ages" },
     aboutHow: { zh: "如何阅读", en: "How to read" },
     how1: { zh: "拖动或点击底部时间轴，改变年份；按空格播放整部历史。", en: "Drag or click the timeline to change the year; press Space to play history." },
     how2: { zh: "点击地图上的节点，展开该时刻的动态场景与双语史志。", en: "Click a node to open its animated scene and bilingual chronicle." },
     how3: { zh: "点击任意国家，查看现代国界内的全部历史节点与当时的主导文明。", en: "Click any country to see every node inside its modern borders and the powers that ruled it." },
-    how4: { zh: "搜索国家、文明或事件；← → 逐年，Shift 加速十倍。", en: "Search countries, civilizations or events; ← → steps a year, Shift ×10." },
+    how4: { zh: "搜索国家、文明或事件；← → 按年代步进，↑ ↓ 精确到一年，Shift ×10。", en: "Search countries, civilizations or events; ← → steps by era, ↑ ↓ one year, Shift ×10." },
     aboutScenes: { zh: "场景", en: "Scenes" },
     aboutNote: { zh: "关于边界与史观", en: "On borders and history" },
     aboutNoteText: {
@@ -116,7 +116,7 @@
     panelOpen: { zh: "此刻世界", en: "The moment" },
     how5: { zh: "「中国江山时序」是统一专题：按年份查看中国王朝、并立政权与近现代国家。", en: "China Chronicle is a unified theme: dynasties, rival regimes and modern states by year." },
     legendTitle: { zh: "颜色与图例", en: "Colours and legend" },
-    legendNote: { zh: "事件节点按类别着色；政权光晕按地区着色。颜色不表示优劣或立场。", en: "Event nodes are coloured by category; polity halos by region. Colour implies no ranking or stance." },
+    legendNote: { zh: "事件节点按类别着色并使用不同形状（菱形/方形/圆形/三角/六边）；政权光晕按地区着色。颜色与形状不表示优劣或立场。", en: "Event nodes are coloured and shaped by category (diamond/square/circle/triangle/hex); polity halos by region. Neither implies ranking or stance." },
     legendEvents: { zh: "事件类别", en: "Event categories" },
     legendRegions: { zh: "地区 / 政权", en: "Regions / polities" },
     obKicker: { zh: "第一次来 · FIRST VISIT", en: "FIRST VISIT" },
@@ -156,6 +156,10 @@
     panelOpen: true,
     catFilter: null,
     catFilterExpanded: false,
+    searchQuery: null,
+    searchResults: [],
+    route: null,
+    autoOpened: false,
     sheet: "half",
   };
 
@@ -252,6 +256,48 @@
   })();
   state.pos = timeline.toPos(state.year);
 
+  /* ── themed routes ──────────────────────────────── */
+  const ROUTES = [
+    {
+      id: "silk-sea",
+      name: { zh: "丝路与海路", en: "Silk & Sea Routes", es: "Rutas de la seda y el mar", fr: "Routes de la soie et de la mer", ar: "طرق الحرير والبحر" },
+      desc: {
+        zh: "从陆上丝路到印度洋与太平洋航线：商品、宗教与帝国如何把大陆连成网络。",
+        en: "From the overland Silk Road to Indian Ocean and Pacific routes: how goods, faiths and empires linked continents.",
+        es: "De la Ruta de la Seda a las rutas del Índico y el Pacífico: cómo bienes, fes e imperios conectaron continentes.",
+        fr: "De la route de la soie aux routes de l’océan Indien et du Pacifique : comment marchandises, foi et empires ont relié les continents.",
+        ar: "من طريق الحرير البري إلى طرق المحيط الهندي والهادئ: كيف ربطت السلع والأديان والإمبراطوريات القارات.",
+      },
+      events: ["the-silk-road", "baghdad-founded", "zheng-hes-voyages", "columbus-reaches-the-americas", "aceh-sultanate", "vasco-da-gama-reaches-india", "portuguese-capture-malacca", "magellans-circumnavigation", "english-east-india-company"],
+    },
+    {
+      id: "empire-collapse",
+      name: { zh: "帝国崩溃", en: "Empires in Crisis", es: "Imperios en crisis", fr: "Empires en crise", ar: "إمبراطوريات في أزمة" },
+      desc: {
+        zh: "从汉、罗马到奥斯曼、苏联：帝国如何失去合法性、边疆与中心。",
+        en: "From Han and Rome to the Ottomans and the USSR: how empires lose legitimacy, frontiers and their centre.",
+        es: "Del Han y Roma a los otomanos y la URSS: cómo los imperios pierden legitimidad, fronteras y centro.",
+        fr: "Du Han et de Rome aux Ottomans et à l’URSS : comment les empires perdent légitimité, frontières et centre.",
+        ar: "من هان وروما إلى العثمانيين والاتحاد السوفيتي: كيف تفقد الإمبراطوريات شرعيتها وحدودها ومركزها.",
+      },
+      events: ["fall-of-the-han", "fall-of-western-rome", "fall-of-constantinople", "fall-of-granada", "fall-of-the-aztec-empire", "fall-of-the-inca", "opium-war", "partition-of-india", "fall-of-the-berlin-wall", "collapse-of-the-ussr"],
+    },
+    {
+      id: "tech-contact",
+      name: { zh: "技术与交流", en: "Technology & Contact", es: "Tecnología y contacto", fr: "Technologie et contact", ar: "التقنية والتواصل" },
+      desc: {
+        zh: "造纸、印刷、铁路、飞行、核能与互联网：技术如何改写交流的速度。",
+        en: "Paper, printing, railways, flight, nuclear power and the internet: how technology rewrote the speed of contact.",
+        es: "Papel, imprenta, ferrocarril, vuelo, energía nuclear e internet: cómo la tecnología reescribió la velocidad del contacto.",
+        fr: "Papier, imprimerie, chemin de fer, vol, nucléaire et internet : comment la technologie a réécrit la vitesse des contacts.",
+        ar: "الورق والطباعة والسكك والطيران والطاقة النووية والإنترنت: كيف أعادت التقنية كتابة سرعة التواصل.",
+      },
+      events: ["cai-lun-improves-papermaking", "gutenbergs-press", "stockton-darlington-railway", "wright-brothers-first-flight", "penicillin-discovered", "sputnik-1", "apollo-11", "the-world-wide-web", "the-generative-ai-boom"],
+    },
+  ];
+  const routeById = (id) => ROUTES.find((r) => r.id === id) || null;
+  const routeText = (obj) => (obj && (obj[state.lang] || obj.en || obj.zh)) || "";
+
   /* ── formatting ─────────────────────────────────── */
   function fmtYear(y, lang, compact) {
     y = nYear(Math.round(y));
@@ -332,6 +378,13 @@
     return ev.d[1];
   };
   const catColor = (k) => (A.categories[k] ? A.categories[k].color : "#8a6a3f");
+  const CAT_SHAPES = {
+    war: "diamond", politics: "square", trade: "circle", exploration: "circle",
+    culture: "square", religion: "square", science: "square",
+    disaster: "triangle", plague: "triangle",
+    city: "hex", agri: "hex", industry: "hex", hunt: "hex", digital: "hex",
+  };
+  const catShape = (k) => CAT_SHAPES[k] || "circle";
   const regionColor = (k) => (A.regions[k] ? A.regions[k].color : "#8a6a3f");
   function countryName(f) {
     if (!f) return state.lang === "zh" ? "海域" : "Open sea";
@@ -352,16 +405,16 @@
   let map, sceneCtl, scenePaused = false, lastPanelKey = "", panelTimer = 0, urlTimer = 0;
   let lastChromeYear = null, lastChromePos = "", lastBandEra = null, lastPlayTs = 0, lastHintStep = null;
   let draggingTrack = false, eventTimer = 0, lastAutoGroup = "";
-  let searchItems = [], searchActive = -1, noteTimer = 0;
+  let searchItems = [], searchActive = -1, noteTimer = 0, toastTimer = 0, navigatingHistory = false;
 
   /* ── boot ───────────────────────────────────────── */
   function boot() {
     [
       "search", "search-results", "lang-select", "layers-btn", "layers-pop", "about-btn", "reset-btn",
-      "hud-year", "hud-era", "hud-sub", "panel-kicker", "panel-title", "panel-sub", "panel-body", "map-note",
+      "hud-year", "hud-era", "hud-sub", "panel-kicker", "panel-title", "panel-sub", "panel-routes", "panel-body", "map-note",
       "side-panel", "panel-toggle", "panel-reopen", "panel-close", "tooltip", "era-bands", "tick-canvas", "track",
       "playhead", "playhead-label", "play-btn", "speed-btn", "now-btn", "tl-year", "tl-era",
-      "zoom-in", "zoom-out", "zoom-fit", "zoom-fill", "map-empty",
+      "zoom-in", "zoom-out", "zoom-fit", "zoom-fill", "map-empty", "sheet-expand", "toast",
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
       "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
@@ -489,6 +542,7 @@
       if (p.iso2 && p.iso2 !== "-99") byIso[p.iso2] = f;
       if (p.iso3 && p.iso3 !== "-99") byIso[p.iso3] = f;
     });
+    A.featureByCode = byIso;
     A.events.forEach((ev) => {
       let f = ev.c ? (byIso[ev.c] || null) : null;
       if (!f) f = map.locateCountry(ev.lon, ev.lat);
@@ -497,21 +551,7 @@
   }
 
   function applyDeepLink() {
-    const q = new URLSearchParams(location.search);
-    const eid = q.get("event");
-    if (eid && byId[eid]) {
-      setTimeout(() => openEvent(byId[eid]), 350);
-      return;
-    }
-    const cid = q.get("country");
-    if (cid) {
-      const f = map.features.find((x) => x.properties.iso3 === cid || x.properties.iso2 === cid);
-      if (f) { setTimeout(() => openCountry(f), 350); return; }
-    }
-    const theme = q.get("theme");
-    if (theme === "china") { setTimeout(() => focusRegion("china-theme"), 350); return; }
-    const region = q.get("region");
-    if (region && (A.regionNav || []).some((r) => r.id === region)) setTimeout(() => focusRegion(region), 350);
+    setTimeout(() => applyURLState(false), 350);
   }
 
   /* ── language ───────────────────────────────────── */
@@ -559,10 +599,13 @@
     if (!el["event-modal"].hidden && state.selected) fillEvent(state.selected);
     updateChrome();
     drawTicks();
+    syncURL();
   }
 
   /* ── panel ──────────────────────────────────────── */
   function panelKey() {
+    if (state.route) return "r:" + state.route + ":" + state.lang;
+    if (state.searchQuery) return "q:" + state.searchQuery + ":" + state.lang;
     if (state.country) return "c:" + countryKey(state.country) + ":" + A.eraOf(state.year).id + ":" + Math.round(state.year / 10);
     return "e:" + A.eraOf(state.year).id + ":" + Math.floor(state.year / 2);
   }
@@ -623,21 +666,21 @@
     };
   }
 
-  function triggerEvent(ev, source) {
+  function triggerEvent(ev, source, opts) {
     if (!ev) return;
     const now = performance.now();
     if (state.lastTrigger && state.lastTrigger.id === ev.id && now - state.lastTrigger.at < 600) return;
     state.lastTrigger = { id: ev.id, at: now };
-    openEvent(ev);
+    openEvent(ev, opts);
     if (source === "country") setPanel(true);
   }
 
-  function triggerGroup(g) {
+  function triggerGroup(g, opts) {
     if (!g) return;
     const ev = byId[g.lead] || groupEvents(g)[0];
     if (!ev) return;
     state.eventGroup = g;
-    triggerEvent(ev, "group");
+    triggerEvent(ev, "group", opts);
     lastPanelKey = "";
     renderPanel(true);
   }
@@ -723,6 +766,7 @@
     html += `<button data-ev-modal="${ev.id}">${L("展开史志", "Open full record", "Abrir ficha", "Ouvrir la fiche", "فتح السجل")}</button>`;
     html += `<button data-ev-voice="1">${L("朗读", "Read aloud", "Leer", "Lire", "قراءة")}</button>`;
     html += `<button data-theatre-pause="1">${L("暂停动态", "Pause dynamic", "Pausar dinámica", "Pause dynamique", "إيقاف الحركة")}</button>`;
+    html += `<button data-ev-share="1">${L("分享", "Share", "Compartir", "Partager", "مشاركة")}</button>`;
     if (ev._country) html += `<button data-country-open="${countryKey(ev._country)}">${L("国家沿革", "Country chronicle", "Crónica del país", "Chronique du pays", "سجل الدولة")}</button>`;
     html += `</div>`;
     html += `<div class="ev-verify${d.verification === "verified" ? " is-verified" : d.verification === "pending" ? " is-pending" : ""}"><i></i>${verifyLabel(d.verification || "brief")}${d.verification === "brief" ? " · " + L("长文待补，不编造", "long form pending, not invented", "texto largo pendiente", "texte long à compléter", "النص الطويل قيد الإضافة") : ""}</div>`;
@@ -740,9 +784,13 @@
       el["panel-body"].innerHTML = `<div class="panel-empty">${state.lang === "zh" ? "地图数据载入后，此处会呈现此刻并立的文明与时代节点。" : "Civilizations and nodes of this moment will appear once the map has loaded."}</div>`;
       return;
     }
+    const showRoutes = !state.eventView && !state.country && !state.theme && !state.route && !state.searchQuery;
+    if (el["panel-routes"]) el["panel-routes"].innerHTML = showRoutes ? routeStrip() : "";
     if (state.eventView) { renderEventPanel(force); return; }
     if (state.country) { renderCountryPanel(force); return; }
     if (state.theme === "china") { renderChinaPanel(force); return; }
+    if (state.route) { renderRoutePanel(force); return; }
+    if (state.searchQuery) { renderSearchPanel(force); return; }
 
     const era = A.eraOf(state.year);
     el["panel-kicker"].textContent = L("此刻世界 · ", "THE WORLD AT ", "EL MUNDO EN ", "LE MONDE EN ", "العالم في ") + fmtYear(state.year, state.lang, true);
@@ -766,9 +814,20 @@
       seen.add(a.p.id);
       return true;
     }).slice(0, 18);
+    const moderns = state.year >= 1995 ? modernStatesAt(state.year) : [];
 
     let html = "";
     html += catFilterRow(eraEventsAll);
+    if (moderns.length) {
+      html += `<section class="p-section"><h3>${L("现代国家", "MODERN STATES", "ESTADOS MODERNOS", "ÉTATS MODERNES", "الدول الحديثة")} · ${moderns.length}</h3><div class="polity-list">`;
+      moderns.slice(0, 18).forEach((e) => {
+        const f = A.featureByCode && A.featureByCode[e.code];
+        const rg = f ? byRegion(f.properties.sub) : "";
+        const nm = state.lang === "zh" ? (e.name.zh || e.name.en) : (e.name.en || e.name.zh);
+        html += `<button class="polity-chip" data-country-open="${e.code}"><i style="background:${rg ? regionColor(rg) : "#8a6a3f"}"></i>${nm}<small>${rg ? rgName(rg) : ""}</small></button>`;
+      });
+      html += `</div><div class="panel-note-inline">${L("按现代国界列出；点击查看该国沿革。", "Listed by modern borders; click for the country chronicle.", "Listados por fronteras modernas; haz clic para ver la crónica.", "Listés par frontières modernes ; cliquez pour la chronique.", "مرتبة حسب الحدود الحديثة؛ انقر لسجل الدولة.")}</div></section>`;
+    }
     html += `<section class="p-section"><h3>${L("时代节点", "NODES OF THE AGE", "NODOS DE LA ERA", "NŒUDS DE L’ÂGE", "عُقد العصر")} · ${eraEvents.length}</h3>`;
     html += `<div class="event-list">`;
     if (!eraEvents.length) {
@@ -778,15 +837,16 @@
     }
     html += `</div></section>`;
 
-    html += `<section class="p-section"><h3>${L("并立文明", "CONTEMPORARIES", "CONTEMPORÁNEOS", "CONTEMPORAINS", "معاصرون")}</h3><div class="polity-list">`;
     if (polities.length) {
+      html += `<section class="p-section"><h3>${L("并立文明", "CONTEMPORARIES", "CONTEMPORÁNEOS", "CONTEMPORAINS", "معاصرون")}</h3><div class="polity-list">`;
       polities.forEach(({ p }) => {
         html += `<button class="polity-chip" data-polity="${p.id}"><i style="background:${regionColor(p.rg)}"></i>${nameOf(p.n)}<small>${fmtRange(p.y1, p.y2)}</small></button>`;
       });
-    } else {
-      html += `<span class="panel-empty">${L("此时期尚无成形的政权光晕。", "No settled polity halos in this period.", "Sin halos de poder definidos en este periodo.", "Aucun halo de pouvoir établi pour cette période.", "لا هالات سلطة مستقرة في هذه الفترة.")}</span>`;
+      html += `</div></section>`;
     }
-    html += `</div></section>`;
+    if (!polities.length && !moderns.length) {
+      html += `<section class="p-section"><h3>${L("并立文明", "CONTEMPORARIES", "CONTEMPORÁNEOS", "CONTEMPORAINS", "معاصرون")}</h3><div class="panel-empty">${L("此时期的数据尚未收录具名政权；不代表历史上没有政权。", "No named polities are charted for this moment; this does not mean none existed.", "No hay poderes con nombre cartografiados; no significa que no existieran.", "Aucun pouvoir nommé n’est cartographié ; cela ne signifie pas qu’il n’en existait aucun.", "لا توجد كيانات مسماة مرسومة لهذه اللحظة؛ وهذا لا يعني عدم وجودها.")}</div></section>`;
+    }
 
     const changes = stateChangesNear(state.year);
     if (changes.length) {
@@ -800,11 +860,75 @@
     el["panel-body"].innerHTML = html;
     if (force && !state.playing) {
       const body = el["panel-body"];
-      const nd = body.querySelector(".now-divider");
-      body.scrollTop = nd ? Math.max(0, nd.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 76) : 0;
+      if (moderns.length) {
+        body.scrollTop = 0;
+      } else {
+        const nd = body.querySelector(".now-divider");
+        body.scrollTop = nd ? Math.max(0, nd.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 76) : 0;
+      }
     } else {
       el["panel-body"].scrollTop = scroll;
     }
+  }
+
+  function openRouteById(routeId) {
+    const def = routeById(routeId);
+    if (!def) return;
+    state.route = routeId;
+    state.searchQuery = null;
+    state.searchResults = [];
+    state.country = null;
+    state.theme = null;
+    state.eventView = null;
+    state.eventGroup = null;
+    state.selected = null;
+    state.autoOpened = false;
+    state.catFilter = null;
+    if (map) map.setCatFilter(null);
+    clearTheatreSurface();
+    const first = def.events.map((id) => byId[id]).filter(Boolean).sort((a, b) => a.y - b.y)[0];
+    if (first && first.y !== state.year) applyYear(first.y, null, { force: true, silentEvent: true, noAuto: true });
+    setPanel(true);
+    lastPanelKey = "";
+    renderPanel(true);
+    syncURL(true);
+  }
+
+  function openRandomEvent() {
+    const pool = A.events.filter((e) => e.f);
+    if (pool.length) triggerEvent(pool[Math.floor(Math.random() * pool.length)], "panel");
+  }
+
+  function renderRoutePanel(force) {
+    const r = routeById(state.route);
+    if (!r) return;
+    const key = "route:" + r.id + ":" + state.lang;
+    if (!force && key === lastPanelKey) return;
+    lastPanelKey = key;
+    const evs = r.events.map((id) => byId[id]).filter(Boolean).sort((a, b) => a.y - b.y);
+    el["panel-kicker"].textContent = L("主题路线 · ", "THEMED ROUTE · ", "RUTA TEMÁTICA · ", "PARCOURS · ", "مسار · ") + evs.length;
+    el["panel-title"].textContent = routeText(r.name);
+    el["panel-sub"].textContent = routeText(r.desc);
+    let html = `<button class="panel-back" data-route-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
+    html += `<div class="event-list">${eventList(evs)}</div>`;
+    html += `<div class="panel-note">${L("按时间顺序排列；点击节点可继续查看地图剧场与详情。", "In chronological order; click a node for its map theatre and dossier.", "En orden cronológico; haz clic para el teatro y la ficha.", "Par ordre chronologique ; cliquez pour le théâtre et la fiche.", "بترتيب زمني؛ انقر لمشهد الخريطة والملف.")}</div>`;
+    el["panel-body"].innerHTML = html;
+    el["panel-body"].scrollTop = 0;
+  }
+
+  function renderSearchPanel(force) {
+    const key = "search:" + state.searchQuery + ":" + state.lang;
+    if (!force && key === lastPanelKey) return;
+    lastPanelKey = key;
+    const evs = (state.searchResults || []).map((id) => byId[id]).filter(Boolean);
+    el["panel-kicker"].textContent = L("搜索结果 · ", "SEARCH · ", "BÚSQUEDA · ", "RECHERCHE · ", "بحث · ") + evs.length;
+    el["panel-title"].textContent = state.searchQuery;
+    el["panel-sub"].textContent = L("事件 " + evs.length + " 条；按时间排序。", evs.length + " events, in chronological order.", evs.length + " eventos, en orden cronológico.", evs.length + " événements, par ordre chronologique.", evs.length + " حدثًا بترتيب زمني.");
+    let html = `<button class="panel-back" data-search-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
+    html += `<div class="event-list">${eventList(evs)}</div>`;
+    html += `<div class="panel-note">${L("搜索范围：事件标题与摘要、文明名、国家名。", "Search covers event titles and summaries, civilizations and countries.", "La búsqueda cubre títulos y resúmenes, civilizaciones y países.", "La recherche couvre titres et résumés, civilisations et pays.", "يشمل البحث عناوين الأحداث وملخصاتها والحضارات والدول.")}</div>`;
+    el["panel-body"].innerHTML = html;
+    el["panel-body"].scrollTop = 0;
   }
 
   function renderChinaPanel(force) {
@@ -907,6 +1031,15 @@
     return '<div class="now-divider"><span>' + (state.lang === "zh" ? "此刻 · " : "NOW · ") + fmtYear(state.year, state.lang, true) + "</span></div>";
   }
 
+  function routeStrip() {
+    let html = '<div class="route-strip"><span class="route-strip-label">' + L("主题路线", "THEMED ROUTES", "RUTAS TEMÁTICAS", "PARCOURS THÉMATIQUES", "مسارات موضوعية") + "</span>";
+    ROUTES.forEach((r) => {
+      html += '<button class="route-chip" data-route="' + r.id + '">' + routeText(r.name) + " <small>" + r.events.length + "</small></button>";
+    });
+    html += '<button class="route-chip random" data-random="1">' + L("随机一瞥", "Random glimpse", "Vistazo aleatorio", "Aperçu aléatoire", "لمحة عشوائية") + "</button></div>";
+    return html;
+  }
+
   function catFilterRow(events) {
     if (!events || !events.length) return "";
     const counts = {};
@@ -950,7 +1083,7 @@
     return `<button class="event-row${future ? " is-future" : ""}" data-ev="${ev.id}">
       <span class="er-year">${fmtYear(ev.y, state.lang, true)}</span>
       <span class="er-main"><span class="er-title">${title}</span>
-      <span class="er-meta"><i style="background:${cat.color}"></i>${catName(ev.k)} · ${rgName(ev.rg)}${future ? (state.lang === "zh" ? " · 未至" : " · ahead") : ""}</span></span>
+      <span class="er-meta"><i class="cat-shape shape-${catShape(ev.k)}" style="background:${cat.color}"></i>${catName(ev.k)} · ${rgName(ev.rg)}${future ? (state.lang === "zh" ? " · 未至" : " · ahead") : ""}</span></span>
     </button>`;
   }
 
@@ -1029,6 +1162,14 @@
   };
   function byRegion(sub) { return SUB2RG[sub] || ""; }
 
+  const NON_SOVEREIGN = { HKG: 1, MAC: 1, GRL: 1, NCL: 1, PRI: 1 };
+  function modernStatesAt(year) {
+    const list = (window.HistoricalEntities && window.HistoricalEntities.list) || [];
+    return list
+      .filter((e) => e.type === "modern" && !NON_SOVEREIGN[e.code] && year >= e.from && year <= e.to)
+      .sort((a, b) => ((b.priority || 0) + Math.sqrt(b.area || 0) * 0.5) - ((a.priority || 0) + Math.sqrt(a.area || 0) * 0.5));
+  }
+
   function politiesAt(lat, lon, year) {
     const y = year == null ? state.year : year;
     const list = [];
@@ -1075,7 +1216,7 @@
       zb.classList.toggle("is-on", !timeline.full);
       zb.setAttribute("aria-pressed", String(!timeline.full));
       zb.title = timeline.full
-        ? L("放大 1750–2026，便于逐年选择", "Zoom to 1750–2026 for precise years", "Ampliar 1750–2026", "Zoomer sur 1750–2026", "تكبير 1750–2026")
+        ? L("放大 1750–2026，便于精确选择", "Zoom to 1750–2026 for precise years", "Ampliar 1750–2026", "Zoomer sur 1750–2026", "تكبير 1750–2026")
         : L("回到全史 前12000–2026", "Back to the full span, 12000 BCE–2026", "Volver a la escala completa", "Revenir à la chronologie complète", "العودة إلى المدى الكامل");
     }
     const step = yearStep(state.year);
@@ -1137,6 +1278,7 @@
     if (window.MapTheatre) window.MapTheatre.clear();
     el["theatre-card"].hidden = true;
     document.getElementById("map-stage").classList.remove("theatre-open");
+    state.route = null;
     if (r.theme) {
       state.selected = null;
       state.eventView = null;
@@ -1163,7 +1305,7 @@
       if (state.panelOpen) renderPanel(true);
     }
     if (state.panelOpen) { lastPanelKey = ""; renderPanel(true); }
-    syncURL();
+    syncURL(true);
   }
 
   function drawTicks() {
@@ -1429,7 +1571,7 @@
       const g = groups[0];
       if (lastAutoGroup === g.id + ":" + state.year) return;
       lastAutoGroup = g.id + ":" + state.year;
-      triggerGroup(g);
+      triggerGroup(g, { auto: true });
     }, 420);
   }
 
@@ -1471,6 +1613,8 @@
     b.setAttribute("aria-pressed", String(on));
     b.setAttribute("aria-label", on ? L("恢复全图", "Back to world view", "Volver al mapa mundial", "Revenir à la carte mondiale", "العودة إلى العرض العالمي") : L("铺满视野", "Fill the screen", "Ampliar vista", "Remplir l’écran", "ملء الشاشة"));
     b.title = b.getAttribute("aria-label");
+    const label = b.querySelector(".zf-label");
+    if (label) label.textContent = on ? L("全图", "World", "Mundo", "Monde", "العالم") : L("铺满", "Fill", "Llenar", "Remplir", "ملء");
   }
 
   function flashMapNote(text) {
@@ -1710,9 +1854,18 @@
     placeTooltip(x, y);
   }
 
+  function clearTheatreSurface() {
+    if (window.MapTheatre) window.MapTheatre.clear();
+    if (el["theatre-card"]) el["theatre-card"].hidden = true;
+    const stage = document.getElementById("map-stage");
+    if (stage) stage.classList.remove("theatre-open");
+    if (map) { map.setSelected(null); map.setPaused(false); }
+  }
+
   /* ── event theatre ──────────────────────────────── */
-  function openEvent(ev) {
+  function openEvent(ev, opts) {
     if (!ev) return;
+    state.autoOpened = !!(opts && opts.auto);
     stopPlay();
     if (!el["event-modal"].hidden) closeEvent();
     state.country = null;
@@ -1742,7 +1895,7 @@
     document.getElementById("map-stage").classList.add("theatre-open");
     el.hint.classList.add("hide");
     el["tc-pause"].textContent = state.lang === "zh" ? "暂停" : "Pause";
-    syncURL();
+    syncURL(!state.autoOpened);
   }
 
   function closeTheatre() {
@@ -2025,6 +2178,9 @@
   /* ── country lens ───────────────────────────────── */
   function openCountry(f, opts) {
     if (!f) return;
+    state.searchQuery = null;
+    state.searchResults = [];
+    state.route = null;
     if (!el["event-modal"].hidden) closeEvent();
     if (window.MapTheatre) window.MapTheatre.clear();
     el["theatre-card"].hidden = true;
@@ -2051,7 +2207,7 @@
       window.MapTheatre.setLang(state.lang);
       window.MapTheatre.playCountry(f);
     }
-    syncURL();
+    syncURL(true);
   }
   function closeCountry() {
     if (!state.country) return;
@@ -2201,7 +2357,7 @@
       .filter((x) => x.sc).sort((a, b) => b.sc - a.sc).slice(0, 4);
     const ctry = (map.features || []).map((f) => ({ f, sc: Math.max(score(f.properties.zh, q), score(f.properties.n, q), score(f.properties.es, q), score(f.properties.fr, q), score(f.properties.ar, q), score(f.properties.iso3, q)) }))
       .filter((x) => x.sc).sort((a, b) => b.sc - a.sc).slice(0, 5);
-    return { evs: evs.slice(0, 6), pols, ctry };
+    return { evs: evs.slice(0, 6), evsAll: evs, pols, ctry };
   }
 
   function refreshSearchItems() {
@@ -2242,8 +2398,12 @@
     if (res.evs.length) {
       html += '<div class="sr-group">' + L("事件", "Events", "Eventos", "Événements", "الأحداث") + "</div>";
       res.evs.forEach(({ ev }) => {
-        html += '<button class="sr-item" data-r-ev="' + ev.id + '"><b>' + evTitle(ev) + "</b><small>" + fmtYear(ev.y, state.lang, true) + "</small></button>";
+        const cat = A.categories[ev.k] || { color: "#8a6a3f" };
+        html += '<button class="sr-item" data-r-ev="' + ev.id + '"><span class="sr-main"><b>' + evTitle(ev) + '</b><span class="sr-meta"><i class="cat-shape shape-' + catShape(ev.k) + '" style="background:' + cat.color + '"></i>' + catName(ev.k) + " · " + rgName(ev.rg) + "</span></span><small>" + fmtYear(ev.y, state.lang, true) + "</small></button>";
       });
+      if (res.evsAll.length > 6) {
+        html += '<button class="sr-more" data-search-all="1">' + L("查看全部 " + res.evsAll.length + " 条", "See all " + res.evsAll.length, "Ver los " + res.evsAll.length, "Voir les " + res.evsAll.length, "عرض كل " + res.evsAll.length) + "</button>";
+      }
     }
     if (res.pols.length) {
       html += '<div class="sr-group">' + L("文明", "Civilizations", "Civilizaciones", "Civilisations", "الحضارات") + "</div>";
@@ -2282,6 +2442,37 @@
       }
     }
   }
+  function openSearchPanel(q) {
+    q = String(q || "").trim();
+    if (!q) return;
+    const res = searchIndex(q);
+    if (!res || !res.evsAll.length) return;
+    state.searchQuery = q;
+    state.searchResults = res.evsAll.map((x) => x.ev.id);
+    state.route = null;
+    state.country = null;
+    state.theme = null;
+    state.eventView = null;
+    state.eventGroup = null;
+    state.selected = null;
+    state.catFilter = null;
+    if (map) map.setCatFilter(null);
+    clearTheatreSurface();
+    closeSearch();
+    setPanel(true);
+    lastPanelKey = "";
+    renderPanel(true);
+    syncURL(true);
+  }
+
+  function closeSearchPanel() {
+    state.searchQuery = null;
+    state.searchResults = [];
+    lastPanelKey = "";
+    renderPanel(true);
+    syncURL(true);
+  }
+
   function closeSearch() {
     el["search-results"].hidden = true;
     el.search.value = "";
@@ -2322,6 +2513,13 @@
     ["side-panel", "panel-body"].forEach((id) => {
       if (el[id]) el[id].addEventListener("wheel", (e) => e.stopPropagation(), { passive: true });
     });
+    if (el["panel-routes"]) {
+      el["panel-routes"].addEventListener("click", (e) => {
+        const routeBtn = e.target.closest("[data-route]");
+        if (routeBtn) { openRouteById(routeBtn.getAttribute("data-route")); return; }
+        if (e.target.closest("[data-random]")) openRandomEvent();
+      });
+    }
     if (el["panel-body"]) {
       el["panel-body"].addEventListener("scroll", updatePanelScrollbar, { passive: true });
       new MutationObserver(updatePanelScrollbar).observe(el["panel-body"], { childList: true, subtree: true });
@@ -2421,6 +2619,7 @@
       map.fit(true);
       updateFitButton();
     });
+    if (el["sheet-expand"]) el["sheet-expand"].addEventListener("click", () => setSheet("half"));
     const fillBtn = document.getElementById("zoom-fill");
     if (fillBtn) {
       fillBtn.addEventListener("click", () => {
@@ -2454,6 +2653,8 @@
       }
     });
     el["search-results"].addEventListener("mousedown", (e) => {
+      const all = e.target.closest("[data-search-all]");
+      if (all) { e.preventDefault(); openSearchPanel(el.search.value); return; }
       const item = e.target.closest("[data-r-ev],[data-r-pol],[data-r-ctry]");
       if (item) { e.preventDefault(); pickSearch(item); }
     });
@@ -2477,15 +2678,42 @@
         renderPanel(true);
         drawTicks();
         updateMapEmpty();
+        syncURL();
         const body = el["panel-body"];
         const row = body && body.querySelector(".cat-filter");
         if (row) body.scrollTop = Math.max(0, row.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 24);
         return;
       }
+      const routeBtn = e.target.closest("[data-route]");
+      if (routeBtn) { openRouteById(routeBtn.getAttribute("data-route")); return; }
+      const randomBtn = e.target.closest("[data-random]");
+      if (randomBtn) { openRandomEvent(); return; }
+      const routeClose = e.target.closest("[data-route-close]");
+      if (routeClose) {
+        state.route = null;
+        lastPanelKey = "";
+        renderPanel(true);
+        syncURL(true);
+        return;
+      }
+      const searchClose = e.target.closest("[data-search-close]");
+      if (searchClose) { closeSearchPanel(); return; }
       const themeClose = e.target.closest("[data-theme-close]");
       if (themeClose) { state.theme = null; state.region = null; lastPanelKey = ""; map.fit(true); renderPanel(true); updateRegionActive(); return; }
       const closeEv = e.target.closest("[data-ev-close]");
-      if (closeEv) { state.eventView = null; state.eventGroup = null; lastPanelKey = ""; renderPanel(true); return; }
+      if (closeEv) {
+        state.eventView = null;
+        state.eventGroup = null;
+        state.selected = null;
+        if (map) { map.setSelected(null); map.setPaused(false); }
+        if (window.MapTheatre) window.MapTheatre.clear();
+        if (el["theatre-card"]) el["theatre-card"].hidden = true;
+        document.getElementById("map-stage").classList.remove("theatre-open");
+        lastPanelKey = "";
+        renderPanel(true);
+        syncURL();
+        return;
+      }
       const modalBtn = e.target.closest("[data-ev-modal]");
       if (modalBtn) { openEventModal(byId[modalBtn.getAttribute("data-ev-modal")]); return; }
       const countryBtn = e.target.closest("[data-country-open]");
@@ -2497,6 +2725,8 @@
       }
       const voiceBtn = e.target.closest("[data-ev-voice]");
       if (voiceBtn) { speakSelected(); return; }
+      const shareBtn = e.target.closest("[data-ev-share]");
+      if (shareBtn) { shareCurrent(); return; }
       const pauseBtn = e.target.closest("[data-theatre-pause]");
       if (pauseBtn && window.MapTheatre) {
         const paused = window.MapTheatre.togglePause();
@@ -2565,6 +2795,9 @@
       el["scene-toggle"].textContent = scenePaused ? "▶" : "❚❚";
     });
 
+    window.addEventListener("historicalentitieschange", () => {
+      if (state.panelOpen && !state.eventView && !state.country) { lastPanelKey = ""; renderPanel(true); }
+    });
     window.addEventListener("historicalchange", () => {
       updateMapNote();
       // A snapshot that finishes loading can refine the "当时" line.
@@ -2584,6 +2817,7 @@
     });
 
     document.addEventListener("keydown", onKey);
+    window.addEventListener("popstate", () => applyURLState(true));
     window.addEventListener("resize", () => {
       if (map) map.resize();
       if (state.panelOpen) {
@@ -2699,7 +2933,7 @@
     el["about-scenes"].textContent = used.map((s) => (A.scenes[s] ? (state.lang === "zh" ? A.scenes[s].zh : A.scenes[s].en) : s)).join(" · ");
     if (el["legend-cats"]) {
       el["legend-cats"].innerHTML = Object.keys(A.categories).map((k) =>
-        '<span class="lg"><i style="background:' + A.categories[k].color + '"></i>' + catName(k) + "</span>"
+        '<span class="lg"><i class="lg-shape cat-shape shape-' + catShape(k) + '" style="background:' + A.categories[k].color + '"></i>' + catName(k) + "</span>"
       ).join("");
     }
     if (el["legend-regions"]) {
@@ -2709,19 +2943,147 @@
     }
   }
 
-  /* ── URL ────────────────────────────────────────── */
-  function syncURL() {
+  /* ── URL / history / share ──────────────────────── */
+  function buildURL() {
+    const p = new URLSearchParams();
+    p.set("year", state.year);
+    if (!timeline.full) { p.set("from", timeline.from); p.set("to", timeline.to); }
+    if (state.catFilter) p.set("cat", state.catFilter);
+    if (state.selected && !state.autoOpened) p.set("event", state.selected.id);
+    if (state.country) p.set("country", countryKey(state.country));
+    if (state.theme) p.set("theme", state.theme);
+    else if (state.region) p.set("region", state.region);
+    if (state.route) p.set("route", state.route);
+    if (state.searchQuery) p.set("search", state.searchQuery);
+    if (state.lang !== "zh") p.set("lang", state.lang);
+    return "?" + p.toString();
+  }
+
+  function syncURL(push) {
+    if (navigatingHistory) return;
     clearTimeout(urlTimer);
-    urlTimer = setTimeout(() => {
-      const p = new URLSearchParams();
-      p.set("year", state.year);
-      if (state.selected) p.set("event", state.selected.id);
-      if (state.country) p.set("country", countryKey(state.country));
-      if (state.theme) p.set("theme", state.theme);
-      else if (state.region) p.set("region", state.region);
-      if (state.lang !== "zh") p.set("lang", state.lang);
-      try { history.replaceState(null, "", "?" + p.toString()); } catch (err) { /* file:// */ }
-    }, 420);
+    const write = () => {
+      try {
+        if (push) history.pushState({ atlas: true }, "", buildURL());
+        else history.replaceState({ atlas: true }, "", buildURL());
+      } catch (err) { /* file:// */ }
+    };
+    if (push) write();
+    else urlTimer = setTimeout(write, 420);
+  }
+
+  function showToast(text) {
+    if (!el["toast"]) return;
+    clearTimeout(toastTimer);
+    el["toast"].textContent = text;
+    el["toast"].hidden = false;
+    toastTimer = setTimeout(() => { el["toast"].hidden = true; }, 2400);
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      return;
+    }
+    fallbackCopy(text);
+    function fallbackCopy(t) {
+      const ta = document.createElement("textarea");
+      ta.value = t;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (err) { /* ignore */ }
+      ta.remove();
+    }
+  }
+
+  function shareCurrent() {
+    state.autoOpened = false;
+    syncURL(true);
+    copyText(location.href);
+    showToast(L("链接已复制 · 包含年份、事件与筛选", "Link copied — year, event and filters included", "Enlace copiado: año, evento y filtros", "Lien copié — année, événement et filtres", "تم نسخ الرابط: السنة والحدث والمرشحات"));
+  }
+
+  function applyURLState(fromHistory) {
+    navigatingHistory = true;
+    clearTimeout(urlTimer);
+    try {
+      const q = new URLSearchParams(location.search);
+      const lang = q.get("lang") || (fromHistory ? "zh" : null);
+      if (lang && lang !== state.lang && ["zh", "en", "es", "fr", "ar"].indexOf(lang) >= 0) setLang(lang);
+      if (!el["event-modal"].hidden) closeEvent();
+      if (window.MapTheatre) window.MapTheatre.clear();
+      el["theatre-card"].hidden = true;
+      document.getElementById("map-stage").classList.remove("theatre-open");
+      state.eventView = null;
+      state.eventGroup = null;
+      state.selected = null;
+      state.autoOpened = false;
+      state.country = null;
+      state.theme = null;
+      state.region = null;
+      state.route = null;
+      state.searchQuery = null;
+      state.searchResults = [];
+      if (map) { map.setSelected(null); map.setHighlight(null); map.setPaused(false); }
+
+      const from = parseInt(q.get("from"), 10), to = parseInt(q.get("to"), 10);
+      if (isFinite(from) && isFinite(to) && to - from >= 5) timeline.setWindow(from, to);
+      else timeline.reset();
+      buildTimeline();
+
+      const cat = q.get("cat");
+      state.catFilter = cat && A.categories[cat] ? cat : null;
+      if (map) map.setCatFilter(state.catFilter);
+
+      const route = q.get("route");
+      if (route && routeById(route)) {
+        state.route = route;
+        state.catFilter = null;
+        if (map) map.setCatFilter(null);
+      }
+      const sq = q.get("search");
+      if (sq) {
+        state.searchQuery = sq;
+        const res = searchIndex(sq);
+        state.searchResults = res ? res.evsAll.map((x) => x.ev.id) : [];
+      }
+
+      const y = parseInt(q.get("year"), 10);
+      if (isFinite(y)) {
+        applyYear(y, null, { force: true, silentEvent: true, noAuto: true });
+      } else if (state.route) {
+        const def = routeById(state.route);
+        const first = def && def.events.map((id) => byId[id]).filter(Boolean).sort((a, b) => a.y - b.y)[0];
+        if (first) applyYear(first.y, null, { force: true, silentEvent: true, noAuto: true });
+      }
+
+      const eid = q.get("event");
+      if (eid && byId[eid]) {
+        openEvent(byId[eid]);
+      } else {
+        const cid = q.get("country");
+        if (cid) {
+          const f = (map.features || []).find((x) => x.properties.iso3 === cid || x.properties.iso2 === cid || x.properties.n === cid);
+          if (f) openCountry(f, { skipGroup: true });
+        } else {
+          const theme = q.get("theme");
+          const region = q.get("region");
+          if (theme === "china") focusRegion("china-theme");
+          else if (region && (A.regionNav || []).some((r) => r.id === region)) focusRegion(region);
+        }
+      }
+
+      if (state.eventView || state.country || state.theme || state.route || state.searchQuery) setPanel(true);
+      else if (state.panelOpen) { lastPanelKey = ""; renderPanel(true); }
+      updateRegionActive();
+      drawTicks();
+      updateChrome();
+    } finally {
+      setTimeout(() => { navigatingHistory = false; }, 0);
+    }
   }
 
   /* ── go ─────────────────────────────────────────── */

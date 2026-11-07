@@ -64,6 +64,15 @@ try {
   }));
   check("search Enter opens the event panel and theatre", searched.ev === "Marco Polo Bridge Incident" && searched.panel && searched.theatre, JSON.stringify(searched));
 
+  await d.goBack();
+  await d.waitForTimeout(600);
+  const back = await d.evaluate(() => ({ ev: window.atlasAPI.state.eventView, url: location.search }));
+  check("browser back closes the event and restores the year view", !back.ev && back.url.indexOf("event=") < 0, JSON.stringify(back));
+  await d.goForward();
+  await d.waitForTimeout(700);
+  const forward = await d.evaluate(() => ({ ev: window.atlasAPI.state.eventView && window.atlasAPI.state.eventView.t[1], theatre: window.MapTheatre.active }));
+  check("browser forward reopens the event", forward.ev === "Marco Polo Bridge Incident" && forward.theatre, JSON.stringify(forward));
+
   await d.evaluate(() => document.querySelector("[data-ev-close]")?.click());
   await d.waitForTimeout(300);
   const beforeFilter = await d.evaluate(() => window.atlasAPI.map.visibleEvents().length);
@@ -88,13 +97,49 @@ try {
   }));
   check("panel scroll does not change map zoom", afterScroll.z === beforeScroll.z && afterScroll.st > 0, JSON.stringify(afterScroll));
 
-  await d.evaluate(() => window.atlasAPI.setYear(2026));
+  await d.click("#search");
+  await d.type("#search", "战争", { delay: 15 });
+  await d.waitForTimeout(350);
+  const more = await d.$("[data-search-all]");
+  if (more) await more.click();
+  await d.waitForTimeout(500);
+  const allSearch = await d.evaluate(() => ({
+    q: window.atlasAPI.state.searchQuery,
+    n: window.atlasAPI.state.searchResults.length,
+    title: document.querySelector("#panel-title").textContent,
+    url: location.search,
+  }));
+  check("search 'see all' opens the full result panel", allSearch.q === "战争" && allSearch.n > 6 && allSearch.title === "战争" && allSearch.url.indexOf("search=") >= 0, JSON.stringify(allSearch));
+  await d.evaluate(() => document.querySelector("[data-search-close]")?.click());
+  await d.waitForTimeout(300);
+
+  await d.click('[data-route="silk-sea"]');
+  await d.waitForTimeout(500);
+  const route = await d.evaluate(() => ({
+    route: window.atlasAPI.state.route,
+    title: document.querySelector("#panel-title").textContent,
+    rows: document.querySelectorAll("#panel-body .event-row").length,
+    url: location.search,
+  }));
+  check("themed route opens with its events", route.route === "silk-sea" && route.rows >= 8 && route.url.indexOf("route=silk-sea") >= 0, JSON.stringify(route));
+  await d.evaluate(() => document.querySelector("[data-route-close]")?.click());
+  await d.waitForTimeout(300);
+
+  await d.evaluate(() => { window.atlasAPI.state.autoEvent = false; window.atlasAPI.setYear(2026); });
   await d.waitForTimeout(700);
+  const evClose = await d.$("[data-ev-close]");
+  if (evClose) { await evClose.click(); await d.waitForTimeout(300); }
   const taiwan = await d.evaluate(() => {
     const list = window.HistoricalEntities.list.filter((e) => e.type === "province" && e.from <= 2026 && e.to >= 2026);
     return list.map((e) => e.name.zh);
   });
   check("Taiwan remains a province in 2026", taiwan.includes("台湾省"), taiwan.join(","));
+  const modern = await d.evaluate(() => ({
+    heading: Array.prototype.map.call(document.querySelectorAll("#panel-body .p-section h3"), (h) => h.textContent).find((t) => t.indexOf("现代国家") >= 0) || "",
+    chips: document.querySelectorAll("#panel-body [data-country-open]").length,
+    empty: !!document.querySelector("#panel-body .panel-empty"),
+  }));
+  check("2026 shows modern states instead of a false empty state", modern.heading.indexOf("现代国家") >= 0 && modern.chips >= 10 && !modern.empty, JSON.stringify(modern));
 
   check("desktop page has no console errors", desktop.errors.length === 0, desktop.errors.slice(0, 2).join(" | "));
 
@@ -125,6 +170,11 @@ try {
     title: document.querySelector("#panel-title").textContent,
   }));
   check("peek state shows the event title", peek.state === "peek" && peek.h < 160 && peek.body === "none" && peek.title.includes("卢沟桥"), JSON.stringify(peek));
+  const expandVisible = await m.evaluate(() => getComputedStyle(document.querySelector("#sheet-expand")).display !== "none");
+  await m.click("#sheet-expand");
+  await m.waitForTimeout(400);
+  const expanded = await m.evaluate(() => window.atlasAPI.state.sheet);
+  check("peek has a visible expand action", expandVisible && expanded === "half", expanded);
 
   await m.evaluate(() => window.atlasAPI.setSheet("full"));
   await m.waitForTimeout(400);
@@ -140,7 +190,8 @@ try {
     zoom: window.atlasAPI.map.view.zoom,
     pressed: document.querySelector("#zoom-fill").getAttribute("aria-pressed"),
   }));
-  check("mobile fill view zooms in and persists its state", fill.mode === "fill" && fill.zoom > 2 && fill.pressed === "true", JSON.stringify(fill));
+  const fillLabel = await m.evaluate(() => document.querySelector("#zoom-fill .zf-label").textContent);
+  check("mobile fill view is labelled and zooms in", fill.mode === "fill" && fill.zoom > 2 && fill.pressed === "true" && fillLabel.length > 0, JSON.stringify(fill) + " label=" + fillLabel);
   await m.click("#zoom-fit");
   await m.waitForTimeout(400);
   const world = await m.evaluate(() => ({ mode: window.atlasAPI.map.fitMode, zoom: window.atlasAPI.map.view.zoom }));

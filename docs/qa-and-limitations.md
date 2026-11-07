@@ -86,3 +86,13 @@ node scripts/build-reports.mjs
 - 内容 +10（总 521）、长文 +7（总 52）；`curated-zapotec` 修正蒙特阿尔班“当时”政权。
 - 新增 `npm run smoke`（19 项 Playwright 检查，含 16 秒清理）；本轮实测 19/19 通过。
 - 详细记录见 `docs/next-stage-2026-11.md`。
+
+## P0/P1 第二轮（2026-11-07）
+
+- 2026 现代国家区块（196 个主权条目，前 18 个可点；排除非主权属地）；关于页旧文案修正。
+- 手机铺满按钮带“铺满/全图”文字；peek 增加“展开”按钮。
+- 搜索“查看全部 N 条”结果面板、类别/地区元数据；`?search=` 深链。
+- 事件类别形状编码（5 类）与历史疆域降透明度；标签位置/边缘修正；清/中华民国/中华人民共和国别名压制。
+- 主题路线 3 条 + 随机一瞥；`?route=` 深链。
+- `history.pushState/popstate` 浏览器后退、URL 保存 `from/to/cat/search/route`、分享按钮与 toast。
+- `npm run smoke` 扩展到 25 项，全部通过。详细记录见 `docs/p0-p1-round2-2026-11.md`。

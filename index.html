@@ -7,7 +7,7 @@
 <meta name="description" content="从史前狩猎到人工智能：一张可拖动的全球文明时间地图。520 余个世界历史节点、九大时代、18 个时代疆域快照、地图内动态剧场与全球联动，支持五种界面语言。" />
 <meta name="theme-color" content="#f2ece0" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23b0432c'/%3E%3Ctext x='32' y='46' font-size='42' text-anchor='middle' fill='%23f6efe2' font-family='serif'%3E寰%3C/text%3E%3C/svg%3E" />
-<link rel="stylesheet" href="css/style.css?v=20261108c" />
+<link rel="stylesheet" href="css/style.css?v=20261108e" />
 </head>
 <body>
 <div id="app">
@@ -77,6 +77,7 @@
 
     <div id="map-note" data-i18n="mapNote">示意图 · 现代国界仅作地理参照</div>
     <button id="map-empty" hidden>此类别下此刻暂无节点 · 清除筛选</button>
+    <div id="toast" role="status" aria-live="polite" hidden></div>
 
     <div id="map-zoom">
       <button id="zoom-in" aria-label="放大">+</button>
@@ -86,6 +87,7 @@
       </button>
       <button id="zoom-fill" aria-label="铺满视野" aria-pressed="false" title="铺满视野 / Fill the screen">
         <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+        <span class="zf-label">铺满</span>
       </button>
     </div>
 
@@ -100,10 +102,12 @@
       </button>
       <div class="panel-inner">
         <button id="panel-close" class="panel-close" aria-label="关闭面板 / Close panel">×</button>
+        <button id="sheet-expand" class="sheet-expand" type="button">展开 ›</button>
         <div class="panel-head">
           <div class="kicker" id="panel-kicker">此刻世界</div>
           <h2 id="panel-title">青铜与早期文明</h2>
           <p id="panel-sub">城邦 · 文字 · 神王与战车</p>
+          <div id="panel-routes" class="panel-routes"></div>
         </div>
         <div class="panel-body" id="panel-body"></div>
       </div>
@@ -229,7 +233,7 @@
       <span class="seal small">寰</span>
       <div>
         <h2 id="about-title" data-i18n="aboutTitle">一部可以走进去的世界史</h2>
-        <p class="about-lead" data-i18n="aboutLead">一万四千年，九大时代，四百余个节点。拖动时间，世界随之明灭；点击一地，看见那个时刻正在发生什么。</p>
+        <p class="about-lead" data-i18n="aboutLead">一万四千年，九大时代，五百余个节点。拖动时间，世界随之明灭；点击一地，看见那个时刻正在发生什么。</p>
       </div>
     </div>
     <div class="about-grid">
@@ -271,17 +275,17 @@
   </article>
 </div>
 
-<script src="js/data_bundle.js?v=20261108c"></script>
-<script src="js/hero-scenes.js?v=20261108c"></script>
-<script src="js/variant-scenes.js?v=20261108c"></script>
-<script src="js/scenes.js?v=20261108c"></script>
-<script src="js/historical.js?v=20261108c"></script>
-<script src="js/entities.js?v=20261108c"></script>
-<script src="js/theatre.js?v=20261108c"></script>
-<script src="js/audio.js?v=20261108c"></script>
-<script src="js/statechanges.js?v=20261108c"></script>
-<script src="js/map.js?v=20261108c"></script>
-<script src="js/i18n_extra.js?v=20261108c"></script>
-<script src="js/app.js?v=20261108c"></script>
+<script src="js/data_bundle.js?v=20261108e"></script>
+<script src="js/hero-scenes.js?v=20261108e"></script>
+<script src="js/variant-scenes.js?v=20261108e"></script>
+<script src="js/scenes.js?v=20261108e"></script>
+<script src="js/historical.js?v=20261108e"></script>
+<script src="js/entities.js?v=20261108e"></script>
+<script src="js/theatre.js?v=20261108e"></script>
+<script src="js/audio.js?v=20261108e"></script>
+<script src="js/statechanges.js?v=20261108e"></script>
+<script src="js/map.js?v=20261108e"></script>
+<script src="js/i18n_extra.js?v=20261108e"></script>
+<script src="js/app.js?v=20261108e"></script>
 </body>
 </html>
