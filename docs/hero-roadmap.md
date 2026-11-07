@@ -153,4 +153,5 @@ Updated 2026-11-06. This is the master plan behind the three-tier scene system.
 - `fc44106`：2C 六个场景与复审，资源版本 `20261107l`；**30 个主题 / 32 个事件条目**（Gate 1 数量达成）。
 - `021932e`：统一纹理 pass，资源版本 `20261107m`；复评 4.19，Gate 1 质量线未达。
 - `0879f66`：六个弱项场景构图 pass，资源版本 `20261107n`；估算 4.26，Gate 1 仍未达。
+- `f6fa615`：材料排线与明暗 pass，资源版本 `20261107o`；估算 4.40，Gate 1 仍未达。
 - **推送状态**：2A/2B 已推送并上线（`3e2018b`）；2C 的 `fc44106` 为本地提交，需在 GitHub Desktop 点 Push。命令行仍无 GitHub 凭据。
