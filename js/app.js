@@ -189,6 +189,7 @@
     modernOpen: false,
     brushMode: false,
     favoritesOpen: false,
+    eventReturnYear: null,
   };
 
   /* ── language detection ─────────────────────────── */
@@ -519,6 +520,7 @@
 
     loadFavorites();
     applyI18n();
+    updateBrushLabel();
     buildTimeline();
     buildRegionNav();
 
@@ -716,6 +718,12 @@
       const key = node.getAttribute("data-i18n-ph");
       if (I18N[key]) node.placeholder = t(key);
     });
+    // The shortcut legend is arrow-first; in RTL its bidi reordering would
+    // mirror the keys, so pin it to LTR while keeping the Arabic words.
+    if (el["tl-tip"]) {
+      if (state.lang === "ar") el["tl-tip"].setAttribute("dir", "ltr");
+      else el["tl-tip"].removeAttribute("dir");
+    }
     if (el["lang-select"]) el["lang-select"].value = state.lang;
     updateSoundBtn();
     if (window.AtlasAudio) window.AtlasAudio.setLang(state.lang);
@@ -736,6 +744,7 @@
     localStorage.setItem("world-atlas-lang", lang);
     loadFavorites();
     applyI18n();
+    updateBrushLabel();
     buildTimeline();
     buildRegionNav();
     if (map) map.setLang(lang);
@@ -1738,7 +1747,7 @@
         "← → " + step + "-year step · ↑↓ ±1 · Shift ×10 · Space play",
         "← → paso de " + step + " años · ↑↓ ±1 · Mayús ×10 · Espacio",
         "← → pas de " + step + " ans · ↑↓ ±1 · Maj ×10 · Espace",
-        "← → خطوة " + step + " سنوات · ↑↓ ±1 · Shift ×10 · مسافة"
+        "← → " + (step === 1 ? "خطوة سنة واحدة" : step === 2 ? "خطوة سنتين" : "خطوة " + step + " سنوات") + " · ↑↓ ±1 · Shift ×10 · مسافة"
       );
     }
   }
@@ -2429,6 +2438,12 @@
     const wasOpen = state.panelOpen;
     state.autoOpened = !!(opts && opts.auto);
     stopPlay();
+    // Opening an event moves the timeline to the event's year. Remember the
+    // year the reader came from, so "back to the age" returns there instead
+    // of stranding them in the event's era.
+    if (!(opts && opts.auto)) {
+      if (!state.eventView) state.eventReturnYear = ev.y !== state.year ? state.year : null;
+    }
     if (!el["event-modal"].hidden && !(opts && opts.auto)) closeEvent();
     state.country = null;
     state.favoritesOpen = false;
@@ -2488,6 +2503,9 @@
       map.setSelected(null);
       map.setPaused(false);
     }
+    const backYear = state.eventReturnYear;
+    state.eventReturnYear = null;
+    if (backYear != null && backYear !== state.year) applyYear(backYear, null, { force: true, silentEvent: true });
     if (state.panelOpen) renderPanel(true);
     restoreTriggerFocus(evId);
     syncURL();
@@ -3999,7 +4017,12 @@
       drawTicks();
       updateChrome();
     } finally {
-      setTimeout(() => { navigatingHistory = false; }, 0);
+      setTimeout(() => {
+        navigatingHistory = false;
+        // The state may have moved while applying the link (opening an event
+        // jumps to its year); keep the address bar in step.
+        syncURL(false);
+      }, 0);
     }
   }
 

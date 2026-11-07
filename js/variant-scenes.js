@@ -682,6 +682,298 @@
     ctx.fillRect(8.3, -37.6, 5.4, 3.0);
   }
 
+  /* ── family: urban-war ─────────────────────────────────── */
+  /* Twentieth-century street fighting, so 1937-40 China is not drawn with
+     medieval walls: shelled facades, sandbags, tram rails, a tank or a
+     railway. Shares the print grammar of the other Tier B families. */
+  function urbanSkyline(ctx) {
+    const r = rng(7.3);
+    let x = -50;
+    while (x < 50) {
+      const w = 6 + r() * 7;
+      const bh = 9 + r() * 14;
+      ctx.fillStyle = "rgba(138,124,104,0.30)";
+      ctx.fillRect(x, -30 - bh, w, bh);
+      if (r() > 0.45) {
+        ctx.beginPath();
+        ctx.moveTo(x, -30 - bh);
+        ctx.lineTo(x + w * 0.4, -30 - bh - 2.6);
+        ctx.lineTo(x + w * 0.55, -30 - bh + 1.2);
+        ctx.lineTo(x + w, -30 - bh + 0.5);
+        ctx.lineTo(x + w, -30 - bh);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(120,106,88,0.32)"; ctx.fill();
+      }
+      ctx.fillStyle = "rgba(70,58,44,0.22)";
+      for (let k = 0; k < 3; k++) ctx.fillRect(x + 1.4 + k * 2.2, -30 - bh + 2.6, 0.9, 1.5);
+      x += w + 1.6;
+    }
+  }
+
+  function urbanFacade(ctx, x0, w, baseY, h, col, lit) {
+    // broken roofline, three storeys, dark window apertures, exposed beams
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.moveTo(x0, baseY);
+    ctx.lineTo(x0, baseY - h);
+    ctx.lineTo(x0 + w * 0.18, baseY - h - 2.6);
+    ctx.lineTo(x0 + w * 0.3, baseY - h + 1.2);
+    ctx.lineTo(x0 + w * 0.46, baseY - h - 1.6);
+    ctx.lineTo(x0 + w * 0.62, baseY - h + 2.2);
+    ctx.lineTo(x0 + w * 0.8, baseY - h - 0.8);
+    ctx.lineTo(x0 + w, baseY - h + 1.6);
+    ctx.lineTo(x0 + w, baseY);
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = "rgba(66,52,38,0.45)"; ctx.lineWidth = 0.3; ctx.stroke();
+    // floor slabs
+    for (let f = 1; f < 3; f++) {
+      const y = baseY - (h * f) / 3;
+      ctx.strokeStyle = "rgba(70,56,42,0.35)"; ctx.lineWidth = 0.36;
+      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x0 + w, y); ctx.stroke();
+    }
+    // window apertures: dark, a few with a pale sky reflection
+    for (let row = 0; row < 3; row++) {
+      for (let c = 0; c < 3; c++) {
+        const wx = x0 + 2.2 + c * (w - 4.4) / 3;
+        const wy = baseY - h + 3.4 + row * (h / 3);
+        const ww = (w - 4.4) / 3 - 1.6, wh = h / 3 - 4.2;
+        ctx.fillStyle = "rgba(44,34,26,0.62)";
+        ctx.fillRect(wx, wy, ww, wh);
+        if (lit && (row + c) % 4 === 1) {
+          ctx.fillStyle = "rgba(226,170,104,0.55)";
+          ctx.fillRect(wx, wy, ww, wh);
+        } else if ((row + c) % 3 === 0) {
+          ctx.fillStyle = "rgba(232,224,204,0.30)";
+          ctx.fillRect(wx + 0.5, wy + 0.5, ww - 1, wh * 0.3);
+        }
+      }
+    }
+    // exposed floor beams at a broken corner
+    ctx.strokeStyle = "rgba(88,66,44,0.85)"; ctx.lineWidth = 0.42;
+    for (let i = 0; i < 3; i++) {
+      const y = baseY - h + 6 + i * 3.2;
+      ctx.beginPath(); ctx.moveTo(x0 + w - 0.4, y); ctx.lineTo(x0 + w + 3.4 - i * 0.6, y - 0.6); ctx.stroke();
+    }
+  }
+
+  function sandbags(ctx, x, y, n, col, sc) {
+    const s = sc || 1;
+    for (let i = 0; i < n; i++) {
+      const row = i % 2, k = Math.floor(i / 2);
+      const bx = x + k * 3.0 * s + row * 1.4 * s;
+      const by = y - row * 1.9 * s;
+      ctx.beginPath();
+      ctx.ellipse(bx, by, 2.0 * s, 1.15 * s, 0, 0, TAU);
+      ctx.fillStyle = row ? "rgba(178,158,120,0.97)" : (col || "rgba(166,146,110,0.97)");
+      ctx.fill();
+      ctx.strokeStyle = "rgba(90,70,46,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
+      // seam
+      ctx.strokeStyle = "rgba(120,98,70,0.35)"; ctx.lineWidth = 0.14;
+      ctx.beginPath(); ctx.moveTo(bx - 1.2 * s, by + 0.1 * s); ctx.lineTo(bx + 1.2 * s, by - 0.05 * s); ctx.stroke();
+    }
+  }
+
+  function urbanStage(ctx, top, t, v) {
+    const pal = PAL[v.palette] || PAL.dusk;
+    const night = v.palette === "night";
+    sky(ctx, top, pal, night ? 30 : -36);
+    // distant roofscape, then smoke rising above it
+    urbanSkyline(ctx);
+    for (let i = 0; i < 3; i++) {
+      const bx = -20 + i * 18;
+      for (let k = 0; k < 7; k++) {
+        const q = (t * 0.06 + k * 0.15 + i * 0.13) % 1;
+        ctx.beginPath();
+        ctx.arc(bx + Math.sin(t * 0.5 + k + i) * 2.6 + q * 7, -36 - q * 22, 2.6 + q * 6.2, 0, TAU);
+        ctx.fillStyle = "rgba(96,88,78," + (0.16 * (1 - q)) + ")";
+        ctx.fill();
+      }
+    }
+    // searchlights crossing the smoke
+    if (v.props && v.props.indexOf("searchlight") >= 0) {
+      [-1, 1].forEach((dir, i) => {
+        ctx.save();
+        ctx.translate(dir * 13, -24);
+        ctx.rotate(dir * (0.42 + Math.sin(t * 0.32 + i * 1.7) * 0.1));
+        const g = ctx.createLinearGradient(0, 0, 0, -46);
+        g.addColorStop(0, "rgba(248,240,218," + (night ? 0.30 : 0.20) + ")");
+        g.addColorStop(1, "rgba(248,240,218,0)");
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.moveTo(-0.8, 0); ctx.lineTo(0.8, 0); ctx.lineTo(3.4, -46); ctx.lineTo(-3.4, -46);
+        ctx.closePath(); ctx.fill();
+        ctx.restore();
+      });
+    }
+    // street
+    const gr = ctx.createLinearGradient(0, -30, 0, 0);
+    if (night) { gr.addColorStop(0, "rgba(92,82,70,0.96)"); gr.addColorStop(1, "rgba(58,48,38,0.99)"); }
+    else if (v.palette === "dusk" || v.palette === "storm") { gr.addColorStop(0, "rgba(166,138,104,0.9)"); gr.addColorStop(1, "rgba(120,94,70,0.98)"); }
+    else { gr.addColorStop(0, "rgba(190,168,132,0.86)"); gr.addColorStop(1, "rgba(150,122,90,0.97)"); }
+    ctx.fillStyle = gr; ctx.fillRect(-50, -30, 100, 30);
+    // shell crater in the near street
+    ctx.beginPath(); ctx.ellipse(0, -5.6, 10, 2.2, 0.04, 0, TAU);
+    ctx.fillStyle = night ? "rgba(30,24,18,0.55)" : "rgba(92,72,50,0.45)"; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(0, -6.0, 7.2, 1.4, 0.04, 0, TAU);
+    ctx.fillStyle = night ? "rgba(22,18,14,0.6)" : "rgba(64,50,36,0.45)"; ctx.fill();
+
+    // two shelled facades frame the street
+    urbanFacade(ctx, -50, 36, -30, 28, v.wallCol || "rgba(150,132,110,0.97)", night);
+    urbanFacade(ctx, 16, 34, -30, 21, night ? "rgba(104,92,78,0.98)" : "rgba(160,142,118,0.97)", night);
+
+    // tram rails running down the street
+    if (v.props && v.props.indexOf("rail") >= 0) {
+      ctx.strokeStyle = night ? "rgba(30,26,20,0.6)" : "rgba(74,60,44,0.55)";
+      ctx.lineWidth = 0.4;
+      for (const off of [0, 3.4]) {
+        ctx.beginPath(); ctx.moveTo(-4, -12.4 + off * 0.5); ctx.lineTo(48, -3.4 + off * 0.7); ctx.stroke();
+      }
+      ctx.lineWidth = 0.28;
+      for (let i = 0; i < 8; i++) {
+        const k = i / 8;
+        ctx.beginPath();
+        ctx.moveTo(-3 + k * 48, -12.6 - k * 9.0);
+        ctx.lineTo(-1 + k * 48, -15.4 - k * 9.0);
+        ctx.stroke();
+      }
+    }
+    // railway sleepers and a collapsed girder
+    if (v.props && v.props.indexOf("railway") >= 0) {
+      ctx.strokeStyle = night ? "rgba(28,24,18,0.85)" : "rgba(84,66,46,0.8)";
+      ctx.lineWidth = 0.55;
+      for (let i = 0; i < 9; i++) {
+        const k = i / 9;
+        ctx.beginPath(); ctx.moveTo(-6 + k * 50, -4.2 - k * 7.4); ctx.lineTo(-2 + k * 50, -5.4 - k * 7.4); ctx.stroke();
+      }
+      ctx.lineWidth = 0.42;
+      ctx.beginPath(); ctx.moveTo(-8, -8.4); ctx.lineTo(48, -1.6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-8, -6.4); ctx.lineTo(48, 0.2); ctx.stroke();
+      // fallen truss: two chords with diagonals, so it does not read as a plank
+      ctx.strokeStyle = night ? "rgba(76,64,50,0.98)" : "rgba(104,82,56,0.96)"; ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(27, -8.2); ctx.lineTo(41, -16.6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(28.4, -6.4); ctx.lineTo(42.4, -14.8); ctx.stroke();
+      ctx.lineWidth = 0.34;
+      for (let i = 0; i < 5; i++) {
+        const k = i / 4;
+        ctx.beginPath(); ctx.moveTo(27 + k * 14, -8.2 - k * 8.4); ctx.lineTo(28.4 + k * 14, -6.4 - k * 8.4); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(27 + k * 14, -8.2 - k * 8.4); ctx.lineTo(28.4 + (k + 0.2) * 14, -6.4 - (k + 0.2) * 8.4); ctx.stroke();
+      }
+    }
+
+    // defenders stand behind the wall; the sandbags are painted over their
+    // legs so the line reads as cover rather than a crowd on a pile
+    const by = -12.4;
+    const line = [
+      [-7.0, by - 1.2, 0.40, "rgba(64,56,44,0.98)", 0.4],
+      [-2.2, by - 1.6, 0.42, "rgba(74,64,50,0.98)", 1.1],
+      [2.6, by - 1.4, 0.40, "rgba(66,56,44,0.98)", 1.8],
+      [7.4, by - 1.8, 0.38, "rgba(78,66,52,0.98)", 2.4],
+    ];
+    line.forEach(([x, y, sc, col, ph]) => {
+      p(ctx, x, y, sc, col, { phase: t * 0.55 + ph, hat: "helmet", hatCol: night ? "#4a4436" : "#5c5240", noShadow: true, arm: true });
+    });
+    // shadow, then three courses of bags spanning the street
+    ctx.beginPath(); ctx.ellipse(0, by + 0.6, 18, 2.0, 0, 0, TAU);
+    ctx.fillStyle = night ? "rgba(20,16,12,0.35)" : "rgba(84,64,42,0.22)"; ctx.fill();
+    sandbags(ctx, -9.0, by, 14, night ? "rgba(120,106,84,0.98)" : "rgba(170,150,116,0.98)", 1.2);
+    sandbags(ctx, -8.4, by - 4.0, 12, night ? "rgba(110,96,76,0.98)" : "rgba(180,160,124,0.98)", 1.2);
+    if (v.props && v.props.indexOf("barricade") >= 0) {
+      ctx.strokeStyle = night ? "rgba(52,42,30,0.95)" : "rgba(96,72,46,0.95)"; ctx.lineWidth = 0.9;
+      ctx.beginPath(); ctx.moveTo(-10, by - 5.8); ctx.lineTo(10, by - 7.6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-9, by - 7.8); ctx.lineTo(10, by - 5.6); ctx.stroke();
+    }
+    // two riflemen in the near street, flanking the frame
+    p(ctx, -25, -5.4, 0.62, "rgba(56,48,38,0.98)", { phase: t * 0.7, hat: "helmet", hatCol: "#4a4436" });
+    p(ctx, 19, -4.2, 0.66, "rgba(48,42,34,0.98)", { phase: t * 0.9 + 1.2, hat: "helmet", hatCol: "#4a4436" });
+
+
+    // tank in the middle distance
+    if (v.props && v.props.indexOf("tank") >= 0) {
+      const tx = 33, ty = -10.2;
+      ctx.fillStyle = night ? "rgba(52,48,38,0.98)" : "rgba(78,70,56,0.98)";
+      ctx.fillRect(tx - 6, ty - 3.0, 12, 2.4);
+      ctx.fillRect(tx - 3.2, ty - 5.4, 5.6, 2.6);
+      ctx.beginPath(); ctx.moveTo(tx + 2.4, ty - 4.8); ctx.lineTo(tx + 10.6, ty - 5.6);
+      ctx.lineTo(tx + 10.6, ty - 4.6); ctx.lineTo(tx + 2.4, ty - 4.0); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = night ? "rgba(34,30,24,0.98)" : "rgba(54,46,36,0.98)";
+      ctx.fillRect(tx - 6.4, ty - 0.8, 12.8, 1.6);
+      ctx.fillStyle = night ? "rgba(62,56,44,0.95)" : "rgba(96,86,68,0.95)";
+      for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.arc(tx - 4.8 + i * 2.4, ty - 0.1, 0.7, 0, TAU); ctx.fill(); }
+    }
+
+    // embers and drifting ash
+    for (let i = 0; i < 20; i++) {
+      const q = (t * 0.16 + i * 0.1) % 1;
+      ctx.beginPath();
+      ctx.arc(-40 + i * 4.4 + Math.sin(t + i) * 1.6, -2.4 - q * 24, 0.5, 0, TAU);
+      ctx.fillStyle = night
+        ? "rgba(240,190,120," + (0.45 * (1 - q)) + ")"
+        : "rgba(226,206,168," + (0.28 * (1 - q)) + ")";
+      ctx.fill();
+    }
+
+    // foreground: rubble and a fallen beam anchoring the near corner
+    ctx.fillStyle = night ? "rgba(46,38,30,0.98)" : "rgba(92,72,48,0.96)";
+    ctx.beginPath();
+    ctx.moveTo(-50, 0); ctx.lineTo(-50, -9); ctx.lineTo(-43, -3.4); ctx.lineTo(-37.4, 0);
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = "rgba(56,42,28,0.6)"; ctx.lineWidth = 0.3; ctx.stroke();
+    for (let i = 0; i < 7; i++) {
+      ctx.beginPath();
+      ctx.ellipse(26 + i * 3.6, -0.8 + (i % 2) * 0.5, 1.5, 0.6, 0, 0, TAU);
+      ctx.fillStyle = night ? "rgba(52,44,34,0.9)" : "rgba(104,84,58,0.8)"; ctx.fill();
+    }
+    if (v.palette === "dusk" || v.palette === "night") {
+      glow(ctx, 2, by + 1, 14, "rgb(226,150,86)", 0.20 + Math.sin(t * 1.7) * 0.03);
+    }
+  }
+
+  function urbanMap(ctx, t, v) {
+    const pal = PAL[v.palette] || PAL.dusk;
+    mapSky(ctx, pal, -28, 54, 0.62);
+    mapGround(ctx, "#a88c68", 0.95, -4, 54);
+    // flat-roofed blocks with window courses, one broken
+    const r = rng(3.1);
+    for (let i = 0; i < 9; i++) {
+      const bx = -36 + i * 8 + Math.sin(i * 1.7) * 1.2;
+      const bw = 5.4 + r() * 1.6;
+      const bh = 7 + r() * 9;
+      const top = -22 - bh;
+      ctx.fillStyle = "rgba(186,164,128," + (0.34 + (i % 2) * 0.08) + ")";
+      ctx.fillRect(bx, top, bw, bh);
+      if (i === 4) {
+        ctx.beginPath();
+        ctx.moveTo(bx, top); ctx.lineTo(bx + bw * 0.35, top - 2.4);
+        ctx.lineTo(bx + bw * 0.55, top - 0.6); ctx.lineTo(bx + bw, top);
+        ctx.closePath(); ctx.fillStyle = "rgba(150,108,70,0.5)"; ctx.fill();
+      }
+      ctx.fillStyle = "rgba(70,56,42,0.30)";
+      for (let row = 0; row < 3; row++) {
+        for (let c = 0; c < 2; c++) ctx.fillRect(bx + 1 + c * 2.4, top + 2 + row * 2.4, 0.9, 1.2);
+      }
+    }
+    // smoke over the block line
+    for (let i = 0; i < 3; i++) {
+      const sx = -12 + i * 13, sy = -32 - i * 3;
+      const q = (t * 0.1 + i * 0.33) % 1;
+      ctx.beginPath();
+      ctx.ellipse(sx + Math.sin(t + i) * 2, sy - q * 16, 5 + q * 4, 3.2 + q * 3, 0.2, 0, TAU);
+      ctx.fillStyle = "rgba(146,136,120," + (0.12 * (1 - q)) + ")"; ctx.fill();
+    }
+    // street: sandbags, three riflemen, a flag
+    sandbags(ctx, -14, -4.4, 8, "rgba(170,150,116,0.97)", 0.72);
+    for (let i = 0; i < 3; i++) {
+      p(ctx, -11 + i * 5.2, -3.2, 0.28, "rgba(70,60,48,0.97)", { phase: t + i, hat: "helmet", hatCol: "#5c5240" });
+    }
+    ctx.strokeStyle = INK; ctx.lineWidth = 0.4;
+    ctx.beginPath(); ctx.moveTo(13, -22); ctx.lineTo(13, -33); ctx.stroke();
+    ctx.fillStyle = v.flag || RED;
+    const wave = Math.sin(t * 2) * 0.8;
+    ctx.beginPath();
+    ctx.moveTo(13.3, -32.6);
+    ctx.quadraticCurveTo(16.4 + wave, -31.8, 18.4 + wave, -29.6);
+    ctx.lineTo(13.3, -28.4); ctx.closePath(); ctx.fill();
+  }
+
   /* ── family: caravel ───────────────────────────────────── */
   function caravelStage(ctx, top, t, v) {
     const pal = PAL[v.palette] || PAL.dawn;
@@ -1259,6 +1551,7 @@
   const FAMILIES = {
     siege: { defaults: { family: "siege", palette: "dawn", structure: "walls", skyline: "walls", crowd: "soldiers", weather: "smoke", frame: "tent", props: ["cannon"] }, stage: siegeStage, map: siegeMap },
     caravel: { defaults: { family: "caravel", palette: "dawn", skyline: "palms", crowd: "sailors", weather: "clear", frame: "rigging", props: ["cross"], flag: RED }, stage: caravelStage, map: caravelMap },
+    urban: { defaults: { family: "urban", palette: "dusk", structure: "facade", skyline: "roofs", weather: "smoke", crowd: "soldiers", props: [], flag: RED, wallCol: "rgba(150,132,110,0.97)" }, stage: urbanStage, map: urbanMap },
     modern: { defaults: { family: "modern", palette: "dawn", structure: "capitol", crowd: "citizens", weather: "clear", frame: "arch", props: [], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] }, stage: modernStage, map: modernMap },
   };
 
@@ -1280,10 +1573,10 @@
     "indonesia-proclaims-independence": { family: "modern", palette: "dawn", structure: "square", crowd: "citizens", frame: "banner", weather: "clear", props: ["microphone"], flagCols: ["rgba(168,64,44,0.96)", "rgba(242,234,214,0.97)", "rgba(242,234,214,0.97)"] },
     "peoples-republic-of-china": { family: "modern", palette: "noon", structure: "tiananmen", crowd: "citizens", frame: "none", weather: "clear", props: [], flagCols: ["rgba(168,64,44,0.97)", "rgba(168,64,44,0.97)", "rgba(168,64,44,0.97)"] },
     "marco-polo-bridge-incident": { family: "siege", palette: "dawn", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
-    "battle-of-shanghai": { family: "siege", palette: "storm", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "rocks", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
-    "battle-of-taierzhuang": { family: "siege", palette: "noon", structure: "gate", skyline: "city", weather: "dust", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
-    "battle-of-wuhan": { family: "siege", palette: "dusk", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
-    "hundred-regiments-offensive": { family: "siege", palette: "dawn", structure: "keep", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "rocks", props: ["tower"], flag: "rgba(168,64,44,0.95)" },
+    "battle-of-shanghai": { family: "urban", palette: "dusk", weather: "smoke", props: ["rail", "tank", "searchlight"], flag: "rgba(168,64,44,0.95)" },
+    "battle-of-taierzhuang": { family: "urban", palette: "noon", weather: "dust", props: ["barricade", "rail"], flag: "rgba(168,64,44,0.95)" },
+    "battle-of-wuhan": { family: "urban", palette: "storm", weather: "smoke", props: ["rail", "tank"], flag: "rgba(168,64,44,0.95)" },
+    "hundred-regiments-offensive": { family: "urban", palette: "night", weather: "smoke", props: ["railway", "searchlight"], flag: "rgba(168,64,44,0.95)" },
     "battle-of-plassey": { family: "siege", palette: "noon", structure: "gate", skyline: "city", weather: "dust", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
     "mukden-incident": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
     "ottoman-conquest-of-egypt": { family: "siege", palette: "noon", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },

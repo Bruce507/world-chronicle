@@ -2512,3 +2512,13 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
 /* 面板标题接收脚本焦点（深链打开事件后），用站点焦点环而非浏览器默认蓝框 */
 #panel-title:focus,
 #panel-title:focus-visible { outline: 1px solid rgba(168, 62, 40, 0.55); outline-offset: 5px; border-radius: 2px; }
+
+/* 时间轴工具栏分组：视图 / 播放，RTL 下用逻辑边框 */
+.tl-group { display: flex; align-items: center; gap: 6px; }
+.tl-group-view { padding-inline-start: 10px; border-inline-start: 1px solid rgba(85, 75, 64, 0.2); }
+.tl-group-play { padding-inline-start: 10px; border-inline-start: 1px solid rgba(85, 75, 64, 0.2); }
+.tl-tip { margin-inline-start: 8px; }
+#tl-tip[dir="ltr"] { unicode-bidi: isolate; }
+@media (max-width: 620px) {
+  .tl-group-view, .tl-group-play { padding-inline-start: 0; border-inline-start: 0; }
+}

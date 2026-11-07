@@ -195,11 +195,15 @@
         <button type="button" id="tl-jump-cancel" aria-label="取消">×</button>
       </form>
       <div class="tl-spacer"></div>
-      <button id="tl-zoom-btn" class="tl-small tl-zoom" type="button" aria-pressed="false" title="放大时间轴 / Zoom the timeline">聚焦近现代</button>
-      <button id="tl-brush-btn" class="tl-small tl-brush-btn" type="button" aria-pressed="false" title="刷选时间范围 / Select a range">刷选</button>
-      <button id="speed-btn" class="tl-small" title="播放速度">1×</button>
-      <button id="now-btn" class="tl-small" data-i18n="today">今天</button>
-      <div class="tl-tip" id="tl-tip">← → 步进 5 年 · ↑↓ ±1 · ⇧ ×10 · 空格播放</div>
+      <div class="tl-group tl-group-view">
+        <button id="tl-zoom-btn" class="tl-small tl-zoom" type="button" aria-pressed="false" title="放大时间轴 / Zoom the timeline">聚焦近现代</button>
+        <button id="tl-brush-btn" class="tl-small tl-brush-btn" type="button" aria-pressed="false" title="刷选时间范围 / Select a range">刷选</button>
+      </div>
+      <div class="tl-group tl-group-play">
+        <button id="speed-btn" class="tl-small" title="播放速度">1×</button>
+        <button id="now-btn" class="tl-small" data-i18n="today">今天</button>
+      </div>
+      <div class="tl-tip" id="tl-tip" data-i18n="tlTip">← → 按年代步进 · ↑↓ ±1 · ⇧ ×10 · 空格播放</div>
     </div>
     <div id="track" tabindex="0" role="slider" aria-orientation="horizontal" aria-label="时间轴年份" aria-valuemin="-12000" aria-valuemax="2026" aria-valuenow="1500" aria-valuetext="公元 1500 年">
       <div id="era-bands"></div>
