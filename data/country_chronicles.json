@@ -6860,8 +6860,8 @@
   },
   "TWN": {
     "name": {
-      "zh": "台湾省",
-      "en": "Taiwan Province"
+      "zh": "台湾",
+      "en": "Taiwan"
     },
     "key": "TWN",
     "segments": [
@@ -6994,8 +6994,8 @@
       {
         "from": 1949,
         "to": 2026,
-        "name": "Taiwan Province",
-        "zh": "台湾省",
+        "name": "Taiwan",
+        "zh": "台湾",
         "year": 1949,
         "birth": null,
         "era": {
@@ -7010,8 +7010,8 @@
       }
     ],
     "summary": {
-      "zh": "从史前社群到中国台湾省的沿革长卷。",
-      "en": "A chronicle from early communities to China's Taiwan Province."
+      "zh": "从史前社群到中国台湾的沿革长卷。",
+      "en": "A chronicle from early communities to China's Taiwan."
     },
     "nodeCount": 1
   },

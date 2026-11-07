@@ -178,7 +178,7 @@ try {
     const list = window.HistoricalEntities.list.filter((e) => e.type === "province" && e.from <= 2026 && e.to >= 2026);
     return list.map((e) => e.name.zh);
   });
-  check("Taiwan remains a province in 2026", taiwan.includes("台湾省"), taiwan.join(","));
+  check("Taiwan remains a province in 2026, labelled 台湾", taiwan.includes("台湾"), taiwan.join(","));
   const modern = await d.evaluate(() => ({
     heading: Array.prototype.map.call(document.querySelectorAll("#panel-body .p-section h3"), (h) => h.textContent).find((t) => t.indexOf("现代国家") >= 0) || "",
     chips: document.querySelectorAll("#panel-body [data-country-open]").length,

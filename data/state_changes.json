@@ -1884,7 +1884,7 @@
         "zh": "脱离英国独立",
         "en": "Independence from Britain"
       },
-      "lat": 11.0,
+      "lat": 11,
       "lon": -60.92
     },
     {
@@ -2021,7 +2021,7 @@
         "en": "Independence from Britain"
       },
       "lat": 13.64,
-      "lon": -15.0
+      "lon": -15
     },
     {
       "key": "MDV",
@@ -3227,7 +3227,7 @@
         "zh": "民主宪法",
         "en": "The democratic constitution"
       },
-      "lat": 46.0,
+      "lat": 46,
       "lon": 104.15
     },
     {
@@ -3543,7 +3543,7 @@
         "en": "Mali Federation"
       },
       "lat": 12.65,
-      "lon": -8.0,
+      "lon": -8,
       "note": {
         "zh": "分为马里与塞内加尔",
         "en": "Split into Mali and Senegal"
@@ -3569,7 +3569,7 @@
         "en": "Federation of Rhodesia and Nyasaland"
       },
       "lat": -17.8,
-      "lon": 31.0,
+      "lon": 31,
       "note": {
         "zh": "中非联邦解体",
         "en": "Dissolution of the Central African Federation"
@@ -3654,5 +3654,5 @@
       }
     }
   ],
-  "note": "Modern-state years are curated approximations; many states have longer or contested histories. Taiwan is treated as China's Taiwan Province, not a separate state."
+  "note": "Modern-state years are curated approximations; many states have longer or contested histories. Taiwan is treated as part of China, not a separate state."
 }
