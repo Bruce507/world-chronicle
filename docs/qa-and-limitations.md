@@ -126,7 +126,7 @@ node scripts/build-reports.mjs
 | 检查 | 方法 | 结果 |
 |---|---|---|
 | 资源版本 | `?v=` token | `20261108x` |
-| 自动化套件 | `smoke` / `a11y` / `pwa` / `content-check` / `data-qa` / `entity-i18n` | 57 / 20 / 7 / 112 / 259 来源 / 97% |
+| 自动化套件 | `smoke` / `a11y` / `pwa` / `content-check` / `data-qa` / `entity-i18n` | 59 / 20 / 7 / 112 / 259 来源 / 97% |
 | 离线 | 断网后导航到未在线访问过的 URL | 由 Service Worker 提供首屏；二次访问 0.30 s、0 字节 |
 | 画布内存 | DPR 3 模拟 | 7.8 MB（修复前隐藏迷你地图会放大到 3,900 万×1,960 万像素） |
 | 200% 缩放 / 强制色彩 | 720×450 视口 / `forcedColors` | 无横向溢出；axe 0 违规 |

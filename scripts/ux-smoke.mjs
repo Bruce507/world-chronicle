@@ -268,6 +268,17 @@ try {
     countryCard.w === 1200 && countryCard.h === 630 && routeCard.w === 1200 && routeCard.h === 630 && countryCard.bytes > 20000 && routeCard.bytes > 20000,
     JSON.stringify({ countryCard, routeCard }));
 
+  await d.fill("#search", "丝路");
+  await d.waitForTimeout(500);
+  const searchUI = await d.evaluate(() => ({
+    clear: !document.querySelector("#search-clear").hidden,
+    regionLabel: document.querySelector("#region-nav .region-label")?.textContent || "",
+  }));
+  await d.click("#search-clear");
+  await d.waitForTimeout(350);
+  const searchCleared = await d.evaluate(() => ({ value: document.querySelector("#search").value, hidden: document.querySelector("#search-clear").hidden, results: document.querySelector("#search-results").hidden }));
+  check("search has a clear button and the region row is labelled", searchUI.clear && searchUI.regionLabel.length > 0 && searchCleared.value === "" && searchCleared.hidden && searchCleared.results, JSON.stringify({ searchUI, searchCleared }));
+
   check("desktop page has no console errors", desktop.errors.length === 0, desktop.errors.slice(0, 2).join(" | "));
 
   const mobile = await openPage(browser, { width: 390, height: 844 });
@@ -440,6 +451,15 @@ try {
   await m.waitForTimeout(1100);
   const persisted = await m.evaluate(() => ({ mode: window.atlasAPI.map.fitMode, mini: !document.querySelector("#minimap").hidden }));
   check("fill view persists across reload", persisted.mode === "fill" && persisted.mini, JSON.stringify(persisted));
+
+  const moment = await m.evaluate(() => ({
+    hidden: document.querySelector("#panel-reopen").hidden,
+    text: document.querySelector("#panel-reopen").textContent.trim(),
+  }));
+  await m.click("#panel-reopen");
+  await m.waitForTimeout(600);
+  const momentOpen = await m.evaluate(() => window.atlasAPI.state.panelOpen);
+  check("mobile has a moment entry with a node count that opens the panel", !moment.hidden && /·\s*\d+/.test(moment.text) && momentOpen === true, JSON.stringify({ moment, momentOpen }));
 
   check("mobile page has no console errors", mobile.errors.length === 0, mobile.errors.slice(0, 2).join(" | "));
 

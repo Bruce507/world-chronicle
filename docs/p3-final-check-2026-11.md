@@ -13,7 +13,7 @@ Date 2026-11-07。本文是 P3 的收口记录：D1–D7 / U1–U9 逐项状态�
 | `validate-data` | ✓（521 事件、125 政权、29 剧场、12 条商路、201 国家新生、18 解体、234 沿革） |
 | `build-data` / `build-scene-taxonomy` | ✓ 572 KB / 521·56·0 |
 | `node --check js/*.js` | ✓ |
-| `npm run smoke` | **57 / 57**（原 53；P2 收口后 +1） |
+| `npm run smoke` | **59 / 59**（原 53；P2/P3 收口各 +1/+2） |
 | `npm run content-check` | 112 / 112 |
 | `npm run a11y` | **20 / 20**（原 14，+6；含 axe-core） |
 | `npm run pwa` | **7 / 7**（原 4，+3；重写后稳定 3 连跑） |

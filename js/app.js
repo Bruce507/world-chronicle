@@ -87,6 +87,7 @@
     brand: { zh: "寰宇时序", en: "World Chronicle" },
     search: { zh: "搜索国家 / 文明 / 事件…", en: "Search countries, civilizations, events…" },
     layers: { zh: "图层", en: "Layers" },
+    regionsLabel: { zh: "地区", en: "Regions" },
     about: { zh: "凡例", en: "Guide" },
     layersTitle: { zh: "图层 Layers", en: "Layers" },
     tgHistorical: { zh: "历史疆域", en: "Historical borders" },
@@ -485,7 +486,7 @@
   /* ── boot ───────────────────────────────────────── */
   function boot() {
     [
-      "search", "search-results", "lang-select", "layers-btn", "layers-pop", "about-btn", "reset-btn",
+      "search", "search-results", "search-clear", "lang-select", "layers-btn", "layers-pop", "about-btn", "reset-btn",
       "hud-year", "hud-era", "hud-sub", "panel-kicker", "panel-title", "panel-sub", "panel-routes", "panel-body", "map-note",
       "side-panel", "panel-toggle", "panel-reopen", "panel-close", "tooltip", "era-bands", "tick-canvas", "track",
       "playhead", "playhead-label", "play-btn", "speed-btn", "now-btn", "tl-year", "tl-era",
@@ -790,7 +791,7 @@
       act.hidden = false;
       act.textContent = L("安装", "Install", "Instalar", "Installer", "تثبيت");
     } else if (pwaMode === "ios") {
-      txt.textContent = L("iOS：点“分享”→“添加到主屏幕”，即可离线使用", "iOS: Share → Add to Home Screen to use the atlas offline", "iOS: Compartir → Añadir a inicio para usarlo sin conexión", "iOS : Partager → Sur l’écran d’accueil pour l’utiliser hors ligne", "iOS: مشاركة ← إضافة إلى الشاشة الرئيسية للاستخدام دون اتصال");
+      txt.textContent = L("iOS：点“分享”→“添加到主屏幕”。安装后可离线阅读；系统清理存储时可能清除缓存", "iOS: Share → Add to Home Screen. Installed, the atlas reads offline; iOS may clear the cache under storage pressure", "iOS: Compartir → Añadir a inicio. Instalado, el atlas se lee sin conexión; iOS puede borrar la caché si falta espacio", "iOS : Partager → Sur l’écran d’accueil. Installé, l’atlas se lit hors ligne ; iOS peut vider le cache faute d’espace", "iOS: مشاركة ← إضافة إلى الشاشة الرئيسية. بعد التثبيت يعمل الأطلس دون اتصال، وقد يمسح iOS الذاكرة المؤقتة عند ضيق التخزين");
       act.hidden = true;
     }
   }
@@ -1182,6 +1183,7 @@
         html += `<button class="fav-clear" type="button" data-fav-clear="1">${L("清空收藏", "Clear favourites", "Vaciar favoritos", "Vider les favoris", "مسح المفضلة")}</button>`;
       }
     }
+    if (!favorites.length) html += `<div class="fav-tools-label">${L("从备份恢复", "Restore from a backup", "Restaurar desde una copia", "Restaurer depuis une sauvegarde", "الاستعادة من نسخة احتياطية")}</div>`;
     html += `<div class="fav-tools">${favorites.length ? `<button type="button" class="fav-tool" data-fav-export="1">${L("导出备份", "Export", "Exportar", "Exporter", "تصدير")}</button>` : ""}<button type="button" class="fav-tool" data-fav-import="1">${L("导入备份", "Import", "Importar", "Importer", "استيراد")}</button></div>`;
     html += `<div class="panel-note">${L("收藏保存在 localStorage；换浏览器或清除站点数据后会丢失，可导出 JSON 备份。", "Favourites live in localStorage; clearing site data or switching browsers removes them — export a JSON backup to keep them.", "Los favoritos viven en localStorage; borrar los datos del sitio los elimina: exporta una copia JSON para conservarlos.", "Les favoris vivent dans localStorage ; effacer les données du site les supprime — exportez une sauvegarde JSON.", "تُحفظ المفضلة في localStorage؛ ومسح بيانات الموقع يزيلها — صدّر نسخة JSON للاحتفاظ بها.")}</div>`;
     el["panel-body"].innerHTML = html;
@@ -1741,13 +1743,24 @@
     if (el["tl-scope"]) {
       const range = fmtRange(timeline.from, timeline.to, state.lang === "zh" ? "zh" : "en");
       const step = yearStep(state.year);
-      el["tl-scope"].textContent = L(
-        "范围 " + range + " · 步进 " + step + " 年",
-        "Range " + range + " · step " + step + " yr",
-        "Rango " + range + " · paso " + step + " años",
-        "Plage " + range + " · pas " + step + " ans",
-        "المدى " + range + " · خطوة " + step + " سنوات"
-      );
+      // On phones the readout is narrow: break it into two short lines
+      // instead of letting one orphan character wrap.
+      const narrow = window.innerWidth <= 430;
+      el["tl-scope"].textContent = narrow
+        ? L(
+          range + "\n步进 " + step + " 年",
+          range + "\nstep " + step + " yr",
+          range + "\npaso " + step + " años",
+          range + "\npas " + step + " ans",
+          range + "\nخطوة " + step + " سنة"
+        )
+        : L(
+          "范围 " + range + " · 步进 " + step + " 年",
+          "Range " + range + " · step " + step + " yr",
+          "Rango " + range + " · paso " + step + " años",
+          "Plage " + range + " · pas " + step + " ans",
+          "المدى " + range + " · خطوة " + step + " سنوات"
+        );
     }
     if (el["tl-year-input"]) el["tl-year-input"].setAttribute("aria-label", t("tlJump"));
     const zb = el["tl-zoom-btn"];
@@ -1783,6 +1796,10 @@
     const nav = document.getElementById("region-nav");
     if (!nav) return;
     nav.innerHTML = "";
+    const lab = document.createElement("span");
+    lab.className = "region-label";
+    lab.textContent = t("regionsLabel");
+    nav.appendChild(lab);
     (A.regionNav || []).forEach((r) => {
       if (r.theme) {
         const sep = document.createElement("span");
@@ -1870,7 +1887,7 @@
     if (timeline.span <= 160) {
       const span = timeline.span;
       const step = span <= 20 ? 1 : span <= 50 ? 5 : span <= 110 ? 10 : 25;
-      ctx.font = "500 9px " + (state.lang === "zh" ? "'PingFang SC','Noto Sans SC',sans-serif" : "Georgia,serif");
+      ctx.font = "500 10px " + (state.lang === "zh" ? "'PingFang SC','Noto Sans SC',sans-serif" : "Georgia,serif");
       ctx.textAlign = "center";
       for (let y = Math.ceil(from / step) * step; y <= to; y += step) {
         const px = timeline.toPos(y) * r.width;
@@ -1961,6 +1978,7 @@
         el["panel-kicker"].textContent = L("此刻世界 · ", "THE WORLD AT ", "EL MUNDO EN ", "LE MONDE EN ", "العالم في ") + fmtYear(y, state.lang, true);
       }
       updateMapNote();
+      updateReopenLabel();
       lastChromeYear = y;
     }
     const left = (state.pos * 100).toFixed(3) + "%";
@@ -2910,6 +2928,23 @@
     else setSheet("half");
   }
 
+  function updateReopenLabel() {
+    const b = el["panel-reopen"];
+    if (!b) return;
+    const span = b.querySelector("span");
+    if (!span) return;
+    if (!isMobilePanel() || state.panelOpen || !map || !map.features) {
+      span.textContent = t("panelOpen");
+      b.setAttribute("aria-label", t("panelOpen"));
+      return;
+    }
+    const era = A.eraOf(state.year);
+    const last = era === A.eras[A.eras.length - 1];
+    const n = filteredEvents(A.events.filter((e) => e.y >= era.from && (e.y < era.to || last))).length;
+    span.textContent = t("panelOpen") + " · " + n;
+    b.setAttribute("aria-label", L("展开面板：此刻有 " + n + " 个节点", "Open the panel: " + n + " nodes at this moment", "Abrir el panel: " + n + " nodos en este momento", "Ouvrir le panneau : " + n + " nœuds en ce moment", "فتح اللوحة: " + n + " عقدة في هذه اللحظة"));
+  }
+
   function setPanel(open) {
     state.panelOpen = open;
     if (open && isMobilePanel()) setSheet(state.sheet || "half", { silent: true });
@@ -2926,6 +2961,7 @@
     if (map) map.fit(false);
     if (open && isMobilePanel()) setSheet(state.sheet || "half", { silent: true });
     if (open && map && map.features) renderPanel(true);
+    updateReopenLabel();
     requestAnimationFrame(updatePanelScrollbar);
   }
 
@@ -3331,7 +3367,18 @@
     }
     updateFitButton();
 
-    el["search"].addEventListener("input", runSearch);
+  function syncSearchClear() {
+    if (!el["search-clear"] || !el["search"]) return;
+    el["search-clear"].hidden = !el["search"].value;
+  }
+
+    el["search"].addEventListener("input", () => { runSearch(); syncSearchClear(); });
+    if (el["search-clear"]) el["search-clear"].addEventListener("click", () => {
+      el["search"].value = "";
+      runSearch();
+      syncSearchClear();
+      el["search"].focus();
+    });
     el["search"].addEventListener("focus", () => { if (el.search.value) runSearch(); });
     el["search"].addEventListener("keydown", (e) => {
       if (e.key === "ArrowDown") {
@@ -3549,6 +3596,7 @@
         if (isMobilePanel()) setSheet(state.sheet || "half", { silent: true });
         else { clearSheetClasses(); if (map) map.setViewOffset(0); }
       }
+      updateReopenLabel();
       drawTicks();
     });
     if (window.ResizeObserver) {

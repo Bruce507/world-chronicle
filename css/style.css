@@ -1700,7 +1700,7 @@ body.is-playing #play-btn .pause-ico { display: block; }
 .tl-small:hover { border-color: var(--verm); color: var(--verm); }
 .tl-zoom.is-on { border-color: var(--verm); color: var(--verm); background: #fffdf8; }
 .tl-tip {
-  font-size: 9px;
+  font-size: 9.5px;
   letter-spacing: 0.05em;
   color: var(--muted);
   margin-left: 4px;
@@ -2444,8 +2444,8 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
   #timeline { padding: 6px 12px 8px; }
   .tl-head { gap: 8px; }
   .tl-readout b { font-size: 13px; }
-  .tl-readout span { font-size: 8px; }
-.tl-scope { display: block; margin-top: 2px; font-size: 9.5px; color: var(--muted); letter-spacing: 0.03em; white-space: nowrap; }
+  .tl-readout span { font-size: 9.5px; }
+.tl-scope { display: block; margin-top: 2px; font-size: 10px; color: var(--muted); letter-spacing: 0.03em; white-space: nowrap; }
   #play-btn { width: 34px; height: 34px; }
   #panel-reopen { top: auto; bottom: 10px; right: auto; left: 10px; font-size: 10px; }
 }
@@ -2473,7 +2473,7 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
   .modal { padding: 0; }
   .tl-head { gap: 8px; }
   .tl-readout b { font-size: 13px; }
-  .tl-readout span { font-size: 8px; }
+  .tl-readout span { font-size: 9.5px; }
 
 }
 
@@ -2514,7 +2514,8 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
 #panel-title:focus-visible { outline: 1px solid rgba(168, 62, 40, 0.55); outline-offset: 5px; border-radius: 2px; }
 
 /* 时间轴工具栏分组：视图 / 播放，RTL 下用逻辑边框 */
-.tl-group { display: flex; align-items: center; gap: 6px; }
+.tl-group { display: flex; align-items: center; gap: 6px; flex: none; }
+.tl-group .tl-small { white-space: nowrap; }
 .tl-group-view { padding-inline-start: 10px; border-inline-start: 1px solid rgba(85, 75, 64, 0.2); }
 .tl-group-play { padding-inline-start: 10px; border-inline-start: 1px solid rgba(85, 75, 64, 0.2); }
 .tl-tip { margin-inline-start: 8px; }
@@ -2585,3 +2586,67 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
 #toast > span { min-width: 0; overflow-wrap: anywhere; }
 #toast > * { flex-shrink: 0; }
 #toast > span { flex-shrink: 1; }
+
+/* ═══════════ 搜索清除 / search clear ═══════════ */
+.search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #8d8173;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+.search-clear:hover { background: rgba(120, 105, 85, 0.14); color: var(--ink); }
+.search-clear:focus-visible { outline: 2px solid var(--verm); outline-offset: 1px; }
+.search-clear[hidden] { display: none !important; }
+#search { padding-right: 28px; }
+[dir="rtl"] .search-clear { right: auto; left: 6px; }
+[dir="rtl"] #search { padding-right: 10px; padding-left: 28px; }
+
+/* ═══════════ 地区行的层级标签 / region row label ═══════════ */
+.region-label {
+  flex: none;
+  align-self: center;
+  padding-inline-end: 4px;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.85;
+}
+
+/* 手机上面板收起时，入口带上"此刻 N 条" */
+@media (max-width: 860px) {
+  #panel-reopen { font-size: 11px; letter-spacing: 0.04em; padding: 0 11px; }
+  .tl-readout span { font-size: 9.5px; }
+}
+
+/* 收藏空状态的分组标签 */
+.fav-tools-label {
+  margin-top: 16px;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* 窄屏时间轴：收紧间距，保证"聚焦近现代 / 刷选 / 今天"不被裁切 */
+@media (max-width: 430px) {
+  .tl-head { gap: 7px; }
+  .tl-readout { min-width: 88px; }
+  .tl-scope { white-space: pre-line; line-height: 1.3; }
+  .tl-small { padding: 0 7px; }
+  #timeline { padding-left: 10px; padding-right: 10px; }
+}
+@media (max-width: 360px) {
+  #now-btn, #tl-brush-btn { display: none; }
+}
