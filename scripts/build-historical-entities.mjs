@@ -258,7 +258,9 @@ const out = [...dedup.values()]
   .sort((a, b) => a.from - b.from || a.priority - b.priority);
 
 fs.writeFileSync(path.join(ROOT, "data/historical_entities.json"), JSON.stringify({
-  generated: new Date().toISOString(),
+  // Stable on purpose: the file is committed, and a timestamp would make
+  // every rebuild look like a change.
+  generated: "on build",
   source: "historical-basemaps + state_changes + curated",
   license: "GPL-3.0",
   note: "Approximate label positions and date ranges; blank where the source has no named entity. Entity end years are clamped by entity_clamps.json where the snapshot interpolation overruns the polity.",

@@ -36,10 +36,10 @@ const level = (e) => {
   if (!d) return "brief";
   return d.background && d.course && d.outcome ? "full" : "brief";
 };
-const featured = events.filter((e) => e.f).sort((a, b) => a.y - b.y || a.t[0].localeCompare(b.t[0]));
+const featured = events.filter((e) => e.f).sort((a, b) => (a.y - b.y) || (a.t[0] < b.t[0] ? -1 : a.t[0] > b.t[0] ? 1 : 0));
 
 let md = `# 重大事件清单 / Major events inventory\n\n`;
-md += `Generated ${new Date().toISOString().slice(0, 10)}. Source: \`data/events.json\`.\n\n`;
+md += `Source: \`data/events.json\`.\n\n`;
 md += `| 总数 | 重点事件 | 有专属动态 | 完整详情 | 结构化简版 |\n|---:|---:|---:|---:|---:|\n`;
 md += `| ${events.length} | ${featured.length} | ${featured.filter((e) => theatre[e.id]).length} | ${featured.filter((e) => level(e) === "full").length} | ${featured.filter((e) => level(e) === "brief").length} |\n\n`;
 md += `## 重点事件（\`f:1\`）\n\n`;

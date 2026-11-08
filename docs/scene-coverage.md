@@ -1,6 +1,6 @@
 # 场景分型审计 / Scene coverage audit
 
-Generated 2026-11-07. Standard A: every event has a correct visual family; the 32 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).
+Standard A: every event has a correct visual family; the 32 hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).
 
 - 事件总数：521
 - 当前分派：56 个家族
@@ -368,8 +368,8 @@ Generated 2026-11-07. Standard A: every event has a correct visual family; the 3
 | 1905 | `russian-revolution-of-1905` | 俄国 1905 年革命 | eu | `revolution` | `revolution` |  |
 | 1905 | `einsteins-miracle-year` | 爱因斯坦奇迹年 | eu | `city-modern` | `city-modern` |  |
 | 1907 | `bhutan-modern-statehood` | 不丹 · 现代国家形成 | sa | `city-modern` | `city-modern` |  |
-| 1910 | `japan-annexes-korea` | 日本吞并朝鲜 | ea | `city-modern` | `city-modern` |  |
 | 1910 | `mexican-revolution` | 墨西哥革命 | la | `revolution` | `revolution` |  |
+| 1910 | `japan-annexes-korea` | 日本吞并朝鲜 | ea | `city-modern` | `city-modern` |  |
 | 1911 | `xinhai-revolution` | 辛亥革命 | ea | `revolution` | `revolution` |  |
 | 1912 | `titanic-sinks` | 泰坦尼克号沉没 | na | `naval` | `naval` |  |
 | 1912 | `albania-independence` | 阿尔巴尼亚 · 独立建国 | eu | `modern-founding` | `modern-founding` |  |

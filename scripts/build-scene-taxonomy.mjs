@@ -238,10 +238,14 @@ for (const ev of A.events) {
   if (mismatch) mismatches.push({ ev, cur, exp });
   rows.push({ ev, cur, exp, mismatch });
 }
-rows.sort((a, b) => a.ev.y - b.ev.y || a.ev.t[0].localeCompare(b.ev.t[0]));
+// Plain code-unit comparison: localeCompare depends on the Node ICU build and
+// would order rows differently on the CI runner.
+rows.sort((a, b) => (a.ev.y - b.ev.y) || (a.ev.t[0] < b.ev.t[0] ? -1 : a.ev.t[0] > b.ev.t[0] ? 1 : 0));
 
 let md = `# 场景分型审计 / Scene coverage audit\n\n`;
-md += `Generated ${new Date().toISOString().slice(0, 10)}. Standard A: every event has a correct visual family; the ${HERO.size} hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).\n\n`;
+// No build timestamp: this file is committed and diffed in CI, and a date
+// stamp makes every run after midnight fail the "generated files" check.
+md += `Standard A: every event has a correct visual family; the ${HERO.size} hero entries have bespoke illustration scenes (pilot batches: 12 + 6 + 6 + 6 themes).\n\n`;
 md += `- 事件总数：${A.events.length}\n- 当前分派：${Object.keys(counts).length} 个家族\n- 需要修正：${mismatches.length}\n- 英雄条目：${HERO.size}\n\n`;
 md += `## 家族分布（目标）\n\n| 家族 | 事件数 |\n|---|---:|\n`;
 Object.entries(counts).sort((a, b) => b[1] - a[1]).forEach(([k, v]) => { md += `| \`${k}\` | ${v} |\n`; });
