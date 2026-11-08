@@ -19,7 +19,7 @@
     return;
   }
   const A = window.WORLD_ATLAS;
-  const ASSET_V = "20261109b";
+  const ASSET_V = "20261109c";
   const $ = (s) => document.querySelector(s);
   let heroScenesP = null, variantScenesP = null;
   function loadScriptOnce(src) {
@@ -194,6 +194,7 @@
     panelOpen: true,
     catFilter: null,
     catFilterExpanded: false,
+    depthOnly: false,
     searchQuery: null,
     searchResults: [],
     route: null,
@@ -614,7 +615,7 @@
   }
 
   function loadAuxData() {
-    const v = "?v=20261109b";
+    const v = "?v=20261109c";
     A.detailsLoading = true;
     A.detailsLoading = true;
     fetch("data/state_changes.json" + v)
@@ -633,7 +634,7 @@
     if (A.eventDetails) { A.detailsLoading = false; return Promise.resolve(A.eventDetails); }
     if (detailsP) return detailsP;
     A.detailsLoading = true;
-    detailsP = fetch("data/event_details.json?v=20261109b")
+    detailsP = fetch("data/event_details.json?v=20261109c")
       .then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); })
       .then((d) => {
         A.eventDetails = d || {};
@@ -650,7 +651,7 @@
   function ensureChronicles() {
     if (A.chronicles) return Promise.resolve(A.chronicles);
     if (chroniclesP) return chroniclesP;
-    chroniclesP = fetch("data/country_chronicles.json?v=20261109b")
+    chroniclesP = fetch("data/country_chronicles.json?v=20261109c")
       .then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); })
       .then((d) => {
         A.chronicles = d || {};
@@ -670,7 +671,7 @@
     loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
-    fetch("data/world.geo.json?v=20261109b")
+    fetch("data/world.geo.json?v=20261109c")
       .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then((geo) => {
         map.setWorld(geo);
@@ -1084,8 +1085,8 @@
     if (state.favoritesOpen) return "fav:" + state.lang + ":" + favorites.length;
     if (state.route) return "r:" + state.route + ":" + state.lang;
     if (state.searchQuery) return "q:" + state.searchQuery + ":" + state.lang;
-    if (state.country) return "c:" + countryKey(state.country) + ":" + A.eraOf(state.year).id + ":" + Math.round(state.year / 10);
-    return "e:" + A.eraOf(state.year).id + ":" + Math.floor(state.year / 2);
+    if (state.country) return "c:" + countryKey(state.country) + ":" + A.eraOf(state.year).id + ":" + Math.round(state.year / 10) + (state.depthOnly ? ":d" : "");
+    return "e:" + A.eraOf(state.year).id + ":" + Math.floor(state.year / 2) + (state.depthOnly ? ":d" : "");
   }
 
   /* ── event registry / groups ────────────────────── */
@@ -1558,6 +1559,11 @@
     let html = '<div class="cat-filter" role="group" aria-label="' + L("按类别筛选", "Filter by category", "Filtrar por categoría", "Filtrer par catégorie", "تصفية حسب الفئة") + '">';
     if (extra) html += extra;
     html += '<button class="cat-chip' + (!state.catFilter ? " is-on" : "") + '" data-cat-filter="" aria-pressed="' + (!state.catFilter) + '">' + L("全部", "All", "Todo", "Tout", "الكل") + " " + events.length + "</button>";
+    const scope = state.catFilter ? events.filter((e) => e.k === state.catFilter) : events;
+    const fullCount = scope.filter((e) => A.detailIds && A.detailIds.indexOf(e.id) >= 0).length;
+    if (fullCount) {
+      html += '<button class="cat-chip depth-chip' + (state.depthOnly ? " is-on" : "") + '" data-depth-filter="1" aria-pressed="' + state.depthOnly + '">' + L("史志", "Chronicles", "Crónicas", "Chroniques", "سجلات") + " <small>" + fullCount + "</small></button>";
+    }
     keys.forEach((k) => {
       const c = A.categories[k] || { color: "#8a6a3f" };
       const on = state.catFilter === k;
@@ -1571,8 +1577,9 @@
   }
 
   function filteredEvents(evs) {
-    if (!state.catFilter) return evs;
-    return evs.filter((e) => e.k === state.catFilter);
+    let out = state.catFilter ? evs.filter((e) => e.k === state.catFilter) : evs;
+    if (state.depthOnly) out = out.filter((e) => A.detailIds && A.detailIds.indexOf(e.id) >= 0);
+    return out;
   }
 
   function eventList(evs, opts) {
@@ -3563,6 +3570,16 @@
         const body = el["panel-body"];
         const rowEl = body && body.querySelector(".cat-filter");
         if (rowEl) body.scrollTop = Math.max(0, rowEl.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 24);
+        return;
+      }
+      const depthBtn = e.target.closest("[data-depth-filter]");
+      if (depthBtn) {
+        state.depthOnly = !state.depthOnly;
+        lastPanelKey = "";
+        renderPanel(true);
+        const body = el["panel-body"];
+        const row = body && body.querySelector(".cat-filter");
+        if (row) body.scrollTop = Math.max(0, row.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 24);
         return;
       }
       const catBtn = e.target.closest("[data-cat-filter]");

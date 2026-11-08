@@ -260,6 +260,26 @@ try {
     rove.rows > 5 && rove.tab0 === 1 && roveMoved.isRow && roveMoved.tab === 0 && roveMoved.tab0 === 1 && roveMoved.year === roveYear,
     JSON.stringify({ rove, roveMoved, roveYear }));
 
+  // Depth filter: show only entries with a full chronicle.
+  const depthBefore = await d.evaluate(() => ({
+    rows: document.querySelectorAll("#panel-body .event-row").length,
+    chip: document.querySelector("[data-depth-filter]") ? document.querySelector("[data-depth-filter]").textContent : "",
+  }));
+  await d.click("[data-depth-filter]");
+  await d.waitForTimeout(450);
+  const depthAfter = await d.evaluate(() => ({
+    rows: document.querySelectorAll("#panel-body .event-row").length,
+    marked: document.querySelectorAll("#panel-body .er-depth").length,
+    pressed: document.querySelector("[data-depth-filter]").getAttribute("aria-pressed"),
+  }));
+  await d.click("[data-depth-filter]");
+  await d.waitForTimeout(450);
+  const depthReset = await d.evaluate(() => document.querySelectorAll("#panel-body .event-row").length);
+  check("the chronicle filter shows only full entries and can be toggled off",
+    /史志|Chronicles/.test(depthBefore.chip) && depthAfter.rows > 0 && depthAfter.rows < depthBefore.rows &&
+    depthAfter.marked === depthAfter.rows && depthAfter.pressed === "true" && depthReset === depthBefore.rows,
+    JSON.stringify({ depthBefore, depthAfter, depthReset }));
+
   await d.evaluate(() => { window.atlasAPI.setYear(1500); window.atlasAPI.setPanel(true); });
   await d.waitForTimeout(400);
   await d.click("#fav-toggle");

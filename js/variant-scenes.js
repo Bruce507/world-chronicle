@@ -741,6 +741,70 @@
     const pal = PAL[v.palette] || PAL.dawn;
     mapSky(ctx, pal, -28, 54, 0.62);
     mapGround(ctx, "#b0946a", 0.95, -4, 54);
+    // event landmark at the left horizon, so the badge follows the stage
+    if (v.landmark === "palms") {
+      for (const [px, sc] of [[-44, 0.8], [-38, 0.65]]) {
+        ctx.strokeStyle = "rgba(92,70,44,0.85)"; ctx.lineWidth = 0.6 * sc;
+        ctx.beginPath(); ctx.moveTo(px, -6); ctx.quadraticCurveTo(px + sc, -16, px + 0.4 * sc, -24); ctx.stroke();
+        for (let i = 0; i < 4; i++) {
+          const a = -2.4 + i * 0.6;
+          ctx.beginPath(); ctx.moveTo(px + 0.4 * sc, -24);
+          ctx.quadraticCurveTo(px + Math.cos(a) * 5 * sc, -26, px + Math.cos(a) * 8 * sc, -23);
+          ctx.strokeStyle = "rgba(72,100,64,0.75)"; ctx.lineWidth = 0.5 * sc; ctx.stroke();
+        }
+      }
+    } else if (v.landmark === "factory") {
+      for (const cx of [-46, -40]) {
+        ctx.fillStyle = "rgba(110,90,66,0.8)"; ctx.fillRect(cx, -28, 2.4, 16);
+        ctx.strokeStyle = "rgba(70,56,40,0.4)"; ctx.lineWidth = 0.2; ctx.strokeRect(cx, -28, 2.4, 16);
+      }
+    } else if (v.landmark === "pyramid") {
+      for (let i = 0; i < 3; i++) {
+        const w = 14 - i * 3, y = -16 - i * 3.4;
+        ctx.fillStyle = "rgba(196,172,134,0.8)"; ctx.fillRect(-46 - w / 2 + 6, y, w, 3.4);
+      }
+    } else if (v.landmark === "columns") {
+      for (let i = 0; i < 3; i++) {
+        ctx.fillStyle = "rgba(214,198,170,0.85)"; ctx.fillRect(-46 + i * 4.4, -24, 1.8, 8);
+        ctx.fillRect(-46.6 + i * 4.4, -25, 3, 1.2);
+      }
+    } else if (v.landmark === "spire") {
+      ctx.fillStyle = "rgba(208,190,158,0.85)"; ctx.fillRect(-46, -20, 5, 8);
+      ctx.beginPath(); ctx.moveTo(-47, -20); ctx.lineTo(-43.5, -30); ctx.lineTo(-40, -20); ctx.closePath();
+      ctx.fillStyle = "rgba(168,126,82,0.9)"; ctx.fill();
+    } else if (v.landmark === "gate") {
+      ctx.fillStyle = "rgba(166,72,50,0.9)"; ctx.fillRect(-47, -14, 11, 10);
+      ctx.beginPath(); ctx.moveTo(-49, -14); ctx.quadraticCurveTo(-41.5, -19, -34, -14); ctx.lineTo(-35.4, -17);
+      ctx.quadraticCurveTo(-41.5, -21, -47.6, -17); ctx.closePath(); ctx.fillStyle = "rgba(120,60,44,0.9)"; ctx.fill();
+    } else if (v.landmark === "galleys") {
+      ctx.fillStyle = "rgba(96,120,124,0.45)"; ctx.fillRect(-50, -5, 16, 5);
+      ctx.strokeStyle = "rgba(70,52,36,0.85)"; ctx.lineWidth = 0.55;
+      ctx.beginPath(); ctx.moveTo(-48, -4.4); ctx.quadraticCurveTo(-43, -2.8, -38, -4.4); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-43, -4.6); ctx.lineTo(-43, -11); ctx.stroke();
+      ctx.fillStyle = "rgba(168,64,44,0.85)"; ctx.fillRect(-42.6, -10.6, 4.4, 2.4);
+    } else if (v.landmark === "rail") {
+      ctx.strokeStyle = "rgba(70,56,42,0.7)"; ctx.lineWidth = 0.35;
+      for (const dy of [-2.2, -4.4]) { ctx.beginPath(); ctx.moveTo(-34, dy); ctx.lineTo(-10, dy - 1); ctx.stroke(); }
+      for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.moveTo(-32 + i * 5, -2.4); ctx.lineTo(-32 + i * 5, -4.4); ctx.stroke(); }
+    } else if (v.landmark === "bridge") {
+      ctx.fillStyle = "rgba(186,166,132,0.9)"; ctx.fillRect(-34, -8, 24, 2.4);
+      for (let i = 0; i < 2; i++) {
+        const ax = -32 + i * 10;
+        ctx.beginPath(); ctx.moveTo(ax, -8); ctx.lineTo(ax, -5);
+        ctx.quadraticCurveTo(ax + 4, -2, ax + 8, -5); ctx.lineTo(ax + 8, -8); ctx.closePath();
+        ctx.fillStyle = "rgba(120,98,70,0.5)"; ctx.fill();
+      }
+    } else if (v.landmark === "tank") {
+      ctx.fillStyle = "rgba(84,78,62,0.9)"; ctx.fillRect(-30, -6, 10, 3);
+      ctx.fillRect(-22, -8, 5, 2.2);
+      for (const wx of [-27, -24, -21]) { ctx.beginPath(); ctx.arc(wx, -3, 1.4, 0, TAU); ctx.fillStyle = "rgba(50,44,34,0.9)"; ctx.fill(); }
+    } else if (v.landmark === "reeds") {
+      for (let i = 0; i < 10; i++) {
+        const x = -48 + i * 3.2;
+        ctx.strokeStyle = "rgba(84,104,72,0.7)"; ctx.lineWidth = 0.28;
+        ctx.beginPath(); ctx.moveTo(x, -3); ctx.lineTo(x + Math.sin(i) * 1, -9 - (i % 3)); ctx.stroke();
+      }
+    }
     // rooftops and a dome rising behind the wall, so the city reads as a
     // place rather than a flat rectangle on the paper
     for (let i = 0; i < 7; i++) {
@@ -2137,6 +2201,31 @@
       ctx.fillStyle = (v.flagCols && v.flagCols[0]) || "rgba(168,64,44,0.9)";
       ctx.fillRect(30, -26, 9, 16);
       ctx.strokeStyle = "rgba(70,50,34,0.45)"; ctx.lineWidth = 0.3; ctx.strokeRect(30, -26, 9, 16);
+      if (v.hall === "italian") {
+        ctx.fillStyle = "rgba(178,156,124,0.85)";
+        ctx.beginPath(); ctx.moveTo(-6, -26); ctx.lineTo(-6, -36);
+        ctx.quadraticCurveTo(0, -41, 6, -36); ctx.lineTo(6, -26); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); ctx.arc(0, -28, 1.6, 0, TAU); ctx.fillStyle = "rgba(104,90,68,0.95)"; ctx.fill();
+      } else if (v.hall === "german") {
+        ctx.beginPath(); ctx.arc(0, -34, 4.6, 0, TAU); ctx.fillStyle = "rgba(246,232,196,0.85)"; ctx.fill();
+        ctx.strokeStyle = "rgba(90,70,50,0.6)"; ctx.lineWidth = 0.3; ctx.stroke();
+        for (let i = 0; i < 8; i++) {
+          const a = (i / 8) * TAU;
+          ctx.beginPath(); ctx.moveTo(Math.cos(a) * 4.6, -34 + Math.sin(a) * 4.6);
+          ctx.lineTo(Math.cos(a) * 7, -34 + Math.sin(a) * 7);
+          ctx.strokeStyle = "rgba(246,226,178,0.3)"; ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      } else if (v.hall === "turkish") {
+        ctx.beginPath(); ctx.arc(0, -34, 3.4, 0, TAU); ctx.fillStyle = "rgba(244,236,218,0.95)"; ctx.fill();
+        ctx.strokeStyle = "rgba(70,52,34,0.8)"; ctx.lineWidth = 0.35; ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, -34); ctx.lineTo(0, -36.4); ctx.moveTo(0, -34); ctx.lineTo(1.8, -32.8); ctx.stroke();
+      } else if (v.hall === "southafrican") {
+        ctx.fillStyle = "rgba(150,126,96,0.8)"; ctx.fillRect(-26, -30, 52, 1.4);
+        for (let i = 0; i < 9; i++) {
+          ctx.beginPath(); ctx.arc(-22 + i * 5.6, -31.4, 1.2, 0, TAU);
+          ctx.fillStyle = "rgba(70,54,38,0.9)"; ctx.fill();
+        }
+      }
       for (let i = 0; i < 8; i++) {
         ctx.beginPath(); ctx.arc(-20 + i * 5.4, -2.6 - (i % 2) * 1.4, 1.5, 0, TAU);
         ctx.fillStyle = "rgba(66,52,38,0.85)"; ctx.fill();
@@ -2160,6 +2249,43 @@
       ctx.beginPath(); ctx.moveTo(-2, -9); ctx.lineTo(-2, -22); ctx.stroke();
       ctx.fillStyle = (v.flagCols && v.flagCols[0]) || "rgba(168,64,44,0.9)";
       ctx.beginPath(); ctx.moveTo(-1.7, -21.6); ctx.lineTo(6, -20); ctx.lineTo(-1.7, -17.4); ctx.closePath(); ctx.fill();
+      if (v.landmark === "church") {
+        ctx.fillStyle = "rgba(196,170,132,0.85)"; ctx.fillRect(20, -18, 10, 14);
+        ctx.beginPath(); ctx.arc(25, -19, 4.4, Math.PI, TAU); ctx.fillStyle = "rgba(176,148,110,0.9)"; ctx.fill();
+        ctx.beginPath(); ctx.moveTo(25, -23); ctx.lineTo(25, -27); ctx.moveTo(23.6, -25.6); ctx.lineTo(26.4, -25.6);
+        ctx.strokeStyle = "rgba(70,50,30,0.85)"; ctx.lineWidth = 0.3; ctx.stroke();
+      } else if (v.landmark === "factory") {
+        for (const cx of [20, 28]) {
+          ctx.fillStyle = "rgba(110,90,66,0.85)"; ctx.fillRect(cx, -26, 2.2, 14);
+          ctx.strokeStyle = "rgba(70,56,40,0.4)"; ctx.lineWidth = 0.2; ctx.strokeRect(cx, -26, 2.2, 14);
+        }
+      } else if (v.landmark === "palms") {
+        ctx.strokeStyle = "rgba(92,70,44,0.85)"; ctx.lineWidth = 0.6;
+        ctx.beginPath(); ctx.moveTo(26, -6); ctx.quadraticCurveTo(27, -16, 26.4, -24); ctx.stroke();
+        for (let i = 0; i < 4; i++) {
+          const a = -2.4 + i * 0.6;
+          ctx.beginPath(); ctx.moveTo(26.4, -24);
+          ctx.quadraticCurveTo(26.4 + Math.cos(a) * 5, -25, 26.4 + Math.cos(a) * 8, -23);
+          ctx.strokeStyle = "rgba(72,100,64,0.8)"; ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      } else if (v.landmark === "belltower") {
+        ctx.fillStyle = "rgba(198,174,136,0.9)"; ctx.fillRect(24, -26, 6, 20);
+        ctx.fillRect(22.6, -28, 8.8, 2.4);
+        ctx.beginPath(); ctx.moveTo(25.2, -10); ctx.lineTo(25.2, -17);
+        ctx.quadraticCurveTo(27, -20, 28.8, -17); ctx.lineTo(28.8, -10); ctx.closePath();
+        ctx.fillStyle = "rgba(58,42,28,0.55)"; ctx.fill();
+      } else if (v.landmark === "gate") {
+        ctx.fillStyle = "rgba(166,72,50,0.9)"; ctx.fillRect(20, -18, 14, 14);
+        ctx.beginPath(); ctx.moveTo(18, -18); ctx.quadraticCurveTo(27, -24, 36, -18); ctx.lineTo(34.6, -21);
+        ctx.quadraticCurveTo(27, -26, 19.4, -21); ctx.closePath(); ctx.fillStyle = "rgba(120,60,44,0.9)"; ctx.fill();
+      } else if (v.landmark === "minaret") {
+        ctx.fillStyle = "rgba(150,126,94,0.9)"; ctx.fillRect(27, -28, 2.6, 22);
+        ctx.beginPath(); ctx.moveTo(27, -28); ctx.lineTo(28.3, -31); ctx.lineTo(29.6, -28); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); ctx.arc(28.3, -30, 1.0, 0.4, Math.PI * 1.6); ctx.strokeStyle = "rgba(226,188,100,0.9)"; ctx.lineWidth = 0.3; ctx.stroke();
+      } else if (v.landmark === "malecon") {
+        ctx.fillStyle = "rgba(116,140,144,0.45)"; ctx.fillRect(-34, -6, 68, 3);
+        ctx.fillStyle = "rgba(196,180,150,0.85)"; ctx.fillRect(-34, -4, 68, 1.6);
+      }
       for (let i = 0; i < 6; i++) {
         ctx.beginPath(); ctx.arc(-14 + i * 5.6, -11 - (i % 2) * 1.2, 1.3, 0, TAU);
         ctx.fillStyle = "rgba(66,52,38,0.85)"; ctx.fill();
@@ -2183,7 +2309,46 @@
         ctx.beginPath(); ctx.arc(-8 + i * 5.6, -3.4 - (i % 2) * 1.2, 1.4, 0, TAU);
         ctx.fillStyle = "rgba(66,52,38,0.88)"; ctx.fill();
       }
+      if (v.facade === "georgian") {
+        ctx.fillStyle = "rgba(228,216,192,0.95)";
+        ctx.beginPath(); ctx.moveTo(-36, -38); ctx.lineTo(-24, -44); ctx.lineTo(-12, -38); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = "rgba(84,68,50,0.5)"; ctx.lineWidth = 0.3; ctx.stroke();
+      } else if (v.facade === "caribbean") {
+        ctx.fillStyle = "rgba(150,96,66,0.92)";
+        ctx.beginPath(); ctx.moveTo(-36, -38); ctx.lineTo(-6, -38); ctx.lineTo(-10, -43); ctx.lineTo(-32, -43); ctx.closePath(); ctx.fill();
+      } else if (v.facade === "tropical") {
+        ctx.fillStyle = "rgba(120,92,58,0.92)"; ctx.fillRect(-38, -42, 34, 4);
+      } else if (v.facade === "opera") {
+        for (let i = 0; i < 5; i++) {
+          ctx.fillStyle = "rgba(240,232,214,0.95)"; ctx.fillRect(-34 + i * 8, -44, 1.4, 8);
+        }
+      } else {
+        ctx.fillStyle = "rgba(222,210,186,0.95)"; ctx.fillRect(-38, -42, 34, 2.4);
+        for (let i = 0; i < 4; i++) { ctx.fillRect(-34 + i * 8, -45, 1.6, 3); }
+      }
       return;
+    }
+    if (v.skyline === "harbour") {
+      ctx.fillStyle = "rgba(120,146,150,0.4)"; ctx.fillRect(-50, -22, 100, 3);
+      for (const [x, w, h] of [[-44, 5, 16], [-35, 4, 22], [-27, 5, 14], [-16, 4, 20], [-8, 5, 24], [2, 4, 14], [10, 5, 18]]) {
+        ctx.fillStyle = "rgba(150,132,108,0.35)"; ctx.fillRect(x, -22 - h, w, h);
+      }
+      ctx.fillStyle = "rgba(180,156,120,0.7)"; ctx.fillRect(24, -34, 4, 12);
+      ctx.beginPath(); ctx.moveTo(23, -34); ctx.lineTo(26, -38); ctx.lineTo(29, -34); ctx.closePath(); ctx.fill();
+    } else if (v.skyline === "plaza") {
+      for (const bx of [-48, 26]) {
+        ctx.fillStyle = "rgba(188,164,128,0.65)"; ctx.fillRect(bx, -30, 20, 8);
+        for (let i = 0; i < 3; i++) {
+          ctx.beginPath(); ctx.moveTo(bx + 2 + i * 6, -22); ctx.lineTo(bx + 2 + i * 6, -26);
+          ctx.quadraticCurveTo(bx + 5 + i * 6, -29, bx + 8 + i * 6, -26); ctx.lineTo(bx + 8 + i * 6, -22);
+          ctx.closePath(); ctx.fillStyle = "rgba(84,66,46,0.45)"; ctx.fill();
+        }
+      }
+    } else if (v.skyline === "city") {
+      for (let i = 0; i < 8; i++) {
+        const x = -46 + i * 11, h = 8 + ((i * 5) % 12);
+        ctx.fillStyle = "rgba(150,132,108,0.32)"; ctx.fillRect(x, -22 - h, 7, h);
+      }
     }
     // town silhouette, taller at the edges so the square reads as a place
     for (let i = 0; i < 10; i++) {
@@ -2723,10 +2888,27 @@
     mapSky(ctx, pal, -28, 54, 0.62);
     mapGround(ctx, v.kind === "quake" ? "#b0946a" : "#96999a", 0.95, -4, 54);
     if (v.kind === "quake") {
-      // leaning tower and a crack
+      // leaning structure and a crack; its silhouette follows the city
       ctx.save(); ctx.translate(-6, -22); ctx.rotate(-0.16);
-      ctx.fillStyle = "rgba(214,198,170,0.95)"; ctx.fillRect(-4, -18, 8, 18);
-      ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3; ctx.strokeRect(-4, -18, 8, 18);
+      if (v.city === "kanto") {
+        ctx.fillStyle = "rgba(210,192,162,0.95)"; ctx.fillRect(-5, -16, 10, 16);
+        ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3; ctx.strokeRect(-5, -16, 10, 16);
+        ctx.beginPath(); ctx.moveTo(-7.5, -16); ctx.lineTo(0, -21.5); ctx.lineTo(7.5, -16); ctx.closePath();
+        ctx.fillStyle = "rgba(120,82,54,0.92)"; ctx.fill();
+        ctx.fillStyle = "rgba(78,62,46,0.5)"; ctx.fillRect(-3.6, -13, 2.6, 2.4); ctx.fillRect(1, -13, 2.6, 2.4);
+      } else if (v.city === "lisbon") {
+        ctx.fillStyle = "rgba(218,200,170,0.95)"; ctx.fillRect(-4, -21, 8, 21);
+        ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3; ctx.strokeRect(-4, -21, 8, 21);
+        ctx.fillStyle = "rgba(226,214,188,0.95)"; ctx.fillRect(-5.6, -22, 11.2, 1.6);
+        ctx.beginPath(); ctx.moveTo(-2.6, -21); ctx.lineTo(-2.6, -17.6);
+        ctx.quadraticCurveTo(0, -15, 2.6, -17.6); ctx.lineTo(2.6, -21); ctx.closePath();
+        ctx.fillStyle = "rgba(60,46,34,0.6)"; ctx.fill();
+        ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(0, -25); ctx.moveTo(-1, -24); ctx.lineTo(1, -24);
+        ctx.strokeStyle = "rgba(70,50,30,0.85)"; ctx.lineWidth = 0.3; ctx.stroke();
+      } else {
+        ctx.fillStyle = "rgba(214,198,170,0.95)"; ctx.fillRect(-4, -18, 8, 18);
+        ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3; ctx.strokeRect(-4, -18, 8, 18);
+      }
       ctx.restore();
       ctx.strokeStyle = "rgba(58,46,36,0.8)"; ctx.lineWidth = 1.0;
       ctx.beginPath(); ctx.moveTo(-30, -2); ctx.lineTo(-12, -5); ctx.lineTo(4, -3); ctx.lineTo(22, -6); ctx.stroke();
@@ -2773,10 +2955,22 @@
       ctx.closePath();
       ctx.fillStyle = "rgba(70,106,114,0.95)"; ctx.fill();
       ctx.strokeStyle = "rgba(222,238,232,0.5)"; ctx.lineWidth = 0.4; ctx.stroke();
-      ctx.fillStyle = "rgba(196,176,146,0.95)";
-      ctx.fillRect(-30, -14, 10, 7);
-      ctx.beginPath(); ctx.moveTo(-32, -14); ctx.lineTo(-25, -19); ctx.lineTo(-18, -14); ctx.closePath();
-      ctx.fillStyle = "rgba(150,108,72,0.9)"; ctx.fill();
+      if (v.coast === "plant") {
+        for (const [bx, bw, bh] of [[-32, 9, 7], [-21, 7, 9], [-12, 6, 6]]) {
+          ctx.fillStyle = "rgba(178,170,154,0.9)"; ctx.fillRect(bx, -12 - bh, bw, bh);
+          ctx.strokeStyle = "rgba(70,64,52,0.45)"; ctx.lineWidth = 0.25; ctx.strokeRect(bx, -12 - bh, bw, bh);
+        }
+        ctx.strokeStyle = "rgba(60,56,46,0.8)"; ctx.lineWidth = 0.3;
+        for (const px of [-4, 4]) {
+          ctx.beginPath(); ctx.moveTo(px, -4); ctx.lineTo(px - 1.2, -14); ctx.moveTo(px, -4); ctx.lineTo(px + 1.2, -14);
+          ctx.moveTo(px - 1.2, -14); ctx.lineTo(px + 1.2, -14); ctx.stroke();
+        }
+      } else {
+        ctx.fillStyle = "rgba(196,176,146,0.95)";
+        ctx.fillRect(-30, -14, 10, 7);
+        ctx.beginPath(); ctx.moveTo(-32, -14); ctx.lineTo(-25, -19); ctx.lineTo(-18, -14); ctx.closePath();
+        ctx.fillStyle = "rgba(150,108,72,0.9)"; ctx.fill();
+      }
     } else {
       // cone, plume, lava
       for (let i = 0; i < 10; i++) {

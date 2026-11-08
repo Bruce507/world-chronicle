@@ -6,7 +6,7 @@ Date 2026-11-07. P3-5 的落地部分：自动验证、生成物一致性、缓�
 
 | 文件 | 触发 | 内容 |
 |---|---|---|
-| `.github/workflows/ci.yml` | push main、PR、手动 | 安装依赖 → validate/build/taxonomy/语法 → 生成物一致性 → 安装 Chrome → 启动本地服务器 → `content-check` 147 条 → `smoke` 63 项 |
+| `.github/workflows/ci.yml` | push main、PR、手动 | 安装依赖 → validate/build/taxonomy/语法 → 生成物一致性 → 安装 Chrome → 启动本地服务器 → `content-check` 147 条 → `smoke` 64 项 |
 | `.github/workflows/pages.yml` | push main、手动 | 先跑同一组静态校验（validate/build/taxonomy/语法/生成物一致性），通过后才部署 GitHub Pages |
 
 - 生成物一致性：`js/data_bundle.js`、`data/scene_variants.json`、`docs/scene-coverage.md` 必须与 JSON 源一致；CI 在 build 后执行 `git diff --exit-code`，不一致即失败。
@@ -128,4 +128,4 @@ CI 在 `data-qa` 之后执行 `npm run perf:budget`（`scripts/perf-budget.mjs`�
 - 运行时统计启动后的 DOM 节点数；
 - 超出预算时输出 `::error title=perf-budget::`，与 smoke/pwa 的注解一致。
 
-当前预算与实测（构建 2026-11-08，资源版本 20261109b）：首屏 713.8 / 780 KB，懒加载 113.0 / 120 KB，全部 826.8 / 900 KB，DOM 851 / 2400 节点。variant-scenes 的单文件预算从 26 KB 调到 32 KB，用于逐事件剪影。
+当前预算与实测（构建 2026-11-08，资源版本 20261109c）：首屏 714.1 / 780 KB，懒加载 115.2 / 120 KB，全部 829.3 / 900 KB，DOM 853 / 2400 节点。variant-scenes 的单文件预算从 26 KB 调到 32 KB，用于逐事件剪影。

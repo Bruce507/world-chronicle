@@ -984,6 +984,11 @@ svg { display: block; }
 }
 .cat-chip:hover { border-color: rgba(176, 67, 44, 0.45); background: #fffdf8; }
 .cat-chip.is-on { border-color: var(--verm); color: var(--verm); background: #fffdf8; }
+/* Depth filter: a dashed chip separates "has a full chronicle" from the
+   category filters without adding another row. */
+.cat-chip.depth-chip { border-style: dashed; border-color: rgba(176, 67, 44, 0.42); color: var(--verm); }
+.cat-chip.depth-chip small { color: var(--muted); }
+.cat-chip.depth-chip.is-on { background: rgba(176, 67, 44, 0.08); }
 .cat-chip i { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .cat-chip small { font-size: 9.5px; color: var(--muted); }
 .cat-shape { display: inline-block; flex-shrink: 0; }
