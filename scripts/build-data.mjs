@@ -18,6 +18,7 @@ const theatre = read("data/theatre.json");
 const regions = read("data/regions.json");
 const groups = read("data/event_groups.json");
 const sceneVariants = read("data/scene_variants.json");
+const eventDetails = read("data/event_details.json");
 
 function slugify(str) {
   return String(str).toLowerCase().normalize("NFKD")
@@ -45,6 +46,9 @@ const out = {
   regionNav: regions,
   eventGroups: groups,
   sceneVariants,
+  // Which events have a full chronicle; lets lists mark depth without
+  // fetching the 320 KB detail file on first paint.
+  detailIds: Object.keys(eventDetails),
 };
 
 const header = `/* 寰宇时序 · generated data bundle — do not edit by hand.

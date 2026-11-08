@@ -1580,21 +1580,25 @@
     const showNow = opts.now !== false;
     let html = "";
     let placed = false;
-    evs.forEach((ev) => {
+    evs.forEach((ev, i) => {
       if (showNow && !placed && ev.y >= state.year - 0.5) { html += nowDivider(); placed = true; }
-      html += eventRow(ev);
+      html += eventRow(ev, i === 0);
     });
     return html;
   }
 
-  function eventRow(ev) {
+  function eventRow(ev, tabbable) {
     const future = ev.y > state.year + 0.5;
     const cat = A.categories[ev.k] || { color: "#8a6a3f" };
     const title = evTitle(ev);
-    return `<button class="event-row${future ? " is-future" : ""}" data-ev="${ev.id}">
+    // Full chronicles are marked so a "brief entry" is never a surprise.
+    const full = !!(A.detailIds && A.detailIds.indexOf(ev.id) >= 0);
+    // Roving tabindex: one tab stop per list, arrow keys move inside it.
+    const tabAttr = tabbable ? "" : ' tabindex="-1"';
+    return `<button class="event-row${future ? " is-future" : ""}"${tabAttr} data-ev="${ev.id}">
       <span class="er-year">${fmtYear(ev.y, state.lang, true)}</span>
       <span class="er-main"><span class="er-title">${title}</span>
-      <span class="er-meta"><i class="cat-shape shape-${catShape(ev.k)}" style="background:${cat.color}"></i>${catName(ev.k)} · ${rgName(ev.rg)}${future ? " · " + L("未至", "ahead", "próximo", "à venir", "قادم") : ""}</span></span>
+      <span class="er-meta"><i class="cat-shape shape-${catShape(ev.k)}" style="background:${cat.color}"></i>${catName(ev.k)} · ${rgName(ev.rg)}${full ? " <span class=\"er-depth\">· " + L("史志", "chronicle", "crónica", "chronique", "سجل") + "</span>" : ""}${future ? " · " + L("未至", "ahead", "próximo", "à venir", "قادم") : ""}</span></span>
     </button>`;
   }
 
@@ -1646,7 +1650,7 @@
       html += `<section class="p-section"><h3>${L("重大事件", "MAJOR EVENTS", "ACONTECIMIENTOS", "ÉVÉNEMENTS", "أحداث كبرى")} · ${keyEvs.length}</h3>`;
       html += catFilterRow(keyEvsAll);
       html += `<div class="event-list">`;
-      keyEvs.slice(0, 12).forEach((e) => { html += eventRow(e); });
+      keyEvs.slice(0, 12).forEach((e, i) => { html += eventRow(e, i === 0); });
       html += `</div></section>`;
     }
 
@@ -1777,6 +1781,8 @@
     const zi = el["tl-zoom-in"], zo = el["tl-zoom-out"];
     if (zi) zi.disabled = timeline.span <= 10;
     if (zo) zo.disabled = timeline.span >= (timeline.fullTo - timeline.fullFrom) - 1;
+    const axis = document.getElementById("tl-axis-label");
+    if (axis) axis.textContent = L("时间轴", "TIMELINE", "LÍNEA", "CHRONO", "الشريط");
     const step = yearStep(state.year);
     if (el["tl-step-back"]) el["tl-step-back"].title = L("后退一年", "Back one year", "Un año atrás", "Reculer d’un an", "سنة إلى الوراء");
     if (el["tl-step-fwd"]) el["tl-step-fwd"].title = L("前进一年", "Forward one year", "Un año adelante", "Avancer d’un an", "سنة إلى الأمام");
@@ -1820,6 +1826,8 @@
       b.addEventListener("click", () => focusRegion(r.id));
       nav.appendChild(b);
     });
+    const navChips = [...nav.querySelectorAll(".region-chip")];
+    navChips.forEach((c, i) => { c.tabIndex = i === 0 ? 0 : -1; });
     updateRegionActive();
   }
 
@@ -3184,6 +3192,96 @@
 
   /* ── UI bindings ────────────────────────────────── */
   function bindUI() {
+    // Event rows use a roving tabindex: the list is one tab stop and the
+    // arrow keys move between rows. Without this, a 62-row era panel put 62
+    // stops between the map and the timeline.
+    const rove = (rows, next) => {
+      if (!next || !rows.length) return;
+      rows.forEach((r) => { r.tabIndex = r === next ? 0 : -1; });
+      next.focus();
+    };
+    el["panel-body"].addEventListener("keydown", (e) => {
+      const row = e.target.closest && e.target.closest(".event-row");
+      if (!row) return;
+      const rows = [...el["panel-body"].querySelectorAll(".event-row")];
+      const i = rows.indexOf(row);
+      let j = -1;
+      if (e.key === "ArrowDown") j = Math.min(rows.length - 1, i + 1);
+      else if (e.key === "ArrowUp") j = Math.max(0, i - 1);
+      else if (e.key === "Home") j = 0;
+      else if (e.key === "End") j = rows.length - 1;
+      else if (e.key === "PageDown") j = Math.min(rows.length - 1, i + 8);
+      else if (e.key === "PageUp") j = Math.max(0, i - 8);
+      if (j < 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      rove(rows, rows[j]);
+    });
+    el["panel-body"].addEventListener("focusin", (e) => {
+      const row = e.target.closest && e.target.closest(".event-row");
+      if (!row) return;
+      el["panel-body"].querySelectorAll(".event-row").forEach((r) => { r.tabIndex = r === row ? 0 : -1; });
+    });
+    // Polity / modern-country chips are also one tab stop per group; the
+    // lists are re-rendered constantly, so a childList observer re-seeds the
+    // roving index after every panel render.
+    const initChips = () => {
+      el["panel-body"].querySelectorAll(".polity-list").forEach((list) => {
+        const btns = [...list.querySelectorAll("button.polity-chip")];
+        btns.forEach((c, i) => { c.tabIndex = i === 0 ? 0 : -1; });
+      });
+    };
+    new MutationObserver(initChips).observe(el["panel-body"], { childList: true, subtree: true });
+    initChips();
+    el["panel-body"].addEventListener("keydown", (e) => {
+      const chip = e.target.closest && e.target.closest("button.polity-chip");
+      if (!chip) return;
+      const list = chip.closest(".polity-list");
+      if (!list) return;
+      const btns = [...list.querySelectorAll("button.polity-chip")];
+      const i = btns.indexOf(chip);
+      let j = -1;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") j = Math.min(btns.length - 1, i + 1);
+      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") j = Math.max(0, i - 1);
+      else if (e.key === "Home") j = 0;
+      else if (e.key === "End") j = btns.length - 1;
+      if (j < 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      btns.forEach((b) => { b.tabIndex = b === btns[j] ? 0 : -1; });
+      btns[j].focus();
+    });
+    el["panel-body"].addEventListener("focusin", (e) => {
+      const chip = e.target.closest && e.target.closest("button.polity-chip");
+      if (!chip || !chip.closest(".polity-list")) return;
+      chip.closest(".polity-list").querySelectorAll("button.polity-chip").forEach((b) => { b.tabIndex = b === chip ? 0 : -1; });
+    });
+    // Region row: one tab stop, left/right arrows move between chips.
+    const rnav = document.getElementById("region-nav");
+    if (rnav) {
+      rnav.addEventListener("keydown", (e) => {
+        const chip = e.target.closest && e.target.closest(".region-chip");
+        if (!chip) return;
+        const chips = [...rnav.querySelectorAll(".region-chip")];
+        const i = chips.indexOf(chip);
+        const rtl = document.documentElement.dir === "rtl";
+        let j = -1;
+        if (e.key === "ArrowRight") j = Math.min(chips.length - 1, i + (rtl ? -1 : 1));
+        else if (e.key === "ArrowLeft") j = Math.max(0, i + (rtl ? 1 : -1));
+        else if (e.key === "Home") j = 0;
+        else if (e.key === "End") j = chips.length - 1;
+        if (j < 0) return;
+        e.preventDefault();
+        e.stopPropagation();
+        chips.forEach((c) => { c.tabIndex = c === chips[j] ? 0 : -1; });
+        chips[j].focus();
+      });
+      rnav.addEventListener("focusin", (e) => {
+        const chip = e.target.closest && e.target.closest(".region-chip");
+        if (!chip) return;
+        rnav.querySelectorAll(".region-chip").forEach((c) => { c.tabIndex = c === chip ? 0 : -1; });
+      });
+    }
     el["lang-select"].addEventListener("change", (e) => setLang(e.target.value));
     el["layers-btn"].addEventListener("click", (e) => {
       e.stopPropagation();

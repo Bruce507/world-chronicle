@@ -241,6 +241,25 @@ try {
   const span2 = await zSpan();
   check("timeline zoom buttons narrow and restore the window", span0 === 1699 && span1 < span0 && span2 === span0, JSON.stringify({ span0, span1, span2 }));
 
+  // Roving tabindex: one tab stop for the event list, arrows move inside it.
+  const rove = await d.evaluate(() => {
+    const rows = [...document.querySelectorAll("#panel-body .event-row")];
+    return { rows: rows.length, tab0: rows.filter((r) => r.tabIndex === 0).length };
+  });
+  await d.evaluate(() => document.querySelector("#panel-body .event-row").focus());
+  const roveYear = await d.evaluate(() => window.atlasAPI.state.year);
+  await d.keyboard.press("ArrowDown");
+  await d.waitForTimeout(150);
+  const roveMoved = await d.evaluate(() => ({
+    isRow: !!(document.activeElement && document.activeElement.classList.contains("event-row")),
+    tab: document.activeElement && document.activeElement.tabIndex,
+    tab0: [...document.querySelectorAll("#panel-body .event-row")].filter((r) => r.tabIndex === 0).length,
+    year: window.atlasAPI.state.year,
+  }));
+  check("event rows are one roving tab stop and arrows do not change the year",
+    rove.rows > 5 && rove.tab0 === 1 && roveMoved.isRow && roveMoved.tab === 0 && roveMoved.tab0 === 1 && roveMoved.year === roveYear,
+    JSON.stringify({ rove, roveMoved, roveYear }));
+
   await d.evaluate(() => { window.atlasAPI.setYear(1500); window.atlasAPI.setPanel(true); });
   await d.waitForTimeout(400);
   await d.click("#fav-toggle");

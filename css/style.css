@@ -1040,6 +1040,7 @@ svg { display: block; }
   letter-spacing: 0.05em;
   color: var(--muted);
 }
+.er-depth { color: var(--gold); white-space: nowrap; }
 .event-row .er-meta i { width: 7px; height: 7px; border-radius: 50%; }
 .event-row.is-past .er-title { color: var(--ink-2); }
 .event-row.is-future { opacity: 0.5; }
@@ -2577,11 +2578,17 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
 .tl-group { display: flex; align-items: center; gap: 6px; flex: none; }
 .tl-group .tl-small { white-space: nowrap; }
 .tl-group-view { padding-inline-start: 10px; border-inline-start: 1px solid rgba(85, 75, 64, 0.2); }
+.tl-group-label { font-size: 9.5px; letter-spacing: 0.12em; color: var(--muted); white-space: nowrap; }
 .tl-group-play { padding-inline-start: 10px; border-inline-start: 1px solid rgba(85, 75, 64, 0.2); }
 .tl-tip { margin-inline-start: 8px; }
 #tl-tip[dir="ltr"] { unicode-bidi: isolate; }
 @media (max-width: 620px) {
   .tl-group-view, .tl-group-play { padding-inline-start: 0; border-inline-start: 0; }
+}
+@media (max-width: 860px) {
+  /* The year and timeline zoom pairs sit close together; keep the label on
+     wide screens only so the narrow toolbar does not wrap. */
+  #tl-axis-label { display: none; }
 }
 
 /* ═══════════ 面板离线提示 / offline note ═══════════ */

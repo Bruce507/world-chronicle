@@ -558,11 +558,16 @@
         this._a11ySig = sig;
         this._a11yButtons = [];
         host.innerHTML = "";
+        let k = 0;
         for (const ev of list) {
           const b = document.createElement("button");
           b.type = "button";
           b.className = "a11y-node";
           b.dataset.ev = ev.id;
+          // Roving tabindex: the map overlay is one tab stop; arrow keys move
+          // between the visible nodes instead of ten separate tab presses.
+          b.tabIndex = k === 0 ? 0 : -1;
+          k += 1;
           b.addEventListener("click", () => { if (this.opts.onEventClick) this.opts.onEventClick(ev); });
           b.addEventListener("focus", () => {
             this.hovered = ev;
@@ -1232,6 +1237,30 @@
         const r = this.canvas.getBoundingClientRect();
         this.zoomAt(1.7, e.clientX - r.left, e.clientY - r.top);
       });
+      // Keyboard model for the accessible map-node overlay.
+      const host = document.getElementById("a11y-nodes");
+      if (host) {
+        host.addEventListener("keydown", (e) => {
+          const btns = [...host.querySelectorAll(".a11y-node")];
+          const i = btns.indexOf(e.target);
+          if (i < 0) return;
+          let j = -1;
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") j = Math.min(btns.length - 1, i + 1);
+          else if (e.key === "ArrowLeft" || e.key === "ArrowUp") j = Math.max(0, i - 1);
+          else if (e.key === "Home") j = 0;
+          else if (e.key === "End") j = btns.length - 1;
+          if (j < 0) return;
+          e.preventDefault();
+          e.stopPropagation();
+          btns.forEach((b) => { b.tabIndex = b === btns[j] ? 0 : -1; });
+          btns[j].focus();
+        });
+        host.addEventListener("focusin", (e) => {
+          const b = e.target.closest && e.target.closest(".a11y-node");
+          if (!b) return;
+          host.querySelectorAll(".a11y-node").forEach((x) => { x.tabIndex = x === b ? 0 : -1; });
+        });
+      }
     }
 
     _local(e) {

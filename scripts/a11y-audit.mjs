@@ -226,6 +226,30 @@ const skipped = await page.evaluate(() => ({ id: document.activeElement && docum
 check("skip links reach the panel and the timeline",
   /skip-link/.test(skip1) && /跳到时间轴/.test(skip2) && skipped.id === "timeline", JSON.stringify({ skip1, skip2, skipped }));
 
+/* Roving tabindex: the event list, polity chips and region row are each one
+   tab stop; arrows move inside them and must not change the year. */
+const roving = await page.evaluate(() => {
+  const rows = [...document.querySelectorAll("#panel-body .event-row")];
+  const chips = [...document.querySelectorAll("#panel-body button.polity-chip")];
+  const regions = [...document.querySelectorAll("#region-nav .region-chip")];
+  const tab0 = (arr) => arr.filter((x) => x.tabIndex === 0).length;
+  return { rows: rows.length, rowTab0: tab0(rows), chips: chips.length, chipTab0: tab0(chips), regions: regions.length, regionTab0: tab0(regions) };
+});
+await page.evaluate(() => document.querySelector("#panel-body .event-row").focus());
+const yearBefore = await page.evaluate(() => window.atlasAPI.state.year);
+await page.keyboard.press("ArrowDown");
+await page.waitForTimeout(150);
+const rowMoved = await page.evaluate(() => ({
+  isRow: !!(document.activeElement && document.activeElement.classList.contains("event-row")),
+  tab: document.activeElement && document.activeElement.tabIndex,
+  tab0: [...document.querySelectorAll("#panel-body .event-row")].filter((r) => r.tabIndex === 0).length,
+  year: window.atlasAPI.state.year,
+}));
+check("event list, polity chips and region row are single tab stops with arrow navigation",
+  roving.rows > 5 && roving.rowTab0 === 1 && roving.chipTab0 === 1 && roving.regionTab0 === 1 &&
+  rowMoved.isRow && rowMoved.tab === 0 && rowMoved.tab0 === 1 && rowMoved.year === yearBefore,
+  JSON.stringify({ roving, rowMoved, yearBefore }));
+
 
 /* Contrast sample for the small type raised in D7: 9.5px text must still
    clear 4.5:1 against its real (composited) background. Canvas overlays are
