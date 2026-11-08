@@ -66,6 +66,75 @@
       }
     ]
   },
+  "american-civil-war": {
+    "title": {
+      "zh": "美国南北战争",
+      "en": "American Civil War"
+    },
+    "date": {
+      "iso": "1861-04-12",
+      "zh": "1861–1865年",
+      "en": "1861–1865"
+    },
+    "place": {
+      "zh": "美国（萨姆特堡起）",
+      "en": "United States (from Fort Sumter)",
+      "lat": 32.75,
+      "lon": -79.87
+    },
+    "actors": [
+      {
+        "zh": "联邦（北方）",
+        "en": "Union"
+      },
+      {
+        "zh": "邦联（南方）",
+        "en": "Confederacy"
+      },
+      {
+        "zh": "亚伯拉罕·林肯",
+        "en": "Abraham Lincoln"
+      },
+      {
+        "zh": "被奴役者与自由黑人",
+        "en": "Enslaved and free Black people"
+      }
+    ],
+    "background": {
+      "zh": "奴隶制向西扩张的争议撕裂了美国政治；林肯1860年当选后，南方数州退出联邦，组成邦联。",
+      "en": "Conflict over slavery's expansion into the West fractured American politics; after Lincoln's 1860 election, southern states seceded and formed the Confederacy."
+    },
+    "course": {
+      "zh": "1861年4月邦联炮击萨姆特堡，战争爆发。1863年《解放宣言》与葛底斯堡、维克斯堡战役改变战局；1865年李将军投降，战争结束。",
+      "en": "The Confederacy bombarded Fort Sumter in April 1861, starting the war. The 1863 Emancipation Proclamation and the battles of Gettysburg and Vicksburg shifted the balance; Lee surrendered in 1865."
+    },
+    "outcome": {
+      "zh": "联邦得以保全，奴隶制被第十三修正案废除；约62万至75万人死亡，重建时期与非裔美国人的权利斗争延续至今。",
+      "en": "The Union was preserved and slavery abolished by the Thirteenth Amendment; roughly 620,000–750,000 died, and Reconstruction and the struggle for Black rights continued long after."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "US"
+      ],
+      "year": 1861,
+      "priority": 100
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — American Civil War",
+        "url": "https://en.wikipedia.org/wiki/American_Civil_War",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "U.S. National Archives — Civil War",
+        "url": "https://www.archives.gov/research/military/civil-war",
+        "tier": "institutional"
+      }
+    ]
+  },
   "apollo-11": {
     "title": {
       "zh": "阿波罗十一号登月",
@@ -123,6 +192,76 @@
       {
         "label": "Britannica — Apollo 11",
         "url": "https://www.britannica.com/topic/Apollo-11",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
+  "arab-spring": {
+    "title": {
+      "zh": "阿拉伯之春",
+      "en": "Arab Spring"
+    },
+    "date": {
+      "iso": "2010-12-17",
+      "zh": "2010年12月起",
+      "en": "From December 2010"
+    },
+    "place": {
+      "zh": "北非与西亚多国",
+      "en": "North Africa and West Asia",
+      "lat": 36.8,
+      "lon": 10.18
+    },
+    "actors": [
+      {
+        "zh": "抗议者与公民社会",
+        "en": "Protesters and civil society"
+      },
+      {
+        "zh": "威权政权",
+        "en": "Authoritarian regimes"
+      },
+      {
+        "zh": "军队与伊斯兰主义运动",
+        "en": "Armies and Islamist movements"
+      }
+    ],
+    "background": {
+      "zh": "青年失业、腐败、贫富差距、粮价上涨与政治封闭长期积累；社交媒体让抗议动员跨越国界。",
+      "en": "Youth unemployment, corruption, inequality, food prices and closed politics had accumulated for years; social media let protest movements cross borders."
+    },
+    "course": {
+      "zh": "2010年12月突尼斯小贩布瓦吉吉自焚，抗议迅速推翻本·阿里；2011年埃及穆巴拉克下台，利比亚爆发内战，叙利亚抗议演变为战争，巴林抗议遭镇压，也门陷入长期冲突。",
+      "en": "The self-immolation of Tunisian street vendor Mohamed Bouazizi in December 2010 sparked protests that toppled Ben Ali; Egypt's Mubarak fell in 2011, Libya descended into civil war, Syria's uprising became war, Bahrain's protests were crushed and Yemen entered prolonged conflict."
+    },
+    "outcome": {
+      "zh": "突尼斯一度完成转型，但2021年总统集权使民主成果倒退；埃及回到军人统治，利比亚、叙利亚、也门陷入战争。'阿拉伯之冬'一词概括了镇压、内战与失望。",
+      "en": "Tunisia transitioned for a time but its democratic gains were reversed by the president's 2021 power grab; Egypt returned to military rule, while Libya, Syria and Yemen fell into war. The term 'Arab Winter' captures the repression, civil war and disillusion."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "TN",
+        "EG",
+        "LY",
+        "SY",
+        "YE",
+        "BH"
+      ],
+      "year": 2010,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Arab Spring",
+        "url": "https://en.wikipedia.org/wiki/Arab_Spring",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Arab Winter",
+        "url": "https://en.wikipedia.org/wiki/Arab_Winter",
         "tier": "encyclopedic"
       }
     ]
@@ -256,6 +395,11 @@
       {
         "label": "U.S. Holocaust Memorial Museum — Auschwitz",
         "url": "https://encyclopedia.ushmm.org/content/en/article/auschwitz",
+        "tier": "institutional"
+      },
+      {
+        "label": "USHMM — Introduction to the Holocaust",
+        "url": "https://encyclopedia.ushmm.org/content/en/article/introduction-to-the-holocaust",
         "tier": "institutional"
       }
     ]
@@ -395,6 +539,72 @@
         "label": "Wikipedia — Sheikh Mujibur Rahman",
         "url": "https://en.wikipedia.org/wiki/Sheikh_Mujibur_Rahman",
         "tier": "encyclopedic"
+      }
+    ]
+  },
+  "battle-of-hastings": {
+    "title": {
+      "zh": "黑斯廷斯战役",
+      "en": "Battle of Hastings"
+    },
+    "date": {
+      "iso": "1066-10-14",
+      "zh": "1066年10月14日",
+      "en": "14 October 1066"
+    },
+    "place": {
+      "zh": "英格兰黑斯廷斯附近",
+      "en": "Near Hastings, England",
+      "lat": 50.91,
+      "lon": 0.49
+    },
+    "actors": [
+      {
+        "zh": "哈罗德二世",
+        "en": "Harold II"
+      },
+      {
+        "zh": "诺曼底公爵威廉",
+        "en": "William of Normandy"
+      },
+      {
+        "zh": "盎格鲁-撒克逊与诺曼军队",
+        "en": "Anglo-Saxon and Norman armies"
+      }
+    ],
+    "background": {
+      "zh": "英王爱德华去世后出现继承危机；哈罗德刚在斯坦福桥击败挪威入侵者，威廉随即在英格兰南岸登陆。",
+      "en": "A succession crisis followed King Edward's death; Harold had just defeated a Norwegian invasion at Stamford Bridge when William landed on the English south coast."
+    },
+    "course": {
+      "zh": "10月14日，双方在黑斯廷斯附近激战一整天。诺曼骑兵与弓箭手反复冲击英军盾墙，伴退战术诱使英军离阵；哈罗德阵亡（具体方式有争议），英军溃散。",
+      "en": "The armies fought all day near Hastings. Norman cavalry and archers repeatedly attacked the English shield wall, and feigned retreats drew parts of it out of position; Harold was killed (the manner is disputed) and the English line broke."
+    },
+    "outcome": {
+      "zh": "威廉于圣诞节在威斯敏斯特加冕，诺曼征服重塑了英格兰的土地制度、贵族与语言。黑斯廷斯成为英国历史上最具决定性的战役之一。",
+      "en": "William was crowned at Westminster on Christmas Day, and the Norman Conquest reshaped English landholding, aristocracy and language. Hastings became one of the most decisive battles in English history."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "GB",
+        "FR"
+      ],
+      "year": 1066,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Battle of Hastings",
+        "url": "https://en.wikipedia.org/wiki/Battle_of_Hastings",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "English Heritage — 1066 Battle of Hastings",
+        "url": "https://www.english-heritage.org.uk/visit/places/1066-battle-of-hastings-abbey-and-battlefield/",
+        "tier": "secondary"
       }
     ]
   },
@@ -737,6 +947,74 @@
       }
     ]
   },
+  "battle-of-waterloo": {
+    "title": {
+      "zh": "滑铁卢战役",
+      "en": "Battle of Waterloo"
+    },
+    "date": {
+      "iso": "1815-06-18",
+      "zh": "1815年6月18日",
+      "en": "18 June 1815"
+    },
+    "place": {
+      "zh": "比利时滑铁卢",
+      "en": "Waterloo, Belgium",
+      "lat": 50.68,
+      "lon": 4.41
+    },
+    "actors": [
+      {
+        "zh": "拿破仑·波拿巴",
+        "en": "Napoleon Bonaparte"
+      },
+      {
+        "zh": "威灵顿公爵",
+        "en": "Duke of Wellington"
+      },
+      {
+        "zh": "布吕歇尔与普鲁士军",
+        "en": "Blücher and the Prussian army"
+      }
+    ],
+    "background": {
+      "zh": "拿破仑1815年从厄尔巴岛返回，重建帝国；第七次反法同盟集结英、普、奥、俄军队，力图在法国边境将其击败。",
+      "en": "Napoleon returned from Elba in 1815 and rebuilt his empire; the Seventh Coalition massed British, Prussian, Austrian and Russian armies to defeat him on France's borders."
+    },
+    "course": {
+      "zh": "6月18日，法军在泥泞地形上反复攻击威灵顿的防线；傍晚布吕歇尔的普鲁士军抵达战场，法军右翼崩溃，近卫军败退，战役以法军溃败结束。",
+      "en": "On 18 June French attacks repeatedly struck Wellington's line across muddy ground; in the evening Blücher's Prussians reached the field, the French right collapsed and the Guard fell back, ending in a French rout."
+    },
+    "outcome": {
+      "zh": "拿破仑再次退位，被流放圣赫勒拿；维也纳体系在欧洲维持了数十年。滑铁卢成为'最终失败'的代名词，英普两国的记忆与叙事长期竞争。",
+      "en": "Napoleon abdicated again and was exiled to Saint Helena; the Vienna order held for decades. Waterloo became shorthand for a final defeat, with British and Prussian memories long competing."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "BE",
+        "FR",
+        "GB",
+        "DE"
+      ],
+      "year": 1815,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Battle of Waterloo",
+        "url": "https://en.wikipedia.org/wiki/Battle_of_Waterloo",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "National Army Museum — Battle of Waterloo",
+        "url": "https://www.nam.ac.uk/explore/battle-waterloo",
+        "tier": "institutional"
+      }
+    ]
+  },
   "battle-of-wuhan": {
     "title": {
       "zh": "武汉会战",
@@ -804,6 +1082,72 @@
       }
     ]
   },
+  "bengal-famine": {
+    "title": {
+      "zh": "孟加拉大饥荒",
+      "en": "Bengal Famine"
+    },
+    "date": {
+      "iso": "1943",
+      "zh": "1943年",
+      "en": "1943"
+    },
+    "place": {
+      "zh": "英属印度孟加拉",
+      "en": "Bengal, British India",
+      "lat": 22.57,
+      "lon": 88.36
+    },
+    "actors": [
+      {
+        "zh": "英属印度政府",
+        "en": "British Indian government"
+      },
+      {
+        "zh": "孟加拉省政府",
+        "en": "Bengal provincial government"
+      },
+      {
+        "zh": "孟加拉农村人口",
+        "en": "Bengal's rural population"
+      }
+    ],
+    "background": {
+      "zh": "1942年日军占领缅甸，切断了英属印度的稻米进口；同年孟加拉遭受飓风与洪水，冬春作物受损。战争优先、船只征用与地方囤积又推高了粮价。",
+      "en": "Japan's occupation of Burma in 1942 cut rice imports into British India; a cyclone and floods damaged the Bengal crop that year. War priorities, boat requisitioning and local hoarding pushed prices higher."
+    },
+    "course": {
+      "zh": "1943年米价数倍上涨，工资与救济跟不上。省政府的配给与救济覆盖面不足，城市优先的供应政策使农村最先崩溃；饥饿与疟疾、霍乱叠加，死亡集中在同年下半年。",
+      "en": "Rice prices multiplied in 1943 while wages and relief lagged. Provincial rationing and relief were too limited, and urban-first supply policies hit the countryside first; starvation combined with malaria and cholera, with deaths concentrated in the second half of the year."
+    },
+    "outcome": {
+      "zh": "死亡人数估计约二三百万，学界仍有争议。1945年的饥荒调查委员会批评了救济与供应体系；这场饥荒成为英属印度统治与丘吉尔战时决策争论的焦点之一。",
+      "en": "Estimates of the death toll range around two to three million and remain disputed. The 1945 Famine Inquiry Commission criticised relief and supply arrangements; the famine became a focus of debates over British rule and Churchill's wartime decisions."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "IN",
+        "BD"
+      ],
+      "year": 1943,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Bengal famine of 1943",
+        "url": "https://en.wikipedia.org/wiki/Bengal_famine_of_1943",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Our World in Data — Famines",
+        "url": "https://ourworldindata.org/famines",
+        "tier": "secondary"
+      }
+    ]
+  },
   "bering-reaches-alaska": {
     "title": {
       "zh": "白令抵达阿拉斯加",
@@ -867,6 +1211,71 @@
       {
         "label": "Wikipedia — Vitus Bering",
         "url": "https://en.wikipedia.org/wiki/Vitus_Bering",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
+  "berlin-wall": {
+    "title": {
+      "zh": "柏林墙修筑",
+      "en": "Berlin Wall"
+    },
+    "date": {
+      "iso": "1961-08-13",
+      "zh": "1961年8月13日",
+      "en": "13 August 1961"
+    },
+    "place": {
+      "zh": "德国柏林",
+      "en": "Berlin, Germany",
+      "lat": 52.52,
+      "lon": 13.4
+    },
+    "actors": [
+      {
+        "zh": "德意志民主共和国（东德）",
+        "en": "German Democratic Republic (East Germany)"
+      },
+      {
+        "zh": "苏联",
+        "en": "Soviet Union"
+      },
+      {
+        "zh": "西柏林与盟国",
+        "en": "West Berlin and the Allies"
+      }
+    ],
+    "background": {
+      "zh": "战后柏林被分区占领，东德人口持续经西柏林外逃；赫鲁晓夫要求西方撤出西柏林，危机在1961年夏达到顶点。",
+      "en": "Postwar Berlin was divided into occupation sectors and East Germans kept fleeing through West Berlin; Khrushchev demanded the Western powers leave, and the crisis peaked in summer 1961."
+    },
+    "course": {
+      "zh": "1961年8月13日，东德军队与工人竖起铁丝网，随后建成混凝土墙，封锁东西柏林；墙上有瞭望塔、死亡地带与射击命令。",
+      "en": "On 13 August 1961 East German troops and workers erected barbed wire, later replaced by a concrete wall, sealing East and West Berlin with watchtowers, a death strip and shoot-to-kill orders."
+    },
+    "outcome": {
+      "zh": "柏林墙成为冷战分裂与压制象征，数以百计的人在越境时死亡。1989年11月9日，在抗议与边境开放的压力下墙被打开，1990年德国统一。",
+      "en": "The Wall became a symbol of Cold War division and repression, with hundreds dying at the border. On 9 November 1989, under protest pressure and after border openings, the Wall was breached; Germany reunified in 1990."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "DE"
+      ],
+      "year": 1961,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Berlin Wall",
+        "url": "https://en.wikipedia.org/wiki/Berlin_Wall",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Peaceful Revolution",
+        "url": "https://en.wikipedia.org/wiki/Peaceful_Revolution",
         "tier": "encyclopedic"
       }
     ]
@@ -1578,6 +1987,69 @@
       }
     ]
   },
+  "crossing-beringia": {
+    "title": {
+      "zh": "跨越白令陆桥",
+      "en": "Crossing Beringia"
+    },
+    "date": {
+      "iso": "-12000",
+      "zh": "约公元前12000年起",
+      "en": "From c. 12000 BCE"
+    },
+    "place": {
+      "zh": "白令海峡地区",
+      "en": "Bering Strait region",
+      "lat": 64,
+      "lon": -168
+    },
+    "actors": [
+      {
+        "zh": "古西伯利亚与古印第安人群",
+        "en": "Paleo-Siberian and Paleo-Indian peoples"
+      },
+      {
+        "zh": "考古学家与遗传学家",
+        "en": "Archaeologists and geneticists"
+      }
+    ],
+    "background": {
+      "zh": "末次冰期海平面下降，亚洲与北美之间露出白令陆桥；冰盖与海岸通道的开放时间决定了迁徙路线。",
+      "en": "Lower sea levels during the last ice age exposed the Bering land bridge between Asia and North America; the timing of ice-free corridors and coastal routes shaped migration."
+    },
+    "course": {
+      "zh": "狩猎采集者在大约1.5万至2万年前跨越陆桥或沿海南下，基因与考古证据显示多次迁徙与长期隔离。更早的沿海路线与'前克洛维斯'遗址仍在争论。",
+      "en": "Hunter-gatherers crossed the bridge or moved down the coast roughly 15,000–20,000 years ago; genetic and archaeological evidence points to multiple migrations and long isolation. Earlier coastal routes and 'pre-Clovis' sites remain debated."
+    },
+    "outcome": {
+      "zh": "美洲原住民的祖先由此形成，随后发展出从北极到火地岛的多样社会。迁徙时间、路线与次数仍是考古学与遗传学的活跃问题。",
+      "en": "The ancestors of Indigenous Americans emerged from this process and later built diverse societies from the Arctic to Tierra del Fuego. The timing, routes and number of migrations remain active questions."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "US",
+        "RU",
+        "CA"
+      ],
+      "year": -12000,
+      "priority": 75
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Beringia",
+        "url": "https://en.wikipedia.org/wiki/Beringia",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Settlement of the Americas",
+        "url": "https://en.wikipedia.org/wiki/Settlement_of_the_Americas",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
   "cuban-revolution": {
     "title": {
       "zh": "古巴革命",
@@ -1764,6 +2236,11 @@
         "label": "Britannica — Declaration of Independence",
         "url": "https://www.britannica.com/topic/Declaration-of-Independence",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "Library of Congress — Declaration of Independence exhibit",
+        "url": "https://www.loc.gov/exhibits/declara/",
+        "tier": "institutional"
       }
     ]
   },
@@ -1829,6 +2306,21 @@
         "label": "Nobel Prize — Nelson Mandela facts",
         "url": "https://www.nobelprize.org/prizes/peace/1993/mandela/facts/",
         "tier": "institutional"
+      },
+      {
+        "label": "Nobel Prize — Desmond Tutu facts",
+        "url": "https://www.nobelprize.org/prizes/peace/1984/tutu/facts/",
+        "tier": "institutional"
+      },
+      {
+        "label": "United Nations — Human rights",
+        "url": "https://www.un.org/en/global-issues/human-rights",
+        "tier": "institutional"
+      },
+      {
+        "label": "United Nations — Decolonization",
+        "url": "https://www.un.org/en/global-issues/decolonization",
+        "tier": "institutional"
       }
     ]
   },
@@ -1893,6 +2385,16 @@
         "label": "Wikipedia — End of World War II in Europe",
         "url": "https://en.wikipedia.org/wiki/End_of_World_War_II_in_Europe",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "U.S. National Archives — World War II",
+        "url": "https://www.archives.gov/research/military/ww2",
+        "tier": "institutional"
+      },
+      {
+        "label": "USHMM — The Soviet Union and the Eastern Front",
+        "url": "https://encyclopedia.ushmm.org/content/en/article/the-soviet-union-and-the-eastern-front",
+        "tier": "institutional"
       }
     ]
   },
@@ -2611,6 +3113,11 @@
         "label": "Wikipedia — French Revolution",
         "url": "https://en.wikipedia.org/wiki/French_Revolution",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "Château de Versailles — History",
+        "url": "https://www.chateauversailles.fr/",
+        "tier": "institutional"
       }
     ]
   },
@@ -2808,6 +3315,200 @@
         "label": "World History Encyclopedia — Unification of Germany",
         "url": "https://www.worldhistory.org/Unification_of_Germany/",
         "tier": "secondary"
+      }
+    ]
+  },
+  "global-financial-crisis": {
+    "title": {
+      "zh": "全球金融危机",
+      "en": "Global Financial Crisis"
+    },
+    "date": {
+      "iso": "2008-09-15",
+      "zh": "2007–2009年",
+      "en": "2007–2009"
+    },
+    "place": {
+      "zh": "美国与全球金融市场",
+      "en": "United States and global financial markets",
+      "lat": 40.71,
+      "lon": -74
+    },
+    "actors": [
+      {
+        "zh": "雷曼兄弟等金融机构",
+        "en": "Lehman Brothers and other financial firms"
+      },
+      {
+        "zh": "美联储与各国政府",
+        "en": "Federal Reserve and governments"
+      },
+      {
+        "zh": "购房者与纳税人",
+        "en": "Homeowners and taxpayers"
+      }
+    ],
+    "background": {
+      "zh": "低利率、次级房贷、证券化与高杠杆把美国住房泡沫放大为全球金融风险；监管与评级机构低估了系统性关联。",
+      "en": "Low interest rates, subprime mortgages, securitisation and high leverage turned the US housing bubble into global financial risk; regulators and rating agencies underestimated the systemic links."
+    },
+    "course": {
+      "zh": "2007年次贷损失浮现，2008年贝尔斯登被收购、9月雷曼兄弟破产，AIG被救助，信贷市场冻结；各国政府推出救助与刺激计划，全球经济陷入衰退。",
+      "en": "Subprime losses surfaced in 2007; Bear Stearns was sold in 2008, Lehman Brothers failed in September, AIG was rescued and credit markets froze. Governments launched bailouts and stimulus, and the world economy entered recession."
+    },
+    "outcome": {
+      "zh": "危机催生多德-弗兰克法案、巴塞尔III与量化宽松，也加剧了不平等、住房危机与对精英的信任流失。复苏在不同国家与阶层之间极不均衡。",
+      "en": "The crisis produced the Dodd–Frank Act, Basel III and quantitative easing, while deepening inequality, housing distress and distrust of elites. Recovery was highly uneven across countries and income groups."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "US",
+        "GB",
+        "DE",
+        "CN"
+      ],
+      "year": 2008,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — 2007–2008 financial crisis",
+        "url": "https://en.wikipedia.org/wiki/2007%E2%80%932008_financial_crisis",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Federal Reserve History — Great Recession",
+        "url": "https://www.federalreservehistory.org/essays/great-recession-of-200709",
+        "tier": "secondary"
+      }
+    ]
+  },
+  "gobekli-tepe": {
+    "title": {
+      "zh": "哥贝克力石阵",
+      "en": "Göbekli Tepe"
+    },
+    "date": {
+      "iso": "-9500",
+      "zh": "约公元前9500年",
+      "en": "c. 9500 BCE"
+    },
+    "place": {
+      "zh": "土耳其尚勒乌尔法",
+      "en": "Şanlıurfa, Turkey",
+      "lat": 37.22,
+      "lon": 38.92
+    },
+    "actors": [
+      {
+        "zh": "前陶新石器时代狩猎采集者",
+        "en": "Pre-Pottery Neolithic hunter-gatherers"
+      },
+      {
+        "zh": "考古学家克劳斯·施密特",
+        "en": "Archaeologist Klaus Schmidt"
+      }
+    ],
+    "background": {
+      "zh": "哥贝克力位于安纳托利亚东南部的石灰岩台地。传统叙事认为，纪念性建筑与宗教在农业定居之后才出现。",
+      "en": "Göbekli Tepe sits on a limestone plateau in south-eastern Anatolia. The traditional narrative held that monumentality and religion followed agricultural settlement."
+    },
+    "course": {
+      "zh": "狩猎采集者用石制工具开采巨大 T 形石柱，围成圆形建筑，柱上雕刻狐狸、野猪、蛇与鸟等动物。使用者后来有意用碎石回填，使遗址得以保存。",
+      "en": "Hunter-gatherers quarried huge T-shaped pillars with stone tools, arranged them in circular enclosures and carved foxes, boars, snakes and birds. The users later deliberately backfilled the structures, which helped preserve them."
+    },
+    "outcome": {
+      "zh": "遗址把纪念性建筑与仪式活动推到农业之前，迫使考古学重新思考宗教、劳动组织与定居的关系；2018年列入联合国教科文组织世界遗产，解释仍在继续。",
+      "en": "The site pushed monumental architecture and ritual before farming, forcing archaeology to rethink religion, labour organisation and sedentism; it became a UNESCO World Heritage Site in 2018, and interpretation continues."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "TR"
+      ],
+      "year": -9500,
+      "priority": 75
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Göbekli Tepe",
+        "url": "https://en.wikipedia.org/wiki/G%C3%B6bekli_Tepe",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — Göbekli Tepe",
+        "url": "https://www.worldhistory.org/Gobekli_Tepe/",
+        "tier": "secondary"
+      }
+    ]
+  },
+  "great-kanto-earthquake": {
+    "title": {
+      "zh": "关东大地震",
+      "en": "Great Kantō Earthquake"
+    },
+    "date": {
+      "iso": "1923-09-01",
+      "zh": "1923年9月1日",
+      "en": "1 September 1923"
+    },
+    "place": {
+      "zh": "日本关东地方（东京、横滨）",
+      "en": "Kantō region, Japan (Tokyo and Yokohama)",
+      "lat": 35.68,
+      "lon": 139.69
+    },
+    "actors": [
+      {
+        "zh": "日本帝国",
+        "en": "Empire of Japan"
+      },
+      {
+        "zh": "东京与横滨居民",
+        "en": "Tokyo and Yokohama residents"
+      },
+      {
+        "zh": "在日朝鲜人与社会主义者",
+        "en": "Korean residents and socialists"
+      }
+    ],
+    "background": {
+      "zh": "东京—横滨都市圈在工业化中迅速扩张，房屋多为木结构，地震发生时正值正午做饭时间。",
+      "en": "The Tokyo–Yokohama conurbation had grown rapidly during industrialisation, with wooden housing; the quake struck at midday, when cooking fires were lit."
+    },
+    "course": {
+      "zh": "1923年9月1日，相模湾发生约7.9级地震，火风暴吞噬东京和横滨。约十万人死亡或失踪；戒严后，军队、警察与自警团散布朝鲜人投毒、纵火的谣言，屠杀数百名朝鲜人及社会主义者。",
+      "en": "On 1 September 1923 a magnitude-7.9 earthquake struck Sagami Bay and firestorms consumed Tokyo and Yokohama. About 100,000 people died or went missing; under martial law, rumours of Korean arson and poisoning led troops, police and vigilantes to massacre hundreds of Koreans and socialists."
+    },
+    "outcome": {
+      "zh": "灾后重建推动了日本抗震规范与城市规划，也加剧了社会控制。关东大屠杀长期被压制，直到战后才进入公共记忆与历史研究。",
+      "en": "Reconstruction advanced Japanese seismic codes and urban planning but also deepened social control. The Kantō Massacre was long suppressed and entered public memory and scholarship only after the war."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "JP"
+      ],
+      "year": 1923,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — 1923 Great Kantō earthquake",
+        "url": "https://en.wikipedia.org/wiki/1923_Great_Kant%C5%8D_earthquake",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Kantō Massacre",
+        "url": "https://en.wikipedia.org/wiki/Kant%C5%8D_Massacre",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3148,6 +3849,71 @@
         "label": "Britannica — Atomic bombings of Hiroshima and Nagasaki",
         "url": "https://www.britannica.com/event/atomic-bombings-of-Hiroshima-and-Nagasaki",
         "tier": "encyclopedic"
+      }
+    ]
+  },
+  "hitler-comes-to-power": {
+    "title": {
+      "zh": "希特勒上台",
+      "en": "Hitler Comes to Power"
+    },
+    "date": {
+      "iso": "1933-01-30",
+      "zh": "1933年1月30日",
+      "en": "30 January 1933"
+    },
+    "place": {
+      "zh": "德国柏林",
+      "en": "Berlin, Germany",
+      "lat": 52.52,
+      "lon": 13.4
+    },
+    "actors": [
+      {
+        "zh": "阿道夫·希特勒",
+        "en": "Adolf Hitler"
+      },
+      {
+        "zh": "纳粹党（NSDAP）",
+        "en": "Nazi Party (NSDAP)"
+      },
+      {
+        "zh": "魏玛共和国与兴登堡",
+        "en": "Weimar Republic and Hindenburg"
+      }
+    ],
+    "background": {
+      "zh": "一战战败、《凡尔赛条约》、恶性通胀与大萧条重创魏玛共和国；纳粹党利用反民主宣传与街头暴力扩大影响。",
+      "en": "Defeat in the First World War, the Versailles Treaty, hyperinflation and the Depression battered the Weimar Republic; the Nazis used anti-democratic propaganda and street violence to grow."
+    },
+    "course": {
+      "zh": "1923年啤酒馆政变失败后，希特勒转向选举与合法外衣；1930–32年纳粹党成为最大党。1933年1月30日，兴登堡任命希特勒为总理，以为可将其控制。",
+      "en": "After the failed 1923 Beer Hall Putsch Hitler turned to elections and legal cover; by 1930–32 the Nazis were the largest party. On 30 January 1933 Hindenburg appointed Hitler chancellor, expecting to control him."
+    },
+    "outcome": {
+      "zh": "国会纵火案后，紧急法令与《授权法》瓦解了魏玛民主，纳粹建立一党独裁，通向二战与大屠杀。",
+      "en": "After the Reichstag fire, emergency decrees and the Enabling Act dismantled Weimar democracy; the Nazis built a one-party dictatorship that led to the Second World War and the Holocaust."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "DE"
+      ],
+      "year": 1933,
+      "priority": 100
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Adolf Hitler's rise to power",
+        "url": "https://en.wikipedia.org/wiki/Adolf_Hitler%27s_rise_to_power",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "USHMM — Hitler Comes to Power",
+        "url": "https://encyclopedia.ushmm.org/content/en/article/hitler-comes-to-power",
+        "tier": "institutional"
       }
     ]
   },
@@ -3957,6 +4723,74 @@
       }
     ]
   },
+  "late-bronze-age-collapse": {
+    "title": {
+      "zh": "青铜时代大崩溃",
+      "en": "Late Bronze Age Collapse"
+    },
+    "date": {
+      "iso": "-1200",
+      "zh": "约公元前1200–1150年",
+      "en": "c. 1200–1150 BCE"
+    },
+    "place": {
+      "zh": "东地中海与近东",
+      "en": "Eastern Mediterranean and Near East",
+      "lat": 35,
+      "lon": 33
+    },
+    "actors": [
+      {
+        "zh": "迈锡尼、赫梯、埃及等宫廷国家",
+        "en": "Mycenaean, Hittite and Egyptian palace states"
+      },
+      {
+        "zh": "海上民族",
+        "en": "Sea Peoples"
+      },
+      {
+        "zh": "乌加里特等贸易城市",
+        "en": "Trading cities such as Ugarit"
+      }
+    ],
+    "background": {
+      "zh": "青铜时代的东地中海由宫廷经济、远距离贸易与外交网络紧密连接，任何一个环节断裂都会产生连锁反应。",
+      "en": "The Bronze Age eastern Mediterranean was tightly connected by palace economies, long-distance trade and diplomacy, so a break in one link could cascade."
+    },
+    "course": {
+      "zh": "约前1200年起，多座城市被毁，赫梯帝国崩溃，迈锡尼宫殿被焚；埃及击退'海上民族'但国力受损。干旱、地震、迁徙与贸易中断等因素可能叠加。",
+      "en": "From about 1200 BCE cities were destroyed, the Hittite empire collapsed and Mycenaean palaces burned; Egypt repelled the 'Sea Peoples' but was weakened. Drought, earthquakes, migration and trade disruption may have combined."
+    },
+    "outcome": {
+      "zh": "东地中海贸易网络碎片化，希腊进入黑暗时代并失去线形文字B，铁器时代逐渐展开。崩溃的原因仍是多因素争论，没有单一解释。",
+      "en": "Eastern Mediterranean trade fragmented, Greece entered a Dark Age and lost Linear B, and the Iron Age gradually began. The causes remain a multi-factor debate with no single explanation."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "TR",
+        "GR",
+        "EG",
+        "SY"
+      ],
+      "year": -1200,
+      "priority": 85
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Late Bronze Age collapse",
+        "url": "https://en.wikipedia.org/wiki/Late_Bronze_Age_collapse",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — The Late Bronze Age Collapse",
+        "url": "https://www.worldhistory.org/article/1063/the-late-bronze-age-collapse/",
+        "tier": "secondary"
+      }
+    ]
+  },
   "latin-american-independence": {
     "title": {
       "zh": "拉美独立运动",
@@ -4289,6 +5123,71 @@
       }
     ]
   },
+  "mandela-freed": {
+    "title": {
+      "zh": "曼德拉获释",
+      "en": "Mandela Freed"
+    },
+    "date": {
+      "iso": "1990-02-11",
+      "zh": "1990年2月11日",
+      "en": "11 February 1990"
+    },
+    "place": {
+      "zh": "南非帕尔维克托·韦斯特监狱",
+      "en": "Victor Verster Prison, Paarl, South Africa",
+      "lat": -33.92,
+      "lon": 18.42
+    },
+    "actors": [
+      {
+        "zh": "纳尔逊·曼德拉",
+        "en": "Nelson Mandela"
+      },
+      {
+        "zh": "F. W. 德克勒克",
+        "en": "F. W. de Klerk"
+      },
+      {
+        "zh": "非洲人国民大会",
+        "en": "African National Congress"
+      }
+    ],
+    "background": {
+      "zh": "曼德拉因反抗种族隔离入狱27年；1980年代的国际制裁、群众抗争与白人政权内部危机推动了秘密谈判。",
+      "en": "Mandela had spent 27 years in prison for resisting apartheid; international sanctions, mass protest and the white government's internal crisis pushed secret talks forward."
+    },
+    "course": {
+      "zh": "1990年2月2日，德克勒克宣布解禁非洲人国民大会并释放政治犯；2月11日曼德拉走出监狱，在开普敦发表讲话，呼吁谈判与和解。",
+      "en": "On 2 February 1990 de Klerk legalised the ANC and announced the release of political prisoners; on 11 February Mandela walked free and spoke in Cape Town, calling for negotiation and reconciliation."
+    },
+    "outcome": {
+      "zh": "释放开启了多党谈判，1994年南非举行首次不分种族的选举，曼德拉当选总统。真相与和解委员会处理旧政权罪行，但社会经济不平等延续。",
+      "en": "The release opened multi-party talks; South Africa held its first non-racial election in 1994 and Mandela became president. The Truth and Reconciliation Commission addressed crimes of the old order, while socio-economic inequality persisted."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "ZA"
+      ],
+      "year": 1990,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Nelson Mandela",
+        "url": "https://en.wikipedia.org/wiki/Nelson_Mandela",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Nobel Prize — Nelson Mandela facts",
+        "url": "https://www.nobelprize.org/prizes/peace/1993/mandela/facts/",
+        "tier": "institutional"
+      }
+    ]
+  },
   "maori-reach-aotearoa": {
     "title": {
       "zh": "毛利人抵达奥特亚罗瓦",
@@ -4353,6 +5252,11 @@
         "label": "Wikipedia — Māori migration canoes",
         "url": "https://en.wikipedia.org/wiki/M%C4%81ori_migration_canoes",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "Te Papa Tongarewa — Museum of New Zealand",
+        "url": "https://www.tepapa.govt.nz",
+        "tier": "institutional"
       }
     ]
   },
@@ -5396,6 +6300,11 @@
         "label": "UK National Archives — Partition of British India",
         "url": "https://www.nationalarchives.gov.uk/education/resources/partition-of-british-india/",
         "tier": "institutional"
+      },
+      {
+        "label": "United Nations — Decolonization",
+        "url": "https://www.un.org/en/global-issues/decolonization",
+        "tier": "institutional"
       }
     ]
   },
@@ -5526,6 +6435,11 @@
         "label": "Britannica — Pearl Harbor attack",
         "url": "https://www.britannica.com/event/Pearl-Harbor-attack",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "U.S. National Archives — World War II",
+        "url": "https://www.archives.gov/research/military/ww2",
+        "tier": "institutional"
       }
     ]
   },
@@ -5745,6 +6659,73 @@
         "label": "Wikipedia — Proclamation of the People's Republic of China",
         "url": "https://en.wikipedia.org/wiki/Proclamation_of_the_People%27s_Republic_of_China",
         "tier": "encyclopedic"
+      }
+    ]
+  },
+  "plague-of-justinian": {
+    "title": {
+      "zh": "查士丁尼瘟疫",
+      "en": "Plague of Justinian"
+    },
+    "date": {
+      "iso": "541",
+      "zh": "541–542年起",
+      "en": "From 541–542"
+    },
+    "place": {
+      "zh": "地中海世界（君士坦丁堡、埃及等）",
+      "en": "The Mediterranean world (Constantinople, Egypt and beyond)",
+      "lat": 41.01,
+      "lon": 28.98
+    },
+    "actors": [
+      {
+        "zh": "拜占庭帝国",
+        "en": "Byzantine Empire"
+      },
+      {
+        "zh": "查士丁尼一世",
+        "en": "Justinian I"
+      },
+      {
+        "zh": "地中海港口城市",
+        "en": "Mediterranean port cities"
+      }
+    ],
+    "background": {
+      "zh": "拜占庭帝国的粮食船队把埃及谷物运往君士坦丁堡，港口与商路也使病原体能够随船扩散。现代古 DNA 研究支持鼠疫耶尔森菌为病因。",
+      "en": "Byzantine grain fleets carried Egyptian grain to Constantinople, and port networks allowed pathogens to travel with ships. Modern ancient-DNA work supports Yersinia pestis as the cause."
+    },
+    "course": {
+      "zh": "541年瘟疫经埃及的佩鲁西姆传入，542年抵达君士坦丁堡，此后数十年反复暴发。城市死亡人数在古代记载中很高，但具体比例仍有争议。",
+      "en": "The plague entered through Pelusium in Egypt in 541, reached Constantinople in 542 and recurred for decades. Ancient accounts report very high urban mortality, though the exact proportion is disputed."
+    },
+    "outcome": {
+      "zh": "人口损失加重了拜占庭的财政与兵源压力，但是否直接导致帝国衰落仍有争论。它被列为人类三次鼠疫大流行中的第一次。",
+      "en": "Population loss increased fiscal and military pressure on Byzantium, though a direct causal link to imperial decline is debated. It is counted as the first of the three great plague pandemics."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "TR",
+        "EG",
+        "IT"
+      ],
+      "year": 541,
+      "priority": 85
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Plague of Justinian",
+        "url": "https://en.wikipedia.org/wiki/Plague_of_Justinian",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "WHO — Plague fact sheet",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/plague",
+        "tier": "institutional"
       }
     ]
   },
@@ -6293,6 +7274,75 @@
         "label": "Britannica — Russia-Ukraine War",
         "url": "https://www.britannica.com/event/Russia-Ukraine-War",
         "tier": "encyclopedic"
+      }
+    ]
+  },
+  "rwandan-genocide": {
+    "title": {
+      "zh": "卢旺达大屠杀",
+      "en": "Rwandan Genocide"
+    },
+    "date": {
+      "iso": "1994-04-07",
+      "zh": "1994年4–7月",
+      "en": "April–July 1994"
+    },
+    "place": {
+      "zh": "卢旺达",
+      "en": "Rwanda",
+      "lat": -1.94,
+      "lon": 30.06
+    },
+    "actors": [
+      {
+        "zh": "胡图族极端政府与民兵",
+        "en": "Hutu Power government and militias"
+      },
+      {
+        "zh": "图西族与温和胡图族受害者",
+        "en": "Tutsi and moderate Hutu victims"
+      },
+      {
+        "zh": "卢旺达爱国阵线（RPF）",
+        "en": "Rwandan Patriotic Front"
+      },
+      {
+        "zh": "联合国援助团（UNAMIR）",
+        "en": "UN Assistance Mission (UNAMIR)"
+      }
+    ],
+    "background": {
+      "zh": "殖民时期以族群身份证固化胡图/图西区分；1990–93年内战与阿鲁沙协议后的权力分享安排引发极端派恐惧，宣传机器把图西族称为'蟑螂'。",
+      "en": "Colonial identity cards hardened Hutu/Tutsi distinctions; the 1990–93 civil war and the power-sharing Arusha Accords frightened extremists, whose propaganda called Tutsi 'cockroaches'."
+    },
+    "course": {
+      "zh": "1994年4月6日总统专机被击落后，政府军、总统卫队与民兵在约100天内系统屠杀图西族和温和胡图族，估计50万至100万人死亡；RPF从北方推进，7月夺取基加利。",
+      "en": "After the presidential plane was shot down on 6 April 1994, the army, presidential guard and militias systematically killed Tutsi and moderate Hutu over about 100 days, with estimates of 500,000 to one million dead; the RPF advanced from the north and took Kigali in July."
+    },
+    "outcome": {
+      "zh": "RPF建立新政府，约两百万难民逃往邻国，引发地区战争；联合国设立卢旺达问题国际刑事法庭。国际社会未及时干预成为'永不重演'争论的核心案例。",
+      "en": "The RPF formed a new government, some two million refugees fled into neighbouring countries and regional war followed; the UN created the International Criminal Tribunal for Rwanda. The failure to intervene became a central case in 'never again' debates."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "RW"
+      ],
+      "year": 1994,
+      "priority": 100
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Rwandan genocide",
+        "url": "https://en.wikipedia.org/wiki/Rwandan_genocide",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "United Nations — Rwanda genocide outreach",
+        "url": "https://www.un.org/en/preventgenocide/rwanda/",
+        "tier": "institutional"
       }
     ]
   },
@@ -7131,6 +8181,75 @@
       }
     ]
   },
+  "the-1918-influenza": {
+    "title": {
+      "zh": "1918 年流感大流行",
+      "en": "The 1918 Influenza"
+    },
+    "date": {
+      "iso": "1918",
+      "zh": "1918–1920年",
+      "en": "1918–1920"
+    },
+    "place": {
+      "zh": "全球",
+      "en": "Global",
+      "lat": 40.71,
+      "lon": -74
+    },
+    "actors": [
+      {
+        "zh": "各国政府与军队",
+        "en": "Governments and armies"
+      },
+      {
+        "zh": "公共卫生机构",
+        "en": "Public-health agencies"
+      },
+      {
+        "zh": "全球人口",
+        "en": "Populations worldwide"
+      }
+    ],
+    "background": {
+      "zh": "第一次世界大战的军队调动、拥挤营房与战时新闻管制为流感传播提供了条件；当时尚无疫苗与抗生素。",
+      "en": "Troop movements, crowded barracks and wartime censorship in the First World War aided transmission; there were no vaccines or antibiotics."
+    },
+    "course": {
+      "zh": "1918年春季出现第一波，秋季第二波致死率最高，年轻成年人死亡率异常偏高；随后还有第三波。全球死亡估计约5000万，区间从1700万到1亿不等。",
+      "en": "A first wave appeared in spring 1918, a lethal second wave in autumn with unusually high mortality among young adults, and a third wave followed. Global deaths are estimated around 50 million, with ranges from 17 to 100 million."
+    },
+    "outcome": {
+      "zh": "大流行推动了公共卫生统计、疫苗与全球监测体系的长期发展，但在战争记忆中长期被遮蔽；其年龄结构与传播机制仍是研究重点。",
+      "en": "The pandemic drove long-term advances in public-health statistics, vaccines and global surveillance, yet was long overshadowed by the war; its age profile and transmission remain research questions."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "US",
+        "GB",
+        "FR",
+        "DE",
+        "IN"
+      ],
+      "year": 1918,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Spanish flu",
+        "url": "https://en.wikipedia.org/wiki/Spanish_flu",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Influenza pandemic",
+        "url": "https://en.wikipedia.org/wiki/Influenza_pandemic",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
   "the-black-death": {
     "title": {
       "zh": "黑死病",
@@ -7382,6 +8501,71 @@
         "label": "Wikipedia — Hijrah",
         "url": "https://en.wikipedia.org/wiki/Hijrah",
         "tier": "encyclopedic"
+      }
+    ]
+  },
+  "the-iphone": {
+    "title": {
+      "zh": "iPhone 发布",
+      "en": "The iPhone"
+    },
+    "date": {
+      "iso": "2007-01-09",
+      "zh": "2007年1月9日",
+      "en": "9 January 2007"
+    },
+    "place": {
+      "zh": "美国旧金山",
+      "en": "San Francisco, United States",
+      "lat": 37.77,
+      "lon": -122.42
+    },
+    "actors": [
+      {
+        "zh": "苹果公司",
+        "en": "Apple"
+      },
+      {
+        "zh": "史蒂夫·乔布斯",
+        "en": "Steve Jobs"
+      },
+      {
+        "zh": "移动运营商与开发者",
+        "en": "Carriers and developers"
+      }
+    ],
+    "background": {
+      "zh": "iPod 的成功、移动互联网与触摸屏技术成熟，使手机成为音乐、通信与计算的潜在合并点；当时的智能手机仍以键盘和手写笔为主。",
+      "en": "The iPod's success and maturing mobile internet and touchscreen technology made the phone a potential merger of music, communication and computing; contemporary smartphones still relied on keyboards and styluses."
+    },
+    "course": {
+      "zh": "2007年1月9日，乔布斯在旧金山发布 iPhone，采用多点触控与完整网页浏览器；6月在美国上市，2008年 App Store 开放。",
+      "en": "On 9 January 2007 Jobs unveiled the iPhone in San Francisco with multi-touch and a full web browser; it went on sale in June in the US, and the App Store opened in 2008."
+    },
+    "outcome": {
+      "zh": "iPhone 确立了现代智能手机范式，推动移动互联网、应用经济与平台监管议题。它也被批评为高价、运营商锁定与维修困难的代表。",
+      "en": "The iPhone established the modern smartphone paradigm and drove the mobile web, the app economy and platform-regulation debates. It has also been criticised for high prices, carrier lock-in and repair difficulty."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "US"
+      ],
+      "year": 2007,
+      "priority": 80
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — iPhone (1st generation)",
+        "url": "https://en.wikipedia.org/wiki/IPhone_(1st_generation)",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Apple Newsroom — Apple reinvents the phone",
+        "url": "https://www.apple.com/newsroom/2007/01/09Apple-Reinvents-the-Phone-with-iPhone/",
+        "tier": "secondary"
       }
     ]
   },
@@ -7781,6 +8965,74 @@
       }
     ]
   },
+  "thirty-years-war": {
+    "title": {
+      "zh": "三十年战争",
+      "en": "Thirty Years' War"
+    },
+    "date": {
+      "iso": "1618",
+      "zh": "1618–1648年",
+      "en": "1618–1648"
+    },
+    "place": {
+      "zh": "中欧（波希米亚起）",
+      "en": "Central Europe (from Bohemia)",
+      "lat": 50.08,
+      "lon": 14.42
+    },
+    "actors": [
+      {
+        "zh": "哈布斯堡皇帝",
+        "en": "Habsburg emperors"
+      },
+      {
+        "zh": "法国、瑞典与德意志诸侯",
+        "en": "France, Sweden and German princes"
+      },
+      {
+        "zh": "雇佣军与平民",
+        "en": "Mercenaries and civilians"
+      }
+    ],
+    "background": {
+      "zh": "宗教改革后的天主教与新教对立、哈布斯堡的中央集权试图与德意志诸侯的自治诉求交织在一起。",
+      "en": "Catholic–Protestant rivalry after the Reformation, Habsburg centralisation and the autonomy of German princes became entangled."
+    },
+    "course": {
+      "zh": "1618年布拉格掷出窗外事件引爆波希米亚起义，随后经历丹麦、瑞典、法国等阶段，战争从宗教冲突演变为欧洲权力斗争，军队靠'以战养战'掠夺补给。",
+      "en": "The 1618 Defenestration of Prague triggered the Bohemian revolt, followed by Danish, Swedish and French phases; the war shifted from religious conflict to a European power struggle, with armies living off the land."
+    },
+    "outcome": {
+      "zh": "1648年《威斯特伐利亚和约》确立主权国家与不干涉原则的雏形，德意志进一步碎片化。中欧人口损失惨重，死亡估计约450万至800万，仍有争议。",
+      "en": "The 1648 Peace of Westphalia sketched sovereign statehood and non-interference and further fragmented Germany. Central Europe suffered heavily, with estimated deaths of 4.5–8 million, still debated."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "DE",
+        "CZ",
+        "FR",
+        "SE"
+      ],
+      "year": 1618,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Thirty Years' War",
+        "url": "https://en.wikipedia.org/wiki/Thirty_Years%27_War",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — Thirty Years' War",
+        "url": "https://www.worldhistory.org/Thirty_Years_War/",
+        "tier": "secondary"
+      }
+    ]
+  },
   "tonga-eruption": {
     "title": {
       "zh": "汤加火山爆发",
@@ -7904,6 +9156,11 @@
         "label": "Wikipedia — Treaty of Versailles",
         "url": "https://en.wikipedia.org/wiki/Treaty_of_Versailles",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "Château de Versailles — History",
+        "url": "https://www.chateauversailles.fr/",
+        "tier": "institutional"
       }
     ]
   },
@@ -7972,6 +9229,71 @@
       }
     ]
   },
+  "united-nations-founded": {
+    "title": {
+      "zh": "联合国成立",
+      "en": "United Nations Founded"
+    },
+    "date": {
+      "iso": "1945-10-24",
+      "zh": "1945年10月24日",
+      "en": "24 October 1945"
+    },
+    "place": {
+      "zh": "美国旧金山（宪章签署）／纽约（总部）",
+      "en": "San Francisco (Charter) / New York (headquarters)",
+      "lat": 37.77,
+      "lon": -122.42
+    },
+    "actors": [
+      {
+        "zh": "51个创始会员国",
+        "en": "51 founding member states"
+      },
+      {
+        "zh": "同盟国领导人",
+        "en": "Allied leaders"
+      },
+      {
+        "zh": "联合国秘书处",
+        "en": "UN Secretariat"
+      }
+    ],
+    "background": {
+      "zh": "国际联盟未能阻止第二次世界大战；1944年敦巴顿橡树园会议与1945年雅尔塔会议勾画出战后国际组织的框架。",
+      "en": "The League of Nations had failed to prevent the Second World War; the 1944 Dumbarton Oaks talks and the 1945 Yalta Conference sketched the framework of a postwar organisation."
+    },
+    "course": {
+      "zh": "1945年4月至6月，50国代表在旧金山开会起草《联合国宪章》，6月26日签署；波兰随后签署，宪章于10月24日获得足够批准而生效。",
+      "en": "Delegates from 50 states met in San Francisco from April to June 1945 to draft the UN Charter, signed on 26 June; Poland signed later, and the Charter entered into force on 24 October once enough states had ratified."
+    },
+    "outcome": {
+      "zh": "联合国大会、安理会、秘书处等机构建立，安理会五常拥有否决权。它在非殖民化、维和与人权方面发挥作用，也因大国政治而屡受制约。",
+      "en": "The General Assembly, Security Council and Secretariat were created, with veto power for the five permanent members. The UN advanced decolonisation, peacekeeping and human rights, while great-power politics repeatedly constrained it."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "US"
+      ],
+      "year": 1945,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — United Nations",
+        "url": "https://en.wikipedia.org/wiki/United_Nations",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "United Nations — History of the UN",
+        "url": "https://www.un.org/en/about-us/history-of-the-un",
+        "tier": "institutional"
+      }
+    ]
+  },
   "vasco-da-gama-reaches-india": {
     "title": {
       "zh": "达伽马抵达印度",
@@ -8035,6 +9357,71 @@
       {
         "label": "Wikipedia — Vasco da Gama",
         "url": "https://en.wikipedia.org/wiki/Vasco_da_Gama",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
+  "vietnam-declares-independence": {
+    "title": {
+      "zh": "越南宣布独立",
+      "en": "Vietnam Declares Independence"
+    },
+    "date": {
+      "iso": "1945-09-02",
+      "zh": "1945年9月2日",
+      "en": "2 September 1945"
+    },
+    "place": {
+      "zh": "越南河内巴亭广场",
+      "en": "Ba Đình Square, Hanoi, Vietnam",
+      "lat": 21.03,
+      "lon": 105.85
+    },
+    "actors": [
+      {
+        "zh": "越南独立同盟（越盟）",
+        "en": "Viet Minh"
+      },
+      {
+        "zh": "胡志明",
+        "en": "Ho Chi Minh"
+      },
+      {
+        "zh": "法国殖民当局",
+        "en": "French colonial authorities"
+      }
+    ],
+    "background": {
+      "zh": "日本占领越南期间，1945年的大饥荒造成大量死亡；日本投降后出现权力真空，越盟在八月革命中夺取北方城镇。",
+      "en": "The Japanese occupation and the 1945 famine killed many in Vietnam; Japan's surrender created a power vacuum, and the Viet Minh seized northern towns in the August Revolution."
+    },
+    "course": {
+      "zh": "1945年9月2日，胡志明在河内宣读《独立宣言》，宣布越南民主共和国成立，并引用了美国《独立宣言》和法国大革命的权利语言。中国军队与英军分别进驻南北受降，法国随后试图恢复统治。",
+      "en": "On 2 September 1945 Ho Chi Minh read the Declaration of Independence in Hanoi, proclaiming the Democratic Republic of Vietnam and quoting the American Declaration and French revolutionary language. Chinese and British troops entered to accept surrender, and France moved to restore colonial rule."
+    },
+    "outcome": {
+      "zh": "越南民主共和国未获国际普遍承认，第一次印度支那战争爆发；1954年日内瓦协议后越南暂时分裂。9月2日成为越南国庆日。",
+      "en": "The DRV was not widely recognised and the First Indochina War followed; the 1954 Geneva Accords temporarily divided Vietnam. 2 September became Vietnam's national day."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "VN"
+      ],
+      "year": 1945,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Proclamation of Independence of the DRV",
+        "url": "https://en.wikipedia.org/wiki/Proclamation_of_Independence_of_the_Democratic_Republic_of_Vietnam",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Ho Chi Minh",
+        "url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh",
         "tier": "encyclopedic"
       }
     ]
@@ -8438,6 +9825,16 @@
         "label": "Britannica — Year of Africa",
         "url": "https://www.britannica.com/event/Year-of-Africa",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "United Nations — Decolonization",
+        "url": "https://www.un.org/en/global-issues/decolonization",
+        "tier": "institutional"
+      },
+      {
+        "label": "United Nations — Human rights",
+        "url": "https://www.un.org/en/global-issues/human-rights",
+        "tier": "institutional"
       }
     ]
   },

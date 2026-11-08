@@ -48,3 +48,34 @@ Date 2026-11-08。本轮把 15 个**已有 Hero / Tier B 场景但只有简要�
 ## 4. 来源核验方式
 
 所有 URL 用 `curl -L -A "Mozilla/5.0"` 实测返回 200（2026-11-08）。Britannica、Smithsonian、USGS 等站点对脚本返回 403/429，因此**没有**把它们作为本轮新增来源，避免写入未经实测的链接。
+
+## 5. 第二批（2026-11-08，+20 条）
+
+在第一批之后又扩写 20 条，优先补"有场景但只有摘要"的剩余 5 条，以及缺少长文的高知名度事件：
+
+| 事件 | id | 来源 |
+|---|---|---|
+| 孟加拉大饥荒 | `bengal-famine` | Wikipedia；Our World in Data — Famines |
+| 关东大地震 | `great-kanto-earthquake` | Wikipedia；Wikipedia — Kantō Massacre |
+| 查士丁尼瘟疫 | `plague-of-justinian` | Wikipedia；WHO — Plague（机构） |
+| 越南宣布独立 | `vietnam-declares-independence` | Wikipedia；Wikipedia — Ho Chi Minh |
+| 阿拉伯之春 | `arab-spring` | Wikipedia；Wikipedia — Arab Winter |
+| 滑铁卢战役 | `battle-of-waterloo` | Wikipedia；National Army Museum（机构） |
+| 美国南北战争 | `american-civil-war` | Wikipedia；U.S. National Archives（机构） |
+| 卢旺达大屠杀 | `rwandan-genocide` | Wikipedia；UN Rwanda outreach（机构） |
+| 联合国成立 | `united-nations-founded` | Wikipedia；UN History（机构） |
+| 曼德拉获释 | `mandela-freed` | Wikipedia；Nobel Prize（机构） |
+| 全球金融危机 | `global-financial-crisis` | Wikipedia；Federal Reserve History |
+| iPhone 发布 | `the-iphone` | Wikipedia；Apple Newsroom |
+| 1918 年流感 | `the-1918-influenza` | Wikipedia — Spanish flu；Wikipedia — Influenza pandemic |
+| 柏林墙修筑 | `berlin-wall` | Wikipedia；Wikipedia — Peaceful Revolution |
+| 哥贝克力石阵 | `gobekli-tepe` | Wikipedia；World History Encyclopedia |
+| 黑斯廷斯战役 | `battle-of-hastings` | Wikipedia；English Heritage |
+| 希特勒上台 | `hitler-comes-to-power` | Wikipedia；USHMM（机构） |
+| 青铜时代大崩溃 | `late-bronze-age-collapse` | Wikipedia；World History Encyclopedia |
+| 跨越白令陆桥 | `crossing-beringia` | Wikipedia — Beringia；Wikipedia — Settlement of the Americas |
+| 三十年战争 | `thirty-years-war` | Wikipedia；World History Encyclopedia |
+
+- 完整史志 **127 → 147**，简要条目 **394 → 374**；`content-check` **147/147**。
+- 另补 14 个机构来源（National Archives、USHMM、UN、Nobel、LOC、Château de Versailles、Te Papa），来源总数 324 → **338**，机构占比从 22.8% 回到 **26.0%**。没有为了百分比新增不相关链接。
+- 仍未做：35–40% 的机构目标需要领域编辑逐条替换；本轮只把摊薄后的比例拉回基线。
