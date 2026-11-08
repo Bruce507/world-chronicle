@@ -2522,3 +2522,61 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
 @media (max-width: 620px) {
   .tl-group-view, .tl-group-play { padding-inline-start: 0; border-inline-start: 0; }
 }
+
+/* ═══════════ 面板离线提示 / offline note ═══════════ */
+.panel-offline {
+  margin: 0 0 2px;
+  padding: 6px 12px;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: #5a4423;
+  background: rgba(226, 196, 128, 0.28);
+  border-bottom: 1px solid rgba(160, 124, 64, 0.35);
+}
+.panel-offline[hidden] { display: none !important; }
+
+/* ═══════════ 收藏清空确认 / clear favourites confirm ═══════════ */
+.fav-confirm {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 10px;
+  border: 1px solid rgba(176, 67, 44, 0.4);
+  border-radius: 3px;
+  background: rgba(176, 67, 44, 0.06);
+  font-size: 11px;
+  color: var(--verm);
+}
+.fav-confirm span { flex: 1 1 100%; }
+.fav-tool.is-danger { border-color: rgba(176, 67, 44, 0.55); color: var(--verm); background: rgba(176, 67, 44, 0.1); }
+
+/* ═══════════ toast 动作 / toast action ═══════════ */
+#toast { display: flex; align-items: center; gap: 10px; }
+#toast .toast-action {
+  flex: none;
+  padding: 3px 9px;
+  border: 1px solid rgba(242, 232, 214, 0.55);
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+#toast .toast-action:hover { background: rgba(242, 232, 214, 0.16); }
+#toast .toast-action:focus-visible { outline: 2px solid #f2e8d6; outline-offset: 1px; }
+
+/* ═══════════ 面板顶部工具条 / panel top bar ═══════════ */
+.panel-topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.panel-topbar .panel-back { margin: 0; }
+.panel-topbar .panel-tool { flex: none; }
+
+/* 事件弹窗：让"同一时刻"跟随正文，操作条贴底 */
+.event-info .ev-contemp { margin-top: 22px; }
+.event-info .ev-nav { margin-top: auto; }
+@media (max-width: 860px) {
+  .event-info .ev-contemp { margin-top: 14px; }
+  .event-info .ev-nav { margin-top: 14px; }
+}

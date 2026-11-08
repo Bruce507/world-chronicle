@@ -232,10 +232,19 @@ try {
   const reimported = await d.evaluate(() => JSON.parse(localStorage.getItem("world-atlas-favorites") || "[]").length);
   check("favourites export and import round trip", favJson.kind === "favorites" && favJson.favorites.length >= 1 && reimported === favJson.favorites.length, JSON.stringify({ kind: favJson.kind, exported: favJson.favorites.length, reimported }));
 
+  // Clearing is now a two-step confirm.
   await d.evaluate(() => document.querySelector("[data-fav-clear]")?.click());
   await d.waitForTimeout(250);
+  const armed = await d.evaluate(() => ({ confirm: !!document.querySelector(".fav-confirm"), rows: document.querySelectorAll(".fav-row").length }));
+  await d.evaluate(() => document.querySelector("[data-fav-clear-no]")?.click());
+  await d.waitForTimeout(250);
+  const cancelled = await d.evaluate(() => ({ confirm: !!document.querySelector(".fav-confirm"), rows: document.querySelectorAll(".fav-row").length }));
+  await d.evaluate(() => document.querySelector("[data-fav-clear]")?.click());
+  await d.waitForTimeout(200);
+  await d.evaluate(() => document.querySelector("[data-fav-clear-yes]")?.click());
+  await d.waitForTimeout(250);
   const cleared = await d.evaluate(() => document.querySelectorAll(".fav-row").length);
-  check("clearing favourites works", cleared === 0, cleared);
+  check("clearing favourites asks first and can be cancelled", armed.confirm && armed.rows === 1 && !cancelled.confirm && cancelled.rows === 1 && cleared === 0, JSON.stringify({ armed, cancelled, cleared }));
 
   // Country and route share cards reuse the event card renderer.
   const cardSize = async () => d.evaluate(async () => {
@@ -246,9 +255,15 @@ try {
   await d.goto(BASE + "?year=1937&country=FRA", { waitUntil: "networkidle" });
   await d.waitForTimeout(800);
   const countryCard = await cardSize();
+  const countryTools = await d.evaluate(() => ({
+    topbar: !!document.querySelector(".panel-topbar [data-country-share]"),
+    back: !!document.querySelector(".panel-topbar [data-back]"),
+  }));
   await d.goto(BASE + "?route=silk-sea", { waitUntil: "networkidle" });
   await d.waitForTimeout(800);
   const routeCard = await cardSize();
+  const routeTools = await d.evaluate(() => !!document.querySelector(".panel-topbar [data-route-share]"));
+  check("country and route tools sit in one top bar", countryTools.topbar && countryTools.back && routeTools, JSON.stringify({ countryTools, routeTools }));
   check("country and route share cards render at 1200×630",
     countryCard.w === 1200 && countryCard.h === 630 && routeCard.w === 1200 && routeCard.h === 630 && countryCard.bytes > 20000 && routeCard.bytes > 20000,
     JSON.stringify({ countryCard, routeCard }));
@@ -480,11 +495,18 @@ try {
   const bars = await np.evaluate(() => ({ offline: !!document.querySelector("#offline-bar"), pwa: !!document.querySelector("#pwa-bar"), pwaHidden: document.querySelector("#pwa-bar").hidden }));
   await netCtx.setOffline(true);
   await np.waitForTimeout(400);
-  const barOff = await np.evaluate(() => ({ hidden: document.querySelector("#offline-bar").hidden, text: document.querySelector("#offline-bar .sysbar-text").textContent }));
+  const barOff = await np.evaluate(() => ({
+    hidden: document.querySelector("#offline-bar").hidden,
+    text: document.querySelector("#offline-bar .sysbar-text").textContent,
+    noteHidden: document.querySelector("#panel-offline").hidden,
+    note: document.querySelector("#panel-offline").textContent,
+  }));
   await netCtx.setOffline(false);
   await np.waitForTimeout(400);
-  const barOn = await np.evaluate(() => document.querySelector("#offline-bar").hidden);
-  check("offline status bar appears while offline", bars.offline && bars.pwa && !barOff.hidden && barOff.text.length > 4 && barOn === true, JSON.stringify({ bars, barOff, barOn }));
+  const barOn = await np.evaluate(() => ({ bar: document.querySelector("#offline-bar").hidden, note: document.querySelector("#panel-offline").hidden }));
+  check("offline status bar and panel note appear while offline",
+    bars.offline && bars.pwa && !barOff.hidden && barOff.text.length > 4 && !barOff.noteHidden && barOff.note.length > 10 && barOn.bar === true && barOn.note === true,
+    JSON.stringify({ bars, barOff: { ...barOff, text: barOff.text.slice(0, 12), note: barOff.note.slice(0, 12) }, barOn }));
   await netCtx.close();
 
   await desktop.ctx.close();

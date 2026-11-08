@@ -67,6 +67,7 @@
       <label class="lp-row"><input type="checkbox" data-toggle="stateChanges" checked /><span data-i18n="tgStates">国家兴亡</span></label>
       <label class="lp-row"><input type="checkbox" data-toggle="allEvents" /><span data-i18n="tgAll">显示全部历史</span></label>
       <div class="lp-note" data-i18n="layersNote">势力范围为示意性近似，非精确国界。</div>
+      <div class="lp-note" id="layers-lang-note"></div>
     </div>
   </header>
 
@@ -116,6 +117,7 @@
       </button>
       <div class="panel-inner">
         <button id="panel-close" class="panel-close" aria-label="关闭面板 / Close panel">×</button>
+        <div id="panel-offline" class="panel-offline" role="status" aria-live="polite" hidden></div>
         <button id="fav-toggle" class="fav-toggle" type="button" aria-label="收藏当前" title="收藏当前" aria-pressed="false" hidden>★</button>
         <button id="sheet-expand" class="sheet-expand" type="button">展开 ›</button>
         <div class="panel-head">

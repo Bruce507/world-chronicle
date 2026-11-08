@@ -493,7 +493,7 @@
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
       "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip", "tl-scope", "tl-brush-btn",
       "minimap", "minimap-canvas", "minimap-fit",
-      "offline-bar", "pwa-bar", "pwa-action", "pwa-dismiss",
+      "offline-bar", "pwa-bar", "pwa-action", "pwa-dismiss", "panel-offline", "layers-lang-note",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
       "theatre-card", "tc-kicker", "tc-title", "tc-expand", "tc-pause", "tc-close", "sheet-handle",
       "sound-btn", "ev-voice", "fav-btn", "fav-count", "fav-toggle",
@@ -724,6 +724,13 @@
       if (state.lang === "ar") el["tl-tip"].setAttribute("dir", "ltr");
       else el["tl-tip"].removeAttribute("dir");
     }
+    if (el["layers-lang-note"]) {
+      el["layers-lang-note"].hidden = state.lang === "zh" || state.lang === "en";
+      el["layers-lang-note"].textContent = L("", "Historical names without a translation stay in their original script.",
+        "Los nombres históricos sin traducción se muestran en su escritura original.",
+        "Les noms historiques sans traduction restent dans leur écriture d’origine.",
+        "الأسماء التاريخية التي لا ترجمة لها تبقى بخطها الأصلي.");
+    }
     if (el["lang-select"]) el["lang-select"].value = state.lang;
     updateSoundBtn();
     if (window.AtlasAudio) window.AtlasAudio.setLang(state.lang);
@@ -801,6 +808,16 @@
     if (!el["offline-bar"]) return;
     const off = navigator.onLine === false;
     el["offline-bar"].hidden = !off;
+    if (el["panel-offline"]) {
+      el["panel-offline"].hidden = !off;
+      el["panel-offline"].textContent = L(
+        "离线：摘要与已缓存内容可用；长文、未访问事件与剧场需要联网",
+        "Offline: summaries and cached content work; long-form records, unvisited events and scenes need a connection",
+        "Sin conexión: resúmenes y contenido guardado; las fichas largas, los eventos no visitados y las escenas necesitan conexión",
+        "Hors ligne : résumés et contenu en cache ; les fiches longues, les événements non visités et les scènes demandent une connexion",
+        "دون اتصال: الملخصات والمحتوى المخزَّن متاح؛ السجلات الطويلة والأحداث غير المزارة والمشاهد تحتاج اتصالًا"
+      );
+    }
     const t = el["offline-bar"].querySelector(".sysbar-text");
     if (t) t.textContent = L("离线 · 正在显示已缓存的内容；未访问过的事件详情需要联网", "Offline — showing cached content; unvisited records need a connection", "Sin conexión: se muestra lo guardado; las fichas no visitadas necesitan conexión", "Hors ligne : contenu en cache ; les fiches non visitées demandent une connexion", "دون اتصال — يُعرض المخزَّن؛ السجلات غير المزارة تحتاج اتصالًا");
   }
@@ -861,6 +878,7 @@
   /* ── favourites / bookmarks ─────────────────────── */
   const FAV_KEY = "world-atlas-favorites";
   let favorites = [];
+  let favClearArmed = false;
   function loadFavorites() {
     try {
       const a = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
@@ -998,6 +1016,7 @@
     }
   }
   function openFavorites(push) {
+    favClearArmed = false;
     state.favoritesOpen = true;
     state.eventView = null;
     state.eventGroup = null;
@@ -1157,7 +1176,11 @@
         html += `<div class="fav-row"><button class="fav-open" type="button" data-fav-open="${i}"><span class="fav-kind">${favTypeLabel(x.type)}</span><span class="fav-text"><b>${favTitle(x)}</b><small>${favMeta(x)}</small></span></button><button class="fav-remove" type="button" data-fav-remove="${i}" aria-label="${L("移除收藏", "Remove favourite", "Quitar favorito", "Retirer des favoris", "إزالة من المفضلة")}" title="${L("移除", "Remove", "Quitar", "Retirer", "إزالة")}">×</button></div>`;
       });
       html += `</div>`;
-      html += `<button class="fav-clear" type="button" data-fav-clear="1">${L("清空收藏", "Clear favourites", "Vaciar favoritos", "Vider les favoris", "مسح المفضلة")}</button>`;
+      if (favClearArmed) {
+        html += `<div class="fav-confirm" role="group" aria-label="${L("确认清空收藏", "Confirm clearing favourites", "Confirmar vaciado", "Confirmer la suppression", "تأكيد مسح المفضلة")}"><span>${L("确定清空全部 " + favorites.length + " 条收藏？此操作不可撤销。", "Clear all " + favorites.length + " favourites? This cannot be undone.", "¿Vaciar los " + favorites.length + " favoritos? No se puede deshacer.", "Vider les " + favorites.length + " favoris ? Action irréversible.", "مسح كل " + favorites.length + " من المفضلة؟ لا يمكن التراجع.")}</span><button type="button" class="fav-tool is-danger" data-fav-clear-yes="1">${L("清空", "Clear", "Vaciar", "Vider", "مسح")}</button><button type="button" class="fav-tool" data-fav-clear-no="1">${L("取消", "Cancel", "Cancelar", "Annuler", "إلغاء")}</button></div>`;
+      } else {
+        html += `<button class="fav-clear" type="button" data-fav-clear="1">${L("清空收藏", "Clear favourites", "Vaciar favoritos", "Vider les favoris", "مسح المفضلة")}</button>`;
+      }
     }
     html += `<div class="fav-tools">${favorites.length ? `<button type="button" class="fav-tool" data-fav-export="1">${L("导出备份", "Export", "Exportar", "Exporter", "تصدير")}</button>` : ""}<button type="button" class="fav-tool" data-fav-import="1">${L("导入备份", "Import", "Importar", "Importer", "استيراد")}</button></div>`;
     html += `<div class="panel-note">${L("收藏保存在 localStorage；换浏览器或清除站点数据后会丢失，可导出 JSON 备份。", "Favourites live in localStorage; clearing site data or switching browsers removes them — export a JSON backup to keep them.", "Los favoritos viven en localStorage; borrar los datos del sitio los elimina: exporta una copia JSON para conservarlos.", "Les favoris vivent dans localStorage ; effacer les données du site les supprime — exportez une sauvegarde JSON.", "تُحفظ المفضلة في localStorage؛ ومسح بيانات الموقع يزيلها — صدّر نسخة JSON للاحتفاظ بها.")}</div>`;
@@ -1404,8 +1427,7 @@
     el["panel-kicker"].textContent = L("主题路线 · ", "THEMED ROUTE · ", "RUTA TEMÁTICA · ", "PARCOURS · ", "مسار · ") + evs.length;
     el["panel-title"].textContent = routeText(r.name);
     el["panel-sub"].textContent = routeText(r.desc);
-    let html = `<button class="panel-back" data-route-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
-    html += `<div class="panel-tools"><button type="button" class="panel-tool" data-route-share="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button></div>`;
+    let html = `<div class="panel-topbar"><button class="panel-back" data-route-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button><button type="button" class="panel-tool" data-route-share="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button></div>`;
     html += `<div class="event-list">${eventList(evs, { now: false })}</div>`;
     html += `<div class="panel-note">${L("按时间顺序排列；点击节点可继续查看地图剧场与详情。", "In chronological order; click a node for its map theatre and dossier.", "En orden cronológico; haz clic para el teatro y la ficha.", "Par ordre chronologique ; cliquez pour le théâtre et la fiche.", "بترتيب زمني؛ انقر لمشهد الخريطة والملف.")}</div>`;
     el["panel-body"].innerHTML = html;
@@ -1611,9 +1633,8 @@
     const here = politiesAt(p.ly, p.lx);
     const scroll = el["panel-body"].scrollTop;
 
-    let html = `<button class="panel-back" data-back="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
+    let html = `<div class="panel-topbar"><button class="panel-back" data-back="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button><button type="button" class="panel-tool" data-country-share="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button></div>`;
     html += `<div class="country-flags"><span class="country-tag">${countryKey(f)}</span><span class="country-tag">${p.cont || ""}</span><span class="country-tag">${evs.length} ${L("节点", "nodes", "nodos", "nœuds", "عقدة")}</span></div>`;
-    html += `<div class="panel-tools"><button type="button" class="panel-tool" data-country-share="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button></div>`;
 
     html += `<section class="p-section"><h3>${L("此处此时", "HERE, NOW", "AQUÍ, AHORA", "ICI, MAINTENANT", "هنا الآن")} · ${fmtYear(state.year, state.lang, true)}</h3><div class="polity-list">`;
     if (here.length) {
@@ -3343,7 +3364,11 @@
       const favRemove = e.target.closest("[data-fav-remove]");
       if (favRemove) { favorites.splice(Number(favRemove.getAttribute("data-fav-remove")), 1); saveFavorites(); lastPanelKey = ""; renderPanel(true); return; }
       const favClear = e.target.closest("[data-fav-clear]");
-      if (favClear) { favorites = []; saveFavorites(); lastPanelKey = ""; renderPanel(true); return; }
+      if (favClear) { favClearArmed = true; lastPanelKey = ""; renderPanel(true); return; }
+      const favClearYes = e.target.closest("[data-fav-clear-yes]");
+      if (favClearYes) { favClearArmed = false; favorites = []; saveFavorites(); lastPanelKey = ""; renderPanel(true); return; }
+      const favClearNo = e.target.closest("[data-fav-clear-no]");
+      if (favClearNo) { favClearArmed = false; lastPanelKey = ""; renderPanel(true); return; }
       const favExport = e.target.closest("[data-fav-export]");
       if (favExport) { exportFavorites(); return; }
       const favImport = e.target.closest("[data-fav-import]");
@@ -3707,12 +3732,28 @@
     else urlTimer = setTimeout(write, 420);
   }
 
-  function showToast(text) {
-    if (!el["toast"]) return;
+  function showToast(text, action) {
+    const t = el["toast"];
+    if (!t) return;
     clearTimeout(toastTimer);
-    el["toast"].textContent = text;
-    el["toast"].hidden = false;
-    toastTimer = setTimeout(() => { el["toast"].hidden = true; }, 2400);
+    t.textContent = "";
+    const span = document.createElement("span");
+    span.textContent = text;
+    t.appendChild(span);
+    if (action && action.label && action.fn) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "toast-action";
+      b.textContent = action.label;
+      b.addEventListener("click", () => {
+        clearTimeout(toastTimer);
+        t.hidden = true;
+        try { action.fn(); } catch (err) { /* noop */ }
+      });
+      t.appendChild(b);
+    }
+    t.hidden = false;
+    toastTimer = setTimeout(() => { t.hidden = true; }, action ? 9000 : 2400);
   }
 
   function copyText(text) {
@@ -3903,12 +3944,17 @@
         await navigator.share({ files: [file], title });
         return;
       }
+      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
+      a.href = url;
       a.download = file.name;
       document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-      showToast(L("分享卡片已生成", "Share card downloaded", "Tarjeta descargada", "Carte téléchargée", "تم تنزيل البطاقة"));
+      // Keep the blob alive long enough for the toast action to open it.
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      showToast(
+        L("已保存 " + file.name, "Saved " + file.name, "Guardado: " + file.name, "Enregistré : " + file.name, "تم الحفظ: " + file.name),
+        { label: L("打开", "Open", "Abrir", "Ouvrir", "فتح"), fn: () => window.open(url, "_blank") }
+      );
     } catch (err) {
       console.warn("Share card failed:", err.message);
       showToast(L("分享卡片生成失败", "Could not create the card", "No se pudo crear la tarjeta", "Impossible de créer la carte", "تعذّر إنشاء البطاقة"));
