@@ -11,6 +11,15 @@
  */
 import { chromium } from "playwright";
 
+// A crash outside the checks would otherwise leave nothing but "exit code 1".
+for (const ev of ["uncaughtException", "unhandledRejection"]) {
+  process.on(ev, (err) => {
+    const msg = String((err && err.stack) || err).split("\n")[0].slice(0, 500);
+    console.log("  FAIL  " + ev + " — " + msg);
+    if (process.env.GITHUB_ACTIONS) console.log("::error title=pwa-crash::" + msg.replace(/%/g, "%25"));
+    process.exit(1);
+  });
+}
 const BASE = process.env.BASE_URL || "http://localhost:8001/";
 const CHANNEL = process.env.PW_CHANNEL || "chrome";
 const SW_TIMEOUT = 25000;
@@ -38,7 +47,15 @@ page.on("requestfailed", (r) => {
 let failed = 0;
 const check = (n, ok, d) => {
   console.log((ok ? "  ok  " : "  FAIL") + "  " + n + (d ? " — " + d : ""));
-  if (!ok) { failed += 1; process.exitCode = 1; }
+  if (!ok) {
+    failed += 1;
+    process.exitCode = 1;
+    // Job logs need admin rights; annotations are readable from the run page.
+    if (process.env.GITHUB_ACTIONS) {
+      const msg = (n + (d ? " — " + d : "")).replace(/%/g, "%25").replace(/\r?\n/g, " ").slice(0, 900);
+      console.log("::error title=pwa::" + msg);
+    }
+  }
 };
 
 const mapReady = () => window.atlasAPI && window.atlasAPI.map && window.atlasAPI.map.features.length > 0;
