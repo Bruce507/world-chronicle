@@ -1,6 +1,6 @@
 /* 寰宇时序 service worker — offline fallback, network-first.
    Version is kept in sync by scripts/bump-version.mjs. */
-const VERSION = "20261108z";
+const VERSION = "20261109b";
 const CACHE = "world-atlas-" + VERSION;
 const SHELL = [
   "./",

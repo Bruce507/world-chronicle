@@ -8,7 +8,7 @@ Date 2026-11-08。方法：每个场景渲染 480×300、取第 8 秒静态帧�
 | Tier B 全部 | 57 | **0.133** |
 | Tier B · siege | 15 | 0.066 |
 | Tier B · caravel | 6 | 0.074 |
-| Tier B · disaster | 12 | 0.129 |
+| Tier B · disaster | 12 | 0.130 |
 | Tier B · modern | 20 | 0.126 |
 | Tier B · urban | 4 | 0.123 |
 
@@ -23,7 +23,7 @@ Date 2026-11-08。方法：每个场景渲染 480×300、取第 8 秒静态帧�
 | disaster / eruption | 2 | 0.053 |
 | disaster / famine | 2 | 0.088 |
 | disaster / wave | 2 | 0.029 |
-| disaster / quake | 3 | 0.021 |
+| disaster / quake | 3 | 0.028 |
 | disaster / plague | 3 | 0.046 |
 | modern / balcony | 5 | 0.035 |
 | modern / barricade | 7 | 0.073 |

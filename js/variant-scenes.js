@@ -2366,8 +2366,10 @@
       // fires behind the wooden town
       for (const [fx, fy] of [[16, -36], [34, -33], [46, -38]]) {
         const q = (t * 0.5 + fx * 0.01) % 1;
-        ctx.beginPath(); ctx.arc(fx, fy - q * 6, 2.4 + q * 3.4, 0, TAU);
-        ctx.fillStyle = "rgba(236,146,74," + (0.16 * (1 - q)) + ")"; ctx.fill();
+        ctx.beginPath(); ctx.arc(fx, fy - q * 8, 2.8 + q * 4.2, 0, TAU);
+        ctx.fillStyle = "rgba(232,132,64," + (0.26 * (1 - q)) + ")"; ctx.fill();
+        ctx.beginPath(); ctx.arc(fx + 1.4, fy - 5 - q * 9, 1.8 + q * 3.6, 0, TAU);
+        ctx.fillStyle = "rgba(90,78,66," + (0.14 * (1 - q)) + ")"; ctx.fill();
       }
     } else if (c === "mexico") {
       for (let i = 0; i < 6; i++) {
@@ -2442,25 +2444,57 @@
     gr.addColorStop(1, "rgba(158,132,100,0.98)");
     ctx.fillStyle = gr; ctx.fillRect(-50, -28, 100, 28);
     disasterQuakeCity(ctx, t, v);
-    // leaning tower, left
+    // leaning structure, left: a wooden townhouse in Kantō, a bell tower in
+    // Lisbon, a concrete block in Mexico City
     ctx.save();
     ctx.translate(-26, -28);
     ctx.rotate(-0.11);
-    ctx.fillStyle = "rgba(214,198,170,0.98)";
-    ctx.fillRect(-5, -26, 10, 26);
-    ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3;
-    ctx.strokeRect(-5, -26, 10, 26);
-    for (let r = 0; r < 3; r++) {
-      for (let c = 0; c < 2; c++) {
+    if (v.city === "kanto") {
+      ctx.fillStyle = "rgba(210,192,162,0.98)";
+      ctx.fillRect(-6, -22, 12, 22);
+      ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3;
+      ctx.strokeRect(-6, -22, 12, 22);
+      ctx.beginPath();
+      ctx.moveTo(-9, -22); ctx.lineTo(0, -29); ctx.lineTo(9, -22); ctx.closePath();
+      ctx.fillStyle = "rgba(120,82,54,0.96)"; ctx.fill();
+      ctx.strokeStyle = "rgba(70,46,30,0.6)"; ctx.stroke();
+      for (let r = 0; r < 2; r++) for (let c = 0; c < 2; c++) {
         ctx.fillStyle = "rgba(78,62,46,0.5)";
-        ctx.fillRect(-3.4 + c * 4.4, -23 + r * 7.4, 3.2, 3.0);
+        ctx.fillRect(-4.6 + c * 5.0, -18 + r * 7.4, 3.4, 3.2);
       }
+      // broken roof edge
+      ctx.beginPath(); ctx.moveTo(-9, -22); ctx.lineTo(-5, -25); ctx.lineTo(-2, -23); ctx.lineTo(2, -26); ctx.lineTo(6, -23); ctx.lineTo(9, -22); ctx.strokeStyle = "rgba(70,46,30,0.7)"; ctx.lineWidth = 0.4; ctx.stroke();
+    } else if (v.city === "lisbon") {
+      ctx.fillStyle = "rgba(218,200,170,0.98)";
+      ctx.fillRect(-5, -30, 10, 30);
+      ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3;
+      ctx.strokeRect(-5, -30, 10, 30);
+      ctx.fillStyle = "rgba(226,214,188,0.98)"; ctx.fillRect(-7, -31, 14, 2.2);
+      ctx.beginPath(); ctx.moveTo(-3.4, -30); ctx.lineTo(-3.4, -25.4);
+      ctx.quadraticCurveTo(0, -21.8, 3.4, -25.4); ctx.lineTo(3.4, -30); ctx.closePath();
+      ctx.fillStyle = "rgba(60,46,34,0.65)"; ctx.fill();
+      ctx.beginPath(); ctx.moveTo(0, -31); ctx.lineTo(0, -35); ctx.moveTo(-1.4, -33.6); ctx.lineTo(1.4, -33.6);
+      ctx.strokeStyle = "rgba(70,50,30,0.85)"; ctx.lineWidth = 0.35; ctx.stroke();
+      for (let r = 0; r < 3; r++) for (let c = 0; c < 2; c++) {
+        ctx.fillStyle = "rgba(78,62,46,0.45)";
+        ctx.fillRect(-3.4 + c * 4.4, -20 + r * 5.4, 3.0, 2.4);
+      }
+    } else {
+      ctx.fillStyle = "rgba(214,198,170,0.98)";
+      ctx.fillRect(-5, -26, 10, 26);
+      ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3;
+      ctx.strokeRect(-5, -26, 10, 26);
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 2; c++) {
+          ctx.fillStyle = "rgba(78,62,46,0.5)";
+          ctx.fillRect(-3.4 + c * 4.4, -23 + r * 7.4, 3.2, 3.0);
+        }
+      }
+      ctx.beginPath();
+      ctx.moveTo(-5, -26); ctx.lineTo(-1.8, -28.4); ctx.lineTo(1.2, -25.6); ctx.lineTo(5, -27.2);
+      ctx.lineTo(5, -26); ctx.closePath();
+      ctx.fillStyle = "rgba(186,168,140,0.98)"; ctx.fill();
     }
-    // broken top
-    ctx.beginPath();
-    ctx.moveTo(-5, -26); ctx.lineTo(-1.8, -28.4); ctx.lineTo(1.2, -25.6); ctx.lineTo(5, -27.2);
-    ctx.lineTo(5, -26); ctx.closePath();
-    ctx.fillStyle = "rgba(186,168,140,0.98)"; ctx.fill();
     ctx.restore();
     // rubble at its base
     for (let i = 0; i < 5; i++) {

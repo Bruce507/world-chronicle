@@ -20,7 +20,10 @@ const PER_FILE = {
   "index.html": 10, "css/style.css": 20, "js/data_bundle.js": 235, "js/app.js": 72,
   "data/world.geo.json": 270, "data/historical_entities.json": 75,
   "js/theatre.js": 28, "js/map.js": 18, "js/scenes.js": 32,
-  "js/hero-scenes.js": 95, "js/variant-scenes.js": 26,
+  // variant-scenes grew with the per-event silhouettes (facades, landmarks,
+  // quake cities, wave coasts); it is lazy-loaded and the lazy total still
+  // has headroom, so the per-file budget moves with the art pass.
+  "js/hero-scenes.js": 95, "js/variant-scenes.js": 32,
 };
 const BUDGET = { firstScreen: 780, lazy: 120, total: 900, domNodes: 2400 };
 

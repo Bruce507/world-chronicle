@@ -19,7 +19,7 @@
     return;
   }
   const A = window.WORLD_ATLAS;
-  const ASSET_V = "20261108z";
+  const ASSET_V = "20261109b";
   const $ = (s) => document.querySelector(s);
   let heroScenesP = null, variantScenesP = null;
   function loadScriptOnce(src) {
@@ -614,7 +614,7 @@
   }
 
   function loadAuxData() {
-    const v = "?v=20261108z";
+    const v = "?v=20261109b";
     A.detailsLoading = true;
     A.detailsLoading = true;
     fetch("data/state_changes.json" + v)
@@ -633,7 +633,7 @@
     if (A.eventDetails) { A.detailsLoading = false; return Promise.resolve(A.eventDetails); }
     if (detailsP) return detailsP;
     A.detailsLoading = true;
-    detailsP = fetch("data/event_details.json?v=20261108z")
+    detailsP = fetch("data/event_details.json?v=20261109b")
       .then((r) => { if (!r.ok) throw new Error("details " + r.status); return r.json(); })
       .then((d) => {
         A.eventDetails = d || {};
@@ -650,7 +650,7 @@
   function ensureChronicles() {
     if (A.chronicles) return Promise.resolve(A.chronicles);
     if (chroniclesP) return chroniclesP;
-    chroniclesP = fetch("data/country_chronicles.json?v=20261108z")
+    chroniclesP = fetch("data/country_chronicles.json?v=20261109b")
       .then((r) => { if (!r.ok) throw new Error("chronicles " + r.status); return r.json(); })
       .then((d) => {
         A.chronicles = d || {};
@@ -670,7 +670,7 @@
     loading.innerHTML = '<div class="map-loading-inner"><b>正在展开舆图…</b><div class="map-skeleton" aria-hidden="true"><i></i><i></i><i></i></div><small>UNFOLDING THE ATLAS</small></div>';
     $("#map-stage").appendChild(loading);
 
-    fetch("data/world.geo.json?v=20261108z")
+    fetch("data/world.geo.json?v=20261109b")
       .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then((geo) => {
         map.setWorld(geo);
