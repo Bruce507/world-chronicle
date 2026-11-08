@@ -1899,15 +1899,21 @@
     ctx.closePath();
     ctx.fillStyle = "rgba(38,30,26,0.95)"; ctx.fill();
     glow(ctx, 6, -55, 16, "rgb(240,140,70)", 0.35 + Math.sin(t * 2.4) * 0.06);
-    // ash column rising from the crater, in front of the sky
-    for (let i = 0; i < 26; i++) {
-      const q = (i / 26 + t * 0.02) % 1;
-      const bx = 6 + q * 24 + Math.sin(t * 0.8 + i) * 2.6;
-      const by = -57 - q * 20;
-      ctx.beginPath();
-      ctx.arc(bx, by, 2.4 + q * 7.0, 0, TAU);
-      ctx.fillStyle = "rgba(88,82,78," + (0.26 * (1 - q * 0.45)) + ")";
-      ctx.fill();
+    // Ash column: overlapping puffs drawn as three concentric alphas each, so
+    // it reads as one mass instead of a string of beads.
+    for (let i = 0; i < 24; i++) {
+      const q = (i / 24 + t * 0.02) % 1;
+      const bx = 6 + q * 22 + Math.sin(t * 0.7 + i * 0.7) * 1.8;
+      const by = -56 - q * 14;
+      const r = 2.2 + q * 5.4;
+      const fade = 1 - q * 0.3;
+      const layers = [[1.9, 0.10], [1.4, 0.18], [1, 0.30]];
+      for (const [k, a] of layers) {
+        ctx.beginPath();
+        ctx.arc(bx, by, r * k, 0, TAU);
+        ctx.fillStyle = "rgba(84,78,74," + (a * fade) + ")";
+        ctx.fill();
+      }
     }
     // rock streaks converging on the crater, following the cone's slope
     for (let i = 0; i < 7; i++) {
@@ -2074,9 +2080,131 @@
     }
   }
 
+  function disasterFamineStage(ctx, top, t, v) {
+    const pal = PAL[v.palette] || PAL.noon;
+    sky(ctx, top, pal, -32);
+    cloud(ctx, -12, -78, 22, "rgba(246,240,224,0.20)", 0.35);
+    // parched fields to the horizon
+    const gr = ctx.createLinearGradient(0, -30, 0, 0);
+    gr.addColorStop(0, "rgba(196,172,130,0.92)");
+    gr.addColorStop(1, "rgba(164,136,98,0.98)");
+    ctx.fillStyle = gr; ctx.fillRect(-50, -30, 100, 30);
+    // bare trees on the skyline
+    for (const [bx, s2] of [[-40, 0.9], [-26, 0.7], [30, 0.8], [42, 0.6]]) {
+      ctx.strokeStyle = "rgba(96,78,56,0.6)"; ctx.lineWidth = 0.4 * s2;
+      ctx.beginPath(); ctx.moveTo(bx, -30); ctx.lineTo(bx, -30 - 8 * s2); ctx.stroke();
+      ctx.lineWidth = 0.28 * s2;
+      ctx.beginPath(); ctx.moveTo(bx, -33 * 1 - 3 * s2); ctx.lineTo(bx - 3 * s2, -36 - 2 * s2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(bx, -35 - 2 * s2); ctx.lineTo(bx + 3 * s2, -37 - 2 * s2); ctx.stroke();
+    }
+    // cracked earth
+    ctx.strokeStyle = "rgba(108,86,60,0.45)"; ctx.lineWidth = 0.3;
+    for (let i = 0; i < 9; i++) {
+      const x = -46 + i * 10.5;
+      ctx.beginPath();
+      ctx.moveTo(x, 0); ctx.lineTo(x + 3, -6); ctx.lineTo(x - 1, -12); ctx.lineTo(x + 2.4, -18);
+      ctx.stroke();
+    }
+    for (let i = 0; i < 5; i++) {
+      const y = -4 - i * 4.4;
+      ctx.beginPath(); ctx.moveTo(-50, y); ctx.lineTo(-18, y - 1.4); ctx.lineTo(14, y + 0.8); ctx.lineTo(50, y - 0.6); ctx.stroke();
+    }
+    // dry stalks in the near field
+    for (let i = 0; i < 16; i++) {
+      const x = -48 + i * 6.4, y = -2 - (i % 3) * 1.4;
+      ctx.strokeStyle = "rgba(150,124,82,0.8)"; ctx.lineWidth = 0.22;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.sin(i) * 1.2, y - 3.2); ctx.stroke();
+    }
+    // empty granary, right
+    ctx.fillStyle = "rgba(178,154,120,0.97)";
+    ctx.fillRect(26, -26, 16, 10);
+    ctx.beginPath(); ctx.moveTo(24, -26); ctx.lineTo(34, -33); ctx.lineTo(44, -26); ctx.closePath();
+    ctx.fillStyle = "rgba(150,108,72,0.95)"; ctx.fill();
+    ctx.fillStyle = "rgba(70,54,38,0.7)";
+    ctx.fillRect(32, -21, 4, 5);
+    // a thin queue walking left, and a hand cart
+    const queue = [[-14, -3.6, 0.5], [-8, -4.4, 0.47], [-2.4, -3.2, 0.52], [3, -4.8, 0.45], [8.4, -3.8, 0.5]];
+    queue.forEach(([x, y, sc], i) => {
+      p(ctx, x, y, sc, "rgba(64,52,40,0.95)", { phase: t * 0.35 + i * 0.7, noShadow: true });
+    });
+    ctx.fillStyle = "rgba(110,84,56,0.95)";
+    ctx.fillRect(-26, -6.6, 10, 2.6);
+    ctx.strokeStyle = "rgba(70,52,34,0.9)"; ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.arc(-24, -3.4, 2.2, 0, TAU); ctx.stroke();
+    ctx.beginPath(); ctx.arc(-18, -3.4, 2.2, 0, TAU); ctx.stroke();
+    // crows
+    for (let i = 0; i < 4; i++) {
+      const cx = -20 + i * 13 + Math.sin(t * 0.6 + i) * 2.4;
+      const cy = -44 - (i % 2) * 5 + Math.cos(t * 0.8 + i) * 1;
+      ctx.strokeStyle = "rgba(52,46,40,0.8)"; ctx.lineWidth = 0.35;
+      ctx.beginPath();
+      ctx.moveTo(cx - 1.6, cy); ctx.quadraticCurveTo(cx - 0.5, cy - 1.1, cx, cy);
+      ctx.quadraticCurveTo(cx + 0.5, cy - 1.1, cx + 1.6, cy);
+      ctx.stroke();
+    }
+  }
+
+  function disasterWaveStage(ctx, top, t, v) {
+    const pal = PAL[v.palette] || PAL.storm;
+    sky(ctx, top, pal, 30);
+    // sea
+    const sea = ctx.createLinearGradient(0, -30, 0, 0);
+    sea.addColorStop(0, "rgba(88,116,120,0.95)");
+    sea.addColorStop(1, "rgba(50,78,86,0.99)");
+    ctx.fillStyle = sea; ctx.fillRect(-50, -30, 100, 30);
+    // the wave: a curling mass rising on the right and breaking left
+    const sway = Math.sin(t * 0.9) * 0.8;
+    ctx.beginPath();
+    ctx.moveTo(52, -8);
+    ctx.quadraticCurveTo(30, -14, 20, -30);
+    ctx.quadraticCurveTo(12, -46 + sway, -2, -44 + sway);
+    ctx.quadraticCurveTo(2, -34, -8, -26);
+    ctx.quadraticCurveTo(-2, -12, 12, -8);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(66,102,110,0.97)"; ctx.fill();
+    ctx.strokeStyle = "rgba(206,226,222,0.55)"; ctx.lineWidth = 0.5; ctx.stroke();
+    // foam along the crest: many small overlapping dots, not a string of beads
+    for (let i = 0; i < 34; i++) {
+      const q = i / 34;
+      const x = -4 + q * 26 + Math.sin(t * 2 + i * 0.8) * 0.5;
+      const y = -45 + q * 15 + q * q * 6 + sway;
+      ctx.beginPath(); ctx.arc(x, y, 0.34 + (i % 4) * 0.12, 0, TAU);
+      ctx.fillStyle = "rgba(240,248,242," + (0.55 - q * 0.25) + ")"; ctx.fill();
+    }
+    // spray
+    for (let i = 0; i < 26; i++) {
+      const q = (t * 0.3 + i * 0.07) % 1;
+      ctx.beginPath();
+      ctx.arc(-10 + i * 2.4 + q * 6, -34 - q * 8 + Math.sin(i) * 2, 0.5, 0, TAU);
+      ctx.fillStyle = "rgba(236,244,240," + (0.4 * (1 - q)) + ")"; ctx.fill();
+    }
+    // low coast, left: bank, a house, a bent palm
+    ctx.fillStyle = "rgba(132,116,92,0.97)";
+    ctx.beginPath();
+    ctx.moveTo(-50, -6); ctx.lineTo(-34, -12); ctx.lineTo(-24, -8); ctx.lineTo(-20, 0); ctx.lineTo(-50, 0);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = "rgba(196,176,146,0.96)";
+    ctx.fillRect(-46, -20, 12, 9);
+    ctx.beginPath(); ctx.moveTo(-48, -20); ctx.lineTo(-40, -25); ctx.lineTo(-32, -20); ctx.closePath();
+    ctx.fillStyle = "rgba(150,108,72,0.95)"; ctx.fill();
+    ctx.strokeStyle = "rgba(88,70,48,0.85)"; ctx.lineWidth = 0.45;
+    ctx.beginPath(); ctx.moveTo(-26, -12); ctx.quadraticCurveTo(-30, -22, -36, -26); ctx.stroke();
+    for (let i = 0; i < 4; i++) {
+      ctx.beginPath();
+      ctx.moveTo(-36, -26);
+      ctx.quadraticCurveTo(-40 - i * 2, -28 - i * 1.4, -43 - i * 1.6, -25 - i * 1.8);
+      ctx.stroke();
+    }
+    // fleeing figures on the bank
+    p(ctx, -22, -7.2, 0.46, "rgba(56,48,40,0.97)", { phase: t * 0.8, noShadow: true });
+    p(ctx, -16, -5.6, 0.5, "rgba(66,56,46,0.97)", { phase: t * 0.8 + 1.2, noShadow: true });
+  }
+
   function disasterStage(ctx, top, t, v) {
     if (v.kind === "quake") return disasterQuakeStage(ctx, top, t, v);
     if (v.kind === "plague") return disasterPlagueStage(ctx, top, t, v);
+    if (v.kind === "famine") return disasterFamineStage(ctx, top, t, v);
+    if (v.kind === "wave") return disasterWaveStage(ctx, top, t, v);
     return disasterEruptionStage(ctx, top, t, v);
   }
 
@@ -2110,6 +2238,35 @@
         ctx.quadraticCurveTo(cx + 0.6, cy - 1.4, cx + 2, cy);
         ctx.stroke();
       }
+    } else if (v.kind === "famine") {
+      // parched field lines, a granary and a thin queue
+      ctx.strokeStyle = "rgba(118,94,64,0.4)"; ctx.lineWidth = 0.3;
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath(); ctx.moveTo(-30, -6 - i * 3.4); ctx.lineTo(30, -7.4 - i * 3.4); ctx.stroke();
+      }
+      ctx.fillStyle = "rgba(178,154,120,0.95)";
+      ctx.fillRect(12, -22, 12, 8);
+      ctx.beginPath(); ctx.moveTo(10, -22); ctx.lineTo(18, -28); ctx.lineTo(26, -22); ctx.closePath();
+      ctx.fillStyle = "rgba(150,108,72,0.9)"; ctx.fill();
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath(); ctx.arc(-18 + i * 6, -6 - (i % 2), 1.3, 0, TAU);
+        ctx.fillStyle = "rgba(64,52,40,0.85)"; ctx.fill();
+      }
+    } else if (v.kind === "wave") {
+      const sway = Math.sin(t * 0.9) * 0.6;
+      ctx.beginPath();
+      ctx.moveTo(30, -4);
+      ctx.quadraticCurveTo(14, -8, 10, -20);
+      ctx.quadraticCurveTo(6, -32 + sway, -6, -30 + sway);
+      ctx.quadraticCurveTo(0, -22, -6, -16);
+      ctx.quadraticCurveTo(2, -6, 12, -4);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(70,106,114,0.95)"; ctx.fill();
+      ctx.strokeStyle = "rgba(222,238,232,0.5)"; ctx.lineWidth = 0.4; ctx.stroke();
+      ctx.fillStyle = "rgba(196,176,146,0.95)";
+      ctx.fillRect(-30, -14, 10, 7);
+      ctx.beginPath(); ctx.moveTo(-32, -14); ctx.lineTo(-25, -19); ctx.lineTo(-18, -14); ctx.closePath();
+      ctx.fillStyle = "rgba(150,108,72,0.9)"; ctx.fill();
     } else {
       // cone, plume, lava
       for (let i = 0; i < 10; i++) {
@@ -2152,6 +2309,10 @@
     "cook-at-tahiti": { family: "caravel", palette: "noon", skyline: "palms", weather: "clear", crowd: "sailors", frame: "palms", flag: "rgba(74,104,138,0.95)", landmark: "canoe" },
     "bering-reaches-alaska": { family: "caravel", palette: "snow", skyline: "cliffs", weather: "snow", crowd: "sailors", frame: "hull", flag: "rgba(84,104,122,0.95)", landmark: "ice" },
     "thera-eruption": { family: "disaster", kind: "eruption", palette: "storm" },
+    "irish-famine": { family: "disaster", kind: "famine", palette: "storm" },
+    "bengal-famine": { family: "disaster", kind: "famine", palette: "noon" },
+    "indian-ocean-tsunami": { family: "disaster", kind: "wave", palette: "storm" },
+    "fukushima-disaster": { family: "disaster", kind: "wave", palette: "dusk" },
     "tonga-eruption": { family: "disaster", kind: "eruption", palette: "dawn" },
     "lisbon-earthquake": { family: "disaster", kind: "quake", palette: "noon" },
     "great-kanto-earthquake": { family: "disaster", kind: "quake", palette: "noon" },

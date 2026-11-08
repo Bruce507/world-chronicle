@@ -471,8 +471,10 @@
      stronger evidence than an encyclopedia entry. */
   const SOURCE_TIER_RANK = { institutional: 0, secondary: 1, encyclopedic: 2 };
   const sourceRank = (s) => (s && s.tier && SOURCE_TIER_RANK[s.tier] != null ? SOURCE_TIER_RANK[s.tier] : 2);
-  const sourceTierBadge = (s) => (s && s.tier === "institutional"
-    ? `<span class="src-tier">${L("机构", "INSTITUTION", "INSTITUCIÓN", "INSTITUTION", "مؤسسة")}</span>` : "");
+  /* A dot, not a word: the label already names the museum or archive, and the
+     badge repeated it. The dot only signals "institutional, ranked first". */
+  const sourceTierMark = (s) => (s && s.tier === "institutional"
+    ? `<i class="src-mark" aria-hidden="true" title="${L("机构来源", "Institutional source", "Fuente institucional", "Source institutionnelle", "مصدر مؤسسي")}"></i>` : "");
 
   function modernEntityName(e) {
     if (!e) return "";
@@ -1283,7 +1285,7 @@
 
     if (sourceLinks.length) {
       html += `<section class="ev-detail-section"><h4>${L("来源", "SOURCES", "FUENTES", "SOURCES", "المصادر")}</h4>`;
-      sourceLinks.forEach((s) => { html += `<p><a href="${s.url}" target="_blank" rel="noopener">${s.label || s.url}</a>${sourceTierBadge(s)}</p>`; });
+      sourceLinks.forEach((s) => { html += `<p>${sourceTierMark(s)}<a href="${s.url}" target="_blank" rel="noopener">${s.label || s.url}</a></p>`; });
       html += `</section>`;
     }
 
@@ -1618,7 +1620,7 @@
     const hereTitle = regimes.length
       ? L("江山时序 · 并立政权", "CHRONICLE · RIVAL REGIMES", "CRÓNICA · REGÍMENES RIVALES", "CHRONIQUE · RÉGIMES RIVAUX", "السجل · أنظمة متنافسة")
       : L("此处此时", "HERE, NOW", "AQUÍ, AHORA", "ICI, MAINTENANT", "هنا الآن");
-    html += `<section class="p-section"><h3>${hereTitle} · ${fmtYear(state.year, state.lang, true)}</h3><div class="polity-list">`;
+    html += `<section class="p-section"><h3>${hereTitle} · ${fmtYear(state.year, state.lang, true)}</h3><div class="polity-list${regimes.length >= 3 ? " is-grid" : ""}">`;
     if (regimes.length) {
       regimes.forEach((e) => {
         html += `<span class="polity-chip"><i style="background:${e.type === "culture" ? "#8a7a9a" : "#b0432c"}"></i>${e.name}<small>${fmtRange(e.from, e.to)}</small></span>`;
@@ -2759,7 +2761,7 @@
       if ((d.sources || []).length) {
         dh += `<section class="ev-detail-section"><h4>${L("来源", "SOURCES", "FUENTES", "SOURCES", "المصادر")}</h4>`;
         d.sources.filter((x) => x.url).slice().sort((a, b) => sourceRank(a) - sourceRank(b)).slice(0, 4)
-          .forEach((x) => { dh += `<p><a href="${x.url}" target="_blank" rel="noopener">${x.label || x.url}</a>${sourceTierBadge(x)}</p>`; });
+          .forEach((x) => { dh += `<p>${sourceTierMark(x)}<a href="${x.url}" target="_blank" rel="noopener">${x.label || x.url}</a></p>`; });
         dh += `</section>`;
       }
       el["ev-detail"].innerHTML = dh;

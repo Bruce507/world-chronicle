@@ -2524,6 +2524,27 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
 #panel-title:focus,
 #panel-title:focus-visible { outline: 1px solid rgba(168, 62, 40, 0.55); outline-offset: 5px; border-radius: 2px; }
 
+/* 并立政权：3 个以上时用等宽网格，避免 2+1 的参差换行 */
+.polity-list.is-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: 6px;
+}
+/* Three or more regimes: name on the first line, years on a second line,
+   so a 93px column does not break "960–1279" across three rows. */
+.polity-list.is-grid .polity-chip {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1px 5px;
+  white-space: nowrap;
+}
+.polity-list.is-grid .polity-chip small {
+  flex-basis: 100%;
+  padding-inline-start: 11px;
+}
+
 /* 时间轴工具栏分组：视图 / 播放，RTL 下用逻辑边框 */
 .tl-group { display: flex; align-items: center; gap: 6px; flex: none; }
 .tl-group .tl-small { white-space: nowrap; }
@@ -2628,11 +2649,10 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
   flex: none;
   align-self: center;
   padding-inline-end: 4px;
-  font-size: 9px;
-  letter-spacing: 0.18em;
+  font-size: 10px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
-  opacity: 0.85;
 }
 
 /* 手机上面板收起时，入口带上"此刻 N 条" */
@@ -2662,16 +2682,14 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
   #now-btn, #tl-brush-btn { display: none; }
 }
 
-/* 来源层级标记 / source tier badge */
-.src-tier {
+/* 机构来源标记 / institutional source mark */
+.src-mark {
   display: inline-block;
-  margin-inline-start: 6px;
-  padding: 0 4px;
-  border: 1px solid rgba(125, 90, 32, 0.45);
-  border-radius: 2px;
-  font-size: 8.5px;
-  letter-spacing: 0.08em;
-  color: var(--gold);
+  width: 6px;
+  height: 6px;
+  margin-inline-end: 6px;
+  border-radius: 50%;
+  background: var(--gold);
   vertical-align: 1px;
 }
 

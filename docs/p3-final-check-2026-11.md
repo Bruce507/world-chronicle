@@ -7,7 +7,7 @@ Date 2026-11-07。本文是 P3 的收口记录：D1–D7 / U1–U9 逐项状态�
 | 项 | 结果 |
 |---|---|
 | 事件 / 视觉家族 / 分派错误 | **521 / 56 / 0**（未变） |
-| Hero / Tier B | **32 / 53**（urban-war 4 个 + modern 三子构图 16 个 + disaster pilot 8 个；contact sheet 无空格） |
+| Hero / Tier B | **32 / 57**（urban-war 4 + modern 三子构图 16 + disaster 12；contact sheet 无空格） |
 | 完整史志 / 简要条目 | **112 / 409**（未变） |
 | 主题路线 | 6 |
 | `validate-data` | ✓（521 事件、125 政权、29 剧场、12 条商路、201 国家新生、18 解体、234 沿革） |
@@ -28,7 +28,7 @@ Date 2026-11-07。本文是 P3 的收口记录：D1–D7 / U1–U9 逐项状态�
 | 编号 | 结论 | 验证方式 |
 |---|---|---|
 | **D1** 剧场是贴图、缺统一舞台/标签竞争/淡入淡出 | **已修复** | `js/theatre.js` 的 `drawStage`/`labelWeight`/`alpha`；`docs/ux-p3-shots/desktop-theatre.jpg`；smoke 的舞台比例与标签降权断言 |
-| **D2** Hero / Tier B / 通用三层质量断层 | **部分** | Tier B **53**：urban-war（4）、modern 三子构图（16）、disaster pilot（8）；全量差异 0.107→**0.126**，modern 内部 0.060→**0.109**、disaster 0.122（Hero 0.170）。Hero 仍未扩量。见 `p3-2-scenes.md` §6–§9 |
+| **D2** Hero / Tier B / 通用三层质量断层 | **部分** | Tier B **57**：urban-war（4）、modern 三子构图（16）、disaster（12，覆盖全部灾害事件）；全量差异 0.107→**0.127**，modern 内部 0.060→**0.109**、disaster 0.126（Hero 0.170）。Hero 仍未扩量。见 `p3-2-scenes.md` §6–§9 |
 | **D3** 面板按钮换行、头部过重 | **已修复** | 2 个主操作 + "⋯" 菜单；smoke 输出 `head:88 / body:280`，并断言动作层级与键盘菜单可用 |
 | **D4** 时间范围/步长不可见、隐藏手势 | **部分** | 范围与步长常驻、显式「刷选」按钮（`#tl-brush-btn`，smoke 断言范围变化与 `aria-pressed`）；**双击时代带、Alt+滚轮仍未做成显式控件** |
 | **D5** 移动铺满无方向感 / 迷你地图 / 边缘裁切 | **已修复** | 迷你地图 + 全图 + 点击/键盘定位；本轮另修「迷你地图空白」与「隐藏画布指数级放大」；smoke 断言像素覆盖 >50% 且后备存储 ≤2×CSS |
