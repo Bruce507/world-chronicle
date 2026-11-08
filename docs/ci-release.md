@@ -6,7 +6,7 @@ Date 2026-11-07. P3-5 的落地部分：自动验证、生成物一致性、缓�
 
 | 文件 | 触发 | 内容 |
 |---|---|---|
-| `.github/workflows/ci.yml` | push main、PR、手动 | 安装依赖 → validate/build/taxonomy/语法 → 生成物一致性 → 安装 Chrome → 启动本地服务器 → `content-check` 112 条 → `smoke` 49 项 |
+| `.github/workflows/ci.yml` | push main、PR、手动 | 安装依赖 → validate/build/taxonomy/语法 → 生成物一致性 → 安装 Chrome → 启动本地服务器 → `content-check` 127 条 → `smoke` 62 项 |
 | `.github/workflows/pages.yml` | push main、手动 | 先跑同一组静态校验（validate/build/taxonomy/语法/生成物一致性），通过后才部署 GitHub Pages |
 
 - 生成物一致性：`js/data_bundle.js`、`data/scene_variants.json`、`docs/scene-coverage.md` 必须与 JSON 源一致；CI 在 build 后执行 `git diff --exit-code`，不一致即失败。

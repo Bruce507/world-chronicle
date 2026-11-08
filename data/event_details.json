@@ -327,6 +327,77 @@
       }
     ]
   },
+  "bangladesh-independence": {
+    "title": {
+      "zh": "孟加拉国独立",
+      "en": "Bangladesh Independence"
+    },
+    "date": {
+      "iso": "1971",
+      "zh": "1971年",
+      "en": "1971"
+    },
+    "place": {
+      "zh": "东巴基斯坦（今孟加拉国）",
+      "en": "East Pakistan (now Bangladesh)",
+      "lat": 23.81,
+      "lon": 90.41
+    },
+    "actors": [
+      {
+        "zh": "孟加拉人民联盟",
+        "en": "Awami League"
+      },
+      {
+        "zh": "谢赫·穆吉布·拉赫曼",
+        "en": "Sheikh Mujibur Rahman"
+      },
+      {
+        "zh": "巴基斯坦军队",
+        "en": "Pakistan Army"
+      },
+      {
+        "zh": "印度",
+        "en": "India"
+      }
+    ],
+    "background": {
+      "zh": "东巴基斯坦与西巴基斯坦被印度隔开，在语言、经济与政治上长期不平等。1970年选举中人民联盟赢得东巴压倒性多数，却被拒绝组建政府。",
+      "en": "East and West Pakistan were separated by India and unequal in language, economy and politics. The Awami League won an overwhelming majority in East Pakistan in the 1970 election but was denied the right to form a government."
+    },
+    "course": {
+      "zh": "1971年3月26日东巴宣布独立，巴基斯坦军队展开镇压，内战与大规模暴力迫使数百万人逃往印度。12月印度出兵，战争在两周内结束。",
+      "en": "East Pakistan declared independence on 26 March 1971; the Pakistan Army's crackdown and widespread violence drove millions into India. India intervened in December and the war ended within two weeks."
+    },
+    "outcome": {
+      "zh": "1971年12月16日巴基斯坦军队投降，孟加拉国成立。战争造成大量死亡与严重的人道危机，死亡人数至今仍有争议（常见估计从数十万到三百万）。",
+      "en": "Pakistan's army surrendered on 16 December 1971 and Bangladesh was born. The war caused mass death and a severe humanitarian crisis; the death toll remains disputed, with estimates from several hundred thousand to three million."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "BD",
+        "PK",
+        "IN"
+      ],
+      "year": 1971,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Bangladesh Liberation War",
+        "url": "https://en.wikipedia.org/wiki/Bangladesh_Liberation_War",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Sheikh Mujibur Rahman",
+        "url": "https://en.wikipedia.org/wiki/Sheikh_Mujibur_Rahman",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
   "battle-of-mohacs": {
     "title": {
       "zh": "莫哈奇战役",
@@ -1507,6 +1578,71 @@
       }
     ]
   },
+  "cuban-revolution": {
+    "title": {
+      "zh": "古巴革命",
+      "en": "Cuban Revolution"
+    },
+    "date": {
+      "iso": "1953",
+      "zh": "1953–1959年",
+      "en": "1953–1959"
+    },
+    "place": {
+      "zh": "古巴",
+      "en": "Cuba",
+      "lat": 23.11,
+      "lon": -82.37
+    },
+    "actors": [
+      {
+        "zh": "菲德尔·卡斯特罗",
+        "en": "Fidel Castro"
+      },
+      {
+        "zh": "富尔亨西奥·巴蒂斯塔",
+        "en": "Fulgencio Batista"
+      },
+      {
+        "zh": "七二六运动",
+        "en": "26th of July Movement"
+      }
+    ],
+    "background": {
+      "zh": "巴蒂斯塔1952年政变上台，其统治得到美国支持，腐败、贫富差距与乡村贫困激化了反对情绪。",
+      "en": "Batista seized power in a 1952 coup and ruled with US backing; corruption, inequality and rural poverty fuelled opposition."
+    },
+    "course": {
+      "zh": "1953年卡斯特罗率众攻打蒙卡达兵营失败，1956年与同伴乘“格拉玛号”登陆古巴，转入马埃斯特腊山游击战。1959年1月，巴蒂斯塔出逃，革命力量进入哈瓦那。",
+      "en": "Castro's 1953 attack on the Moncada barracks failed; in 1956 he and his companions landed on the Granma and opened a guerrilla war in the Sierra Maestra. In January 1959 Batista fled and the revolutionaries entered Havana."
+    },
+    "outcome": {
+      "zh": "土地改革与国有化导致与美国决裂，1961年猪湾事件后古巴转向苏联。社会主义制度延续至今，革命也带来医疗与教育普及，同时伴随政治压制与经济困难。",
+      "en": "Land reform and nationalisation broke relations with the United States, and after the 1961 Bay of Pigs invasion Cuba aligned with the USSR. The socialist system survives, with advances in health and education alongside political repression and economic hardship."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "CU"
+      ],
+      "year": 1959,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Cuban Revolution",
+        "url": "https://en.wikipedia.org/wiki/Cuban_Revolution",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Fulgencio Batista",
+        "url": "https://en.wikipedia.org/wiki/Fulgencio_Batista",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
   "d-day": {
     "title": {
       "zh": "诺曼底登陆",
@@ -1631,6 +1767,71 @@
       }
     ]
   },
+  "end-of-apartheid": {
+    "title": {
+      "zh": "南非种族隔离终结",
+      "en": "End of Apartheid"
+    },
+    "date": {
+      "iso": "1990",
+      "zh": "1990–1994年",
+      "en": "1990–1994"
+    },
+    "place": {
+      "zh": "南非",
+      "en": "South Africa",
+      "lat": -25.75,
+      "lon": 28.19
+    },
+    "actors": [
+      {
+        "zh": "纳尔逊·曼德拉",
+        "en": "Nelson Mandela"
+      },
+      {
+        "zh": "非洲人国民大会",
+        "en": "African National Congress"
+      },
+      {
+        "zh": "F. W. 德克勒克",
+        "en": "F. W. de Klerk"
+      }
+    ],
+    "background": {
+      "zh": "种族隔离制度自1948年起系统实施，以法律把人按种族分隔。国际制裁、国内抗争、工会与学生运动以及边境战争使白人少数政权陷入长期危机。",
+      "en": "Apartheid, in place systematically from 1948, separated people by race in law. International sanctions, domestic resistance, trade unions, student movements and border wars left the white minority government in a prolonged crisis."
+    },
+    "course": {
+      "zh": "1990年，总统德克勒克释放曼德拉并解禁非洲人国民大会等组织。1991–93年多党谈判制定过渡安排，1994年4月举行首次不分种族的全国选举。",
+      "en": "In 1990 President de Klerk released Mandela and legalised the ANC and other organisations. Multi-party talks in 1991–93 produced a transition, and in April 1994 the first non-racial national election was held."
+    },
+    "outcome": {
+      "zh": "曼德拉当选总统，真相与和解委员会处理旧政权的人权罪行。政治平等实现，但土地、教育与收入的严重不平等延续至今。",
+      "en": "Mandela became president and the Truth and Reconciliation Commission addressed human-rights crimes of the old order. Political equality was achieved, but deep inequalities in land, education and income persist."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "ZA"
+      ],
+      "year": 1994,
+      "priority": 85
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Negotiations to end apartheid in South Africa",
+        "url": "https://en.wikipedia.org/wiki/Negotiations_to_end_apartheid_in_South_Africa",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Nobel Prize — Nelson Mandela facts",
+        "url": "https://www.nobelprize.org/prizes/peace/1993/mandela/facts/",
+        "tier": "institutional"
+      }
+    ]
+  },
   "end-of-world-war-ii": {
     "title": {
       "zh": "第二次世界大战结束",
@@ -1686,6 +1887,11 @@
       {
         "label": "Britannica — World War II",
         "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — End of World War II in Europe",
+        "url": "https://en.wikipedia.org/wiki/End_of_World_War_II_in_Europe",
         "tier": "encyclopedic"
       }
     ]
@@ -2400,6 +2606,11 @@
         "label": "Britannica — French Revolution",
         "url": "https://www.britannica.com/event/French-Revolution",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — French Revolution",
+        "url": "https://en.wikipedia.org/wiki/French_Revolution",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2531,6 +2742,72 @@
         "label": "The Metropolitan Museum of Art — The Legacy of Genghis Khan",
         "url": "https://www.metmuseum.org/toah/hd/khan1/hd_khan1.htm",
         "tier": "institutional"
+      }
+    ]
+  },
+  "german-unification": {
+    "title": {
+      "zh": "德意志帝国成立",
+      "en": "German Unification"
+    },
+    "date": {
+      "iso": "1871-01-18",
+      "zh": "1871年1月18日",
+      "en": "18 January 1871"
+    },
+    "place": {
+      "zh": "法国凡尔赛镜厅",
+      "en": "Hall of Mirrors, Versailles, France",
+      "lat": 48.8,
+      "lon": 2.13
+    },
+    "actors": [
+      {
+        "zh": "普鲁士王国",
+        "en": "Kingdom of Prussia"
+      },
+      {
+        "zh": "奥托·冯·俾斯麦",
+        "en": "Otto von Bismarck"
+      },
+      {
+        "zh": "德意志诸邦",
+        "en": "German states"
+      }
+    ],
+    "background": {
+      "zh": "德意志邦联内部，普鲁士与奥地利长期争夺主导权。俾斯麦以关税同盟、军事改革和外交孤立对手，推动由普鲁士领导的统一方案。",
+      "en": "Within the German Confederation, Prussia and Austria had long competed for leadership. Bismarck used the customs union, military reform and diplomatic isolation of his opponents to advance a Prussian-led unification."
+    },
+    "course": {
+      "zh": "普鲁士先后在1864年对丹麦、1866年对奥地利、1870–71年对法国的战争中获胜；南德诸邦随后加入北德意志邦联。1871年1月18日，威廉一世在凡尔赛镜厅被宣布为德意志皇帝。",
+      "en": "Prussia won wars against Denmark in 1864, Austria in 1866 and France in 1870–71; the southern states then joined the North German Confederation. On 18 January 1871 William I was proclaimed German emperor in the Hall of Mirrors at Versailles."
+    },
+    "outcome": {
+      "zh": "德意志帝国成为欧洲大陆最强的工业与军事国家之一，俾斯麦出任宰相。统一改变了欧洲的力量平衡，法国的复仇情绪与随后的殖民地竞争加剧了国际紧张。",
+      "en": "The German Empire became one of continental Europe's strongest industrial and military powers, with Bismarck as chancellor. Unification shifted the European balance, and French revanchism and later colonial rivalry heightened international tension."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "DE",
+        "FR"
+      ],
+      "year": 1871,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Unification of Germany",
+        "url": "https://en.wikipedia.org/wiki/Unification_of_Germany",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — Unification of Germany",
+        "url": "https://www.worldhistory.org/Unification_of_Germany/",
+        "tier": "secondary"
       }
     ]
   },
@@ -2874,6 +3151,73 @@
       }
     ]
   },
+  "hong-kong-handover": {
+    "title": {
+      "zh": "香港回归",
+      "en": "Hong Kong Handover"
+    },
+    "date": {
+      "iso": "1997-07-01",
+      "zh": "1997年7月1日",
+      "en": "1 July 1997"
+    },
+    "place": {
+      "zh": "香港",
+      "en": "Hong Kong",
+      "lat": 22.32,
+      "lon": 114.17
+    },
+    "actors": [
+      {
+        "zh": "中华人民共和国",
+        "en": "People's Republic of China"
+      },
+      {
+        "zh": "英国",
+        "en": "United Kingdom"
+      },
+      {
+        "zh": "香港特别行政区政府",
+        "en": "Hong Kong SAR government"
+      }
+    ],
+    "background": {
+      "zh": "第一次鸦片战争后，香港岛于1842年割让给英国，九龙于1860年割让，新界则于1898年租借99年，租期在1997年到期。",
+      "en": "After the First Opium War Hong Kong Island was ceded to Britain in 1842, Kowloon in 1860, and the New Territories were leased for 99 years in 1898 — a lease due to expire in 1997."
+    },
+    "course": {
+      "zh": "1984年《中英联合声明》确定1997年7月1日将香港主权移交中国。1997年6月30日午夜，交接仪式在香港举行，香港特别行政区随即成立。",
+      "en": "The 1984 Sino-British Joint Declaration set 1 July 1997 for the transfer of sovereignty. At midnight on 30 June 1997 the handover ceremony took place and the Hong Kong Special Administrative Region was established."
+    },
+    "outcome": {
+      "zh": "“一国两制”与“五十年不变”写入《基本法》。2019年大规模抗议与2020年《香港国安法》之后，香港的自治安排与政治空间发生重大变化。",
+      "en": "\"One country, two systems\" and a fifty-year guarantee were written into the Basic Law. After the mass protests of 2019 and the 2020 National Security Law, Hong Kong's autonomy arrangements and political space changed substantially."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "HK",
+        "GB",
+        "CN"
+      ],
+      "year": 1997,
+      "priority": 80
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Handover of Hong Kong",
+        "url": "https://en.wikipedia.org/wiki/Handover_of_Hong_Kong",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Sino-British Joint Declaration",
+        "url": "https://en.wikipedia.org/wiki/Sino-British_Joint_Declaration",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
   "hundred-regiments-offensive": {
     "title": {
       "zh": "百团大战",
@@ -3140,6 +3484,137 @@
         "label": "Wikipedia — Proclamation of Indonesian Independence",
         "url": "https://en.wikipedia.org/wiki/Proclamation_of_Indonesian_Independence",
         "tier": "encyclopedic"
+      }
+    ]
+  },
+  "iranian-revolution": {
+    "title": {
+      "zh": "伊朗伊斯兰革命",
+      "en": "Iranian Revolution"
+    },
+    "date": {
+      "iso": "1979",
+      "zh": "1978–1979年",
+      "en": "1978–1979"
+    },
+    "place": {
+      "zh": "伊朗德黑兰",
+      "en": "Tehran, Iran",
+      "lat": 35.69,
+      "lon": 51.39
+    },
+    "actors": [
+      {
+        "zh": "鲁霍拉·霍梅尼",
+        "en": "Ruhollah Khomeini"
+      },
+      {
+        "zh": "巴列维王朝",
+        "en": "Pahlavi dynasty"
+      },
+      {
+        "zh": "学生、工人与宗教团体",
+        "en": "Students, workers and religious groups"
+      }
+    ],
+    "background": {
+      "zh": "巴列维王朝的威权统治、快速现代化带来的社会撕裂、贫富差距与外国干预引发广泛不满；流亡的宗教领袖霍梅尼成为反对运动的核心象征。",
+      "en": "The Pahlavi monarchy's authoritarian rule, the social dislocation of rapid modernisation, inequality and foreign influence produced broad discontent; the exiled cleric Khomeini became the focus of opposition."
+    },
+    "course": {
+      "zh": "1978年抗议与罢工不断扩大，1979年1月国王出走，2月霍梅尼回国，君主制被推翻。同年4月公投通过伊斯兰共和国宪法框架。",
+      "en": "Protests and strikes escalated through 1978; the shah left in January 1979, Khomeini returned in February and the monarchy fell. A referendum that April approved an Islamic republic."
+    },
+    "outcome": {
+      "zh": "神权共和体制建立，与美国关系因使馆人质危机彻底破裂，中东力量格局随之改变。革命也带来政治压制，妇女权利与公民自由受到限制。",
+      "en": "A clerical republic was established, relations with the United States collapsed over the embassy hostage crisis, and the regional balance shifted. The revolution also brought political repression and restrictions on women's rights and civil liberties."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "IR"
+      ],
+      "year": 1979,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Iranian Revolution",
+        "url": "https://en.wikipedia.org/wiki/Iranian_Revolution",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — Iranian Revolution",
+        "url": "https://www.worldhistory.org/Iranian_Revolution/",
+        "tier": "secondary"
+      }
+    ]
+  },
+  "irish-famine": {
+    "title": {
+      "zh": "爱尔兰大饥荒",
+      "en": "Irish Famine"
+    },
+    "date": {
+      "iso": "1845",
+      "zh": "1845–1852年",
+      "en": "1845–1852"
+    },
+    "place": {
+      "zh": "爱尔兰",
+      "en": "Ireland",
+      "lat": 53.35,
+      "lon": -6.26
+    },
+    "actors": [
+      {
+        "zh": "爱尔兰佃农",
+        "en": "Irish tenant farmers"
+      },
+      {
+        "zh": "英国政府",
+        "en": "British government"
+      },
+      {
+        "zh": "地主与救济机构",
+        "en": "Landlords and relief boards"
+      }
+    ],
+    "background": {
+      "zh": "十九世纪的爱尔兰佃农高度依赖马铃薯作为主食，土地租佃与粮食出口结构使大多数人对单一作物歉收几乎没有缓冲。",
+      "en": "Nineteenth-century Irish tenant farmers depended on the potato for subsistence; the rental system and grain exports left most households with almost no buffer against a single failed crop."
+    },
+    "course": {
+      "zh": "1845年马铃薯晚疫病传入爱尔兰，此后连续数年歉收。饥荒与疫病造成约一百万人死亡，另有逾一百万人移居海外，主要前往英国、北美和澳大利亚。",
+      "en": "Potato blight reached Ireland in 1845 and destroyed the crop for several consecutive years. Famine and disease killed roughly a million people and drove more than a million more to emigrate, mainly to Britain, North America and Australia."
+    },
+    "outcome": {
+      "zh": "爱尔兰人口从约八百万骤降，土地结构与海外侨民社会被永久改变。饥荒加深了民族主义与土地改革运动，英国政府的应对至今仍是历史争论的焦点。",
+      "en": "Ireland's population fell from about eight million, permanently reshaping landholding and the diaspora. The famine deepened nationalist and land-reform movements, and the British government's response remains disputed by historians."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "IE",
+        "GB"
+      ],
+      "year": 1845,
+      "priority": 95
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Great Famine (Ireland)",
+        "url": "https://en.wikipedia.org/wiki/Great_Famine_(Ireland)",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "BBC History — The Great Famine",
+        "url": "https://www.bbc.co.uk/history/british/victorians/famine_01.shtml",
+        "tier": "secondary"
       }
     ]
   },
@@ -3479,6 +3954,140 @@
         "label": "Imperial War Museums — A short history of the Korean War",
         "url": "https://www.iwm.org.uk/history/cold-war/korean-war",
         "tier": "institutional"
+      }
+    ]
+  },
+  "latin-american-independence": {
+    "title": {
+      "zh": "拉美独立运动",
+      "en": "Latin American Independence"
+    },
+    "date": {
+      "iso": "1810",
+      "zh": "1810–1826年",
+      "en": "1810–1826"
+    },
+    "place": {
+      "zh": "西属美洲",
+      "en": "Spanish America",
+      "lat": -34.6,
+      "lon": -58.4
+    },
+    "actors": [
+      {
+        "zh": "西蒙·玻利瓦尔",
+        "en": "Simón Bolívar"
+      },
+      {
+        "zh": "何塞·德·圣马丁",
+        "en": "José de San Martín"
+      },
+      {
+        "zh": "西班牙王室",
+        "en": "Spanish Crown"
+      }
+    ],
+    "background": {
+      "zh": "1808年拿破仑入侵西班牙、废黜波旁王朝，使西属美洲的效忠对象出现空缺。克里奥尔精英不满半岛出生者对政治与贸易的垄断，自治与独立的主张迅速扩散。",
+      "en": "Napoleon's 1808 invasion of Spain and the removal of the Bourbons left Spanish America without a legitimate sovereign. Creole elites resented the peninsular monopoly on office and trade, and demands for autonomy and independence spread quickly."
+    },
+    "course": {
+      "zh": "1810年起，加拉加斯、布宜诺斯艾利斯、墨西哥等地相继建立自治洪他，随后演变为长期战争。玻利瓦尔从北方、圣马丁从南方推进，1824年阿亚库乔战役基本结束了西班牙在南美的统治。",
+      "en": "From 1810 juntas formed in Caracas, Buenos Aires, Mexico and elsewhere, and autonomy turned into prolonged war. Bolívar advanced from the north and San Martín from the south; the battle of Ayacucho in 1824 effectively ended Spanish rule in South America."
+    },
+    "outcome": {
+      "zh": "西属美洲分裂为多个共和国，巴西则以君主制脱离葡萄牙。独立没有消除社会等级与土地不平等，新国家很快陷入政治动荡与地区战争。",
+      "en": "Spanish America fragmented into several republics, while Brazil separated from Portugal as a monarchy. Independence did not erase social hierarchy or land inequality, and the new states soon fell into political instability and regional war."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "AR",
+        "VE",
+        "CO",
+        "MX",
+        "CL"
+      ],
+      "year": 1810,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Latin American wars of independence",
+        "url": "https://en.wikipedia.org/wiki/Latin_American_wars_of_independence",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Simón Bolívar",
+        "url": "https://en.wikipedia.org/wiki/Sim%C3%B3n_Bol%C3%ADvar",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
+  "lisbon-earthquake": {
+    "title": {
+      "zh": "里斯本大地震",
+      "en": "Lisbon Earthquake"
+    },
+    "date": {
+      "iso": "1755-11-01",
+      "zh": "1755年11月1日",
+      "en": "1 November 1755"
+    },
+    "place": {
+      "zh": "葡萄牙里斯本",
+      "en": "Lisbon, Portugal",
+      "lat": 38.71,
+      "lon": -9.14
+    },
+    "actors": [
+      {
+        "zh": "葡萄牙王国",
+        "en": "Kingdom of Portugal"
+      },
+      {
+        "zh": "庞巴尔侯爵",
+        "en": "Marquês de Pombal"
+      },
+      {
+        "zh": "里斯本市民",
+        "en": "Lisbon's inhabitants"
+      }
+    ],
+    "background": {
+      "zh": "里斯本是葡萄牙帝国的首都和跨大西洋贸易枢纽，人口约二十万。1755年11月1日是万圣节，教堂里挤满了参加弥撒的人。",
+      "en": "Lisbon was the capital of the Portuguese empire and an Atlantic trading hub of some 200,000 people. 1 November 1755 was All Saints' Day, and the churches were full."
+    },
+    "course": {
+      "zh": "当天上午，一场估计约8级的海底地震摧毁了市中心，随后海啸冲入河口，火灾又燃烧了数日。三种灾害叠加，造成数万人死亡，具体数字至今没有定论。",
+      "en": "A submarine earthquake estimated at about magnitude 8 destroyed the city centre that morning; a tsunami then swept up the Tagus and fires burned for days. The combined disasters killed tens of thousands, though the exact toll remains uncertain."
+    },
+    "outcome": {
+      "zh": "庞巴尔侯爵主持重建，推广抗震的木笼式建筑，并借灾后调查推动公共卫生与城市规划。灾难也引发欧洲启蒙思想家关于神意与恶的争论，伏尔泰在《老实人》中直接回应了里斯本。",
+      "en": "The Marquês de Pombal directed the rebuilding, promoted earthquake-resistant timber-frame construction and used the inquiry to push public health and urban planning. The disaster fuelled Enlightenment debates on providence and evil; Voltaire answered it directly in Candide."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "PT"
+      ],
+      "year": 1755,
+      "priority": 80
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — 1755 Lisbon earthquake",
+        "url": "https://en.wikipedia.org/wiki/1755_Lisbon_earthquake",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — Lisbon Earthquake",
+        "url": "https://www.worldhistory.org/Lisbon_Earthquake/",
+        "tier": "secondary"
       }
     ]
   },
@@ -3942,6 +4551,75 @@
       {
         "label": "Japan National Archives — Meiji",
         "url": "https://www.archives.go.jp/english/",
+        "tier": "secondary"
+      }
+    ]
+  },
+  "mexican-revolution": {
+    "title": {
+      "zh": "墨西哥革命",
+      "en": "Mexican Revolution"
+    },
+    "date": {
+      "iso": "1910",
+      "zh": "1910–1920年",
+      "en": "1910–1920"
+    },
+    "place": {
+      "zh": "墨西哥",
+      "en": "Mexico",
+      "lat": 19.43,
+      "lon": -99.13
+    },
+    "actors": [
+      {
+        "zh": "弗朗西斯科·马德罗",
+        "en": "Francisco Madero"
+      },
+      {
+        "zh": "埃米利亚诺·萨帕塔",
+        "en": "Emiliano Zapata"
+      },
+      {
+        "zh": "潘乔·比利亚",
+        "en": "Pancho Villa"
+      },
+      {
+        "zh": "波菲里奥·迪亚斯",
+        "en": "Porfirio Díaz"
+      }
+    ],
+    "background": {
+      "zh": "波菲里奥·迪亚斯自1876年起长期执政，土地集中于大庄园，铁路与矿业由外资控制，乡村与工人不满日益加深。",
+      "en": "Porfirio Díaz ruled from 1876, concentrating land in great estates and opening railways and mines to foreign capital; rural and working-class grievances deepened."
+    },
+    "course": {
+      "zh": "1910年马德罗竞选总统并号召起义，迪亚斯于1911年下台。马德罗随后被暗杀，比利亚、萨帕塔、卡兰萨等势力展开多年混战；1917年制宪会议通过新宪法。",
+      "en": "Madero campaigned for the presidency in 1910 and called for revolt; Díaz fell in 1911. Madero was then assassinated, and Villa, Zapata, Carranza and others fought for years; a new constitution was adopted in 1917."
+    },
+    "outcome": {
+      "zh": "革命造成大量死亡与人口流离，土地改革、劳工权利与世俗教育被写入1917年宪法。革命制度党及其前身由此建立长期统治，直到2000年才首次失去总统职位。",
+      "en": "The revolution killed and displaced many, and land reform, labour rights and secular education were written into the 1917 constitution. The party that became the PRI built a long dominance, losing the presidency only in 2000."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "MX"
+      ],
+      "year": 1910,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Mexican Revolution",
+        "url": "https://en.wikipedia.org/wiki/Mexican_Revolution",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — Mexican Revolution",
+        "url": "https://www.worldhistory.org/Mexican_Revolution/",
         "tier": "secondary"
       }
     ]
@@ -4780,6 +5458,11 @@
         "label": "Britannica — Peace of Westphalia",
         "url": "https://www.britannica.com/event/Peace-of-Westphalia",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Peace of Westphalia",
+        "url": "https://en.wikipedia.org/wiki/Peace_of_Westphalia",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5410,6 +6093,75 @@
       {
         "label": "Wikipedia — Transition from Ming to Qing",
         "url": "https://en.wikipedia.org/wiki/Transition_from_Ming_to_Qing",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
+  "revolutions-of-1848": {
+    "title": {
+      "zh": "1848 年欧洲革命",
+      "en": "Revolutions of 1848"
+    },
+    "date": {
+      "iso": "1848",
+      "zh": "1848–1849年",
+      "en": "1848–1849"
+    },
+    "place": {
+      "zh": "欧洲多国",
+      "en": "Across Europe",
+      "lat": 48.86,
+      "lon": 2.35
+    },
+    "actors": [
+      {
+        "zh": "自由主义与民族主义运动",
+        "en": "Liberal and nationalist movements"
+      },
+      {
+        "zh": "法国七月王朝",
+        "en": "French July Monarchy"
+      },
+      {
+        "zh": "哈布斯堡帝国",
+        "en": "Habsburg Empire"
+      }
+    ],
+    "background": {
+      "zh": "工业化带来的社会紧张、1845–47年的粮食歉收与经济危机，以及自由主义、民族主义思潮的传播，使欧洲多国在1848年前后同时陷入政治危机。",
+      "en": "Industrial social tensions, the harvest failures and economic crisis of 1845–47, and the spread of liberal and nationalist ideas pushed much of Europe into political crisis around 1848."
+    },
+    "course": {
+      "zh": "1848年二月，巴黎革命推翻七月王朝，消息迅速传遍欧洲。维也纳、柏林、米兰、布达佩斯等地相继爆发起义和示威，制宪议会与民族独立运动纷纷出现；到1849年，多数革命被军队镇压。",
+      "en": "The February revolution in Paris overthrew the July Monarchy in 1848 and the news travelled fast. Uprisings and demonstrations followed in Vienna, Berlin, Milan and Budapest, with constituent assemblies and national movements; by 1849 most had been suppressed by force."
+    },
+    "outcome": {
+      "zh": "革命大多失败，但哈布斯堡帝国废除了农奴制，自由主义与民族主义的议程并未消失。法兰克福议会未能实现德国统一，意大利与德国的统一要等到下一轮战争。",
+      "en": "Most revolutions failed, but the Habsburg empire abolished serfdom and the liberal and nationalist agenda survived. The Frankfurt Assembly failed to unify Germany; Italian and German unification came only through later wars."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "FR",
+        "DE",
+        "AT",
+        "IT",
+        "HU"
+      ],
+      "year": 1848,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Revolutions of 1848",
+        "url": "https://en.wikipedia.org/wiki/Revolutions_of_1848",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — French Revolution of 1848",
+        "url": "https://en.wikipedia.org/wiki/French_Revolution_of_1848",
         "tier": "encyclopedic"
       }
     ]
@@ -6757,6 +7509,11 @@
         "label": "Britannica — Reformation",
         "url": "https://www.britannica.com/event/Reformation",
         "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Reformation",
+        "url": "https://en.wikipedia.org/wiki/Reformation",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -6832,6 +7589,72 @@
       }
     ]
   },
+  "the-spanish-armada": {
+    "title": {
+      "zh": "西班牙无敌舰队",
+      "en": "The Spanish Armada"
+    },
+    "date": {
+      "iso": "1588",
+      "zh": "1588年",
+      "en": "1588"
+    },
+    "place": {
+      "zh": "英吉利海峡与不列颠西岸",
+      "en": "English Channel and the western British coast",
+      "lat": 50.2,
+      "lon": -3.5
+    },
+    "actors": [
+      {
+        "zh": "西班牙帝国",
+        "en": "Spanish Empire"
+      },
+      {
+        "zh": "英格兰王国",
+        "en": "Kingdom of England"
+      },
+      {
+        "zh": "尼德兰起义者",
+        "en": "Dutch rebels"
+      }
+    ],
+    "background": {
+      "zh": "腓力二世的西班牙与伊丽莎白一世的英格兰在宗教、尼德兰战争和海上私掠上长期对立。1587年德雷克袭击加的斯，推迟了西班牙的入侵准备。",
+      "en": "Philip II's Spain and Elizabeth I's England were locked in conflict over religion, the Dutch revolt and privateering. Drake's raid on Cádiz in 1587 delayed Spanish invasion preparations."
+    },
+    "course": {
+      "zh": "1588年，西班牙派出约130艘船的舰队，计划护送佛兰德斯的入侵部队渡海。英军以远程炮击和火船打乱其队形，舰队在加来外海被迫北撤，返航时又在苏格兰与爱尔兰海岸遭遇风暴，损失惨重。",
+      "en": "In 1588 Spain sent a fleet of about 130 ships to escort an invasion army from Flanders. English gunnery and fireships broke its formation; the fleet withdrew north of Calais and was then wrecked by storms off Scotland and Ireland."
+    },
+    "outcome": {
+      "zh": "入侵未能实现，英格兰的海上地位上升，但西班牙仍是欧洲最强的大国之一，战争持续到1604年。无敌舰队的失败后来被英格兰塑造成民族叙事中的关键一役。",
+      "en": "The invasion failed and England's naval standing rose, but Spain remained one of Europe's strongest powers and the war continued to 1604. The Armada's defeat became a cornerstone of English national memory."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "GB",
+        "ES"
+      ],
+      "year": 1588,
+      "priority": 90
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Spanish Armada",
+        "url": "https://en.wikipedia.org/wiki/Spanish_Armada",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — Spanish Armada",
+        "url": "https://www.worldhistory.org/Spanish_Armada/",
+        "tier": "secondary"
+      }
+    ]
+  },
   "the-world-wide-web": {
     "title": {
       "zh": "万维网公开",
@@ -6893,6 +7716,136 @@
       }
     ]
   },
+  "thera-eruption": {
+    "title": {
+      "zh": "锡拉火山爆发",
+      "en": "Thera Eruption"
+    },
+    "date": {
+      "iso": "-1600",
+      "zh": "约公元前1600年",
+      "en": "c. 1600 BCE"
+    },
+    "place": {
+      "zh": "希腊锡拉岛（圣托里尼）",
+      "en": "Thera (Santorini), Greece",
+      "lat": 36.4,
+      "lon": 25.4
+    },
+    "actors": [
+      {
+        "zh": "米诺斯文明",
+        "en": "Minoan civilization"
+      },
+      {
+        "zh": "锡拉岛民",
+        "en": "Theran islanders"
+      },
+      {
+        "zh": "爱琴海诸共同体",
+        "en": "Aegean communities"
+      }
+    ],
+    "background": {
+      "zh": "青铜时代爱琴海以克里特岛为中心形成米诺斯文明，锡拉岛位于其北缘，港口与贸易把基克拉泽斯群岛、克里特和东地中海连在一起。",
+      "en": "Minoan civilization centred on Crete in the Bronze Age Aegean; Thera lay on its northern edge, its harbour and trade linking the Cyclades, Crete and the eastern Mediterranean."
+    },
+    "course": {
+      "zh": "锡拉火山发生一次大规模喷发，火山灰与浮石覆盖岛屿，喷发引发的海啸冲击克里特北岸。现代火山学研究把它列为全新世最大喷发之一；精确年代仍有争议，常见估计在公元前1600年前后。",
+      "en": "Thera erupted on a massive scale, burying the island in ash and pumice; the resulting tsunami struck northern Crete. Volcanologists rank it among the largest Holocene eruptions; its exact date is disputed, with c. 1600 BCE the common estimate."
+    },
+    "outcome": {
+      "zh": "锡拉城被火山灰掩埋，米诺斯文明遭受重创但并未立即灭亡，此后仍延续了数代。这次喷发后来常被联想为亚特兰蒂斯传说的来源之一，但两者之间没有直接证据。",
+      "en": "The town was buried and Minoan civilization was badly damaged but survived for generations. The eruption has often been linked to the Atlantis legend, though there is no direct evidence for the connection."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "GR"
+      ],
+      "year": -1600,
+      "priority": 80
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Minoan eruption",
+        "url": "https://en.wikipedia.org/wiki/Minoan_eruption",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "World History Encyclopedia — The Eruption of Thera",
+        "url": "https://www.worldhistory.org/article/247/the-eruption-of-thera/",
+        "tier": "secondary"
+      }
+    ]
+  },
+  "tonga-eruption": {
+    "title": {
+      "zh": "汤加火山爆发",
+      "en": "Tonga Eruption"
+    },
+    "date": {
+      "iso": "2022-01-15",
+      "zh": "2022年1月15日",
+      "en": "15 January 2022"
+    },
+    "place": {
+      "zh": "汤加洪阿汤加－洪阿哈阿帕伊",
+      "en": "Hunga Tonga–Hunga Haʻapai, Tonga",
+      "lat": -20.55,
+      "lon": -175.39
+    },
+    "actors": [
+      {
+        "zh": "汤加王国",
+        "en": "Kingdom of Tonga"
+      },
+      {
+        "zh": "洪阿汤加火山",
+        "en": "Hunga Tonga volcano"
+      },
+      {
+        "zh": "太平洋沿岸社区",
+        "en": "Pacific coastal communities"
+      }
+    ],
+    "background": {
+      "zh": "汤加位于环太平洋火山带，洪阿汤加－洪阿哈阿帕伊是一座海底火山，此前在2014–15年喷发后曾连接成一个新岛。",
+      "en": "Tonga lies on the Pacific Ring of Fire; Hunga Tonga–Hunga Haʻapai is a submarine volcano that had joined into a new island after its 2014–15 eruption."
+    },
+    "course": {
+      "zh": "2022年1月15日，火山发生猛烈的爆炸式喷发，火山灰柱冲入平流层，冲击波与海啸波及汤加、斐济、日本和美洲西岸。海底通信电缆受损，汤加一度几乎与外界失联。",
+      "en": "On 15 January 2022 the volcano produced a violent explosive eruption; the ash plume reached the stratosphere and the shock wave and tsunami reached Tonga, Fiji, Japan and the Americas. Damage to the undersea cable left Tonga almost cut off."
+    },
+    "outcome": {
+      "zh": "汤加官方报告数人死亡，村庄与基础设施受损；喷发柱进入平流层，成为研究火山对短期气候影响的重要案例。",
+      "en": "Tonga reported a small number of deaths and damage to villages and infrastructure; the stratospheric plume made the eruption an important case for studying short-term climate effects."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "TO"
+      ],
+      "year": 2022,
+      "priority": 80
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — 2022 Hunga Tonga–Hunga Haʻapai eruption and tsunami",
+        "url": "https://en.wikipedia.org/wiki/2022_Hunga_Tonga%E2%80%93Hunga_Ha%CA%BBapai_eruption_and_tsunami",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "NASA Earth Observatory — Hunga Tonga-Hunga Ha'apai eruption",
+        "url": "https://earthobservatory.nasa.gov/images/149436/hunga-tonga-hunga-haapai-eruption",
+        "tier": "institutional"
+      }
+    ]
+  },
   "treaty-of-versailles": {
     "title": {
       "zh": "《凡尔赛和约》",
@@ -6950,6 +7903,71 @@
       {
         "label": "Wikipedia — Treaty of Versailles",
         "url": "https://en.wikipedia.org/wiki/Treaty_of_Versailles",
+        "tier": "encyclopedic"
+      }
+    ]
+  },
+  "turkish-republic": {
+    "title": {
+      "zh": "土耳其共和国",
+      "en": "Turkish Republic"
+    },
+    "date": {
+      "iso": "1923-10-29",
+      "zh": "1923年10月29日",
+      "en": "29 October 1923"
+    },
+    "place": {
+      "zh": "土耳其安卡拉",
+      "en": "Ankara, Turkey",
+      "lat": 39.93,
+      "lon": 32.86
+    },
+    "actors": [
+      {
+        "zh": "穆斯塔法·凯末尔",
+        "en": "Mustafa Kemal"
+      },
+      {
+        "zh": "土耳其大国民议会",
+        "en": "Grand National Assembly"
+      },
+      {
+        "zh": "奥斯曼帝国残余",
+        "en": "Ottoman remnant"
+      }
+    ],
+    "background": {
+      "zh": "奥斯曼帝国在第一次世界大战中战败，1918年停战后被协约国占领和瓜分。1919年希腊军队登陆士麦那，激起安纳托利亚的民族抵抗运动。",
+      "en": "The Ottoman Empire lost the First World War and was occupied and partitioned by the Allies after the 1918 armistice. The Greek landing at Smyrna in 1919 ignited a nationalist resistance in Anatolia."
+    },
+    "course": {
+      "zh": "凯末尔领导独立战争，1922年击退希腊军队并废除苏丹制。1923年10月29日，大国民议会宣布成立土耳其共和国，凯末尔当选首任总统，安卡拉成为首都。",
+      "en": "Kemal led the war of independence, defeated the Greek army in 1922 and abolished the sultanate. On 29 October 1923 the Grand National Assembly proclaimed the Republic of Turkey, elected Kemal its first president and made Ankara the capital."
+    },
+    "outcome": {
+      "zh": "共和国推行世俗化、法律改革、文字拉丁化与妇女权利等一系列改革，奥斯曼的制度遗产被取代。政教关系、库尔德问题与军方政治角色长期困扰共和国。",
+      "en": "The republic carried out secularisation, legal reform, the Latin alphabet and women's rights, replacing much of the Ottoman institutional legacy. Church-state relations, the Kurdish question and the army's political role long troubled it."
+    },
+    "chain": [],
+    "theatre": null,
+    "trigger": {
+      "countries": [
+        "TR"
+      ],
+      "year": 1923,
+      "priority": 85
+    },
+    "verification": "partial",
+    "sources": [
+      {
+        "label": "Wikipedia — Turkish War of Independence",
+        "url": "https://en.wikipedia.org/wiki/Turkish_War_of_Independence",
+        "tier": "encyclopedic"
+      },
+      {
+        "label": "Wikipedia — Mustafa Kemal Atatürk",
+        "url": "https://en.wikipedia.org/wiki/Mustafa_Kemal_Atat%C3%BCrk",
         "tier": "encyclopedic"
       }
     ]

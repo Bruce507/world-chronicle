@@ -148,7 +148,7 @@ python3 -m http.server 8000
 ├── data/
 │   ├── meta.json                时代、地域、类别、场景
 │   ├── events.json              521 个策展节点（含 1945 事件链与覆盖补编）
-│   ├── event_details.json       112 条完整史志（按需载入）
+│   ├── event_details.json       127 条完整史志（按需载入）
 │   ├── event_groups.json        事件链/事件组（如日本 1945）
 │   ├── regions.json             顶部地区导航的相机预设
 │   ├── historical_entities.json 历史实体标签层（生成）
