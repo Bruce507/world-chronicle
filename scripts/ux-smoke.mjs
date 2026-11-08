@@ -21,7 +21,9 @@ function check(name, ok, detail) {
 }
 
 async function openPage(browser, viewport) {
-  const ctx = await browser.newContext({ viewport, deviceScaleFactor: 1 });
+  // The assertions below are written against the Chinese interface; without
+  // this the CI runner's en-US browser renders English and they fail.
+  const ctx = await browser.newContext({ viewport, deviceScaleFactor: 1, locale: "zh-CN" });
   const page = await ctx.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push(String(e)));
@@ -486,7 +488,7 @@ try {
 
   check("mobile page has no console errors", mobile.errors.length === 0, mobile.errors.slice(0, 2).join(" | "));
 
-  const rm = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+  const rm = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce", locale: "zh-CN" });
   const rmp = await rm.newPage();
   const rmErrors = [];
   rmp.on("pageerror", (e) => rmErrors.push(String(e)));
@@ -531,7 +533,7 @@ try {
   }
 
   // Offline status bar (and the install/update bar being present but hidden).
-  const netCtx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const netCtx = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: "zh-CN" });
   const np = await netCtx.newPage();
   await np.goto(BASE + "?year=1937", { waitUntil: "networkidle" });
   await np.waitForTimeout(800);
