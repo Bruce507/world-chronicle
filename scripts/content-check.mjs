@@ -3,7 +3,9 @@ import fs from "node:fs";
 const det = JSON.parse(fs.readFileSync("data/event_details.json", "utf8"));
 const ids = Object.keys(det);
 const browser = await chromium.launch({ channel: "chrome" });
-const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+// Pin the browser locale: CI runners default to en-US and the app follows
+// navigator.language, which would render English section headings.
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "zh-CN" });
 const page = await ctx.newPage();
 const errs = [];
 page.on("pageerror", (e) => errs.push(String(e)));
