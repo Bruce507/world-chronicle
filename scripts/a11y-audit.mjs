@@ -200,6 +200,64 @@ check("skip links reach the panel and the timeline",
   /skip-link/.test(skip1) && /跳到时间轴/.test(skip2) && skipped.id === "timeline", JSON.stringify({ skip1, skip2, skipped }));
 
 
+/* Contrast sample for the small type raised in D7: 9.5px text must still
+   clear 4.5:1 against its real (composited) background. Canvas overlays are
+   sampled separately above and are excluded here. */
+const CONTRAST_SAMPLE = [
+  ".brand-text small", ".kicker", ".p-section h3", ".event-row .er-meta", ".event-row .er-year",
+  ".tl-scope", ".tl-era-select", ".era-band small", ".era-band b", ".now-divider span",
+  ".cat-chip small", ".route-chip small", ".panel-note-inline", "#map-note",
+];
+async function contrastSample(target, sels) {
+  return target.evaluate((list) => {
+    const parse = (c) => {
+      const m = String(c).match(/rgba?\(([^)]+)\)/);
+      if (!m) return null;
+      const p = m[1].split(/[ ,/]+/).filter(Boolean).map(Number);
+      return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+    };
+    const lin = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    const lum = (c) => 0.2126 * lin(c.r) + 0.7152 * lin(c.g) + 0.0722 * lin(c.b);
+    const mix = (f, b, a) => ({ r: f.r * a + b.r * (1 - a), g: f.g * a + b.g * (1 - a), b: f.b * a + b.b * (1 - a), a: 1 });
+    const bgOf = (el) => {
+      const stack = [];
+      for (let n = el; n; n = n.parentElement) {
+        const c = parse(getComputedStyle(n).backgroundColor);
+        if (c && c.a > 0) stack.push(c);
+      }
+      let base = { r: 250, g: 246, b: 238, a: 1 };
+      for (let i = stack.length - 1; i >= 0; i--) base = mix(stack[i], base, stack[i].a);
+      return base;
+    };
+    const ratio = (a, b) => { const x = lum(a), y = lum(b); return +((Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05)).toFixed(2); };
+    const out = [];
+    for (const sel of list) {
+      const el = document.querySelector(sel);
+      if (!el || !el.offsetParent) continue;
+      const cs = getComputedStyle(el);
+      const fg = parse(cs.color);
+      if (!fg) continue;
+      const bg = bgOf(el);
+      out.push({ sel, size: cs.fontSize, ratio: ratio(mix(fg, bg, fg.a), bg) });
+    }
+    return out;
+  }, sels);
+}
+// Normalise to the era list so every sampled selector exists (a dossier or a
+// country view would hide most of them).
+await page.evaluate(() => {
+  window.atlasAPI.state.autoEvent = false;
+  document.querySelector("[data-ev-close]")?.click();
+  window.atlasAPI.setPanel(true);
+  window.atlasAPI.setYear(1938);
+});
+await page.waitForTimeout(600);
+const smallContrast = await contrastSample(page, CONTRAST_SAMPLE);
+const worstSmall = smallContrast.slice().sort((a, b) => a.ratio - b.ratio)[0] || null;
+check("small-type contrast sample ≥ 4.5:1 (9.5px text on its real background)",
+  smallContrast.length >= 10 && worstSmall.ratio >= 4.5,
+  JSON.stringify({ n: smallContrast.length, worst: worstSmall, all: smallContrast.map((x) => x.sel + ":" + x.ratio) }));
+
 const zoomCtx = await browser.newContext({ viewport: { width: 720, height: 450 } });
 const zp = await zoomCtx.newPage();
 await zp.goto(BASE + "?year=1937", { waitUntil: "networkidle" });
@@ -307,6 +365,9 @@ for (let i = 0; i < 14; i++) {
   if (!inside) trapped = false;
 }
 check("event modal opens, background is inert and focus stays inside", modal.open && modal.inert && modal.focusInside && trapped, JSON.stringify({ ...modal, trapped }));
+const modalContrast = await contrastSample(page, [".ev-meta span", ".ev-contemp-title", ".ev-link-chip", ".ev-detail-kicker", ".ev-detail-section h4"]);
+const worstModal = modalContrast.slice().sort((a, b) => a.ratio - b.ratio)[0] || null;
+check("event-modal small-type contrast ≥ 4.5:1", modalContrast.length >= 4 && worstModal.ratio >= 4.5, JSON.stringify({ n: modalContrast.length, worst: worstModal }));
 await page.keyboard.press("Escape");
 await page.waitForTimeout(300);
 const afterClose = await page.evaluate(() => ({ hidden: document.querySelector("#event-modal").hidden, inert: document.getElementById("app").inert, focus: document.activeElement.id }));
