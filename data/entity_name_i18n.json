@@ -2320,6 +2320,1306 @@
       "es": "Sultanato de Delhi",
       "fr": "Sultanat de Delhi",
       "ar": "سلطنة دلهي"
+    },
+    "Achaemenid Empire": {
+      "es": "Imperio aqueménida",
+      "fr": "Empire achéménide",
+      "ar": "الإمبراطورية الأخمينية"
+    },
+    "Adena Culture": {
+      "es": "cultura Adena",
+      "fr": "culture Adena",
+      "ar": "ثقافة أدينا"
+    },
+    "Alans": {
+      "es": "Alanos",
+      "fr": "Alains",
+      "ar": "الآلان"
+    },
+    "Alabama": {
+      "es": "Alabama",
+      "fr": "Alabama",
+      "ar": "ألاباما"
+    },
+    "Algonquin": {
+      "es": "Algonquinos",
+      "fr": "Algonquins",
+      "ar": "الألغونكين"
+    },
+    "Andean states and chiefdoms": {
+      "es": "Estados y señoríos andinos",
+      "fr": "États et chefferies andins",
+      "ar": "دول ومشيخات الأنديز"
+    },
+    "Anglo-Saxons": {
+      "es": "Anglosajones",
+      "fr": "Anglo-Saxons",
+      "ar": "الأنجلوسكسون"
+    },
+    "Arabia (Nejd)": {
+      "es": "Arabia (Nechd)",
+      "fr": "Arabie (Nejd)",
+      "ar": "العربية (نجد)"
+    },
+    "Arameans": {
+      "es": "Arameos",
+      "fr": "Araméens",
+      "ar": "الآراميون"
+    },
+    "Armorica": {
+      "es": "Armórica",
+      "fr": "Armorique",
+      "ar": "أرموريكا"
+    },
+    "Assyria": {
+      "es": "Asiria",
+      "fr": "Assyrie",
+      "ar": "آشور"
+    },
+    "Athabascan": {
+      "es": "Atabascanos",
+      "fr": "Athabascans",
+      "ar": "الأثاباسكان"
+    },
+    "Austro-Hungarian Empire": {
+      "es": "Imperio austrohúngaro",
+      "fr": "Empire austro-hongrois",
+      "ar": "الإمبراطورية النمساوية المجرية"
+    },
+    "Austria Hungary": {
+      "es": "Austria-Hungría",
+      "fr": "Autriche-Hongrie",
+      "ar": "النمسا-المجر"
+    },
+    "Ava": {
+      "es": "Ava",
+      "fr": "Ava",
+      "ar": "آفا"
+    },
+    "Aymara kingdoms": {
+      "es": "reinos aimaras",
+      "fr": "royaumes aymaras",
+      "ar": "ممالك الأيمارا"
+    },
+    "Babylonia": {
+      "es": "Babilonia",
+      "fr": "Babylonie",
+      "ar": "بابل"
+    },
+    "Bagirmi": {
+      "es": "Bagirmi",
+      "fr": "Bagirmi",
+      "ar": "باغيرمي"
+    },
+    "Bantu": {
+      "es": "Bantú",
+      "fr": "Bantous",
+      "ar": "البانتو"
+    },
+    "Basques": {
+      "es": "Vascos",
+      "fr": "Basques",
+      "ar": "الباسك"
+    },
+    "Berbers": {
+      "es": "Bereberes",
+      "fr": "Berbères",
+      "ar": "الأمازيغ"
+    },
+    "Blackfoot": {
+      "es": "Pies Negros",
+      "fr": "Blackfoot",
+      "ar": "بلاكفوت"
+    },
+    "Boii": {
+      "es": "Boyos",
+      "fr": "Boïens",
+      "ar": "البويون"
+    },
+    "Bosporian Kingdom": {
+      "es": "Reino del Bósforo",
+      "fr": "Royaume du Bosphore",
+      "ar": "مملكة البوسفور"
+    },
+    "Burgandy": {
+      "es": "Borgoña",
+      "fr": "Bourgogne",
+      "ar": "بورغوندي"
+    },
+    "Burgundians": {
+      "es": "Burgundios",
+      "fr": "Burgondes",
+      "ar": "البرغنديون"
+    },
+    "Buyid Emirate": {
+      "es": "Emirato buyí",
+      "fr": "Émirat bouyide",
+      "ar": "إمارة بني بويه"
+    },
+    "Caddo": {
+      "es": "Caddo",
+      "fr": "Caddo",
+      "ar": "كادو"
+    },
+    "Caliphate of Córdoba": {
+      "es": "Califato de Córdoba",
+      "fr": "Califat de Cordoue",
+      "ar": "خلافة قرطبة"
+    },
+    "Carthaginian Empire": {
+      "es": "Imperio cartaginés",
+      "fr": "Empire carthaginois",
+      "ar": "الإمبراطورية القرطاجية"
+    },
+    "Castile": {
+      "es": "Castilla",
+      "fr": "Castille",
+      "ar": "قشتالة"
+    },
+    "Celtiberians": {
+      "es": "Celtíberos",
+      "fr": "Celtibères",
+      "ar": "الكلتإيبيريون"
+    },
+    "Celtic kingdoms": {
+      "es": "reinos celtas",
+      "fr": "royaumes celtes",
+      "ar": "ممالك كلتية"
+    },
+    "Chalukya Empire": {
+      "es": "Imperio chalukya",
+      "fr": "Empire chalukya",
+      "ar": "إمبراطورية تشالوكيا"
+    },
+    "Chavin": {
+      "es": "Chavín",
+      "fr": "Chavín",
+      "ar": "تشافين"
+    },
+    "Cheras": {
+      "es": "Cheras",
+      "fr": "Cheras",
+      "ar": "تشيرا"
+    },
+    "Chickasaw": {
+      "es": "Chickasaw",
+      "fr": "Chickasaw",
+      "ar": "تشيكاساو"
+    },
+    "Chinese warlords": {
+      "es": "señores de la guerra chinos",
+      "fr": "seigneurs de la guerre chinois",
+      "ar": "أمراء الحرب الصينيون"
+    },
+    "Choctaw": {
+      "es": "Choctaw",
+      "fr": "Choctaw",
+      "ar": "تشوكتاو"
+    },
+    "Cholas": {
+      "es": "Cholas",
+      "fr": "Cholas",
+      "ar": "تشولا"
+    },
+    "Chukchi": {
+      "es": "Chukchi",
+      "fr": "Tchouktches",
+      "ar": "التشوكشي"
+    },
+    "Chumash": {
+      "es": "Chumash",
+      "fr": "Chumash",
+      "ar": "تشوماش"
+    },
+    "Cimerians": {
+      "es": "Cimerios",
+      "fr": "Cimmériens",
+      "ar": "الكيميريون"
+    },
+    "Copena": {
+      "es": "Copena",
+      "fr": "Copena",
+      "ar": "كوبينا"
+    },
+    "Cree": {
+      "es": "Cree",
+      "fr": "Cris",
+      "ar": "الكري"
+    },
+    "Crow": {
+      "es": "Crow",
+      "fr": "Crow",
+      "ar": "كرو"
+    },
+    "Curonians": {
+      "es": "Curonios",
+      "fr": "Coures",
+      "ar": "الكورونيون"
+    },
+    "Cycladic": {
+      "es": "cicládico",
+      "fr": "cycladique",
+      "ar": "الكيكلادي"
+    },
+    "Dacia": {
+      "es": "Dacia",
+      "fr": "Dacie",
+      "ar": "داقية"
+    },
+    "Darfur": {
+      "es": "Darfur",
+      "fr": "Darfour",
+      "ar": "دارفور"
+    },
+    "Duchy of Benevento": {
+      "es": "Ducado de Benevento",
+      "fr": "Duché de Bénévent",
+      "ar": "دوقية بنيفنتو"
+    },
+    "Duchy of Swabia": {
+      "es": "Ducado de Suabia",
+      "fr": "Duché de Souabe",
+      "ar": "دوقية شوابيا"
+    },
+    "Dutch Brazil": {
+      "es": "Brasil neerlandés",
+      "fr": "Brésil néerlandais",
+      "ar": "البرازيل الهولندية"
+    },
+    "Dutch Republic": {
+      "es": "República de las Provincias Unidas",
+      "fr": "Provinces-Unies",
+      "ar": "الجمهورية الهولندية"
+    },
+    "Dvaravati": {
+      "es": "Dvaravati",
+      "fr": "Dvaravati",
+      "ar": "دفارافاتي"
+    },
+    "East Germany": {
+      "es": "Alemania Oriental",
+      "fr": "Allemagne de l'Est",
+      "ar": "ألمانيا الشرقية"
+    },
+    "Eastern Roman Empire": {
+      "es": "Imperio romano de Oriente",
+      "fr": "Empire romain d'Orient",
+      "ar": "الإمبراطورية الرومانية الشرقية"
+    },
+    "Emirate of Sicily": {
+      "es": "Emirato de Sicilia",
+      "fr": "Émirat de Sicile",
+      "ar": "إمارة صقلية"
+    },
+    "Empire of Ghana": {
+      "es": "Imperio de Ghana",
+      "fr": "Empire du Ghana",
+      "ar": "إمبراطورية غانا"
+    },
+    "Etrurians": {
+      "es": "Etruscos",
+      "fr": "Étrusques",
+      "ar": "الإتروسكان"
+    },
+    "Fatimid Caliphate": {
+      "es": "Califato fatimí",
+      "fr": "Califat fatimide",
+      "ar": "الخلافة الفاطمية"
+    },
+    "Florence": {
+      "es": "Florencia",
+      "fr": "Florence",
+      "ar": "فلورنسا"
+    },
+    "Franks": {
+      "es": "Francos",
+      "fr": "Francs",
+      "ar": "الفرنجة"
+    },
+    "Funan": {
+      "es": "Funan",
+      "fr": "Fou-nan",
+      "ar": "فونان"
+    },
+    "Funj": {
+      "es": "Funy",
+      "fr": "Funj",
+      "ar": "الفونج"
+    },
+    "Gandhāra": {
+      "es": "Gandhara",
+      "fr": "Gandhara",
+      "ar": "غاندارا"
+    },
+    "Genoa": {
+      "es": "Génova",
+      "fr": "Gênes",
+      "ar": "جنوة"
+    },
+    "German Empire": {
+      "es": "Imperio alemán",
+      "fr": "Empire allemand",
+      "ar": "الإمبراطورية الألمانية"
+    },
+    "Ghaznavid Emirate": {
+      "es": "Emirato gaznaví",
+      "fr": "Émirat ghaznévide",
+      "ar": "إمارة الغزنويين"
+    },
+    "Goa": {
+      "es": "Goa",
+      "fr": "Goa",
+      "ar": "غوا"
+    },
+    "Granada": {
+      "es": "Granada",
+      "fr": "Grenade",
+      "ar": "غرناطة"
+    },
+    "Grand Duchy of Finland": {
+      "es": "Gran Ducado de Finlandia",
+      "fr": "Grand-duché de Finlande",
+      "ar": "دوقية فنلندا الكبرى"
+    },
+    "Great Khanate": {
+      "es": "Gran Kanato",
+      "fr": "Grand Khanat",
+      "ar": "الخانية الكبرى"
+    },
+    "Greek city-states": {
+      "es": "ciudades-estado griegas",
+      "fr": "cités-États grecques",
+      "ar": "دول المدن اليونانية"
+    },
+    "Gros Ventre": {
+      "es": "Gros Ventre",
+      "fr": "Gros Ventre",
+      "ar": "غروس فانتر"
+    },
+    "Habsburg Netherlands": {
+      "es": "Países Bajos de los Habsburgo",
+      "fr": "Pays-Bas des Habsbourg",
+      "ar": "هولندا الهابسبورغية"
+    },
+    "Han": {
+      "es": "Han",
+      "fr": "Han",
+      "ar": "هان"
+    },
+    "Hittites": {
+      "es": "Hititas",
+      "fr": "Hittites",
+      "ar": "الحيثيون"
+    },
+    "Huari Empire": {
+      "es": "Imperio huari",
+      "fr": "Empire huari",
+      "ar": "إمبراطورية واري"
+    },
+    "Hurrian Kingdoms": {
+      "es": "reinos hurritas",
+      "fr": "royaumes hourrites",
+      "ar": "ممالك الحوريين"
+    },
+    "Icelandic Commonwealth": {
+      "es": "Mancomunidad Islandesa",
+      "fr": "Commonwealth islandais",
+      "ar": "الكومنولث الأيسلندي"
+    },
+    "Ilkhanate": {
+      "es": "Ilkanato",
+      "fr": "Ilkhanat",
+      "ar": "الدولة الإلخانية"
+    },
+    "Imbangala": {
+      "es": "Imbangala",
+      "fr": "Imbangala",
+      "ar": "إمبانغالا"
+    },
+    "Imperial Hungary": {
+      "es": "Hungría imperial",
+      "fr": "Hongrie impériale",
+      "ar": "المجر الإمبراطورية"
+    },
+    "Indus valley civilization": {
+      "es": "civilización del valle del Indo",
+      "fr": "civilisation de l'Indus",
+      "ar": "حضارة وادي السند"
+    },
+    "Inupiaq": {
+      "es": "Iñupiat",
+      "fr": "Iñupiat",
+      "ar": "إينوبيات"
+    },
+    "Islamic states": {
+      "es": "Estados islámicos",
+      "fr": "États islamiques",
+      "ar": "دول إسلامية"
+    },
+    "Jamaica (UK)": {
+      "es": "Jamaica (Reino Unido)",
+      "fr": "Jamaïque (Royaume-Uni)",
+      "ar": "جامايكا (المملكة المتحدة)"
+    },
+    "Jin Empire": {
+      "es": "Imperio jin",
+      "fr": "Empire jin",
+      "ar": "إمبراطورية جين"
+    },
+    "Judea": {
+      "es": "Judea",
+      "fr": "Judée",
+      "ar": "يهودا"
+    },
+    "Jukun": {
+      "es": "Jukun",
+      "fr": "Jukun",
+      "ar": "جكون"
+    },
+    "Jōmon": {
+      "es": "Jōmon",
+      "fr": "Jōmon",
+      "ar": "جومون"
+    },
+    "Kaarta": {
+      "es": "Kaarta",
+      "fr": "Kaarta",
+      "ar": "كارتا"
+    },
+    "Kadambas": {
+      "es": "Kadambas",
+      "fr": "Kadambas",
+      "ar": "كادامبا"
+    },
+    "Kamerun": {
+      "es": "Kamerun",
+      "fr": "Kamerun",
+      "ar": "الكاميرون الألمانية"
+    },
+    "Kandy": {
+      "es": "Kandy",
+      "fr": "Kandy",
+      "ar": "كاندي"
+    },
+    "Kanem": {
+      "es": "Kanem",
+      "fr": "Kanem",
+      "ar": "كانم"
+    },
+    "Kashmir and Ladakh": {
+      "es": "Cachemira y Ladakh",
+      "fr": "Cachemire et Ladakh",
+      "ar": "كشمير ولاداخ"
+    },
+    "Kazembe": {
+      "es": "Kazembe",
+      "fr": "Kazembe",
+      "ar": "كازيمبي"
+    },
+    "Kediri": {
+      "es": "Kediri",
+      "fr": "Kediri",
+      "ar": "كيديري"
+    },
+    "Kerma": {
+      "es": "Kerma",
+      "fr": "Kerma",
+      "ar": "كرمة"
+    },
+    "Khanate of Sibir": {
+      "es": "Kanato de Sibir",
+      "fr": "Khanat de Sibérie",
+      "ar": "خانية سيبير"
+    },
+    "Khazars": {
+      "es": "Jázaros",
+      "fr": "Khazars",
+      "ar": "الخزر"
+    },
+    "Khiva Khanate": {
+      "es": "Kanato de Jiva",
+      "fr": "Khanat de Khiva",
+      "ar": "خانية خيوة"
+    },
+    "Kingdom of David and Solomon": {
+      "es": "Reino de David y Salomón",
+      "fr": "Royaume de David et Salomon",
+      "ar": "مملكة داود وسليمان"
+    },
+    "Kingdom of France": {
+      "es": "Reino de Francia",
+      "fr": "Royaume de France",
+      "ar": "مملكة فرنسا"
+    },
+    "Kingdom of Georgia": {
+      "es": "Reino de Georgia",
+      "fr": "Royaume de Géorgie",
+      "ar": "مملكة جورجيا"
+    },
+    "Kingdom of Pagan": {
+      "es": "Reino de Pagan",
+      "fr": "Royaume de Pagan",
+      "ar": "مملكة باغان"
+    },
+    "Kiowa": {
+      "es": "Kiowa",
+      "fr": "Kiowa",
+      "ar": "كيوا"
+    },
+    "Korea, Republic of": {
+      "es": "República de Corea",
+      "fr": "République de Corée",
+      "ar": "جمهورية كوريا"
+    },
+    "Korea, Democratic People's Republic of": {
+      "es": "República Popular Democrática de Corea",
+      "fr": "République populaire démocratique de Corée",
+      "ar": "جمهورية كوريا الشعبية الديمقراطية"
+    },
+    "Koryaks": {
+      "es": "Koryakos",
+      "fr": "Koryaks",
+      "ar": "الكورياك"
+    },
+    "Kush": {
+      "es": "Kush",
+      "fr": "Koush",
+      "ar": "كوش"
+    },
+    "Kushan Principalities": {
+      "es": "principados kushán",
+      "fr": "principautés kouchanes",
+      "ar": "إمارات كوشان"
+    },
+    "Kyivan Rus": {
+      "es": "Rus de Kiev",
+      "fr": "Rus' de Kiev",
+      "ar": "روس كييف"
+    },
+    "Lan Na": {
+      "es": "Lan Na",
+      "fr": "Lan Na",
+      "ar": "لان نا"
+    },
+    "Laotian states": {
+      "es": "Estados laosianos",
+      "fr": "États lao",
+      "ar": "دول لاوسية"
+    },
+    "Lavo": {
+      "es": "Lavo",
+      "fr": "Lavo",
+      "ar": "لافو"
+    },
+    "León": {
+      "es": "León",
+      "fr": "León",
+      "ar": "ليون"
+    },
+    "Lippe-Detmold": {
+      "es": "Lippe-Detmold",
+      "fr": "Lippe-Detmold",
+      "ar": "ليبيه-دتمولد"
+    },
+    "Lucca": {
+      "es": "Lucca",
+      "fr": "Lucques",
+      "ar": "لوكا"
+    },
+    "Lübeck": {
+      "es": "Lübeck",
+      "fr": "Lübeck",
+      "ar": "لوبيك"
+    },
+    "Madagascar (France)": {
+      "es": "Madagascar (Francia)",
+      "fr": "Madagascar (France)",
+      "ar": "مدغشقر (فرنسا)"
+    },
+    "Magadha": {
+      "es": "Magadha",
+      "fr": "Magadha",
+      "ar": "ماغادا"
+    },
+    "Mahican": {
+      "es": "Mahican",
+      "fr": "Mahican",
+      "ar": "ماهيكان"
+    },
+    "Malaysian Islamic states": {
+      "es": "Estados islámicos malayos",
+      "fr": "États islamiques malais",
+      "ar": "دول إسلامية ماليزية"
+    },
+    "Mandatory Palestine (GB)": {
+      "es": "Palestina bajo mandato (R. Unido)",
+      "fr": "Palestine mandataire (R.-U.)",
+      "ar": "فلسطين الانتدابية (بريطانيا)"
+    },
+    "Maratha Confederacy": {
+      "es": "Confederación maratha",
+      "fr": "Confédération marathe",
+      "ar": "اتحاد المراثا"
+    },
+    "Massachusett": {
+      "es": "Massachusett",
+      "fr": "Massachusett",
+      "ar": "ماساتشوست"
+    },
+    "Maya states": {
+      "es": "Estados mayas",
+      "fr": "États mayas",
+      "ar": "دول المايا"
+    },
+    "Mayas": {
+      "es": "Mayas",
+      "fr": "Mayas",
+      "ar": "المايا"
+    },
+    "Mecklenburg-Schwerin": {
+      "es": "Mecklemburgo-Schwerin",
+      "fr": "Mecklembourg-Schwerin",
+      "ar": "مكلنبورغ-شفيرين"
+    },
+    "Mecklenburg-Strelitz": {
+      "es": "Mecklemburgo-Strelitz",
+      "fr": "Mecklembourg-Strelitz",
+      "ar": "مكلنبورغ-شتريليتز"
+    },
+    "Mesopotamia (GB)": {
+      "es": "Mesopotamia (R. Unido)",
+      "fr": "Mésopotamie (R.-U.)",
+      "ar": "بلاد الرافدين (بريطانيا)"
+    },
+    "Milan": {
+      "es": "Milán",
+      "fr": "Milan",
+      "ar": "ميلانو"
+    },
+    "Ming Chinese Empire": {
+      "es": "Imperio chino Ming",
+      "fr": "Empire chinois Ming",
+      "ar": "إمبراطورية مينغ الصينية"
+    },
+    "Minoan": {
+      "es": "minoico",
+      "fr": "minoen",
+      "ar": "المينوي"
+    },
+    "Minang": {
+      "es": "Minangkabau",
+      "fr": "Minangkabau",
+      "ar": "مينانغكاباو"
+    },
+    "Nabatean Kingdom": {
+      "es": "Reino nabateo",
+      "fr": "Royaume nabatéen",
+      "ar": "مملكة الأنباط"
+    },
+    "Naples": {
+      "es": "Nápoles",
+      "fr": "Naples",
+      "ar": "نابولي"
+    },
+    "Nassau": {
+      "es": "Nassau",
+      "fr": "Nassau",
+      "ar": "ناساو"
+    },
+    "Natal": {
+      "es": "Natal",
+      "fr": "Natal",
+      "ar": "ناتال"
+    },
+    "Natchez": {
+      "es": "Natchez",
+      "fr": "Natchez",
+      "ar": "ناتشيز"
+    },
+    "Navajo": {
+      "es": "Navajo",
+      "fr": "Navajo",
+      "ar": "نافاهو"
+    },
+    "Nayarit": {
+      "es": "Nayarit",
+      "fr": "Nayarit",
+      "ar": "ناياريت"
+    },
+    "Nazca": {
+      "es": "Nazca",
+      "fr": "Nazca",
+      "ar": "نازكا"
+    },
+    "Ndongo": {
+      "es": "Ndongo",
+      "fr": "Ndongo",
+      "ar": "ندونغو"
+    },
+    "Nejd": {
+      "es": "Nechd",
+      "fr": "Nejd",
+      "ar": "نجد"
+    },
+    "New Amsterdam": {
+      "es": "Nueva Ámsterdam",
+      "fr": "La Nouvelle-Amsterdam",
+      "ar": "نيو أمستردام"
+    },
+    "New France": {
+      "es": "Nueva Francia",
+      "fr": "Nouvelle-France",
+      "ar": "فرنسا الجديدة"
+    },
+    "New Hebrides": {
+      "es": "Nuevas Hébridas",
+      "fr": "Nouvelles-Hébrides",
+      "ar": "هبريدس الجديدة"
+    },
+    "New South Wales": {
+      "es": "Nueva Gales del Sur",
+      "fr": "Nouvelle-Galles du Sud",
+      "ar": "نيو ساوث ويلز"
+    },
+    "Nez Perce": {
+      "es": "Nez Percé",
+      "fr": "Nez Percé",
+      "ar": "نيز بيرسيه"
+    },
+    "Nkore": {
+      "es": "Nkore",
+      "fr": "Nkore",
+      "ar": "إنكوري"
+    },
+    "Nogai Horde": {
+      "es": "Horda Nogái",
+      "fr": "Horde Nogaï",
+      "ar": "القبيلة النوغاي"
+    },
+    "Norte Chico": {
+      "es": "Norte Chico",
+      "fr": "Norte Chico",
+      "ar": "نورتي تشيكو"
+    },
+    "Northern Rhodesia": {
+      "es": "Rodesia del Norte",
+      "fr": "Rhodésie du Nord",
+      "ar": "روديسيا الشمالية"
+    },
+    "Novgorod": {
+      "es": "Nóvgorod",
+      "fr": "Novgorod",
+      "ar": "نوفغورود"
+    },
+    "Nyasaland": {
+      "es": "Nyasalandia",
+      "fr": "Nyassaland",
+      "ar": "نياسالاند"
+    },
+    "Odrysian Kingdom": {
+      "es": "Reino odrisio",
+      "fr": "Royaume odryse",
+      "ar": "مملكة الأودريسيين"
+    },
+    "Oirat Confederation": {
+      "es": "Confederación oirate",
+      "fr": "Confédération oïrate",
+      "ar": "اتحاد الأويرات"
+    },
+    "Oldenburg": {
+      "es": "Oldemburgo",
+      "fr": "Oldenbourg",
+      "ar": "أولدنبورغ"
+    },
+    "Olmec": {
+      "es": "Olmeca",
+      "fr": "Olmèque",
+      "ar": "الأولمك"
+    },
+    "Omaha": {
+      "es": "Omaha",
+      "fr": "Omaha",
+      "ar": "أوماها"
+    },
+    "Oman (British Raj)": {
+      "es": "Omán (Raj británico)",
+      "fr": "Oman (Raj britannique)",
+      "ar": "عُمان (الراج البريطاني)"
+    },
+    "Orange Free State": {
+      "es": "Estado Libre de Orange",
+      "fr": "État libre d'Orange",
+      "ar": "دولة أورانج الحرة"
+    },
+    "Oromo": {
+      "es": "Oromo",
+      "fr": "Oromo",
+      "ar": "الأورومو"
+    },
+    "Osage": {
+      "es": "Osage",
+      "fr": "Osage",
+      "ar": "أوساج"
+    },
+    "Ostrogoths": {
+      "es": "Ostrogodos",
+      "fr": "Ostrogoths",
+      "ar": "القوط الشرقيون"
+    },
+    "Otomies": {
+      "es": "Otomíes",
+      "fr": "Otomis",
+      "ar": "الأوتومي"
+    },
+    "Oudh": {
+      "es": "Oudh",
+      "fr": "Awadh",
+      "ar": "أوده"
+    },
+    "Paekche": {
+      "es": "Baekje",
+      "fr": "Baekje",
+      "ar": "بايكتشي"
+    },
+    "Pagan": {
+      "es": "Pagan",
+      "fr": "Pagan",
+      "ar": "باغان"
+    },
+    "Palas": {
+      "es": "Palas",
+      "fr": "Pala",
+      "ar": "بالا"
+    },
+    "Palatinate": {
+      "es": "Palatinado",
+      "fr": "Palatinat",
+      "ar": "بالاتينات"
+    },
+    "Paleo-Inuit": {
+      "es": "paleoinuit",
+      "fr": "Paléoesquimaux",
+      "ar": "الإينويت القدماء"
+    },
+    "Pallavas": {
+      "es": "Pallavas",
+      "fr": "Pallavas",
+      "ar": "بالافا"
+    },
+    "Parthian Empire": {
+      "es": "Imperio parto",
+      "fr": "Empire parthe",
+      "ar": "الإمبراطورية الفرثية"
+    },
+    "Pawnee": {
+      "es": "Pawnee",
+      "fr": "Pawnee",
+      "ar": "باوني"
+    },
+    "Pegu": {
+      "es": "Pegu",
+      "fr": "Pégou",
+      "ar": "بيغو"
+    },
+    "Persia": {
+      "es": "Persia",
+      "fr": "Perse",
+      "ar": "فارس"
+    },
+    "Phrygians": {
+      "es": "Frigios",
+      "fr": "Phrygiens",
+      "ar": "الفريجيون"
+    },
+    "Pima": {
+      "es": "Pima",
+      "fr": "Pima",
+      "ar": "بيما"
+    },
+    "Polish–Lithuanian Commonwealth": {
+      "es": "Mancomunidad de Polonia-Lituania",
+      "fr": "République des Deux Nations",
+      "ar": "الكومنولث البولندي الليتواني"
+    },
+    "Pomerania": {
+      "es": "Pomerania",
+      "fr": "Poméranie",
+      "ar": "بوميرانيا"
+    },
+    "Pomo": {
+      "es": "Pomo",
+      "fr": "Pomo",
+      "ar": "بومو"
+    },
+    "Ponca": {
+      "es": "Ponca",
+      "fr": "Ponca",
+      "ar": "بونكا"
+    },
+    "Portuguese Brazil": {
+      "es": "Brasil portugués",
+      "fr": "Brésil portugais",
+      "ar": "البرازيل البرتغالية"
+    },
+    "Potawatomi": {
+      "es": "Potawatomi",
+      "fr": "Potawatomi",
+      "ar": "بوتاواتومي"
+    },
+    "Poverty point culture": {
+      "es": "cultura Poverty Point",
+      "fr": "culture Poverty Point",
+      "ar": "ثقافة بوفرتي بوينت"
+    },
+    "Pratiharas": {
+      "es": "Pratiharas",
+      "fr": "Pratihâra",
+      "ar": "براتيهارا"
+    },
+    "Prussians": {
+      "es": "Prusianos",
+      "fr": "Prussiens",
+      "ar": "البروسيون"
+    },
+    "Pskov": {
+      "es": "Pskov",
+      "fr": "Pskov",
+      "ar": "بسكوف"
+    },
+    "Quapaw": {
+      "es": "Quapaw",
+      "fr": "Quapaw",
+      "ar": "كواباو"
+    },
+    "Quazaq Khanate": {
+      "es": "Kanato kazajo",
+      "fr": "Khanat kazakh",
+      "ar": "خانية القازاق"
+    },
+    "Rajput kingdoms": {
+      "es": "reinos rajput",
+      "fr": "royaumes rajputs",
+      "ar": "ممالك الراجبوت"
+    },
+    "Rattanakosin Kingdom": {
+      "es": "Reino de Rattanakosin",
+      "fr": "Royaume de Rattanakosin",
+      "ar": "مملكة راتاناكوسين"
+    },
+    "Raška": {
+      "es": "Raška",
+      "fr": "Raška",
+      "ar": "راشكا"
+    },
+    "Republic of Kraków": {
+      "es": "República de Cracovia",
+      "fr": "République de Cracovie",
+      "ar": "جمهورية كراكوف"
+    },
+    "Rhodesia": {
+      "es": "Rodesia",
+      "fr": "Rhodésie",
+      "ar": "روديسيا"
+    },
+    "Roman Empire": {
+      "es": "Imperio romano",
+      "fr": "Empire romain",
+      "ar": "الإمبراطورية الرومانية"
+    },
+    "Rome": {
+      "es": "Roma",
+      "fr": "Rome",
+      "ar": "روما"
+    },
+    "Rozwi": {
+      "es": "Rozwi",
+      "fr": "Rozwi",
+      "ar": "روزوي"
+    },
+    "Ruanruan": {
+      "es": "Ruanruan",
+      "fr": "Ruanruan",
+      "ar": "الروانروان"
+    },
+    "Ryazan": {
+      "es": "Riazán",
+      "fr": "Riazan",
+      "ar": "ريازان"
+    },
+    "Saba": {
+      "es": "Saba",
+      "fr": "Saba",
+      "ar": "سبأ"
+    },
+    "Sabini": {
+      "es": "Sabinos",
+      "fr": "Sabins",
+      "ar": "السابينيون"
+    },
+    "Safavid Empire": {
+      "es": "Imperio safávida",
+      "fr": "Empire safavide",
+      "ar": "الإمبراطورية الصفوية"
+    },
+    "Saka Kingdom": {
+      "es": "Reino saka",
+      "fr": "Royaume saka",
+      "ar": "مملكة الساكا"
+    },
+    "Samnites": {
+      "es": "Samnitas",
+      "fr": "Samnites",
+      "ar": "السامنيون"
+    },
+    "Sardinia-Piedmont": {
+      "es": "Cerdeña-Piamonte",
+      "fr": "Sardaigne-Piémont",
+      "ar": "سردينيا-بييمونتي"
+    },
+    "Sasanian Empire": {
+      "es": "Imperio sasánida",
+      "fr": "Empire sassanide",
+      "ar": "الإمبراطورية الساسانية"
+    },
+    "Savoy": {
+      "es": "Saboya",
+      "fr": "Savoie",
+      "ar": "سافوا"
+    },
+    "Saxons": {
+      "es": "Sajones",
+      "fr": "Saxons",
+      "ar": "السكسون"
+    },
+    "Saxony": {
+      "es": "Sajonia",
+      "fr": "Saxe",
+      "ar": "ساكسونيا"
+    },
+    "Schleswig": {
+      "es": "Schleswig",
+      "fr": "Schleswig",
+      "ar": "شلسفيغ"
+    },
+    "Seljuk Caliphate": {
+      "es": "Califato selyúcida",
+      "fr": "Califat seldjoukide",
+      "ar": "الخلافة السلجوقية"
+    },
+    "Semites": {
+      "es": "Semitas",
+      "fr": "Sémites",
+      "ar": "الساميون"
+    },
+    "Shan states": {
+      "es": "Estados shan",
+      "fr": "États shan",
+      "ar": "دول شان"
+    },
+    "Shawnee": {
+      "es": "Shawnee",
+      "fr": "Shawnee",
+      "ar": "شوني"
+    },
+    "Shoa": {
+      "es": "Shoa",
+      "fr": "Choa",
+      "ar": "شوا"
+    },
+    "Shogun Japan (Kamakura)": {
+      "es": "Japón del shogunato (Kamakura)",
+      "fr": "Japon shogunal (Kamakura)",
+      "ar": "اليابان في عهد الشوغون (كاماكورا)"
+    },
+    "Shoshoni": {
+      "es": "Shoshone",
+      "fr": "Shoshones",
+      "ar": "شوشوني"
+    },
+    "Siam": {
+      "es": "Siam",
+      "fr": "Siam",
+      "ar": "سيام"
+    },
+    "Sikkim (Indian princely state)": {
+      "es": "Sikkim (principado indio)",
+      "fr": "Sikkim (principauté indienne)",
+      "ar": "سيكيم (إمارة هندية)"
+    },
+    "Silla": {
+      "es": "Silla",
+      "fr": "Silla",
+      "ar": "شيلا"
+    },
+    "Sinhalese kingdoms": {
+      "es": "reinos cingaleses",
+      "fr": "royaumes cinghalais",
+      "ar": "ممالك سنهالية"
+    },
+    "Songhai": {
+      "es": "Songhai",
+      "fr": "Songhaï",
+      "ar": "صنغاي"
+    },
+    "Sotho": {
+      "es": "Sotho",
+      "fr": "Sotho",
+      "ar": "سوتو"
+    },
+    "Spanish Morocco": {
+      "es": "Marruecos español",
+      "fr": "Maroc espagnol",
+      "ar": "المغرب الإسباني"
+    },
+    "Spanish Sahara": {
+      "es": "Sáhara español",
+      "fr": "Sahara espagnol",
+      "ar": "الصحراء الإسبانية"
+    },
+    "Sukhothai": {
+      "es": "Sukhothai",
+      "fr": "Sukhothai",
+      "ar": "سوخوتاي"
+    },
+    "Sultanate of Utetera": {
+      "es": "Sultanato de Utetera",
+      "fr": "Sultanat d'Utetera",
+      "ar": "سلطنة أوتيتيرا"
+    },
+    "Suomi": {
+      "es": "Suomi",
+      "fr": "Suomi",
+      "ar": "سومي"
+    },
+    "Surasena": {
+      "es": "Surasena",
+      "fr": "Surasena",
+      "ar": "سوراسينا"
+    },
+    "Swiss Confederation": {
+      "es": "Confederación Suiza",
+      "fr": "Confédération suisse",
+      "ar": "الاتحاد السويسري"
+    },
+    "Syria (France)": {
+      "es": "Siria (Francia)",
+      "fr": "Syrie (France)",
+      "ar": "سوريا (فرنسا)"
+    },
+    "Sámi": {
+      "es": "Sami",
+      "fr": "Samis",
+      "ar": "سامي"
+    },
+    "Takrur": {
+      "es": "Takrur",
+      "fr": "Takrur",
+      "ar": "تاكور"
+    },
+    "Tamalipueca": {
+      "es": "Tamalipueca",
+      "fr": "Tamalipueca",
+      "ar": "تاماليبويكا"
+    },
+    "Wattasid Caliphate": {
+      "es": "Califato wattasí",
+      "fr": "Califat wattasside",
+      "ar": "الدولة الوطاسية"
+    },
+    "Zayyanid Caliphate": {
+      "es": "Califato ziyánida",
+      "fr": "Califat zianide",
+      "ar": "الدولة الزيانية"
+    },
+    "Mwenemutapa": {
+      "es": "Mwenemutapa",
+      "fr": "Mwenemutapa",
+      "ar": "موينيموتابا"
+    },
+    "Emirate of the White Sheep Turks": {
+      "es": "Emirato de los Ak Koyunlu",
+      "fr": "Émirat des Aq Qoyunlu",
+      "ar": "إمارة آق قويونلو"
+    },
+    "Rajastan": {
+      "es": "Rajastán",
+      "fr": "Rajasthan",
+      "ar": "راجستان"
+    },
+    "Vijayanagara": {
+      "es": "Vijayanagara",
+      "fr": "Vijayanagar",
+      "ar": "فيجاياناغارا"
+    },
+    "Bella": {
+      "es": "Bella",
+      "fr": "Bella",
+      "ar": "بيلا"
+    },
+    "Mikmaki": {
+      "es": "Mikmaki",
+      "fr": "Mikmaki",
+      "ar": "ميكماكي"
+    },
+    "Calusa": {
+      "es": "Calusa",
+      "fr": "Calusa",
+      "ar": "كالوسا"
+    },
+    "Hopi": {
+      "es": "Hopi",
+      "fr": "Hopi",
+      "ar": "هوبي"
+    },
+    "Delaware": {
+      "es": "Delaware",
+      "fr": "Delaware",
+      "ar": "ديلاوير"
+    },
+    "Huron": {
+      "es": "Hurones",
+      "fr": "Hurons",
+      "ar": "الهورون"
+    },
+    "Timurid Emirates": {
+      "es": "Emiratos timúridas",
+      "fr": "Émirats timourides",
+      "ar": "الإمارات التيمورية"
+    },
+    "Bidar": {
+      "es": "Bidar",
+      "fr": "Bidar",
+      "ar": "بيدار"
+    },
+    "White Horde": {
+      "es": "Horda Blanca",
+      "fr": "Horde blanche",
+      "ar": "القبيلة البيضاء"
+    },
+    "Novgorod-Seversky": {
+      "es": "Nóvgorod-Séverski",
+      "fr": "Novgorod-Severski",
+      "ar": "نوفغورود-سيفيرسكي"
+    },
+    "Ming": {
+      "es": "Ming",
+      "fr": "Ming",
+      "ar": "مينغ"
+    },
+    "Miami": {
+      "es": "Miami",
+      "fr": "Miami",
+      "ar": "ميامي"
+    },
+    "Missouri": {
+      "es": "Misuri",
+      "fr": "Missouri",
+      "ar": "ميسوري"
+    },
+    "Mi'kma'ki": {
+      "es": "Mi'kma'ki",
+      "fr": "Mi'kma'ki",
+      "ar": "ميكماكي"
     }
   }
 }
