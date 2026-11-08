@@ -138,7 +138,7 @@ node scripts/build-reports.mjs
 - NVDA / VoiceOver 未实测；
 - 机构来源 25.1%（目标 60%），52 条史志仍没有机构来源；
 - 112 条史志没有 ES/FR/AR 长文；冷僻历史地名仍回退英文；
-- Tier B 45 个变体中，modern 政治家族内部差异（0.060）仍只有 Hero（0.170）的约三分之一；1937–40 中国战场已改用新的 urban-war 家族（sandbags/电车轨/坦克/铁路），不再是中世纪城墙；
+- Tier B 45 个变体中，modern 家族已拆为 balcony/assembly/barricade/square 四种构图，内部差异 0.109（Hero 0.170）；同剪影内的变体仍主要靠旗帜与配色区分，进一步差异需要逐事件插画（P4 Gate 3）；1937–40 中国战场已改用 urban-war 家族，不再是中世纪城墙；
 - iOS 的安装、离线与文件分享未在真机验证；
 - CI 的 PWA 修复尚未经过一次真实的 Actions 运行确认。
 
