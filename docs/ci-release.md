@@ -88,6 +88,23 @@ npm run version:bump 20261201 # 指定日期
 2. **调整 ci.yml 顺序**：PWA 放到最后，内容/a11y/数据/实体/smoke 先跑完；可设 `PW_CHANNEL=chromium` 改用 Playwright 自带内核。
 3. 本地 `npm run pwa`：**7/7**（新增 controller、预缓存、离线来源三项断言），连续 3 次稳定。
 
-**限制**：没有 GitHub Actions 日志读取权限（需 admin），无法逐行确认当时是哪一条断言失败；上述修复按"最可能的竞态 + 可诊断"处理。**下一次推送后的 CI 结果仍待确认**，若再失败，日志会直接指出具体检查项。
+**限制**：没有 GitHub Actions 日志读取权限（需 admin），无法逐行确认当时是哪一条断言失败；上述修复按"最可能的竞态 + 可诊断"处理。
+
+### 后续实跑（2026-11-08）
+
+- `f2ed567`：失败点前移到 **Generated files are committed** → 确认是生成物里的日期戳/`localeCompare` 不确定性（见 §8），修复后该步骤转为通过，Pages 部署恢复。
+- `2658eff`：**Smoke suite** 通过（把三个断言上下文的浏览器 locale 固定为 `zh-CN`；CI 默认 en-US，应用会跟随浏览器语言切成英文）。
+- `21fa317`：**CI 全绿**——静态检查、生成物一致性、内容、a11y、data-qa、entity-i18n、smoke、PWA/offline 全部通过，Pages 部署成功。
+- 注意：`2658eff` 的 PWA 步骤曾失败一次而在 `21fa317`（仅增加注解与崩溃兜底，无功能改动）通过，**未能复现**，暂按竞态处理；若复发，run 页面的 Annotations 会直接给出失败项与细节（smoke 与 pwa 都会输出 `::error`）。
 
 另：`package-lock.json` 现已随仓库提交，CI `npm install` 可复现依赖版本。
+
+## 8. 生成物可复现性（2026-11-08）
+
+CI 的"Generated files are committed"检查要求 `build-data` / `build-scene-taxonomy` 的输出与仓库一致。两处曾导致跨天/跨环境失败：
+
+- `docs/scene-coverage.md` 与 `docs/major-events.md` 的 `Generated <日期>` 行 → 已移除；仓库历史本身记录日期。
+- `localeCompare` 依赖 Node ICU，CI 与本机排序不同 → 生成器改为码元比较。
+- `data/historical_entities.json` 的 `generated` 曾是 ISO 时间戳 → 改为固定的 `"on build"`。
+
+本地复跑办法：按 CI 的顺序执行 `node scripts/build-data.mjs && node scripts/build-scene-taxonomy.mjs`，再 `git diff --exit-code -- js/data_bundle.js data/scene_variants.json docs/scene-coverage.md`。
