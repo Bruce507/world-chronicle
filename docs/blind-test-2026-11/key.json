@@ -1,0 +1,75 @@
+{
+  "siege-1": [
+    "fall-of-constantinople",
+    "mongols-sack-baghdad",
+    "fall-of-granada",
+    "sack-of-rome",
+    "siege-of-leningrad",
+    "marco-polo-bridge-incident",
+    "battle-of-plassey",
+    "mukden-incident",
+    "ottoman-conquest-of-egypt",
+    "battle-of-mohacs"
+  ],
+  "siege-2": [
+    "siege-of-vienna-1529",
+    "second-italo-ethiopian-war",
+    "second-battle-of-el-alamein",
+    "ottoman-capture-of-baghdad",
+    "fall-of-the-aztec-empire"
+  ],
+  "caravel": [
+    "cabral-reaches-brazil",
+    "magellans-circumnavigation",
+    "the-mayflower",
+    "cook-at-tahiti",
+    "bering-reaches-alaska",
+    "the-spanish-armada"
+  ],
+  "disaster-1": [
+    "thera-eruption",
+    "irish-famine",
+    "bengal-famine",
+    "indian-ocean-tsunami",
+    "fukushima-disaster",
+    "tonga-eruption",
+    "lisbon-earthquake",
+    "great-kanto-earthquake",
+    "mexico-city-earthquake",
+    "plague-of-justinian"
+  ],
+  "disaster-2": [
+    "the-black-death",
+    "covid-19-pandemic"
+  ],
+  "modern-1": [
+    "declaration-of-independence",
+    "haiti-independent",
+    "greek-war-of-independence",
+    "italian-unification",
+    "indonesia-proclaims-independence",
+    "peoples-republic-of-china",
+    "latin-american-independence",
+    "revolutions-of-1848",
+    "german-unification",
+    "haitian-revolution"
+  ],
+  "modern-2": [
+    "mexican-revolution",
+    "xinhai-revolution",
+    "turkish-republic",
+    "vietnam-declares-independence",
+    "cuban-revolution",
+    "bangladesh-independence",
+    "iranian-revolution",
+    "end-of-apartheid",
+    "hong-kong-handover",
+    "arab-spring"
+  ],
+  "urban": [
+    "battle-of-shanghai",
+    "battle-of-taierzhuang",
+    "battle-of-wuhan",
+    "hundred-regiments-offensive"
+  ]
+}

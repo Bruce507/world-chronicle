@@ -457,6 +457,113 @@
   }
 
   /* ── family: siege ─────────────────────────────────────── */
+  /* Event landmarks for the siege family: a dome, columns, a factory,
+     palms, a stepped pyramid, a spire, galleys, a railway, a bridge, a tank
+     or marsh reeds. Drawn before the wall/camp so the shared grammar holds. */
+  function siegeLandmark(ctx, t, v) {
+    const lm = v.landmark;
+    if (!lm) return;
+    if (lm === "dome") {
+      ctx.fillStyle = "rgba(196,172,134,0.9)";
+      ctx.beginPath(); ctx.arc(-34, -24, 9, Math.PI, TAU); ctx.fill();
+      ctx.strokeStyle = "rgba(96,74,50,0.5)"; ctx.lineWidth = 0.25; ctx.stroke();
+      ctx.fillRect(-43, -24, 18, 4);
+      ctx.fillRect(-24, -38, 2.6, 18);
+      ctx.beginPath(); ctx.moveTo(-24, -38); ctx.lineTo(-22.7, -41); ctx.lineTo(-21.4, -38); ctx.closePath();
+      ctx.fillStyle = "rgba(150,120,82,0.9)"; ctx.fill();
+    } else if (lm === "columns") {
+      for (let i = 0; i < 3; i++) {
+        const cx = -44 + i * 8;
+        ctx.fillStyle = "rgba(214,198,170,0.9)";
+        ctx.fillRect(cx, -34, 3, 14);
+        ctx.fillRect(cx - 1, -36, 5, 2);
+        ctx.fillStyle = "rgba(178,158,126,0.9)"; ctx.fillRect(cx - 1, -20, 5, 2);
+      }
+    } else if (lm === "factory") {
+      for (const cx of [-42, -32]) {
+        ctx.fillStyle = "rgba(120,100,76,0.9)"; ctx.fillRect(cx, -38, 3, 18);
+        ctx.strokeStyle = "rgba(70,56,40,0.4)"; ctx.lineWidth = 0.2; ctx.strokeRect(cx, -38, 3, 18);
+      }
+      for (let i = 0; i < 5; i++) {
+        const q = (t * 0.1 + i * 0.16) % 1;
+        ctx.beginPath(); ctx.arc(-40.5 + i * 1.2, -38 - q * 10, 1.4 + q * 2.4, 0, TAU);
+        ctx.fillStyle = "rgba(110,98,84," + (0.12 * (1 - q)) + ")"; ctx.fill();
+      }
+    } else if (lm === "palms") {
+      for (const [px, sc] of [[-44, 0.9], [-30, 0.72]]) {
+        ctx.strokeStyle = "rgba(92,70,44,0.9)"; ctx.lineWidth = 0.7 * sc;
+        ctx.beginPath(); ctx.moveTo(px, -8); ctx.quadraticCurveTo(px + 1.4 * sc, -22 * sc, px + 0.6 * sc, -34 * sc); ctx.stroke();
+        for (let i = 0; i < 5; i++) {
+          const a = -2.4 + i * 0.55;
+          ctx.beginPath(); ctx.moveTo(px + 0.6 * sc, -34 * sc);
+          ctx.quadraticCurveTo(px + Math.cos(a) * 6 * sc, -36 * sc, px + Math.cos(a) * 10 * sc, -33 * sc);
+          ctx.strokeStyle = "rgba(72,100,64,0.8)"; ctx.lineWidth = 0.6 * sc; ctx.stroke();
+        }
+      }
+    } else if (lm === "pyramid") {
+      for (let i = 0; i < 4; i++) {
+        const w = 22 - i * 4.4, y = -22 - i * 4.4;
+        ctx.fillStyle = "rgba(196,172,134,0.85)";
+        ctx.fillRect(-42 - w / 2 + 6, y, w, 4.6);
+        ctx.strokeStyle = "rgba(120,92,58,0.35)"; ctx.lineWidth = 0.2; ctx.strokeRect(-42 - w / 2 + 6, y, w, 4.6);
+      }
+      ctx.fillStyle = "rgba(180,150,106,0.9)"; ctx.fillRect(-45, -40, 4, 4);
+    } else if (lm === "spire") {
+      ctx.fillStyle = "rgba(208,190,158,0.92)";
+      ctx.fillRect(-40, -32, 10, 14);
+      ctx.beginPath(); ctx.moveTo(-41, -32); ctx.lineTo(-35, -50); ctx.lineTo(-29, -32); ctx.closePath();
+      ctx.fillStyle = "rgba(168,126,82,0.95)"; ctx.fill();
+      ctx.strokeStyle = "rgba(90,64,40,0.5)"; ctx.lineWidth = 0.25; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-35, -50); ctx.lineTo(-35, -54); ctx.strokeStyle = "rgba(226,188,100,0.9)"; ctx.lineWidth = 0.4; ctx.stroke();
+    } else if (lm === "galleys") {
+      ctx.fillStyle = "rgba(96,120,124,0.55)"; ctx.fillRect(-50, -8, 40, 8);
+      for (const [gx, gy, sc] of [[-44, -7, 0.9], [-28, -5, 0.7]]) {
+        ctx.strokeStyle = "rgba(70,52,36,0.9)"; ctx.lineWidth = 0.6 * sc;
+        ctx.beginPath(); ctx.moveTo(gx - 8 * sc, gy); ctx.quadraticCurveTo(gx, gy + 2.4 * sc, gx + 8 * sc, gy); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(gx, gy - 0.4); ctx.lineTo(gx, gy - 9 * sc); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(gx + 0.4, gy - 8.6 * sc); ctx.quadraticCurveTo(gx + 5 * sc, gy - 7.4 * sc, gx + 6.4 * sc, gy - 5 * sc);
+        ctx.lineTo(gx + 0.4, gy - 4.2 * sc); ctx.closePath();
+        ctx.fillStyle = "rgba(168,64,44,0.9)"; ctx.fill();
+      }
+      ctx.strokeStyle = "rgba(56,44,32,0.8)"; ctx.lineWidth = 0.35;
+      ctx.beginPath(); ctx.moveTo(-50, -6); ctx.quadraticCurveTo(-30, -4, -12, -6); ctx.stroke();
+    } else if (lm === "rail") {
+      ctx.strokeStyle = "rgba(70,56,42,0.75)"; ctx.lineWidth = 0.5;
+      for (const dy of [-2.2, -5.0]) {
+        ctx.beginPath(); ctx.moveTo(-10, dy); ctx.lineTo(50, dy - 2); ctx.stroke();
+      }
+      for (let i = 0; i < 12; i++) {
+        const x = -8 + i * 5, y = -3 - i * 0.17;
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 1, y - 3); ctx.strokeStyle = "rgba(70,56,42,0.6)"; ctx.lineWidth = 0.35; ctx.stroke();
+      }
+    } else if (lm === "bridge") {
+      ctx.fillStyle = "rgba(186,166,132,0.95)";
+      ctx.fillRect(-12, -8, 62, 4);
+      for (let i = 0; i < 4; i++) {
+        const ax = -8 + i * 15;
+        ctx.beginPath(); ctx.moveTo(ax, -8); ctx.lineTo(ax, -3);
+        ctx.quadraticCurveTo(ax + 6, 3, ax + 12, -3); ctx.lineTo(ax + 12, -8); ctx.closePath();
+        ctx.fillStyle = "rgba(120,98,70,0.55)"; ctx.fill();
+      }
+      ctx.strokeStyle = "rgba(80,60,40,0.6)"; ctx.lineWidth = 0.3;
+      for (let i = 0; i < 10; i++) { ctx.beginPath(); ctx.moveTo(-10 + i * 6, -8); ctx.lineTo(-10 + i * 6, -12); ctx.stroke(); }
+    } else if (lm === "tank") {
+      ctx.fillStyle = "rgba(84,78,62,0.95)";
+      ctx.fillRect(20, -7, 18, 4);
+      ctx.fillRect(34, -9.6, 8, 2.6);
+      ctx.strokeStyle = "rgba(40,36,28,0.7)"; ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(44, -9); ctx.lineTo(52, -9); ctx.stroke();
+      for (const wx of [24, 30, 38]) { ctx.beginPath(); ctx.arc(wx, -3, 2, 0, TAU); ctx.fillStyle = "rgba(50,44,34,0.95)"; ctx.fill(); }
+    } else if (lm === "reeds") {
+      ctx.fillStyle = "rgba(110,130,116,0.55)"; ctx.fillRect(-50, -6, 100, 6);
+      for (let i = 0; i < 24; i++) {
+        const x = -48 + i * 4.2;
+        ctx.strokeStyle = "rgba(84,104,72,0.75)"; ctx.lineWidth = 0.32;
+        ctx.beginPath(); ctx.moveTo(x, -5); ctx.lineTo(x + Math.sin(i) * 1.4, -13 - (i % 4) * 1.6); ctx.stroke();
+      }
+    }
+  }
+
   function siegeStage(ctx, top, t, v) {
     const pal = PAL[v.palette] || PAL.dawn;
     sky(ctx, top, pal, -26);
@@ -484,6 +591,7 @@
     ctx.lineTo(26, 0); ctx.quadraticCurveTo(10, -14, 6, -30);
     ctx.closePath();
     ctx.fillStyle = "rgba(206,176,128,0.5)"; ctx.fill();
+    siegeLandmark(ctx, t, v);
 
     // city structure (larger, closer)
     const base = -10;
@@ -1192,20 +1300,21 @@
 
     // the building the balcony belongs to
     ctx.fillStyle = "rgba(214,196,166,0.98)";
-    ctx.fillRect(-50, -66, 62, 40);
+    ctx.fillRect(-50, -54, 62, 28);
     ctx.strokeStyle = "rgba(84,68,50,0.35)"; ctx.lineWidth = 0.3;
-    ctx.strokeRect(-50, -66, 62, 40);
+    ctx.strokeRect(-50, -54, 62, 28);
     // tall windows, warm interior
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 4; col++) {
-        const wx = -44 + col * 13.6, wy = -62 + row * 11.4;
+        const wx = -44 + col * 13.6, wy = -50 + row * 9.4;
         ctx.fillStyle = row === 1 && col === 1 ? "rgba(226,186,120,0.6)" : "rgba(78,64,48,0.55)";
-        ctx.fillRect(wx, wy, 7.2, 8.2);
+        ctx.fillRect(wx, wy, 7.2, 7.4);
         ctx.strokeStyle = "rgba(92,74,54,0.5)"; ctx.lineWidth = 0.2;
-        ctx.strokeRect(wx, wy, 7.2, 8.2);
-        ctx.beginPath(); ctx.moveTo(wx + 3.6, wy); ctx.lineTo(wx + 3.6, wy + 8.2); ctx.stroke();
+        ctx.strokeRect(wx, wy, 7.2, 7.4);
+        ctx.beginPath(); ctx.moveTo(wx + 3.6, wy); ctx.lineTo(wx + 3.6, wy + 7.4); ctx.stroke();
       }
     }
+    modernBalconyFacade(ctx, t, v);
     // balcony: ledge, railing, doorway, two figures
     const balY = -28;
     ctx.fillStyle = "rgba(236,224,200,0.98)";
@@ -1291,6 +1400,7 @@
       ctx.beginPath(); ctx.moveTo(wx - 6, -32); ctx.lineTo(wx + 6, -32); ctx.stroke();
       glow(ctx, wx, -36, 12, "rgb(246,226,178)", 0.16);
     }
+    modernAssemblyHall(ctx, t, v);
     // gallery band
     ctx.fillStyle = "rgba(148,124,94,0.9)";
     ctx.fillRect(-50, -22, 100, 3.2);
@@ -1359,6 +1469,7 @@
         ctx.fillStyle = "rgba(96,76,54,0.16)"; ctx.fill();
       }
     }
+    modernBarricadeLandmark(ctx, t, v);
     // crowd behind the barricade
     for (let i = 0; i < 12; i++) {
       const cx = -34 + i * 6.0 + Math.sin(t * 1.4 + i) * 0.6;
@@ -1432,6 +1543,288 @@
     }
   }
 
+  /* Per-event silhouettes for the modern family. At Tier B scale the roof
+     line, tower or dome has to read at 64×40 before any flag colour does. */
+  function modernBalconyFacade(ctx, t, v) {
+    const f = v.facade || "georgian";
+    const ink = "rgba(84,68,50,0.55)";
+    if (f === "georgian") {
+      // pediment over the balcony bay + cornice + dentils
+      ctx.fillStyle = "rgba(228,216,192,0.98)";
+      ctx.beginPath();
+      ctx.moveTo(-20, -54); ctx.lineTo(-3, -61); ctx.lineTo(14, -54);
+      ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = ink; ctx.lineWidth = 0.3; ctx.stroke();
+      ctx.fillStyle = "rgba(238,230,212,0.98)";
+      ctx.fillRect(-20, -54.6, 34, 1.4);
+      ctx.strokeStyle = ink; ctx.lineWidth = 0.18; ctx.strokeRect(-20, -54.6, 34, 1.4);
+      for (let i = 0; i < 7; i++) {
+        ctx.fillStyle = "rgba(240,232,214,0.98)";
+        ctx.fillRect(-18 + i * 4.8, -53.2, 1.6, 0.9);
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.12; ctx.strokeRect(-18 + i * 4.8, -53.2, 1.6, 0.9);
+      }
+      for (let row = 0; row < 3; row++) for (let col = 0; col < 4; col++) {
+        ctx.fillStyle = "rgba(60,74,58,0.55)";
+        ctx.fillRect(-47 + col * 13.6, -50 + row * 9.4, 1.2, 7.4);
+        ctx.fillRect(-37.7 + col * 13.6, -50 + row * 9.4, 1.2, 7.4);
+      }
+    } else if (f === "caribbean") {
+      // tiled hip roof + ground-floor arcade + wooden shutters
+      ctx.fillStyle = "rgba(150,96,66,0.96)";
+      ctx.beginPath();
+      ctx.moveTo(-54, -54); ctx.lineTo(16, -54); ctx.lineTo(10, -60); ctx.lineTo(-48, -60);
+      ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = "rgba(80,50,34,0.6)"; ctx.lineWidth = 0.2; ctx.stroke();
+      for (let i = 0; i < 9; i++) {
+        ctx.strokeStyle = "rgba(80,50,34,0.28)"; ctx.lineWidth = 0.12;
+        ctx.beginPath(); ctx.moveTo(-52 + i * 7.6, -54); ctx.lineTo(-47 + i * 7.6, -60); ctx.stroke();
+      }
+      for (let i = 0; i < 3; i++) {
+        const ax = -44 + i * 15;
+        ctx.fillStyle = "rgba(52,42,32,0.62)";
+        ctx.beginPath();
+        ctx.moveTo(ax, -26); ctx.lineTo(ax, -38);
+        ctx.quadraticCurveTo(ax + 5.4, -44, ax + 10.8, -38);
+        ctx.lineTo(ax + 10.8, -26); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = "rgba(222,204,172,0.95)"; ctx.lineWidth = 0.5; ctx.stroke();
+      }
+      for (let row = 0; row < 2; row++) for (let col = 0; col < 4; col++) {
+        ctx.fillStyle = "rgba(96,66,44,0.6)";
+        ctx.fillRect(-46 + col * 13.6, -50 + row * 8.6, 2.2, 6.8);
+      }
+    } else if (f === "tropical") {
+      // deep veranda roof, posts, banana leaves
+      ctx.fillStyle = "rgba(120,92,58,0.97)";
+      ctx.fillRect(-56, -58, 74, 4.5);
+      ctx.strokeStyle = "rgba(70,50,32,0.6)"; ctx.lineWidth = 0.2; ctx.strokeRect(-56, -58, 74, 4.5);
+      for (let i = 0; i < 7; i++) {
+        ctx.strokeStyle = "rgba(74,52,34,0.7)"; ctx.lineWidth = 0.3;
+        ctx.beginPath(); ctx.moveTo(-48 + i * 10.4, -54); ctx.lineTo(-48 + i * 10.4, -40); ctx.stroke();
+      }
+      for (let i = 0; i < 5; i++) {
+        const a = -2.2 + i * 0.38;
+        ctx.save(); ctx.translate(-48, -50); ctx.rotate(a + Math.sin(t * 0.6 + i) * 0.02);
+        ctx.beginPath(); ctx.ellipse(7, 0, 8, 1.8, 0, 0, TAU);
+        ctx.fillStyle = "rgba(70,96,62,0." + (38 + i * 4) + ")"; ctx.fill();
+        ctx.restore();
+      }
+    } else if (f === "opera") {
+      // colonnade, arched windows, lanterns (French colonial opera)
+      ctx.fillStyle = "rgba(232,222,202,0.98)";
+      ctx.fillRect(-50, -56, 62, 2.0);
+      for (let i = 0; i < 6; i++) {
+        const cx = -46 + i * 9.6;
+        ctx.fillStyle = "rgba(240,232,214,0.98)";
+        ctx.fillRect(cx, -54, 1.8, 28);
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.14; ctx.strokeRect(cx, -54, 1.8, 28);
+      }
+      for (let i = 0; i < 5; i++) {
+        const wx = -40.5 + i * 9.6;
+        ctx.beginPath();
+        ctx.moveTo(wx - 2.4, -44); ctx.lineTo(wx - 2.4, -50);
+        ctx.quadraticCurveTo(wx, -53, wx + 2.4, -50); ctx.lineTo(wx + 2.4, -44);
+        ctx.closePath(); ctx.fillStyle = "rgba(64,50,36,0.6)"; ctx.fill();
+      }
+      for (const lx of [-46, -4]) {
+        ctx.strokeStyle = "rgba(60,46,30,0.8)"; ctx.lineWidth = 0.3;
+        ctx.beginPath(); ctx.moveTo(lx, -54); ctx.lineTo(lx, -50); ctx.stroke();
+        ctx.beginPath(); ctx.arc(lx, -48.6, 1.2, 0, TAU); ctx.fillStyle = "rgba(238,196,120,0.95)"; ctx.fill();
+        glow(ctx, lx, -48.6, 6, "rgb(238,196,120)", 0.2);
+      }
+    } else {
+      // colonial: flat parapet with finials and arched windows
+      ctx.fillStyle = "rgba(222,210,186,0.98)";
+      ctx.fillRect(-52, -57, 66, 3.0);
+      ctx.strokeStyle = ink; ctx.lineWidth = 0.25; ctx.strokeRect(-52, -57, 66, 3.0);
+      for (let i = 0; i < 4; i++) {
+        ctx.fillStyle = "rgba(228,218,198,0.98)";
+        ctx.fillRect(-16 + i * 8.6, -62, 2.2, 5.0);
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.15; ctx.strokeRect(-16 + i * 8.6, -62, 2.2, 5.0);
+      }
+      for (let col = 0; col < 4; col++) {
+        const wx = -44 + col * 13.6;
+        ctx.beginPath();
+        ctx.moveTo(wx, -30); ctx.lineTo(wx, -36);
+        ctx.quadraticCurveTo(wx + 3.6, -39, wx + 7.2, -36);
+        ctx.lineTo(wx + 7.2, -30); ctx.closePath();
+        ctx.fillStyle = "rgba(78,64,48,0.55)"; ctx.fill();
+        ctx.strokeStyle = "rgba(92,74,54,0.5)"; ctx.lineWidth = 0.2; ctx.stroke();
+      }
+    }
+  }
+
+  function modernBarricadeLandmark(ctx, t, v) {
+    const lm = v.landmark;
+    if (!lm) return;
+    const ink = "rgba(84,66,46,0.75)";
+    if (lm === "church") {
+      ctx.fillStyle = "rgba(196,170,132,0.92)";
+      ctx.fillRect(30, -22, 16, 22);
+      ctx.beginPath(); ctx.arc(38, -24, 7, Math.PI, TAU); ctx.fillStyle = "rgba(176,148,110,0.95)"; ctx.fill();
+      ctx.strokeStyle = ink; ctx.lineWidth = 0.3; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(38, -31); ctx.lineTo(38, -37); ctx.moveTo(35.6, -35); ctx.lineTo(40.4, -35);
+      ctx.strokeStyle = "rgba(70,50,30,0.9)"; ctx.lineWidth = 0.4; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(33, -8); ctx.lineTo(33, -16); ctx.quadraticCurveTo(38, -20, 43, -16); ctx.lineTo(43, -8); ctx.closePath();
+      ctx.fillStyle = "rgba(60,44,30,0.5)"; ctx.fill();
+    } else if (lm === "factory") {
+      // long shed + two chimneys with smoke
+      ctx.fillStyle = "rgba(150,126,94,0.75)";
+      ctx.fillRect(22, -18, 26, 18);
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath(); ctx.moveTo(20 + i * 5.2, -18); ctx.lineTo(23.4 + i * 5.2, -22.6); ctx.lineTo(26.8 + i * 5.2, -18);
+        ctx.closePath(); ctx.fillStyle = "rgba(120,98,70,0.8)"; ctx.fill();
+      }
+      for (const cx of [26, 40]) {
+        ctx.fillStyle = "rgba(104,84,60,0.9)";
+        ctx.fillRect(cx, -38, 3.4, 20);
+        ctx.strokeStyle = ink; ctx.lineWidth = 0.2; ctx.strokeRect(cx, -38, 3.4, 20);
+      }
+      for (let i = 0; i < 8; i++) {
+        const q = (t * 0.1 + i * 0.12) % 1;
+        ctx.beginPath(); ctx.arc(27.6 + i * 1.6, -38 - q * 14, 1.8 + q * 3, 0, TAU);
+        ctx.fillStyle = "rgba(110,96,80," + (0.12 * (1 - q)) + ")"; ctx.fill();
+      }
+    } else if (lm === "palms") {
+      // mountains + two palms
+      ctx.fillStyle = "rgba(130,144,118,0.35)";
+      ctx.beginPath(); ctx.moveTo(-50, -20); ctx.lineTo(-28, -38); ctx.lineTo(-10, -20); ctx.closePath(); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-4, -20); ctx.lineTo(18, -40); ctx.lineTo(40, -20); ctx.closePath(); ctx.fill();
+      for (const [px, py, sc] of [[-44, 0, 1.0], [42, 0, 0.86]]) {
+        ctx.strokeStyle = "rgba(92,70,44,0.9)"; ctx.lineWidth = 0.8 * sc;
+        ctx.beginPath(); ctx.moveTo(px, py); ctx.quadraticCurveTo(px + 1.6 * sc, py - 12 * sc, px + 1.0 * sc, py - 24 * sc); ctx.stroke();
+        for (let i = 0; i < 6; i++) {
+          const a = -2.5 + i * 0.5;
+          ctx.beginPath();
+          ctx.moveTo(px + 1.0 * sc, py - 24 * sc);
+          ctx.quadraticCurveTo(px + Math.cos(a) * 7 * sc, py - (26 + Math.sin(a) * 3) * sc, px + Math.cos(a) * 12 * sc, py - (23 + Math.sin(a) * 5) * sc);
+          ctx.strokeStyle = "rgba(72,100,64,0.8)"; ctx.lineWidth = 0.7 * sc; ctx.stroke();
+        }
+      }
+    } else if (lm === "belltower") {
+      ctx.fillStyle = "rgba(198,174,136,0.94)";
+      ctx.fillRect(34, -32, 9, 32);
+      ctx.fillRect(31.6, -36, 13.8, 3.2);
+      ctx.strokeStyle = ink; ctx.lineWidth = 0.3; ctx.strokeRect(34, -32, 9, 32);
+      ctx.beginPath(); ctx.moveTo(35.4, -10); ctx.lineTo(35.4, -22); ctx.quadraticCurveTo(38.5, -27, 41.6, -22); ctx.lineTo(41.6, -10); ctx.closePath();
+      ctx.fillStyle = "rgba(58,42,28,0.55)"; ctx.fill();
+      ctx.beginPath(); ctx.arc(38.5, -34, 1.6, 0, TAU); ctx.fillStyle = "rgba(196,150,78,0.9)"; ctx.fill();
+    } else if (lm === "gate") {
+      // Chinese city gate: red wall, arches, tiled roof
+      ctx.fillStyle = "rgba(166,72,50,0.94)";
+      ctx.fillRect(26, -24, 24, 24);
+      for (let i = 0; i < 2; i++) {
+        ctx.beginPath(); ctx.moveTo(31 + i * 10, 0); ctx.lineTo(31 + i * 10, -9);
+        ctx.quadraticCurveTo(34.5 + i * 10, -14, 38 + i * 10, -9); ctx.lineTo(38 + i * 10, 0); ctx.closePath();
+        ctx.fillStyle = "rgba(52,34,24,0.7)"; ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.moveTo(22, -24); ctx.quadraticCurveTo(38, -33, 54, -24); ctx.lineTo(52, -28);
+      ctx.quadraticCurveTo(38, -36, 24, -28); ctx.closePath();
+      ctx.fillStyle = "rgba(120,60,44,0.95)"; ctx.fill();
+      ctx.strokeStyle = "rgba(60,32,22,0.7)"; ctx.lineWidth = 0.3; ctx.stroke();
+    } else if (lm === "minaret") {
+      // dome + minaret, right side
+      ctx.fillStyle = "rgba(176,152,116,0.9)";
+      ctx.fillRect(24, -18, 20, 18);
+      ctx.beginPath(); ctx.arc(34, -19, 7.6, Math.PI, TAU); ctx.fillStyle = "rgba(156,132,98,0.95)"; ctx.fill();
+      ctx.strokeStyle = ink; ctx.lineWidth = 0.25; ctx.stroke();
+      ctx.fillStyle = "rgba(150,126,94,0.95)";
+      ctx.fillRect(44, -36, 3.2, 36);
+      ctx.fillRect(42.8, -21, 5.6, 1.6);
+      ctx.beginPath(); ctx.moveTo(44, -36); ctx.lineTo(45.6, -40); ctx.lineTo(47.2, -36); ctx.closePath();
+      ctx.fillStyle = "rgba(120,96,66,0.95)"; ctx.fill();
+      // crescent
+      ctx.beginPath(); ctx.arc(45.6, -38.4, 1.1, 0.4, Math.PI * 1.6); ctx.strokeStyle = "rgba(226,188,100,0.9)"; ctx.lineWidth = 0.4; ctx.stroke();
+    } else if (lm === "malecon") {
+      // sea wall + palms + low arcade
+      ctx.fillStyle = "rgba(116,140,144,0.5)";
+      ctx.fillRect(-50, -18, 100, 4);
+      ctx.fillStyle = "rgba(196,180,150,0.9)";
+      ctx.fillRect(-50, -16, 100, 2.2);
+      for (const [px, sc] of [[-46, 0.9], [44, 0.8]]) {
+        ctx.strokeStyle = "rgba(92,70,44,0.9)"; ctx.lineWidth = 0.7 * sc;
+        ctx.beginPath(); ctx.moveTo(px, -16); ctx.quadraticCurveTo(px + 1.4 * sc, -28 * sc, px + 0.6 * sc, -34 * sc); ctx.stroke();
+        for (let i = 0; i < 5; i++) {
+          const a = -2.4 + i * 0.55;
+          ctx.beginPath(); ctx.moveTo(px + 0.6 * sc, -34 * sc);
+          ctx.quadraticCurveTo(px + Math.cos(a) * 6 * sc, -36 * sc, px + Math.cos(a) * 10 * sc, -33 * sc);
+          ctx.strokeStyle = "rgba(72,100,64,0.8)"; ctx.lineWidth = 0.6 * sc; ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function modernAssemblyHall(ctx, t, v) {
+    const h = v.hall;
+    if (h === "italian") {
+      ctx.fillStyle = "rgba(178,156,124,0.9)";
+      ctx.beginPath(); ctx.moveTo(-8, -22); ctx.lineTo(-8, -40);
+      ctx.quadraticCurveTo(0, -48, 8, -40); ctx.lineTo(8, -22); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = "rgba(90,70,50,0.5)"; ctx.lineWidth = 0.3; ctx.stroke();
+      ctx.fillStyle = "rgba(120,104,80,0.95)"; ctx.fillRect(-4, -24, 8, 2.4);
+      p(ctx, 0, -24, 0.6, "rgba(104,90,68,0.98)", { phase: 0, noShadow: true });
+    } else if (h === "german") {
+      ctx.beginPath(); ctx.arc(0, -48, 7, 0, TAU);
+      ctx.fillStyle = "rgba(246,232,196,0.85)"; ctx.fill();
+      ctx.strokeStyle = "rgba(90,70,50,0.6)"; ctx.lineWidth = 0.4; ctx.stroke();
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * TAU;
+        ctx.beginPath(); ctx.moveTo(Math.cos(a) * 7, -48 + Math.sin(a) * 7);
+        ctx.lineTo(Math.cos(a) * 11, -48 + Math.sin(a) * 11);
+        ctx.strokeStyle = "rgba(246,226,178,0.25)"; ctx.lineWidth = 0.8; ctx.stroke();
+      }
+      for (let i = 0; i < 4; i++) {
+        ctx.fillStyle = "rgba(96,74,52,0.35)";
+        ctx.fillRect(-40 + i * 20, -40, 14, 16);
+      }
+    } else if (h === "turkish") {
+      ctx.beginPath(); ctx.arc(0, -45, 5.4, 0, TAU);
+      ctx.fillStyle = "rgba(244,236,218,0.95)"; ctx.fill();
+      ctx.strokeStyle = "rgba(70,52,34,0.8)"; ctx.lineWidth = 0.5; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, -45); ctx.lineTo(0, -48.4);
+      ctx.moveTo(0, -45); ctx.lineTo(2.6, -43.4);
+      ctx.strokeStyle = "rgba(60,44,30,0.9)"; ctx.lineWidth = 0.3; ctx.stroke();
+      for (let i = 0; i < 3; i++) {
+        ctx.fillStyle = "rgba(120,96,66,0.28)";
+        ctx.fillRect(-42 + i * 30, -38, 22, 14);
+      }
+    } else if (h === "southafrican") {
+      ctx.fillStyle = "rgba(150,126,96,0.85)"; ctx.fillRect(-48, -36, 96, 2.2);
+      for (let i = 0; i < 12; i++) p(ctx, -42 + i * 7.6, -37.6, 0.34, "rgba(70,54,38,0.9)", { phase: 0, noShadow: true });
+      ctx.strokeStyle = "rgba(80,60,42,0.6)"; ctx.lineWidth = 0.3; ctx.strokeRect(-48, -36, 96, 2.2);
+    }
+  }
+
+  function modernSquareSkyline(ctx, t, v) {
+    if (v.skyline === "harbour") {
+      ctx.fillStyle = "rgba(120,146,150,0.45)"; ctx.fillRect(-50, -24, 100, 4);
+      for (const [x, w, h] of [[-46, 6, 26], [-36, 5, 34], [-28, 7, 22], [-16, 5, 30], [-8, 6, 38], [2, 5, 24], [10, 7, 32], [20, 5, 20], [30, 6, 28]]) {
+        ctx.fillStyle = "rgba(150,132,108,0.4)"; ctx.fillRect(x, -24 - h, w, h);
+      }
+      ctx.fillStyle = "rgba(180,156,120,0.75)"; ctx.fillRect(24, -45, 5, 21);
+      ctx.beginPath(); ctx.moveTo(23, -45); ctx.lineTo(26.5, -50); ctx.lineTo(30, -45); ctx.closePath(); ctx.fill();
+      ctx.beginPath(); ctx.arc(26.5, -39, 1.5, 0, TAU); ctx.fillStyle = "rgba(246,232,196,0.9)"; ctx.fill();
+    } else if (v.skyline === "plaza") {
+      for (const bx of [-48, 26]) {
+        ctx.fillStyle = "rgba(188,164,128,0.7)"; ctx.fillRect(bx, -34, 22, 12);
+        for (let i = 0; i < 3; i++) {
+          ctx.beginPath(); ctx.moveTo(bx + 2 + i * 7, -22); ctx.lineTo(bx + 2 + i * 7, -28);
+          ctx.quadraticCurveTo(bx + 5.5 + i * 7, -32, bx + 9 + i * 7, -28); ctx.lineTo(bx + 9 + i * 7, -22);
+          ctx.closePath(); ctx.fillStyle = "rgba(84,66,46,0.45)"; ctx.fill();
+        }
+      }
+    } else if (v.skyline === "city") {
+      for (let i = 0; i < 10; i++) {
+        const x = -48 + i * 10.4, h = 10 + ((i * 7) % 16);
+        ctx.fillStyle = "rgba(150,132,108,0.36)"; ctx.fillRect(x, -22 - h, 7, h);
+      }
+      for (const [dx, dy] of [[-30, -30], [6, -34], [34, -28]]) {
+        ctx.beginPath(); ctx.arc(dx, dy, 2.2, 0.2, Math.PI - 0.2);
+        ctx.strokeStyle = "rgba(80,66,50,0.6)"; ctx.lineWidth = 0.5; ctx.stroke();
+      }
+    }
+  }
+
   function modernStage(ctx, top, t, v) {
     if (v.structure === "balcony") return modernBalconyStage(ctx, top, t, v);
     if (v.structure === "assembly") return modernAssemblyStage(ctx, top, t, v);
@@ -1441,6 +1834,7 @@
     cloud(ctx, 16, -80, 18, "rgba(250,244,228,0.35)", 0.4);
     // background city
     buildingRow(ctx, -50, 50, -22, 18, "rgba(150,128,98,0.35)");
+    modernSquareSkyline(ctx, t, v);
     // ground / square
     const gr = ctx.createLinearGradient(0, -22, 0, 0);
     gr.addColorStop(0, "rgba(196,174,140,0.9)");
@@ -1941,6 +2335,102 @@
     p(ctx, 20, -5.2, 0.54, "rgba(60,50,42,0.97)", { phase: t * 0.9 + 2.2, noShadow: true });
   }
 
+  /* City silhouettes for the three earthquakes: a Baroque riverside, a
+     wooden Japanese town on fire, and a mid-rise concrete capital. */
+  function disasterQuakeCity(ctx, t, v) {
+    const c = v.city;
+    if (c === "lisbon") {
+      ctx.fillStyle = "rgba(126,146,148,0.45)"; ctx.fillRect(-50, -30, 100, 6);
+      for (let i = 0; i < 3; i++) {
+        ctx.fillStyle = "rgba(96,76,54,0.55)";
+        ctx.beginPath(); ctx.ellipse(-18 + i * 16, -26.4, 3.4, 0.9, 0, 0, TAU); ctx.fill();
+      }
+      for (const tx of [22, 36]) {
+        ctx.fillStyle = "rgba(208,188,154,0.92)"; ctx.fillRect(tx, -46, 8, 16);
+        ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.25; ctx.strokeRect(tx, -46, 8, 16);
+        ctx.beginPath(); ctx.moveTo(tx - 1, -46); ctx.lineTo(tx + 4, -52); ctx.lineTo(tx + 9, -46); ctx.closePath();
+        ctx.fillStyle = "rgba(166,120,78,0.95)"; ctx.fill();
+        ctx.fillStyle = "rgba(70,54,38,0.55)"; ctx.fillRect(tx + 2.4, -40, 3.2, 4.6);
+        ctx.beginPath(); ctx.arc(tx + 4, -37.6, 1.4, 0, TAU); ctx.fillStyle = "rgba(246,232,196,0.7)"; ctx.fill();
+      }
+    } else if (c === "kanto") {
+      for (let i = 0; i < 7; i++) {
+        const bx = 4 + i * 6.6, bh = 5 + (i % 3) * 2.4;
+        ctx.fillStyle = "rgba(188,168,136,0.9)";
+        ctx.fillRect(bx, -30 - bh, 5.6, bh);
+        ctx.beginPath();
+        ctx.moveTo(bx - 0.8, -30 - bh); ctx.lineTo(bx + 2.8, -34 - bh); ctx.lineTo(bx + 6.4, -30 - bh);
+        ctx.closePath(); ctx.fillStyle = "rgba(122,88,60,0.92)"; ctx.fill();
+        ctx.fillStyle = "rgba(70,54,38,0.5)"; ctx.fillRect(bx + 1.2, -27 - bh, 1.6, 2.2);
+      }
+      // fires behind the wooden town
+      for (const [fx, fy] of [[16, -36], [34, -33], [46, -38]]) {
+        const q = (t * 0.5 + fx * 0.01) % 1;
+        ctx.beginPath(); ctx.arc(fx, fy - q * 6, 2.4 + q * 3.4, 0, TAU);
+        ctx.fillStyle = "rgba(236,146,74," + (0.16 * (1 - q)) + ")"; ctx.fill();
+      }
+    } else if (c === "mexico") {
+      for (let i = 0; i < 6; i++) {
+        const bx = 6 + i * 7.2, bh = 10 + ((i * 5) % 12);
+        ctx.fillStyle = "rgba(168,158,142,0.72)";
+        ctx.fillRect(bx, -30 - bh, 6, bh);
+        ctx.strokeStyle = "rgba(80,66,50,0.35)"; ctx.lineWidth = 0.18; ctx.strokeRect(bx, -30 - bh, 6, bh);
+        for (let r = 0; r < 4; r++) for (let k = 0; k < 2; k++) {
+          ctx.fillStyle = "rgba(86,72,54,0.35)";
+          ctx.fillRect(bx + 1 + k * 2.6, -27 - bh + r * 2.6, 1.4, 1.4);
+        }
+      }
+      // street lamps and cables
+      ctx.strokeStyle = "rgba(70,56,42,0.5)"; ctx.lineWidth = 0.22;
+      ctx.beginPath(); ctx.moveTo(4, -30); ctx.quadraticCurveTo(22, -24, 40, -30); ctx.stroke();
+    }
+  }
+
+  function disasterWaveCoast(ctx, t, v) {
+    if (v.coast === "plant") {
+      // seawall, reactor blocks, vents and transmission pylons
+      ctx.fillStyle = "rgba(150,146,132,0.9)"; ctx.fillRect(-50, -12, 30, 4);
+      for (const [bx, bw, bh] of [[-46, 12, 10], [-32, 9, 13], [-21, 8, 9]]) {
+        ctx.fillStyle = "rgba(178,170,154,0.92)"; ctx.fillRect(bx, -12 - bh, bw, bh);
+        ctx.strokeStyle = "rgba(70,64,52,0.45)"; ctx.lineWidth = 0.25; ctx.strokeRect(bx, -12 - bh, bw, bh);
+        ctx.fillStyle = "rgba(110,102,86,0.55)";
+        for (let i = 0; i < 3; i++) ctx.fillRect(bx + 1.6 + i * 3.2, -10 - bh + 2.2, 1.6, 0.8);
+      }
+      // pylons
+      for (const px of [-12, 2]) {
+        ctx.strokeStyle = "rgba(60,56,46,0.8)"; ctx.lineWidth = 0.35;
+        ctx.beginPath(); ctx.moveTo(px, -6); ctx.lineTo(px - 1.6, -20); ctx.moveTo(px, -6); ctx.lineTo(px + 1.6, -20);
+        ctx.moveTo(px - 1.6, -20); ctx.lineTo(px + 1.6, -20); ctx.stroke();
+      }
+      ctx.strokeStyle = "rgba(60,56,46,0.4)"; ctx.lineWidth = 0.2;
+      ctx.beginPath(); ctx.moveTo(-12, -20); ctx.quadraticCurveTo(-5, -16, 2, -20); ctx.stroke();
+    } else {
+      // tropical village bank, house and bent palm
+      ctx.fillStyle = "rgba(132,116,92,0.97)";
+      ctx.beginPath();
+      ctx.moveTo(-50, -6); ctx.lineTo(-34, -12); ctx.lineTo(-24, -8); ctx.lineTo(-20, 0); ctx.lineTo(-50, 0);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle = "rgba(196,176,146,0.96)";
+      ctx.fillRect(-46, -20, 12, 9);
+      ctx.beginPath(); ctx.moveTo(-48, -20); ctx.lineTo(-40, -25); ctx.lineTo(-32, -20); ctx.closePath();
+      ctx.fillStyle = "rgba(150,108,72,0.95)"; ctx.fill();
+      ctx.strokeStyle = "rgba(88,70,48,0.85)"; ctx.lineWidth = 0.45;
+      ctx.beginPath(); ctx.moveTo(-26, -12); ctx.quadraticCurveTo(-30, -22, -36, -26); ctx.stroke();
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.moveTo(-36, -26);
+        ctx.quadraticCurveTo(-40 - i * 2, -28 - i * 1.4, -43 - i * 1.6, -25 - i * 1.8);
+        ctx.stroke();
+      }
+      // outrigger boats pulled onto the bank
+      for (const [bx, by] of [[-14, -6], [-2, -4.6]]) {
+        ctx.strokeStyle = "rgba(80,60,40,0.8)"; ctx.lineWidth = 0.5;
+        ctx.beginPath(); ctx.moveTo(bx - 5, by); ctx.quadraticCurveTo(bx, by + 1.8, bx + 5, by); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx - 4, by - 0.4); ctx.lineTo(bx - 7, by - 1.6); ctx.moveTo(bx + 4, by - 0.4); ctx.lineTo(bx + 7, by - 1.6); ctx.stroke();
+      }
+    }
+  }
+
   function disasterQuakeStage(ctx, top, t, v) {
     const pal = PAL[v.palette] || PAL.noon;
     sky(ctx, top, pal, -30);
@@ -1951,6 +2441,7 @@
     gr.addColorStop(0, "rgba(196,174,140,0.92)");
     gr.addColorStop(1, "rgba(158,132,100,0.98)");
     ctx.fillStyle = gr; ctx.fillRect(-50, -28, 100, 28);
+    disasterQuakeCity(ctx, t, v);
     // leaning tower, left
     ctx.save();
     ctx.translate(-26, -28);
@@ -2178,23 +2669,8 @@
       ctx.arc(-10 + i * 2.4 + q * 6, -34 - q * 8 + Math.sin(i) * 2, 0.5, 0, TAU);
       ctx.fillStyle = "rgba(236,244,240," + (0.4 * (1 - q)) + ")"; ctx.fill();
     }
-    // low coast, left: bank, a house, a bent palm
-    ctx.fillStyle = "rgba(132,116,92,0.97)";
-    ctx.beginPath();
-    ctx.moveTo(-50, -6); ctx.lineTo(-34, -12); ctx.lineTo(-24, -8); ctx.lineTo(-20, 0); ctx.lineTo(-50, 0);
-    ctx.closePath(); ctx.fill();
-    ctx.fillStyle = "rgba(196,176,146,0.96)";
-    ctx.fillRect(-46, -20, 12, 9);
-    ctx.beginPath(); ctx.moveTo(-48, -20); ctx.lineTo(-40, -25); ctx.lineTo(-32, -20); ctx.closePath();
-    ctx.fillStyle = "rgba(150,108,72,0.95)"; ctx.fill();
-    ctx.strokeStyle = "rgba(88,70,48,0.85)"; ctx.lineWidth = 0.45;
-    ctx.beginPath(); ctx.moveTo(-26, -12); ctx.quadraticCurveTo(-30, -22, -36, -26); ctx.stroke();
-    for (let i = 0; i < 4; i++) {
-      ctx.beginPath();
-      ctx.moveTo(-36, -26);
-      ctx.quadraticCurveTo(-40 - i * 2, -28 - i * 1.4, -43 - i * 1.6, -25 - i * 1.8);
-      ctx.stroke();
-    }
+    // coast: a tropical village bank or an industrial seawall
+    disasterWaveCoast(ctx, t, v);
     // fleeing figures on the bank
     p(ctx, -22, -7.2, 0.46, "rgba(56,48,40,0.97)", { phase: t * 0.8, noShadow: true });
     p(ctx, -16, -5.6, 0.5, "rgba(66,56,46,0.97)", { phase: t * 0.8 + 1.2, noShadow: true });
@@ -2298,11 +2774,11 @@
   };
 
   const OVERRIDES = {
-    "fall-of-constantinople": { family: "siege", palette: "dawn", structure: "walls", skyline: "walls", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon", "chain"], flag: "rgba(168,64,44,0.95)" },
-    "mongols-sack-baghdad": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["tower"], flag: "rgba(84,104,122,0.95)" },
+    "fall-of-constantinople": { family: "siege", palette: "dawn", structure: "walls", skyline: "walls", weather: "smoke", crowd: "soldiers", landmark: "galleys", frame: "banner", props: ["cannon", "chain"], flag: "rgba(168,64,44,0.95)" },
+    "mongols-sack-baghdad": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", landmark: "dome", frame: "tent", props: ["tower"], flag: "rgba(84,104,122,0.95)" },
     "fall-of-granada": { family: "siege", palette: "noon", structure: "keep", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "rocks", props: [], flag: "rgba(196,150,78,0.95)" },
-    "sack-of-rome": { family: "siege", palette: "storm", structure: "walls", skyline: "city", weather: "dust", crowd: "soldiers", frame: "rocks", props: ["tower"], flag: "rgba(168,64,44,0.9)" },
-    "siege-of-leningrad": { family: "siege", palette: "snow", structure: "keep", skyline: "city", weather: "snow", crowd: "soldiers", frame: "tent", props: [], flag: "rgba(168,64,44,0.9)" },
+    "sack-of-rome": { family: "siege", palette: "storm", structure: "walls", skyline: "city", weather: "dust", crowd: "soldiers", landmark: "columns", frame: "rocks", props: ["tower"], flag: "rgba(168,64,44,0.9)" },
+    "siege-of-leningrad": { family: "siege", palette: "snow", structure: "keep", skyline: "city", weather: "snow", crowd: "soldiers", landmark: "factory", frame: "tent", props: [], flag: "rgba(168,64,44,0.9)" },
     "cabral-reaches-brazil": { family: "caravel", palette: "dawn", skyline: "palms", weather: "clear", crowd: "sailors", frame: "rigging", flag: "rgba(168,64,44,0.95)", landmark: "cross" },
     "magellans-circumnavigation": { family: "caravel", palette: "storm", skyline: "cliffs", weather: "storm", crowd: "sailors", frame: "hull", flag: "rgba(168,64,44,0.95)" },
     "the-mayflower": { family: "caravel", palette: "dusk", skyline: "cliffs", weather: "clear", crowd: "sailors", frame: "rigging", flag: "rgba(84,104,122,0.95)", landmark: "shallop" },
@@ -2311,52 +2787,52 @@
     "thera-eruption": { family: "disaster", kind: "eruption", palette: "storm" },
     "irish-famine": { family: "disaster", kind: "famine", palette: "storm" },
     "bengal-famine": { family: "disaster", kind: "famine", palette: "noon" },
-    "indian-ocean-tsunami": { family: "disaster", kind: "wave", palette: "storm" },
-    "fukushima-disaster": { family: "disaster", kind: "wave", palette: "dusk" },
+    "indian-ocean-tsunami": { family: "disaster", kind: "wave", coast: "village", palette: "storm" },
+    "fukushima-disaster": { family: "disaster", kind: "wave", coast: "plant", palette: "dusk" },
     "tonga-eruption": { family: "disaster", kind: "eruption", palette: "dawn" },
-    "lisbon-earthquake": { family: "disaster", kind: "quake", palette: "noon" },
-    "great-kanto-earthquake": { family: "disaster", kind: "quake", palette: "noon" },
-    "mexico-city-earthquake": { family: "disaster", kind: "quake", palette: "dawn" },
+    "lisbon-earthquake": { family: "disaster", kind: "quake", city: "lisbon", palette: "noon" },
+    "great-kanto-earthquake": { family: "disaster", kind: "quake", city: "kanto", palette: "noon" },
+    "mexico-city-earthquake": { family: "disaster", kind: "quake", city: "mexico", palette: "dawn" },
     "plague-of-justinian": { family: "disaster", kind: "plague", palette: "storm" },
     "the-black-death": { family: "disaster", kind: "plague", palette: "dusk" },
     "covid-19-pandemic": { family: "disaster", kind: "plague", palette: "noon" },
-    "declaration-of-independence": { family: "modern", palette: "dawn", structure: "balcony", crowd: "citizens", frame: "none", weather: "clear", props: ["document"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
-    "haiti-independent": { family: "modern", palette: "noon", structure: "balcony", crowd: "citizens", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
-    "greek-war-of-independence": { family: "modern", palette: "dusk", structure: "barricade", crowd: "soldiers", frame: "none", weather: "clear", props: ["church"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(74,104,138,0.96)"] },
-    "italian-unification": { family: "modern", palette: "noon", structure: "assembly", crowd: "citizens", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
-    "indonesia-proclaims-independence": { family: "modern", palette: "dawn", structure: "balcony", crowd: "citizens", frame: "none", weather: "clear", props: ["microphone"], flagCols: ["rgba(168,64,44,0.96)", "rgba(242,234,214,0.97)", "rgba(242,234,214,0.97)"] },
+    "declaration-of-independence": { family: "modern", palette: "dawn", structure: "balcony", facade: "georgian", crowd: "citizens", frame: "none", weather: "clear", props: ["document"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "haiti-independent": { family: "modern", palette: "noon", structure: "balcony", facade: "caribbean", crowd: "citizens", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
+    "greek-war-of-independence": { family: "modern", palette: "dusk", structure: "barricade", landmark: "church", crowd: "soldiers", frame: "none", weather: "clear", props: ["church"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(74,104,138,0.96)"] },
+    "italian-unification": { family: "modern", palette: "noon", structure: "assembly", hall: "italian", crowd: "citizens", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "indonesia-proclaims-independence": { family: "modern", palette: "dawn", structure: "balcony", facade: "tropical", crowd: "citizens", frame: "none", weather: "clear", props: ["microphone"], flagCols: ["rgba(168,64,44,0.96)", "rgba(242,234,214,0.97)", "rgba(242,234,214,0.97)"] },
     "peoples-republic-of-china": { family: "modern", palette: "noon", structure: "tiananmen", crowd: "citizens", frame: "none", weather: "clear", props: [], flagCols: ["rgba(168,64,44,0.97)", "rgba(168,64,44,0.97)", "rgba(168,64,44,0.97)"] },
-    "marco-polo-bridge-incident": { family: "siege", palette: "dawn", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "marco-polo-bridge-incident": { family: "siege", palette: "dawn", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", landmark: "bridge", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
     "battle-of-shanghai": { family: "urban", palette: "dusk", weather: "smoke", props: ["rail", "tank", "searchlight"], flag: "rgba(168,64,44,0.95)" },
     "battle-of-taierzhuang": { family: "urban", palette: "noon", weather: "dust", props: ["barricade", "rail"], flag: "rgba(168,64,44,0.95)" },
     "battle-of-wuhan": { family: "urban", palette: "storm", weather: "smoke", props: ["rail", "tank"], flag: "rgba(168,64,44,0.95)" },
     "hundred-regiments-offensive": { family: "urban", palette: "night", weather: "smoke", props: ["railway", "searchlight"], flag: "rgba(168,64,44,0.95)" },
-    "battle-of-plassey": { family: "siege", palette: "noon", structure: "gate", skyline: "city", weather: "dust", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
-    "mukden-incident": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
-    "ottoman-conquest-of-egypt": { family: "siege", palette: "noon", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
-    "battle-of-mohacs": { family: "siege", palette: "storm", structure: "walls", skyline: "city", weather: "dust", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
-    "siege-of-vienna-1529": { family: "siege", palette: "dawn", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "battle-of-plassey": { family: "siege", palette: "noon", structure: "gate", skyline: "city", weather: "dust", crowd: "soldiers", landmark: "palms", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
+    "mukden-incident": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", landmark: "rail", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "ottoman-conquest-of-egypt": { family: "siege", palette: "noon", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", landmark: "dome", frame: "tent", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
+    "battle-of-mohacs": { family: "siege", palette: "storm", structure: "walls", skyline: "city", weather: "dust", crowd: "soldiers", landmark: "reeds", frame: "banner", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
+    "siege-of-vienna-1529": { family: "siege", palette: "dawn", structure: "walls", skyline: "city", weather: "smoke", crowd: "soldiers", landmark: "spire", frame: "tent", props: ["cannon"], flag: "rgba(168,64,44,0.95)" },
     "second-italo-ethiopian-war": { family: "siege", palette: "noon", structure: "keep", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "rocks", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
-    "second-battle-of-el-alamein": { family: "siege", palette: "noon", structure: "walls", skyline: "mountains", weather: "dust", crowd: "soldiers", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
-    "ottoman-capture-of-baghdad": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", frame: "banner", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
+    "second-battle-of-el-alamein": { family: "siege", palette: "noon", structure: "walls", skyline: "mountains", weather: "dust", crowd: "soldiers", landmark: "tank", frame: "tent", props: ["cannon"], flag: "rgba(74,104,138,0.95)" },
+    "ottoman-capture-of-baghdad": { family: "siege", palette: "dusk", structure: "gate", skyline: "city", weather: "smoke", crowd: "soldiers", landmark: "dome", frame: "banner", props: ["cannon"], flag: "rgba(64,120,96,0.95)" },
     /* Gate 3 seed batch (P3-2): existing families applied to prominent
        non-Tier-B events. No new drawing code; each is a parameter variant. */
-    "fall-of-the-aztec-empire": { family: "siege", palette: "noon", structure: "walls", skyline: "city", weather: "dust", crowd: "soldiers", frame: "banner", props: ["tower"], flag: "rgba(196,150,78,0.95)" },
+    "fall-of-the-aztec-empire": { family: "siege", palette: "noon", structure: "walls", skyline: "city", weather: "dust", crowd: "soldiers", landmark: "pyramid", frame: "banner", props: ["tower"], flag: "rgba(196,150,78,0.95)" },
     "the-spanish-armada": { family: "caravel", palette: "storm", skyline: "cliffs", weather: "storm", crowd: "sailors", frame: "hull", flag: "rgba(168,64,44,0.95)" },
-    "latin-american-independence": { family: "modern", palette: "dawn", structure: "square", crowd: "soldiers", frame: "banner", weather: "clear", props: ["statue"], flagCols: ["rgba(74,104,138,0.96)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.96)"] },
-    "revolutions-of-1848": { family: "modern", palette: "dawn", structure: "barricade", crowd: "citizens", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(40,40,40,0.97)", "rgba(168,64,44,0.96)", "rgba(214,176,72,0.97)"] },
-    "german-unification": { family: "modern", palette: "noon", structure: "assembly", crowd: "citizens", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(40,40,40,0.97)", "rgba(168,64,44,0.96)", "rgba(214,176,72,0.97)"] },
-    "haitian-revolution": { family: "modern", palette: "dusk", structure: "barricade", crowd: "soldiers", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
-    "mexican-revolution": { family: "modern", palette: "noon", structure: "barricade", crowd: "soldiers", frame: "none", weather: "dust", props: ["drums"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
-    "xinhai-revolution": { family: "modern", palette: "dawn", structure: "barricade", crowd: "soldiers", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.97)"] },
-    "turkish-republic": { family: "modern", palette: "noon", structure: "assembly", crowd: "citizens", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.97)"] },
-    "vietnam-declares-independence": { family: "modern", palette: "dawn", structure: "balcony", crowd: "citizens", frame: "none", weather: "clear", props: ["microphone"], flagCols: ["rgba(168,64,44,0.97)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.97)"] },
-    "cuban-revolution": { family: "modern", palette: "noon", structure: "barricade", crowd: "soldiers", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
-    "bangladesh-independence": { family: "modern", palette: "dawn", structure: "balcony", crowd: "citizens", frame: "none", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
-    "iranian-revolution": { family: "modern", palette: "dusk", structure: "barricade", crowd: "citizens", frame: "none", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
-    "end-of-apartheid": { family: "modern", palette: "noon", structure: "assembly", crowd: "citizens", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(88,140,90,0.96)", "rgba(214,176,72,0.97)", "rgba(40,40,40,0.97)"] },
-    "hong-kong-handover": { family: "modern", palette: "dusk", structure: "square", crowd: "citizens", frame: "arch", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.97)"] },
-    "arab-spring": { family: "modern", palette: "dawn", structure: "square", crowd: "citizens", frame: "banner", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "latin-american-independence": { family: "modern", palette: "dawn", structure: "square", skyline: "plaza", crowd: "soldiers", frame: "banner", weather: "clear", props: ["statue"], flagCols: ["rgba(74,104,138,0.96)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.96)"] },
+    "revolutions-of-1848": { family: "modern", palette: "dawn", structure: "barricade", landmark: "factory", crowd: "citizens", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(40,40,40,0.97)", "rgba(168,64,44,0.96)", "rgba(214,176,72,0.97)"] },
+    "german-unification": { family: "modern", palette: "noon", structure: "assembly", hall: "german", crowd: "citizens", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(40,40,40,0.97)", "rgba(168,64,44,0.96)", "rgba(214,176,72,0.97)"] },
+    "haitian-revolution": { family: "modern", palette: "dusk", structure: "barricade", landmark: "palms", crowd: "soldiers", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
+    "mexican-revolution": { family: "modern", palette: "noon", structure: "barricade", landmark: "belltower", crowd: "soldiers", frame: "none", weather: "dust", props: ["drums"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "xinhai-revolution": { family: "modern", palette: "dawn", structure: "barricade", landmark: "gate", crowd: "soldiers", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.97)"] },
+    "turkish-republic": { family: "modern", palette: "noon", structure: "assembly", hall: "turkish", crowd: "citizens", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.97)"] },
+    "vietnam-declares-independence": { family: "modern", palette: "dawn", structure: "balcony", facade: "opera", crowd: "citizens", frame: "none", weather: "clear", props: ["microphone"], flagCols: ["rgba(168,64,44,0.97)", "rgba(214,176,72,0.97)", "rgba(168,64,44,0.97)"] },
+    "cuban-revolution": { family: "modern", palette: "noon", structure: "barricade", landmark: "malecon", crowd: "soldiers", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "bangladesh-independence": { family: "modern", palette: "dawn", structure: "balcony", facade: "colonial", crowd: "citizens", frame: "none", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
+    "iranian-revolution": { family: "modern", palette: "dusk", structure: "barricade", landmark: "minaret", crowd: "citizens", frame: "none", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
+    "end-of-apartheid": { family: "modern", palette: "noon", structure: "assembly", hall: "southafrican", crowd: "citizens", frame: "none", weather: "clear", props: ["statue"], flagCols: ["rgba(88,140,90,0.96)", "rgba(214,176,72,0.97)", "rgba(40,40,40,0.97)"] },
+    "hong-kong-handover": { family: "modern", palette: "dusk", structure: "square", skyline: "harbour", crowd: "citizens", frame: "arch", weather: "clear", props: ["statue"], flagCols: ["rgba(168,64,44,0.97)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.97)"] },
+    "arab-spring": { family: "modern", palette: "dawn", structure: "square", skyline: "city", crowd: "citizens", frame: "banner", weather: "clear", props: ["microphone"], flagCols: ["rgba(88,140,90,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
   };
 
   function eventById(id) {
