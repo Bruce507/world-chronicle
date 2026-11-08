@@ -131,7 +131,75 @@ const countryRatios = await page.evaluate(() => {
 check("canvas modern country labels ≥ 4.5:1 at full density", countryRatios.length > 0 && Math.min(...countryRatios) >= 4.5,
   JSON.stringify({ n: countryRatios.length, min: countryRatios.length ? Math.min(...countryRatios) : null, values: countryRatios.slice(0, 6) }));
 
-/* 200% zoom: a 1440×900 window at 200% behaves like 720×450 CSS px. */
+/* Accessibility tree (the browser's own, via CDP). Playwright 1.64 removed
+   page.accessibility, so read Chromium's computed AX tree directly. This is
+   the order a screen reader walks, not the DOM source order. */
+const axClient = await page.context().newCDPSession(page);
+await axClient.send("Accessibility.enable");
+const axRaw = await axClient.send("Accessibility.getFullAXTree");
+const axById = new Map(axRaw.nodes.map((n) => [n.nodeId, n]));
+const axOrder = [];
+(function walk(n) { if (!n) return; axOrder.push(n); (n.childIds || []).forEach((id) => walk(axById.get(id))); })(axRaw.nodes.find((n) => !n.parentId));
+const ax = axOrder.filter((n) => !n.ignored && n.role && n.role.value !== "none");
+const axRole = (n) => n.role.value;
+const axName = (n) => ((n.name && n.name.value) || "").trim();
+const axIdx = (role, name) => ax.findIndex((n) => axRole(n) === role && (!name || axName(n).includes(name)));
+
+const landmarks = { banner: axIdx("banner"), main: axIdx("main"), complementary: axIdx("complementary"), contentinfo: axIdx("contentinfo") };
+check("AX tree: landmarks in reading order (banner → main → panel → timeline)",
+  landmarks.banner >= 0 && landmarks.main > landmarks.banner && landmarks.complementary > landmarks.main && landmarks.contentinfo > landmarks.complementary,
+  JSON.stringify(landmarks));
+
+const skipIdx = ax.findIndex((n) => axRole(n) === "link" && /跳到详情面板/.test(axName(n)));
+check("AX tree: the skip link is read before the banner",
+  skipIdx >= 0 && skipIdx < landmarks.banner, JSON.stringify({ skipIdx, banner: landmarks.banner }));
+
+const INTERACTIVE = ["button", "link", "slider", "searchbox", "checkbox", "combobox", "textbox", "menuitem", "tab", "switch"];
+const axUnnamed = ax.filter((n) => INTERACTIVE.includes(axRole(n)) && !axName(n)).map((n) => axRole(n));
+check("AX tree: every interactive node has an accessible name", axUnnamed.length === 0, axUnnamed.slice(0, 8).join(","));
+
+const sliderNode = ax.find((n) => axRole(n) === "slider");
+const sliderProp = (k) => { const p = sliderNode && (sliderNode.properties || []).find((q) => q.name === k); return p ? String(p.value && p.value.value) : ""; };
+// Chromium's CDP tree reports an empty `valuetext` for role=slider even when
+// aria-valuetext is set (reproduced on a minimal page), so the human-readable
+// year is asserted on the DOM attribute above; here we check name/range/value.
+check("AX tree: the year slider exposes name, range and value",
+  !!sliderNode && /时间轴年份/.test(axName(sliderNode)) && sliderProp("valuemin") === "-12000" && sliderProp("valuemax") === "2026" && Number(sliderNode.value && sliderNode.value.value) === 1937,
+  JSON.stringify({ name: sliderNode && axName(sliderNode), min: sliderProp("valuemin"), max: sliderProp("valuemax"), value: sliderNode && sliderNode.value }));
+
+const headings = ax.filter((n) => axRole(n) === "heading" && axName(n)).map((n) => axName(n));
+check("AX tree: panel headings are exposed", headings.length >= 2 && headings.some((h) => /世界/.test(h)), JSON.stringify(headings.slice(0, 5)));
+
+const nodeLabels = await page.$$eval("#a11y-nodes .a11y-node", (els) => els.map((e) => e.getAttribute("aria-label") || ""));
+const axButtons = new Set(ax.filter((n) => axRole(n) === "button").map(axName));
+check("AX tree: map node overlays are named buttons", nodeLabels.length > 0 && nodeLabels.every((l) => axButtons.has(l)),
+  JSON.stringify({ n: nodeLabels.length, sample: nodeLabels.slice(0, 2), missing: nodeLabels.filter((l) => !axButtons.has(l)).slice(0, 2) }));
+
+/* Year and theatre live regions: announce changes, not just carry the attribute. */
+const liveAttrs = await page.evaluate(() => {
+  const pick = (id) => { const e = document.getElementById(id); return e ? { live: e.getAttribute("aria-live"), atomic: e.getAttribute("aria-atomic") } : null; };
+  return { year: pick("a11y-live"), theatre: pick("theatre-live") };
+});
+await page.evaluate(() => window.atlasAPI.setYear(1938));
+await page.waitForTimeout(350);
+const yearLive = await page.evaluate(() => document.querySelector("#a11y-live").textContent);
+check("year changes are announced through a polite live region",
+  liveAttrs.year && liveAttrs.year.live === "polite" && liveAttrs.year.atomic === "true" && /1938/.test(yearLive), JSON.stringify({ ...liveAttrs.year, yearLive }));
+check("the theatre has a polite live region", liveAttrs.theatre && liveAttrs.theatre.live === "polite", JSON.stringify(liveAttrs.theatre));
+
+/* Skipping the long map/panel tab path: both skip links must land focus. */
+await page.evaluate(() => document.activeElement.blur());
+await page.keyboard.press("Tab");
+const skip1 = await page.evaluate(() => document.activeElement && document.activeElement.className);
+await page.keyboard.press("Tab");
+const skip2 = await page.evaluate(() => document.activeElement && document.activeElement.textContent);
+await page.keyboard.press("Enter");
+await page.waitForTimeout(250);
+const skipped = await page.evaluate(() => ({ id: document.activeElement && document.activeElement.id, tag: document.activeElement && document.activeElement.tagName }));
+check("skip links reach the panel and the timeline",
+  /skip-link/.test(skip1) && /跳到时间轴/.test(skip2) && skipped.id === "timeline", JSON.stringify({ skip1, skip2, skipped }));
+
+
 const zoomCtx = await browser.newContext({ viewport: { width: 720, height: 450 } });
 const zp = await zoomCtx.newPage();
 await zp.goto(BASE + "?year=1937", { waitUntil: "networkidle" });
@@ -173,6 +241,57 @@ await fp.keyboard.press("Tab");
 fcFocus = await fp.evaluate(() => { const a = document.activeElement; if (!a || a === document.body) return "none"; const cs = getComputedStyle(a); return (cs.outlineStyle || "none") + ":" + (cs.outlineWidth || "0"); });
 check("forced colours active: layout intact, map painted, focus outline kept", fc.on && !fc.overflow && fc.painted && !/^none/.test(fcFocus), JSON.stringify({ ...fc, fcFocus }));
 await fcCtx.close();
+
+/* 400% zoom: a 1440×900 window behaves like 320×256 CSS px (WCAG 1.4.10
+   asks for 320 px width). The panel is opened as a half sheet because that
+   is the densest state at this size. */
+const z4Ctx = await browser.newContext({ viewport: { width: 320, height: 256 } });
+const z4p = await z4Ctx.newPage();
+await z4p.goto(BASE + "?year=1937", { waitUntil: "networkidle" });
+await z4p.waitForTimeout(1000);
+await z4p.evaluate(() => { const b = document.querySelector("#ob-start"); if (b) b.click(); });
+await z4p.waitForTimeout(300);
+await z4p.evaluate(() => { window.atlasAPI.setPanel(true); window.atlasAPI.setSheet("half"); });
+await z4p.waitForTimeout(400);
+const zoom400 = await z4p.evaluate(() => {
+  const de = document.documentElement;
+  const body = document.querySelector("#panel-body");
+  const track = document.querySelector("#track").getBoundingClientRect();
+  const close = document.querySelector("#panel-close").getBoundingClientRect();
+  return {
+    docW: de.scrollWidth, win: innerWidth,
+    panelOverflow: body.scrollWidth - body.clientWidth,
+    trackVisible: track.width > 100 && track.top < innerHeight,
+    closeInView: close.width > 0 && close.top >= 0 && close.bottom <= innerHeight,
+  };
+});
+check("400% zoom (320×256) reflows without horizontal scrolling", zoom400.docW <= zoom400.win && zoom400.panelOverflow <= 1 && zoom400.trackVisible && zoom400.closeInView, JSON.stringify(zoom400));
+await z4p.addScriptTag({ path: AXE });
+const axe400 = await z4p.evaluate(async () => {
+  const r = await axe.run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag22aa"] } });
+  return r.violations.map((v) => v.id + "(" + v.nodes.length + ")");
+});
+check("axe-core: no WCAG A/AA violations at 400% zoom", axe400.length === 0, axe400.join(", "));
+await z4Ctx.close();
+
+/* 400% zoom + forced colours together (the combination the review asked for). */
+const zfcCtx = await browser.newContext({ viewport: { width: 320, height: 256 }, forcedColors: "active" });
+const zfp = await zfcCtx.newPage();
+await zfp.goto(BASE + "?year=1937", { waitUntil: "networkidle" });
+await zfp.waitForTimeout(1000);
+await zfp.evaluate(() => { const b = document.querySelector("#ob-start"); if (b) b.click(); });
+await zfp.waitForTimeout(300);
+const zfc = await zfp.evaluate(() => {
+  const de = document.documentElement;
+  const track = document.querySelector("#track").getBoundingClientRect();
+  return { on: matchMedia("(forced-colors: active)").matches, docW: de.scrollWidth, win: innerWidth, trackVisible: track.width > 100 };
+});
+let zfcFocus = "";
+for (let i = 0; i < 3; i++) await zfp.keyboard.press("Tab");
+zfcFocus = await zfp.evaluate(() => { const a = document.activeElement; if (!a || a === document.body) return "none"; const cs = getComputedStyle(a); return (cs.outlineStyle || "none") + ":" + (cs.outlineWidth || "0"); });
+check("400% zoom + forced colours: layout intact, timeline reachable, focus outline kept",
+  zfc.on && zfc.docW <= zfc.win && zfc.trackVisible && !/^none/.test(zfcFocus), JSON.stringify({ ...zfc, zfcFocus }));
+await zfcCtx.close();
 
 await page.evaluate(() => { const ev = window.WORLD_ATLAS.events.find((e) => e.id === "hiroshima"); window.atlasAPI.openEventModal(ev); });
 await page.waitForTimeout(900);
