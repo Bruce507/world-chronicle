@@ -33,7 +33,11 @@ const onlineErrors = [];   // console errors before going offline — must stay 
 const offlineErrors = [];  // network failures while offline are expected for lazy extras
 const pageErrors = [];     // uncaught exceptions — always a failure
 const failedRequests = [];
-page.on("pageerror", (e) => pageErrors.push(String(e)));
+page.on("pageerror", (e) => {
+  // Keep the first frame: on CI this is the only clue about where it broke.
+  const stack = String((e && e.stack) || e).split("\n").slice(0, 2).join(" | ");
+  pageErrors.push(stack);
+});
 page.on("console", (m) => {
   if (m.type() !== "error") return;
   (page._offline ? offlineErrors : onlineErrors).push(m.text());

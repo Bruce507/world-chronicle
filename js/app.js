@@ -3,6 +3,21 @@
    ═══════════════════════════════════════════════════════════ */
 (function () {
   "use strict";
+  /* If data_bundle.js did not arrive (flaky network, partial SW cache),
+     fail with a readable message instead of a TypeError deep in setup. */
+  if (!window.WORLD_ATLAS) {
+    const explain = () => {
+      const title = document.getElementById("panel-title");
+      const body = document.getElementById("panel-body");
+      if (title) title.textContent = "数据未能载入 / Data did not load";
+      if (body) body.innerHTML = '<div class="panel-empty">请检查网络后刷新页面重试。 / Check your connection and reload the page.</div>';
+      const ob = document.getElementById("onboarding");
+      if (ob) ob.hidden = true;
+    };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", explain);
+    else explain();
+    return;
+  }
   const A = window.WORLD_ATLAS;
   const ASSET_V = "20261108x";
   const $ = (s) => document.querySelector(s);
@@ -1179,19 +1194,25 @@
     } else {
       html += `<div class="fav-list">`;
       favorites.forEach((x, i) => {
-        const on = x.type === "event" ? isFavorite(x) : true;
         html += `<div class="fav-row"><button class="fav-open" type="button" data-fav-open="${i}"><span class="fav-kind">${favTypeLabel(x.type)}</span><span class="fav-text"><b>${favTitle(x)}</b><small>${favMeta(x)}</small></span></button><button class="fav-remove" type="button" data-fav-remove="${i}" aria-label="${L("移除收藏", "Remove favourite", "Quitar favorito", "Retirer des favoris", "إزالة من المفضلة")}" title="${L("移除", "Remove", "Quitar", "Retirer", "إزالة")}">×</button></div>`;
       });
       html += `</div>`;
-      if (favClearArmed) {
-        html += `<div class="fav-confirm" role="group" aria-label="${L("确认清空收藏", "Confirm clearing favourites", "Confirmar vaciado", "Confirmer la suppression", "تأكيد مسح المفضلة")}"><span>${L("确定清空全部 " + favorites.length + " 条收藏？此操作不可撤销。", "Clear all " + favorites.length + " favourites? This cannot be undone.", "¿Vaciar los " + favorites.length + " favoritos? No se puede deshacer.", "Vider les " + favorites.length + " favoris ? Action irréversible.", "مسح كل " + favorites.length + " من المفضلة؟ لا يمكن التراجع.")}</span><button type="button" class="fav-tool is-danger" data-fav-clear-yes="1">${L("清空", "Clear", "Vaciar", "Vider", "مسح")}</button><button type="button" class="fav-tool" data-fav-clear-no="1">${L("取消", "Cancel", "Cancelar", "Annuler", "إلغاء")}</button></div>`;
-      } else {
-        html += `<button class="fav-clear" type="button" data-fav-clear="1">${L("清空收藏", "Clear favourites", "Vaciar favoritos", "Vider les favoris", "مسح المفضلة")}</button>`;
-      }
     }
-    if (!favorites.length) html += `<div class="fav-tools-label">${L("从备份恢复", "Restore from a backup", "Restaurar desde una copia", "Restaurer depuis une sauvegarde", "الاستعادة من نسخة احتياطية")}</div>`;
-    html += `<div class="fav-tools">${favorites.length ? `<button type="button" class="fav-tool" data-fav-export="1">${L("导出备份", "Export", "Exportar", "Exporter", "تصدير")}</button>` : ""}<button type="button" class="fav-tool" data-fav-import="1">${L("导入备份", "Import", "Importar", "Importer", "استيراد")}</button></div>`;
     html += `<div class="panel-note">${L("收藏保存在 localStorage；换浏览器或清除站点数据后会丢失，可导出 JSON 备份。", "Favourites live in localStorage; clearing site data or switching browsers removes them — export a JSON backup to keep them.", "Los favoritos viven en localStorage; borrar los datos del sitio los elimina: exporta una copia JSON para conservarlos.", "Les favoris vivent dans localStorage ; effacer les données du site les supprime — exportez une sauvegarde JSON.", "تُحفظ المفضلة في localStorage؛ ومسح بيانات الموقع يزيلها — صدّر نسخة JSON للاحتفاظ بها.")}</div>`;
+    // Actions live in a sticky footer so they stay reachable however long the
+    // list grows.
+    let actions = "";
+    if (favorites.length) {
+      if (favClearArmed) {
+        actions += `<div class="fav-confirm" role="group" aria-label="${L("确认清空收藏", "Confirm clearing favourites", "Confirmar vaciado", "Confirmer la suppression", "تأكيد مسح المفضلة")}"><span>${L("确定清空全部 " + favorites.length + " 条收藏？此操作不可撤销。", "Clear all " + favorites.length + " favourites? This cannot be undone.", "¿Vaciar los " + favorites.length + " favoritos? No se puede deshacer.", "Vider les " + favorites.length + " favoris ? Action irréversible.", "مسح كل " + favorites.length + " من المفضلة؟ لا يمكن التراجع.")}</span><button type="button" class="fav-tool is-danger" data-fav-clear-yes="1">${L("清空", "Clear", "Vaciar", "Vider", "مسح")}</button><button type="button" class="fav-tool" data-fav-clear-no="1">${L("取消", "Cancel", "Cancelar", "Annuler", "إلغاء")}</button></div>`;
+      } else {
+        actions += `<button class="fav-clear" type="button" data-fav-clear="1">${L("清空收藏", "Clear favourites", "Vaciar favoritos", "Vider les favoris", "مسح المفضلة")}</button>`;
+      }
+    } else {
+      actions += `<div class="fav-tools-label">${L("从备份恢复", "Restore from a backup", "Restaurar desde una copia", "Restaurer depuis une sauvegarde", "الاستعادة من نسخة احتياطية")}</div>`;
+    }
+    actions += `<div class="fav-tools">${favorites.length ? `<button type="button" class="fav-tool" data-fav-export="1">${L("导出备份", "Export", "Exportar", "Exporter", "تصدير")}</button>` : ""}<button type="button" class="fav-tool" data-fav-import="1">${L("导入备份", "Import", "Importar", "Importer", "استيراد")}</button></div>`;
+    html += `<div class="fav-actions">${actions}</div>`;
     el["panel-body"].innerHTML = html;
     el["panel-body"].scrollTop = 0;
   }
