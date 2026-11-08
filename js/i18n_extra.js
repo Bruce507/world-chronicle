@@ -173,7 +173,7 @@
   Object.assign(window.I18N_EXTRA.es, {
     tlJump: "Ir al año", tlGo: "Ir", tlZoomIn: "Ampliar a 1750–2026", tlZoomOut: "Todo el arco",
     tlStep: "paso", tlScrub: "Arrastra un rango para ampliar",
-    how5: "«Crónica de China» es un tema unificado: dinastías, regímenes rivales y Estados modernos por año.",
+    how5: "Haz clic en China para ver sus dinastías, regímenes rivales y Estados modernos por año.",
     legendTitle: "Colores y leyenda",
     legendNote: "Los nodos de evento se colorean y forman según su categoría (rombo/cuadrado/círculo/triángulo/hexágono); los halos de las potencias, por región. Ni los colores ni las formas implican jerarquía ni postura.",
     legendEvents: "Categorías de eventos", legendRegions: "Regiones / potencias", regionsLabel: "Regiones",
@@ -189,7 +189,7 @@
   Object.assign(window.I18N_EXTRA.fr, {
     tlJump: "Aller à l’année", tlGo: "Aller", tlZoomIn: "Zoom 1750–2026", tlZoomOut: "Toute la durée",
     tlStep: "pas", tlScrub: "Faites glisser une plage pour zoomer",
-    how5: "« Chronique de Chine » est un thème unifié : dynasties, régimes rivaux et États modernes par année.",
+    how5: "Cliquez sur la Chine pour lire ses dynasties, régimes rivaux et États modernes par année.",
     legendTitle: "Couleurs et légende",
     legendNote: "Les nœuds d’événement sont colorés et formés selon leur catégorie (losange/carré/cercle/triangle/hexagone) ; les halos de puissance par région. Ni les couleurs ni les formes n’impliquent de hiérarchie ou de parti pris.",
     legendEvents: "Catégories d’événements", legendRegions: "Régions / puissances", regionsLabel: "Régions",
@@ -205,7 +205,7 @@
   Object.assign(window.I18N_EXTRA.ar, {
     tlJump: "الانتقال إلى سنة", tlGo: "انتقال", tlZoomIn: "تكبير إلى 1750–2026", tlZoomOut: "المدى الكامل",
     tlStep: "خطوة", tlScrub: "اسحب نطاقًا للتكبير",
-    how5: "«تسلسل الصين» موضوع موحّد: السلالات والأنظمة المتنافسة والدول الحديثة حسب السنة.",
+    how5: "انقر الصين لعرض السلالات والأنظمة المتنافسة والدول الحديثة حسب السنة.",
     legendTitle: "الألوان والمفتاح",
     legendNote: "تُلوَّن عقد الأحداث وتُشكَّل حسب فئتها (معيّن/مربع/دائرة/مثلث/مسدس)، وتُلوَّن هالات القوى حسب المنطقة. لا تدل الألوان أو الأشكال على تفاضل أو موقف.",
     legendEvents: "فئات الأحداث", legendRegions: "المناطق / القوى", regionsLabel: "المناطق",

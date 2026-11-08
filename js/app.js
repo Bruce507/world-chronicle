@@ -138,7 +138,7 @@
       en: "Design inspired by the Chinese historical atlas Jiangshan (DeanChensj), extended to a global scale. Map data © Natural Earth; historical nodes are a curated compilation.",
     },
     panelOpen: { zh: "此刻世界", en: "The moment" },
-    how5: { zh: "「中国江山时序」是统一专题：按年份查看中国王朝、并立政权与近现代国家。", en: "China Chronicle is a unified theme: dynasties, rival regimes and modern states by year." },
+    how5: { zh: "点击中国，可按年份查看王朝、并立政权与近现代国家。", en: "Click China to read its dynasties, rival regimes and modern states by year." },
     legendTitle: { zh: "颜色与图例", en: "Colours and legend" },
     legendNote: { zh: "事件节点按类别着色并使用不同形状（菱形/方形/圆形/三角/六边）；政权光晕按地区着色。颜色与形状不表示优劣或立场。", en: "Event nodes are coloured and shaped by category (diamond/square/circle/triangle/hex); polity halos by region. Neither implies ranking or stance." },
     legendEvents: { zh: "事件类别", en: "Event categories" },
@@ -171,7 +171,6 @@
     selected: null,
     country: null,
     region: null,
-    theme: null,
     eventView: null,
     eventGroup: null,
     autoEvent: true,
@@ -1026,7 +1025,6 @@
     state.route = null;
     state.searchQuery = null;
     state.searchResults = [];
-    state.theme = null;
     clearTheatreSurface();
     if (map) { map.setSelected(null); map.setHighlight(null); }
     setPanel(true);
@@ -1289,12 +1287,11 @@
       el["panel-body"].innerHTML = `<div class="panel-empty">${L("地图数据载入后，此处会呈现此刻并立的文明与时代节点。", "Civilizations and nodes of this moment will appear once the map has loaded.", "Cuando carguen los datos del mapa, aquí aparecerán las civilizaciones y los nodos de este momento.", "Une fois les données chargées, les civilisations et les nœuds de ce moment apparaîtront ici.", "بعد تحميل بيانات الخريطة ستظهر هنا حضارات وعُقد هذه اللحظة.")}</div>`;
       return;
     }
-    const showRoutes = !state.eventView && !state.country && !state.theme && !state.route && !state.searchQuery && !state.favoritesOpen;
+    const showRoutes = !state.eventView && !state.country && !state.route && !state.searchQuery && !state.favoritesOpen;
     if (el["panel-routes"]) el["panel-routes"].innerHTML = showRoutes ? routeStrip() : "";
     if (state.favoritesOpen) { renderFavoritesPanel(force); return; }
     if (state.eventView) { renderEventPanel(force); return; }
     if (state.country) { renderCountryPanel(force); return; }
-    if (state.theme === "china") { renderChinaPanel(force); return; }
     if (state.route) { renderRoutePanel(force); return; }
     if (state.searchQuery) { renderSearchPanel(force); return; }
 
@@ -1398,7 +1395,6 @@
     state.searchQuery = null;
     state.searchResults = [];
     state.country = null;
-    state.theme = null;
     state.eventView = null;
     state.eventGroup = null;
     state.selected = null;
@@ -1451,56 +1447,6 @@
     el["panel-body"].scrollTop = 0;
   }
 
-  function renderChinaPanel(force) {
-    const key = "china:" + state.year + ":" + state.lang;
-    if (!force && key === lastPanelKey) return;
-    const changed = key !== lastPanelKey;
-    lastPanelKey = key;
-    const scroll = el["panel-body"].scrollTop;
-    const era = A.eraOf(state.year);
-    const entities = (window.HistoricalEntities && window.HistoricalEntities.list || [])
-      .filter((e) => e.from <= state.year && e.to >= state.year)
-      .filter((e) => e.parent === "china" || String(e.id || "").startsWith("curated-china-"))
-      .sort((a, b) => (b.priority || 0) - (a.priority || 0));
-    const uniq = [];
-    const seen = new Set();
-    for (const e of entities) {
-      const n = state.lang === "zh" ? (e.name.zh || e.name.en) : (e.name.en || e.name.zh);
-      if (!n || seen.has(n)) continue;
-      seen.add(n); uniq.push(e);
-    }
-    const chinaEventsAll = A.events.filter((e) => {
-      const p = e._country && e._country.properties;
-      return p && (p.iso3 === "CHN" || p.iso2 === "CN") && e.y >= era.from && (e.y < era.to || era === A.eras[A.eras.length - 1]);
-    });
-    const chinaEvents = filteredEvents(chinaEventsAll);
-
-    el["panel-kicker"].textContent = L("中国江山时序 · ", "CHINA CHRONICLE · ", "CRÓNICA DE CHINA · ", "CHRONIQUE DE CHINE · ", "سجل الصين · ") + fmtYear(state.year, state.lang, true);
-    el["panel-title"].textContent = L("中国江山时序", "China Chronicle", "Crónica de China", "Chronique de Chine", "سجل الصين");
-    el["panel-sub"].textContent = L("从史前文明到当代，按年份显示王朝、并立政权与近现代国家。", "From prehistory to the present: dynasties, rival regimes and modern states, filtered by year.", "De la prehistoria al presente: dinastías, regímenes rivales y Estados modernos.", "De la préhistoire à aujourd’hui : dynasties, régimes rivaux et États modernes.", "من ما قبل التاريخ إلى الحاضر: السلالات والأنظمة المنافسة والدول الحديثة.");
-
-    let html = `<button class="panel-back" data-theme-close="1">‹ ${L("返回全图", "Back to the world", "Volver al mundo", "Retour au monde", "العودة إلى العالم")}</button>`;
-    html += catFilterRow(chinaEventsAll);
-    html += `<section class="p-section"><h3>${L("此刻中国", "CHINA AT THIS MOMENT", "CHINA EN ESTE MOMENTO", "LA CHINE À CET INSTANT", "الصين في هذه اللحظة")} · ${uniq.length}</h3><div class="polity-list">`;
-    if (uniq.length) {
-      uniq.slice(0, 14).forEach((e) => {
-        const nm = modernEntityName(e);
-        html += `<span class="polity-chip"><i style="background:${e.type === "culture" ? "#8a7a9a" : "#b0432c"}"></i>${nm}<small>${fmtRange(e.from, e.to)}</small></span>`;
-      });
-    } else {
-      html += `<span class="panel-empty">${L("此时期暂无已标注的王朝或考古文化；不强行套用后世王朝名。", "No named dynasty or archaeological culture is charted for this moment; later dynasty names are not imposed.", "No hay dinastía o cultura arqueológica cartografiada; no se imponen nombres posteriores.", "Aucune dynastie ni culture archéologique cartographiée ; les noms postérieurs ne sont pas imposés.", "لا سلالة أو ثقافة أثرية مرسومة لهذه اللحظة؛ لا تفرض أسماء لاحقة.")}</span>`;
-    }
-    html += `</div></section>`;
-
-    html += `<section class="p-section"><h3>${L("本时代中国节点", "CHINA NODES OF THIS AGE", "NODOS DE CHINA EN ESTA ERA", "NŒUDS CHINOIS DE CET ÂGE", "عُقد الصين في هذا العصر")} · ${chinaEvents.length}</h3>`;
-    html += `<div class="event-list">`;
-    if (chinaEvents.length) html += eventList(chinaEvents);
-    else html += `<div class="panel-empty">${L("此时代暂无中国策展节点。", "No curated China nodes in this age.", "Sin nodos chinos en esta era.", "Aucun nœud chinois pour cet âge.", "لا عُقد صينية في هذا العصر.")}</div>`;
-    html += `</div></section>`;
-    html += `<div class="panel-note">${L("专题模式复用同一张地图、时间轴、历史实体与事件详情；边界为示意性近似。", "The theme reuses the same map, timeline, historical entities and event dossiers; boundaries are schematic.", "El modo reutiliza el mismo mapa, línea de tiempo, entidades y fichas; las fronteras son esquemáticas.", "Le mode réutilise la même carte, chronologie, entités et fiches ; les frontières sont schématiques.", "يعيد النمط استخدام الخريطة والخط الزمني والكيانات والملفات نفسها؛ الحدود تخطيطية.")}</div>`;
-    el["panel-body"].innerHTML = html;
-    el["panel-body"].scrollTop = changed ? 0 : scroll;
-  }
 
   function stateChangesNear(year) {
     const d = A.stateChanges;
@@ -1633,13 +1579,22 @@
 
     const evs = A.events.filter((e) => e._country === f);
     const here = politiesAt(p.ly, p.lx);
+    const isCN = countryKey(f) === "CHN";
+    const regimes = isCN ? chinaRegimesAt(state.year) : [];
     const scroll = el["panel-body"].scrollTop;
 
     let html = `<div class="panel-topbar"><button class="panel-back" data-back="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button><button type="button" class="panel-tool" data-country-share="1">${L("分享卡片", "Share card", "Tarjeta para compartir", "Carte à partager", "بطاقة للمشاركة")}</button></div>`;
     html += `<div class="country-flags"><span class="country-tag">${countryKey(f)}</span><span class="country-tag">${p.cont || ""}</span><span class="country-tag">${evs.length} ${L("节点", "nodes", "nodos", "nœuds", "عقدة")}</span></div>`;
 
-    html += `<section class="p-section"><h3>${L("此处此时", "HERE, NOW", "AQUÍ, AHORA", "ICI, MAINTENANT", "هنا الآن")} · ${fmtYear(state.year, state.lang, true)}</h3><div class="polity-list">`;
-    if (here.length) {
+    const hereTitle = regimes.length
+      ? L("江山时序 · 并立政权", "CHRONICLE · RIVAL REGIMES", "CRÓNICA · REGÍMENES RIVALES", "CHRONIQUE · RÉGIMES RIVAUX", "السجل · أنظمة متنافسة")
+      : L("此处此时", "HERE, NOW", "AQUÍ, AHORA", "ICI, MAINTENANT", "هنا الآن");
+    html += `<section class="p-section"><h3>${hereTitle} · ${fmtYear(state.year, state.lang, true)}</h3><div class="polity-list">`;
+    if (regimes.length) {
+      regimes.forEach((e) => {
+        html += `<span class="polity-chip"><i style="background:${e.type === "culture" ? "#8a7a9a" : "#b0432c"}"></i>${e.name}<small>${fmtRange(e.from, e.to)}</small></span>`;
+      });
+    } else if (here.length) {
       here.forEach(({ p: pol, d }) => {
         html += `<button class="polity-chip" data-polity="${pol.id}"><i style="background:${regionColor(pol.rg)}"></i>${nameOf(pol.n)}<small>${fmtRange(pol.y1, pol.y2)}</small></button>`;
       });
@@ -1699,6 +1654,25 @@
     return list
       .filter((e) => e.type === "modern" && !NON_SOVEREIGN[e.code] && year >= e.from && year <= e.to)
       .sort((a, b) => ((b.priority || 0) + Math.sqrt(b.area || 0) * 0.5) - ((a.priority || 0) + Math.sqrt(a.area || 0) * 0.5));
+  }
+
+  /* Concurrent Chinese polities at a year (dynasties, rival regimes,
+     archaeological cultures). The generic point-based polity lookup sees only
+     one of them — at 1200 it finds Song and misses Jin and Western Xia — so
+     the China lens reads the curated parent="china" set instead. */
+  function chinaRegimesAt(year) {
+    const list = (window.HistoricalEntities && window.HistoricalEntities.list) || [];
+    const seen = new Set();
+    const out = [];
+    list.filter((e) => e.parent === "china" && e.from <= year && e.to >= year)
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0))
+      .forEach((e) => {
+        const n = state.lang === "zh" ? (e.name.zh || e.name.en) : (e.name[state.lang] || e.name.en || e.name.zh);
+        if (!n || seen.has(n)) return;
+        seen.add(n);
+        out.push({ name: n, from: e.from, to: e.to, type: e.type });
+      });
+    return out.slice(0, 14);
   }
 
   function politiesAt(lat, lon, year) {
@@ -1822,46 +1796,24 @@
     const nav = document.getElementById("region-nav");
     if (!nav) return;
     nav.querySelectorAll(".region-chip").forEach((b) => {
-      b.classList.toggle("is-active", b.dataset.region === (state.theme ? "china-theme" : state.region || ""));
+      b.classList.toggle("is-active", b.dataset.region === (state.region || ""));
     });
   }
 
   function focusRegion(id) {
     const r = (A.regionNav || []).find((x) => x.id === id);
     if (!r || !map) return;
-    const wasTheme = state.theme;
     // Region switching is navigation: stop any transient theatre, but keep
     // the chosen year, the panel and its scroll position.
     if (window.MapTheatre) window.MapTheatre.clear();
     el["theatre-card"].hidden = true;
     document.getElementById("map-stage").classList.remove("theatre-open");
     state.route = null;
-    if (r.theme) {
-      state.selected = null;
-      state.eventView = null;
-      state.eventGroup = null;
-      if (map) map.setSelected(null);
-    }
     state.favoritesOpen = false;
     state.region = id;
-    state.theme = r.theme || null;
-    if (state.theme !== "china") {
-      // keep a country lens open; region switch only moves the camera
-    }
     if (r.bbox && r.id !== "oceania") map.fitBounds(r.bbox, 900);
     else map.flyTo(r.center[0], r.center[1], r.zoom, 900);
     updateRegionActive();
-    if (state.theme === "china") {
-      state.country = null;
-      state.eventView = null;
-      setPanel(true);
-      lastPanelKey = "";
-      renderPanel(true);
-      if (r.bbox) map.fitBounds(r.bbox, 700);
-    } else if (wasTheme === "china") {
-      lastPanelKey = "";
-      if (state.panelOpen) renderPanel(true);
-    }
     if (state.panelOpen) { lastPanelKey = ""; renderPanel(true); }
     syncURL(true);
   }
@@ -3147,7 +3099,6 @@
     state.searchResults = res.evsAll.map((x) => x.ev.id);
     state.route = null;
     state.country = null;
-    state.theme = null;
     state.eventView = null;
     state.eventGroup = null;
     state.selected = null;
@@ -3481,8 +3432,6 @@
       }
       const searchClose = e.target.closest("[data-search-close]");
       if (searchClose) { closeSearchPanel(); return; }
-      const themeClose = e.target.closest("[data-theme-close]");
-      if (themeClose) { state.theme = null; state.region = null; lastPanelKey = ""; map.fit(true); renderPanel(true); updateRegionActive(); return; }
       const closeEv = e.target.closest("[data-ev-close]");
       if (closeEv) { closeTheatre(); return; }
       const modalBtn = e.target.closest("[data-ev-modal]");
@@ -3758,7 +3707,6 @@
     if (state.catFilter) p.set("cat", state.catFilter);
     if (state.selected && !state.autoOpened) p.set("event", state.selected.id);
     if (state.country) p.set("country", countryKey(state.country));
-    if (state.theme) p.set("theme", state.theme);
     else if (state.region) p.set("region", state.region);
     if (state.route) p.set("route", state.route);
     if (state.searchQuery) p.set("search", state.searchQuery);
@@ -4044,8 +3992,7 @@
       state.selected = null;
       state.autoOpened = false;
       state.country = null;
-      state.theme = null;
-      state.region = null;
+        state.region = null;
       state.route = null;
       state.searchQuery = null;
       state.searchResults = [];
@@ -4101,12 +4048,16 @@
         } else {
           const theme = q.get("theme");
           const region = q.get("region");
-          if (theme === "china") focusRegion("china-theme");
-          else if (region && (A.regionNav || []).some((r) => r.id === region)) focusRegion(region);
+          // Old "China chronicle" links now open the China country lens, where
+          // the rival-regime list lives.
+          if (theme === "china") {
+            const cn = (map.features || []).find((x) => x.properties.iso3 === "CHN");
+            if (cn) openCountry(cn, { skipGroup: true });
+          } else if (region && (A.regionNav || []).some((r) => r.id === region)) focusRegion(region);
         }
       }
 
-      if (state.eventView || state.country || state.theme || state.route || state.searchQuery) setPanel(true);
+      if (state.eventView || state.country || state.route || state.searchQuery) setPanel(true);
       else if (state.panelOpen) { lastPanelKey = ""; renderPanel(true); }
       updateRegionActive();
       drawTicks();

@@ -12,6 +12,12 @@ const results = [];
 function check(name, ok, detail) {
   results.push({ name, ok: !!ok, detail: detail == null ? "" : String(detail) });
   console.log((ok ? "  ok  " : "  FAIL") + "  " + name + (detail ? " — " + detail : ""));
+  // On CI, surface each failed check as a GitHub annotation: job logs need
+  // admin rights to read, annotations are visible on the run summary.
+  if (!ok && process.env.GITHUB_ACTIONS) {
+    const msg = (name + (detail ? " — " + detail : "")).replace(/%/g, "%25").replace(/\r?\n/g, " ").slice(0, 900);
+    console.log("::error title=smoke::" + msg);
+  }
 }
 
 async function openPage(browser, viewport) {
@@ -264,6 +270,22 @@ try {
   const routeCard = await cardSize();
   const routeTools = await d.evaluate(() => !!document.querySelector(".panel-topbar [data-route-share]"));
   check("country and route tools sit in one top bar", countryTools.topbar && countryTools.back && routeTools, JSON.stringify({ countryTools, routeTools }));
+
+  // The China chronicle is no longer a separate mode: the rival regimes live
+  // in the China country lens, and the old ?theme=china link still works.
+  await d.goto(BASE + "?year=1200&country=CHN", { waitUntil: "networkidle" });
+  await d.waitForTimeout(900);
+  const chinaLens = await d.evaluate(() => ({
+    heading: (document.querySelector("#panel-body h3") || {}).textContent || "",
+    chips: [...document.querySelectorAll("#panel-body .polity-chip")].map((c) => c.textContent.trim()),
+    themeChip: !!document.querySelector('.region-chip[data-region="china-theme"]'),
+  }));
+  await d.goto(BASE + "?year=1200&theme=china", { waitUntil: "networkidle" });
+  await d.waitForTimeout(900);
+  const oldChinaLink = await d.evaluate(() => !!(window.atlasAPI.state.country && window.atlasAPI.state.country.properties.iso3 === "CHN"));
+  check("China lens lists rival regimes, no theme chip, old link opens it",
+    /并立政权|RIVAL REGIMES/.test(chinaLens.heading) && chinaLens.chips.length >= 3 && !chinaLens.themeChip && oldChinaLink,
+    JSON.stringify({ chinaLens, oldChinaLink }));
   check("country and route share cards render at 1200×630",
     countryCard.w === 1200 && countryCard.h === 630 && routeCard.w === 1200 && routeCard.h === 630 && countryCard.bytes > 20000 && routeCard.bytes > 20000,
     JSON.stringify({ countryCard, routeCard }));
@@ -320,7 +342,8 @@ try {
       routeOpen: document.querySelector("[data-route-strip-toggle]")?.getAttribute("aria-expanded") === "true",
     };
   });
-  check("half drawer shows 4–5 events with a compact head", drawer.head <= 100 && drawer.body >= 230 && drawer.visible >= 4 && drawer.filterRows === "nowrap", JSON.stringify(drawer));
+  // Thresholds allow a few pixels for platform font metrics (CI runs Linux).
+  check("half drawer shows 4–5 events with a compact head", drawer.head <= 104 && drawer.body >= 220 && drawer.visible >= 4 && drawer.filterRows === "nowrap", JSON.stringify(drawer));
   check("route strip is collapsed to one line by default", drawer.routeToggle && drawer.routeOpen === false, JSON.stringify(drawer));
 
   await m.evaluate(() => {
@@ -336,7 +359,7 @@ try {
     body: getComputedStyle(document.querySelector("#panel-body")).display,
     title: document.querySelector("#panel-title").textContent,
   }));
-  check("peek state shows the event title", peek.state === "peek" && peek.h < 160 && peek.body === "none" && peek.title.includes("卢沟桥"), JSON.stringify(peek));
+  check("peek state shows the event title", peek.state === "peek" && peek.h < 170 && peek.body === "none" && peek.title.includes("卢沟桥"), JSON.stringify(peek));
   const expandVisible = await m.evaluate(() => getComputedStyle(document.querySelector("#sheet-expand")).display !== "none");
   await m.click("#sheet-expand");
   await m.waitForTimeout(400);

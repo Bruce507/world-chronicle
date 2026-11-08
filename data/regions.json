@@ -145,27 +145,5 @@
       141,
       28
     ]
-  },
-  {
-    "id": "china-theme",
-    "name": {
-      "zh": "中国江山时序",
-      "en": "China Chronicle",
-      "es": "Crónica de China",
-      "fr": "Chronique de Chine",
-      "ar": "سجل الصين"
-    },
-    "center": [
-      34,
-      105
-    ],
-    "zoom": 3.05,
-    "bbox": [
-      73,
-      18,
-      135,
-      54
-    ],
-    "theme": "china"
   }
 ]
