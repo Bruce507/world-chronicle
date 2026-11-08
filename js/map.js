@@ -108,6 +108,10 @@
       this.theatreActive = false;
       this.fly = null;
       this.labels = [];
+      // Empty until setWorld()/setPolities(); the frame loop and tests read
+      // them, so never leave them undefined in between.
+      this.features = [];
+      this.polities = [];
       this.W = 1; this.H = 1;
       this.originX = 0; this.originY = 0;
       this.baseScale = 1;
@@ -176,7 +180,7 @@
       this.resize();
     }
 
-    setPolities(list) { this.polities = list; }
+    setPolities(list) { this.polities = Array.isArray(list) ? list : []; }
 
     setYear(y) {
       this.year = clamp(Math.round(y), -12000, 2026);

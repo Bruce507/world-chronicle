@@ -95,7 +95,16 @@ npm run version:bump 20261201 # 指定日期
 - `f2ed567`：失败点前移到 **Generated files are committed** → 确认是生成物里的日期戳/`localeCompare` 不确定性（见 §8），修复后该步骤转为通过，Pages 部署恢复。
 - `2658eff`：**Smoke suite** 通过（把三个断言上下文的浏览器 locale 固定为 `zh-CN`；CI 默认 en-US，应用会跟随浏览器语言切成英文）。
 - `21fa317`：**CI 全绿**——静态检查、生成物一致性、内容、a11y、data-qa、entity-i18n、smoke、PWA/offline 全部通过，Pages 部署成功。
-- 注意：`2658eff` 的 PWA 步骤曾失败一次而在 `21fa317`（仅增加注解与崩溃兜底，无功能改动）通过，**未能复现**，暂按竞态处理；若复发，run 页面的 Annotations 会直接给出失败项与细节（smoke 与 pwa 都会输出 `::error`）。
+- 注：PWA 步骤在 `582da8b`、`b772d4f` 两次失败、其余几次通过。加注解后拿到了首帧堆栈：
+
+  ```
+  TypeError: Cannot read properties of undefined (reading 'length')
+      at eval (eval at predicate …)
+  ```
+
+  定位为**竞态**：`window.atlasAPI` 在 boot 中赋值时，`map.features` / `map.polities` 还没初始化（前者在 `setWorld()` 里才赋值，后者在 `setPolities()`）。测试里的 `mapReady` 谓词在这条缝里执行就会抛错；CI 的调度不同，所以时有时无。
+
+  修复：`AtlasMap` 构造函数里 `this.features = []`、`this.polities = []`，`setPolities` 容错；测试谓词加 `features &&` 判空。修复前后用同一探针验证：修复前 6 秒内可观察到 2 次 `features === undefined`，修复后 0 次。
 
 另：`package-lock.json` 现已随仓库提交，CI `npm install` 可复现依赖版本。
 

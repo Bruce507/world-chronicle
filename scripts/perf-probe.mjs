@@ -73,7 +73,7 @@ const mobile = await (async () => {
   const p = await c.newPage();
   const s = Date.now();
   await p.goto(BASE, { waitUntil: "load" });
-  await p.waitForFunction(() => window.atlasAPI && window.atlasAPI.map && window.atlasAPI.map.features.length > 0, null, { timeout: 30000 });
+  await p.waitForFunction(() => window.atlasAPI && window.atlasAPI.map && window.atlasAPI.map.features && window.atlasAPI.map.features.length > 0, null, { timeout: 30000 });
   const r = { readyMs: Date.now() - s };
   await c.close();
   return r;

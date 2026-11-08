@@ -62,7 +62,7 @@ const check = (n, ok, d) => {
   }
 };
 
-const mapReady = () => window.atlasAPI && window.atlasAPI.map && window.atlasAPI.map.features.length > 0;
+const mapReady = () => !!(window.atlasAPI && window.atlasAPI.map && window.atlasAPI.map.features && window.atlasAPI.map.features.length > 0);
 
 async function boot() {
   await page.goto(BASE + "?year=1937", { waitUntil: "networkidle", timeout: NAV_TIMEOUT });
