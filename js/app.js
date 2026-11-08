@@ -516,7 +516,7 @@
       "playhead", "playhead-label", "play-btn", "speed-btn", "now-btn", "tl-year", "tl-era",
       "zoom-in", "zoom-out", "zoom-fit", "zoom-fill", "map-empty", "sheet-expand", "toast",
       "tl-year-btn", "tl-step-back", "tl-step-fwd", "tl-jump", "tl-year-input", "tl-jump-go", "tl-jump-cancel",
-      "tl-zoom-btn", "tl-brush", "tl-cursor", "tl-tip", "tl-scope", "tl-brush-btn",
+      "tl-zoom-in", "tl-zoom-out", "tl-brush", "tl-cursor", "tl-tip", "tl-scope", "tl-brush-btn",
       "minimap", "minimap-canvas", "minimap-fit",
       "offline-bar", "pwa-bar", "pwa-action", "pwa-dismiss", "panel-offline", "layers-lang-note",
       "event-modal", "scene-canvas", "scene-label", "scene-era", "scene-caption", "scene-toggle",
@@ -547,6 +547,7 @@
     applyI18n();
     updateBrushLabel();
     buildTimeline();
+    fillEraSelect();
     buildRegionNav();
 
     // If a core script fails to arrive (flaky network, interrupted cache),
@@ -778,6 +779,7 @@
     applyI18n();
     updateBrushLabel();
     buildTimeline();
+    fillEraSelect();
     buildRegionNav();
     if (map) map.setLang(lang);
     if (window.HistoricalBorders) window.HistoricalBorders.setLang(lang);
@@ -1772,15 +1774,9 @@
         );
     }
     if (el["tl-year-input"]) el["tl-year-input"].setAttribute("aria-label", t("tlJump"));
-    const zb = el["tl-zoom-btn"];
-    if (zb) {
-      zb.textContent = timeline.full ? t("tlZoomIn") : t("tlZoomOut");
-      zb.classList.toggle("is-on", !timeline.full);
-      zb.setAttribute("aria-pressed", String(!timeline.full));
-      zb.title = timeline.full
-        ? L("放大 1750–2026，便于精确选择", "Zoom to 1750–2026 for precise years", "Ampliar 1750–2026", "Zoomer sur 1750–2026", "تكبير 1750–2026")
-        : L("回到全史 前12000–2026", "Back to the full span, 12000 BCE–2026", "Volver a la escala completa", "Revenir à la chronologie complète", "العودة إلى المدى الكامل");
-    }
+    const zi = el["tl-zoom-in"], zo = el["tl-zoom-out"];
+    if (zi) zi.disabled = timeline.span <= 10;
+    if (zo) zo.disabled = timeline.span >= (timeline.fullTo - timeline.fullFrom) - 1;
     const step = yearStep(state.year);
     if (el["tl-step-back"]) el["tl-step-back"].title = L("后退一年", "Back one year", "Un año atrás", "Reculer d’un an", "سنة إلى الوراء");
     if (el["tl-step-fwd"]) el["tl-step-fwd"].title = L("前进一年", "Forward one year", "Un año adelante", "Avancer d’un an", "سنة إلى الأمام");
@@ -1939,7 +1935,7 @@
       el["hud-era"].textContent = eraName(era);
       el["hud-sub"].textContent = eraSub(era);
       el["tl-year"].textContent = fmtYear(y, state.lang);
-      el["tl-era"].textContent = eraName(era);
+      syncEraSelect(era);
       el["playhead-label"].textContent = fmtYear(y, state.lang, true);
       const tr = el["track"];
       if (tr) {
@@ -2042,12 +2038,6 @@
     }
   }
 
-  function toggleTimelineZoom() {
-    stopPlay();
-    if (timeline.full) setTimelineWindow(1750, timeline.fullTo);
-    else setTimelineWindow(timeline.fullFrom, timeline.fullTo);
-  }
-
   function zoomTimelineAt(p, factor) {
     const anchor = timeline.toYear(p);
     const span = timeline.span;
@@ -2067,9 +2057,35 @@
     applyYear(anchor, null, { force: true, silentEvent: true });
   }
 
-  function zoomToEra(eraId) {
+  /* The era name in the readout is an explicit control: choosing an era zooms
+     the timeline to it. Double-clicking an era band keeps its toggle
+     behaviour (zoom to the era / back to the full span). */
+  function fillEraSelect() {
+    const sel = el["tl-era"];
+    if (!sel || !A.eras) return;
+    const current = sel.value || A.eraOf(state.year).id;
+    sel.innerHTML = "";
+    for (const era of A.eras) {
+      const o = document.createElement("option");
+      o.value = era.id;
+      o.textContent = eraName(era);
+      sel.appendChild(o);
+    }
+    sel.value = A.eras.some((x) => x.id === current) ? current : A.eraOf(state.year).id;
+    sel.setAttribute("aria-label", L("时代：选择后放大该时代", "Era: choose to zoom to it", "Época: elige para ampliarla", "Âge : choisir pour zoomer", "العصر: اختر للتكبير"));
+  }
+
+  function syncEraSelect(era) {
+    const sel = el["tl-era"];
+    if (!sel) return;
+    if (sel.options.length !== A.eras.length) fillEraSelect();
+    if (sel.value !== era.id) sel.value = era.id;
+  }
+
+  function zoomToEra(eraId, opts) {
     const era = A.eras.find((x) => x.id === eraId);
     if (!era) return;
+    if (opts && opts.toggle === false) { setTimelineWindow(era.from, era.to - 1); return; }
     const inThis = timeline.from <= era.from && timeline.to >= era.to - 1;
     if (inThis && timeline.span <= (era.to - era.from) + 2) {
       setTimelineWindow(timeline.fullFrom, timeline.fullTo);
@@ -3301,7 +3317,9 @@
     el["tl-year-input"].addEventListener("keydown", (e) => {
       if (e.key === "Escape") { e.stopPropagation(); closeYearJump(); el["track"].focus({ preventScroll: true }); }
     });
-    el["tl-zoom-btn"].addEventListener("click", toggleTimelineZoom);
+    if (el["tl-zoom-in"]) el["tl-zoom-in"].addEventListener("click", () => { stopPlay(); zoomTimelineAt(0.5, 1 / 1.32); });
+    if (el["tl-zoom-out"]) el["tl-zoom-out"].addEventListener("click", () => { stopPlay(); zoomTimelineAt(0.5, 1.32); });
+    if (el["tl-era"]) el["tl-era"].addEventListener("change", (e) => { stopPlay(); zoomToEra(e.target.value, { toggle: false }); });
     if (el["tl-brush-btn"]) el["tl-brush-btn"].addEventListener("click", () => setBrushMode(!state.brushMode));
     el["era-bands"].addEventListener("dblclick", (e) => {
       const band = e.target.closest(".era-band");

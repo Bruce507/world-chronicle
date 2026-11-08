@@ -214,6 +214,33 @@ try {
   const brush = await d.evaluate(() => ({ scope: document.querySelector("#tl-scope").textContent, pressed: document.querySelector("#tl-brush-btn").getAttribute("aria-pressed") }));
   check("explicit range button selects and exposes a time window", !!brushBtn && brush.scope !== scope0 && brush.pressed === "false", JSON.stringify({ scope0, ...brush }));
 
+  // D4/U4: the era name is now a control, and the timeline has its own zoom
+  // buttons; double-clicking a band and Alt+wheel remain accelerators.
+  const eraOpts = await d.evaluate(() => document.querySelectorAll("#tl-era option").length);
+  await d.selectOption("#tl-era", "classical");
+  await d.waitForTimeout(700);
+  const eraPick = await d.evaluate(() => {
+    const tr = document.querySelector("#track");
+    return {
+      value: document.querySelector("#tl-era").value,
+      label: document.querySelector("#tl-era").selectedOptions[0].textContent,
+      min: +tr.getAttribute("aria-valuemin"),
+      max: +tr.getAttribute("aria-valuemax"),
+      year: window.atlasAPI.state.year,
+    };
+  });
+  check("explicit era selector zooms to the chosen era", eraOpts >= 9 && eraPick.value === "classical" && eraPick.min === -1200 && eraPick.max === 499 && eraPick.year >= -1200 && eraPick.year <= 500, JSON.stringify({ eraOpts, eraPick }));
+
+  const zSpan = () => d.evaluate(() => { const tr = document.querySelector("#track"); return +tr.getAttribute("aria-valuemax") - +tr.getAttribute("aria-valuemin"); });
+  const span0 = await zSpan();
+  await d.click("#tl-zoom-in");
+  await d.waitForTimeout(550);
+  const span1 = await zSpan();
+  await d.click("#tl-zoom-out");
+  await d.waitForTimeout(550);
+  const span2 = await zSpan();
+  check("timeline zoom buttons narrow and restore the window", span0 === 1699 && span1 < span0 && span2 === span0, JSON.stringify({ span0, span1, span2 }));
+
   await d.evaluate(() => { window.atlasAPI.setYear(1500); window.atlasAPI.setPanel(true); });
   await d.waitForTimeout(400);
   await d.click("#fav-toggle");

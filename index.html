@@ -190,7 +190,7 @@
           <button id="tl-year-btn" class="tl-year-btn" type="button" aria-label="跳转年份" title="点击输入年份" aria-expanded="false"><b id="tl-year">公元前 3000 年</b></button>
           <button id="tl-step-fwd" class="tl-step" type="button" aria-label="前进一年" title="+1 年">+</button>
         </div>
-        <span id="tl-era">青铜与早期文明</span>
+        <select id="tl-era" class="tl-era-select" aria-label="时代：选择后放大该时代 / Era: zoom to it" title="跳到时代 / Jump to an era"></select>
         <span id="tl-scope" class="tl-scope"></span>
       </div>
       <form id="tl-jump" hidden autocomplete="off">
@@ -201,7 +201,8 @@
       </form>
       <div class="tl-spacer"></div>
       <div class="tl-group tl-group-view">
-        <button id="tl-zoom-btn" class="tl-small tl-zoom" type="button" aria-pressed="false" title="放大时间轴 / Zoom the timeline">聚焦近现代</button>
+        <button id="tl-zoom-out" class="tl-step" type="button" aria-label="缩小时间轴" title="缩小时间轴 / Zoom the timeline out">−</button>
+        <button id="tl-zoom-in" class="tl-step" type="button" aria-label="放大时间轴" title="放大时间轴 / Zoom the timeline in">+</button>
         <button id="tl-brush-btn" class="tl-small tl-brush-btn" type="button" aria-pressed="false" title="刷选时间范围 / Select a range">刷选</button>
       </div>
       <div class="tl-group tl-group-play">
