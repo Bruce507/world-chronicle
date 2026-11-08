@@ -2580,3 +2580,8 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
   .event-info .ev-contemp { margin-top: 14px; }
   .event-info .ev-nav { margin-top: 14px; }
 }
+
+/* toast 文本可换行，动作按钮不被长文件名挤出 */
+#toast > span { min-width: 0; overflow-wrap: anywhere; }
+#toast > * { flex-shrink: 0; }
+#toast > span { flex-shrink: 1; }

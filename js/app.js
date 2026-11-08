@@ -3952,9 +3952,10 @@
       // Keep the blob alive long enough for the toast action to open it.
       setTimeout(() => URL.revokeObjectURL(url), 60000);
       showToast(
-        L("已保存 " + file.name, "Saved " + file.name, "Guardado: " + file.name, "Enregistré : " + file.name, "تم الحفظ: " + file.name),
+        L("分享卡片已保存到下载文件夹", "Share card saved to your downloads", "Tarjeta guardada en descargas", "Carte enregistrée dans les téléchargements", "حُفظت البطاقة في التنزيلات"),
         { label: L("打开", "Open", "Abrir", "Ouvrir", "فتح"), fn: () => window.open(url, "_blank") }
       );
+      if (el["toast"]) el["toast"].title = file.name;
     } catch (err) {
       console.warn("Share card failed:", err.message);
       showToast(L("分享卡片生成失败", "Could not create the card", "No se pudo crear la tarjeta", "Impossible de créer la carte", "تعذّر إنشاء البطاقة"));
