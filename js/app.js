@@ -1411,7 +1411,11 @@
         body.scrollTop = 0;
       } else {
         const nd = body.querySelector(".now-divider");
-        body.scrollTop = nd ? Math.max(0, nd.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 76) : 0;
+        // The category row is sticky; its height (chips can wrap to two rows)
+        // must be cleared or the "NOW" label sits underneath it.
+        const sticky = body.querySelector(".cat-filter");
+        const off = (sticky ? sticky.offsetHeight : 72) + 22;
+        body.scrollTop = nd ? Math.max(0, nd.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - off) : 0;
       }
     } else {
       el["panel-body"].scrollTop = scroll;

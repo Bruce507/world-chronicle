@@ -21,6 +21,7 @@
     "build:reports": "node scripts/build-reports.mjs",
     "build:scenes": "node scripts/build-scene-taxonomy.mjs",
     "smoke": "node scripts/ux-smoke.mjs",
+    "webkit": "node scripts/webkit-check.mjs",
     "content-check": "node scripts/content-check.mjs",
     "a11y": "node scripts/a11y-audit.mjs",
     "data-qa": "node scripts/data-qa.mjs",
