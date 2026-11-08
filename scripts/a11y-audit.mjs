@@ -193,6 +193,16 @@ await page.waitForTimeout(300);
 const afterClose = await page.evaluate(() => ({ hidden: document.querySelector("#event-modal").hidden, inert: document.getElementById("app").inert, focus: document.activeElement.id }));
 check("closing the modal restores focus and inert state", afterClose.hidden && !afterClose.inert && afterClose.focus === "panel-title", JSON.stringify(afterClose));
 
+/* Theatre state is announced: the canvas is decorative, so a scene starting,
+ * pausing or settling must reach an aria-live region. */
+await page.evaluate(() => { const ev = window.WORLD_ATLAS.events.find((e) => e.id === "hiroshima"); window.atlasAPI.openEvent(ev); });
+await page.waitForTimeout(900);
+const livePlay = await page.evaluate(() => document.querySelector("#theatre-live").textContent);
+await page.evaluate(() => { const b = document.querySelector("[data-theatre-pause]"); if (b) b.click(); });
+await page.waitForTimeout(400);
+const livePause = await page.evaluate(() => document.querySelector("#theatre-live").textContent);
+check("theatre state is announced through a live region", /广岛|Hiroshima/.test(livePlay) && livePause.length > 0 && livePause !== livePlay, JSON.stringify({ livePlay, livePause }));
+
 check("no console errors during audit", errors.length === 0, errors.slice(0, 2).join(" | "));
 const failed = results.filter((r) => !r.ok);
 console.log("\n" + (failed.length ? failed.length + " audit check(s) failed" : "all " + results.length + " audit checks passed"));

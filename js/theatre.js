@@ -179,6 +179,7 @@
       };
       this.hardClear();
       this.still = s;
+      window.dispatchEvent(new CustomEvent("theatrestill", { detail: { id: s.ev && s.ev.id } }));
     },
 
     playEvent(ev) {
@@ -332,6 +333,7 @@
         this.frozen = (performance.now() - this.started) / 1000;
         this.paused = true;
       }
+      window.dispatchEvent(new CustomEvent("theatrepause", { detail: { paused: this.paused } }));
       return this.paused;
     },
 

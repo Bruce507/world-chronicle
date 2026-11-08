@@ -55,6 +55,9 @@ jobs:
       - name: Data QA
         run: node scripts/data-qa.mjs
 
+      - name: Performance budget
+        run: node scripts/perf-budget.mjs
+
       - name: Entity language coverage
         run: node scripts/entity-i18n-check.mjs
 

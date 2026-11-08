@@ -108,3 +108,15 @@ CI 的"Generated files are committed"检查要求 `build-data` / `build-scene-ta
 - `data/historical_entities.json` 的 `generated` 曾是 ISO 时间戳 → 改为固定的 `"on build"`。
 
 本地复跑办法：按 CI 的顺序执行 `node scripts/build-data.mjs && node scripts/build-scene-taxonomy.mjs`，再 `git diff --exit-code -- js/data_bundle.js data/scene_variants.json docs/scene-coverage.md`。
+
+---
+
+## 9. 性能预算（2026-11-08，P4-6）
+
+CI 在 `data-qa` 之后执行 `npm run perf:budget`（`scripts/perf-budget.mjs`，无新依赖）：
+
+- 按 gzip 统计首屏 15 个文件、懒加载的两个场景模块、总量；
+- 运行时统计启动后的 DOM 节点数；
+- 超出预算时输出 `::error title=perf-budget::`，与 smoke/pwa 的注解一致。
+
+当前预算与实测（构建 2026-11-08）：首屏 700.6 / 780 KB，懒加载 103.7 / 120 KB，全部 804.4 / 900 KB，DOM 801 / 2400 节点。

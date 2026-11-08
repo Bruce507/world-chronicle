@@ -4,25 +4,10 @@ import fs from "node:fs";
 import { chromium } from "playwright";
 const details = JSON.parse(fs.readFileSync("data/event_details.json", "utf8"));
 const events = JSON.parse(fs.readFileSync("data/events.json", "utf8"));
-/* Three-way source classification. "Institutional" means a museum, archive,
-   library, university, UN body or government agency — the kind of source the
-   P3-7 target counts. Encyclopedias are useful but are not institutions. */
-const ENCY = /(^|\.)britannica\.com$|(^|\.)wikipedia\.org$/;
-const INSTITUTIONAL = [
-  /(^|\.)unesco\.org$/, /(^|\.)un\.org$/, /(^|\.)who\.int$/, /(^|\.)iaea\.org$/, /(^|\.)unfccc\.int$/,
-  /(^|\.)oecd\.org$/, /(^|\.)worldbank\.org$/, /(^|\.)imf\.org$/, /(^|\.)europa\.eu$/,
-  /(^|\.)archives\.gov$/, /(^|\.)loc\.gov$/, /(^|\.)nps\.gov$/, /(^|\.)si\.edu$/, /(^|\.)nasa\.gov$/,
-  /(^|\.)usgs\.gov$/, /(^|\.)army\.mil$/, /(^|\.)defense\.gov$/, /(^|\.)congress\.gov$/, /(^|\.)state\.gov$/,
-  /(^|\.)nationalarchives\.gov\.uk$/, /(^|\.)parliament\.uk$/, /(^|\.)bl\.uk$/, /(^|\.)britishmuseum\.org$/,
-  /(^|\.)iwm\.org\.uk$/, /(^|\.)nam\.ac\.uk$/, /(^|\.)railwaymuseum\.org\.uk$/,
-  /(^|\.)ushmm\.org$/, /(^|\.)yadvashem\.org$/, /(^|\.)auschwitz\.org$/, /(^|\.)nobelprize\.org$/,
-  /(^|\.)metmuseum\.org$/, /(^|\.)hpmmuseum\.jp$/, /(^|\.)911memorial\.org$/, /(^|\.)19371213\.(net|com\.cn|org\.cn)$/,
-  /(^|\.)teara\.govt\.nz$/, /(^|\.)tepapa\.govt\.nz$/, /(^|\.)chateauversailles\.fr$/,
-  /(^|\.)edu$/, /(^|\.)ac\.uk$/, /(^|\.)ac\.nz$/, /(^|\.)cern\.ch$/,
-];
-const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
-const isInstitutional = (u) => INSTITUTIONAL.some((re) => re.test(host(u)));
-const isEncyclopedic = (u) => ENCY.test(host(u));
+import { classifySource, isInstitutional as libInstitutional, isEncyclopedic as libEncyclopedic, host as libHost } from "./sources-lib.mjs";
+const host = libHost;
+const isInstitutional = libInstitutional;
+const isEncyclopedic = libEncyclopedic;
 const entries = Object.entries(details);
 const sources = entries.flatMap(([id, d]) => (d.sources || []).filter((s) => s.url).map((s) => ({ id, ...s, host: host(s.url) })));
 const institutional = sources.filter((s) => isInstitutional(s.url));
@@ -46,6 +31,8 @@ const report = {
   entries: entries.length,
   sources: sources.length,
   uniqueUrls: new Set(sources.map((s) => s.url)).size,
+  tierCounts: sources.reduce((a, s) => { const t = s.tier || classifySource(s.url); a[t] = (a[t] || 0) + 1; return a; }, {}),
+  tierMismatches: sources.filter((s) => s.tier && s.tier !== classifySource(s.url)).map((s) => s.id + " " + s.url),
   institutionalSources: institutional.length,
   institutionalShare: +(institutional.length / Math.max(1, sources.length)).toFixed(3),
   encyclopedicSources: encyclopedic.length,
@@ -56,6 +43,11 @@ const report = {
   entriesWithoutInstitutionList: withoutInstitution,
   missingTwoSources: missingTwo,
   duplicateUrls: dupUrls.slice(0, 5),
+  duplicateUrlsWithinEntry: entries.flatMap(([id, d]) => {
+    const seen = new Set(); const out = [];
+    for (const s of d.sources || []) { if (!s.url) continue; if (seen.has(s.url)) out.push(id + " " + s.url); seen.add(s.url); }
+    return out;
+  }),
   duplicateEventIds: dupIds,
   badGeo: badGeo.map((e) => e.id),
   cjkSpacingIssues: cjkSpacing,

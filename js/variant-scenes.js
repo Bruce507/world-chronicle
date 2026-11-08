@@ -1874,10 +1874,269 @@
   }
 
   /* ── registry ──────────────────────────────────────────── */
+  /* ── family: disaster ─────────────────────────────────── */
+  /* Volcanic eruption, earthquake and plague. Twelve events use the generic
+     disaster family today; this pilot gives the three most common kinds a
+     composition of their own, following the same print grammar. */
+  function disasterEruptionStage(ctx, top, t, v) {
+    const pal = PAL[v.palette] || PAL.storm;
+    sky(ctx, top, pal, 26);
+    // ground
+    const gr = ctx.createLinearGradient(0, -30, 0, 0);
+    gr.addColorStop(0, "rgba(122,110,98,0.96)");
+    gr.addColorStop(1, "rgba(84,74,66,0.99)");
+    ctx.fillStyle = gr; ctx.fillRect(-50, -30, 100, 30);
+    // cone
+    ctx.beginPath();
+    ctx.moveTo(-36, -28); ctx.lineTo(1.4, -56); ctx.lineTo(10.6, -56); ctx.lineTo(46, -28);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(88,78,70,0.99)"; ctx.fill();
+    ctx.strokeStyle = "rgba(48,40,34,0.6)"; ctx.lineWidth = 0.3;
+    ctx.stroke();
+    // crater notch and rim glow
+    ctx.beginPath();
+    ctx.moveTo(1.4, -56); ctx.lineTo(4.4, -53.2); ctx.lineTo(7.6, -53.4); ctx.lineTo(10.6, -56);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(38,30,26,0.95)"; ctx.fill();
+    glow(ctx, 6, -55, 16, "rgb(240,140,70)", 0.35 + Math.sin(t * 2.4) * 0.06);
+    // ash column rising from the crater, in front of the sky
+    for (let i = 0; i < 26; i++) {
+      const q = (i / 26 + t * 0.02) % 1;
+      const bx = 6 + q * 24 + Math.sin(t * 0.8 + i) * 2.6;
+      const by = -57 - q * 20;
+      ctx.beginPath();
+      ctx.arc(bx, by, 2.4 + q * 7.0, 0, TAU);
+      ctx.fillStyle = "rgba(88,82,78," + (0.26 * (1 - q * 0.45)) + ")";
+      ctx.fill();
+    }
+    // rock streaks converging on the crater, following the cone's slope
+    for (let i = 0; i < 7; i++) {
+      const x0 = -30 + i * 11;
+      const q = 0.85;
+      const x1 = x0 + (6 - x0) * q;
+      const y1 = -29 + (-54 - -29) * q;
+      ctx.strokeStyle = "rgba(58,48,42,0.35)"; ctx.lineWidth = 0.32;
+      ctx.beginPath(); ctx.moveTo(x0, -29.6); ctx.lineTo(x1, y1); ctx.stroke();
+    }
+    // lava tongue on the left flank
+    ctx.strokeStyle = "rgba(232,116,58,0.95)"; ctx.lineWidth = 0.9;
+    ctx.beginPath(); ctx.moveTo(2.4, -53); ctx.quadraticCurveTo(-8, -42, -16, -30); ctx.stroke();
+    glow(ctx, -16, -30, 12, "rgb(238,130,70)", 0.3);
+    // embers drifting
+    for (let i = 0; i < 22; i++) {
+      const q = (t * 0.2 + i * 0.09) % 1;
+      ctx.beginPath();
+      ctx.arc(-24 + i * 4.4 + Math.sin(t + i) * 1.4, -8 - q * 26, 0.55, 0, TAU);
+      ctx.fillStyle = "rgba(240,170,110," + (0.5 * (1 - q)) + ")"; ctx.fill();
+    }
+    // fleeing figures
+    p(ctx, -30, -6.4, 0.5, "rgba(56,48,40,0.97)", { phase: t * 0.9, noShadow: true });
+    p(ctx, -23, -4.6, 0.56, "rgba(66,56,46,0.97)", { phase: t * 0.9 + 1.1, noShadow: true });
+    p(ctx, 20, -5.2, 0.54, "rgba(60,50,42,0.97)", { phase: t * 0.9 + 2.2, noShadow: true });
+  }
+
+  function disasterQuakeStage(ctx, top, t, v) {
+    const pal = PAL[v.palette] || PAL.noon;
+    sky(ctx, top, pal, -30);
+    cloud(ctx, 20, -78, 16, "rgba(250,244,228,0.32)", 0.4);
+    buildingRow(ctx, 6, 50, -28, 14, "rgba(150,128,98,0.32)");
+    // ground
+    const gr = ctx.createLinearGradient(0, -28, 0, 0);
+    gr.addColorStop(0, "rgba(196,174,140,0.92)");
+    gr.addColorStop(1, "rgba(158,132,100,0.98)");
+    ctx.fillStyle = gr; ctx.fillRect(-50, -28, 100, 28);
+    // leaning tower, left
+    ctx.save();
+    ctx.translate(-26, -28);
+    ctx.rotate(-0.11);
+    ctx.fillStyle = "rgba(214,198,170,0.98)";
+    ctx.fillRect(-5, -26, 10, 26);
+    ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3;
+    ctx.strokeRect(-5, -26, 10, 26);
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 2; c++) {
+        ctx.fillStyle = "rgba(78,62,46,0.5)";
+        ctx.fillRect(-3.4 + c * 4.4, -23 + r * 7.4, 3.2, 3.0);
+      }
+    }
+    // broken top
+    ctx.beginPath();
+    ctx.moveTo(-5, -26); ctx.lineTo(-1.8, -28.4); ctx.lineTo(1.2, -25.6); ctx.lineTo(5, -27.2);
+    ctx.lineTo(5, -26); ctx.closePath();
+    ctx.fillStyle = "rgba(186,168,140,0.98)"; ctx.fill();
+    ctx.restore();
+    // rubble at its base
+    for (let i = 0; i < 5; i++) {
+      ctx.beginPath(); ctx.ellipse(-31 + i * 2.6, -27.4 - (i % 2) * 0.6, 1.3, 0.7, 0, 0, TAU);
+      ctx.fillStyle = "rgba(178,158,128,0.95)"; ctx.fill();
+    }
+    // collapsed wall, right
+    for (let i = 0; i < 7; i++) {
+      const bx = 12 + i * 4.6, bh = 5 + (i % 3) * 3;
+      ctx.fillStyle = "rgba(200,184,156,0.95)";
+      ctx.fillRect(bx, -28 - bh * 0.4, 4.2, bh * 0.4);
+      ctx.strokeStyle = "rgba(90,72,52,0.4)"; ctx.lineWidth = 0.22;
+      ctx.strokeRect(bx, -28 - bh * 0.4, 4.2, bh * 0.4);
+    }
+    // rubble
+    for (let i = 0; i < 14; i++) {
+      const x = 8 + i * 3.1, y = -3 - (i % 4) * 1.1;
+      ctx.beginPath(); ctx.ellipse(x, y, 1.5, 0.8, 0, 0, TAU);
+      ctx.fillStyle = "rgba(170,150,122,0.9)"; ctx.fill();
+    }
+    // fissure across the street
+    ctx.strokeStyle = "rgba(58,46,36,0.8)"; ctx.lineWidth = 0.7;
+    ctx.beginPath();
+    ctx.moveTo(-40, -2);
+    ctx.lineTo(-24, -5.4); ctx.lineTo(-6, -3.2); ctx.lineTo(10, -7.6); ctx.lineTo(30, -5);
+    ctx.lineTo(44, -9);
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(214,196,164,0.55)"; ctx.lineWidth = 0.25;
+    ctx.beginPath();
+    ctx.moveTo(-40, -1.6); ctx.lineTo(-24, -5.0); ctx.lineTo(-6, -2.8);
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(58,46,36,0.6)"; ctx.lineWidth = 0.4;
+    ctx.beginPath(); ctx.moveTo(-6, -3.2); ctx.lineTo(-3, 0); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(10, -7.6); ctx.lineTo(12, -4.6); ctx.stroke();
+    // dust
+    for (let i = 0; i < 10; i++) {
+      const q = (t * 0.16 + i * 0.1) % 1;
+      ctx.beginPath();
+      ctx.arc(-30 + i * 6.4, -6 - q * 10, 2.4 + q * 3.4, 0, TAU);
+      ctx.fillStyle = "rgba(206,186,152," + (0.12 * (1 - q)) + ")"; ctx.fill();
+    }
+    // survivors
+    p(ctx, 0, -4.2, 0.56, "rgba(66,54,42,0.98)", { phase: t * 0.6, noShadow: true });
+    p(ctx, 6, -5.0, 0.5, "rgba(74,62,48,0.98)", { phase: t * 0.6 + 1.2, arm: true, noShadow: true });
+    p(ctx, -14, -6.6, 0.48, "rgba(58,48,38,0.98)", { phase: t * 0.6 + 2.4, noShadow: true });
+  }
+
+  function disasterPlagueStage(ctx, top, t, v) {
+    const pal = PAL[v.palette] || PAL.storm;
+    sky(ctx, top, pal, -24);
+    cloud(ctx, -16, -76, 20, "rgba(236,230,216,0.28)", 0.4);
+    buildingRow(ctx, -50, 50, -26, 22, "rgba(132,116,94,0.36)");
+    // street
+    const gr = ctx.createLinearGradient(0, -26, 0, 0);
+    gr.addColorStop(0, "rgba(150,130,104,0.92)");
+    gr.addColorStop(1, "rgba(108,90,70,0.98)");
+    ctx.fillStyle = gr; ctx.fillRect(-50, -26, 100, 26);
+    // houses with shutters and a marked door
+    for (const [bx, bw, bh] of [[-42, 20, 20], [-14, 18, 24], [12, 16, 18], [34, 18, 22]]) {
+      ctx.fillStyle = "rgba(196,178,150,0.9)";
+      ctx.fillRect(bx, -26 - bh, bw, bh);
+      ctx.strokeStyle = "rgba(90,72,52,0.45)"; ctx.lineWidth = 0.3;
+      ctx.strokeRect(bx, -26 - bh, bw, bh);
+      // door
+      ctx.fillStyle = "rgba(80,62,44,0.8)";
+      ctx.fillRect(bx + bw * 0.42, -26 - bh * 0.45, bw * 0.16, bh * 0.45);
+      // crossed mark on one door
+      if (bx === -14) {
+        ctx.strokeStyle = "rgba(168,64,44,0.85)"; ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(bx + bw * 0.42, -26 - bh * 0.42); ctx.lineTo(bx + bw * 0.58, -26 - bh * 0.12);
+        ctx.moveTo(bx + bw * 0.58, -26 - bh * 0.42); ctx.lineTo(bx + bw * 0.42, -26 - bh * 0.12);
+        ctx.stroke();
+      }
+      // shuttered windows
+      ctx.fillStyle = "rgba(96,76,56,0.7)";
+      for (let k = 0; k < 2; k++) ctx.fillRect(bx + 3 + k * (bw - 8), -26 - bh + 4, 3.4, 4.4);
+    }
+    // abandoned cart
+    ctx.fillStyle = "rgba(110,84,56,0.95)";
+    ctx.fillRect(-6, -8.4, 14, 3.2);
+    ctx.strokeStyle = "rgba(70,52,34,0.9)"; ctx.lineWidth = 0.6;
+    ctx.beginPath(); ctx.moveTo(8, -8); ctx.lineTo(16, -10.6); ctx.stroke();
+    ctx.beginPath(); ctx.arc(-3, -4, 2.6, 0, TAU); ctx.stroke();
+    ctx.beginPath(); ctx.arc(6, -4, 2.6, 0, TAU); ctx.stroke();
+    // crows
+    for (let i = 0; i < 4; i++) {
+      const cx = -30 + i * 14 + Math.sin(t * 0.7 + i) * 3;
+      const cy = -44 - (i % 2) * 6 + Math.cos(t * 0.9 + i) * 1.2;
+      ctx.strokeStyle = "rgba(52,46,40,0.85)"; ctx.lineWidth = 0.4;
+      ctx.beginPath();
+      ctx.moveTo(cx - 1.8, cy); ctx.quadraticCurveTo(cx - 0.6, cy - 1.2, cx, cy);
+      ctx.quadraticCurveTo(cx + 0.6, cy - 1.2, cx + 1.8, cy);
+      ctx.stroke();
+    }
+    // a lone figure with a lantern, and one at a door
+    p(ctx, 24, -7.2, 0.5, "rgba(58,48,38,0.96)", { phase: t * 0.4, noShadow: true });
+    ctx.beginPath(); ctx.arc(25.4, -10.6, 0.9, 0, TAU);
+    ctx.fillStyle = "rgba(238,196,120,0.95)"; ctx.fill();
+    glow(ctx, 25.4, -10.6, 8, "rgb(236,188,110)", 0.22 + Math.sin(t * 1.8) * 0.02);
+    p(ctx, -18, -9.2, 0.4, "rgba(50,42,34,0.95)", { phase: t * 0.3 + 1.1, noShadow: true });
+    // thin ground mist
+    for (let i = 0; i < 8; i++) {
+      const q = (t * 0.08 + i * 0.12) % 1;
+      ctx.beginPath();
+      ctx.ellipse(-40 + i * 11, -2.4 - q * 3, 8, 1.6, 0, 0, TAU);
+      ctx.fillStyle = "rgba(214,206,190," + (0.09 * (1 - q)) + ")"; ctx.fill();
+    }
+  }
+
+  function disasterStage(ctx, top, t, v) {
+    if (v.kind === "quake") return disasterQuakeStage(ctx, top, t, v);
+    if (v.kind === "plague") return disasterPlagueStage(ctx, top, t, v);
+    return disasterEruptionStage(ctx, top, t, v);
+  }
+
+  function disasterMap(ctx, t, v) {
+    const pal = PAL[v.palette] || PAL.storm;
+    mapSky(ctx, pal, -28, 54, 0.62);
+    mapGround(ctx, v.kind === "quake" ? "#b0946a" : "#96999a", 0.95, -4, 54);
+    if (v.kind === "quake") {
+      // leaning tower and a crack
+      ctx.save(); ctx.translate(-6, -22); ctx.rotate(-0.16);
+      ctx.fillStyle = "rgba(214,198,170,0.95)"; ctx.fillRect(-4, -18, 8, 18);
+      ctx.strokeStyle = "rgba(90,72,52,0.5)"; ctx.lineWidth = 0.3; ctx.strokeRect(-4, -18, 8, 18);
+      ctx.restore();
+      ctx.strokeStyle = "rgba(58,46,36,0.8)"; ctx.lineWidth = 1.0;
+      ctx.beginPath(); ctx.moveTo(-30, -2); ctx.lineTo(-12, -5); ctx.lineTo(4, -3); ctx.lineTo(22, -6); ctx.stroke();
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath(); ctx.arc(10 + i * 4, -4 - (i % 2), 1.4, 0, TAU);
+        ctx.fillStyle = "rgba(170,150,122,0.9)"; ctx.fill();
+      }
+    } else if (v.kind === "plague") {
+      for (const [bx, bh] of [[-30, 12], [-12, 16], [8, 10], [26, 14]]) {
+        ctx.fillStyle = "rgba(196,178,150,0.9)"; ctx.fillRect(bx, -22 - bh, 14, bh);
+        ctx.strokeStyle = "rgba(90,72,52,0.45)"; ctx.lineWidth = 0.3; ctx.strokeRect(bx, -22 - bh, 14, bh);
+        ctx.fillStyle = "rgba(96,76,56,0.7)"; ctx.fillRect(bx + 3, -20 - bh, 3, 4);
+      }
+      for (let i = 0; i < 3; i++) {
+        const cx = -16 + i * 12, cy = -34 - (i % 2) * 4;
+        ctx.strokeStyle = "rgba(52,46,40,0.85)"; ctx.lineWidth = 0.4;
+        ctx.beginPath();
+        ctx.moveTo(cx - 2, cy); ctx.quadraticCurveTo(cx - 0.6, cy - 1.4, cx, cy);
+        ctx.quadraticCurveTo(cx + 0.6, cy - 1.4, cx + 2, cy);
+        ctx.stroke();
+      }
+    } else {
+      // cone, plume, lava
+      for (let i = 0; i < 10; i++) {
+        const q = i / 10;
+        ctx.beginPath();
+        ctx.arc(2 + q * 16, -36 - q * 14, 2 + q * 5, 0, TAU);
+        ctx.fillStyle = "rgba(94,88,82,0.2)"; ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.moveTo(-26, -8); ctx.lineTo(-2, -34); ctx.lineTo(6, -34); ctx.lineTo(30, -8);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(88,78,70,0.98)"; ctx.fill();
+      ctx.strokeStyle = "rgba(48,40,34,0.55)"; ctx.lineWidth = 0.3; ctx.stroke();
+      glow(ctx, 2, -33, 9, "rgb(240,140,70)", 0.4);
+      ctx.strokeStyle = "rgba(232,116,58,0.9)"; ctx.lineWidth = 0.8;
+      ctx.beginPath(); ctx.moveTo(-1, -32); ctx.quadraticCurveTo(-8, -20, -14, -9); ctx.stroke();
+    }
+    // a small flag-less marker dot so the node still reads at small size
+    ctx.beginPath(); ctx.arc(0, -2, 1.6, 0, TAU);
+    ctx.fillStyle = "rgba(168,64,44,0.85)"; ctx.fill();
+  }
+
   const FAMILIES = {
     siege: { defaults: { family: "siege", palette: "dawn", structure: "walls", skyline: "walls", crowd: "soldiers", weather: "smoke", frame: "tent", props: ["cannon"] }, stage: siegeStage, map: siegeMap },
     caravel: { defaults: { family: "caravel", palette: "dawn", skyline: "palms", crowd: "sailors", weather: "clear", frame: "rigging", props: ["cross"], flag: RED }, stage: caravelStage, map: caravelMap },
     urban: { defaults: { family: "urban", palette: "dusk", structure: "facade", skyline: "roofs", weather: "smoke", crowd: "soldiers", props: [], flag: RED, wallCol: "rgba(150,132,110,0.97)" }, stage: urbanStage, map: urbanMap },
+    disaster: { defaults: { family: "disaster", kind: "eruption", palette: "storm" }, stage: disasterStage, map: disasterMap },
     modern: { defaults: { family: "modern", palette: "dawn", structure: "capitol", crowd: "citizens", weather: "clear", frame: "arch", props: [], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] }, stage: modernStage, map: modernMap },
   };
 
@@ -1892,6 +2151,14 @@
     "the-mayflower": { family: "caravel", palette: "dusk", skyline: "cliffs", weather: "clear", crowd: "sailors", frame: "rigging", flag: "rgba(84,104,122,0.95)", landmark: "shallop" },
     "cook-at-tahiti": { family: "caravel", palette: "noon", skyline: "palms", weather: "clear", crowd: "sailors", frame: "palms", flag: "rgba(74,104,138,0.95)", landmark: "canoe" },
     "bering-reaches-alaska": { family: "caravel", palette: "snow", skyline: "cliffs", weather: "snow", crowd: "sailors", frame: "hull", flag: "rgba(84,104,122,0.95)", landmark: "ice" },
+    "thera-eruption": { family: "disaster", kind: "eruption", palette: "storm" },
+    "tonga-eruption": { family: "disaster", kind: "eruption", palette: "dawn" },
+    "lisbon-earthquake": { family: "disaster", kind: "quake", palette: "noon" },
+    "great-kanto-earthquake": { family: "disaster", kind: "quake", palette: "noon" },
+    "mexico-city-earthquake": { family: "disaster", kind: "quake", palette: "dawn" },
+    "plague-of-justinian": { family: "disaster", kind: "plague", palette: "storm" },
+    "the-black-death": { family: "disaster", kind: "plague", palette: "dusk" },
+    "covid-19-pandemic": { family: "disaster", kind: "plague", palette: "noon" },
     "declaration-of-independence": { family: "modern", palette: "dawn", structure: "balcony", crowd: "citizens", frame: "none", weather: "clear", props: ["document"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(168,64,44,0.96)"] },
     "haiti-independent": { family: "modern", palette: "noon", structure: "balcony", crowd: "citizens", frame: "none", weather: "clear", props: ["drums"], flagCols: ["rgba(74,104,138,0.96)", "rgba(168,64,44,0.96)", "rgba(168,64,44,0.96)"] },
     "greek-war-of-independence": { family: "modern", palette: "dusk", structure: "barricade", crowd: "soldiers", frame: "none", weather: "clear", props: ["church"], flagCols: ["rgba(74,104,138,0.96)", "rgba(242,234,214,0.97)", "rgba(74,104,138,0.96)"] },

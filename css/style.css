@@ -327,10 +327,10 @@ svg { display: block; }
 [dir="rtl"] #side-panel { right: auto; left: 18px; }
 [dir="rtl"] .panel-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 28px;
-  height: 28px;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -343,11 +343,11 @@ svg { display: block; }
 .panel-close:hover { color: var(--verm); background: rgba(176, 67, 44, 0.08); }
 .fav-toggle {
   position: absolute;
-  top: 9px;
-  right: 42px;
+  top: 8px;
+  right: 46px;
   z-index: 5;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -704,10 +704,10 @@ svg { display: block; }
 #layers-pop[hidden], #search-results[hidden] { display: none !important; }
 .panel-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 28px;
-  height: 28px;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -720,11 +720,11 @@ svg { display: block; }
 .panel-close:hover { color: var(--verm); background: rgba(176, 67, 44, 0.08); }
 .fav-toggle {
   position: absolute;
-  top: 9px;
-  right: 42px;
+  top: 8px;
+  right: 46px;
   z-index: 5;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -1343,8 +1343,8 @@ svg { display: block; }
 .ev-more summary {
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border: 1px solid var(--line);
   border-radius: 3px;
   background: rgba(255, 255, 255, 0.35);
@@ -1625,7 +1625,10 @@ body.is-playing #play-btn .pause-ico { display: block; }
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.tl-readout > span { font-size: 9px; letter-spacing: 0.12em; color: var(--muted); margin-top: 3px; }
+.tl-readout > span { font-size: 9.5px; letter-spacing: 0.12em; color: var(--muted); margin-top: 3px; }
+.tl-scope { display: block; margin-top: 2px; font-size: 10px; color: var(--muted); letter-spacing: 0.03em; white-space: nowrap; }
+/* .tl-readout > span sets 9.5px; the scope line keeps one step larger. */
+.tl-readout > .tl-scope { font-size: 10px; }
 .tl-step {
   width: 22px;
   height: 22px;
@@ -2280,6 +2283,10 @@ kbd {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding-bottom: 6px;
+    /* A chip cut at the edge looked like a bug; fade both ends so the row
+       reads as scrollable (symmetric, so RTL works unchanged). */
+    mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
     mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 18px), transparent 100%);
     -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 18px), transparent 100%);
   }
@@ -2321,7 +2328,7 @@ kbd {
   }
   #side-panel.collapsed { transform: translateY(calc(100% + 30px)); opacity: 0; pointer-events: none; }
   body.sheet-peek #side-panel { height: 136px; }
-  body.sheet-half #side-panel { height: 64%; }
+  body.sheet-half #side-panel { height: 66%; }
   body.sheet-full #side-panel { height: 88%; }
   body.sheet-peek .panel-body,
   body.sheet-peek .panel-close,
@@ -2380,7 +2387,7 @@ kbd {
 body.sheet-peek .sheet-expand { display: inline-flex; align-items: center; }
 body.sheet-peek .panel-head { padding-right: 96px; }
 body.sheet-peek #map-zoom { bottom: 152px; }
-body.sheet-half #map-zoom { bottom: calc(64% + 12px); }
+body.sheet-half #map-zoom { bottom: calc(66% + 12px); }
 body.sheet-full #map-zoom { opacity: 0; pointer-events: none; }
 body.sheet-half #map-note, body.sheet-full #map-note { opacity: 0; }
 body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
@@ -2445,7 +2452,6 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
   .tl-head { gap: 8px; }
   .tl-readout b { font-size: 13px; }
   .tl-readout span { font-size: 9.5px; }
-.tl-scope { display: block; margin-top: 2px; font-size: 10px; color: var(--muted); letter-spacing: 0.03em; white-space: nowrap; }
   #play-btn { width: 34px; height: 34px; }
   #panel-reopen { top: auto; bottom: 10px; right: auto; left: 10px; font-size: 10px; }
 }
@@ -2649,4 +2655,17 @@ body.sheet-half #map-empty, body.sheet-full #map-empty { display: none; }
 }
 @media (max-width: 360px) {
   #now-btn, #tl-brush-btn { display: none; }
+}
+
+/* 来源层级标记 / source tier badge */
+.src-tier {
+  display: inline-block;
+  margin-inline-start: 6px;
+  padding: 0 4px;
+  border: 1px solid rgba(125, 90, 32, 0.45);
+  border-radius: 2px;
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  vertical-align: 1px;
 }

@@ -56,11 +56,13 @@
     "sources": [
       {
         "label": "Britannica — Aceh",
-        "url": "https://www.britannica.com/place/Aceh"
+        "url": "https://www.britannica.com/place/Aceh",
+        "tier": "encyclopedic"
       },
       {
         "label": "Britannica — Indonesia",
-        "url": "https://www.britannica.com/place/Indonesia"
+        "url": "https://www.britannica.com/place/Indonesia",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -115,11 +117,13 @@
     "sources": [
       {
         "label": "NASA — Apollo 11",
-        "url": "https://www.nasa.gov/mission/apollo-11/"
+        "url": "https://www.nasa.gov/mission/apollo-11/",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Apollo 11",
-        "url": "https://www.britannica.com/topic/Apollo-11"
+        "url": "https://www.britannica.com/topic/Apollo-11",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -180,15 +184,18 @@
     "sources": [
       {
         "label": "Britannica — The reforms of Cleisthenes",
-        "url": "https://www.britannica.com/place/ancient-Greece/The-reforms-of-Cleisthenes"
+        "url": "https://www.britannica.com/place/ancient-Greece/The-reforms-of-Cleisthenes",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Athenian democracy",
-        "url": "https://en.wikipedia.org/wiki/Athenian_democracy"
+        "url": "https://en.wikipedia.org/wiki/Athenian_democracy",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Acropolis, Athens",
-        "url": "https://whc.unesco.org/en/list/404/"
+        "url": "https://whc.unesco.org/en/list/404/",
+        "tier": "institutional"
       }
     ]
   },
@@ -243,11 +250,13 @@
     "sources": [
       {
         "label": "Auschwitz-Birkenau Museum",
-        "url": "https://www.auschwitz.org/en/"
+        "url": "https://www.auschwitz.org/en/",
+        "tier": "institutional"
       },
       {
         "label": "U.S. Holocaust Memorial Museum — Auschwitz",
-        "url": "https://encyclopedia.ushmm.org/content/en/article/auschwitz"
+        "url": "https://encyclopedia.ushmm.org/content/en/article/auschwitz",
+        "tier": "institutional"
       }
     ]
   },
@@ -308,11 +317,13 @@
     "sources": [
       {
         "label": "Britannica — Baghdad",
-        "url": "https://www.britannica.com/place/Baghdad"
+        "url": "https://www.britannica.com/place/Baghdad",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Baghdad",
-        "url": "https://en.wikipedia.org/wiki/Baghdad"
+        "url": "https://en.wikipedia.org/wiki/Baghdad",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -373,11 +384,13 @@
     "sources": [
       {
         "label": "Britannica — Battle of Mohács",
-        "url": "https://www.britannica.com/event/Battle-of-Mohacs"
+        "url": "https://www.britannica.com/event/Battle-of-Mohacs",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Battle of Mohács",
-        "url": "https://en.wikipedia.org/wiki/Battle_of_Moh%C3%A1cs"
+        "url": "https://en.wikipedia.org/wiki/Battle_of_Moh%C3%A1cs",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -438,15 +451,18 @@
     "sources": [
       {
         "label": "Britannica — Battle of Plassey",
-        "url": "https://www.britannica.com/event/Battle-of-Plassey"
+        "url": "https://www.britannica.com/event/Battle-of-Plassey",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Battle of Plassey",
-        "url": "https://en.wikipedia.org/wiki/Battle_of_Plassey"
+        "url": "https://en.wikipedia.org/wiki/Battle_of_Plassey",
+        "tier": "encyclopedic"
       },
       {
         "label": "National Army Museum (UK) — The Battle of Plassey",
-        "url": "https://www.nam.ac.uk/explore/battle-plassey"
+        "url": "https://www.nam.ac.uk/explore/battle-plassey",
+        "tier": "institutional"
       }
     ]
   },
@@ -507,11 +523,13 @@
     "sources": [
       {
         "label": "Britannica — Second Sino-Japanese War",
-        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Battle of Shanghai",
-        "url": "https://en.wikipedia.org/wiki/Battle_of_Shanghai"
+        "url": "https://en.wikipedia.org/wiki/Battle_of_Shanghai",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -571,15 +589,13 @@
     "sources": [
       {
         "label": "Britannica — Battle of Stalingrad",
-        "url": "https://www.britannica.com/event/Battle-of-Stalingrad"
-      },
-      {
-        "label": "National WWII Museum — Stalingrad",
-        "url": "https://www.britannica.com/event/Battle-of-Stalingrad"
+        "url": "https://www.britannica.com/event/Battle-of-Stalingrad",
+        "tier": "encyclopedic"
       },
       {
         "label": "Imperial War Museums — What you need to know about the Battle of Stalingrad",
-        "url": "https://www.iwm.org.uk/history/second-world-war/eastern-front/what-you-need-to-know-about-the-battle-of-stalingrad"
+        "url": "https://www.iwm.org.uk/history/second-world-war/eastern-front/what-you-need-to-know-about-the-battle-of-stalingrad",
+        "tier": "institutional"
       }
     ]
   },
@@ -640,11 +656,13 @@
     "sources": [
       {
         "label": "Britannica — Second Sino-Japanese War",
-        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Battle of Taierzhuang",
-        "url": "https://en.wikipedia.org/wiki/Battle_of_Taierzhuang"
+        "url": "https://en.wikipedia.org/wiki/Battle_of_Taierzhuang",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -705,11 +723,13 @@
     "sources": [
       {
         "label": "Britannica — Hankou",
-        "url": "https://www.britannica.com/place/Hankou"
+        "url": "https://www.britannica.com/place/Hankou",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Battle of Wuhan",
-        "url": "https://en.wikipedia.org/wiki/Battle_of_Wuhan"
+        "url": "https://en.wikipedia.org/wiki/Battle_of_Wuhan",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -770,11 +790,13 @@
     "sources": [
       {
         "label": "Britannica — Vitus Bering",
-        "url": "https://www.britannica.com/biography/Vitus-Bering"
+        "url": "https://www.britannica.com/biography/Vitus-Bering",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Vitus Bering",
-        "url": "https://en.wikipedia.org/wiki/Vitus_Bering"
+        "url": "https://en.wikipedia.org/wiki/Vitus_Bering",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -831,15 +853,18 @@
     "sources": [
       {
         "label": "Britannica — Borobudur",
-        "url": "https://www.britannica.com/topic/Borobudur"
+        "url": "https://www.britannica.com/topic/Borobudur",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Borobudur",
-        "url": "https://en.wikipedia.org/wiki/Borobudur"
+        "url": "https://en.wikipedia.org/wiki/Borobudur",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Borobudur",
-        "url": "https://whc.unesco.org/en/list/592/"
+        "url": "https://whc.unesco.org/en/list/592/",
+        "tier": "institutional"
       }
     ]
   },
@@ -900,11 +925,13 @@
     "sources": [
       {
         "label": "Britannica — Pedro Álvares Cabral",
-        "url": "https://www.britannica.com/biography/Pedro-Alvares-Cabral"
+        "url": "https://www.britannica.com/biography/Pedro-Alvares-Cabral",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Pedro Álvares Cabral",
-        "url": "https://en.wikipedia.org/wiki/Pedro_%C3%81lvares_Cabral"
+        "url": "https://en.wikipedia.org/wiki/Pedro_%C3%81lvares_Cabral",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -961,11 +988,13 @@
     "sources": [
       {
         "label": "Britannica — Cai Lun",
-        "url": "https://www.britannica.com/biography/Cai-Lun"
+        "url": "https://www.britannica.com/biography/Cai-Lun",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Cai Lun",
-        "url": "https://en.wikipedia.org/wiki/Cai_Lun"
+        "url": "https://en.wikipedia.org/wiki/Cai_Lun",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1014,11 +1043,13 @@
     "sources": [
       {
         "label": "IAEA — Chernobyl",
-        "url": "https://www.iaea.org/topics/chernobyl"
+        "url": "https://www.iaea.org/topics/chernobyl",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Chernobyl disaster",
-        "url": "https://www.britannica.com/event/Chernobyl-disaster"
+        "url": "https://www.britannica.com/event/Chernobyl-disaster",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1076,11 +1107,13 @@
     "sources": [
       {
         "label": "Britannica — Second Sino-Japanese War",
-        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War",
+        "tier": "encyclopedic"
       },
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
+        "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1138,11 +1171,13 @@
     "sources": [
       {
         "label": "Britannica — Second Sino-Japanese War",
-        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War",
+        "tier": "encyclopedic"
       },
       {
         "label": "United Nations — China and the UN",
-        "url": "https://www.un.org/en/about-us/history-of-the-un"
+        "url": "https://www.un.org/en/about-us/history-of-the-un",
+        "tier": "institutional"
       }
     ]
   },
@@ -1199,11 +1234,13 @@
     "sources": [
       {
         "label": "Britannica — Code of Hammurabi",
-        "url": "https://www.britannica.com/topic/Code-of-Hammurabi"
+        "url": "https://www.britannica.com/topic/Code-of-Hammurabi",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Code of Hammurabi",
-        "url": "https://en.wikipedia.org/wiki/Code_of_Hammurabi"
+        "url": "https://en.wikipedia.org/wiki/Code_of_Hammurabi",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1262,11 +1299,13 @@
     "sources": [
       {
         "label": "Britannica — collapse of the Soviet Union",
-        "url": "https://www.britannica.com/event/the-collapse-of-the-Soviet-Union"
+        "url": "https://www.britannica.com/event/the-collapse-of-the-Soviet-Union",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Dissolution of the Soviet Union",
-        "url": "https://en.wikipedia.org/wiki/Dissolution_of_the_Soviet_Union"
+        "url": "https://en.wikipedia.org/wiki/Dissolution_of_the_Soviet_Union",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1327,15 +1366,18 @@
     "sources": [
       {
         "label": "Britannica — Christopher Columbus",
-        "url": "https://www.britannica.com/biography/Christopher-Columbus"
+        "url": "https://www.britannica.com/biography/Christopher-Columbus",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Voyages of Christopher Columbus",
-        "url": "https://en.wikipedia.org/wiki/Voyages_of_Christopher_Columbus"
+        "url": "https://en.wikipedia.org/wiki/Voyages_of_Christopher_Columbus",
+        "tier": "encyclopedic"
       },
       {
         "label": "Library of Congress — 1492: An Ongoing Voyage",
-        "url": "https://www.loc.gov/exhibits/1492/"
+        "url": "https://www.loc.gov/exhibits/1492/",
+        "tier": "institutional"
       }
     ]
   },
@@ -1396,11 +1438,13 @@
     "sources": [
       {
         "label": "Britannica — James Cook",
-        "url": "https://www.britannica.com/biography/James-Cook"
+        "url": "https://www.britannica.com/biography/James-Cook",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — First voyage of James Cook",
-        "url": "https://en.wikipedia.org/wiki/First_voyage_of_James_Cook"
+        "url": "https://en.wikipedia.org/wiki/First_voyage_of_James_Cook",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1453,11 +1497,13 @@
     "sources": [
       {
         "label": "WHO — Coronavirus disease (COVID-19) pandemic",
-        "url": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+        "url": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019",
+        "tier": "institutional"
       },
       {
         "label": "Our World in Data — COVID-19",
-        "url": "https://ourworldindata.org/coronavirus"
+        "url": "https://ourworldindata.org/coronavirus",
+        "tier": "secondary"
       }
     ]
   },
@@ -1513,11 +1559,13 @@
     "sources": [
       {
         "label": "U.S. Army — D-Day",
-        "url": "https://www.army.mil/d-day"
+        "url": "https://www.army.mil/d-day",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Normandy Invasion",
-        "url": "https://www.britannica.com/event/Normandy-Invasion"
+        "url": "https://www.britannica.com/event/Normandy-Invasion",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1573,11 +1621,13 @@
     "sources": [
       {
         "label": "U.S. National Archives — Declaration of Independence",
-        "url": "https://www.archives.gov/founding-docs/declaration"
+        "url": "https://www.archives.gov/founding-docs/declaration",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Declaration of Independence",
-        "url": "https://www.britannica.com/topic/Declaration-of-Independence"
+        "url": "https://www.britannica.com/topic/Declaration-of-Independence",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1635,11 +1685,8 @@
     "sources": [
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
-      },
-      {
-        "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
+        "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1696,11 +1743,13 @@
     "sources": [
       {
         "label": "Britannica — East India Company",
-        "url": "https://www.britannica.com/topic/East-India-Company"
+        "url": "https://www.britannica.com/topic/East-India-Company",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — East India Company",
-        "url": "https://en.wikipedia.org/wiki/East_India_Company"
+        "url": "https://en.wikipedia.org/wiki/East_India_Company",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1765,15 +1814,18 @@
     "sources": [
       {
         "label": "Britannica — Fall of Constantinople",
-        "url": "https://www.britannica.com/event/Fall-of-Constantinople-1453"
+        "url": "https://www.britannica.com/event/Fall-of-Constantinople-1453",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Fall of Constantinople",
-        "url": "https://en.wikipedia.org/wiki/Fall_of_Constantinople"
+        "url": "https://en.wikipedia.org/wiki/Fall_of_Constantinople",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Historic Areas of Istanbul",
-        "url": "https://whc.unesco.org/en/list/356/"
+        "url": "https://whc.unesco.org/en/list/356/",
+        "tier": "institutional"
       }
     ]
   },
@@ -1842,15 +1894,18 @@
     "sources": [
       {
         "label": "Britannica — The conquest of Granada",
-        "url": "https://www.britannica.com/place/Spain/The-conquest-of-Granada"
+        "url": "https://www.britannica.com/place/Spain/The-conquest-of-Granada",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Granada War",
-        "url": "https://en.wikipedia.org/wiki/Granada_War"
+        "url": "https://en.wikipedia.org/wiki/Granada_War",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Alhambra, Generalife and Albayzín",
-        "url": "https://whc.unesco.org/en/list/314/"
+        "url": "https://whc.unesco.org/en/list/314/",
+        "tier": "institutional"
       }
     ]
   },
@@ -1915,11 +1970,13 @@
     "sources": [
       {
         "label": "Britannica — Hernán Cortés",
-        "url": "https://www.britannica.com/biography/Hernan-Cortes"
+        "url": "https://www.britannica.com/biography/Hernan-Cortes",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Spanish conquest of the Aztec Empire",
-        "url": "https://en.wikipedia.org/wiki/Spanish_conquest_of_the_Aztec_Empire"
+        "url": "https://en.wikipedia.org/wiki/Spanish_conquest_of_the_Aztec_Empire",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -1978,15 +2035,18 @@
     "sources": [
       {
         "label": "Britannica — Berlin Wall",
-        "url": "https://www.britannica.com/topic/Berlin-Wall"
+        "url": "https://www.britannica.com/topic/Berlin-Wall",
+        "tier": "encyclopedic"
       },
       {
         "label": "Britannica — Berlin Wall",
-        "url": "https://www.britannica.com/event/Berlin-Wall"
+        "url": "https://www.britannica.com/event/Berlin-Wall",
+        "tier": "encyclopedic"
       },
       {
         "label": "Imperial War Museums — What was the Berlin Wall and how did it fall?",
-        "url": "https://www.iwm.org.uk/history/the-berlin-wall"
+        "url": "https://www.iwm.org.uk/history/the-berlin-wall",
+        "tier": "institutional"
       }
     ]
   },
@@ -2051,15 +2111,18 @@
     "sources": [
       {
         "label": "Britannica — Han dynasty",
-        "url": "https://www.britannica.com/topic/Han-dynasty"
+        "url": "https://www.britannica.com/topic/Han-dynasty",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — End of the Han dynasty",
-        "url": "https://en.wikipedia.org/wiki/End_of_the_Han_dynasty"
+        "url": "https://en.wikipedia.org/wiki/End_of_the_Han_dynasty",
+        "tier": "encyclopedic"
       },
       {
         "label": "The Metropolitan Museum of Art — Han Dynasty (206 B.C.-220 A.D.)",
-        "url": "https://www.metmuseum.org/toah/hd/hand/hd_hand.htm"
+        "url": "https://www.metmuseum.org/toah/hd/hand/hd_hand.htm",
+        "tier": "institutional"
       }
     ]
   },
@@ -2124,15 +2187,18 @@
     "sources": [
       {
         "label": "Britannica — Francisco Pizarro",
-        "url": "https://www.britannica.com/biography/Francisco-Pizarro"
+        "url": "https://www.britannica.com/biography/Francisco-Pizarro",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Spanish conquest of the Inca Empire",
-        "url": "https://en.wikipedia.org/wiki/Spanish_conquest_of_the_Inca_Empire"
+        "url": "https://en.wikipedia.org/wiki/Spanish_conquest_of_the_Inca_Empire",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — City of Cuzco",
-        "url": "https://whc.unesco.org/en/list/273/"
+        "url": "https://whc.unesco.org/en/list/273/",
+        "tier": "institutional"
       }
     ]
   },
@@ -2193,15 +2259,18 @@
     "sources": [
       {
         "label": "Britannica — Why did the Roman Empire fall?",
-        "url": "https://www.britannica.com/question/Why-did-the-Roman-Empire-fall"
+        "url": "https://www.britannica.com/question/Why-did-the-Roman-Empire-fall",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Fall of the Western Roman Empire",
-        "url": "https://en.wikipedia.org/wiki/Fall_of_the_Western_Roman_Empire"
+        "url": "https://en.wikipedia.org/wiki/Fall_of_the_Western_Roman_Empire",
+        "tier": "encyclopedic"
       },
       {
         "label": "The Metropolitan Museum of Art — The Roman Empire (27 B.C.-393 A.D.)",
-        "url": "https://www.metmuseum.org/toah/hd/roem/hd_roem.htm"
+        "url": "https://www.metmuseum.org/toah/hd/roem/hd_roem.htm",
+        "tier": "institutional"
       }
     ]
   },
@@ -2262,15 +2331,18 @@
     "sources": [
       {
         "label": "Britannica — Romulus and Remus",
-        "url": "https://www.britannica.com/biography/Romulus-and-Remus"
+        "url": "https://www.britannica.com/biography/Romulus-and-Remus",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Founding of Rome",
-        "url": "https://en.wikipedia.org/wiki/Founding_of_Rome"
+        "url": "https://en.wikipedia.org/wiki/Founding_of_Rome",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Historic Centre of Rome",
-        "url": "https://whc.unesco.org/en/list/91/"
+        "url": "https://whc.unesco.org/en/list/91/",
+        "tier": "institutional"
       }
     ]
   },
@@ -2326,11 +2398,8 @@
     "sources": [
       {
         "label": "Britannica — French Revolution",
-        "url": "https://www.britannica.com/event/French-Revolution"
-      },
-      {
-        "label": "Britannica — French Revolution",
-        "url": "https://www.britannica.com/event/French-Revolution"
+        "url": "https://www.britannica.com/event/French-Revolution",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2383,11 +2452,13 @@
     "sources": [
       {
         "label": "IAEA — Fukushima Daiichi",
-        "url": "https://www.iaea.org/newscenter/focus/fukushima"
+        "url": "https://www.iaea.org/newscenter/focus/fukushima",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Fukushima accident",
-        "url": "https://www.britannica.com/event/Fukushima-accident"
+        "url": "https://www.britannica.com/event/Fukushima-accident",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2448,15 +2519,18 @@
     "sources": [
       {
         "label": "Britannica — Genghis Khan",
-        "url": "https://www.britannica.com/biography/Genghis-Khan"
+        "url": "https://www.britannica.com/biography/Genghis-Khan",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Genghis Khan",
-        "url": "https://en.wikipedia.org/wiki/Genghis_Khan"
+        "url": "https://en.wikipedia.org/wiki/Genghis_Khan",
+        "tier": "encyclopedic"
       },
       {
         "label": "The Metropolitan Museum of Art — The Legacy of Genghis Khan",
-        "url": "https://www.metmuseum.org/toah/hd/khan1/hd_khan1.htm"
+        "url": "https://www.metmuseum.org/toah/hd/khan1/hd_khan1.htm",
+        "tier": "institutional"
       }
     ]
   },
@@ -2521,11 +2595,13 @@
     "sources": [
       {
         "label": "Britannica — War of Greek Independence",
-        "url": "https://www.britannica.com/event/War-of-Greek-Independence"
+        "url": "https://www.britannica.com/event/War-of-Greek-Independence",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Greek War of Independence",
-        "url": "https://en.wikipedia.org/wiki/Greek_War_of_Independence"
+        "url": "https://en.wikipedia.org/wiki/Greek_War_of_Independence",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2580,11 +2656,13 @@
     "sources": [
       {
         "label": "British Library — Gutenberg Bible",
-        "url": "https://www.bl.uk/collection-items/gutenberg-bible"
+        "url": "https://www.bl.uk/collection-items/gutenberg-bible",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — printing",
-        "url": "https://www.britannica.com/technology/printing-publishing"
+        "url": "https://www.britannica.com/technology/printing-publishing",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2649,11 +2727,13 @@
     "sources": [
       {
         "label": "Britannica — Jean-Jacques Dessalines",
-        "url": "https://www.britannica.com/biography/Jean-Jacques-Dessalines"
+        "url": "https://www.britannica.com/biography/Jean-Jacques-Dessalines",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Haitian Revolution",
-        "url": "https://en.wikipedia.org/wiki/Haitian_Revolution"
+        "url": "https://en.wikipedia.org/wiki/Haitian_Revolution",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2714,11 +2794,13 @@
     "sources": [
       {
         "label": "Britannica — Haitian Revolution",
-        "url": "https://www.britannica.com/event/Haitian-Revolution"
+        "url": "https://www.britannica.com/event/Haitian-Revolution",
+        "tier": "encyclopedic"
       },
       {
         "label": "Britannica — Haitian Revolution",
-        "url": "https://www.britannica.com/topic/Haitian-Revolution"
+        "url": "https://www.britannica.com/topic/Haitian-Revolution",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2777,15 +2859,18 @@
     "sources": [
       {
         "label": "Hiroshima Peace Memorial Museum",
-        "url": "https://hpmmuseum.jp/?lang=eng"
+        "url": "https://hpmmuseum.jp/?lang=eng",
+        "tier": "institutional"
       },
       {
         "label": "U.S. National Archives — Hiroshima and Nagasaki",
-        "url": "https://www.archives.gov/news/topics/hiroshima-nagasaki-75"
+        "url": "https://www.archives.gov/news/topics/hiroshima-nagasaki-75",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Atomic bombings of Hiroshima and Nagasaki",
-        "url": "https://www.britannica.com/event/atomic-bombings-of-Hiroshima-and-Nagasaki"
+        "url": "https://www.britannica.com/event/atomic-bombings-of-Hiroshima-and-Nagasaki",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2846,11 +2931,13 @@
     "sources": [
       {
         "label": "Britannica — Second Sino-Japanese War",
-        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Hundred Regiments Offensive",
-        "url": "https://en.wikipedia.org/wiki/Hundred_Regiments_Offensive"
+        "url": "https://en.wikipedia.org/wiki/Hundred_Regiments_Offensive",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2912,11 +2999,13 @@
     "sources": [
       {
         "label": "UN Security Council — Resolution 1172 (1998)",
-        "url": "https://docs.un.org/en/S/RES/1172(1998)"
+        "url": "https://docs.un.org/en/S/RES/1172(1998)",
+        "tier": "institutional"
       },
       {
         "label": "Wikipedia — Pokhran-II",
-        "url": "https://en.wikipedia.org/wiki/Pokhran-II"
+        "url": "https://en.wikipedia.org/wiki/Pokhran-II",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -2977,11 +3066,13 @@
     "sources": [
       {
         "label": "UNESCO — Tsunami resilience",
-        "url": "https://www.unesco.org/en/disaster-risk-reduction/tsunami"
+        "url": "https://www.unesco.org/en/disaster-risk-reduction/tsunami",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Indian Ocean tsunami",
-        "url": "https://www.britannica.com/event/Indian-Ocean-tsunami-of-2004"
+        "url": "https://www.britannica.com/event/Indian-Ocean-tsunami-of-2004",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3042,11 +3133,13 @@
     "sources": [
       {
         "label": "Britannica — Sukarno",
-        "url": "https://www.britannica.com/biography/Sukarno"
+        "url": "https://www.britannica.com/biography/Sukarno",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Proclamation of Indonesian Independence",
-        "url": "https://en.wikipedia.org/wiki/Proclamation_of_Indonesian_Independence"
+        "url": "https://en.wikipedia.org/wiki/Proclamation_of_Indonesian_Independence",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3111,11 +3204,13 @@
     "sources": [
       {
         "label": "Britannica — Risorgimento",
-        "url": "https://www.britannica.com/event/Risorgimento"
+        "url": "https://www.britannica.com/event/Risorgimento",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Unification of Italy",
-        "url": "https://en.wikipedia.org/wiki/Unification_of_Italy"
+        "url": "https://en.wikipedia.org/wiki/Unification_of_Italy",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3173,11 +3268,13 @@
     "sources": [
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
+        "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
       },
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II/Japan-s-surrender"
+        "url": "https://www.britannica.com/event/World-War-II/Japan-s-surrender",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3239,11 +3336,13 @@
     "sources": [
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
+        "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Japanese Instrument of Surrender",
-        "url": "https://en.wikipedia.org/wiki/Japanese_Instrument_of_Surrender"
+        "url": "https://en.wikipedia.org/wiki/Japanese_Instrument_of_Surrender",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3302,11 +3401,13 @@
     "sources": [
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
+        "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Surrender of Japan",
-        "url": "https://en.wikipedia.org/wiki/Surrender_of_Japan"
+        "url": "https://en.wikipedia.org/wiki/Surrender_of_Japan",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3371,15 +3472,13 @@
     "sources": [
       {
         "label": "Britannica — Korean War",
-        "url": "https://www.britannica.com/event/Korean-War"
-      },
-      {
-        "label": "Britannica — Korean War",
-        "url": "https://www.britannica.com/event/Korean-War"
+        "url": "https://www.britannica.com/event/Korean-War",
+        "tier": "encyclopedic"
       },
       {
         "label": "Imperial War Museums — A short history of the Korean War",
-        "url": "https://www.iwm.org.uk/history/cold-war/korean-war"
+        "url": "https://www.iwm.org.uk/history/cold-war/korean-war",
+        "tier": "institutional"
       }
     ]
   },
@@ -3440,11 +3539,13 @@
     "sources": [
       {
         "label": "Britannica — Ferdinand Magellan",
-        "url": "https://www.britannica.com/biography/Ferdinand-Magellan"
+        "url": "https://www.britannica.com/biography/Ferdinand-Magellan",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Magellan expedition",
-        "url": "https://en.wikipedia.org/wiki/Magellan_expedition"
+        "url": "https://en.wikipedia.org/wiki/Magellan_expedition",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3497,15 +3598,13 @@
     "sources": [
       {
         "label": "Britannica — Magna Carta",
-        "url": "https://www.britannica.com/topic/Magna-Carta"
-      },
-      {
-        "label": "Britannica — Magna Carta",
-        "url": "https://www.britannica.com/topic/Magna-Carta"
+        "url": "https://www.britannica.com/topic/Magna-Carta",
+        "tier": "encyclopedic"
       },
       {
         "label": "The National Archives (UK) — Magna Carta 1214-1225",
-        "url": "https://www.nationalarchives.gov.uk/education/resources/magna-carta/"
+        "url": "https://www.nationalarchives.gov.uk/education/resources/magna-carta/",
+        "tier": "institutional"
       }
     ]
   },
@@ -3566,15 +3665,18 @@
     "sources": [
       {
         "label": "Britannica — Mali",
-        "url": "https://www.britannica.com/place/Mali-historical-empire-Africa"
+        "url": "https://www.britannica.com/place/Mali-historical-empire-Africa",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Mali Empire",
-        "url": "https://en.wikipedia.org/wiki/Mali_Empire"
+        "url": "https://en.wikipedia.org/wiki/Mali_Empire",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Timbuktu",
-        "url": "https://whc.unesco.org/en/list/119/"
+        "url": "https://whc.unesco.org/en/list/119/",
+        "tier": "institutional"
       }
     ]
   },
@@ -3635,11 +3737,13 @@
     "sources": [
       {
         "label": "Britannica — Māori",
-        "url": "https://www.britannica.com/topic/Maori"
+        "url": "https://www.britannica.com/topic/Maori",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Māori migration canoes",
-        "url": "https://en.wikipedia.org/wiki/M%C4%81ori_migration_canoes"
+        "url": "https://en.wikipedia.org/wiki/M%C4%81ori_migration_canoes",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3699,11 +3803,13 @@
     "sources": [
       {
         "label": "Britannica — Marco Polo Bridge Incident",
-        "url": "https://www.britannica.com/event/Marco-Polo-Bridge-Incident"
+        "url": "https://www.britannica.com/event/Marco-Polo-Bridge-Incident",
+        "tier": "encyclopedic"
       },
       {
         "label": "Britannica — Second Sino-Japanese War",
-        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War"
+        "url": "https://www.britannica.com/event/Second-Sino-Japanese-War",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3764,15 +3870,18 @@
     "sources": [
       {
         "label": "Britannica — Ashoka",
-        "url": "https://www.britannica.com/biography/Ashoka"
+        "url": "https://www.britannica.com/biography/Ashoka",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Maurya Empire",
-        "url": "https://en.wikipedia.org/wiki/Maurya_Empire"
+        "url": "https://en.wikipedia.org/wiki/Maurya_Empire",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Buddhist Monuments at Sanchi",
-        "url": "https://whc.unesco.org/en/list/524/"
+        "url": "https://whc.unesco.org/en/list/524/",
+        "tier": "institutional"
       }
     ]
   },
@@ -3827,11 +3936,13 @@
     "sources": [
       {
         "label": "Britannica — Meiji Restoration",
-        "url": "https://www.britannica.com/event/Meiji-Restoration"
+        "url": "https://www.britannica.com/event/Meiji-Restoration",
+        "tier": "encyclopedic"
       },
       {
         "label": "Japan National Archives — Meiji",
-        "url": "https://www.archives.go.jp/english/"
+        "url": "https://www.archives.go.jp/english/",
+        "tier": "secondary"
       }
     ]
   },
@@ -3890,11 +4001,13 @@
     "sources": [
       {
         "label": "Britannica — Mexico City earthquake of 1985",
-        "url": "https://www.britannica.com/event/Mexico-City-earthquake-of-1985"
+        "url": "https://www.britannica.com/event/Mexico-City-earthquake-of-1985",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — 1985 Mexico City earthquake",
-        "url": "https://en.wikipedia.org/wiki/1985_Mexico_City_earthquake"
+        "url": "https://en.wikipedia.org/wiki/1985_Mexico_City_earthquake",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -3955,11 +4068,13 @@
     "sources": [
       {
         "label": "Britannica — al-Musta'sim",
-        "url": "https://www.britannica.com/biography/al-Mustasim"
+        "url": "https://www.britannica.com/biography/al-Mustasim",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Siege of Baghdad (1258)",
-        "url": "https://en.wikipedia.org/wiki/Siege_of_Baghdad_(1258)"
+        "url": "https://en.wikipedia.org/wiki/Siege_of_Baghdad_(1258)",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -4014,11 +4129,13 @@
     "sources": [
       {
         "label": "Britannica — Monte Albán",
-        "url": "https://www.britannica.com/place/Monte-Alban"
+        "url": "https://www.britannica.com/place/Monte-Alban",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO — Monte Albán",
-        "url": "https://whc.unesco.org/en/list/415"
+        "url": "https://whc.unesco.org/en/list/415",
+        "tier": "institutional"
       }
     ]
   },
@@ -4079,11 +4196,13 @@
     "sources": [
       {
         "label": "Britannica — Mukden Incident",
-        "url": "https://www.britannica.com/event/Mukden-Incident"
+        "url": "https://www.britannica.com/event/Mukden-Incident",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Mukden incident",
-        "url": "https://en.wikipedia.org/wiki/Mukden_incident"
+        "url": "https://en.wikipedia.org/wiki/Mukden_incident",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -4144,11 +4263,13 @@
     "sources": [
       {
         "label": "Britannica — Mumbai terrorist attacks of 2008",
-        "url": "https://www.britannica.com/event/Mumbai-terrorist-attacks-of-2008"
+        "url": "https://www.britannica.com/event/Mumbai-terrorist-attacks-of-2008",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — 2008 Mumbai attacks",
-        "url": "https://en.wikipedia.org/wiki/2008_Mumbai_attacks"
+        "url": "https://en.wikipedia.org/wiki/2008_Mumbai_attacks",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -4206,15 +4327,18 @@
     "sources": [
       {
         "label": "Hiroshima Peace Memorial Museum",
-        "url": "https://hpmmuseum.jp/?lang=eng"
+        "url": "https://hpmmuseum.jp/?lang=eng",
+        "tier": "institutional"
       },
       {
         "label": "U.S. National Archives — Hiroshima and Nagasaki",
-        "url": "https://www.archives.gov/news/topics/hiroshima-nagasaki-75"
+        "url": "https://www.archives.gov/news/topics/hiroshima-nagasaki-75",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Atomic bombings of Hiroshima and Nagasaki",
-        "url": "https://www.britannica.com/event/atomic-bombings-of-Hiroshima-and-Nagasaki"
+        "url": "https://www.britannica.com/event/atomic-bombings-of-Hiroshima-and-Nagasaki",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -4273,15 +4397,13 @@
     "sources": [
       {
         "label": "Britannica — Nanjing Massacre",
-        "url": "https://www.britannica.com/event/Nanjing-Massacre"
-      },
-      {
-        "label": "Britannica — Nanjing Massacre",
-        "url": "https://www.britannica.com/event/Nanjing-Massacre"
+        "url": "https://www.britannica.com/event/Nanjing-Massacre",
+        "tier": "encyclopedic"
       },
       {
         "label": "Memorial Hall of the Victims in Nanjing Massacre — official English site",
-        "url": "http://www.19371213.net/en/"
+        "url": "http://www.19371213.net/en/",
+        "tier": "institutional"
       }
     ]
   },
@@ -4334,11 +4456,13 @@
     "sources": [
       {
         "label": "Britannica — Opium Wars",
-        "url": "https://www.britannica.com/event/Opium-Wars"
+        "url": "https://www.britannica.com/event/Opium-Wars",
+        "tier": "encyclopedic"
       },
       {
         "label": "UK Parliament — Opium War",
-        "url": "https://www.parliament.uk/about/living-heritage/evolutionofparliament/legislativescrutiny/parliament-and-empire/collections1/opium-war/"
+        "url": "https://www.parliament.uk/about/living-heritage/evolutionofparliament/legislativescrutiny/parliament-and-empire/collections1/opium-war/",
+        "tier": "institutional"
       }
     ]
   },
@@ -4395,11 +4519,13 @@
     "sources": [
       {
         "label": "Britannica — Murad IV",
-        "url": "https://www.britannica.com/biography/Murad-IV"
+        "url": "https://www.britannica.com/biography/Murad-IV",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Capture of Baghdad (1638)",
-        "url": "https://en.wikipedia.org/wiki/Siege_of_Baghdad_(1638)"
+        "url": "https://en.wikipedia.org/wiki/Siege_of_Baghdad_(1638)",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -4460,15 +4586,18 @@
     "sources": [
       {
         "label": "Britannica — Egypt — The Ottomans, 1517–1798",
-        "url": "https://www.britannica.com/place/Egypt/The-Ottomans-1517-1798"
+        "url": "https://www.britannica.com/place/Egypt/The-Ottomans-1517-1798",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Ottoman conquest of Egypt",
-        "url": "https://en.wikipedia.org/wiki/Ottoman_conquest_of_Egypt"
+        "url": "https://en.wikipedia.org/wiki/Ottoman_conquest_of_Egypt",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Historic Cairo",
-        "url": "https://whc.unesco.org/en/list/89/"
+        "url": "https://whc.unesco.org/en/list/89/",
+        "tier": "institutional"
       }
     ]
   },
@@ -4517,11 +4646,13 @@
     "sources": [
       {
         "label": "UNFCCC — Paris Agreement",
-        "url": "https://unfccc.int/process-and-meetings/the-paris-agreement"
+        "url": "https://unfccc.int/process-and-meetings/the-paris-agreement",
+        "tier": "institutional"
       },
       {
         "label": "United Nations — Climate change",
-        "url": "https://www.un.org/en/climatechange/paris-agreement"
+        "url": "https://www.un.org/en/climatechange/paris-agreement",
+        "tier": "institutional"
       }
     ]
   },
@@ -4580,11 +4711,13 @@
     "sources": [
       {
         "label": "Britannica — Partition of India",
-        "url": "https://www.britannica.com/event/partition-of-india"
+        "url": "https://www.britannica.com/event/partition-of-india",
+        "tier": "encyclopedic"
       },
       {
         "label": "UK National Archives — Partition of British India",
-        "url": "https://www.nationalarchives.gov.uk/education/resources/partition-of-british-india/"
+        "url": "https://www.nationalarchives.gov.uk/education/resources/partition-of-british-india/",
+        "tier": "institutional"
       }
     ]
   },
@@ -4645,11 +4778,8 @@
     "sources": [
       {
         "label": "Britannica — Peace of Westphalia",
-        "url": "https://www.britannica.com/event/Peace-of-Westphalia"
-      },
-      {
-        "label": "Britannica — Peace of Westphalia",
-        "url": "https://www.britannica.com/event/Peace-of-Westphalia"
+        "url": "https://www.britannica.com/event/Peace-of-Westphalia",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -4706,11 +4836,13 @@
     "sources": [
       {
         "label": "U.S. National Archives — Pearl Harbor",
-        "url": "https://www.archives.gov/publications/prologue/2016/winter/pearl-harbor"
+        "url": "https://www.archives.gov/publications/prologue/2016/winter/pearl-harbor",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Pearl Harbor attack",
-        "url": "https://www.britannica.com/event/Pearl-Harbor-attack"
+        "url": "https://www.britannica.com/event/Pearl-Harbor-attack",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -4779,15 +4911,18 @@
     "sources": [
       {
         "label": "Britannica — Peloponnesian War",
-        "url": "https://www.britannica.com/event/Peloponnesian-War"
+        "url": "https://www.britannica.com/event/Peloponnesian-War",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Peloponnesian War",
-        "url": "https://en.wikipedia.org/wiki/Peloponnesian_War"
+        "url": "https://en.wikipedia.org/wiki/Peloponnesian_War",
+        "tier": "encyclopedic"
       },
       {
         "label": "Perseus Digital Library, Tufts University — Greek and Roman texts",
-        "url": "https://www.perseus.tufts.edu/hopper/collection?collection=Perseus:collection:Greco-Roman"
+        "url": "https://www.perseus.tufts.edu/hopper/collection?collection=Perseus:collection:Greco-Roman",
+        "tier": "institutional"
       }
     ]
   },
@@ -4848,15 +4983,18 @@
     "sources": [
       {
         "label": "Britannica — Alexander Fleming",
-        "url": "https://www.britannica.com/biography/Alexander-Fleming"
+        "url": "https://www.britannica.com/biography/Alexander-Fleming",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Alexander Fleming",
-        "url": "https://en.wikipedia.org/wiki/Alexander_Fleming"
+        "url": "https://en.wikipedia.org/wiki/Alexander_Fleming",
+        "tier": "encyclopedic"
       },
       {
         "label": "Nobel Prize — Alexander Fleming facts",
-        "url": "https://www.nobelprize.org/prizes/medicine/1945/fleming/facts/"
+        "url": "https://www.nobelprize.org/prizes/medicine/1945/fleming/facts/",
+        "tier": "institutional"
       }
     ]
   },
@@ -4917,11 +5055,13 @@
     "sources": [
       {
         "label": "Britannica — Establishment of the People's Republic",
-        "url": "https://www.britannica.com/place/China/Establishment-of-the-Peoples-Republic"
+        "url": "https://www.britannica.com/place/China/Establishment-of-the-Peoples-Republic",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Proclamation of the People's Republic of China",
-        "url": "https://en.wikipedia.org/wiki/Proclamation_of_the_People%27s_Republic_of_China"
+        "url": "https://en.wikipedia.org/wiki/Proclamation_of_the_People%27s_Republic_of_China",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -4982,15 +5122,18 @@
     "sources": [
       {
         "label": "Britannica — Afonso de Albuquerque",
-        "url": "https://www.britannica.com/biography/Afonso-de-Albuquerque"
+        "url": "https://www.britannica.com/biography/Afonso-de-Albuquerque",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Capture of Malacca (1511)",
-        "url": "https://en.wikipedia.org/wiki/Capture_of_Malacca_%281511%29"
+        "url": "https://en.wikipedia.org/wiki/Capture_of_Malacca_%281511%29",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Melaka and George Town",
-        "url": "https://whc.unesco.org/en/list/1223/"
+        "url": "https://whc.unesco.org/en/list/1223/",
+        "tier": "institutional"
       }
     ]
   },
@@ -5057,11 +5200,13 @@
     "sources": [
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
+        "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
       },
       {
         "label": "Britannica — Potsdam Declaration",
-        "url": "https://www.britannica.com/event/Potsdam-Declaration"
+        "url": "https://www.britannica.com/event/Potsdam-Declaration",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5122,15 +5267,18 @@
     "sources": [
       {
         "label": "Britannica — Pyramids of Giza",
-        "url": "https://www.britannica.com/topic/Pyramids-of-Giza"
+        "url": "https://www.britannica.com/topic/Pyramids-of-Giza",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Great Pyramid of Giza",
-        "url": "https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza"
+        "url": "https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Memphis and its Necropolis",
-        "url": "https://whc.unesco.org/en/list/86/"
+        "url": "https://whc.unesco.org/en/list/86/",
+        "tier": "institutional"
       }
     ]
   },
@@ -5185,11 +5333,13 @@
     "sources": [
       {
         "label": "Britannica — Qin dynasty",
-        "url": "https://www.britannica.com/topic/Qin-dynasty"
+        "url": "https://www.britannica.com/topic/Qin-dynasty",
+        "tier": "encyclopedic"
       },
       {
         "label": "Metropolitan Museum — Qin dynasty",
-        "url": "https://www.metmuseum.org/toah/hd/qind/hd_qind.htm"
+        "url": "https://www.metmuseum.org/toah/hd/qind/hd_qind.htm",
+        "tier": "institutional"
       }
     ]
   },
@@ -5254,11 +5404,13 @@
     "sources": [
       {
         "label": "Britannica — Qing dynasty",
-        "url": "https://www.britannica.com/topic/Qing-dynasty"
+        "url": "https://www.britannica.com/topic/Qing-dynasty",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Transition from Ming to Qing",
-        "url": "https://en.wikipedia.org/wiki/Transition_from_Ming_to_Qing"
+        "url": "https://en.wikipedia.org/wiki/Transition_from_Ming_to_Qing",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5323,11 +5475,13 @@
     "sources": [
       {
         "label": "Britannica — Russian Revolution",
-        "url": "https://www.britannica.com/event/Russian-Revolution"
+        "url": "https://www.britannica.com/event/Russian-Revolution",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Russian Revolution",
-        "url": "https://en.wikipedia.org/wiki/Russian_Revolution"
+        "url": "https://en.wikipedia.org/wiki/Russian_Revolution",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5380,11 +5534,13 @@
     "sources": [
       {
         "label": "United Nations — Ukraine",
-        "url": "https://ukraine.un.org/en"
+        "url": "https://ukraine.un.org/en",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Russia-Ukraine War",
-        "url": "https://www.britannica.com/event/Russia-Ukraine-War"
+        "url": "https://www.britannica.com/event/Russia-Ukraine-War",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5449,11 +5605,13 @@
     "sources": [
       {
         "label": "Britannica — Sack of Rome (1527)",
-        "url": "https://www.britannica.com/event/Sack-of-Rome-1527"
+        "url": "https://www.britannica.com/event/Sack-of-Rome-1527",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Sack of Rome (1527)",
-        "url": "https://en.wikipedia.org/wiki/Sack_of_Rome_(1527)"
+        "url": "https://en.wikipedia.org/wiki/Sack_of_Rome_(1527)",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5514,15 +5672,18 @@
     "sources": [
       {
         "label": "Britannica — Battles of El-Alamein",
-        "url": "https://www.britannica.com/event/Battles-of-El-Alamein"
+        "url": "https://www.britannica.com/event/Battles-of-El-Alamein",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Second Battle of El Alamein",
-        "url": "https://en.wikipedia.org/wiki/Second_Battle_of_El_Alamein"
+        "url": "https://en.wikipedia.org/wiki/Second_Battle_of_El_Alamein",
+        "tier": "encyclopedic"
       },
       {
         "label": "Imperial War Museums — How the Second Battle of El Alamein was won",
-        "url": "https://www.iwm.org.uk/history/second-world-war/north-africa-campaign/second-battle-of-el-alamein"
+        "url": "https://www.iwm.org.uk/history/second-world-war/north-africa-campaign/second-battle-of-el-alamein",
+        "tier": "institutional"
       }
     ]
   },
@@ -5587,11 +5748,13 @@
     "sources": [
       {
         "label": "Britannica — Italo-Ethiopian War (1935–36)",
-        "url": "https://www.britannica.com/event/Italo-Ethiopian-War-1935-1936"
+        "url": "https://www.britannica.com/event/Italo-Ethiopian-War-1935-1936",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Second Italo-Ethiopian War",
-        "url": "https://en.wikipedia.org/wiki/Second_Italo-Ethiopian_War"
+        "url": "https://en.wikipedia.org/wiki/Second_Italo-Ethiopian_War",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5646,11 +5809,13 @@
     "sources": [
       {
         "label": "9/11 Memorial & Museum",
-        "url": "https://www.911memorial.org/"
+        "url": "https://www.911memorial.org/",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — September 11 attacks",
-        "url": "https://www.britannica.com/event/September-11-attacks"
+        "url": "https://www.britannica.com/event/September-11-attacks",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5711,15 +5876,18 @@
     "sources": [
       {
         "label": "Britannica — Siege of Leningrad",
-        "url": "https://www.britannica.com/event/Siege-of-Leningrad"
+        "url": "https://www.britannica.com/event/Siege-of-Leningrad",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Siege of Leningrad",
-        "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad"
+        "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad",
+        "tier": "encyclopedic"
       },
       {
         "label": "United States Holocaust Memorial Museum — The Soviet Union and the Eastern Front",
-        "url": "https://encyclopedia.ushmm.org/content/en/article/the-soviet-union-and-the-eastern-front"
+        "url": "https://encyclopedia.ushmm.org/content/en/article/the-soviet-union-and-the-eastern-front",
+        "tier": "institutional"
       }
     ]
   },
@@ -5780,15 +5948,18 @@
     "sources": [
       {
         "label": "Britannica — Siege of Vienna (1529)",
-        "url": "https://www.britannica.com/event/Siege-of-Vienna-1529"
+        "url": "https://www.britannica.com/event/Siege-of-Vienna-1529",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Siege of Vienna (1529)",
-        "url": "https://en.wikipedia.org/wiki/Siege_of_Vienna_(1529)"
+        "url": "https://en.wikipedia.org/wiki/Siege_of_Vienna_(1529)",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Historic Centre of Vienna",
-        "url": "https://whc.unesco.org/en/list/1033/"
+        "url": "https://whc.unesco.org/en/list/1033/",
+        "tier": "institutional"
       }
     ]
   },
@@ -5845,11 +6016,13 @@
     "sources": [
       {
         "label": "Britannica — Song dynasty",
-        "url": "https://www.britannica.com/topic/Song-dynasty"
+        "url": "https://www.britannica.com/topic/Song-dynasty",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Song dynasty",
-        "url": "https://en.wikipedia.org/wiki/Song_dynasty"
+        "url": "https://en.wikipedia.org/wiki/Song_dynasty",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5912,11 +6085,13 @@
     "sources": [
       {
         "label": "Britannica — Soviet-Japanese War",
-        "url": "https://www.britannica.com/event/Soviet-Japanese-War"
+        "url": "https://www.britannica.com/event/Soviet-Japanese-War",
+        "tier": "encyclopedic"
       },
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
+        "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -5977,15 +6152,18 @@
     "sources": [
       {
         "label": "Britannica — Sputnik",
-        "url": "https://www.britannica.com/technology/Sputnik"
+        "url": "https://www.britannica.com/technology/Sputnik",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Sputnik 1",
-        "url": "https://en.wikipedia.org/wiki/Sputnik_1"
+        "url": "https://en.wikipedia.org/wiki/Sputnik_1",
+        "tier": "encyclopedic"
       },
       {
         "label": "NASA History — Sputnik and the Dawn of the Space Age",
-        "url": "https://www.nasa.gov/history/sputnik/"
+        "url": "https://www.nasa.gov/history/sputnik/",
+        "tier": "institutional"
       }
     ]
   },
@@ -6042,15 +6220,18 @@
     "sources": [
       {
         "label": "Britannica — Stockton & Darlington Railway",
-        "url": "https://www.britannica.com/topic/Stockton-and-Darlington-Railway"
+        "url": "https://www.britannica.com/topic/Stockton-and-Darlington-Railway",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Stockton and Darlington Railway",
-        "url": "https://en.wikipedia.org/wiki/Stockton_and_Darlington_Railway"
+        "url": "https://en.wikipedia.org/wiki/Stockton_and_Darlington_Railway",
+        "tier": "encyclopedic"
       },
       {
         "label": "National Railway Museum — Stockton and Darlington Railway",
-        "url": "https://www.railwaymuseum.org.uk/"
+        "url": "https://www.railwaymuseum.org.uk/",
+        "tier": "institutional"
       }
     ]
   },
@@ -6111,15 +6292,18 @@
     "sources": [
       {
         "label": "Britannica — Taj Mahal",
-        "url": "https://www.britannica.com/topic/Taj-Mahal"
+        "url": "https://www.britannica.com/topic/Taj-Mahal",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Taj Mahal",
-        "url": "https://en.wikipedia.org/wiki/Taj_Mahal"
+        "url": "https://en.wikipedia.org/wiki/Taj_Mahal",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Taj Mahal",
-        "url": "https://whc.unesco.org/en/list/252/"
+        "url": "https://whc.unesco.org/en/list/252/",
+        "tier": "institutional"
       }
     ]
   },
@@ -6180,15 +6364,18 @@
     "sources": [
       {
         "label": "Britannica — Aztec",
-        "url": "https://www.britannica.com/topic/Aztec"
+        "url": "https://www.britannica.com/topic/Aztec",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Tenochtitlan",
-        "url": "https://en.wikipedia.org/wiki/Tenochtitlan"
+        "url": "https://en.wikipedia.org/wiki/Tenochtitlan",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO World Heritage Centre — Historic Centre of Mexico City",
-        "url": "https://whc.unesco.org/en/list/412/"
+        "url": "https://whc.unesco.org/en/list/412/",
+        "tier": "institutional"
       }
     ]
   },
@@ -6241,11 +6428,13 @@
     "sources": [
       {
         "label": "Britannica — Black Death",
-        "url": "https://www.britannica.com/event/Black-Death"
+        "url": "https://www.britannica.com/event/Black-Death",
+        "tier": "encyclopedic"
       },
       {
         "label": "WHO — Plague",
-        "url": "https://www.who.int/news-room/fact-sheets/detail/plague"
+        "url": "https://www.who.int/news-room/fact-sheets/detail/plague",
+        "tier": "institutional"
       }
     ]
   },
@@ -6302,11 +6491,13 @@
     "sources": [
       {
         "label": "Stanford HAI — AI Index",
-        "url": "https://aiindex.stanford.edu/"
+        "url": "https://aiindex.stanford.edu/",
+        "tier": "institutional"
       },
       {
         "label": "OECD — Artificial intelligence",
-        "url": "https://www.oecd.org/en/topics/artificial-intelligence.html"
+        "url": "https://www.oecd.org/en/topics/artificial-intelligence.html",
+        "tier": "institutional"
       }
     ]
   },
@@ -6361,15 +6552,13 @@
     "sources": [
       {
         "label": "Britannica — Great Depression",
-        "url": "https://www.britannica.com/event/Great-Depression"
-      },
-      {
-        "label": "Britannica — Great Depression",
-        "url": "https://www.britannica.com/event/Great-Depression"
+        "url": "https://www.britannica.com/event/Great-Depression",
+        "tier": "encyclopedic"
       },
       {
         "label": "Library of Congress — Bound for Glory: America in Color",
-        "url": "https://www.loc.gov/exhibits/bound-for-glory/"
+        "url": "https://www.loc.gov/exhibits/bound-for-glory/",
+        "tier": "institutional"
       }
     ]
   },
@@ -6434,11 +6623,13 @@
     "sources": [
       {
         "label": "Britannica — Hijrah",
-        "url": "https://www.britannica.com/event/Hijrah-Islam"
+        "url": "https://www.britannica.com/event/Hijrah-Islam",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Hijrah",
-        "url": "https://en.wikipedia.org/wiki/Hijrah"
+        "url": "https://en.wikipedia.org/wiki/Hijrah",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -6499,11 +6690,13 @@
     "sources": [
       {
         "label": "Britannica — Mayflower",
-        "url": "https://www.britannica.com/topic/Mayflower-ship"
+        "url": "https://www.britannica.com/topic/Mayflower-ship",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Mayflower",
-        "url": "https://en.wikipedia.org/wiki/Mayflower"
+        "url": "https://en.wikipedia.org/wiki/Mayflower",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -6562,11 +6755,8 @@
     "sources": [
       {
         "label": "Britannica — Reformation",
-        "url": "https://www.britannica.com/event/Reformation"
-      },
-      {
-        "label": "Britannica — Reformation",
-        "url": "https://www.britannica.com/event/Reformation"
+        "url": "https://www.britannica.com/event/Reformation",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -6627,15 +6817,18 @@
     "sources": [
       {
         "label": "Britannica — Silk Road",
-        "url": "https://www.britannica.com/topic/Silk-Road-trade-route"
+        "url": "https://www.britannica.com/topic/Silk-Road-trade-route",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Silk Road",
-        "url": "https://en.wikipedia.org/wiki/Silk_Road"
+        "url": "https://en.wikipedia.org/wiki/Silk_Road",
+        "tier": "encyclopedic"
       },
       {
         "label": "UNESCO — Silk Roads Programme",
-        "url": "https://en.unesco.org/silkroad/"
+        "url": "https://en.unesco.org/silkroad/",
+        "tier": "institutional"
       }
     ]
   },
@@ -6690,11 +6883,13 @@
     "sources": [
       {
         "label": "CERN — The birth of the Web",
-        "url": "https://info.cern.ch/"
+        "url": "https://info.cern.ch/",
+        "tier": "institutional"
       },
       {
         "label": "W3C — History",
-        "url": "https://www.w3.org/History.html"
+        "url": "https://www.w3.org/History.html",
+        "tier": "secondary"
       }
     ]
   },
@@ -6749,11 +6944,13 @@
     "sources": [
       {
         "label": "Britannica — Treaty of Versailles",
-        "url": "https://www.britannica.com/event/Treaty-of-Versailles-1919"
+        "url": "https://www.britannica.com/event/Treaty-of-Versailles-1919",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Treaty of Versailles",
-        "url": "https://en.wikipedia.org/wiki/Treaty_of_Versailles"
+        "url": "https://en.wikipedia.org/wiki/Treaty_of_Versailles",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -6814,11 +7011,13 @@
     "sources": [
       {
         "label": "Britannica — Vasco da Gama",
-        "url": "https://www.britannica.com/biography/Vasco-da-Gama"
+        "url": "https://www.britannica.com/biography/Vasco-da-Gama",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Vasco da Gama",
-        "url": "https://en.wikipedia.org/wiki/Vasco_da_Gama"
+        "url": "https://en.wikipedia.org/wiki/Vasco_da_Gama",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -6874,11 +7073,13 @@
     "sources": [
       {
         "label": "Britannica — World War I",
-        "url": "https://www.britannica.com/event/World-War-I"
+        "url": "https://www.britannica.com/event/World-War-I",
+        "tier": "encyclopedic"
       },
       {
         "label": "Imperial War Museums — First World War",
-        "url": "https://www.iwm.org.uk/history/first-world-war"
+        "url": "https://www.iwm.org.uk/history/first-world-war",
+        "tier": "institutional"
       }
     ]
   },
@@ -6947,11 +7148,13 @@
     "sources": [
       {
         "label": "Britannica — World War II",
-        "url": "https://www.britannica.com/event/World-War-II"
+        "url": "https://www.britannica.com/event/World-War-II",
+        "tier": "encyclopedic"
       },
       {
         "label": "U.S. Holocaust Memorial Museum — Invasion of Poland",
-        "url": "https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939"
+        "url": "https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939",
+        "tier": "institutional"
       }
     ]
   },
@@ -7008,15 +7211,18 @@
     "sources": [
       {
         "label": "Britannica — Wright brothers",
-        "url": "https://www.britannica.com/biography/Wright-brothers"
+        "url": "https://www.britannica.com/biography/Wright-brothers",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Wright Flyer",
-        "url": "https://en.wikipedia.org/wiki/Wright_Flyer"
+        "url": "https://en.wikipedia.org/wiki/Wright_Flyer",
+        "tier": "encyclopedic"
       },
       {
         "label": "U.S. National Park Service — Wright Brothers National Memorial",
-        "url": "https://www.nps.gov/wrbr/index.htm"
+        "url": "https://www.nps.gov/wrbr/index.htm",
+        "tier": "institutional"
       }
     ]
   },
@@ -7071,11 +7277,13 @@
     "sources": [
       {
         "label": "Britannica — 1911 Revolution",
-        "url": "https://www.britannica.com/event/Chinese-Revolution-1911-1912"
+        "url": "https://www.britannica.com/event/Chinese-Revolution-1911-1912",
+        "tier": "encyclopedic"
       },
       {
         "label": "National Palace Museum — Xinhai Revolution",
-        "url": "https://theme.npm.edu.tw/selection/Article.aspx?sNo=03009100&lang=2"
+        "url": "https://theme.npm.edu.tw/selection/Article.aspx?sNo=03009100&lang=2",
+        "tier": "secondary"
       }
     ]
   },
@@ -7136,11 +7344,13 @@
     "sources": [
       {
         "label": "Britannica — Xuanzang",
-        "url": "https://www.britannica.com/biography/Xuanzang"
+        "url": "https://www.britannica.com/biography/Xuanzang",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Xuanzang",
-        "url": "https://en.wikipedia.org/wiki/Xuanzang"
+        "url": "https://en.wikipedia.org/wiki/Xuanzang",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -7203,11 +7413,13 @@
     "sources": [
       {
         "label": "United Nations — Declaration on Independence",
-        "url": "https://www.un.org/en/about-us/history-of-the-un"
+        "url": "https://www.un.org/en/about-us/history-of-the-un",
+        "tier": "institutional"
       },
       {
         "label": "Britannica — Year of Africa",
-        "url": "https://www.britannica.com/event/Year-of-Africa"
+        "url": "https://www.britannica.com/event/Year-of-Africa",
+        "tier": "encyclopedic"
       }
     ]
   },
@@ -7272,11 +7484,13 @@
     "sources": [
       {
         "label": "Britannica — Zheng He",
-        "url": "https://www.britannica.com/biography/Zheng-He"
+        "url": "https://www.britannica.com/biography/Zheng-He",
+        "tier": "encyclopedic"
       },
       {
         "label": "Wikipedia — Zheng He",
-        "url": "https://en.wikipedia.org/wiki/Zheng_He"
+        "url": "https://en.wikipedia.org/wiki/Zheng_He",
+        "tier": "encyclopedic"
       }
     ]
   }

@@ -451,6 +451,14 @@
   };
   const catShape = (k) => CAT_SHAPES[k] || "circle";
   const regionColor = (k) => (A.regions[k] ? A.regions[k].color : "#8a6a3f");
+  /* Dossier sources carry a tier (see scripts/sources-lib.mjs). Show the
+     institutional ones first, and mark them, so a museum or archive reads as
+     stronger evidence than an encyclopedia entry. */
+  const SOURCE_TIER_RANK = { institutional: 0, secondary: 1, encyclopedic: 2 };
+  const sourceRank = (s) => (s && s.tier && SOURCE_TIER_RANK[s.tier] != null ? SOURCE_TIER_RANK[s.tier] : 2);
+  const sourceTierBadge = (s) => (s && s.tier === "institutional"
+    ? `<span class="src-tier">${L("机构", "INSTITUTION", "INSTITUCIÓN", "INSTITUTION", "مؤسسة")}</span>` : "");
+
   function modernEntityName(e) {
     if (!e) return "";
     if (state.lang === "zh") return e.name.zh || e.name.en || "";
@@ -501,7 +509,7 @@
       "ev-contemp-list", "ev-prev", "ev-next", "about-modal", "about-eras", "about-scenes",
       "event-modal", "hint", "hint-close", "panel-reopen",
       "onboarding", "ob-close", "ob-start", "ob-guide", "legend-cats", "legend-regions",
-      "a11y-live", "a11y-nodes",
+      "a11y-live", "a11y-nodes", "theatre-live",
     ].forEach((id) => { el[id] = document.getElementById(id); });
 
     // First visit: the era summary is open on desktop (there is room for it)
@@ -1214,7 +1222,7 @@
     const place = pinfo.main;
     const actors = (d.actors || []).map((a) => textOf(a)).filter(Boolean);
     const dateText = d.date ? (textOf(d.date) || fmtYear(ev.y, state.lang)) : fmtYear(ev.y, state.lang);
-    const sourceLinks = (d.sources || []).filter((s) => s.url).slice(0, 4);
+    const sourceLinks = (d.sources || []).filter((s) => s.url).slice().sort((a, b) => sourceRank(a) - sourceRank(b)).slice(0, 4);
 
     let html = `<button class="panel-back" data-ev-close="1">‹ ${L("返回时代", "Back to the age", "Volver a la era", "Retour à l’âge", "العودة إلى العصر")}</button>`;
     html += `<div class="ev-detail-meta">`;
@@ -1254,7 +1262,7 @@
 
     if (sourceLinks.length) {
       html += `<section class="ev-detail-section"><h4>${L("来源", "SOURCES", "FUENTES", "SOURCES", "المصادر")}</h4>`;
-      sourceLinks.forEach((s) => { html += `<p><a href="${s.url}" target="_blank" rel="noopener">${s.label || s.url}</a></p>`; });
+      sourceLinks.forEach((s) => { html += `<p><a href="${s.url}" target="_blank" rel="noopener">${s.label || s.url}</a>${sourceTierBadge(s)}</p>`; });
       html += `</section>`;
     }
 
@@ -2463,6 +2471,7 @@
     if (window.MapTheatre) {
       window.MapTheatre.setLang(state.lang);
       window.MapTheatre.playEvent(ev);
+      announceTheatre(L("正在演出场景：" + evTitle(ev), "Scene playing: " + evTitle(ev), "Escena en curso: " + evTitle(ev), "Scène en cours : " + evTitle(ev), "المشهد قيد العرض: " + evTitle(ev)));
     } else {
       map.flyTo(ev.lat, ev.lon, 2.8, 800);
     }
@@ -2728,7 +2737,8 @@
       }
       if ((d.sources || []).length) {
         dh += `<section class="ev-detail-section"><h4>${L("来源", "SOURCES", "FUENTES", "SOURCES", "المصادر")}</h4>`;
-        d.sources.filter((x) => x.url).slice(0, 4).forEach((x) => { dh += `<p><a href="${x.url}" target="_blank" rel="noopener">${x.label || x.url}</a></p>`; });
+        d.sources.filter((x) => x.url).slice().sort((a, b) => sourceRank(a) - sourceRank(b)).slice(0, 4)
+          .forEach((x) => { dh += `<p><a href="${x.url}" target="_blank" rel="noopener">${x.label || x.url}</a>${sourceTierBadge(x)}</p>`; });
         dh += `</section>`;
       }
       el["ev-detail"].innerHTML = dh;
@@ -3138,6 +3148,14 @@
       el["layers-btn"].classList.toggle("is-on", !el["layers-pop"].hidden);
     });
     el["layers-pop"].addEventListener("click", (e) => e.stopPropagation());
+    window.addEventListener("theatrepause", (e) => {
+      announceTheatre(e.detail && e.detail.paused
+        ? L("动态已暂停", "Scene paused", "Escena en pausa", "Scène en pause", "المشهد متوقف مؤقتًا")
+        : L("动态继续", "Scene resumed", "Escena reanudada", "Scène reprise", "استُئنف المشهد"));
+    });
+    window.addEventListener("theatrestill", () => {
+      announceTheatre(L("动态结束，停留在最后一帧", "Scene finished; the last frame stays", "Escena terminada; queda el último fotograma", "Scène terminée ; la dernière image reste", "انتهى المشهد وبقيت اللقطة الأخيرة"));
+    });
     const autoEv = document.getElementById("auto-event-toggle");
     if (autoEv) autoEv.addEventListener("change", () => { state.autoEvent = autoEv.checked; });
     document.querySelectorAll("[data-toggle]").forEach((cb) => {
@@ -3750,6 +3768,13 @@
     }
     t.hidden = false;
     toastTimer = setTimeout(() => { t.hidden = true; }, action ? 9000 : 2400);
+  }
+
+  /* Screen readers get the theatre's state changes; the canvas itself is
+     decorative, so without this a scene starts and ends silently. */
+  function announceTheatre(text) {
+    if (!el["theatre-live"] || !text) return;
+    el["theatre-live"].textContent = text;
   }
 
   function copyText(text) {

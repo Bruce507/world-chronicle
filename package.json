@@ -29,7 +29,8 @@
     "perf": "node scripts/perf-probe.mjs",
     "perf:throttle": "node scripts/perf-throttle.mjs",
     "version:bump": "node scripts/bump-version.mjs",
-    "sources:check": "node scripts/source-check.mjs"
+    "sources:check": "node scripts/source-check.mjs",
+    "perf:budget": "node scripts/perf-budget.mjs"
   },
   "devDependencies": {
     "axe-core": "^4.14.0",
